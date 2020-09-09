@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 7150594155176557038}
   - component: {fileID: 7150594155176557037}
   - component: {fileID: 7150594155176557036}
-  - component: {fileID: 7150594155176557039}
+  - component: {fileID: 7150594154955126554}
   m_Layer: 5
   m_Name: ok
   m_TagString: Untagged
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7150594155176557039
+--- !u!114 &7150594154955126554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7150594155176557033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f750dfe6b0e944196a6c6fbf42c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -510,7 +510,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7150594154506605237}
-        m_TargetAssemblyTypeName: Yume.UI.UISingleton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Yume.UI.UIController, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -521,6 +521,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _scaleTime: 0.1
+  _soundClip: {fileID: 0}
 --- !u!1 &7150594155387566519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,7 +1094,7 @@ GameObject:
   - component: {fileID: 7150594156647767625}
   - component: {fileID: 7150594156647767628}
   - component: {fileID: 7150594156647767631}
-  - component: {fileID: 7150594156647767630}
+  - component: {fileID: 7150594154955126553}
   m_Layer: 5
   m_Name: cancel
   m_TagString: Untagged
@@ -1158,7 +1160,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7150594156647767630
+--- !u!114 &7150594154955126553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1167,7 +1169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7150594156647767624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f750dfe6b0e944196a6c6fbf42c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1202,7 +1204,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7150594156249826197}
-        m_TargetAssemblyTypeName: Yume.UI.UIDisplay, Assembly-CSharp
+        m_TargetAssemblyTypeName: Yume.UI.UIFade, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -1213,6 +1215,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _scaleTime: 0.1
+  _soundClip: {fileID: 0}
 --- !u!1 &8428623674206776018
 GameObject:
   m_ObjectHideFlags: 0

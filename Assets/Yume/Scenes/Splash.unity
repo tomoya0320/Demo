@@ -640,7 +640,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1129251656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f750dfe6b0e944196a6c6fbf42c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -675,7 +675,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 636028778}
-        m_TargetAssemblyTypeName: Yume.Server.UpdateAssets, Assembly-CSharp
+        m_TargetAssemblyTypeName: Yume.Server.UpdateAssetsController, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -686,6 +686,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _scaleTime: 0.1
+  _soundClip: {fileID: 0}
 --- !u!114 &1129251659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +774,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1255534637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f750dfe6b0e944196a6c6fbf42c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -807,7 +809,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 636028778}
-        m_TargetAssemblyTypeName: Yume.Server.UpdateAssets, Assembly-CSharp
+        m_TargetAssemblyTypeName: Yume.Server.UpdateAssetsController, Assembly-CSharp
         m_MethodName: CheckGameAssets
         m_Mode: 1
         m_Arguments:
@@ -818,6 +820,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _scaleTime: 0.1
+  _soundClip: {fileID: 0}
 --- !u!114 &1255534640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1301,10 +1305,10 @@ GameObject:
   - component: {fileID: 1948497357}
   - component: {fileID: 1948497360}
   - component: {fileID: 1948497359}
-  - component: {fileID: 1948497358}
   - component: {fileID: 1948497363}
   - component: {fileID: 1948497362}
   - component: {fileID: 1948497361}
+  - component: {fileID: 1948497358}
   m_Layer: 5
   m_Name: start
   m_TagString: Untagged
@@ -1341,7 +1345,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1948497356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f750dfe6b0e944196a6c6fbf42c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1387,6 +1391,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _scaleTime: 0.1
+  _soundClip: {fileID: 0}
 --- !u!114 &1948497359
 MonoBehaviour:
   m_ObjectHideFlags: 0

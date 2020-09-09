@@ -1,4 +1,6 @@
-﻿namespace Yume.String {
+﻿using System;
+
+namespace Yume.String {
   public class StringMap {
     public const string EMPTY = "";
     public const string NONE = "无";
@@ -21,5 +23,6 @@
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
     public const string ACCOUNT = "账号ID";
+    public const string TASK_COMPLETED = "任务[{0}]已完成！";
   }
 }

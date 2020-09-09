@@ -4,7 +4,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Yume.Singleton;
 using Yume.String;
-using System.Threading.Tasks;
 using Yume.UI;
 
 namespace Yume.Server {
@@ -64,7 +63,7 @@ namespace Yume.Server {
         _downloadText.text = string.Format(StringMap.ASSETS_DOWNLOADING,
         (m_downloadHandle.PercentComplete * 100.0f).ToString("0.00"), totalSize.ToString("0.00"));
         _downloadProcess.fillAmount = m_downloadHandle.PercentComplete;
-        await Task.Delay((int)(Time.deltaTime * 1000.0f));
+        await System.Threading.Tasks.Task.Delay((int)(Time.deltaTime * 1000.0f));
       }
       if (m_downloadHandle.Status != AsyncOperationStatus.Succeeded) {
         _downloadError.SetActive(true);
