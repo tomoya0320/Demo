@@ -19,16 +19,17 @@ namespace Yume.Task {
     PROP_NUM
   }
 
+  public enum Method {
+     HAD, CONSUME_OR_ADD
+  }
+
   [Serializable]
   public class TaskRequirement {
-    /// <summary>
-    /// flag=-1表示使用多少某某物品，flag=1表示获得多少某某物品（包括杀怪数、完成任务数）,flag=0表示拥有某种东西
-    /// </summary>
-    public int flag;
+    public Method method;
     /// <summary>
     /// 完成任务后是否消耗所需物品
     /// </summary>
-    public bool isConsume;
+    public bool isConsumable;
     public string requirementId;
     /// <summary>
     /// 是否忽略需求的ID
@@ -63,31 +64,23 @@ namespace Yume.Task {
     public string activeTaskId;
     public List<TaskRequirement> taskRequirements;
 
-    public void Update(string type, string id, int num) {
+    public void Update(RequirementType type, string id, int num) {
       foreach (TaskRequirement requirement in taskRequirements) {
-        if (requirement.type.ToString() == type && (requirement.requirementId == id || requirement.isIgnoreId)) {
-          switch (requirement.flag) {
-            case -1: {
-                requirement.currentNum -= num < 0 ? num : 0;
+        if (requirement.type == type && (requirement.requirementId == id || requirement.isIgnoreId)) {
+          switch (requirement.method) {
+            case Method.CONSUME_OR_ADD: {
+                requirement.currentNum += num;
                 break;
               }
-            case 0: {
-                SyncTaskRequirement(requirement);
-                break;
-              }
-            case 1: {
-                requirement.currentNum += num > 0 ? num : 0;
+            case Method.HAD: {
+                //同步现有的数量
+                //TODO:switch (requirement.type)
                 break;
               }
           }
         }
       }
       Check();
-    }
-
-    //同步当前已完成的数量，只适用于诸如拥有xxx类型的任务需求
-    public void SyncTaskRequirement(TaskRequirement requirement) {
-      //TODO:switch (requirement.type)
     }
 
     public void Check() {
@@ -99,8 +92,8 @@ namespace Yume.Task {
 
         if (completed && state == TaskState.INPROCESS) {
           state = TaskState.COMPLETED;
-          UIController.instance.messageManager.AddMessage(new Message(
-          Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, title)));
+          UIController.instance.messageManager.AddMessage(new Message
+          (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, title)));
 
           if (autoComplete) {
             //TODO:完成任务
@@ -121,7 +114,7 @@ namespace Yume.Task {
         //TODO:激活下一个任务
       }
       foreach (TaskRequirement taskRequirement in taskRequirements) {
-        if (taskRequirement.isConsume && taskRequirement.type == RequirementType.PROP_NUM) {
+        if (taskRequirement.isConsumable && taskRequirement.type == RequirementType.PROP_NUM) {
           //TODO:消耗道具
         }
       }
