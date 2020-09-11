@@ -1,8 +1,5 @@
-﻿using DG.Tweening;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using Yume.String;
 using Yume.UI;
 
 namespace Yume.Scene {

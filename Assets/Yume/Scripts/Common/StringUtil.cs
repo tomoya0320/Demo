@@ -22,7 +22,21 @@ namespace Yume.String {
     public const string QUALITY = "quality";
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
-    public const string ACCOUNT = "账号ID";
+    public const string ACCOUNT = "account";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
+    public const string ITEMS = "items";
+    public const string ICON_FILE_NAME = "iconFileName";
+  }
+
+  public class StringUtil {
+    public static string IntegerToString(int num) {
+      if(num < 10000) {
+        return num.ToString();
+      }
+      string result = (num / 10000) + "万";
+      num %= 10000;
+
+      return num > 0 ? result + num : result;
+    }
   }
 }

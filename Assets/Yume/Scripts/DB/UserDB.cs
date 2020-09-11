@@ -1,6 +1,8 @@
-﻿namespace Yume.DB {
+﻿using System.Collections.Generic;
+
+namespace Yume.DB {
   public class UserDB {
     public string account;
-    public string password;
+    public List<ItemDB> itemDBs;
   }
 }

@@ -14,13 +14,23 @@ namespace Yume.Server {
                             GlobalSettingHub.instance.loginServlet);
       }
     }
-
-    public void Login(string account, string password, Action<UnityWebRequest> action) {
-      StartCoroutine(_Login(account, password, action));
+    private string registerUrl {
+      get {
+        return Path.Combine(GlobalSettingHub.instance.serverUrl,
+                            GlobalSettingHub.instance.registerServlet);
+      }
     }
 
-    private IEnumerator _Login(string account, string password, Action<UnityWebRequest> action) {
-      var request = UnityWebRequest.Get(loginUrl);
+    public void Login(string account, string password, Action<UnityWebRequest> action) {
+      StartCoroutine(_SendWebRequest(loginUrl, account, password, action));
+    }   
+    
+    public void Register(string account, string password, Action<UnityWebRequest> action) {
+      StartCoroutine(_SendWebRequest(registerUrl, account, password, action));
+    }
+
+    private IEnumerator _SendWebRequest(string url, string account, string password, Action<UnityWebRequest> action) {
+      var request = UnityWebRequest.Get(url);
       request.SetRequestHeader("account", account);
       request.SetRequestHeader("password", password);
       request.downloadHandler = new DownloadHandlerBuffer();
