@@ -341,7 +341,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -377,7 +377,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _confirmation: {fileID: 7150594156249826197}
-  _blackMask: {fileID: 7150594154583215299}
+  _tip: {fileID: 7150594155700341457}
+  _ok: {fileID: 7150594154955126554}
+  _cancel: {fileID: 7150594154955126553}
+  _blackMask: {fileID: 7150594154583215325}
   _sceneLoadingMask: {fileID: 7150594155387566519}
   _httpRequestWaitingMask: {fileID: 1592933930}
   _messageFolder: {fileID: 7690576505718683090}
@@ -392,14 +395,13 @@ GameObject:
   - component: {fileID: 7150594154583215324}
   - component: {fileID: 7150594154583215298}
   - component: {fileID: 7150594154583215325}
-  - component: {fileID: 7150594154583215299}
   m_Layer: 5
   m_Name: black mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7150594154583215324
 RectTransform:
   m_ObjectHideFlags: 0
@@ -434,7 +436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7150594154583215327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -457,18 +459,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &7150594154583215299
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7150594154583215327}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &7150594155176557033
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,19 +578,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7150594155176557036}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7150594154506605237}
-        m_TargetAssemblyTypeName: Yume.UI.UIController, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  _textComponent: {fileID: 7150594156532090653}
 --- !u!1 &7150594155387566519
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +893,7 @@ GameObject:
   - component: {fileID: 7150594156249826196}
   - component: {fileID: 7150594156249826197}
   m_Layer: 5
-  m_Name: quit game
+  m_Name: confirmation box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1006,7 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _addToUIStack: 1
-  _fadeTime: 0.2
+  _fadeTime: 0.1
 --- !u!1 &7150594156330528300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,19 +1259,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7150594156647767631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7150594156249826197}
-        m_TargetAssemblyTypeName: Yume.UI.UIFade, Assembly-CSharp
-        m_MethodName: Close
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  _textComponent: {fileID: 7150594155427499942}
 --- !u!1 &8428623674206776018
 GameObject:
   m_ObjectHideFlags: 0

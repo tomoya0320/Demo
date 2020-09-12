@@ -26,6 +26,12 @@ namespace Yume.String {
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
     public const string ITEMS = "items";
     public const string ICON_FILE_NAME = "iconFileName";
+    public const string QUIT_GAME_TIP = "确认退出游戏？";
+    public const string QUIT = "退出";
+    public const string CANCEL = "取消";
+    public const string DOWNLOAD_ERROR_TIP = "下载出错，是否重试？";
+    public const string RETRY = "重试";
+    public const string RETURN_TO_LOGIN = "返回登录界面";
   }
 
   public class StringUtil {

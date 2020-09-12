@@ -48,5 +48,19 @@ namespace Yume.UI.Bag {
       selectedItem = itemInBag;
       _UpdateInfo();
     }
+
+#if TEST
+    private void Update() {
+      if (Input.GetKeyDown(KeyCode.A)) {
+        UseItem(1);
+      }
+    }
+
+    public void UseItem(int num) {
+      if (selectedItem != null) {
+        DBManager.ConsumeItems(new ItemDB(selectedItem.item.id, num));
+      }
+    }
+#endif
   }
 }

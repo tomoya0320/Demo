@@ -7,12 +7,13 @@ namespace Yume.UI {
     [SerializeField]
     private bool _addToUIStack = true;
     [SerializeField]
-    private float _fadeTime = 0.2f;
+    private float _fadeTime = 0.1f;
     private CanvasGroup m_canvasGroup;
     private CanvasGroup canvasGroup {
       get {
         if (m_canvasGroup == null) {
           m_canvasGroup = GetComponent<CanvasGroup>();
+          m_canvasGroup.interactable = false;
         }
         return m_canvasGroup;
       }
@@ -30,6 +31,7 @@ namespace Yume.UI {
       canvasGroup.alpha = 0;
       gameObject.SetActive(true);
       m_tween = canvasGroup.DOFade(1.0f, _fadeTime).OnComplete(() => {
+        canvasGroup.interactable = true;
         m_tween = null;
       });
     }
@@ -39,6 +41,7 @@ namespace Yume.UI {
         m_tween.Complete();
       }
       canvasGroup.alpha = 1.0f;
+      canvasGroup.interactable = false;
       m_tween = canvasGroup.DOFade(0, _fadeTime).OnComplete(() => {
         gameObject.SetActive(false);
         m_tween = null;

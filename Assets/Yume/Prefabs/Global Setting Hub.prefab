@@ -43,6 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fd673a0bcede549b4c62b14a5f119f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverUrl: http://h34035l730.wicp.vip/GameServlet
-  loginServlet: LoginServlet
-  registerServlet: RegisterServlet
+  _serverUrlType: 0
+  _remoteServerUrl: http://h34035l730.wicp.vip/GameServlet
+  _localServerUrl: http://172.22.125.162:8080/GameServlet
+  _loginServlet: LoginServlet
+  _registerServlet: RegisterServlet
+  _saveServlet: SaveServlet
+  _alterPasswordServlet: AlterPasswordServlet

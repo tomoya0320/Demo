@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using Yume.UI;
 
 namespace Yume.Scene {
-  public class SceneJump : MonoBehaviour {
+  public class SceneLoader : MonoBehaviour {
     [SerializeField]
     private string _nextSceneName;
     [SerializeField]
