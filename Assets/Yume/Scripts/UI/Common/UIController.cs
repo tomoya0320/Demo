@@ -2,14 +2,26 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 using Yume.Singleton;
+using Yume.String;
 
 namespace Yume.UI {
   public class UIController : SingletonMono<UIController> {
+    [Header("Difference")]
     [SerializeField]
-    private UIFade _confirmation;//quit game confirmation
+    private UIFade _confirmation;
     [SerializeField]
-    private CanvasGroup _blackMask;
+    private Text _tip;
+    [SerializeField]
+    private WButton _ok;
+    [SerializeField]
+    private WButton _cancel;
+    [Space(20)]
+
+    [SerializeField]
+    private Image _blackMask;
     [SerializeField]
     private GameObject _sceneLoadingMask;   
     [SerializeField]
@@ -45,40 +57,60 @@ namespace Yume.UI {
     private void Update() {
       if (Input.GetKeyDown(KeyCode.Escape)) {
         if (m_UIStack.Count == 0) {
-          _confirmation.Open();
+          OpenDifference(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
         } else {
           m_UIStack[m_UIStack.Count - 1].Close();
         }
       }
     }
 
-    public void QuitGame() {
-      Application.Quit();
-    }
-
     public void FadeBlackMask(bool active, float fadeTime = 0.3f, Action onComplete = null) {
       if (m_blackMaskTween != null) {
         m_blackMaskTween.Complete();
       }
-      _blackMask.alpha = active ? 0 : 1.0f;
-      _blackMask.gameObject.SetActive(true);
+      _blackMask.SetAlpha(active ? 0 : 1.0f);
+      _blackMask.enabled = true;
       m_blackMaskTween = _blackMask.DOFade(active ? 1.0f : 0, fadeTime).OnComplete(() => {
-        _blackMask.gameObject.SetActive(false);
+        _blackMask.enabled = false;
         m_blackMaskTween = null;
         onComplete?.Invoke();
       });
     }
 
     public void AddToBackStack(IUIDisplay ui) {
-      m_UIStack.Add(ui);
+      if (!m_UIStack.Contains(ui)) {
+        m_UIStack.Add(ui);
+      }
     }
 
     public void RemoveFromBackStack(IUIDisplay ui) {
-      m_UIStack.Remove(ui);
+      if (m_UIStack.Contains(ui)) {
+        m_UIStack.Remove(ui);
+      }
     }
 
     public void ClearBackStack() {
       m_UIStack.Clear();
+    }
+
+    public void OpenDifference(string tip,string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
+      _tip.text = tip;
+
+      _ok.onClick.RemoveAllListeners();
+      if (onOk != null) {
+        _ok.onClick.AddListener(onOk);
+      }
+      _ok.onClick.AddListener(()=> _confirmation.Close());
+      _ok.textComponent.text = okText;
+
+      _cancel.onClick.RemoveAllListeners();
+      if (onCancel != null) {
+        _cancel.onClick.AddListener(onCancel);
+      }
+      _cancel.onClick.AddListener(() => _confirmation.Close());
+      _cancel.textComponent.text = cancelText;
+
+      _confirmation.Open();
     }
   }
 }

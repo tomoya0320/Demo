@@ -75,7 +75,7 @@ namespace Yume.Server {
     }
 
     public void QuitGame() {
-      UIController.instance.QuitGame();
+      Application.Quit();
     }
   }
 }
