@@ -6,7 +6,7 @@ using Yume.Broadcast;
 using Yume.String;
 
 namespace Yume.UI.Bag {
-  public class ItemInBag : MonoBehaviour {
+  public class ItemShow : MonoBehaviour {
     [SerializeField]
     private Text _num;
     [SerializeField]
@@ -31,7 +31,7 @@ namespace Yume.UI.Bag {
 
         _icon.gameObject.SetActive(true);
         _icon.sprite = await Addressables.LoadAssetAsync<Sprite>
-        (DBManager.GetItemInfo(item.id).Value<string>(StringMap.ICON_FILE_NAME)).Task;
+        (DBManager.GetItemInfo(item.id).iconFileName).Task;
       } else {
         _icon.gameObject.SetActive(false);
         _icon.sprite = null;

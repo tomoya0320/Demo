@@ -14,7 +14,7 @@ namespace Yume.UI {
 
     protected override void Awake() {
       base.Awake();
-      _textComponent = GetComponentInChildren<Text>();
+      _textComponent = GetComponentInChildren<Text>(true);
     }
 
     public override void OnPointerDown(PointerEventData eventData) {

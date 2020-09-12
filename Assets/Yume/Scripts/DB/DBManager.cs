@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using Yume.Broadcast;
 using Yume.Server;
 using Yume.String;
+using Yume.Task;
 using Yume.UI;
 
 namespace Yume.DB {
@@ -28,19 +28,30 @@ namespace Yume.DB {
     public static string userAccount {
       get {
         if (s_userDB == null) {
-          return StringMap.EMPTY;
-        } else {
-          return s_userDB.account;
+          s_userDB = new UserDB();
         }
+        return s_userDB.account;
       }
     }
     public static List<ItemDB> userItems {
       get {
         if (s_userDB == null) {
-          return null;
-        } else {
-          return s_userDB.items;
+          s_userDB = new UserDB();
+        } else if (s_userDB.items == null) {
+          s_userDB.items = new List<ItemDB>();
         }
+        return s_userDB.items;
+      }
+    }
+
+    public static Dictionary<string, List<TaskDB>> userTasks {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        } else if (s_userDB.tasks == null) {
+          s_userDB.tasks = new Dictionary<string, List<TaskDB>>();
+        }
+        return s_userDB.tasks;
       }
     }
     private static PlayMode s_playMode;
@@ -55,23 +66,44 @@ namespace Yume.DB {
         return s_itemJsons;
       }
     }
+    private static JObject s_taskJsons;
+    private static JObject taskJsons {
+      get {
+        if (s_taskJsons == null) {
+          JObject json = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
+          s_taskJsons = json[StringMap.TASKS].Value<JObject>();
+        }
+        return s_taskJsons;
+      }
+    }
 
     private DBManager() { }
 
-    public static JToken GetItemInfo(string id) {
+    public static ItemInfo GetItemInfo(string id) {
       JToken itemInfo = itemJsons.Find(j => j[StringMap.ID].Value<string>() == id);
-      return itemInfo;
+      return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
+    }
+
+    public static TaskInfo GetTaskInfo(TaskType taskType, string id) {
+      JToken taskInfo = taskJsons[taskType.ToString()].Value<JArray>().ToList().Find(
+      j => j[StringMap.ID].Value<string>() == id);
+
+      return JsonConvert.DeserializeObject<TaskInfo>(taskInfo.ToString());
     }
 
     public static ItemDB GetItemDB(int index) {
-      if (index < 0 || index >= s_userDB.items.Count) {
+      if (index < 0 || index >= userItems.Count) {
         return null;
       }
-      return s_userDB.items[index];
+      return userItems[index];
     }
 
     public static ItemDB GetItemDB(string id) {
-      return s_userDB.items.Find(item => item.id == id);
+      return userItems.Find(item => item.id == id);
+    }
+
+    public static List<TaskDB> GetTaskList(TaskType taskType) {
+      return userTasks[taskType.ToString()];
     }
 
     public static void LoadUserDB(JObject json = null) {
@@ -95,38 +127,91 @@ namespace Yume.DB {
       }
     }
 
-    public static void ConsumeItems(params ItemDB[] items) {
+    public static Dictionary<string, List<TaskDB>> GetDefaultTasks() {
+      JObject taskJsons = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
+      return JsonConvert.DeserializeObject<Dictionary<string, List<TaskDB>>>(taskJsons[StringMap.TASKS].ToString());
+    }
+
+    public static void ConsumeItems(bool isUsed = true, params ItemDB[] items) {
       ItemDB tempItem;
-      foreach (var item in items) {
-        tempItem = GetItemDB(item.id);
-        if (tempItem != null && tempItem.num >= item.num) {
-          tempItem.num -= item.num;
+      for (int i = 0; i < items.Length; i++) {
+        tempItem = GetItemDB(items[i].id);
+        if (tempItem != null && tempItem.num >= items[i].num) {
+          tempItem.num -= items[i].num;
+          if (tempItem.num == 0) {
+            userItems.Remove(tempItem);
+          }
         }
       }
       _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } },
-      () => EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO));
+      () => {
+        EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+        if (isUsed) {
+          foreach (var item in items) {
+            TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
+          }
+          _Save(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, null);
+        }
+      });
+    }
+
+    public static void AddItems(params ItemDB[] items) {
+      ItemDB tempItem;
+      for (int i = 0; i < items.Length; i++) {
+        tempItem = GetItemDB(items[i].id);
+        if (tempItem == null) {
+          userItems.Add(items[i]);
+        } else {
+          tempItem.num += items[i].num;
+        }
+      }
+      _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } /*注明是保存哪些类型的数据*/ },
+      () => {
+        EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+        foreach (var item in items) {
+          TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
+        }
+      });
+    }
+
+    public static void CompleteTask(TaskDB task, Action onCompleted = null) {
+      if (task.state == TaskState.COMPLETED) {
+        task.Complete();
+        TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
+        _Save(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
+      }
     }
 
     private static void _Save<T>(T datas, Action onSucceed) where T : class {
-      ServerConnection.instance.Save(datas,
-       request => {
-         string error = StringMap.EMPTY;
-         if (!string.IsNullOrEmpty(request.error)) {
-           error = "连接出错！" + request.error;
-         } else {
-           var json = JObject.Parse(request.downloadHandler.text);
-           int code = json["code"].Value<int>();
-           if (code == -1) {
-             error = "更新用户数据失败！";
-           }
-         }
-         if (string.IsNullOrEmpty(error)) {
-           onSucceed?.Invoke();
-         } else {
-           UIController.instance.OpenDifference(error, StringMap.RETRY, StringMap.RETURN_TO_LOGIN,
-           () => _Save(datas, onSucceed), () => { });
-         }
-       });
+      if (s_playMode == PlayMode.REMOTE) {
+        ServerController.instance.Save(datas,
+          request => {
+            string error = StringMap.EMPTY;
+            if (!string.IsNullOrEmpty(request.error)) {
+              error = "连接出错！" + request.error;
+            } else {
+              var json = JObject.Parse(request.downloadHandler.text);
+              int code = json["code"].Value<int>();
+              if (code == -1) {
+                error = "更新用户数据失败！";
+              }
+            }
+            if (string.IsNullOrEmpty(error)) {
+              onSucceed?.Invoke();
+            } else {
+              UIController.instance.OpenDifference(error, StringMap.RETRY,
+              StringMap.RETURN_TO_LOGIN, () => _Save(datas, onSucceed));
+            }
+          });
+      }else if(s_playMode == PlayMode.LOCAL) {
+        onSucceed?.Invoke();
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fs = File.Open(localUserDBPath, FileMode.Create);
+        //序列化     
+        bf.Serialize(fs, s_userDB);
+        fs.Close();
+      }
     }
   }
 }

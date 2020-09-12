@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.Networking;
+using Yume.DB;
 using Yume.Setting;
 using Yume.Singleton;
 using Yume.UI;
 
 namespace Yume.Server {
-  public class ServerConnection : SingletonMono<ServerConnection> {
+  public class ServerController : SingletonMono<ServerController> {
     private string loginUrl {
       get {
         return Path.Combine(GlobalSettingHub.instance.serverUrl,
@@ -39,9 +42,10 @@ namespace Yume.Server {
       JObject json = ServerDataWrapper.Wrapper(new { account, password });
       StartCoroutine(_SendWebRequest(loginUrl, json, onCompleted));
     }
-    
+
     public void Register(string account, string password, Action<UnityWebRequest> onCompleted) {
-      JObject json = ServerDataWrapper.Wrapper(new { account, password });
+      var tasks = DBManager.GetDefaultTasks();
+      JObject json = ServerDataWrapper.Wrapper(new { account, password, tasks });
       StartCoroutine(_SendWebRequest(registerUrl, json, onCompleted));
     }
 
@@ -56,7 +60,7 @@ namespace Yume.Server {
     }
 
     private IEnumerator _SendWebRequest(string url, JObject datas, Action<UnityWebRequest> onCompleted) {
-      var request = UnityWebRequest.Get(url);
+      UnityWebRequest request = UnityWebRequest.Get(url);
       foreach (var key in datas.Properties()) {
         request.SetRequestHeader(key.Name, Regex.Replace(datas[key.Name].ToString(), @"\s", ""));
       }

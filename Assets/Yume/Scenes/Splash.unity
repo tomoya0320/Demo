@@ -1350,7 +1350,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1948497361}
-        m_TargetAssemblyTypeName: Yume.Scene.SceneJump, Assembly-CSharp
+        m_TargetAssemblyTypeName: Yume.Scene.SceneLoader, Assembly-CSharp
         m_MethodName: GoToNextScene
         m_Mode: 1
         m_Arguments:
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextSceneName: Login
-  _fadeTime: 0.2
+  _fadeTime: 0.1
 --- !u!114 &1948497362
 MonoBehaviour:
   m_ObjectHideFlags: 0

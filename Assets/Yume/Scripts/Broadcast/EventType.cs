@@ -1,5 +1,6 @@
 ﻿namespace Yume.Broadcast {
   public enum EventType {
-    UPDATE_ITEM_INFO
+    UPDATE_ITEM_INFO,
+    UPDATE_TASK_INFO
   }
 }

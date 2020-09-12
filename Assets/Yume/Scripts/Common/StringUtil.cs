@@ -25,6 +25,7 @@ namespace Yume.String {
     public const string ACCOUNT = "account";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
     public const string ITEMS = "items";
+    public const string TASKS = "tasks";
     public const string ICON_FILE_NAME = "iconFileName";
     public const string QUIT_GAME_TIP = "确认退出游戏？";
     public const string QUIT = "退出";
@@ -32,17 +33,23 @@ namespace Yume.String {
     public const string DOWNLOAD_ERROR_TIP = "下载出错，是否重试？";
     public const string RETRY = "重试";
     public const string RETURN_TO_LOGIN = "返回登录界面";
+    public const string COMPLETED = "已完成";
+    public const string CLICK_GET = "点击领取";
+    public const string PROCESSTEXT_PREF_NAME = "processTextPrefab";
+    public const string REWARD_PREF_NAME = "rewardPrefab";
+    public const string TASK_SHOW = "taskShow";
+    public const string GET = "获得";
   }
 
   public class StringUtil {
     public static string IntegerToString(int num) {
-      if(num < 10000) {
+      if (num < 10000) {
         return num.ToString();
+      } else if (num < 100000000) {
+        return (num / 10000) + "万";
+      } else {
+        return (num / 100000000) + "亿";
       }
-      string result = (num / 10000) + "万";
-      num %= 10000;
-
-      return num > 0 ? result + num : result;
     }
   }
 }

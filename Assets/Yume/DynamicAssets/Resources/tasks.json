@@ -1,0 +1,66 @@
+{
+  "tasks": {
+    "DAILY": [
+      {
+        "id": "DAILY_xfja",
+        "type": 0,
+        "state": 1,
+        "activeTaskId": null,
+        "activeTaskType": 0,
+        "title": "小富即安",
+        "description": "今日累计获得5000灵感币",
+        "includeDialogue": false,
+        "autoComplete": false,
+        "taskRewards": {
+          "items": [
+            {
+              "id": "item_3_mcake",
+              "num": 10
+            }
+          ]
+        },
+        "taskRequests": [
+          {
+            "method": 2,
+            "isConsumable": false,
+            "isIgnoreId": false,
+            "type": 0,
+            "requirementId": "item_2_gold",
+            "description": "gold",
+            "requiredNum": 5000
+          }
+        ]
+      },
+      {
+        "id": "DAILY_hjrt",
+        "type": 0,
+        "state": 1,
+        "activeTaskId": null,
+        "activeTaskType": 0,
+        "title": "挥金如土",
+        "description": "今日累计消费3000灵感币",
+        "includeDialogue": false,
+        "autoComplete": false,
+        "taskRewards": {
+          "items": [
+            {
+              "id": "item_1_diamond",
+              "num": 100
+            }
+          ]
+        },
+        "taskRequests": [
+          {
+            "method": 1,
+            "isConsumable": false,
+            "isIgnoreId": false,
+            "type": 0,
+            "requirementId": "item_2_gold",
+            "description": "gold",
+            "requiredNum": 3000
+          }
+        ]
+      }
+    ]
+  }
+}

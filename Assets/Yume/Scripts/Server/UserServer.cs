@@ -22,7 +22,7 @@ namespace Yume.Server {
     public void OnLogin() {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.Login(_accountInput.text, _passwordInput.text, request => {
+        ServerController.instance.Login(_accountInput.text, _passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             _result.text = "连接出错！" + request.error;
           } else {
@@ -57,7 +57,7 @@ namespace Yume.Server {
     public void OnRegister() {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.Register(_accountInput.text, _passwordInput.text, request => {
+        ServerController.instance.Register(_accountInput.text, _passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             _result.text = "连接出错！" + request.error;
           } else {
@@ -88,7 +88,7 @@ namespace Yume.Server {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text) &&
           !string.IsNullOrEmpty(_newPasswordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.AlterPassword(_accountInput.text, _passwordInput.text, _newPasswordInput.text,
+        ServerController.instance.AlterPassword(_accountInput.text, _passwordInput.text, _newPasswordInput.text,
           request => {
             if (!string.IsNullOrEmpty(request.error)) {
               _result.text = "连接出错！" + request.error;

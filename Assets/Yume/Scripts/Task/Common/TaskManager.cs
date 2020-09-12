@@ -1,24 +1,19 @@
-﻿using System.Collections.Generic;
-using Yume.Singleton;
+﻿using Yume.Broadcast;
+using Yume.DB;
 
 namespace Yume.Task {
-  public class TaskManager :SingletonNoMono<TaskManager> {
-    private Dictionary<TaskType, List<Task>> m_tasksDict;
+  public class TaskManager {
+    private TaskManager() { }
 
-    protected override void OnInit() {
-      base.OnInit();
-      //TODO:获得用户当前所有任务的进度 m_tasks = ?
-    }
-
-    public void UpdateTaskState(RequirementType type, string id, int num) {
-      foreach (var keyValuePair in m_tasksDict) {
+    public static void UpdateTaskState(RequestType type, string id, int num) {
+      foreach (var keyValuePair in DBManager.userTasks) {
         foreach (var task in keyValuePair.Value) {
           if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
             task.Update(type, id, num);
           }
         }
       }
-      //TODO:更新任务状态的UI
+      EventCenter.Broadcast(EventType.UPDATE_TASK_INFO);
     }
   }
 }
