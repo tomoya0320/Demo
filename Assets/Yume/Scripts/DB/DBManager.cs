@@ -23,7 +23,6 @@ namespace Yume.DB {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
     }
-
     private static UserDB s_userDB;
     public static string userAccount {
       get {
@@ -43,7 +42,6 @@ namespace Yume.DB {
         return s_userDB.items;
       }
     }
-
     public static Dictionary<string, List<TaskDB>> userTasks {
       get {
         if (s_userDB == null) {
@@ -55,37 +53,36 @@ namespace Yume.DB {
       }
     }
     private static PlayMode s_playMode;
-
-    private static List<JToken> s_itemJsons;
-    private static List<JToken> itemJsons {
+    private static List<JToken> s_itemInfos;
+    private static List<JToken> itemInfos {
       get {
-        if (s_itemJsons == null) {
+        if (s_itemInfos == null) {
           JObject json = JObject.Parse(Resources.Load<TextAsset>(StringMap.ITEMS).text);
-          s_itemJsons = json[StringMap.ITEMS].Value<JArray>().ToList();
+          s_itemInfos = json[StringMap.ITEMS].Value<JArray>().ToList();
         }
-        return s_itemJsons;
+        return s_itemInfos;
       }
     }
-    private static JObject s_taskJsons;
-    private static JObject taskJsons {
+    private static JObject s_taskInfos;
+    private static JObject taskInfos {
       get {
-        if (s_taskJsons == null) {
+        if (s_taskInfos == null) {
           JObject json = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
-          s_taskJsons = json[StringMap.TASKS].Value<JObject>();
+          s_taskInfos = json[StringMap.TASKS].Value<JObject>();
         }
-        return s_taskJsons;
+        return s_taskInfos;
       }
     }
 
     private DBManager() { }
 
     public static ItemInfo GetItemInfo(string id) {
-      JToken itemInfo = itemJsons.Find(j => j[StringMap.ID].Value<string>() == id);
+      JToken itemInfo = itemInfos.Find(j => j[StringMap.ID].Value<string>() == id);
       return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
     }
 
     public static TaskInfo GetTaskInfo(TaskType taskType, string id) {
-      JToken taskInfo = taskJsons[taskType.ToString()].Value<JArray>().ToList().Find(
+      JToken taskInfo = taskInfos[taskType.ToString()].Value<JArray>().ToList().Find(
       j => j[StringMap.ID].Value<string>() == id);
 
       return JsonConvert.DeserializeObject<TaskInfo>(taskInfo.ToString());
@@ -133,6 +130,7 @@ namespace Yume.DB {
     }
 
     public static void ConsumeItems(bool isUsed = true, params ItemDB[] items) {
+      //更新本地数据
       ItemDB tempItem;
       for (int i = 0; i < items.Length; i++) {
         tempItem = GetItemDB(items[i].id);
@@ -143,19 +141,23 @@ namespace Yume.DB {
           }
         }
       }
-      _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } },
-      () => {
-        EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
-        if (isUsed) {
-          foreach (var item in items) {
-            TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
-          }
-          _Save(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, null);
+      //更新UI显示
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      //更新任务进度
+      if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
+        foreach (var item in items) {
+          TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
-      });
+        //任务和道具一起同步
+        _Save(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } }, null);
+      } else {
+        //只同步道具
+        _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } }, null);
+      }
     }
 
     public static void AddItems(params ItemDB[] items) {
+      //更新本地数据
       ItemDB tempItem;
       for (int i = 0; i < items.Length; i++) {
         tempItem = GetItemDB(items[i].id);
@@ -165,13 +167,14 @@ namespace Yume.DB {
           tempItem.num += items[i].num;
         }
       }
-      _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } /*注明是保存哪些类型的数据*/ },
-      () => {
-        EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
-        foreach (var item in items) {
-          TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
-        }
-      });
+      //更新UI显示
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      //更新任务进度
+      foreach (var item in items) {
+        TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
+      }
+      //任务和道具一起同步
+      _Save(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } }, null);
     }
 
     public static void CompleteTask(TaskDB task, Action onCompleted = null) {

@@ -44,8 +44,11 @@ namespace Yume.Server {
     }
 
     public void Register(string account, string password, Action<UnityWebRequest> onCompleted) {
+      //Java那边的Json有个bug，转数组时输入的Json字符串不能是空（""）
+      //否则会出现类似"[null]"这样的结果，导致反序列化得到的List会变成Count为1且第一个元素为null
+      var items = "[]";
       var tasks = DBManager.GetDefaultTasks();
-      JObject json = ServerDataWrapper.Wrapper(new { account, password, tasks });
+      JObject json = ServerDataWrapper.Wrapper(new { account, password, items, tasks });
       StartCoroutine(_SendWebRequest(registerUrl, json, onCompleted));
     }
 
