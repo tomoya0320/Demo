@@ -22,8 +22,8 @@
         "taskRequests": [
           {
             "method": 2,
-            "isConsumable": false,
-            "isIgnoreId": false,
+            "consumable": false,
+            "ignoreId": false,
             "type": 0,
             "requirementId": "item_2_gold",
             "description": "gold",
@@ -52,8 +52,8 @@
         "taskRequests": [
           {
             "method": 1,
-            "isConsumable": false,
-            "isIgnoreId": false,
+            "consumable": false,
+            "ignoreId": false,
             "type": 0,
             "requirementId": "item_2_gold",
             "description": "gold",

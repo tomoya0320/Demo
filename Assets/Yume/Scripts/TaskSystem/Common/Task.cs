@@ -33,11 +33,11 @@ namespace Yume.Task {
     /// <summary>
     /// 完成任务后是否消耗所需物品
     /// </summary>
-    public bool isConsumable;
+    public bool consumable;
     /// <summary>
     /// 是否忽略需求的ID
     /// </summary>
-    public bool isIgnoreId;
+    public bool ignoreId;
     public RequestType type;
     public string requirementId;
     public string description;
@@ -75,7 +75,7 @@ namespace Yume.Task {
 
     public void Update(RequestType type, string id, int num) {
       foreach (TaskRequestDB taskRequest in taskRequests) {
-        if (taskRequest.type == type && (taskRequest.requirementId == id || taskRequest.isIgnoreId)) {
+        if (taskRequest.type == type && (taskRequest.requirementId == id || taskRequest.ignoreId)) {
           switch (taskRequest.method) {
             case Method.ADD: {
                 taskRequest.currentNum += num > 0 ? num : 0;
@@ -86,8 +86,11 @@ namespace Yume.Task {
                 break;
               }
             case Method.HAD: {
-                //同步现有的数量
-                //TODO:switch (requirement.type)
+                //同步现有的道具数量
+                if (!taskRequest.ignoreId && taskRequest.type == RequestType.PROP_NUM) {
+                  ItemDB item = DBManager.GetItemDB(id);
+                  taskRequest.currentNum = item != null ? item.num : 0;
+                }
                 break;
               }
           }
@@ -135,7 +138,7 @@ namespace Yume.Task {
       }
 
       foreach (TaskRequestDB taskRequest in taskRequests) {
-        if (taskRequest.isConsumable && taskRequest.type == RequestType.PROP_NUM) {
+        if (taskRequest.consumable && taskRequest.type == RequestType.PROP_NUM) {
           DBManager.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }

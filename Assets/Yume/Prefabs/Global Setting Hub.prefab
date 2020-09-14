@@ -46,7 +46,4 @@ MonoBehaviour:
   _serverUrlType: 0
   _remoteServerUrl: http://h34035l730.wicp.vip/GameServlet
   _localServerUrl: http://192.168.43.142:8080/GameServlet
-  _loginServlet: LoginServlet
-  _registerServlet: RegisterServlet
-  _saveServlet: SaveServlet
-  _alterPasswordServlet: AlterPasswordServlet
+  _userServlet: UserServlet

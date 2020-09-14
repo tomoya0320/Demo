@@ -62,6 +62,24 @@ namespace Yume.UI {
           m_UIStack[m_UIStack.Count - 1].Close();
         }
       }
+
+#if TEST
+      if (Input.GetKeyDown(KeyCode.A)) {
+        DB.DBManager.AddItems(new DB.ItemDB("item_2_gold", 1000));
+      }    
+      
+      if (Input.GetKeyDown(KeyCode.S)) {
+        DB.DBManager.ConsumeItems(true, new DB.ItemDB("item_2_gold", 1000));
+      }
+
+      if (Input.GetKeyDown(KeyCode.D)) {
+        DB.DBManager.AddItems(new DB.ItemDB("item_1_diamond", 1));
+      }    
+      
+      if (Input.GetKeyDown(KeyCode.C)) {
+        DB.DBManager.setUserHashCode = "1d";
+      }
+#endif
     }
 
     public void FadeBlackMask(bool active, float fadeTime = 0.3f, Action onComplete = null) {

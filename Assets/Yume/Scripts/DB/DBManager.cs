@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Yume.Broadcast;
+using Yume.Scene;
 using Yume.Server;
 using Yume.String;
 using Yume.Task;
@@ -30,6 +31,14 @@ namespace Yume.DB {
           s_userDB = new UserDB();
         }
         return s_userDB.account;
+      }
+    }
+    public static string userHashCode {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.hashCode;
       }
     }
     public static List<ItemDB> userItems {
@@ -73,6 +82,14 @@ namespace Yume.DB {
         return s_taskInfos;
       }
     }
+
+#if TEST
+    public static string setUserHashCode {
+      set {
+        s_userDB.hashCode = value;
+      }
+    }
+#endif
 
     private DBManager() { }
 
@@ -149,10 +166,10 @@ namespace Yume.DB {
           TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
         //任务和道具一起同步
-        _Save(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } }, null);
+        _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
       } else {
         //只同步道具
-        _Save(new { account = userAccount, items = userItems, types = new string[] { "items" } }, null);
+        _UpdateUserData(new { account = userAccount, items = userItems, types = new string[] { "items" } });
       }
     }
 
@@ -174,28 +191,29 @@ namespace Yume.DB {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
       }
       //任务和道具一起同步
-      _Save(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } }, null);
+      _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
     public static void CompleteTask(TaskDB task, Action onCompleted = null) {
       if (task.state == TaskState.COMPLETED) {
         task.Complete();
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
-        _Save(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
+        _UpdateUserData(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }
     }
 
-    private static void _Save<T>(T datas, Action onSucceed) where T : class {
+    private static void _UpdateUserData<T>(T datas, Action onSucceed = null) where T : class {
       if (s_playMode == PlayMode.REMOTE) {
-        ServerController.instance.Save(datas,
+        ServerController.instance.UpdateUserData(datas,
           request => {
             string error = StringMap.EMPTY;
             if (!string.IsNullOrEmpty(request.error)) {
               error = "连接出错！" + request.error;
             } else {
               var json = JObject.Parse(request.downloadHandler.text);
-              int code = json["code"].Value<int>();
-              if (code == -1) {
+              int resultCode = json["resultCode"].Value<int>();
+              //这里的错误就不分类了
+              if (resultCode != 1) {
                 error = "更新用户数据失败！";
               }
             }
@@ -203,7 +221,8 @@ namespace Yume.DB {
               onSucceed?.Invoke();
             } else {
               UIController.instance.OpenDifference(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _Save(datas, onSucceed));
+              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(datas, onSucceed), 
+              () => SceneLoader.GoToNextScene(StringMap.LOGIN));
             }
           });
       }else if(s_playMode == PlayMode.LOCAL) {

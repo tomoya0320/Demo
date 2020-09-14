@@ -30,16 +30,7 @@ namespace Yume.Setting {
       }
     }
     [SerializeField]
-    private string _loginServlet;
-    public string loginServlet => _loginServlet;
-    [SerializeField]
-    private string _registerServlet;
-    public string registerServlet => _registerServlet;   
-    [SerializeField]
-    private string _saveServlet;
-    public string saveServlet => _saveServlet;    
-    [SerializeField]
-    private string _alterPasswordServlet;
-    public string alterPasswordServlet => _alterPasswordServlet;
+    private string _userServlet;
+    public string userServlet => _userServlet;
   }
 }

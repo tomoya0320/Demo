@@ -955,7 +955,6 @@ GameObject:
   m_Component:
   - component: {fileID: 376006974}
   - component: {fileID: 376006975}
-  - component: {fileID: 376006976}
   m_Layer: 5
   m_Name: user srver
   m_TagString: Untagged
@@ -1003,21 +1002,6 @@ MonoBehaviour:
   _passwordInput: {fileID: 904981323}
   _newPasswordInput: {fileID: 134659233}
   _result: {fileID: 1567865448}
-  _sceneJump: {fileID: 376006976}
---- !u!114 &376006976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376006973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d0b72e6ab9de7458104568fa8adc48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nextSceneName: Home
-  _fadeTime: 0.2
 --- !u!1 &778457540
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,8 @@ namespace Yume.String {
   public class StringMap {
     public const string EMPTY = "";
     public const string NONE = "无";
-    public const string DESCRIPTION = "description";
     public const string SWITCH = "Switch";
     public const string VALUE = "Value";
-    public const string NAME = "name";
-    public const string KEY = "key";
     public const string ID = "id";
     #region datetime
     public const string TODAY = "今天";
@@ -18,15 +15,12 @@ namespace Yume.String {
     public const string SOME_YEAR_BEFORE = "{0}年前";
     #endregion
     public const string MESSAGE = "message";
-    public const string LOADING = "Loading";
     public const string QUALITY = "quality";
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
-    public const string ACCOUNT = "account";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
     public const string ITEMS = "items";
     public const string TASKS = "tasks";
-    public const string ICON_FILE_NAME = "iconFileName";
     public const string QUIT_GAME_TIP = "确认退出游戏？";
     public const string QUIT = "退出";
     public const string CANCEL = "取消";
@@ -38,7 +32,10 @@ namespace Yume.String {
     public const string PROCESSTEXT_PREF_NAME = "processTextPrefab";
     public const string REWARD_PREF_NAME = "rewardPrefab";
     public const string TASK_SHOW = "taskShow";
-    public const string GET = "获得";
+    public const string GET = "获得";    
+    public const string LOGIN = "Login";
+    public const string HOME = "Home";
+    public const string LOADING = "Loading";
   }
 
   public class StringUtil {

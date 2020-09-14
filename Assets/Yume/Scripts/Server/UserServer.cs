@@ -16,8 +16,6 @@ namespace Yume.Server {
     private InputField _newPasswordInput;
     [SerializeField]
     private Text _result;
-    [SerializeField]
-    private SceneLoader _sceneJump;
 
     public void OnLogin() {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
@@ -27,8 +25,8 @@ namespace Yume.Server {
             _result.text = "连接出错！" + request.error;
           } else {
             var json = JObject.Parse(request.downloadHandler.text);
-            int code = json["code"].Value<int>();
-            switch (code) {
+            int resultCode = json["resultCode"].Value<int>();
+            switch (resultCode) {
               case 0: {
                   _result.text = "用户不存在！";
                   break;
@@ -39,11 +37,7 @@ namespace Yume.Server {
                 }
               case 1: {
                   DBManager.LoadUserDB(json);
-                  _sceneJump.GoToNextScene();
-#if TEST
-                  UIController.instance.messageManager.AddMessage(new Message(
-                  Message.Style.SLIDE, "用户：" + DBManager.userAccount));
-#endif
+                  SceneLoader.GoToNextScene(StringMap.HOME);
                   break;
                 }
             }
@@ -62,18 +56,14 @@ namespace Yume.Server {
             _result.text = "连接出错！" + request.error;
           } else {
             var json = JObject.Parse(request.downloadHandler.text);
-            int code = json["code"].Value<int>();
-            switch (code) {
+            int resultCode = json["resultCode"].Value<int>();
+            switch (resultCode) {
               case -1: {
                   _result.text = "用户已存在！";
                   break;
                 }
               case 1: {
                   _result.text = "注册成功！";
-                  break;
-                }      
-              case -2: {
-                  _result.text = "注册失败！";
                   break;
                 }
             }
@@ -94,8 +84,8 @@ namespace Yume.Server {
               _result.text = "连接出错！" + request.error;
             } else {
               var json = JObject.Parse(request.downloadHandler.text);
-              int code = json["code"].Value<int>();
-              switch (code) {
+              int resultCode = json["resultCode"].Value<int>();
+              switch (resultCode) {
                 case 0: {
                     _result.text = "用户不存在！";
                     break;
@@ -108,10 +98,6 @@ namespace Yume.Server {
                     _result.text = "修改密码成功！";
                     break;
                   }
-                case -2: {
-                    _result.text = "修改密码失败！";
-                    break;
-                  }
               }
             }
           });
@@ -122,11 +108,7 @@ namespace Yume.Server {
 
     public void OnPlayInLocal() {
       DBManager.LoadUserDB();
-      _sceneJump.GoToNextScene();
-#if TEST
-      UIController.instance.messageManager.AddMessage(new Message(
-      Message.Style.SLIDE, "用户：" + DBManager.userAccount));
-#endif
+      SceneLoader.GoToNextScene(StringMap.HOME);
     }
   }
 }

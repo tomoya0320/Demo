@@ -47,37 +47,5 @@ namespace Yume.UI.Bag {
       selectedItem = itemShow;
       _UpdateInfo();
     }
-
-#if TEST
-    private void Update() {
-      if (Input.GetKeyDown(KeyCode.A)) {
-        _UseItem(1);
-      }      
-      
-      if (Input.GetKeyDown(KeyCode.S)) {
-        _AddItem(1);
-      }
-
-      if (Input.GetKeyDown(KeyCode.G)) {
-        DBManager.AddItems(new ItemDB("item_2_gold", 1000));
-      }      
-      
-      if (Input.GetKeyDown(KeyCode.C)) {
-        DBManager.AddItems(new ItemDB("item_1_diamond", 1));
-      }
-    }
-
-    private void _UseItem(int num) {
-      if (selectedItem != null) {
-        DBManager.ConsumeItems(true, new ItemDB(selectedItem.item.id, num));
-      }
-    }    
-    
-    private void _AddItem(int num) {
-      if (selectedItem != null) {
-        DBManager.AddItems(new ItemDB(selectedItem.item.id, num));
-      }
-    }
-#endif
   }
 }
