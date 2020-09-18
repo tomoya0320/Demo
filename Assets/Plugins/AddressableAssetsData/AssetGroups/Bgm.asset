@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Bgm
+  m_EditorClassIdentifier: 
+  m_GroupName: Bgm
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e7cc03960f8cdd74cb479d51bdef00c1
+  m_SerializeEntries:
+  - m_GUID: 29a2be426be92ef47802f087aaa7c7df
+    m_Address: Bgm_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: 29a2be426be92ef47802f087aaa7c7df, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 29a2be426be92ef47802f087aaa7c7df, type: 3}
+  - m_GUID: 50e5c75bd0ff55244b69e4e79ded9d41
+    m_Address: Bgm_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: 50e5c75bd0ff55244b69e4e79ded9d41, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 50e5c75bd0ff55244b69e4e79ded9d41, type: 3}
+  - m_GUID: b2b7288e5c563ef4b8a42fcc219720b1
+    m_Address: Bgm_0
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: b2b7288e5c563ef4b8a42fcc219720b1, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b2b7288e5c563ef4b8a42fcc219720b1, type: 3}
+  - m_GUID: cbd9730ac19d83c439c8ce0eb5fd4a2b
+    m_Address: Bgm_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: cbd9730ac19d83c439c8ce0eb5fd4a2b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: cbd9730ac19d83c439c8ce0eb5fd4a2b, type: 3}
+  - m_GUID: cd47f02a880c0e44d813db24ace7c268
+    m_Address: Bgm_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: cd47f02a880c0e44d813db24ace7c268, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: cd47f02a880c0e44d813db24ace7c268, type: 3}
+  - m_GUID: de89877489b502440a0cacf5dceb1543
+    m_Address: Bgm_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 8300000, guid: de89877489b502440a0cacf5dceb1543, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: de89877489b502440a0cacf5dceb1543, type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c8cc466ddf1200f49a961ad8026ab798, type: 2}
+    - {fileID: 11400000, guid: 1e2f681856bcf884ba99e5ba8d9731c6, type: 2}

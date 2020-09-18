@@ -5,6 +5,7 @@ using Yume.Scene;
 using Yume.DB;
 using Yume.UI;
 using Yume.String;
+using Yume.Audio;
 
 namespace Yume.Server {
   public class UserServer : MonoBehaviour {
@@ -38,6 +39,7 @@ namespace Yume.Server {
               case 1: {
                   DBManager.LoadUserDB(json);
                   SceneLoader.GoToNextScene(StringMap.HOME);
+                  AudioController.instance.PlayBgm(StringMap.HOME_BGM);
                   break;
                 }
             }
@@ -109,6 +111,7 @@ namespace Yume.Server {
     public void OnPlayInLocal() {
       DBManager.LoadUserDB();
       SceneLoader.GoToNextScene(StringMap.HOME);
+      AudioController.instance.PlayBgm(StringMap.HOME_BGM);
     }
   }
 }

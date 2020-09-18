@@ -9,8 +9,7 @@ namespace Yume.UI {
     private Text _textComponent;
     public Text textComponent => _textComponent;
 
-    private Audio.EventType m_eventType = Audio.EventType.UI;
-    private string m_signal = "button_sound";
+    private string m_audioClipName = "button_sound";
 
     protected override void Awake() {
       base.Awake();

@@ -2,11 +2,6 @@
 
 namespace Yume.String {
   public class StringMap {
-    public const string EMPTY = "";
-    public const string NONE = "无";
-    public const string SWITCH = "Switch";
-    public const string VALUE = "Value";
-    public const string ID = "id";
     #region datetime
     public const string TODAY = "今天";
     public const string SOME_DAY_BEFORE = "{0}天前";
@@ -14,6 +9,11 @@ namespace Yume.String {
     public const string SOME_MONTH_BEFORE = "{0}月前";
     public const string SOME_YEAR_BEFORE = "{0}年前";
     #endregion
+    public const string EMPTY = "";
+    public const string NONE = "无";
+    public const string SWITCH = "Switch";
+    public const string VALUE = "Value";
+    public const string ID = "id";
     public const string MESSAGE = "message";
     public const string QUALITY = "quality";
     public const string PRELOAD = "Preload";
@@ -32,10 +32,14 @@ namespace Yume.String {
     public const string PROCESSTEXT_PREF_NAME = "processTextPrefab";
     public const string REWARD_PREF_NAME = "rewardPrefab";
     public const string TASK_SHOW = "taskShow";
-    public const string GET = "获得";    
+    public const string GET = "获得";
     public const string LOGIN = "Login";
     public const string HOME = "Home";
     public const string LOADING = "Loading";
+    public const string BGM = "bgm";
+    public const string SOUND = "sound";
+    public const string LOGIN_BGM = "Bgm_5";
+    public const string HOME_BGM = "Bgm_1";
   }
 
   public class StringUtil {
