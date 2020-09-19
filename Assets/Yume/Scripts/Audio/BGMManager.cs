@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using Yume.String;
+using Yume.UI;
 
 namespace Yume.Audio {
   public class BGMManager {
@@ -9,8 +10,8 @@ namespace Yume.Audio {
     private Tween m_tween;
     private float m_value;
     private float m_switch;
-    private const string m_valueKey = StringMap.BGM + StringMap.VALUE;
-    private const string m_switchKey = StringMap.BGM + StringMap.SWITCH;
+    private readonly string m_valueKey = SettingType.BGM.ToString() + StringMap.VALUE;
+    private readonly string m_switchKey = SettingType.BGM.ToString() + StringMap.SWITCH;
 
     public BGMManager(AudioSource audioSource) {
       m_audioSource = audioSource;
@@ -20,10 +21,10 @@ namespace Yume.Audio {
       if (!PlayerPrefs.HasKey(m_switchKey)) {
         PlayerPrefs.SetInt(m_switchKey, 1);
       }
-      UpdateBgm();
+      UpdateVolume();
     }
 
-    public void UpdateBgm() {
+    public void UpdateVolume() {
       m_switch = PlayerPrefs.GetInt(m_switchKey);
       m_value = 0.01f * PlayerPrefs.GetInt(m_valueKey);
       m_audioSource.volume = m_switch * m_value;

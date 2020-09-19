@@ -10,10 +10,12 @@ namespace Yume.UI {
     //对应我们在MyButton中创建的字段
     //PS:需要注意一点，使用SerializedProperty 必须在类的字段前加[SerializeField]
     private SerializedProperty m_textComponent;
+    private SerializedProperty m_overrideSoundName;
 
     protected override void OnEnable() {
       base.OnEnable();
       m_textComponent = serializedObject.FindProperty("_textComponent");
+      m_overrideSoundName = serializedObject.FindProperty("_overrideSoundName");
     }
     //并且特别注意，如果用这种序列化方式，需要在 OnInspectorGUI 开头和结尾各加一句 serializedObject.Update();  serializedObject.ApplyModifiedProperties();
     public override void OnInspectorGUI() {
@@ -21,6 +23,7 @@ namespace Yume.UI {
       serializedObject.Update();
       //显示我们创建的属性
       EditorGUILayout.PropertyField(m_textComponent);
+      EditorGUILayout.PropertyField(m_overrideSoundName);
       serializedObject.ApplyModifiedProperties();
     }
   }

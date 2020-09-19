@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Yume.String {
+﻿namespace Yume.String {
   public class StringMap {
     #region datetime
     public const string TODAY = "今天";
@@ -15,7 +13,6 @@ namespace Yume.String {
     public const string VALUE = "Value";
     public const string ID = "id";
     public const string MESSAGE = "message";
-    public const string QUALITY = "quality";
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
@@ -36,10 +33,9 @@ namespace Yume.String {
     public const string LOGIN = "Login";
     public const string HOME = "Home";
     public const string LOADING = "Loading";
-    public const string BGM = "bgm";
-    public const string SOUND = "sound";
     public const string LOGIN_BGM = "Bgm_5";
     public const string HOME_BGM = "Bgm_1";
+    public const string DEFAULT_CLICK_SOUND = "点击2";
   }
 
   public class StringUtil {
