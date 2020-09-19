@@ -5,6 +5,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using Yume.Singleton;
 using Yume.String;
 using Yume.UI;
+using Yume.Scene;
+using Yume.Audio;
 
 namespace Yume.Server {
   public class UpdateAssetsController : SingletonMono<UpdateAssetsController> {
@@ -76,6 +78,11 @@ namespace Yume.Server {
 
     public void QuitGame() {
       Application.Quit();
+    }
+
+    public void GoToLoginScene() {
+      SceneLoader.GoToNextScene(StringMap.LOGIN);
+      AudioController.instance.PlayBgm(StringMap.LOGIN_BGM);
     }
   }
 }

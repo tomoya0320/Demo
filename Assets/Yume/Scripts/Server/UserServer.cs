@@ -5,6 +5,7 @@ using Yume.Scene;
 using Yume.DB;
 using Yume.UI;
 using Yume.String;
+using Yume.Audio;
 
 namespace Yume.Server {
   public class UserServer : MonoBehaviour {
@@ -16,19 +17,17 @@ namespace Yume.Server {
     private InputField _newPasswordInput;
     [SerializeField]
     private Text _result;
-    [SerializeField]
-    private SceneLoader _sceneJump;
 
     public void OnLogin() {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.Login(_accountInput.text, _passwordInput.text, request => {
+        ServerController.instance.Login(_accountInput.text, _passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             _result.text = "连接出错！" + request.error;
           } else {
             var json = JObject.Parse(request.downloadHandler.text);
-            int code = json["code"].Value<int>();
-            switch (code) {
+            int resultCode = json["resultCode"].Value<int>();
+            switch (resultCode) {
               case 0: {
                   _result.text = "用户不存在！";
                   break;
@@ -39,11 +38,8 @@ namespace Yume.Server {
                 }
               case 1: {
                   DBManager.LoadUserDB(json);
-                  _sceneJump.GoToNextScene();
-#if TEST
-                  UIController.instance.messageManager.AddMessage(new Message(
-                  Message.Style.SLIDE, "用户：" + DBManager.userAccount));
-#endif
+                  SceneLoader.GoToNextScene(StringMap.HOME);
+                  AudioController.instance.PlayBgm(StringMap.HOME_BGM);
                   break;
                 }
             }
@@ -57,23 +53,19 @@ namespace Yume.Server {
     public void OnRegister() {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.Register(_accountInput.text, _passwordInput.text, request => {
+        ServerController.instance.Register(_accountInput.text, _passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             _result.text = "连接出错！" + request.error;
           } else {
             var json = JObject.Parse(request.downloadHandler.text);
-            int code = json["code"].Value<int>();
-            switch (code) {
+            int resultCode = json["resultCode"].Value<int>();
+            switch (resultCode) {
               case -1: {
                   _result.text = "用户已存在！";
                   break;
                 }
               case 1: {
                   _result.text = "注册成功！";
-                  break;
-                }      
-              case -2: {
-                  _result.text = "注册失败！";
                   break;
                 }
             }
@@ -88,14 +80,14 @@ namespace Yume.Server {
       if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text) &&
           !string.IsNullOrEmpty(_newPasswordInput.text)) {
         _result.text = StringMap.EMPTY;
-        ServerConnection.instance.AlterPassword(_accountInput.text, _passwordInput.text, _newPasswordInput.text,
+        ServerController.instance.AlterPassword(_accountInput.text, _passwordInput.text, _newPasswordInput.text,
           request => {
             if (!string.IsNullOrEmpty(request.error)) {
               _result.text = "连接出错！" + request.error;
             } else {
               var json = JObject.Parse(request.downloadHandler.text);
-              int code = json["code"].Value<int>();
-              switch (code) {
+              int resultCode = json["resultCode"].Value<int>();
+              switch (resultCode) {
                 case 0: {
                     _result.text = "用户不存在！";
                     break;
@@ -108,10 +100,6 @@ namespace Yume.Server {
                     _result.text = "修改密码成功！";
                     break;
                   }
-                case -2: {
-                    _result.text = "修改密码失败！";
-                    break;
-                  }
               }
             }
           });
@@ -122,11 +110,8 @@ namespace Yume.Server {
 
     public void OnPlayInLocal() {
       DBManager.LoadUserDB();
-      _sceneJump.GoToNextScene();
-#if TEST
-      UIController.instance.messageManager.AddMessage(new Message(
-      Message.Style.SLIDE, "用户：" + DBManager.userAccount));
-#endif
+      SceneLoader.GoToNextScene(StringMap.HOME);
+      AudioController.instance.PlayBgm(StringMap.HOME_BGM);
     }
   }
 }

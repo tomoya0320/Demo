@@ -1,6 +1,8 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
+using Yume.Audio;
+using Yume.String;
 
 namespace Yume.UI {
   [ExecuteInEditMode]
@@ -8,18 +10,21 @@ namespace Yume.UI {
     [SerializeField]
     private Text _textComponent;
     public Text textComponent => _textComponent;
-
-    private Audio.EventType m_eventType = Audio.EventType.UI;
-    private string m_signal = "button_sound";
+    [SerializeField]
+    private string _overrideSoundName;
 
     protected override void Awake() {
       base.Awake();
-      _textComponent = GetComponentInChildren<Text>();
+      _textComponent = GetComponentInChildren<Text>(true);
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
       base.OnPointerDown(eventData);
-      //TODO:play sound
+
+      string clipName = string.IsNullOrEmpty(_overrideSoundName) ? 
+                       StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
+
+      AudioController.instance.PlaySound(clipName);
     }
   }
 }

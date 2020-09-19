@@ -11,4 +11,11 @@ namespace Yume.DB {
       this.num = num;
     }
   }
+
+  public struct ItemInfo {
+    public string id;
+    public string name;
+    public string iconFileName;
+    public string description;
+  }
 }

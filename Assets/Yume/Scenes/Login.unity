@@ -753,6 +753,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 63842486}
+  _overrideSoundName: 
 --- !u!114 &179135003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +867,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187245267}
   m_CullTransparentMesh: 0
+--- !u!1001 &230117963
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4508023520737548450, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_Name
+      value: Audio Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508023520737548451, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3c21af4622edda47ad9f3b0d3c6e2bb, type: 3}
 --- !u!1 &353737100
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +1013,6 @@ GameObject:
   m_Component:
   - component: {fileID: 376006974}
   - component: {fileID: 376006975}
-  - component: {fileID: 376006976}
   m_Layer: 5
   m_Name: user srver
   m_TagString: Untagged
@@ -1003,21 +1060,6 @@ MonoBehaviour:
   _passwordInput: {fileID: 904981323}
   _newPasswordInput: {fileID: 134659233}
   _result: {fileID: 1567865448}
-  _sceneJump: {fileID: 376006976}
---- !u!114 &376006976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376006973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d0b72e6ab9de7458104568fa8adc48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nextSceneName: Home
-  _fadeTime: 0.2
 --- !u!1 &778457540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1234,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 778457542}
+  _overrideSoundName: 
 --- !u!114 &793022036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1543,6 +1586,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 1516491168}
+  _overrideSoundName: 
 --- !u!114 &1217637578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,6 +2163,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   _textComponent: {fileID: 153004018}
+  _overrideSoundName: 
 --- !u!114 &1584376180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2393,6 +2438,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 1391191051}
+  _overrideSoundName: 
 --- !u!114 &1869402300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,6 +2572,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 353737102}
+  _overrideSoundName: 
 --- !u!114 &1880326902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2921,7 +2968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159904644956885234, guid: f14dcf671e4148e4cb6bc807b265355a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 159904644956885234, guid: f14dcf671e4148e4cb6bc807b265355a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
