@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Yume.Broadcast;
+using Yume.MailSystem;
 using Yume.Scene;
 using Yume.Server;
 using Yume.String;
@@ -32,6 +33,14 @@ namespace Yume.DB {
         }
         return s_userDB.account;
       }
+    }   
+    public static string userName {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.name;
+      }
     }
     public static string userHashCode {
       get {
@@ -45,18 +54,22 @@ namespace Yume.DB {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
-        } else if (s_userDB.items == null) {
-          s_userDB.items = new List<ItemDB>();
         }
         return s_userDB.items;
+      }
+    }    
+    public static List<Mail> userMails {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.mails;
       }
     }
     public static Dictionary<string, List<TaskDB>> userTasks {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
-        } else if (s_userDB.tasks == null) {
-          s_userDB.tasks = new Dictionary<string, List<TaskDB>>();
         }
         return s_userDB.tasks;
       }
@@ -118,6 +131,21 @@ namespace Yume.DB {
 
     public static List<TaskDB> GetTaskList(TaskType taskType) {
       return userTasks[taskType.ToString()];
+    }
+    
+    public static void DeleteMail(Mail mail) {
+      userMails.Remove(mail);
+      SaveUserMails();
+    }    
+    
+    public static void AddMail(Mail mail) {
+      userMails.Add(mail);
+      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL);
+      SaveUserMails();
+    }
+
+    public static void SaveUserMails() {
+      _UpdateUserData(new { account = userAccount, mails = userMails, types = new string[] { "mails" } });
     }
 
     public static void LoadUserDB(JObject json = null) {

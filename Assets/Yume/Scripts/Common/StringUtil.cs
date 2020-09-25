@@ -36,6 +36,8 @@
     public const string LOGIN_BGM = "Bgm_5";
     public const string HOME_BGM = "Bgm_1";
     public const string DEFAULT_CLICK_SOUND = "点击2";
+    public const string MAIL_IN_LIST = "mailInList";
+    public const string ATTACHMENT_PREFAB = "attachmentPrefab";
   }
 
   public class StringUtil {

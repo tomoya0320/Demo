@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Yume.DB;
+using Yume.MailSystem;
 using Yume.Singleton;
 using Yume.String;
 
@@ -65,19 +67,25 @@ namespace Yume.UI {
 
 #if TEST
       if (Input.GetKeyDown(KeyCode.A)) {
-        DB.DBManager.AddItems(new DB.ItemDB("item_2_gold", 1000));
+        DBManager.AddItems(new ItemDB("item_2_gold", 1000));
       }    
       
       if (Input.GetKeyDown(KeyCode.S)) {
-        DB.DBManager.ConsumeItems(true, new DB.ItemDB("item_2_gold", 1000));
+        DBManager.ConsumeItems(true, new ItemDB("item_2_gold", 1000));
       }
 
       if (Input.GetKeyDown(KeyCode.D)) {
-        DB.DBManager.AddItems(new DB.ItemDB("item_1_diamond", 1));
+        DBManager.AddItems(new ItemDB("item_1_diamond", 1));
       }    
       
       if (Input.GetKeyDown(KeyCode.C)) {
-        DB.DBManager.setUserHashCode = "1d";
+        DBManager.setUserHashCode = "1d";
+      }     
+      
+      if (Input.GetKeyDown(KeyCode.M)) {
+        DBManager.AddMail(new Mail("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
+        DBManager.AddMail(new Mail("Test Title2", "You are alone", "admin", new ItemDB("item_2_gold", 10000)));
+        DBManager.AddMail(new Mail("Test Title3", "I love {0}", "wzb", new ItemDB("item_5_key", 10)));
       }
 #endif
     }

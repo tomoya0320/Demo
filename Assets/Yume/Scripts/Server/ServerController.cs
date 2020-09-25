@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
+using Yume.MailSystem;
 using Yume.Setting;
 using Yume.Singleton;
 using Yume.UI;
@@ -36,7 +37,7 @@ namespace Yume.Server {
     public void Register(string account, string password, Action<UnityWebRequest> onCompleted) {
       //Java那边的Json有个bug，转数组时输入的Json字符串不能是空（""）
       //否则会出现类似"[null]"这样的结果，导致反序列化得到的List会变成Count为1且第一个元素为null
-      JObject json = ServerDataWrapper.Wrapper(new { account, password, items = new List<ItemDB>(), tasks = DBManager.GetDefaultTasks() });
+      JObject json = ServerDataWrapper.Wrapper(new { account, password, items = new List<ItemDB>(), tasks = DBManager.GetDefaultTasks(), mails = new List<Mail>() });
       json.Add("method", Methods.REGISTER.ToString());
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }
