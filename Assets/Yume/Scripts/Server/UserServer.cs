@@ -9,6 +9,8 @@ using Yume.Audio;
 namespace Yume.Server {
   public class UserServer : MonoBehaviour {
     [SerializeField]
+    private InputField _nameInput;  
+    [SerializeField]
     private InputField _accountInput;
     [SerializeField]
     private InputField _passwordInput;
@@ -50,9 +52,11 @@ namespace Yume.Server {
     }
 
     public void OnRegister() {
-      if (!string.IsNullOrEmpty(_accountInput.text) && !string.IsNullOrEmpty(_passwordInput.text)) {
+      if (!string.IsNullOrEmpty(_nameInput.text) && !string.IsNullOrEmpty(_passwordInput.text) &&
+          !string.IsNullOrEmpty(_accountInput.text)) {
+
         _result.text = StringMap.EMPTY;
-        ServerController.instance.Register(_accountInput.text, _passwordInput.text, request => {
+        ServerController.instance.Register(_nameInput.text, _accountInput.text, _passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             _result.text = "连接出错！" + request.error;
           } else {
@@ -71,7 +75,7 @@ namespace Yume.Server {
           }
         });
       } else {
-        _result.text = "请输入完整的账号和密码";
+        _result.text = "请输入完整的昵称、账号和密码";
       }
     }
 

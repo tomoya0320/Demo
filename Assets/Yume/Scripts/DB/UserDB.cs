@@ -18,14 +18,14 @@ namespace Yume.DB {
     public List<ItemDB> items;
     public Dictionary<string, List<TaskDB>> tasks;
 
-    public UserDB(string account = "",string password = "") {
+    public UserDB(string name = "", string account = "",string password = "") {
       ap = 30;
       maxAp = 30;
       lv = 1;
       exp = 0;
+      this.name = name;
       this.account = account;
       this.password = password;
-      name = StringMap.EMPTY;
       mails = new List<Mail>();
       items = new List<ItemDB>();
       tasks = DBManager.GetDefaultTasks();
