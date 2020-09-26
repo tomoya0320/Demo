@@ -26,6 +26,7 @@ namespace Yume.DB {
       }
     }
     private static UserDB s_userDB;
+    public static string userHashCode { private set; get; }
     public static string userAccount {
       get {
         if (s_userDB == null) {
@@ -41,15 +42,40 @@ namespace Yume.DB {
         }
         return s_userDB.name;
       }
-    }
-    public static string userHashCode {
+    }    
+    public static int userAp {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
-        return s_userDB.hashCode;
+        return s_userDB.ap;
+      }
+    }    
+    public static int userMaxAp {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.maxAp;
+      }
+    }    
+    public static int userLv {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.lv;
+      }
+    }  
+    public static int userExp {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.exp;
       }
     }
+
     public static List<ItemDB> userItems {
       get {
         if (s_userDB == null) {
@@ -99,7 +125,7 @@ namespace Yume.DB {
 #if TEST
     public static string setUserHashCode {
       set {
-        s_userDB.hashCode = value;
+        userHashCode = value;
       }
     }
 #endif
@@ -135,16 +161,16 @@ namespace Yume.DB {
     
     public static void DeleteMail(Mail mail) {
       userMails.Remove(mail);
-      SaveUserMails();
+      UpdateUserMails();
     }    
     
     public static void AddMail(Mail mail) {
       userMails.Add(mail);
       EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL);
-      SaveUserMails();
+      UpdateUserMails();
     }
 
-    public static void SaveUserMails() {
+    public static void UpdateUserMails() {
       _UpdateUserData(new { account = userAccount, mails = userMails, types = new string[] { "mails" } });
     }
 
@@ -165,7 +191,8 @@ namespace Yume.DB {
         fs.Close();
       } else {
         s_playMode = PlayMode.REMOTE;
-        s_userDB = JsonConvert.DeserializeObject<UserDB>(json.ToString());
+        s_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
+        userHashCode = json["hashCode"].Value<string>();
       }
     }
 
@@ -188,6 +215,7 @@ namespace Yume.DB {
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
         foreach (var item in items) {
@@ -214,6 +242,7 @@ namespace Yume.DB {
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       foreach (var item in items) {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);

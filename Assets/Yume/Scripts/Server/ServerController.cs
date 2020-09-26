@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
-using Yume.MailSystem;
 using Yume.Setting;
 using Yume.Singleton;
 using Yume.UI;
@@ -25,7 +23,6 @@ namespace Yume.Server {
       }
     }
   
-
     public void Login(string account, string password, Action<UnityWebRequest> onCompleted) {
       JObject json = ServerDataWrapper.Wrapper(new { account, password });
       json.Add("method", Methods.LOGIN.ToString());
@@ -37,7 +34,8 @@ namespace Yume.Server {
     public void Register(string account, string password, Action<UnityWebRequest> onCompleted) {
       //Java那边的Json有个bug，转数组时输入的Json字符串不能是空（""）
       //否则会出现类似"[null]"这样的结果，导致反序列化得到的List会变成Count为1且第一个元素为null
-      JObject json = ServerDataWrapper.Wrapper(new { account, password, items = new List<ItemDB>(), tasks = DBManager.GetDefaultTasks(), mails = new List<Mail>() });
+      //update：换了一种方式初始化(直接new UserDB())
+      JObject json = ServerDataWrapper.Wrapper(new { userDB = new UserDB(account, password) });
       json.Add("method", Methods.REGISTER.ToString());
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }

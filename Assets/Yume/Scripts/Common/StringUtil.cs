@@ -38,6 +38,8 @@
     public const string DEFAULT_CLICK_SOUND = "点击2";
     public const string MAIL_SHOW = "mailShow";
     public const string ATTACHMENT_PREFAB = "attachmentPrefab";
+    public const string DIAMOND_ID = "item_1_diamond";
+    public const string GOLD_ID = "item_2_gold";
   }
 
   public class StringUtil {
