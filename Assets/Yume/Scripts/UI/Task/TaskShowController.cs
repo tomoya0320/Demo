@@ -7,7 +7,7 @@ using Yume.String;
 using Yume.Task;
 
 namespace Yume.UI {
-  public class TaskShowInHome : MonoBehaviour {
+  public class TaskShowController : MonoBehaviour {
     [SerializeField]
     private TaskType _taskType;
     [SerializeField]

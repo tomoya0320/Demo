@@ -21,7 +21,7 @@ namespace Yume.Server {
     private string userUrl {
       get {
         return Path.Combine(GlobalSettingHub.instance.serverUrl,
-                            GlobalSettingHub.instance.userServlet);
+                           GlobalSettingHub.instance.userServlet);
       }
     }
   
