@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Yume.Broadcast;
 using Yume.MailSystem;
+using Yume.Math;
 using Yume.Scene;
 using Yume.Server;
 using Yume.String;
@@ -44,6 +45,12 @@ namespace Yume.DB {
       }
     }    
     public static int userAp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.ap = value;
+      }
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -52,6 +59,12 @@ namespace Yume.DB {
       }
     }    
     public static int userMaxAp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.maxAp = value;
+      }
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -60,6 +73,12 @@ namespace Yume.DB {
       }
     }    
     public static int userLv {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.lv = value;
+      }
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -68,6 +87,12 @@ namespace Yume.DB {
       }
     }  
     public static int userExp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.exp = value;
+      }
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -121,6 +146,15 @@ namespace Yume.DB {
         return s_taskInfos;
       }
     }
+    private static JObject s_lvMaxApMap;
+    private static JObject lvMaxApMap {
+      get {
+        if (s_lvMaxApMap == null) {
+          s_lvMaxApMap = JObject.Parse(Resources.Load<TextAsset>(StringMap.LV_MAX_AP_MAP).text);
+        }
+        return s_lvMaxApMap;
+      }
+    }
 
 #if TEST
     public static string setUserHashCode {
@@ -152,11 +186,20 @@ namespace Yume.DB {
     }
 
     public static ItemDB GetItemDB(string id) {
-      return userItems.Find(item => item.id == id);
+      return userItems.Find(obj => obj.id == id);
+    } 
+    
+    public static int GetItemDBNum(string id) {
+      ItemDB itemDB = userItems.Find(obj => obj.id == id);
+      return itemDB == null ? 0 : itemDB.num;
     }
 
     public static List<TaskDB> GetTaskList(TaskType taskType) {
       return userTasks[taskType.ToString()];
+    }
+
+    public static TaskDB GetTaskDB(TaskType taskType,string taskId) {
+      return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
     }
     
     public static void DeleteMail(Mail mail) {
@@ -251,9 +294,54 @@ namespace Yume.DB {
       _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
+    public static void AddExp(int exp) {
+      userExp += exp;
+      UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)), true);
+      int oLevel = userLv;
+      while (userExp >= MathUtil.CalNeededExp(userLv)) {
+        userExp -= MathUtil.CalNeededExp(userLv);
+        userLv++;
+      }
+      //更新任务状态
+      if (userLv > oLevel) {
+        string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
+        UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, tip));
+        TaskManager.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
+        if (lvMaxApMap.ContainsKey(userLv.ToString())) {
+          userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
+          userAp += userMaxAp;
+          _UpdateUserData(new {
+            account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
+            types = new string[] { "exp", "lv", "ap", "maxAp", "tasks" }
+          });
+        } else {
+          _UpdateUserData(new {
+            account = userAccount, exp = userExp, lv = userLv, tasks = userTasks,
+            types = new string[] { "exp", "lv", "tasks" }
+          });
+        }
+      } else {
+        _UpdateUserData(new {
+          account = userAccount, exp = userExp, lv = userLv, 
+          types = new string[] { "exp", "lv" }
+        });
+      }
+      //更新UI显示
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
+    }
+
     public static void CompleteTask(TaskDB task, Action onCompleted = null) {
       if (task.state == TaskState.COMPLETED) {
         task.Complete();
+        TaskInfo taskInfo = GetTaskInfo(task.type, task.id);
+        if (!string.IsNullOrEmpty(taskInfo.activeTaskId)) {
+          TaskDB nextTask = GetTaskDB(taskInfo.activeTaskType, taskInfo.activeTaskId);
+          if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
+            nextTask.state = TaskState.INPROCESS;
+            nextTask.OnInit();
+            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK, nextTask);
+          }
+        }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
         _UpdateUserData(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }

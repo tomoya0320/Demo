@@ -18,8 +18,6 @@ namespace Yume.UI {
     [SerializeField]
     private Text _nameText;
     [SerializeField]
-    private Text _expText;
-    [SerializeField]
     private Image _expImg;
 
     private void Start() {
@@ -32,15 +30,14 @@ namespace Yume.UI {
     }
 
     private void _UpdateUserInfo() {
-      _apText.text = DBManager.userAp + "/" + DBManager.userMaxAp;
-      _goldNumText.text = DBManager.GetItemDB(StringMap.GOLD_ID).num.ToString();
-      _diamondNumText.text = DBManager.GetItemDB(StringMap.DIAMOND_ID).num.ToString();
+      _goldNumText.text = DBManager.GetItemDBNum(StringMap.GOLD_ID).ToString();
+      _diamondNumText.text = DBManager.GetItemDBNum(StringMap.DIAMOND_ID).ToString();
 
+      _apText.text = DBManager.userAp + "/" + DBManager.userMaxAp;
       _lvText.text = DBManager.userLv.ToString();
       _nameText.text = DBManager.userName;
 
       float needEXP = MathUtil.CalNeededExp(DBManager.userLv);
-      _expText.text = DBManager.userExp + "/" + needEXP;
       _expImg.fillAmount = DBManager.userExp / needEXP;
     }
   }

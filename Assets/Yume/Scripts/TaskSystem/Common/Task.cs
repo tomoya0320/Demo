@@ -15,12 +15,14 @@ namespace Yume.Task {
   }
 
   public enum TaskType {
-    DAILY
+    DAILY,
+    MAIN
   }
 
   public enum RequestType {
     PROP_NUM,
-    TASK
+    TASK,
+    LV_UP_TO
   }
 
   public enum Method {
@@ -73,6 +75,29 @@ namespace Yume.Task {
     public TaskState state;
     public List<TaskRequestDB> taskRequests;
 
+    public void OnInit() {
+      foreach (TaskRequestDB taskRequest in taskRequests) {
+        if(taskRequest.method == Method.HAD) {
+          _SyncHadNum(taskRequest);
+        }
+      }
+      _Check();
+    }
+
+    private void _SyncHadNum(TaskRequestDB taskRequest) {
+      //同步现有的数量
+      switch (taskRequest.type) {
+        case RequestType.PROP_NUM: {
+            taskRequest.currentNum = DBManager.GetItemDBNum(id);
+            break;
+          }
+        case RequestType.LV_UP_TO: {
+            taskRequest.currentNum = DBManager.userLv;
+            break;
+          }
+      }
+    }
+
     public void Update(RequestType type, string id, int num) {
       foreach (TaskRequestDB taskRequest in taskRequests) {
         if (taskRequest.type == type && (taskRequest.requirementId == id || taskRequest.ignoreId)) {
@@ -86,20 +111,16 @@ namespace Yume.Task {
                 break;
               }
             case Method.HAD: {
-                //同步现有的道具数量
-                if (!taskRequest.ignoreId && taskRequest.type == RequestType.PROP_NUM) {
-                  ItemDB item = DBManager.GetItemDB(id);
-                  taskRequest.currentNum = item != null ? item.num : 0;
-                }
+                _SyncHadNum(taskRequest);
                 break;
               }
           }
         }
       }
-      Check();
+      _Check();
     }
 
-    public void Check() {
+    public void _Check() {
       if (state == TaskState.INPROCESS || state == TaskState.COMPLETED) {
         bool completed = true;
         foreach (TaskRequestDB taskRequest in taskRequests) {
@@ -131,10 +152,6 @@ namespace Yume.Task {
         Sprite itemIcon = await Addressables.LoadAssetAsync<Sprite>(itemInfo.iconFileName).Task;
         UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE,
         string.Format(StringMap.GET + "{0}*{1}", itemInfo.name, item.num), itemIcon));
-      }
-
-      if (!string.IsNullOrEmpty(taskInfo.activeTaskId)) {
-        //TODO:激活下一个任务
       }
 
       foreach (TaskRequestDB taskRequest in taskRequests) {

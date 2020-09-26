@@ -87,6 +87,10 @@ namespace Yume.UI {
         DBManager.AddMail(new Mail("Test Title2", "You are alone", "admin", new ItemDB("item_2_gold", 10000)));
         DBManager.AddMail(new Mail("Test Title3", "I love {0}", "wzb", new ItemDB("item_5_key", 10)));
       }
+
+      if (Input.GetKeyDown(KeyCode.E)) {
+        DBManager.AddExp(300);
+      }
 #endif
     }
 
