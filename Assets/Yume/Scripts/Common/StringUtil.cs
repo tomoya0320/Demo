@@ -31,9 +31,8 @@
     public const string REWARD_PREF_NAME = "rewardPrefab";
     public const string TASK_SHOW = "taskShow";
     public const string GET = "获得";
-    public const string LOGIN = "Login";
-    public const string HOME = "Home";
-    public const string LOADING = "Loading";
+    public const string LOGIN = "login";
+    public const string HOME = "home";
     public const string LOGIN_BGM = "Bgm_5";
     public const string HOME_BGM = "Bgm_1";
     public const string DEFAULT_CLICK_SOUND = "点击2";
