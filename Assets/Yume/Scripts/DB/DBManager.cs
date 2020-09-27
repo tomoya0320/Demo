@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Yume.Broadcast;
+using Yume.MailSystem;
+using Yume.Math;
 using Yume.Scene;
 using Yume.Server;
 using Yume.String;
@@ -25,6 +27,7 @@ namespace Yume.DB {
       }
     }
     private static UserDB s_userDB;
+    public static string userHashCode { private set; get; }
     public static string userAccount {
       get {
         if (s_userDB == null) {
@@ -32,31 +35,92 @@ namespace Yume.DB {
         }
         return s_userDB.account;
       }
-    }
-    public static string userHashCode {
+    }   
+    public static string userName {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
-        return s_userDB.hashCode;
+        return s_userDB.name;
+      }
+    }    
+    public static int userAp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.ap = value;
+      }
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.ap;
+      }
+    }    
+    public static int userMaxAp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.maxAp = value;
+      }
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.maxAp;
+      }
+    }    
+    public static int userLv {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.lv = value;
+      }
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.lv;
+      }
+    }  
+    public static int userExp {
+      private set {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        s_userDB.exp = value;
+      }
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.exp;
       }
     }
+
     public static List<ItemDB> userItems {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
-        } else if (s_userDB.items == null) {
-          s_userDB.items = new List<ItemDB>();
         }
         return s_userDB.items;
+      }
+    }    
+    public static List<Mail> userMails {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.mails;
       }
     }
     public static Dictionary<string, List<TaskDB>> userTasks {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
-        } else if (s_userDB.tasks == null) {
-          s_userDB.tasks = new Dictionary<string, List<TaskDB>>();
         }
         return s_userDB.tasks;
       }
@@ -82,11 +146,20 @@ namespace Yume.DB {
         return s_taskInfos;
       }
     }
+    private static JObject s_lvMaxApMap;
+    private static JObject lvMaxApMap {
+      get {
+        if (s_lvMaxApMap == null) {
+          s_lvMaxApMap = JObject.Parse(Resources.Load<TextAsset>(StringMap.LV_MAX_AP_MAP).text);
+        }
+        return s_lvMaxApMap;
+      }
+    }
 
 #if TEST
     public static string setUserHashCode {
       set {
-        s_userDB.hashCode = value;
+        userHashCode = value;
       }
     }
 #endif
@@ -113,11 +186,35 @@ namespace Yume.DB {
     }
 
     public static ItemDB GetItemDB(string id) {
-      return userItems.Find(item => item.id == id);
+      return userItems.Find(obj => obj.id == id);
+    } 
+    
+    public static int GetItemDBNum(string id) {
+      ItemDB itemDB = userItems.Find(obj => obj.id == id);
+      return itemDB == null ? 0 : itemDB.num;
     }
 
     public static List<TaskDB> GetTaskList(TaskType taskType) {
       return userTasks[taskType.ToString()];
+    }
+
+    public static TaskDB GetTaskDB(TaskType taskType,string taskId) {
+      return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
+    }
+    
+    public static void DeleteMail(Mail mail) {
+      userMails.Remove(mail);
+      UpdateUserMails();
+    }    
+    
+    public static void AddMail(Mail mail) {
+      userMails.Add(mail);
+      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL);
+      UpdateUserMails();
+    }
+
+    public static void UpdateUserMails() {
+      _UpdateUserData(new { account = userAccount, mails = userMails, types = new string[] { "mails" } });
     }
 
     public static void LoadUserDB(JObject json = null) {
@@ -137,7 +234,8 @@ namespace Yume.DB {
         fs.Close();
       } else {
         s_playMode = PlayMode.REMOTE;
-        s_userDB = JsonConvert.DeserializeObject<UserDB>(json.ToString());
+        s_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
+        userHashCode = json["hashCode"].Value<string>();
       }
     }
 
@@ -160,6 +258,7 @@ namespace Yume.DB {
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
         foreach (var item in items) {
@@ -186,6 +285,7 @@ namespace Yume.DB {
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       foreach (var item in items) {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
@@ -194,9 +294,54 @@ namespace Yume.DB {
       _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
+    public static void AddExp(int exp) {
+      userExp += exp;
+      UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)), true);
+      int oLevel = userLv;
+      while (userExp >= MathUtil.CalNeededExp(userLv)) {
+        userExp -= MathUtil.CalNeededExp(userLv);
+        userLv++;
+      }
+      //更新任务状态
+      if (userLv > oLevel) {
+        string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
+        UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, tip));
+        TaskManager.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
+        if (lvMaxApMap.ContainsKey(userLv.ToString())) {
+          userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
+          userAp += userMaxAp;
+          _UpdateUserData(new {
+            account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
+            types = new string[] { "exp", "lv", "ap", "maxAp", "tasks" }
+          });
+        } else {
+          _UpdateUserData(new {
+            account = userAccount, exp = userExp, lv = userLv, tasks = userTasks,
+            types = new string[] { "exp", "lv", "tasks" }
+          });
+        }
+      } else {
+        _UpdateUserData(new {
+          account = userAccount, exp = userExp, lv = userLv, 
+          types = new string[] { "exp", "lv" }
+        });
+      }
+      //更新UI显示
+      EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
+    }
+
     public static void CompleteTask(TaskDB task, Action onCompleted = null) {
       if (task.state == TaskState.COMPLETED) {
         task.Complete();
+        TaskInfo taskInfo = GetTaskInfo(task.type, task.id);
+        if (!string.IsNullOrEmpty(taskInfo.activeTaskId)) {
+          TaskDB nextTask = GetTaskDB(taskInfo.activeTaskType, taskInfo.activeTaskId);
+          if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
+            nextTask.state = TaskState.INPROCESS;
+            nextTask.OnInit();
+            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK, nextTask);
+          }
+        }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
         _UpdateUserData(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }

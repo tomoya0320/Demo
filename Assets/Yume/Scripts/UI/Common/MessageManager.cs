@@ -42,10 +42,15 @@ namespace Yume.UI {
       m_messages = new List<Message>();
     }
 
-    public void AddMessage(Message message) {
-      int index = m_messages.FindIndex(m => {
-        return m.description == message.description;
-      });
+    public void AddMessage(Message message, bool duplicate = false) {
+      int index;
+      if (duplicate) {
+        index = -1;
+      } else {
+        index = m_messages.FindIndex(m => {
+          return m.description == message.description;
+        });
+      }
       if (index < 0) {
         m_messages.Add(message);
         if (!m_isMessageShowing) {

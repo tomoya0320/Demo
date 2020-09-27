@@ -29,15 +29,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 1252067418983683115, guid: 470b0f3a917559748a3d32cf803c7c00, type: 3}
-    m_TargetAsset: {fileID: 1252067418983683115, guid: 470b0f3a917559748a3d32cf803c7c00, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5a07dfd7f9d438345a9a9b57a9fe7537
     m_Address: taskShow
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 6153713498064091992, guid: 5a07dfd7f9d438345a9a9b57a9fe7537, type: 3}
-    m_TargetAsset: {fileID: 6153713498064091992, guid: 5a07dfd7f9d438345a9a9b57a9fe7537, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 9cf069995fb03df44919edf4780ecae3
     m_Address: message0
     m_ReadOnly: 0
@@ -45,13 +45,27 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: aab00c946e3a58d4fb0bd28edd68b954
+    m_Address: mailShow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 9219061356862201775, guid: aab00c946e3a58d4fb0bd28edd68b954, type: 3}
+    m_TargetAsset: {fileID: 9219061356862201775, guid: aab00c946e3a58d4fb0bd28edd68b954, type: 3}
   - m_GUID: af9faa0e5ec8089498aeb7519bccefab
     m_Address: rewardPrefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 3871652906452067553, guid: af9faa0e5ec8089498aeb7519bccefab, type: 3}
-    m_TargetAsset: {fileID: 3871652906452067553, guid: af9faa0e5ec8089498aeb7519bccefab, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cdeedd9d510fbdc44bbde9d8933603d6
+    m_Address: attachmentPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

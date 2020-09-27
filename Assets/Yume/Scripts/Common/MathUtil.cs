@@ -38,5 +38,11 @@ namespace Yume.Math {
         return string.Format(StringMap.SOME_YEAR_BEFORE, timeSpan.Days / 365);
       }
     }
+    /// <summary>
+    /// 计算当前等级还需要多少经验才能升级
+    /// </summary>
+    public static int CalNeededExp(int lv) {
+      return 50 + lv * 50;
+    }
   }
 }

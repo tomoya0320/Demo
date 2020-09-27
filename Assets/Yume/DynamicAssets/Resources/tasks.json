@@ -61,6 +61,99 @@
           }
         ]
       }
+    ],
+    "MAIN": [
+      {
+        "id": "MAIN_lvto5",
+        "type": 1,
+        "state": 1,
+        "activeTaskId": "MAIN_lvto10",
+        "activeTaskType": 1,
+        "title": "新手任务1",
+        "description": "等级提升至5级",
+        "includeDialogue": false,
+        "autoComplete": false,
+        "taskRewards": {
+          "items": [
+            {
+              "id": "item_4_cwine",
+              "num": 1
+            }
+          ]
+        },
+        "taskRequests": [
+          {
+            "method": 0,
+            "consumable": false,
+            "ignoreId": true,
+            "type": 2,
+            "requirementId": null,
+            "description": "lv",
+            "requiredNum": 5,
+            "currentNum": 1
+          }
+        ]
+      },
+      {
+        "id": "MAIN_lvto10",
+        "type": 1,
+        "state": 0,
+        "activeTaskId": "MAIN_lvto15",
+        "activeTaskType": 1,
+        "title": "新手任务2",
+        "description": "等级提升至10级",
+        "includeDialogue": false,
+        "autoComplete": false,
+        "taskRewards": {
+          "items": [
+            {
+              "id": "item_4_cwine",
+              "num": 3
+            }
+          ]
+        },
+        "taskRequests": [
+          {
+            "method": 0,
+            "consumable": false,
+            "ignoreId": true,
+            "type": 2,
+            "requirementId": null,
+            "description": "lv",
+            "requiredNum": 10
+          }
+        ]
+      },
+      {
+        "id": "MAIN_lvto15",
+        "type": 1,
+        "state": 0,
+        "activeTaskId": null,
+        "activeTaskType": 1,
+        "title": "新手任务3",
+        "description": "等级提升至15级",
+        "includeDialogue": false,
+        "autoComplete": false,
+        "taskRewards": {
+          "items": [
+            {
+              "id": "item_4_cwine",
+              "num": 10
+            }
+          ]
+        },
+        "taskRequests": [
+          {
+            "method": 0,
+            "consumable": false,
+            "ignoreId": true,
+            "type": 2,
+            "requirementId": null,
+            "description": "lv",
+            "requiredNum": 15
+          }
+        ]
+      }
     ]
   }
 }

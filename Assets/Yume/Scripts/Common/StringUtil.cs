@@ -18,6 +18,7 @@
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
     public const string ITEMS = "items";
     public const string TASKS = "tasks";
+    public const string LV_MAX_AP_MAP = "lvMaxApMap";
     public const string QUIT_GAME_TIP = "确认退出游戏？";
     public const string QUIT = "退出";
     public const string CANCEL = "取消";
@@ -30,12 +31,17 @@
     public const string REWARD_PREF_NAME = "rewardPrefab";
     public const string TASK_SHOW = "taskShow";
     public const string GET = "获得";
-    public const string LOGIN = "Login";
-    public const string HOME = "Home";
-    public const string LOADING = "Loading";
+    public const string LOGIN = "login";
+    public const string HOME = "home";
     public const string LOGIN_BGM = "Bgm_5";
     public const string HOME_BGM = "Bgm_1";
     public const string DEFAULT_CLICK_SOUND = "点击2";
+    public const string MAIL_SHOW = "mailShow";
+    public const string ATTACHMENT_PREFAB = "attachmentPrefab";
+    public const string DIAMOND_ID = "item_1_diamond";
+    public const string GOLD_ID = "item_2_gold";
+    public const string GET_EXP = "获得经验值{0}";
+    public const string LEVEL_UP_TO = "等级提升至Lv{0}";
   }
 
   public class StringUtil {
