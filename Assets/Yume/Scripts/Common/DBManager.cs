@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Yume.Broadcast;
@@ -21,11 +20,14 @@ namespace Yume.DB {
       LOCAL, REMOTE
     }
 
+    private static PlayMode s_playMode;
     private static string localUserDBPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
     }
+
+    #region User Data
     private static UserDB s_userDB;
     public static string userHashCode { private set; get; }
     public static string userAccount {
@@ -100,7 +102,6 @@ namespace Yume.DB {
         return s_userDB.exp;
       }
     }
-
     public static List<ItemDB> userItems {
       get {
         if (s_userDB == null) {
@@ -125,13 +126,14 @@ namespace Yume.DB {
         return s_userDB.tasks;
       }
     }
-    private static PlayMode s_playMode;
-    private static List<JToken> s_itemInfos;
-    private static List<JToken> itemInfos {
+    #endregion
+
+    #region Json
+    private static JObject s_itemInfos;
+    private static JObject itemInfos {
       get {
         if (s_itemInfos == null) {
-          JObject json = JObject.Parse(Resources.Load<TextAsset>(StringMap.ITEMS).text);
-          s_itemInfos = json[StringMap.ITEMS].Value<JArray>().ToList();
+          s_itemInfos = JObject.Parse(Resources.Load<TextAsset>(StringMap.ITEMS).text);
         }
         return s_itemInfos;
       }
@@ -140,8 +142,7 @@ namespace Yume.DB {
     private static JObject taskInfos {
       get {
         if (s_taskInfos == null) {
-          JObject json = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
-          s_taskInfos = json[StringMap.TASKS].Value<JObject>();
+          s_taskInfos = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
         }
         return s_taskInfos;
       }
@@ -155,6 +156,7 @@ namespace Yume.DB {
         return s_lvMaxApMap;
       }
     }
+    #endregion
 
 #if TEST
     public static string setUserHashCode {
@@ -167,15 +169,40 @@ namespace Yume.DB {
     private DBManager() { }
 
     public static ItemInfo GetItemInfo(string id) {
-      JToken itemInfo = itemInfos.Find(j => j[StringMap.ID].Value<string>() == id);
-      return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
+      if (itemInfos.ContainsKey(id)) {
+        JObject itemInfo = itemInfos[id].Value<JObject>();
+        return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
+      } else {
+        throw new Exception(string.Format("item id:{0} is not found", id));
+      }
     }
 
     public static TaskInfo GetTaskInfo(TaskType taskType, string id) {
-      JToken taskInfo = taskInfos[taskType.ToString()].Value<JArray>().ToList().Find(
-      j => j[StringMap.ID].Value<string>() == id);
+      if (taskInfos.ContainsKey(taskType.ToString())) {
+        JObject tempJObject = taskInfos[taskType.ToString()].Value<JObject>();
+        if (tempJObject.ContainsKey(id)) {
+          JObject taskInfo = tempJObject[id].Value<JObject>();
+          return JsonConvert.DeserializeObject<TaskInfo>(taskInfo.ToString());
+        } else {
+          throw new Exception(string.Format("task id:{0} is not found", id));
+        }
+      } else {
+        throw new Exception(string.Format("task type:{0} is not found", taskType.ToString()));
+      }    
+    }
 
-      return JsonConvert.DeserializeObject<TaskInfo>(taskInfo.ToString());
+    public static Dictionary<string, List<TaskDB>> GetDefaultTasks() {
+      Dictionary<string, List<TaskDB>> defaultTasks = new Dictionary<string, List<TaskDB>>();
+
+      foreach(TaskType type in Enum.GetValues(typeof(TaskType))) {
+        List<TaskDB> tasks = new List<TaskDB>();
+        foreach(var info in taskInfos[type.ToString()].Values()) {
+          tasks.Add(JsonConvert.DeserializeObject<TaskDB>(info.ToString()));
+        }
+        defaultTasks.Add(type.ToString(), tasks);
+      }
+
+      return defaultTasks;
     }
 
     public static ItemDB GetItemDB(int index) {
@@ -237,11 +264,6 @@ namespace Yume.DB {
         s_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
         userHashCode = json["hashCode"].Value<string>();
       }
-    }
-
-    public static Dictionary<string, List<TaskDB>> GetDefaultTasks() {
-      JObject taskJsons = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
-      return JsonConvert.DeserializeObject<Dictionary<string, List<TaskDB>>>(taskJsons[StringMap.TASKS].ToString());
     }
 
     public static void ConsumeItems(bool isUsed = true, params ItemDB[] items) {

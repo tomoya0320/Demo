@@ -1,159 +1,157 @@
 {
-  "tasks": {
-    "DAILY": [
-      {
-        "id": "DAILY_xfja",
-        "type": 0,
-        "state": 1,
-        "activeTaskId": null,
-        "activeTaskType": 0,
-        "title": "小富即安",
-        "description": "今日累计获得5000灵感币",
-        "includeDialogue": false,
-        "autoComplete": false,
-        "taskRewards": {
-          "items": [
-            {
-              "id": "item_3_mcake",
-              "num": 10
-            }
-          ]
-        },
-        "taskRequests": [
+  "DAILY": {
+    "DAILY_xfja": {
+      "id": "DAILY_xfja",
+      "type": 0,
+      "state": 1,
+      "activeTaskId": null,
+      "activeTaskType": 0,
+      "title": "小富即安",
+      "description": "今日累计获得5000灵感币",
+      "includeDialogue": false,
+      "autoComplete": false,
+      "taskRewards": {
+        "items": [
           {
-            "method": 2,
-            "consumable": false,
-            "ignoreId": false,
-            "type": 0,
-            "requirementId": "item_2_gold",
-            "description": "gold",
-            "requiredNum": 5000
+            "id": "item_3_mcake",
+            "num": 10
           }
         ]
       },
-      {
-        "id": "DAILY_hjrt",
-        "type": 0,
-        "state": 1,
-        "activeTaskId": null,
-        "activeTaskType": 0,
-        "title": "挥金如土",
-        "description": "今日累计消费3000灵感币",
-        "includeDialogue": false,
-        "autoComplete": false,
-        "taskRewards": {
-          "items": [
-            {
-              "id": "item_1_diamond",
-              "num": 100
-            }
-          ]
-        },
-        "taskRequests": [
+      "taskRequests": [
+        {
+          "method": 2,
+          "consumable": false,
+          "ignoreId": false,
+          "type": 0,
+          "requirementId": "item_2_gold",
+          "description": "gold",
+          "requiredNum": 5000
+        }
+      ]
+    },
+    "DAILY_hjrt": {
+      "id": "DAILY_hjrt",
+      "type": 0,
+      "state": 1,
+      "activeTaskId": null,
+      "activeTaskType": 0,
+      "title": "挥金如土",
+      "description": "今日累计消费3000灵感币",
+      "includeDialogue": false,
+      "autoComplete": false,
+      "taskRewards": {
+        "items": [
           {
-            "method": 1,
-            "consumable": false,
-            "ignoreId": false,
-            "type": 0,
-            "requirementId": "item_2_gold",
-            "description": "gold",
-            "requiredNum": 3000
-          }
-        ]
-      }
-    ],
-    "MAIN": [
-      {
-        "id": "MAIN_lvto5",
-        "type": 1,
-        "state": 1,
-        "activeTaskId": "MAIN_lvto10",
-        "activeTaskType": 1,
-        "title": "新手任务1",
-        "description": "等级提升至5级",
-        "includeDialogue": false,
-        "autoComplete": false,
-        "taskRewards": {
-          "items": [
-            {
-              "id": "item_4_cwine",
-              "num": 1
-            }
-          ]
-        },
-        "taskRequests": [
-          {
-            "method": 0,
-            "consumable": false,
-            "ignoreId": true,
-            "type": 2,
-            "requirementId": null,
-            "description": "lv",
-            "requiredNum": 5,
-            "currentNum": 1
+            "id": "item_1_diamond",
+            "num": 100
           }
         ]
       },
-      {
-        "id": "MAIN_lvto10",
-        "type": 1,
-        "state": 0,
-        "activeTaskId": "MAIN_lvto15",
-        "activeTaskType": 1,
-        "title": "新手任务2",
-        "description": "等级提升至10级",
-        "includeDialogue": false,
-        "autoComplete": false,
-        "taskRewards": {
-          "items": [
-            {
-              "id": "item_4_cwine",
-              "num": 3
-            }
-          ]
-        },
-        "taskRequests": [
+      "taskRequests": [
+        {
+          "method": 1,
+          "consumable": false,
+          "ignoreId": false,
+          "type": 0,
+          "requirementId": "item_2_gold",
+          "description": "gold",
+          "requiredNum": 3000
+        }
+      ]
+    }
+  },
+  "MAIN": {
+    "MAIN_lvto5": {
+      "id": "MAIN_lvto5",
+      "type": 1,
+      "state": 1,
+      "activeTaskId": "MAIN_lvto10",
+      "activeTaskType": 1,
+      "title": "新手任务1",
+      "description": "等级提升至5级",
+      "includeDialogue": false,
+      "autoComplete": false,
+      "taskRewards": {
+        "items": [
           {
-            "method": 0,
-            "consumable": false,
-            "ignoreId": true,
-            "type": 2,
-            "requirementId": null,
-            "description": "lv",
-            "requiredNum": 10
+            "id": "item_4_cwine",
+            "num": 1
           }
         ]
       },
-      {
-        "id": "MAIN_lvto15",
-        "type": 1,
-        "state": 0,
-        "activeTaskId": null,
-        "activeTaskType": 1,
-        "title": "新手任务3",
-        "description": "等级提升至15级",
-        "includeDialogue": false,
-        "autoComplete": false,
-        "taskRewards": {
-          "items": [
-            {
-              "id": "item_4_cwine",
-              "num": 10
-            }
-          ]
-        },
-        "taskRequests": [
+      "taskRequests": [
+        {
+          "method": 0,
+          "consumable": false,
+          "ignoreId": true,
+          "type": 2,
+          "requirementId": null,
+          "description": "lv",
+          "requiredNum": 5,
+          "currentNum": 1
+        }
+      ]
+    },
+    "MAIN_lvto10": {
+      "id": "MAIN_lvto10",
+      "type": 1,
+      "state": 0,
+      "activeTaskId": "MAIN_lvto15",
+      "activeTaskType": 1,
+      "title": "新手任务2",
+      "description": "等级提升至10级",
+      "includeDialogue": false,
+      "autoComplete": false,
+      "taskRewards": {
+        "items": [
           {
-            "method": 0,
-            "consumable": false,
-            "ignoreId": true,
-            "type": 2,
-            "requirementId": null,
-            "description": "lv",
-            "requiredNum": 15
+            "id": "item_4_cwine",
+            "num": 3
           }
         ]
-      }
-    ]
+      },
+      "taskRequests": [
+        {
+          "method": 0,
+          "consumable": false,
+          "ignoreId": true,
+          "type": 2,
+          "requirementId": null,
+          "description": "lv",
+          "requiredNum": 10
+        }
+      ]
+    },
+    "MAIN_lvto15": {
+      "id": "MAIN_lvto15",
+      "type": 1,
+      "state": 0,
+      "activeTaskId": null,
+      "activeTaskType": 1,
+      "title": "新手任务3",
+      "description": "等级提升至15级",
+      "includeDialogue": false,
+      "autoComplete": false,
+      "taskRewards": {
+        "items": [
+          {
+            "id": "item_4_cwine",
+            "num": 10
+          }
+        ]
+      },
+      "taskRequests": [
+        {
+          "method": 0,
+          "consumable": false,
+          "ignoreId": true,
+          "type": 2,
+          "requirementId": null,
+          "description": "lv",
+          "requiredNum": 15
+        }
+      ]
+    }
   }
 }

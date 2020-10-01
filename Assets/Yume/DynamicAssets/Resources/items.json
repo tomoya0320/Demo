@@ -1,34 +1,32 @@
 {
-  "items": [
-    {
-      "id": "item_1_diamond",
-      "name": "钻石",
-      "iconFileName": "钻石",
-      "description": "用于抽卡"
-    },
-    {
-      "id": "item_2_gold",
-      "name": "金币",
-      "iconFileName": "金币",
-      "description": "用于购买物资"
-    },
-    {
-      "id": "item_3_mcake",
-      "name": "慕斯蛋糕",
-      "iconFileName": "慕斯蛋糕",
-      "description": "回复100生命值。\n获得途径：开宝箱、每日任务、回血树桩小概率刷新。"
-    },
-    {
-      "id": "item_4_cwine",
-      "name": "樱桃甜酒",
-      "iconFileName": "樱桃甜酒",
-      "description": "回复50生命值。\n获得途径：开宝箱、每日任务、回血树桩刷新、喵栗处购买。"
-    },
-    {
-      "id": "item_5_key",
-      "name": "万能钥匙",
-      "iconFileName": "万能钥匙",
-      "description": "开启上锁的宝箱。\n获得途径：NPC任务获得、每日可在商人喵一见出购买。"
-    }
-  ]
+  "item_1_diamond": {
+    "id": "item_1_diamond",
+    "name": "钻石",
+    "iconFileName": "钻石",
+    "description": "用于抽卡"
+  },
+  "item_2_gold": {
+    "id": "item_2_gold",
+    "name": "金币",
+    "iconFileName": "金币",
+    "description": "用于购买物资"
+  },
+  "item_3_mcake": {
+    "id": "item_3_mcake",
+    "name": "慕斯蛋糕",
+    "iconFileName": "慕斯蛋糕",
+    "description": "回复100生命值。\n获得途径：开宝箱、每日任务、回血树桩小概率刷新。"
+  },
+  "item_4_cwine": {
+    "id": "item_4_cwine",
+    "name": "樱桃甜酒",
+    "iconFileName": "樱桃甜酒",
+    "description": "回复50生命值。\n获得途径：开宝箱、每日任务、回血树桩刷新、喵栗处购买。"
+  },
+  "item_5_key": {
+    "id": "item_5_key",
+    "name": "万能钥匙",
+    "iconFileName": "万能钥匙",
+    "description": "开启上锁的宝箱。\n获得途径：NPC任务获得、每日可在商人喵一见出购买。"
+  }
 }
