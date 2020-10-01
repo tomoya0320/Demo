@@ -3,7 +3,7 @@ using Yume.DB;
 
 namespace Yume.MailSystem {
   [Serializable]
-  public class Mail {
+  public class MailDB {
     public bool isReceived;
     public string title;
     public string content;
@@ -11,7 +11,7 @@ namespace Yume.MailSystem {
     public DateTime dateTime;
     public ItemDB[] attachment;
 
-    public Mail(string title, string content, string signature, params ItemDB[] attachment) {
+    public MailDB(string title, string content, string signature, params ItemDB[] attachment) {
       this.title = title;
       this.content = content;
       this.signature = signature;

@@ -14,7 +14,7 @@ namespace Yume.DB {
     public string name;
     public string account;
     public string password;
-    public List<Mail> mails;
+    public List<MailDB> mails;
     public List<ItemDB> items;
     public Dictionary<string, List<TaskDB>> tasks;
 
@@ -26,7 +26,7 @@ namespace Yume.DB {
       this.name = name;
       this.account = account;
       this.password = password;
-      mails = new List<Mail>();
+      mails = new List<MailDB>();
       items = new List<ItemDB>();
       tasks = DBManager.GetDefaultTasks();
     }

@@ -83,9 +83,9 @@ namespace Yume.UI {
       }     
       
       if (Input.GetKeyDown(KeyCode.M)) {
-        DBManager.AddMail(new Mail("Test[space]Title", "Welcome[space]to[space]FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
-        DBManager.AddMail(new Mail("Test[space]Title2", "You[space]are alone", "admin", new ItemDB("item_2_gold", 10000)));
-        DBManager.AddMail(new Mail("Test[space]Title3", "I[space]love[space]{0}", "wzb", new ItemDB("item_5_key", 10)));
+        DBManager.AddMail(new MailDB("Test[space]Title", "Welcome[space]to[space]FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
+        DBManager.AddMail(new MailDB("Test[space]Title2", "You[space]are alone", "admin", new ItemDB("item_2_gold", 10000)));
+        DBManager.AddMail(new MailDB("Test[space]Title3", "I[space]love[space]{0}", "wzb", new ItemDB("item_5_key", 10)));
       }
 
       if (Input.GetKeyDown(KeyCode.E)) {

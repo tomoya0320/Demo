@@ -33,7 +33,7 @@ namespace Yume.MailSystem {
     [SerializeField]
     private Button _getAllButton;
 
-    private List<Mail> mails;
+    private List<MailDB> mails;
     private MailShow currentClickedMail;
     private GameObject mailInListPrefab;
     private GameObject attachmentPrefab;
@@ -49,7 +49,7 @@ namespace Yume.MailSystem {
       mails = DBManager.userMails;
       _noMailPanel.SetActive(mails.Count == 0);
 
-      foreach (Mail mail in mails) {
+      foreach (MailDB mail in mails) {
         GameObject tempMail = Instantiate(mailInListPrefab, _mailListContent);
         tempMail.GetComponent<MailShow>().OnInit(mail, this);
       }
@@ -100,7 +100,7 @@ namespace Yume.MailSystem {
 
     private void _CheckGetAllButton() {
       _getAllButton.interactable = false;
-      foreach (Mail mail in mails) {
+      foreach (MailDB mail in mails) {
         _getAllButton.interactable |= !mail.isReceived;
       }
     }
@@ -143,7 +143,7 @@ namespace Yume.MailSystem {
     private void _AddMail() {
       _noMailPanel.SetActive(false);
       GameObject tempMail = Instantiate(mailInListPrefab, _mailListContent);
-      Mail mail = mails[mails.Count - 1];
+      MailDB mail = mails[mails.Count - 1];
       tempMail.GetComponent<MailShow>().OnInit(mail, this);
       _getAllButton.interactable |= !mail.isReceived;
       _AdjustMailListContentHeight();

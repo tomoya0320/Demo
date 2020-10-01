@@ -109,7 +109,7 @@ namespace Yume.DB {
         return s_userDB.items;
       }
     }    
-    public static List<Mail> userMails {
+    public static List<MailDB> userMails {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -202,12 +202,12 @@ namespace Yume.DB {
       return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
     }
     
-    public static void DeleteMail(Mail mail) {
+    public static void DeleteMail(MailDB mail) {
       userMails.Remove(mail);
       UpdateUserMails();
     }    
     
-    public static void AddMail(Mail mail) {
+    public static void AddMail(MailDB mail) {
       userMails.Add(mail);
       EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL);
       UpdateUserMails();

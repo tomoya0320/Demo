@@ -10,10 +10,10 @@ namespace Yume.MailSystem {
     private Text _titleText;
     [SerializeField]
     private Text _dateDeltaText;
-    public Mail mail { private set; get; }
+    public MailDB mail { private set; get; }
     private MailShowController m_mailController;
 
-    public void OnInit(Mail mail, MailShowController mailController) {
+    public void OnInit(MailDB mail, MailShowController mailController) {
       this.mail = mail;
       m_mailController = mailController;
       _attachmentImg.enabled = mail.attachment.Length > 0;
