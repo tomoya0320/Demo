@@ -18,19 +18,26 @@ MonoBehaviour:
   m_GUID: ab7d594980ef9fe40829f7ae7083f65e
   m_SerializeEntries:
   - m_GUID: c40723496dd4adf4d88186369b79ff18
-    m_Address: card_101_sora
+    m_Address: card_003_recover
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     m_MainAsset: {fileID: 2800000, guid: c40723496dd4adf4d88186369b79ff18, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: c40723496dd4adf4d88186369b79ff18, type: 3}
   - m_GUID: c56ae721c3bf949458711cab05097349
-    m_Address: card_011_talula
+    m_Address: card_001_atk
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     m_MainAsset: {fileID: 2800000, guid: c56ae721c3bf949458711cab05097349, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: c56ae721c3bf949458711cab05097349, type: 3}
+  - m_GUID: d1b26acf79cdbe64387c693effae1d5a
+    m_Address: card_002_def
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 2800000, guid: d1b26acf79cdbe64387c693effae1d5a, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: d1b26acf79cdbe64387c693effae1d5a, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
