@@ -3,11 +3,14 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 namespace Yume.UI {
-  public class MessageShow : MonoBehaviour {
+  public class MessageBox : MonoBehaviour {
     [SerializeField]
     private Text _description;
     [SerializeField]
     private Image _image;
+    [SerializeField]
+    private Message.Style _style;
+    public Message.Style style => _style;
     private Message m_message;
     private RectTransform m_textRect;
 
@@ -51,7 +54,6 @@ namespace Yume.UI {
     private void _ShowNextMessage() {
       UIController.instance.messageManager.RemoveMessage(m_message);
       UIController.instance.messageManager.ShowMessage();
-      Destroy(gameObject);
     }
   }
 }

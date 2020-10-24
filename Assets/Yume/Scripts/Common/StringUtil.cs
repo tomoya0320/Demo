@@ -12,7 +12,6 @@
     public const string SWITCH = "Switch";
     public const string VALUE = "Value";
     public const string ID = "id";
-    public const string MESSAGE = "message";
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";

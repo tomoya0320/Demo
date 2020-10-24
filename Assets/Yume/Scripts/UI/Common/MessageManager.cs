@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Yume.Singleton;
-using Yume.String;
 
 namespace Yume.UI {
   public class Message {
@@ -64,13 +61,10 @@ namespace Yume.UI {
       return m_messages.Remove(message);
     }
 
-    public async void ShowMessage() {
+    public void ShowMessage() {
       if (m_messages.Count > 0) {
-        int index = (int)m_messages[0].style;
-        m_tempGo = await Addressables.InstantiateAsync(StringMap.MESSAGE + index, 
-                                      UIController.instance.messageFolder).Task;
-        MessageShow ms = m_tempGo.GetComponent<MessageShow>();
-        ms.OnInit(m_messages[0]);
+        UIController.instance.messageBoxes.Find(
+        mb => mb.style == m_messages[0].style).OnInit(m_messages[0]);
       } else {
         m_isMessageShowing = false;
       }

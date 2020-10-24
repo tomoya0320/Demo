@@ -25,12 +25,12 @@ namespace Yume.UI {
     [SerializeField]
     private Image _blackMask;
     [SerializeField]
-    private GameObject _sceneLoadingMask;   
+    private GameObject _sceneLoadingMask;
     [SerializeField]
     private UIFade _httpRequestWaitingMask;
     [SerializeField]
-    private Transform _messageFolder;
-    public Transform messageFolder { get { return _messageFolder; } }
+    private List<MessageBox> _messageBoxes;
+    public List<MessageBox> messageBoxes => _messageBoxes;
     public MessageManager messageManager { private set; get; }
 
     public bool sceneLoadingMaskActive {
@@ -90,6 +90,10 @@ namespace Yume.UI {
 
       if (Input.GetKeyDown(KeyCode.E)) {
         DBManager.AddExp(300);
+      }
+
+      if (Input.GetKeyDown(KeyCode.L)) {
+        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest"));
       }
 #endif
     }
