@@ -16,9 +16,6 @@
     public const string PRELOAD = "Preload";
     public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
     public const string TASK_COMPLETED = "任务[{0}]已完成！";
-    public const string ITEMS = "items";
-    public const string TASKS = "tasks";
-    public const string LV_MAX_AP_MAP = "lvMaxApMap";
     public const string QUIT_GAME_TIP = "确认退出游戏？";
     public const string QUIT = "退出";
     public const string CANCEL = "取消";

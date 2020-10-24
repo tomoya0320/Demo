@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 159904644956885234}
   - component: {fileID: 159904644956885233}
+  - component: {fileID: 2063461662}
   m_Layer: 0
-  m_Name: Global Setting Hub
+  m_Name: Global Hub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fd673a0bcede549b4c62b14a5f119f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serverUrlType: 0
-  _remoteServerUrl: http://h34035l730.wicp.vip/GameServlet
-  _localServerUrl: http://192.168.43.142:8080/GameServlet
-  _userServlet: UserServlet
+  _setting: {fileID: 11400000, guid: 9cbc7429fab218344a5550cfffc1f67c, type: 2}
+--- !u!114 &2063461662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159904644956885235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b314312f76f4a246a8bcd0b07bf2510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jsonAsset: {fileID: 11400000, guid: d85d97b952e1da844b5fcdaa19332a19, type: 2}

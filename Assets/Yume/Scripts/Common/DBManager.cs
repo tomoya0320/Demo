@@ -133,7 +133,7 @@ namespace Yume.DB {
     private static JObject itemInfos {
       get {
         if (s_itemInfos == null) {
-          s_itemInfos = JObject.Parse(Resources.Load<TextAsset>(StringMap.ITEMS).text);
+          s_itemInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.items.text);
         }
         return s_itemInfos;
       }
@@ -142,7 +142,7 @@ namespace Yume.DB {
     private static JObject taskInfos {
       get {
         if (s_taskInfos == null) {
-          s_taskInfos = JObject.Parse(Resources.Load<TextAsset>(StringMap.TASKS).text);
+          s_taskInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.tasks.text);
         }
         return s_taskInfos;
       }
@@ -151,7 +151,7 @@ namespace Yume.DB {
     private static JObject lvMaxApMap {
       get {
         if (s_lvMaxApMap == null) {
-          s_lvMaxApMap = JObject.Parse(Resources.Load<TextAsset>(StringMap.LV_MAX_AP_MAP).text);
+          s_lvMaxApMap = JObject.Parse(GlobalJsonHub.instance.jsonAsset.lvMaxApMap.text);
         }
         return s_lvMaxApMap;
       }

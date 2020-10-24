@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Yume.Singleton;
-using Yume.String;
+﻿using Yume.String;
+using UnityEngine;
 
 namespace Yume.Setting {
-  public class GlobalSettingHub : SingletonMono<GlobalSettingHub> {
+  [CreateAssetMenu]
+  public class GlobalSetting : ScriptableObject {
     private enum ServerUrlType {
       REMOTE, LOCAL
     }
