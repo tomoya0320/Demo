@@ -31,7 +31,6 @@ namespace Yume.UI {
     }
   }
   public class MessageManager {
-    private GameObject m_tempGo;
     private bool m_isMessageShowing;
     private List<Message> m_messages;
 
