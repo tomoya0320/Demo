@@ -17,8 +17,7 @@ namespace Yume.MailSystem {
       this.mail = mail;
       m_mailController = mailController;
       _attachmentImg.enabled = mail.attachment.Length > 0;
-      //http的header里不能有空格所以要替换一下
-      _titleText.text = mail.title.Replace("[space]", " ");
+      _titleText.text = mail.title;
       _dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
     }
 

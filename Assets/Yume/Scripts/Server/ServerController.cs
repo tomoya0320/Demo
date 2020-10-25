@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using Yume.DB;
 using Yume.Setting;
 using Yume.Singleton;
+using Yume.String;
 using Yume.UI;
 
 namespace Yume.Server {
@@ -54,11 +55,9 @@ namespace Yume.Server {
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }
 
-    private IEnumerator _SendWebRequest(string url, JObject datas, Action<UnityWebRequest> onCompleted) {
+    private IEnumerator _SendWebRequest(string url, JObject data, Action<UnityWebRequest> onCompleted) {
       UnityWebRequest request = UnityWebRequest.Get(url);
-      foreach (var key in datas.Properties()) {
-        request.SetRequestHeader(key.Name, Regex.Replace(datas[key.Name].ToString(), @"\s", ""));
-      }
+      request.SetRequestHeader("data", StringUtil.StringToBase64(data.ToString()));
       request.downloadHandler = new DownloadHandlerBuffer();
 
       UIController.instance.httpRequestWaitingMaskActive = true;

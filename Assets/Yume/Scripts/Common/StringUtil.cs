@@ -50,5 +50,15 @@
         return (num / 100000000) + "亿";
       }
     }
+
+    public static string StringToBase64(string str) {
+      byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);
+      return System.Convert.ToBase64String(bytes);
+    }
+
+    public static string Base64ToString(string str) {
+      byte[] bytes = System.Convert.FromBase64String(str);
+      return System.Text.Encoding.UTF8.GetString(bytes);
+    }
   }
 }

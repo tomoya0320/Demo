@@ -73,8 +73,8 @@ namespace Yume.MailSystem {
 
       _mailContentPanel.SetActive(true);
       mailInList.GetComponent<Image>().sprite = _selectedImg;
-      _contentText.text = string.Format(mailInList.mail.content.Replace("[space]", " ")/*http的header里不能有空格所以要替换一下，下同*/, DBManager.userName);
-      _signatureText.text = mailInList.mail.signature.Replace("[space]", " ");
+      _contentText.text = string.Format(mailInList.mail.content, DBManager.userName);
+      _signatureText.text = mailInList.mail.signature;
       _dateText.text = Convert.ToDateTime(mailInList.mail.dateTime).ToShortDateString();
 
       for (int i = 0; i < _attachmentContent.childCount; i++) {
