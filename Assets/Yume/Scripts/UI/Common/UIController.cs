@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yume.AVG;
 using Yume.DB;
 using Yume.MailSystem;
+using Yume.Scene;
 using Yume.Singleton;
 using Yume.String;
 
@@ -25,7 +28,7 @@ namespace Yume.UI {
     [SerializeField]
     private Image _blackMask;
     [SerializeField]
-    private GameObject _sceneLoadingMask;
+    private GameObject _sceneLoadingBG;
     [SerializeField]
     private UIFade _httpRequestWaitingMask;
     [SerializeField]
@@ -33,9 +36,9 @@ namespace Yume.UI {
     public List<MessageBox> messageBoxes => _messageBoxes;
     public MessageManager messageManager { private set; get; }
 
-    public bool sceneLoadingMaskActive {
+    public bool sceneLoadingBGActive {
       set {
-        _sceneLoadingMask.SetActive(value);
+        _sceneLoadingBG.SetActive(value);
       }
     }
     public bool httpRequestWaitingMaskActive {
@@ -94,6 +97,10 @@ namespace Yume.UI {
 
       if (Input.GetKeyDown(KeyCode.L)) {
         messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest"));
+      }
+
+      if (Input.GetKeyDown(KeyCode.G)) {
+        SceneLoader.GoToAVGScene("test1");
       }
 #endif
     }

@@ -38,6 +38,10 @@
     public const string GOLD_ID = "item_2_gold";
     public const string GET_EXP = "获得经验值{0}";
     public const string LEVEL_UP_TO = "等级提升至Lv{0}";
+    public const string AVG = "avg";
+    public const string BG = "bg";
+    public const string NAME = "name";
+    public const string DIALOGUE = "dialogue";
   }
 
   public class StringUtil {

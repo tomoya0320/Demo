@@ -7,5 +7,6 @@ namespace Yume.DB {
     public TextAsset tasks;
     public TextAsset lvMaxApMap;
     public TextAsset cards;
+    public TextAsset avgs;
   }
 }

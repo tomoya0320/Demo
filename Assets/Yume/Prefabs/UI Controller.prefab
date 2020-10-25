@@ -323,7 +323,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &7150594154506605238
 MonoBehaviour:
@@ -381,7 +381,7 @@ MonoBehaviour:
   _ok: {fileID: 7150594154955126554}
   _cancel: {fileID: 7150594154955126553}
   _blackMask: {fileID: 7150594154583215325}
-  _sceneLoadingMask: {fileID: 7150594155387566519}
+  _sceneLoadingBG: {fileID: 7150594155387566519}
   _httpRequestWaitingMask: {fileID: 1592933930}
   _messageBoxes:
   - {fileID: 7380694915438649944}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 7150594155387566522}
   - component: {fileID: 7150594155387566517}
   m_Layer: 5
-  m_Name: scene loading mask
+  m_Name: scene loading bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
