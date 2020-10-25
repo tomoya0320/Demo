@@ -41,8 +41,8 @@ namespace Yume.Server {
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }
 
-    public void UpdateUserData<T>(T datas, Action<UnityWebRequest> onCompleted) where T : class {
-      JObject json = ServerDataWrapper.Wrapper(datas);
+    public void UpdateUserData<T>(T data, Action<UnityWebRequest> onCompleted) where T : class {
+      JObject json = ServerDataWrapper.Wrapper(data);
       json.Add("method", Methods.UPDATE.ToString());
       //添加token以验证同步
       json.Add("token", DBManager.userToken);

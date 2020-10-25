@@ -369,9 +369,9 @@ namespace Yume.DB {
       }
     }
 
-    private static void _UpdateUserData<T>(T datas, Action onSucceed = null) where T : class {
+    private static void _UpdateUserData<T>(T data, Action onSucceed = null) where T : class {
       if (s_playMode == PlayMode.REMOTE) {
-        ServerController.instance.UpdateUserData(datas,
+        ServerController.instance.UpdateUserData(data,
           request => {
             string error = StringMap.EMPTY;
             if (!string.IsNullOrEmpty(request.error)) {
@@ -388,7 +388,7 @@ namespace Yume.DB {
               onSucceed?.Invoke();
             } else {
               UIController.instance.OpenDifference(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(datas, onSucceed), 
+              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed), 
               () => SceneLoader.GoToNextScene(StringMap.LOGIN));
             }
           });
