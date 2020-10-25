@@ -79,7 +79,7 @@ namespace Yume.UI {
       }    
       
       if (Input.GetKeyDown(KeyCode.C)) {
-        DBManager.setUserHashCode = "1d";
+        DBManager.setUserToken = "1d";
       }     
       
       if (Input.GetKeyDown(KeyCode.M)) {

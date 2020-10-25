@@ -29,7 +29,7 @@ namespace Yume.DB {
 
     #region User Data
     private static UserDB s_userDB;
-    public static string userHashCode { private set; get; }
+    public static string userToken { private set; get; }
     public static string userAccount {
       get {
         if (s_userDB == null) {
@@ -159,9 +159,9 @@ namespace Yume.DB {
     #endregion
 
 #if TEST
-    public static string setUserHashCode {
+    public static string setUserToken {
       set {
-        userHashCode = value;
+        userToken = value;
       }
     }
 #endif
@@ -262,7 +262,7 @@ namespace Yume.DB {
       } else {
         s_playMode = PlayMode.REMOTE;
         s_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
-        userHashCode = json["hashCode"].Value<string>();
+        userToken = json["token"].Value<string>();
       }
     }
 

@@ -18,16 +18,16 @@ namespace Yume.Server {
 
     private string userUrl {
       get {
-        return Path.Combine(GlobalSettingHub.instance.setting.serverUrl,
-                           GlobalSettingHub.instance.setting.userServlet);
+        return Path.Combine(GlobalSettingHub.instance.settingAsset.serverUrl,
+                           GlobalSettingHub.instance.settingAsset.userServlet);
       }
     }
   
     public void Login(string account, string password, Action<UnityWebRequest> onCompleted) {
       JObject json = ServerDataWrapper.Wrapper(new { account, password });
       json.Add("method", Methods.LOGIN.ToString());
-      //添加hashCode以验证同步
-      json.Add("hashCode",DateTime.Now.ToString() + SystemInfo.deviceUniqueIdentifier);
+      //添加token以验证同步
+      json.Add("token", DateTime.Now.ToString() + SystemInfo.deviceUniqueIdentifier);
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }
 
@@ -43,8 +43,8 @@ namespace Yume.Server {
     public void UpdateUserData<T>(T datas, Action<UnityWebRequest> onCompleted) where T : class {
       JObject json = ServerDataWrapper.Wrapper(datas);
       json.Add("method", Methods.UPDATE.ToString());
-      //添加hashCode以验证同步
-      json.Add("hashCode", DBManager.userHashCode);
+      //添加token以验证同步
+      json.Add("token", DBManager.userToken);
       StartCoroutine(_SendWebRequest(userUrl, json, onCompleted));
     }
 
