@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Yume.Singleton;
 using Yume.String;
+using Yume.UI;
 
 namespace Yume.AVG {
   public class AVGController : SingletonMono<AVGController> {
@@ -16,7 +17,7 @@ namespace Yume.AVG {
     [SerializeField]
     private Image _bgImage;
     [SerializeField]
-    private Text _nameText;  
+    private Text _nameText;
     [SerializeField]
     private Text _dialogueText;
     private Tween m_textTween;
@@ -44,7 +45,7 @@ namespace Yume.AVG {
     }
 
     public void EventOnClick() {
-      if(m_textTween == null) {
+      if (m_textTween == null) {
         _MoveToNext();
       } else {
         m_textTween.Complete();
@@ -68,10 +69,18 @@ namespace Yume.AVG {
       }
     }
 
-    private void _QuitAVGScene() {
-      _canvasGroup.DOFade(0, 1.0f).onComplete = () => {
-        SceneManager.UnloadSceneAsync(StringMap.AVG);
-      };
+    private void _QuitAVGScene(float fadeTime = 0.3f) {
+      UIController.instance.FadeBlackMask(true, fadeTime, () => {
+        UIController.instance.sceneLoadingBGActive = true;
+        UIController.instance.FadeBlackMask(false, fadeTime, () => {
+          SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
+            UIController.instance.FadeBlackMask(true, fadeTime, () => {
+              UIController.instance.sceneLoadingBGActive = false;
+              UIController.instance.FadeBlackMask(false, fadeTime);
+            });
+          };
+        });
+      });
     }
   }
 }

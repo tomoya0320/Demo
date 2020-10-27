@@ -23,23 +23,14 @@ namespace Yume.Scene {
       });
     }
 
-    public static void GoToAVGScene(string avgName, float fadeTime = 0.3f) {
+    public static void GoToAVGScene(string avgName) {
       if (string.IsNullOrEmpty(avgName)) {
         return;
       }
 
-      UIController.instance.FadeBlackMask(true, fadeTime, () => {
-        UIController.instance.sceneLoadingBGActive = true;
-        UIController.instance.FadeBlackMask(false, fadeTime, () => {
-          SceneManager.LoadSceneAsync(StringMap.AVG, LoadSceneMode.Additive).completed += ao => {
-            UIController.instance.FadeBlackMask(true, fadeTime, () => {
-              AVGController.instance.StartAVG(avgName);
-              UIController.instance.sceneLoadingBGActive = false;
-              UIController.instance.FadeBlackMask(false, fadeTime);
-            });
-          };
-        });
-      });
+      SceneManager.LoadSceneAsync(StringMap.AVG, LoadSceneMode.Additive).completed += ao => {
+        AVGController.instance.StartAVG(avgName);
+      };
     }
   }
 }
