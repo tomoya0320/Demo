@@ -387,8 +387,8 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              UIController.instance.OpenDifference(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed), 
+              UIController.instance.OpenConfirmationBox(error, StringMap.RETRY,
+              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed),
               () => SceneLoader.GoToNextScene(StringMap.LOGIN));
             }
           });

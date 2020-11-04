@@ -2,5 +2,6 @@
   public interface IUIDisplay {
     void Open();
     void Close();
+    bool isTweenPlaying { get; }
   }
 }

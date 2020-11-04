@@ -19,7 +19,11 @@ namespace Yume.UI {
       }
     }
     private Tween m_tween;
-
+    public bool isTweenPlaying {
+      get {
+        return m_tween != null && m_tween.IsPlaying();
+      }
+    }
 
     public void Open() {
       if (_addToUIStack) {

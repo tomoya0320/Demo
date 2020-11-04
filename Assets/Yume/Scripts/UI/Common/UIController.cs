@@ -14,17 +14,16 @@ using Yume.String;
 
 namespace Yume.UI {
   public class UIController : SingletonMono<UIController> {
-    [Header("Difference")]
-    [SerializeField]
-    private UIFade _confirmation;
-    [SerializeField]
-    private Text _tip;
-    [SerializeField]
-    private WButton _ok;
-    [SerializeField]
-    private WButton _cancel;
-    [Space(20)]
+    [Serializable]
+    private class ConfirmationBox {
+      public UIFade ui;
+      public Text tip;
+      public WButton ok;
+      public WButton cancel;
+    }
 
+    [SerializeField]
+    private ConfirmationBox _confirmationBox;  
     [SerializeField]
     private Image _blackMask;
     [SerializeField]
@@ -62,29 +61,30 @@ namespace Yume.UI {
     private void Update() {
       if (Input.GetKeyDown(KeyCode.Escape)) {
         if (m_UIStack.Count == 0) {
-          OpenDifference(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
+          OpenConfirmationBox(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
         } else {
-          m_UIStack[m_UIStack.Count - 1].Close();
+          if (!m_UIStack[m_UIStack.Count - 1].isTweenPlaying) {
+            m_UIStack[m_UIStack.Count - 1].Close();
+          }
         }
       }
-
 #if TEST
       if (Input.GetKeyDown(KeyCode.A)) {
         DBManager.AddItems(new ItemDB("item_2_gold", 1000));
-      }    
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.S)) {
         DBManager.ConsumeItems(true, new ItemDB("item_2_gold", 1000));
       }
 
       if (Input.GetKeyDown(KeyCode.D)) {
         DBManager.AddItems(new ItemDB("item_1_diamond", 1));
-      }    
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.C)) {
         DBManager.setUserToken = "1d";
-      }     
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.M)) {
         DBManager.AddMail(new MailDB("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
         DBManager.AddMail(new MailDB("Test Title2", "You are alone", "admin", new ItemDB("item_2_gold", 10000)));
@@ -134,24 +134,24 @@ namespace Yume.UI {
       m_UIStack.Clear();
     }
 
-    public void OpenDifference(string tip,string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
-      _tip.text = tip;
+    public void OpenConfirmationBox(string tip, string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
+      _confirmationBox.tip.text = tip;
 
-      _ok.onClick.RemoveAllListeners();
+      _confirmationBox.ok.onClick.RemoveAllListeners();
       if (onOk != null) {
-        _ok.onClick.AddListener(onOk);
+        _confirmationBox.ok.onClick.AddListener(onOk);
       }
-      _ok.onClick.AddListener(()=> _confirmation.Close());
-      _ok.textComponent.text = okText;
+      _confirmationBox.ok.onClick.AddListener(() => _confirmationBox.ui.Close());
+      _confirmationBox.ok.textComponent.text = okText;
 
-      _cancel.onClick.RemoveAllListeners();
+      _confirmationBox.cancel.onClick.RemoveAllListeners();
       if (onCancel != null) {
-        _cancel.onClick.AddListener(onCancel);
+        _confirmationBox.cancel.onClick.AddListener(onCancel);
       }
-      _cancel.onClick.AddListener(() => _confirmation.Close());
-      _cancel.textComponent.text = cancelText;
+      _confirmationBox.cancel.onClick.AddListener(() => _confirmationBox.ui.Close());
+      _confirmationBox.cancel.textComponent.text = cancelText;
 
-      _confirmation.Open();
+      _confirmationBox.ui.Open();
     }
   }
 }
