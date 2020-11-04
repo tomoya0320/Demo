@@ -137,19 +137,23 @@ namespace Yume.UI {
     public void OpenConfirmationBox(string tip, string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
       _confirmationBox.tip.text = tip;
 
+      #region ok
+      _confirmationBox.ok.textComponent.text = okText;
       _confirmationBox.ok.onClick.RemoveAllListeners();
+      _confirmationBox.ok.onClick.AddListener(() => _confirmationBox.ui.Close());
       if (onOk != null) {
         _confirmationBox.ok.onClick.AddListener(onOk);
       }
-      _confirmationBox.ok.onClick.AddListener(() => _confirmationBox.ui.Close());
-      _confirmationBox.ok.textComponent.text = okText;
+      #endregion
 
+      #region cancel
+      _confirmationBox.cancel.textComponent.text = cancelText;
       _confirmationBox.cancel.onClick.RemoveAllListeners();
+      _confirmationBox.cancel.onClick.AddListener(() => _confirmationBox.ui.Close());
       if (onCancel != null) {
         _confirmationBox.cancel.onClick.AddListener(onCancel);
       }
-      _confirmationBox.cancel.onClick.AddListener(() => _confirmationBox.ui.Close());
-      _confirmationBox.cancel.textComponent.text = cancelText;
+      #endregion
 
       _confirmationBox.ui.Open();
     }

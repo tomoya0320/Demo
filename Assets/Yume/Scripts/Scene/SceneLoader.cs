@@ -10,6 +10,8 @@ namespace Yume.Scene {
         return;
       }
 
+      UIController.instance.ClearBackStack();
+
       UIController.instance.FadeBlackMask(true, fadeTime, () => {
         UIController.instance.sceneLoadingBGActive = true;
         UIController.instance.FadeBlackMask(false, fadeTime, () => {
