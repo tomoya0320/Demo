@@ -37,7 +37,15 @@ namespace Yume.DB {
         }
         return s_userDB.account;
       }
-    }   
+    }
+    public static string userPassword {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.password;
+      }
+    }
     public static string userName {
       get {
         if (s_userDB == null) {
@@ -241,7 +249,7 @@ namespace Yume.DB {
     }
 
     public static void UpdateUserMails() {
-      _UpdateUserData(new { account = userAccount, mails = userMails, types = new string[] { "mails" } });
+      _UpdateUserData(new { mails = userMails, types = new string[] { "mails" } });
     }
 
     public static void LoadUserDB(JObject json = null) {
@@ -287,10 +295,10 @@ namespace Yume.DB {
           TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
         //任务和道具一起同步
-        _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
+        _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
       } else {
         //只同步道具
-        _UpdateUserData(new { account = userAccount, items = userItems, types = new string[] { "items" } });
+        _UpdateUserData(new { items = userItems, types = new string[] { "items" } });
       }
     }
 
@@ -313,7 +321,7 @@ namespace Yume.DB {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
       }
       //任务和道具一起同步
-      _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
+      _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
     public static void AddExp(int exp) {
@@ -333,19 +341,18 @@ namespace Yume.DB {
           userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
           userAp += userMaxAp;
           _UpdateUserData(new {
-            account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
+            exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
             types = new string[] { "exp", "lv", "ap", "maxAp", "tasks" }
           });
         } else {
           _UpdateUserData(new {
-            account = userAccount, exp = userExp, lv = userLv, tasks = userTasks,
+            exp = userExp, lv = userLv, tasks = userTasks,
             types = new string[] { "exp", "lv", "tasks" }
           });
         }
       } else {
         _UpdateUserData(new {
-          account = userAccount, exp = userExp, lv = userLv, 
-          types = new string[] { "exp", "lv" }
+          exp = userExp, lv = userLv, types = new string[] { "exp", "lv" }
         });
       }
       //更新UI显示
@@ -365,7 +372,7 @@ namespace Yume.DB {
           }
         }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
-        _UpdateUserData(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
+        _UpdateUserData(new { tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }
     }
 
