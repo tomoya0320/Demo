@@ -30,6 +30,8 @@ namespace Yume.Scene {
         return;
       }
 
+      UIController.instance.activeEscapeKey = false;
+
       SceneManager.LoadSceneAsync(StringMap.AVG, LoadSceneMode.Additive).completed += ao => {
         AVGController.instance.StartAVG(avgName);
       };

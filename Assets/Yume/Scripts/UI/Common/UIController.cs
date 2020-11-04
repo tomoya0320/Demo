@@ -50,16 +50,20 @@ namespace Yume.UI {
       }
     }
 
-    private IList<IUIDisplay> m_UIStack = new List<IUIDisplay>();
+    private IList<IUIDisplay> m_UIStack;
     private Tween m_blackMaskTween;
+
+    public bool activeEscapeKey { set; get; }
 
     protected override void OnInit() {
       base.OnInit();
+      activeEscapeKey = true;
+      m_UIStack = new List<IUIDisplay>();
       messageManager = new MessageManager();
     }
 
     private void Update() {
-      if (Input.GetKeyDown(KeyCode.Escape)) {
+      if (activeEscapeKey && Input.GetKeyDown(KeyCode.Escape)) {
         if (m_UIStack.Count == 0) {
           OpenConfirmationBox(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
         } else {
