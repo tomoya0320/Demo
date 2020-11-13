@@ -9,9 +9,9 @@ namespace Yume.FSM {
       this.stateId = stateId;
     }
 
-    public abstract void OnEnter();
-    public abstract void OnTrick();
-    public abstract void OnExit();
+    public virtual void OnEnter() { }
+    public virtual void OnTrick() { }
+    public virtual void OnExit() { }
   }
 
   public abstract class StateBase<T> : State {

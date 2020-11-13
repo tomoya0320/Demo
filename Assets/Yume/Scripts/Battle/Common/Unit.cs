@@ -41,10 +41,6 @@ namespace Yume.Battle {
 
       }
 
-      public override void OnTrick() {
-
-      }
-
       public override void OnExit() {
 
       }
@@ -71,10 +67,6 @@ namespace Yume.Battle {
       public DeadState(Unit onwer) : base((int)State.DEAD, onwer) { }
 
       public override void OnEnter() {
-
-      }
-
-      public override void OnTrick() {
 
       }
 
