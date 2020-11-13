@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using Yume.Battle;
 using Yume.Broadcast;
 using Yume.MailSystem;
 using Yume.Math;
@@ -164,6 +165,15 @@ namespace Yume.DB {
         return s_lvMaxApMap;
       }
     }
+    private static JObject s_cardInfos;
+    private static JObject cardInfos {
+      get {
+        if (s_cardInfos == null) {
+          s_cardInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.cards.text);
+        }
+        return s_cardInfos;
+      }
+    }
     #endregion
 
 #if TEST
@@ -182,6 +192,15 @@ namespace Yume.DB {
         return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
+      }
+    }
+
+    public static CardInfo GetCardInfo(string id) {
+      if (cardInfos.ContainsKey(id)) {
+        JObject cardInfo = cardInfos[id].Value<JObject>();
+        return JsonConvert.DeserializeObject<CardInfo>(cardInfo.ToString());
+      } else {
+        throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 

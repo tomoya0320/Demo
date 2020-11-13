@@ -42,6 +42,8 @@
     public const string BG = "bg";
     public const string NAME = "name";
     public const string DIALOGUE = "dialogue";
+    public const string ATTRIBUTE = "attribute";
+    public const string PASSIVE_BUFFS = "passiveBuffs";
   }
 
   public class StringUtil {

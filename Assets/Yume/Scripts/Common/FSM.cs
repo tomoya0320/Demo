@@ -10,8 +10,7 @@ namespace Yume.FSM {
     }
 
     public abstract void OnEnter();
-    public abstract void OnUpdate();
-    public abstract void OnFixedUpdate();
+    public abstract void OnTrick();
     public abstract void OnExit();
   }
 
@@ -53,15 +52,9 @@ namespace Yume.FSM {
       return false;
     }
 
-    public void OnUpdate() {
+    public void OnTrick() {
       if (currentState != null) {
-        currentState.OnUpdate();
-      }
-    }
-
-    public void OnFixedUpdate() {
-      if (currentState != null) {
-        currentState.OnFixedUpdate();
+        currentState.OnTrick();
       }
     }
 
