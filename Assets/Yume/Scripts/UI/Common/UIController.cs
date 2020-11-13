@@ -27,7 +27,7 @@ namespace Yume.UI {
     [SerializeField]
     private Image _blackMask;
     [SerializeField]
-    private GameObject _sceneLoadingBG;
+    private Image _sceneLoadingBG;
     [SerializeField]
     private UIFade _httpRequestWaitingMask;
     [SerializeField]
@@ -37,7 +37,7 @@ namespace Yume.UI {
 
     public bool sceneLoadingBGActive {
       set {
-        _sceneLoadingBG.SetActive(value);
+        _sceneLoadingBG.enabled = value;
       }
     }
     public bool httpRequestWaitingMaskActive {

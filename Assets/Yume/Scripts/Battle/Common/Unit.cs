@@ -87,8 +87,12 @@ namespace Yume.Battle {
 
     public virtual void OnInit(JObject data) {
       if (data != null) {
-        _attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
-        _passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
+        if (data.ContainsKey(StringMap.ATTRIBUTE)) {
+          _attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
+        }
+        if (data.ContainsKey(StringMap.PASSIVE_BUFFS)) {
+          _passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
+        }
       }
 
       animator = GetComponent<Animator>();
