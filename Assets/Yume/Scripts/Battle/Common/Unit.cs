@@ -17,25 +17,25 @@ namespace Yume.Battle {
     public float evadeProb;
   }
 
-  public enum UnitState {
-    /// <summary>
-    /// 回合外等待状态
-    /// </summary>
-    IDLE,
-    /// <summary>
-    /// 回合中出牌阶段
-    /// </summary>
-    PLAY,
-    /// <summary>
-    /// 死亡阶段
-    /// </summary>
-    DEAD
-  }
-
   [RequireComponent(typeof(Animator),typeof(SpriteRenderer))]
   public abstract class Unit : MonoBehaviour {
+    public enum State {
+      /// <summary>
+      /// 回合外等待状态
+      /// </summary>
+      IDLE,
+      /// <summary>
+      /// 回合中出牌阶段
+      /// </summary>
+      PLAY,
+      /// <summary>
+      /// 死亡阶段
+      /// </summary>
+      DEAD
+    }
+
     public class IdleState : StateBase<Unit> {
-      public IdleState(Unit onwer) : base((int)UnitState.IDLE, onwer) { }
+      public IdleState(Unit onwer) : base((int)State.IDLE, onwer) { }
 
       public override void OnEnter() {
 
@@ -51,7 +51,8 @@ namespace Yume.Battle {
     }
 
     public class PlayState : StateBase<Unit> {
-      public PlayState(Unit onwer) : base((int)UnitState.PLAY, onwer) { }
+      //TODO:出牌的队列OnTrick
+      public PlayState(Unit onwer) : base((int)State.PLAY, onwer) { }
 
       public override void OnEnter() {
 
@@ -67,7 +68,7 @@ namespace Yume.Battle {
     }
 
     public class DeadState : StateBase<Unit> {
-      public DeadState(Unit onwer) : base((int)UnitState.DEAD, onwer) { }
+      public DeadState(Unit onwer) : base((int)State.DEAD, onwer) { }
 
       public override void OnEnter() {
 
@@ -110,7 +111,7 @@ namespace Yume.Battle {
       }
     }
 
-    public virtual void SwitchState(UnitState state,bool force = false) {
+    public virtual void SwitchState(State state,bool force = false) {
       stateMachine.SwitchState((int)state, force);
     }
   }
