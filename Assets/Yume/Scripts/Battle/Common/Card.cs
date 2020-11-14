@@ -52,12 +52,12 @@ namespace Yume.Battle {
     private Text _typeText;
     
     public virtual async void OnInit(int phase, CardInfo cardInfo) {
-      _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(cardInfo.iconFileName).Task;
       _nameText.text = cardInfo.name;
       _phaseText.text = phase.ToString();
       _typeText.text = StringUtil.GetCardTypeName(cardInfo.type);
       _energyText.text = cardInfo.phases[phase].energyConsumption.ToString();
       _descriptionText.text = StringUtil.GetActualDescription(cardInfo.description, cardInfo.phases[phase].blackboard);
+      _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(cardInfo.iconFileName).Task;
     }
   }
 }

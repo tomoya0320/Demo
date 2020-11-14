@@ -82,7 +82,6 @@ namespace Yume.Server {
 
     public void GoToLoginScene() {
       SceneLoader.GoToNextScene(StringMap.LOGIN);
-      AudioController.instance.PlayBgm(StringMap.LOGIN_BGM);
     }
   }
 }

@@ -33,8 +33,7 @@ namespace Yume.String {
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";
-    public const string LOGIN_BGM = "Bgm_5";
-    public const string HOME_BGM = "Bgm_1";
+    public const string HOME_BGM = "STS_Merchant_v2";
     public const string DEFAULT_CLICK_SOUND = "点击2";
     public const string MAIL_SHOW = "mailShow";
     public const string ATTACHMENT_PREFAB = "attachmentPrefab";
