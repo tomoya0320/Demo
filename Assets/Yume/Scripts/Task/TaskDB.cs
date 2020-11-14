@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Yume.Battle;
 using Yume.DB;
 using Yume.String;
 using Yume.UI;

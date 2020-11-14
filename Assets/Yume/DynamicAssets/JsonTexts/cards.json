@@ -1,3 +1,29 @@
 {
-
+  "card_001_atk": {
+    "id": "card_001_atk",
+    "name": "打击",
+    "iconFileName": "card_001_atk",
+    "description": "对一个敌人造成{atk}点伤害",
+    "type": 0,
+    "phases": [
+      {
+        "energyConsumption": 1,
+        "buffData": [],
+        "blackboard": {
+          "data": {
+            "atk": 10
+          }
+        }
+      },
+      {
+        "energyConsumption": 1,
+        "buffData": [],
+        "blackboard": {
+          "data": {
+            "atk": 16
+          }
+        }
+      }
+    ]
+  }
 }

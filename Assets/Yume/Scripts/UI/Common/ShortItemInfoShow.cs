@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+using Yume.Battle;
 using Yume.DB;
 
 namespace Yume.UI {

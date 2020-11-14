@@ -3,9 +3,10 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.DB;
+using Yume.Battle;
 using Yume.String;
 using Yume.Task;
+using Yume.DB;
 
 namespace Yume.UI {
   public class TaskShow : MonoBehaviour {

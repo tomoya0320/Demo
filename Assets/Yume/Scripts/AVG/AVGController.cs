@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yume.DB;
 using Yume.Singleton;
 using Yume.String;
 using Yume.UI;

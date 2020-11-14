@@ -22,15 +22,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 7450755734871845753, guid: 323847717cf3bdd4fadca799ac165911, type: 3}
-    m_TargetAsset: {fileID: 7450755734871845753, guid: 323847717cf3bdd4fadca799ac165911, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 470b0f3a917559748a3d32cf803c7c00
     m_Address: processTextPrefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 1252067418983683115, guid: 470b0f3a917559748a3d32cf803c7c00, type: 3}
-    m_TargetAsset: {fileID: 1252067418983683115, guid: 470b0f3a917559748a3d32cf803c7c00, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5a07dfd7f9d438345a9a9b57a9fe7537
     m_Address: taskShow
     m_ReadOnly: 0
@@ -38,13 +38,20 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 5b9c99cfe93ef254b826fa9d0665d74f
+    m_Address: cardHandbook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4671642180717210647, guid: 5b9c99cfe93ef254b826fa9d0665d74f, type: 3}
+    m_TargetAsset: {fileID: 4671642180717210647, guid: 5b9c99cfe93ef254b826fa9d0665d74f, type: 3}
   - m_GUID: 9cf069995fb03df44919edf4780ecae3
     m_Address: message_slide
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 7711574559161822092, guid: 9cf069995fb03df44919edf4780ecae3, type: 3}
-    m_TargetAsset: {fileID: 7711574559161822092, guid: 9cf069995fb03df44919edf4780ecae3, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: aab00c946e3a58d4fb0bd28edd68b954
     m_Address: mailShow
     m_ReadOnly: 0
@@ -64,8 +71,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1521648986653277797, guid: cdeedd9d510fbdc44bbde9d8933603d6, type: 3}
+    m_TargetAsset: {fileID: 1521648986653277797, guid: cdeedd9d510fbdc44bbde9d8933603d6, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

@@ -118,7 +118,15 @@ namespace Yume.DB {
         }
         return s_userDB.items;
       }
-    }    
+    }
+    public static List<CardDB> userCards {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.cards;
+      }
+    }
     public static List<MailDB> userMails {
       get {
         if (s_userDB == null) {

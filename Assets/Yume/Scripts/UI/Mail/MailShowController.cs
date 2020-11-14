@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.DB;
+using Yume.Battle;
 using Yume.String;
 using Yume.UI;
+using Yume.DB;
 
 namespace Yume.MailSystem {
   public class MailShowController : MonoBehaviour {

@@ -11,13 +11,14 @@ namespace Yume.Battle {
     public string tag;
     public float hp;
     public float maxHp;
-    public float energy;
-    public float maxEnergy;
     public float def;
+    public float hitProb;
     public float evadeProb;
+    public int energy;
+    public int maxEnergy;
   }
 
-  [RequireComponent(typeof(Animator),typeof(SpriteRenderer))]
+  [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
   public abstract class Unit : MonoBehaviour {
     public enum State {
       /// <summary>
@@ -102,12 +103,12 @@ namespace Yume.Battle {
       stateMachine.RegisterState(new DeadState(this));
 
       buffContainer = new BuffContainer();
-      foreach(var buffData in _passiveBuffs) {
+      foreach (var buffData in _passiveBuffs) {
         buffContainer.AddBuff(buffData);
       }
     }
 
-    public virtual void SwitchState(State state,bool force = false) {
+    public virtual void SwitchState(State state, bool force = false) {
       stateMachine.SwitchState((int)state, force);
     }
   }

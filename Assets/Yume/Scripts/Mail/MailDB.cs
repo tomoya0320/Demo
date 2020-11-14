@@ -1,4 +1,5 @@
 ﻿using System;
+using Yume.Battle;
 using Yume.DB;
 
 namespace Yume.MailSystem {
