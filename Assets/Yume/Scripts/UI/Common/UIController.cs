@@ -15,7 +15,7 @@ namespace Yume.UI {
   public class UIController : SingletonMono<UIController> {
     [Serializable]
     private class ConfirmationBox {
-      public UIFade ui;
+      public UIDisplay ui;
       public Text tip;
       public WButton ok;
       public WButton cancel;
@@ -28,7 +28,7 @@ namespace Yume.UI {
     [SerializeField]
     private Image _sceneLoadingBG;
     [SerializeField]
-    private UIFade _httpRequestWaitingMask;
+    private UIDisplay _httpRequestWaitingMask;
     [SerializeField]
     private List<MessageBox> _messageBoxes;
     public List<MessageBox> messageBoxes => _messageBoxes;
@@ -49,7 +49,7 @@ namespace Yume.UI {
       }
     }
 
-    private IList<IUIDisplay> m_UIStack;
+    private IList<UIDisplay> m_UIStack;
     private Tween m_blackMaskTween;
 
     public bool activeEscapeKey { set; get; }
@@ -57,7 +57,7 @@ namespace Yume.UI {
     protected override void OnInit() {
       base.OnInit();
       activeEscapeKey = true;
-      m_UIStack = new List<IUIDisplay>();
+      m_UIStack = new List<UIDisplay>();
       messageManager = new MessageManager();
     }
 
@@ -99,7 +99,7 @@ namespace Yume.UI {
       }
 
       if (Input.GetKeyDown(KeyCode.L)) {
-        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest"));
+        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest", null));
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {
@@ -121,13 +121,13 @@ namespace Yume.UI {
       });
     }
 
-    public void AddToBackStack(IUIDisplay ui) {
+    public void AddToBackStack(UIDisplay ui) {
       if (!m_UIStack.Contains(ui)) {
         m_UIStack.Add(ui);
       }
     }
 
-    public void RemoveFromBackStack(IUIDisplay ui) {
+    public void RemoveFromBackStack(UIDisplay ui) {
       if (m_UIStack.Contains(ui)) {
         m_UIStack.Remove(ui);
       }

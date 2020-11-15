@@ -17,7 +17,7 @@ namespace Yume.Server {
     [SerializeField]
     private Image _downloadProcess;
     [SerializeField]
-    private UIFade _startButton;
+    private UIDisplay _startButton;
 
     private GameObject downloadProcessParent {
       get {

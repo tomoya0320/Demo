@@ -3,9 +3,7 @@ using UnityEngine;
 
 namespace Yume.UI {
   [RequireComponent(typeof(CanvasGroup))]
-  public class UIFade : MonoBehaviour, IUIDisplay {
-    [SerializeField]
-    private bool _addToUIStack = true;
+  public class UIFade : UIDisplay {
     [SerializeField]
     private float _fadeTime = 0.1f;
     private CanvasGroup m_canvasGroup;
@@ -18,14 +16,14 @@ namespace Yume.UI {
       }
     }
     private Tween m_tween;
-    public bool isTweenPlaying {
+    public override bool isTweenPlaying {
       get {
         return m_tween != null && m_tween.IsPlaying();
       }
     }
 
-    public void Open() {
-      if (_addToUIStack) {
+    public override void Open() {
+      if (addToUIStack) {
         UIController.instance.AddToBackStack(this);
       }
       if (m_tween != null) {
@@ -38,7 +36,7 @@ namespace Yume.UI {
       });
     }
 
-    public void Close() {
+    public override void Close() {
       if (m_tween != null) {
         m_tween.Complete();
       }
@@ -47,7 +45,7 @@ namespace Yume.UI {
         gameObject.SetActive(false);
         m_tween = null;
       });
-      if (_addToUIStack) {
+      if (addToUIStack) {
         UIController.instance.RemoveFromBackStack(this);
       }
     }
