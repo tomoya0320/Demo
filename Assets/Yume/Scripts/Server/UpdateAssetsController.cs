@@ -17,7 +17,7 @@ namespace Yume.Server {
     [SerializeField]
     private Image _downloadProcess;
     [SerializeField]
-    private UIFade _startButton;
+    private UIDisplay _startButton;
 
     private GameObject downloadProcessParent {
       get {
@@ -82,7 +82,6 @@ namespace Yume.Server {
 
     public void GoToLoginScene() {
       SceneLoader.GoToNextScene(StringMap.LOGIN);
-      AudioController.instance.PlayBgm(StringMap.LOGIN_BGM);
     }
   }
 }

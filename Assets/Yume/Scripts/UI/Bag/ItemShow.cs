@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
-using Yume.DB;
+using Yume.Battle;
 using Yume.Broadcast;
 using Yume.String;
+using Yume.DB;
 
 namespace Yume.UI.Bag {
   public class ItemShow : MonoBehaviour {

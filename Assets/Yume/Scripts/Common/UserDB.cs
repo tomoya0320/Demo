@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Yume.Battle;
 using Yume.MailSystem;
-using Yume.String;
 using Yume.Task;
 
 namespace Yume.DB {
@@ -21,10 +20,10 @@ namespace Yume.DB {
     public Dictionary<string, List<TaskDB>> tasks;
 
     public UserDB(string name = "", string account = "",string password = "") {
-      ap = 30;
-      maxAp = 30;
       lv = 1;
       exp = 0;
+      ap = 30;
+      maxAp = 30;
       this.name = name;
       this.account = account;
       this.password = password;
@@ -32,6 +31,19 @@ namespace Yume.DB {
       items = new List<ItemDB>();
       cards = new List<CardDB>();
       tasks = DBManager.GetDefaultTasks();
+
+#if TEST
+      cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
+#endif
     }
   }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using Yume.Battle;
 using Yume.Broadcast;
 using Yume.MailSystem;
 using Yume.Math;
@@ -37,7 +38,15 @@ namespace Yume.DB {
         }
         return s_userDB.account;
       }
-    }   
+    }
+    public static string userPassword {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.password;
+      }
+    }
     public static string userName {
       get {
         if (s_userDB == null) {
@@ -109,7 +118,15 @@ namespace Yume.DB {
         }
         return s_userDB.items;
       }
-    }    
+    }
+    public static List<CardDB> userCards {
+      get {
+        if (s_userDB == null) {
+          s_userDB = new UserDB();
+        }
+        return s_userDB.cards;
+      }
+    }
     public static List<MailDB> userMails {
       get {
         if (s_userDB == null) {
@@ -156,6 +173,15 @@ namespace Yume.DB {
         return s_lvMaxApMap;
       }
     }
+    private static JObject s_cardInfos;
+    private static JObject cardInfos {
+      get {
+        if (s_cardInfos == null) {
+          s_cardInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.cards.text);
+        }
+        return s_cardInfos;
+      }
+    }
     #endregion
 
 #if TEST
@@ -174,6 +200,15 @@ namespace Yume.DB {
         return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
+      }
+    }
+
+    public static CardInfo GetCardInfo(string id) {
+      if (cardInfos.ContainsKey(id)) {
+        JObject cardInfo = cardInfos[id].Value<JObject>();
+        return JsonConvert.DeserializeObject<CardInfo>(cardInfo.ToString());
+      } else {
+        throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 
@@ -241,7 +276,7 @@ namespace Yume.DB {
     }
 
     public static void UpdateUserMails() {
-      _UpdateUserData(new { account = userAccount, mails = userMails, types = new string[] { "mails" } });
+      _UpdateUserData(new { mails = userMails, types = new string[] { "mails" } });
     }
 
     public static void LoadUserDB(JObject json = null) {
@@ -287,10 +322,10 @@ namespace Yume.DB {
           TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
         //任务和道具一起同步
-        _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
+        _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
       } else {
         //只同步道具
-        _UpdateUserData(new { account = userAccount, items = userItems, types = new string[] { "items" } });
+        _UpdateUserData(new { items = userItems, types = new string[] { "items" } });
       }
     }
 
@@ -313,7 +348,7 @@ namespace Yume.DB {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
       }
       //任务和道具一起同步
-      _UpdateUserData(new { account = userAccount, items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
+      _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
     public static void AddExp(int exp) {
@@ -333,19 +368,18 @@ namespace Yume.DB {
           userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
           userAp += userMaxAp;
           _UpdateUserData(new {
-            account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
+            exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
             types = new string[] { "exp", "lv", "ap", "maxAp", "tasks" }
           });
         } else {
           _UpdateUserData(new {
-            account = userAccount, exp = userExp, lv = userLv, tasks = userTasks,
+            exp = userExp, lv = userLv, tasks = userTasks,
             types = new string[] { "exp", "lv", "tasks" }
           });
         }
       } else {
         _UpdateUserData(new {
-          account = userAccount, exp = userExp, lv = userLv, 
-          types = new string[] { "exp", "lv" }
+          exp = userExp, lv = userLv, types = new string[] { "exp", "lv" }
         });
       }
       //更新UI显示
@@ -365,7 +399,7 @@ namespace Yume.DB {
           }
         }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
-        _UpdateUserData(new { account = userAccount, tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
+        _UpdateUserData(new { tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }
     }
 
@@ -387,8 +421,8 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              UIController.instance.OpenDifference(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed), 
+              UIController.instance.OpenConfirmationBox(error, StringMap.RETRY,
+              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed),
               () => SceneLoader.GoToNextScene(StringMap.LOGIN));
             }
           });

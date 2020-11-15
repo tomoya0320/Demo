@@ -11,6 +11,7 @@ namespace Yume.UI {
 
     private void Awake() {
       m_image = GetComponent<Image>();
+      UIController.instance.activeEscapeKey = false;
     }
 
     private void _FadeInBlackMask(Sprite sprite) {
@@ -21,6 +22,7 @@ namespace Yume.UI {
     }
 
     private void _UpdateAssets() {
+      UIController.instance.activeEscapeKey = true;
       UpdateAssetsController.instance.CheckGameAssets();
     }
   }

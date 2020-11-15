@@ -10,13 +10,19 @@ namespace Yume.Scene {
         return;
       }
 
+      UIController.instance.ClearBackStack();
+
+      UIController.instance.activeEscapeKey = false;
+
       UIController.instance.FadeBlackMask(true, fadeTime, () => {
         UIController.instance.sceneLoadingBGActive = true;
         UIController.instance.FadeBlackMask(false, fadeTime, () => {
           SceneManager.LoadSceneAsync(nextSceneName).completed += ao => {
             UIController.instance.FadeBlackMask(true, fadeTime, () => {
               UIController.instance.sceneLoadingBGActive = false;
-              UIController.instance.FadeBlackMask(false, fadeTime);
+              UIController.instance.FadeBlackMask(false, fadeTime, () => {
+                UIController.instance.activeEscapeKey = true;
+              });
             });
           };
         });
@@ -27,6 +33,8 @@ namespace Yume.Scene {
       if (string.IsNullOrEmpty(avgName)) {
         return;
       }
+
+      UIController.instance.activeEscapeKey = false;
 
       SceneManager.LoadSceneAsync(StringMap.AVG, LoadSceneMode.Additive).completed += ao => {
         AVGController.instance.StartAVG(avgName);

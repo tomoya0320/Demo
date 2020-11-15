@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Yume.DB;
 using Yume.Singleton;
 using Yume.String;
 using Yume.UI;
@@ -27,11 +28,10 @@ namespace Yume.AVG {
     private Dictionary<string, JArray> m_avgTextDict;
 
     protected override void OnInit() {
-      m_avgTextDict = JsonConvert.DeserializeObject<Dictionary<string, JArray>>(
-                      GlobalJsonHub.instance.jsonAsset.avgs.text);
-
       dontDestroyOnLoad = false;
       base.OnInit();
+      m_avgTextDict = JsonConvert.DeserializeObject<Dictionary<string, JArray>>(
+                      GlobalJsonHub.instance.jsonAsset.avgs.text);
     }
 
     public void StartAVG(string avgName) {
@@ -76,7 +76,9 @@ namespace Yume.AVG {
           SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
             UIController.instance.FadeBlackMask(true, fadeTime, () => {
               UIController.instance.sceneLoadingBGActive = false;
-              UIController.instance.FadeBlackMask(false, fadeTime);
+              UIController.instance.FadeBlackMask(false, fadeTime, () => {
+                UIController.instance.activeEscapeKey = true;
+              });
             });
           };
         });

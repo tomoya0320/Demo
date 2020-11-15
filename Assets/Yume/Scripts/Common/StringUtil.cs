@@ -1,4 +1,8 @@
-﻿namespace Yume.String {
+﻿using System;
+using System.Text;
+using Yume.Battle;
+
+namespace Yume.String {
   public class StringMap {
     #region datetime
     public const string TODAY = "今天";
@@ -29,8 +33,7 @@
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";
-    public const string LOGIN_BGM = "Bgm_5";
-    public const string HOME_BGM = "Bgm_1";
+    public const string HOME_BGM = "STS_Merchant_v2";
     public const string DEFAULT_CLICK_SOUND = "点击2";
     public const string MAIL_SHOW = "mailShow";
     public const string ATTACHMENT_PREFAB = "attachmentPrefab";
@@ -42,6 +45,9 @@
     public const string BG = "bg";
     public const string NAME = "name";
     public const string DIALOGUE = "dialogue";
+    public const string ATTRIBUTE = "attribute";
+    public const string PASSIVE_BUFFS = "passiveBuffs";
+    public const string CARD_HANDBOOK = "cardHandbook";
   }
 
   public class StringUtil {
@@ -56,13 +62,51 @@
     }
 
     public static string StringToBase64(string str) {
-      byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);
-      return System.Convert.ToBase64String(bytes);
+      byte[] bytes = Encoding.UTF8.GetBytes(str);
+      return Convert.ToBase64String(bytes);
     }
 
     public static string Base64ToString(string str) {
-      byte[] bytes = System.Convert.FromBase64String(str);
-      return System.Text.Encoding.UTF8.GetString(bytes);
+      byte[] bytes = Convert.FromBase64String(str);
+      return Encoding.UTF8.GetString(bytes);
+    }
+
+    /// <summary>
+    /// 将描述里类似{atk}的字符串替换成blackboard里的实际数值
+    /// </summary>
+    public static string GetActualDescription(string description, Blackboard blackboard) {
+      StringBuilder result = new StringBuilder();
+      int start = 0;
+      for (int i = 0; i < description.Length; i++) {
+        if (description[i] == '{') {
+          result.Append(description.Substring(start, i - start));
+          start = i + 1;
+        } else if (description[i] == '}') {
+          result.Append(blackboard.TryGetValueOrDefault(description.Substring(start, i - start), 0));
+          start = i + 1;
+        }
+      }
+      if (start < description.Length) {
+        result.Append(description.Substring(start));
+      }
+      return result.ToString();
+    }
+
+    public static string GetCardTypeName(CardInfo.Type type) {
+      switch (type) {
+        case CardInfo.Type.ATTACK: {
+            return "攻击";
+          }
+        case CardInfo.Type.SKILL: {
+            return "技能";
+          }
+        case CardInfo.Type.CURSE: {
+            return "诅咒";
+          }
+        default: {
+            return "未知";
+          }
+      }
     }
   }
 }

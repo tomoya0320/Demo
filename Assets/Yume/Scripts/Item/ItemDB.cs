@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yume.DB {
+namespace Yume.Battle {
   [Serializable]
   public class ItemDB {
     public string id;

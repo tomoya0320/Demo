@@ -13,9 +13,11 @@ namespace Yume.UI {
     public Message.Style style => _style;
     private Message m_message;
     private RectTransform m_textRect;
+    private RectTransform m_rect;
 
     public void OnInit(Message message) {
       m_message = message;
+      m_rect = GetComponent<RectTransform>();
       _description.text = message.description;
       m_textRect = _description.GetComponent<RectTransform>();
       Vector2 size = m_textRect.rect.size;
@@ -35,8 +37,8 @@ namespace Yume.UI {
       switch (message.style) {
         case Message.Style.SLIDE: {
             RectTransform rectTransform = GetComponent<RectTransform>();
-            rectTransform.DOAnchorPosY(-m_textRect.rect.height, message.duration).SetRelative().OnComplete(() =>
-                rectTransform.DOAnchorPosY(m_textRect.rect.height, message.duration).
+            rectTransform.DOAnchorPosY(-m_rect.rect.height, message.duration).SetRelative().OnComplete(() =>
+                rectTransform.DOAnchorPosY(m_rect.rect.height, message.duration).
                 SetDelay(message.delay).SetRelative().OnComplete(_ShowNextMessage)
             );
             break;

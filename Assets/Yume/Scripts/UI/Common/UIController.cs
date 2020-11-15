@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Yume.AVG;
+using Yume.Battle;
 using Yume.DB;
 using Yume.MailSystem;
 using Yume.Scene;
@@ -14,23 +13,22 @@ using Yume.String;
 
 namespace Yume.UI {
   public class UIController : SingletonMono<UIController> {
-    [Header("Difference")]
-    [SerializeField]
-    private UIFade _confirmation;
-    [SerializeField]
-    private Text _tip;
-    [SerializeField]
-    private WButton _ok;
-    [SerializeField]
-    private WButton _cancel;
-    [Space(20)]
+    [Serializable]
+    private class ConfirmationBox {
+      public UIDisplay ui;
+      public Text tip;
+      public WButton ok;
+      public WButton cancel;
+    }
 
+    [SerializeField]
+    private ConfirmationBox _confirmationBox;  
     [SerializeField]
     private Image _blackMask;
     [SerializeField]
-    private GameObject _sceneLoadingBG;
+    private Image _sceneLoadingBG;
     [SerializeField]
-    private UIFade _httpRequestWaitingMask;
+    private UIDisplay _httpRequestWaitingMask;
     [SerializeField]
     private List<MessageBox> _messageBoxes;
     public List<MessageBox> messageBoxes => _messageBoxes;
@@ -38,7 +36,7 @@ namespace Yume.UI {
 
     public bool sceneLoadingBGActive {
       set {
-        _sceneLoadingBG.SetActive(value);
+        _sceneLoadingBG.enabled = value;
       }
     }
     public bool httpRequestWaitingMaskActive {
@@ -51,40 +49,45 @@ namespace Yume.UI {
       }
     }
 
-    private IList<IUIDisplay> m_UIStack = new List<IUIDisplay>();
+    private IList<UIDisplay> m_UIStack;
     private Tween m_blackMaskTween;
+
+    public bool activeEscapeKey { set; get; }
 
     protected override void OnInit() {
       base.OnInit();
+      activeEscapeKey = true;
+      m_UIStack = new List<UIDisplay>();
       messageManager = new MessageManager();
     }
 
     private void Update() {
-      if (Input.GetKeyDown(KeyCode.Escape)) {
+      if (activeEscapeKey && Input.GetKeyDown(KeyCode.Escape)) {
         if (m_UIStack.Count == 0) {
-          OpenDifference(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
+          OpenConfirmationBox(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
         } else {
-          m_UIStack[m_UIStack.Count - 1].Close();
+          if (!m_UIStack[m_UIStack.Count - 1].isTweenPlaying) {
+            m_UIStack[m_UIStack.Count - 1].Close();
+          }
         }
       }
-
 #if TEST
       if (Input.GetKeyDown(KeyCode.A)) {
         DBManager.AddItems(new ItemDB("item_2_gold", 1000));
-      }    
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.S)) {
         DBManager.ConsumeItems(true, new ItemDB("item_2_gold", 1000));
       }
 
       if (Input.GetKeyDown(KeyCode.D)) {
         DBManager.AddItems(new ItemDB("item_1_diamond", 1));
-      }    
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.C)) {
         DBManager.setUserToken = "1d";
-      }     
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.M)) {
         DBManager.AddMail(new MailDB("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
         DBManager.AddMail(new MailDB("Test Title2", "You are alone", "admin", new ItemDB("item_2_gold", 10000)));
@@ -96,7 +99,7 @@ namespace Yume.UI {
       }
 
       if (Input.GetKeyDown(KeyCode.L)) {
-        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest"));
+        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttesttesttesttesttesttesttesttesttesttest", null));
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {
@@ -118,40 +121,46 @@ namespace Yume.UI {
       });
     }
 
-    public void AddToBackStack(IUIDisplay ui) {
+    public void AddToBackStack(UIDisplay ui) {
       if (!m_UIStack.Contains(ui)) {
         m_UIStack.Add(ui);
       }
     }
 
-    public void RemoveFromBackStack(IUIDisplay ui) {
+    public void RemoveFromBackStack(UIDisplay ui) {
       if (m_UIStack.Contains(ui)) {
         m_UIStack.Remove(ui);
       }
     }
 
     public void ClearBackStack() {
-      m_UIStack.Clear();
+      while (m_UIStack.Count > 0) {
+        m_UIStack[m_UIStack.Count - 1].Close();
+      }
     }
 
-    public void OpenDifference(string tip,string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
-      _tip.text = tip;
+    public void OpenConfirmationBox(string tip, string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
+      _confirmationBox.tip.text = tip;
 
-      _ok.onClick.RemoveAllListeners();
+      #region ok
+      _confirmationBox.ok.textComponent.text = okText;
+      _confirmationBox.ok.onClick.RemoveAllListeners();
+      _confirmationBox.ok.onClick.AddListener(() => _confirmationBox.ui.Close());
       if (onOk != null) {
-        _ok.onClick.AddListener(onOk);
+        _confirmationBox.ok.onClick.AddListener(onOk);
       }
-      _ok.onClick.AddListener(()=> _confirmation.Close());
-      _ok.textComponent.text = okText;
+      #endregion
 
-      _cancel.onClick.RemoveAllListeners();
+      #region cancel
+      _confirmationBox.cancel.textComponent.text = cancelText;
+      _confirmationBox.cancel.onClick.RemoveAllListeners();
+      _confirmationBox.cancel.onClick.AddListener(() => _confirmationBox.ui.Close());
       if (onCancel != null) {
-        _cancel.onClick.AddListener(onCancel);
+        _confirmationBox.cancel.onClick.AddListener(onCancel);
       }
-      _cancel.onClick.AddListener(() => _confirmation.Close());
-      _cancel.textComponent.text = cancelText;
+      #endregion
 
-      _confirmation.Open();
+      _confirmationBox.ui.Open();
     }
   }
 }
