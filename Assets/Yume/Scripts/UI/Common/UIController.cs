@@ -99,7 +99,7 @@ namespace Yume.UI {
       }
 
       if (Input.GetKeyDown(KeyCode.L)) {
-        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttest", null));
+        messageManager.AddMessage(new Message(Message.Style.SLIDE, "testtesttesttesttesttesttesttesttesttesttesttest", null));
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {
