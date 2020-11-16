@@ -24,6 +24,7 @@ namespace Yume.Battle {
 
     [Serializable]
     public struct Phase {
+      public string description;
       public int energyConsumption;
       public BuffData[] buffData;
       public Blackboard blackboard;
@@ -32,7 +33,6 @@ namespace Yume.Battle {
     public string id;
     public string name;
     public string iconFileName;
-    public string description;
     public Type type;
     public Phase[] phases;
   }
@@ -56,7 +56,7 @@ namespace Yume.Battle {
       _phaseText.text = phase.ToString();
       _typeText.text = StringUtil.GetCardTypeName(cardInfo.type);
       _energyText.text = cardInfo.phases[phase].energyConsumption.ToString();
-      _descriptionText.text = StringUtil.GetActualDescription(cardInfo.description, cardInfo.phases[phase].blackboard);
+      _descriptionText.text = StringUtil.GetActualDescription(cardInfo.phases[phase].description, cardInfo.phases[phase].blackboard);
       _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(cardInfo.iconFileName).Task;
     }
   }
