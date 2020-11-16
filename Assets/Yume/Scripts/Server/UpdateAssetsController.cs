@@ -6,12 +6,9 @@ using Yume.Singleton;
 using Yume.String;
 using Yume.UI;
 using Yume.Scene;
-using Yume.Audio;
 
 namespace Yume.Server {
   public class UpdateAssetsController : SingletonMono<UpdateAssetsController> {
-    [SerializeField]
-    private GameObject _downloadError;
     [SerializeField]
     private Text _downloadText;
     [SerializeField]
@@ -34,18 +31,17 @@ namespace Yume.Server {
     }
 
     public async void CheckGameAssets() {
-      _downloadError.SetActive(false);
       _downloadText.gameObject.SetActive(true);
 
       await Addressables.InitializeAsync().Task;
 
       if (Application.internetReachability == NetworkReachability.NotReachable) {
-        _downloadError.SetActive(true);
+        _OpenDownloadErrorPage();
       } else {
         m_checkHandle = Addressables.GetDownloadSizeAsync(StringMap.PRELOAD);
         await m_checkHandle.Task;
         if (m_checkHandle.Status != AsyncOperationStatus.Succeeded) {
-          _downloadError.SetActive(true);
+          _OpenDownloadErrorPage();
           return;
         }
         if (m_checkHandle.Result > 0) {
@@ -68,7 +64,7 @@ namespace Yume.Server {
         await System.Threading.Tasks.Task.Delay((int)(Time.deltaTime * 1000.0f));
       }
       if (m_downloadHandle.Status != AsyncOperationStatus.Succeeded) {
-        _downloadError.SetActive(true);
+        _OpenDownloadErrorPage();
         return;
       }
       _downloadText.gameObject.SetActive(false);
@@ -76,8 +72,9 @@ namespace Yume.Server {
       _startButton.Open();
     }
 
-    public void QuitGame() {
-      Application.Quit();
+    private void _OpenDownloadErrorPage() {
+      UIController.instance.OpenConfirmationBox(StringMap.DOWNLOAD_ERROR_TIP,
+                            StringMap.RETRY, StringMap.QUIT, CheckGameAssets, Application.Quit);
     }
 
     public void GoToLoginScene() {
