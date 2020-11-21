@@ -36,28 +36,4 @@ namespace Yume.Battle {
     public Type type;
     public Phase[] phases;
   }
-
-  public class Card : MonoBehaviour {
-    [SerializeField]
-    private Image _icon;
-    [SerializeField]
-    private Text _energyText;
-    [SerializeField]
-    private Text _phaseText;
-    [SerializeField]
-    private Text _descriptionText;
-    [SerializeField]
-    private Text _nameText;
-    [SerializeField]
-    private Text _typeText;
-
-    public virtual async void OnInit(int phase, CardInfo cardInfo) {
-      _nameText.text = cardInfo.name;
-      _phaseText.text = phase.ToString();
-      _typeText.text = StringUtil.GetCardTypeName(cardInfo.type);
-      _energyText.text = cardInfo.phases[phase].energyConsumption.ToString();
-      _descriptionText.text = StringUtil.GetActualDescription(cardInfo.phases[phase].description, cardInfo.phases[phase].blackboard);
-      _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(cardInfo.iconFileName).Task;
-    }
-  }
 }

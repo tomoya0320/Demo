@@ -43,6 +43,8 @@ namespace Yume.DB {
       cards.Add(new CardDB("card_001_atk",1));
       cards.Add(new CardDB("card_001_atk",1));
       cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
 #endif
     }
   }

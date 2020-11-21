@@ -104,6 +104,18 @@ namespace Yume.UI {
 
       if (Input.GetKeyDown(KeyCode.G)) {
         SceneLoader.GoToAVGScene("test1");
+      }     
+      
+      if (Input.GetKeyDown(KeyCode.O)) {
+        DBManager.userCards.Add(new CardDB("card_001_atk", 0));
+        Broadcast.EventCenter.Broadcast(Broadcast.EventType.UPDATE_CARD_INFO);
+      }
+
+      if (Input.GetKeyDown(KeyCode.P)) {
+        if (DBManager.userCards.Count > 0) {
+          DBManager.userCards.RemoveAt(0);
+          Broadcast.EventCenter.Broadcast(Broadcast.EventType.UPDATE_CARD_INFO);
+        }
       }
 #endif
     }

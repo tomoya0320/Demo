@@ -6,7 +6,7 @@ using Yume.Math;
 using Yume.String;
 
 namespace Yume.UI {
-  public class UserInfoShow : MonoBehaviour {
+  public class UserInfoView : MonoBehaviour {
     [SerializeField]
     private Text _apText;
     [SerializeField]

@@ -8,7 +8,7 @@ using Yume.String;
 using Yume.Task;
 
 namespace Yume.UI {
-  public class TaskShowController : MonoBehaviour {
+  public class TaskViewController : MonoBehaviour {
     [SerializeField]
     private TaskType _taskType;
     [SerializeField]
@@ -25,18 +25,18 @@ namespace Yume.UI {
       GridLayoutGroup grid = _taskContent.GetComponent<GridLayoutGroup>();
       m_length = grid.cellSize.y + grid.spacing.y;
       int taskShowNum = 0;
-      List<TaskShow> tempList = new List<TaskShow>();
+      List<TaskView> tempList = new List<TaskView>();
       foreach (TaskDB task in m_tasks) {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
           taskShowNum++;
           GameObject tempTaskShow = Instantiate(m_taskShow, _taskContent);
-          tempTaskShow.GetComponent<TaskShow>().OnInit(task);
-          tempList.Add(tempTaskShow.GetComponent<TaskShow>());
+          tempTaskShow.GetComponent<TaskView>().OnInit(task);
+          tempList.Add(tempTaskShow.GetComponent<TaskView>());
         }
       }
 
-      foreach (TaskShow taskShow in tempList) {
+      foreach (TaskView taskShow in tempList) {
         if (taskShow.task.state == TaskState.FINAL) {
           taskShow.transform.SetAsLastSibling();
         }
@@ -55,7 +55,7 @@ namespace Yume.UI {
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
           _taskContent.sizeDelta += new Vector2(0, m_length);
           GameObject tempTaskShow = Instantiate(m_taskShow, _taskContent);
-          tempTaskShow.GetComponent<TaskShow>().OnInit(task);
+          tempTaskShow.GetComponent<TaskView>().OnInit(task);
           tempTaskShow.transform.SetAsFirstSibling();
         }
       }

@@ -10,7 +10,7 @@ using Yume.UI;
 using Yume.DB;
 
 namespace Yume.MailSystem {
-  public class MailShowController : MonoBehaviour {
+  public class MailViewController : MonoBehaviour {
     [SerializeField]
     private Sprite _selectedImg;
     [SerializeField]
@@ -35,7 +35,7 @@ namespace Yume.MailSystem {
     private Button _getAllButton;
 
     private List<MailDB> mails;
-    private MailShow currentClickedMail;
+    private MailView currentClickedMail;
     private GameObject mailInListPrefab;
     private GameObject attachmentPrefab;
     private GridLayoutGroup mailGLG;
@@ -52,7 +52,7 @@ namespace Yume.MailSystem {
 
       foreach (MailDB mail in mails) {
         GameObject tempMail = Instantiate(mailInListPrefab, _mailListContent);
-        tempMail.GetComponent<MailShow>().OnInit(mail, this);
+        tempMail.GetComponent<MailView>().OnInit(mail, this);
       }
 
       mailGLG = _mailListContent.GetComponent<GridLayoutGroup>();
@@ -67,7 +67,7 @@ namespace Yume.MailSystem {
       _mailListContent.sizeDelta = new Vector2(_mailListContent.sizeDelta.x, height);
     }
 
-    public void SwitchMail(MailShow mailInList) {
+    public void SwitchMail(MailView mailInList) {
       if (currentClickedMail != null) {
         currentClickedMail.GetComponent<Image>().sprite = _unselectedImg;
       }
@@ -88,7 +88,7 @@ namespace Yume.MailSystem {
       foreach (ItemDB item in mailInList.mail.attachment) {
         GameObject tempItem = Instantiate(attachmentPrefab, _attachmentContent);
         Color iconColor = mailInList.mail.isReceived ? Color.white * 0.8f : Color.white;
-        tempItem.GetComponent<ShortItemInfoShow>().OnInit(item, iconColor);
+        tempItem.GetComponent<ShortItemInfoView>().OnInit(item, iconColor);
       }
 
       currentClickedMail = mailInList;
@@ -109,7 +109,7 @@ namespace Yume.MailSystem {
     public void GetAttachment() {
       if (currentClickedMail && !currentClickedMail.mail.isReceived) {
         currentClickedMail.mail.GetAttachment();
-        foreach (ShortItemInfoShow siif in _attachmentContent.GetComponentsInChildren<ShortItemInfoShow>()) {
+        foreach (ShortItemInfoView siif in _attachmentContent.GetComponentsInChildren<ShortItemInfoView>()) {
           siif.iconImg.color = Color.white * 0.8f;
         }
         _getButton.interactable = false;
@@ -119,7 +119,7 @@ namespace Yume.MailSystem {
 
     public void GetAllAttachment() {
       GetAttachment();
-      foreach (MailShow mailInList in _mailListContent.GetComponentsInChildren<MailShow>()) {
+      foreach (MailView mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
         if (!mailInList.mail.isReceived) {
           mailInList.mail.GetAttachment();
         }
@@ -128,7 +128,7 @@ namespace Yume.MailSystem {
     }
 
     public void DeleteAllMails() {
-      foreach (MailShow mailInList in _mailListContent.GetComponentsInChildren<MailShow>()) {
+      foreach (MailView mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
         if (mailInList.mail.isReceived) {
           mailInList.mail.Delete();
           if (mailInList == currentClickedMail) {
@@ -145,7 +145,7 @@ namespace Yume.MailSystem {
       _noMailPanel.SetActive(false);
       GameObject tempMail = Instantiate(mailInListPrefab, _mailListContent);
       MailDB mail = mails[mails.Count - 1];
-      tempMail.GetComponent<MailShow>().OnInit(mail, this);
+      tempMail.GetComponent<MailView>().OnInit(mail, this);
       _getAllButton.interactable |= !mail.isReceived;
       _AdjustMailListContentHeight();
     }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using Yume.Math;
 
 namespace Yume.MailSystem {
-  public class MailShow : MonoBehaviour {
+  public class MailView : MonoBehaviour {
     [SerializeField]
     private Image _attachmentImg;
     [SerializeField]
@@ -11,9 +11,9 @@ namespace Yume.MailSystem {
     [SerializeField]
     private Text _dateDeltaText;
     public MailDB mail { private set; get; }
-    private MailShowController m_mailController;
+    private MailViewController m_mailController;
 
-    public void OnInit(MailDB mail, MailShowController mailController) {
+    public void OnInit(MailDB mail, MailViewController mailController) {
       this.mail = mail;
       m_mailController = mailController;
       _attachmentImg.enabled = mail.attachment.Length > 0;

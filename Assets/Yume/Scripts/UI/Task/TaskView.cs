@@ -9,7 +9,7 @@ using Yume.Task;
 using Yume.DB;
 
 namespace Yume.UI {
-  public class TaskShow : MonoBehaviour {
+  public class TaskView : MonoBehaviour {
     public TaskDB task { get; private set; }
     [SerializeField]
     private Text _title;

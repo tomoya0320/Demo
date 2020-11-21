@@ -47,7 +47,6 @@ namespace Yume.String {
     public const string DIALOGUE = "dialogue";
     public const string ATTRIBUTE = "attribute";
     public const string PASSIVE_BUFFS = "passiveBuffs";
-    public const string CARD_HANDBOOK = "cardHandbook";
   }
 
   public class StringUtil {
