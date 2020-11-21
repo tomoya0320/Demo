@@ -13,14 +13,14 @@ namespace Yume.UI {
     private TaskType _taskType;
     [SerializeField]
     private RectTransform _taskContent;
+    [SerializeField]
+    private GameObject _taskViewPrefab;
     private List<TaskDB> m_tasks;
-    private GameObject m_taskShow;
     private float m_length;
 
-    private async void Start() {
+    private void Start() {
       EventCenter.AddListener<TaskDB>(Broadcast.EventType.ADD_TASK, _AddTask);
 
-      m_taskShow = await Addressables.LoadAssetAsync<GameObject>(StringMap.TASK_SHOW).Task;
       m_tasks = DBManager.GetTaskList(_taskType);
       GridLayoutGroup grid = _taskContent.GetComponent<GridLayoutGroup>();
       m_length = grid.cellSize.y + grid.spacing.y;
@@ -30,7 +30,7 @@ namespace Yume.UI {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
           taskShowNum++;
-          GameObject tempTaskShow = Instantiate(m_taskShow, _taskContent);
+          GameObject tempTaskShow = Instantiate(_taskViewPrefab, _taskContent);
           tempTaskShow.GetComponent<TaskView>().OnInit(task);
           tempList.Add(tempTaskShow.GetComponent<TaskView>());
         }
@@ -54,7 +54,7 @@ namespace Yume.UI {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
           _taskContent.sizeDelta += new Vector2(0, m_length);
-          GameObject tempTaskShow = Instantiate(m_taskShow, _taskContent);
+          GameObject tempTaskShow = Instantiate(_taskViewPrefab, _taskContent);
           tempTaskShow.GetComponent<TaskView>().OnInit(task);
           tempTaskShow.transform.SetAsFirstSibling();
         }

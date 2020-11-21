@@ -21,8 +21,10 @@ namespace Yume.UI {
     private RectTransform _processContent;
     [SerializeField]
     private RectTransform _rewardContent;
-    private GameObject m_rewardPrefab;
-    private GameObject m_processTextPrefab;
+    [SerializeField]
+    private GameObject _rewardPrefab;
+    [SerializeField]
+    private GameObject _processTextPrefab;
     private List<Text> m_processTexts;
 
     private void Start() {
@@ -36,8 +38,6 @@ namespace Yume.UI {
     public async void OnInit(TaskDB task) {
       this.task = task;
 
-      m_rewardPrefab = await Addressables.LoadAssetAsync<GameObject>(StringMap.REWARD_PREF_NAME).Task;
-      m_processTextPrefab = await Addressables.LoadAssetAsync<GameObject>(StringMap.PROCESSTEXT_PREF_NAME).Task;
       m_processTexts = new List<Text>();
 
       TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
@@ -45,14 +45,14 @@ namespace Yume.UI {
       _description.text = taskInfo.description;
 
       foreach (ItemDB item in taskInfo.taskRewards.items) {
-        GameObject temp = Instantiate(m_rewardPrefab, _rewardContent);
+        GameObject temp = Instantiate(_rewardPrefab, _rewardContent);
         temp.GetComponent<Image>().sprite = await Addressables.LoadAssetAsync<Sprite>
         (DBManager.GetItemInfo(item.id).iconFileName).Task;
         temp.transform.GetChild(0).GetComponent<Text>().text = item.num.ToString();
       }
 
       for (int i = 0; i < task.taskRequests.Count; i++) {
-        GameObject temp = Instantiate(m_processTextPrefab, _processContent);
+        GameObject temp = Instantiate(_processTextPrefab, _processContent);
         m_processTexts.Add(temp.GetComponent<Text>());
       }
 

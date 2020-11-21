@@ -11017,6 +11017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _taskType: 1
   _taskContent: {fileID: 603238522}
+  _taskViewPrefab: {fileID: 6153713498064091992, guid: 5a07dfd7f9d438345a9a9b57a9fe7537, type: 3}
 --- !u!1 &1487739143
 GameObject:
   m_ObjectHideFlags: 0
@@ -13448,7 +13449,7 @@ GameObject:
   - component: {fileID: 1819451522}
   - component: {fileID: 1819451523}
   m_Layer: 5
-  m_Name: mail show
+  m_Name: mail view
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13501,6 +13502,8 @@ MonoBehaviour:
   _dateText: {fileID: 1490746916920740904}
   _getButton: {fileID: 1490746917341815265}
   _getAllButton: {fileID: 1490746916906459155}
+  _mailViewPrefab: {fileID: 9219061356862201775, guid: aab00c946e3a58d4fb0bd28edd68b954, type: 3}
+  _attachmentPrefab: {fileID: 1521648986653277797, guid: cdeedd9d510fbdc44bbde9d8933603d6, type: 3}
 --- !u!1 &1829491846
 GameObject:
   m_ObjectHideFlags: 0
@@ -16638,7 +16641,7 @@ GameObject:
   - component: {fileID: 1490746916183660538}
   - component: {fileID: 1490746916183660539}
   m_Layer: 5
-  m_Name: maillist
+  m_Name: mails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17677,7 +17680,7 @@ GameObject:
   - component: {fileID: 1490746917025096657}
   - component: {fileID: 1490746917025096656}
   m_Layer: 5
-  m_Name: mail list content
+  m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19256,6 +19259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _taskType: 0
   _taskContent: {fileID: 5218553904775445050}
+  _taskViewPrefab: {fileID: 6153713498064091992, guid: 5a07dfd7f9d438345a9a9b57a9fe7537, type: 3}
 --- !u!224 &5218553905833435376
 RectTransform:
   m_ObjectHideFlags: 0
