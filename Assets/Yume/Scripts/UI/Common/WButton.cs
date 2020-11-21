@@ -12,6 +12,8 @@ namespace Yume.UI {
     public Text textComponent => _textComponent;
     [SerializeField]
     private string _overrideSoundName;
+    [SerializeField]
+    private bool _muteWhenInactive;
 
     protected override void Awake() {
       base.Awake();
@@ -21,10 +23,12 @@ namespace Yume.UI {
     public override void OnPointerDown(PointerEventData eventData) {
       base.OnPointerDown(eventData);
 
-      string clipName = string.IsNullOrEmpty(_overrideSoundName) ? 
-                       StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
+      if (interactable || !_muteWhenInactive) {
+        string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
+                         StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
 
-      AudioController.instance.PlaySound(clipName);
+        AudioController.instance.PlaySound(clipName);
+      }
     }
   }
 }
