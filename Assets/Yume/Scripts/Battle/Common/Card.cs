@@ -41,16 +41,16 @@ namespace Yume.Battle {
     [SerializeField]
     private Image _icon;
     [SerializeField]
-    private Text _energyText;    
+    private Text _energyText;
     [SerializeField]
     private Text _phaseText;
     [SerializeField]
-    private Text _descriptionText; 
+    private Text _descriptionText;
     [SerializeField]
-    private Text _nameText;   
+    private Text _nameText;
     [SerializeField]
     private Text _typeText;
-    
+
     public virtual async void OnInit(int phase, CardInfo cardInfo) {
       _nameText.text = cardInfo.name;
       _phaseText.text = phase.ToString();
