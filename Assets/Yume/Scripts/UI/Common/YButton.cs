@@ -6,7 +6,7 @@ using Yume.String;
 
 namespace Yume.UI {
   [ExecuteInEditMode]
-  public class WButton : Button {
+  public class YButton : Button {
     [SerializeField]
     private Text _textComponent;
     public Text textComponent => _textComponent;

@@ -16,7 +16,7 @@ namespace Yume.UI {
     [SerializeField]
     private Text _description;
     [SerializeField]
-    private WButton _getRewardButton;
+    private YButton _getRewardButton;
     [SerializeField]
     private RectTransform _processContent;
     [SerializeField]

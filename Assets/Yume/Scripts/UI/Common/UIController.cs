@@ -17,8 +17,8 @@ namespace Yume.UI {
     private class ConfirmationBox {
       public UIDisplay ui;
       public Text tip;
-      public WButton ok;
-      public WButton cancel;
+      public YButton ok;
+      public YButton cancel;
     }
 
     [SerializeField]
