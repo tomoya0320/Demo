@@ -51,6 +51,11 @@ namespace Yume.String {
   }
 
   public class StringUtil {
+    /// <summary>
+    /// 以万、亿等单位来显示数字并忽略小数部分，避免数字过长导致显示问题
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
     public static string IntegerToString(int num) {
       if (num < 10000) {
         return num.ToString();
