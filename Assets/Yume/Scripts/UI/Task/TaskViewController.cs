@@ -40,7 +40,7 @@ namespace Yume.UI {
         }
       }
 
-      _taskContent.sizeDelta = new Vector2(_taskContent.sizeDelta.x, m_length * taskViewNum);
+      _taskContent.sizeDelta = new Vector2(_taskContent.sizeDelta.x, m_length * taskViewNum - grid.spacing.y);
     }
 
     private void OnDestroy() {

@@ -60,7 +60,7 @@ namespace Yume.UI {
     }
 
     private void _AdjustMailListContentHeight() {
-      float height = m_mails.Count * (m_mailGLG.spacing.y + m_mailGLG.cellSize.y);
+      float height = m_mails.Count * (m_mailGLG.spacing.y + m_mailGLG.cellSize.y) - m_mailGLG.spacing.y;
       _mailListContent.sizeDelta = new Vector2(_mailListContent.sizeDelta.x, height);
     }
 
