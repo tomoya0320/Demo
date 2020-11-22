@@ -240,13 +240,6 @@ namespace Yume.DB {
       return defaultTasks;
     }
 
-    public static ItemDB GetItemDB(int index) {
-      if (index < 0 || index >= userItems.Count) {
-        return null;
-      }
-      return userItems[index];
-    }
-
     public static ItemDB GetItemDB(string id) {
       return userItems.Find(obj => obj.id == id);
     } 

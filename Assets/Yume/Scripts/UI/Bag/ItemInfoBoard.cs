@@ -29,12 +29,12 @@ namespace Yume.UI {
       }
     }
 
-    public void SetSelecteItem(ItemView itemShow) {
+    public void SetSelecteItem(ItemView itemView) {
       if (selectedItem) {
-        selectedItem.GetComponent<Image>().sprite = _itemUnselectedImg;
+        selectedItem.bottomImg.sprite = _itemUnselectedImg;
       }
-      itemShow.GetComponent<Image>().sprite = _itemSelectedImg;
-      selectedItem = itemShow;
+      itemView.bottomImg.sprite = _itemSelectedImg;
+      selectedItem = itemView;
       UpdateInfoBoard();
     }
   }

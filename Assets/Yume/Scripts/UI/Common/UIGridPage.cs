@@ -3,16 +3,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  public abstract class UIGridPage<DataType, ShowType> : MonoBehaviour where ShowType : IViewInit<DataType> where DataType : class {
+  public abstract class UIGridPage<DataType, ViewType> : MonoBehaviour where ViewType : IViewInit<DataType> where DataType : class {
     [SerializeField]
     private Text _pageText;
     [SerializeField]
-    protected List<ShowType> showList;
+    private YButton _turnPageBackBtn;
+    [SerializeField]
+    private YButton _turnPageForwardBtn;
+    [SerializeField]
+    protected List<ViewType> viewList;
     protected List<DataType> data;
-    protected int maxNumInOnePage => showList.Count;
+    protected int maxNumInOnePage => viewList.Count;
     protected int currentPage = 1;
     protected int maxPage;
     protected int additionalIndex => (currentPage - 1) * maxNumInOnePage;
+
+    protected virtual void Start() {
+      if(_turnPageBackBtn !=null && _turnPageForwardBtn != null) {
+        _turnPageBackBtn.onClick.AddListener(OnTurnPageBack);
+        _turnPageForwardBtn.onClick.AddListener(OnTurnPageForward);
+      }
+    }
 
     protected virtual void ReCalMaxPageAndRefresh() {
       maxPage = data.Count > 0 ? data.Count / maxNumInOnePage : 1;
@@ -27,20 +38,22 @@ namespace Yume.UI {
     }
 
     protected virtual void RefreshPage() {
-      for (int i = 0; i < showList.Count; i++) {
+      for (int i = 0; i < viewList.Count; i++) {
         if (i + additionalIndex < data.Count) {
-          showList[i].OnInit(data[i + additionalIndex]);
+          viewList[i].OnInit(data[i + additionalIndex]);
         } else {
-          showList[i].OnInit(null);
+          viewList[i].OnInit(null);
         }
       }
     }
 
     protected virtual void UpdatePageText() {
-      _pageText.text = currentPage + "/" + maxPage;
+      if (_pageText != null) {
+        _pageText.text = currentPage + "/" + maxPage;
+      }
     }
 
-    public virtual void TurnPageForward() {
+    protected virtual void OnTurnPageForward() {
       if (currentPage < maxPage) {
         currentPage++;
         UpdatePageText();
@@ -48,7 +61,7 @@ namespace Yume.UI {
       }
     }
 
-    public virtual void TurnPageBack() {
+    protected virtual void OnTurnPageBack() {
       if (currentPage > 1) {
         currentPage--;
         UpdatePageText();

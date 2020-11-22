@@ -4,7 +4,8 @@ using Yume.DB;
 
 namespace Yume.UI {
   public class CardViewController : UIGridPage<CardDB,CardView> {
-    private void Start() {
+    protected override void Start() {
+      base.Start();
       data = DBManager.userCards;
       ReCalMaxPageAndRefresh();
       EventCenter.AddListener(EventType.UPDATE_CARD_INFO, ReCalMaxPageAndRefresh);

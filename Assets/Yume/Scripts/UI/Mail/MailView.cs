@@ -10,6 +10,9 @@ namespace Yume.MailSystem {
     private Text _titleText;
     [SerializeField]
     private Text _dateDeltaText;
+    [SerializeField]
+    private Image _bottomImg;
+    public Image bottomImg => _bottomImg;
     public MailDB mail { private set; get; }
     private MailViewController m_mailController;
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5847004980492683438}
   - component: {fileID: 2348934559285838211}
   m_Layer: 5
-  m_Name: mailShow
+  m_Name: mailView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   _attachmentImg: {fileID: 9219061357757127360}
   _titleText: {fileID: 9219061358317748881}
   _dateDeltaText: {fileID: 9219061358437458741}
+  _bottomImg: {fileID: 9219061356862201773}
 --- !u!114 &2348934559285838211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +154,7 @@ MonoBehaviour:
         m_CallState: 2
   _textComponent: {fileID: 9219061358317748881}
   _overrideSoundName: 
+  _muteWhenInactive: 0
 --- !u!1 &9219061357757127362
 GameObject:
   m_ObjectHideFlags: 0

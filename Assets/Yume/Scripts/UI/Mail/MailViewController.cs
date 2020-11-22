@@ -66,32 +66,32 @@ namespace Yume.MailSystem {
       _mailListContent.sizeDelta = new Vector2(_mailListContent.sizeDelta.x, height);
     }
 
-    public void SwitchMail(MailView mailInList) {
+    public void SwitchMail(MailView mailView) {
       if (m_currentClickedMail != null) {
-        m_currentClickedMail.GetComponent<Image>().sprite = _unselectedImg;
+        m_currentClickedMail.bottomImg.sprite = _unselectedImg;
       }
 
       _mailContentPanel.SetActive(true);
-      mailInList.GetComponent<Image>().sprite = _selectedImg;
-      _contentText.text = string.Format(mailInList.mail.content, DBManager.userName);
-      _signatureText.text = mailInList.mail.signature;
-      _dateText.text = Convert.ToDateTime(mailInList.mail.dateTime).ToShortDateString();
+      mailView.bottomImg.sprite = _selectedImg;
+      _contentText.text = string.Format(mailView.mail.content, DBManager.userName);
+      _signatureText.text = mailView.mail.signature;
+      _dateText.text = Convert.ToDateTime(mailView.mail.dateTime).ToShortDateString();
 
       for (int i = 0; i < _attachmentContent.childCount; i++) {
         Destroy(_attachmentContent.GetChild(i).gameObject);
       }
 
-      float width = mailInList.mail.attachment.Length * (m_attachmentGLG.spacing.x + m_attachmentGLG.cellSize.x);
+      float width = mailView.mail.attachment.Length * (m_attachmentGLG.spacing.x + m_attachmentGLG.cellSize.x);
       _attachmentContent.sizeDelta = new Vector2(width, _attachmentContent.sizeDelta.y);
 
-      foreach (ItemDB item in mailInList.mail.attachment) {
+      foreach (ItemDB item in mailView.mail.attachment) {
         GameObject tempItem = Instantiate(_attachmentPrefab, _attachmentContent);
-        Color iconColor = mailInList.mail.isReceived ? Color.white * 0.8f : Color.white;
+        Color iconColor = mailView.mail.isReceived ? Color.white * 0.8f : Color.white;
         tempItem.GetComponent<ShortItemInfoView>().OnInit(item, iconColor);
       }
 
-      m_currentClickedMail = mailInList;
-      _getButton.interactable = !mailInList.mail.isReceived;
+      m_currentClickedMail = mailView;
+      _getButton.interactable = !mailView.mail.isReceived;
     }
 
     private void OnDestroy() {

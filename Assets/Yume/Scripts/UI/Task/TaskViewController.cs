@@ -24,25 +24,25 @@ namespace Yume.UI {
       m_tasks = DBManager.GetTaskList(_taskType);
       GridLayoutGroup grid = _taskContent.GetComponent<GridLayoutGroup>();
       m_length = grid.cellSize.y + grid.spacing.y;
-      int taskShowNum = 0;
+      int taskViewNum = 0;
       List<TaskView> tempList = new List<TaskView>();
       foreach (TaskDB task in m_tasks) {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
-          taskShowNum++;
-          GameObject tempTaskShow = Instantiate(_taskViewPrefab, _taskContent);
-          tempTaskShow.GetComponent<TaskView>().OnInit(task);
-          tempList.Add(tempTaskShow.GetComponent<TaskView>());
+          taskViewNum++;
+          GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
+          tempTaskView.GetComponent<TaskView>().OnInit(task);
+          tempList.Add(tempTaskView.GetComponent<TaskView>());
         }
       }
 
-      foreach (TaskView taskShow in tempList) {
-        if (taskShow.task.state == TaskState.FINAL) {
-          taskShow.transform.SetAsLastSibling();
+      foreach (TaskView taskView in tempList) {
+        if (taskView.task.state == TaskState.FINAL) {
+          taskView.transform.SetAsLastSibling();
         }
       }
 
-      _taskContent.sizeDelta = new Vector2(_taskContent.sizeDelta.x, m_length * taskShowNum);
+      _taskContent.sizeDelta = new Vector2(_taskContent.sizeDelta.x, m_length * taskViewNum);
     }
 
     private void OnDestroy() {
@@ -54,9 +54,9 @@ namespace Yume.UI {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
         if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
           _taskContent.sizeDelta += new Vector2(0, m_length);
-          GameObject tempTaskShow = Instantiate(_taskViewPrefab, _taskContent);
-          tempTaskShow.GetComponent<TaskView>().OnInit(task);
-          tempTaskShow.transform.SetAsFirstSibling();
+          GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
+          tempTaskView.GetComponent<TaskView>().OnInit(task);
+          tempTaskView.transform.SetAsFirstSibling();
         }
       }
     }

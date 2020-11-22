@@ -7,7 +7,8 @@ namespace Yume.UI {
     [UnityEngine.SerializeField]
     private ItemInfoBoard _itemInfoBoard;
 
-    private void Start() {
+    protected override void Start() {
+      base.Start();
       data = DBManager.userItems;
       ReCalMaxPageAndRefresh();
       EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, ReCalMaxPageAndRefresh);
@@ -18,13 +19,13 @@ namespace Yume.UI {
       _itemInfoBoard.UpdateInfoBoard();
     }
 
-    public override void TurnPageBack() {
-      base.TurnPageBack();
+    protected override void OnTurnPageBack() {
+      base.OnTurnPageBack();
       _itemInfoBoard.UpdateInfoBoard();
     }
 
-    public override void TurnPageForward() {
-      base.TurnPageForward();
+    protected override void OnTurnPageForward() {
+      base.OnTurnPageForward();
       _itemInfoBoard.UpdateInfoBoard();
     }
 

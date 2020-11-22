@@ -11,6 +11,9 @@ namespace Yume.UI {
     private Text _num;
     [SerializeField]
     private Image _icon;
+    [SerializeField]
+    private Image _bottomImg;
+    public Image bottomImg => _bottomImg;
     public ItemDB item { get; private set; }
 
     public async void OnInit(ItemDB data) {
