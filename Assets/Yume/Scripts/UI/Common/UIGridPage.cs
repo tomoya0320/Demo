@@ -12,7 +12,7 @@ namespace Yume.UI {
     private YButton _turnPageForwardBtn;
     [SerializeField]
     protected List<ViewType> viewList;
-    protected List<DataType> data;
+    protected List<DataType> dataList;
     protected int maxNumInOnePage => viewList.Count;
     protected int currentPage = 1;
     protected int maxPage;
@@ -26,8 +26,8 @@ namespace Yume.UI {
     }
 
     protected virtual void ReCalMaxPageAndRefresh() {
-      maxPage = data.Count > 0 ? data.Count / maxNumInOnePage : 1;
-      if (data.Count % maxNumInOnePage > 0) {
+      maxPage = dataList.Count > 0 ? dataList.Count / maxNumInOnePage : 1;
+      if (dataList.Count % maxNumInOnePage > 0) {
         maxPage++;
       }
       if (currentPage > maxPage) {
@@ -39,8 +39,8 @@ namespace Yume.UI {
 
     protected virtual void RefreshPage() {
       for (int i = 0; i < viewList.Count; i++) {
-        if (i + additionalIndex < data.Count) {
-          viewList[i].OnInit(data[i + additionalIndex]);
+        if (i + additionalIndex < dataList.Count) {
+          viewList[i].OnInit(dataList[i + additionalIndex]);
         } else {
           viewList[i].OnInit(null);
         }

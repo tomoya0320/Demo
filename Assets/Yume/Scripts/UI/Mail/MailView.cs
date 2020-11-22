@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Yume.MailSystem;
 using Yume.Math;
 
-namespace Yume.MailSystem {
+namespace Yume.UI {
   public class MailView : MonoBehaviour {
     [SerializeField]
     private Image _attachmentImg;

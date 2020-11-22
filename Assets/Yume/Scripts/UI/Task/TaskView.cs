@@ -56,6 +56,10 @@ namespace Yume.UI {
         m_processTexts.Add(temp.GetComponent<Text>());
       }
 
+      if (task.state == TaskState.COMPLETED) {
+        transform.SetAsFirstSibling();
+      }
+
       UpdateTaskInfo();
     }
 
@@ -71,10 +75,6 @@ namespace Yume.UI {
       _getRewardButton.gameObject.SetActive(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
       _getRewardButton.interactable = task.state == TaskState.COMPLETED;
       _getRewardButton.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
-      
-      if (task.state == TaskState.COMPLETED) {
-        transform.SetAsFirstSibling();
-      }
     }
 
     public virtual void GetReward() {

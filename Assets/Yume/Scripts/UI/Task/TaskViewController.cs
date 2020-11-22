@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.DB;
-using Yume.String;
 using Yume.Task;
 
 namespace Yume.UI {
@@ -28,7 +26,7 @@ namespace Yume.UI {
       List<TaskView> tempList = new List<TaskView>();
       foreach (TaskDB task in m_tasks) {
         TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
-        if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
+        if (task.state != TaskState.INACTIVE) {
           taskViewNum++;
           GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
           tempTaskView.GetComponent<TaskView>().OnInit(task);
@@ -51,8 +49,7 @@ namespace Yume.UI {
 
     private void _AddTask(TaskDB task) {
       if(task.type == _taskType) {
-        TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
-        if (task.state != TaskState.INACTIVE && !taskInfo.includeDialogue) {
+        if (task.state != TaskState.INACTIVE) {
           _taskContent.sizeDelta += new Vector2(0, m_length);
           GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
           tempTaskView.GetComponent<TaskView>().OnInit(task);

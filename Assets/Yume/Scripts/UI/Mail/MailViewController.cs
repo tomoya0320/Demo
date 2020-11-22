@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Battle;
-using Yume.String;
-using Yume.UI;
 using Yume.DB;
+using Yume.MailSystem;
 
-namespace Yume.MailSystem {
+namespace Yume.UI {
   public class MailViewController : MonoBehaviour {
     [SerializeField]
     private Sprite _selectedImg;
