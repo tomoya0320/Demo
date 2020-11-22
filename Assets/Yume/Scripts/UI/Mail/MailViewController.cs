@@ -42,8 +42,8 @@ namespace Yume.UI {
     private GridLayoutGroup m_attachmentGLG;
 
     private void Start() {
-      EventCenter.AddListener(Broadcast.EventType.ADD_MAIL, _AddMail);
-   
+      EventCenter.AddListener(Broadcast.EventType.ADD_MAIL_VIEW, _AddMailView);
+
       m_mails = DBManager.userMails;
       _noMailPanel.SetActive(m_mails.Count == 0);
 
@@ -93,7 +93,7 @@ namespace Yume.UI {
     }
 
     private void OnDestroy() {
-      EventCenter.RemoveListener(Broadcast.EventType.ADD_MAIL, _AddMail);
+      EventCenter.RemoveListener(Broadcast.EventType.ADD_MAIL_VIEW, _AddMailView);
     }
 
     private void _CheckGetAllButton() {
@@ -138,7 +138,7 @@ namespace Yume.UI {
       _AdjustMailListContentHeight();
     }
 
-    private void _AddMail() {
+    private void _AddMailView() {
       _noMailPanel.SetActive(false);
       GameObject tempMail = Instantiate(_mailViewPrefab, _mailListContent);
       MailDB mail = m_mails[m_mails.Count - 1];

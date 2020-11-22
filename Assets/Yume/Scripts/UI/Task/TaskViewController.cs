@@ -17,7 +17,7 @@ namespace Yume.UI {
     private float m_length;
 
     private void Start() {
-      EventCenter.AddListener<TaskDB>(Broadcast.EventType.ADD_TASK, _AddTask);
+      EventCenter.AddListener<TaskDB>(Broadcast.EventType.ADD_TASK_VIEW, _AddTaskViewBy);
 
       m_tasks = DBManager.GetTaskList(_taskType);
       GridLayoutGroup grid = _taskContent.GetComponent<GridLayoutGroup>();
@@ -44,17 +44,15 @@ namespace Yume.UI {
     }
 
     private void OnDestroy() {
-      EventCenter.RemoveListener<TaskDB>(Broadcast.EventType.ADD_TASK, _AddTask);
+      EventCenter.RemoveListener<TaskDB>(Broadcast.EventType.ADD_TASK_VIEW, _AddTaskViewBy);
     }
 
-    private void _AddTask(TaskDB task) {
-      if(task.type == _taskType) {
-        if (task.state != TaskState.INACTIVE) {
-          _taskContent.sizeDelta += new Vector2(0, m_length);
-          GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
-          tempTaskView.GetComponent<TaskView>().OnInit(task);
-          tempTaskView.transform.SetAsFirstSibling();
-        }
+    private void _AddTaskViewBy(TaskDB task) {
+      if (task.type == _taskType && task.state != TaskState.INACTIVE) {
+        _taskContent.sizeDelta += new Vector2(0, m_length);
+        GameObject tempTaskView = Instantiate(_taskViewPrefab, _taskContent);
+        tempTaskView.GetComponent<TaskView>().OnInit(task);
+        tempTaskView.transform.SetAsFirstSibling();
       }
     }
   }

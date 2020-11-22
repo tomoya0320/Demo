@@ -264,7 +264,7 @@ namespace Yume.DB {
     
     public static void AddMail(MailDB mail) {
       userMails.Add(mail);
-      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL);
+      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_VIEW);
       UpdateUserMails();
     }
 
@@ -388,7 +388,7 @@ namespace Yume.DB {
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
             nextTask.state = TaskState.INPROCESS;
             nextTask.OnInit();
-            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK, nextTask);
+            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK_VIEW, nextTask);
           }
         }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
