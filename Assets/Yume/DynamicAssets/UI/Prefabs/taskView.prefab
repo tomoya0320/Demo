@@ -212,6 +212,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _textComponent: {fileID: 6153713497642071120}
+  _overrideSoundName: 
 --- !u!1 &6153713498064091992
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +226,7 @@ GameObject:
   - component: {fileID: 6153713498064091990}
   - component: {fileID: 5415781725349284249}
   m_Layer: 5
-  m_Name: taskShow
+  m_Name: taskView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,6 +311,8 @@ MonoBehaviour:
   _getRewardButton: {fileID: 3429039955332451560}
   _processContent: {fileID: 6153713499009366704}
   _rewardContent: {fileID: 6153713499015094526}
+  _rewardPrefab: {fileID: 3871652906452067553, guid: af9faa0e5ec8089498aeb7519bccefab, type: 3}
+  _processTextPrefab: {fileID: 1252067418983683115, guid: 470b0f3a917559748a3d32cf803c7c00, type: 3}
 --- !u!1 &6153713498879328440
 GameObject:
   m_ObjectHideFlags: 0

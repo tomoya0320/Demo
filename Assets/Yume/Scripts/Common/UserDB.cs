@@ -33,11 +33,14 @@ namespace Yume.DB {
       tasks = DBManager.GetDefaultTasks();
 
 #if TEST
+      this.name = "admin";
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
+      cards.Add(new CardDB("card_001_atk",1));
+      cards.Add(new CardDB("card_001_atk",1));
       cards.Add(new CardDB("card_001_atk",1));
       cards.Add(new CardDB("card_001_atk",1));
       cards.Add(new CardDB("card_001_atk",1));

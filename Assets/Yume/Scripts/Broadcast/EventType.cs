@@ -2,8 +2,9 @@
   public enum EventType {
     UPDATE_ITEM_INFO,
     UPDATE_TASK_INFO,
-    ADD_TASK,
-    ADD_MAIL,
-    UPDATE_USER_INFO
+    UPDATE_CARD_INFO,
+    UPDATE_USER_INFO,
+    ADD_TASK_VIEW,
+    ADD_MAIL_VIEW
   }
 }

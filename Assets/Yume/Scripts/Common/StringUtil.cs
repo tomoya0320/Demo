@@ -27,16 +27,11 @@ namespace Yume.String {
     public const string RETURN_TO_LOGIN = "返回登录界面";
     public const string COMPLETED = "已完成";
     public const string CLICK_GET = "点击领取";
-    public const string PROCESSTEXT_PREF_NAME = "processTextPrefab";
-    public const string REWARD_PREF_NAME = "rewardPrefab";
-    public const string TASK_SHOW = "taskShow";
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";
     public const string HOME_BGM = "STS_Merchant_v2";
     public const string DEFAULT_CLICK_SOUND = "点击2";
-    public const string MAIL_SHOW = "mailShow";
-    public const string ATTACHMENT_PREFAB = "attachmentPrefab";
     public const string DIAMOND_ID = "item_1_diamond";
     public const string GOLD_ID = "item_2_gold";
     public const string GET_EXP = "获得经验值{0}";
@@ -47,10 +42,14 @@ namespace Yume.String {
     public const string DIALOGUE = "dialogue";
     public const string ATTRIBUTE = "attribute";
     public const string PASSIVE_BUFFS = "passiveBuffs";
-    public const string CARD_HANDBOOK = "cardHandbook";
   }
 
   public class StringUtil {
+    /// <summary>
+    /// 以万、亿等单位来显示数字并忽略小数部分，避免数字过长导致显示问题
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
     public static string IntegerToString(int num) {
       if (num < 10000) {
         return num.ToString();

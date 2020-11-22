@@ -9,20 +9,22 @@ using Yume.Task;
 using Yume.DB;
 
 namespace Yume.UI {
-  public class TaskShow : MonoBehaviour {
+  public class TaskView : MonoBehaviour {
     public TaskDB task { get; private set; }
     [SerializeField]
     private Text _title;
     [SerializeField]
     private Text _description;
     [SerializeField]
-    private WButton _getRewardButton;
+    private YButton _getRewardButton;
     [SerializeField]
     private RectTransform _processContent;
     [SerializeField]
     private RectTransform _rewardContent;
-    private GameObject m_rewardPrefab;
-    private GameObject m_processTextPrefab;
+    [SerializeField]
+    private GameObject _rewardPrefab;
+    [SerializeField]
+    private GameObject _processTextPrefab;
     private List<Text> m_processTexts;
 
     private void Start() {
@@ -36,8 +38,6 @@ namespace Yume.UI {
     public async void OnInit(TaskDB task) {
       this.task = task;
 
-      m_rewardPrefab = await Addressables.LoadAssetAsync<GameObject>(StringMap.REWARD_PREF_NAME).Task;
-      m_processTextPrefab = await Addressables.LoadAssetAsync<GameObject>(StringMap.PROCESSTEXT_PREF_NAME).Task;
       m_processTexts = new List<Text>();
 
       TaskInfo taskInfo = DBManager.GetTaskInfo(task.type, task.id);
@@ -45,15 +45,19 @@ namespace Yume.UI {
       _description.text = taskInfo.description;
 
       foreach (ItemDB item in taskInfo.taskRewards.items) {
-        GameObject temp = Instantiate(m_rewardPrefab, _rewardContent);
+        GameObject temp = Instantiate(_rewardPrefab, _rewardContent);
         temp.GetComponent<Image>().sprite = await Addressables.LoadAssetAsync<Sprite>
         (DBManager.GetItemInfo(item.id).iconFileName).Task;
         temp.transform.GetChild(0).GetComponent<Text>().text = item.num.ToString();
       }
 
       for (int i = 0; i < task.taskRequests.Count; i++) {
-        GameObject temp = Instantiate(m_processTextPrefab, _processContent);
+        GameObject temp = Instantiate(_processTextPrefab, _processContent);
         m_processTexts.Add(temp.GetComponent<Text>());
+      }
+
+      if (task.state == TaskState.COMPLETED) {
+        transform.SetAsFirstSibling();
       }
 
       UpdateTaskInfo();
@@ -71,10 +75,6 @@ namespace Yume.UI {
       _getRewardButton.gameObject.SetActive(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
       _getRewardButton.interactable = task.state == TaskState.COMPLETED;
       _getRewardButton.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
-      
-      if (task.state == TaskState.COMPLETED) {
-        transform.SetAsFirstSibling();
-      }
     }
 
     public virtual void GetReward() {

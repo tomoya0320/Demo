@@ -5,7 +5,7 @@ using Yume.Battle;
 using Yume.DB;
 
 namespace Yume.UI {
-  public class ShortItemInfoShow : MonoBehaviour {
+  public class ShortItemInfoView : MonoBehaviour {
     [SerializeField]
     private Image _iconImg;
     public Image iconImg => _iconImg;

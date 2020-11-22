@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-using Yume.Broadcast;
 using Yume.DB;
 
-namespace Yume.UI.Bag {
-  public class ItemInfoBoardInBag : MonoBehaviour {
+namespace Yume.UI {
+  public class ItemInfoBoard : MonoBehaviour {
     [SerializeField]
     private Sprite _itemSelectedImg;
     [SerializeField]
@@ -16,18 +15,9 @@ namespace Yume.UI.Bag {
     private Text _description; 
     [SerializeField]
     private Image _iconImg;
-    private ItemShow selectedItem;
+    private ItemView selectedItem;
 
-    private void Start() {
-      EventCenter.AddListener(Broadcast.EventType.UPDATE_ITEM_INFO, _UpdateInfo);
-      _UpdateInfo();
-    }
-
-    private void OnDestroy() {
-      EventCenter.RemoveListener(Broadcast.EventType.UPDATE_ITEM_INFO, _UpdateInfo);
-    }
-
-    private async void _UpdateInfo() {
+    public async void UpdateInfoBoard() {
       if (selectedItem && selectedItem.item != null) {
         var info = DBManager.GetItemInfo(selectedItem.item.id);
         _nameNum.text = info.name + "*" + selectedItem.item.num;
@@ -39,13 +29,13 @@ namespace Yume.UI.Bag {
       }
     }
 
-    public void SetSelecteItem(ItemShow itemShow) {
+    public void SetSelecteItem(ItemView itemView) {
       if (selectedItem) {
-        selectedItem.GetComponent<Image>().sprite = _itemUnselectedImg;
+        selectedItem.bottomImg.sprite = _itemUnselectedImg;
       }
-      itemShow.GetComponent<Image>().sprite = _itemSelectedImg;
-      selectedItem = itemShow;
-      _UpdateInfo();
+      itemView.bottomImg.sprite = _itemSelectedImg;
+      selectedItem = itemView;
+      UpdateInfoBoard();
     }
   }
 }

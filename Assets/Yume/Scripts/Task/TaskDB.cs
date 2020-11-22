@@ -64,7 +64,6 @@ namespace Yume.Task {
     public TaskType activeTaskType;
     public string title;
     public string description;
-    public bool includeDialogue;
     public bool autoComplete;
     public TaskRewards taskRewards;
   }
