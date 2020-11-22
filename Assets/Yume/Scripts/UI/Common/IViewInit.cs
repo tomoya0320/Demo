@@ -1,5 +1,5 @@
 ﻿namespace Yume.UI {
-  public interface IViewInit<DataType> {
-    void OnInit(DataType data);
+  public interface IViewInit<TData> {
+    void OnInit(TData data);
   }
 }

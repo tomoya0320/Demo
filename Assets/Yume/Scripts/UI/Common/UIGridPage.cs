@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  public abstract class UIGridPage<DataType, ViewType> : MonoBehaviour where ViewType : IViewInit<DataType> where DataType : class {
+  public abstract class UIGridPage<TData, TView> : MonoBehaviour where TView : IViewInit<TData> where TData : class {
     [SerializeField]
     private Text _pageText;
     [SerializeField]
@@ -11,8 +11,8 @@ namespace Yume.UI {
     [SerializeField]
     private YButton _turnPageForwardBtn;
     [SerializeField]
-    protected List<ViewType> viewList;
-    protected List<DataType> dataList;
+    protected List<TView> viewList;
+    protected List<TData> dataList;
     protected int maxNumInOnePage => viewList.Count;
     protected int currentPage = 1;
     protected int maxPage;
