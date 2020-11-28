@@ -146,22 +146,22 @@ namespace Yume.DB {
     #endregion
 
     #region Json
-    private static JObject s_itemInfos;
-    private static JObject itemInfos {
+    private static JObject s_itemJson;
+    private static JObject itemJson {
       get {
-        if (s_itemInfos == null) {
-          s_itemInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.items.text);
+        if (s_itemJson == null) {
+          s_itemJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.items.text);
         }
-        return s_itemInfos;
+        return s_itemJson;
       }
     }
-    private static JObject s_taskInfos;
-    private static JObject taskInfos {
+    private static JObject s_taskJson;
+    private static JObject taskJson {
       get {
-        if (s_taskInfos == null) {
-          s_taskInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.tasks.text);
+        if (s_taskJson == null) {
+          s_taskJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.tasks.text);
         }
-        return s_taskInfos;
+        return s_taskJson;
       }
     }
     private static JObject s_lvMaxApMap;
@@ -173,13 +173,31 @@ namespace Yume.DB {
         return s_lvMaxApMap;
       }
     }
-    private static JObject s_cardInfos;
-    private static JObject cardInfos {
+    private static JObject s_cardJson;
+    private static JObject cardJson {
       get {
-        if (s_cardInfos == null) {
-          s_cardInfos = JObject.Parse(GlobalJsonHub.instance.jsonAsset.cards.text);
+        if (s_cardJson == null) {
+          s_cardJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.cards.text);
         }
-        return s_cardInfos;
+        return s_cardJson;
+      }
+    }
+    private static JObject s_charJson;
+    private static JObject charJson {
+      get {
+        if (s_charJson == null) {
+          s_charJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.chars.text);
+        }
+        return s_charJson;
+      }
+    }
+    private static JObject s_enemyJson;
+    private static JObject enemyJson {
+      get {
+        if (s_enemyJson == null) {
+          s_enemyJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.enemies.text);
+        }
+        return s_enemyJson;
       }
     }
     #endregion
@@ -195,29 +213,26 @@ namespace Yume.DB {
     private DBManager() { }
 
     public static ItemInfo GetItemInfo(string id) {
-      if (itemInfos.ContainsKey(id)) {
-        JObject itemInfo = itemInfos[id].Value<JObject>();
-        return JsonConvert.DeserializeObject<ItemInfo>(itemInfo.ToString());
+      if (itemJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<ItemInfo>(itemJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
       }
     }
 
     public static CardInfo GetCardInfo(string id) {
-      if (cardInfos.ContainsKey(id)) {
-        JObject cardInfo = cardInfos[id].Value<JObject>();
-        return JsonConvert.DeserializeObject<CardInfo>(cardInfo.ToString());
+      if (cardJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<CardInfo>(cardJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 
     public static TaskInfo GetTaskInfo(TaskType taskType, string id) {
-      if (taskInfos.ContainsKey(taskType.ToString())) {
-        JObject tempJObject = taskInfos[taskType.ToString()].Value<JObject>();
+      if (taskJson.ContainsKey(taskType.ToString())) {
+        JObject tempJObject = taskJson[taskType.ToString()].Value<JObject>();
         if (tempJObject.ContainsKey(id)) {
-          JObject taskInfo = tempJObject[id].Value<JObject>();
-          return JsonConvert.DeserializeObject<TaskInfo>(taskInfo.ToString());
+          return JsonConvert.DeserializeObject<TaskInfo>(tempJObject[id].Value<JObject>().ToString());
         } else {
           throw new Exception(string.Format("task id:{0} is not found", id));
         }
@@ -231,7 +246,7 @@ namespace Yume.DB {
 
       foreach(TaskType type in Enum.GetValues(typeof(TaskType))) {
         List<TaskDB> tasks = new List<TaskDB>();
-        foreach(var info in taskInfos[type.ToString()].Values()) {
+        foreach(var info in taskJson[type.ToString()].Values()) {
           tasks.Add(JsonConvert.DeserializeObject<TaskDB>(info.ToString()));
         }
         defaultTasks.Add(type.ToString(), tasks);
@@ -256,7 +271,21 @@ namespace Yume.DB {
     public static TaskDB GetTaskDB(TaskType taskType,string taskId) {
       return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
     }
-    
+
+    public static JObject GetEnemyJson(string id) {
+      if (enemyJson.ContainsKey(id)) {
+        return enemyJson[id].Value<JObject>();
+      }
+      return null;
+    }
+
+    public static JObject GetCharJson(string id) {
+      if (charJson.ContainsKey(id)) {
+        return charJson[id].Value<JObject>();
+      }
+      return null;
+    }
+
     public static void DeleteMail(MailDB mail) {
       userMails.Remove(mail);
       UpdateUserMails();

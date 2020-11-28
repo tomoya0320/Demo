@@ -8,5 +8,7 @@ namespace Yume.DB {
     public TextAsset lvMaxApMap;
     public TextAsset cards;
     public TextAsset avgs;
+    public TextAsset chars;
+    public TextAsset enemies;
   }
 }

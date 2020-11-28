@@ -90,8 +90,8 @@ namespace Yume.UI {
 
       if (Input.GetKeyDown(KeyCode.M)) {
         DBManager.AddMail(new MailDB("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
-        DBManager.AddMail(new MailDB("Test Title2", "You are alone", "admin", new ItemDB("item_2_gold", 10000)));
-        DBManager.AddMail(new MailDB("Test Title3", "I love {0}", "wzb", new ItemDB("item_5_key", 10)));
+        DBManager.AddMail(new MailDB("Test Title2", "You are alone", "admin", new ItemDB("item_1_diamond", 2000), new ItemDB("item_2_gold", 30000)));
+        DBManager.AddMail(new MailDB("Test Title3", "I love {0}", "wzb", new ItemDB("item_1_diamond", 4000), new ItemDB("item_2_gold", 50000), new ItemDB("item_5_key", 10)));
       }
 
       if (Input.GetKeyDown(KeyCode.E)) {
@@ -104,8 +104,8 @@ namespace Yume.UI {
 
       if (Input.GetKeyDown(KeyCode.G)) {
         SceneLoader.GoToAVGScene("test1");
-      }     
-      
+      }
+
       if (Input.GetKeyDown(KeyCode.O)) {
         DBManager.userCards.Add(new CardDB("card_001_atk", 0));
         Broadcast.EventCenter.Broadcast(Broadcast.EventType.UPDATE_CARD_INFO);
@@ -116,6 +116,11 @@ namespace Yume.UI {
           DBManager.userCards.RemoveAt(0);
           Broadcast.EventCenter.Broadcast(Broadcast.EventType.UPDATE_CARD_INFO);
         }
+      }
+
+      if (Input.GetKeyDown(KeyCode.J)) {
+        Debug.Log(DBManager.GetCharJson("char_001_brave"));
+        Debug.Log(DBManager.GetEnemyJson("enemy_001_slime"));
       }
 #endif
     }

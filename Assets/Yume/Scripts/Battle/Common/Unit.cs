@@ -76,40 +76,40 @@ namespace Yume.Battle {
       }
     }
 
-    #region Unit Data
-    [SerializeField]
-    private Attribute _attribute;
-    [SerializeField]
-    private BuffData[] _passiveBuffs;
-    #endregion
-    public Animator animator { get; private set; }
-    public StateMachine stateMachine { get; private set; }
-    public BuffContainer buffContainer { get; private set; }
+    private Animator m_animator;
+    private Attribute m_attribute;
+    private StateMachine m_stateMachine;
+    private BuffContainer m_buffContainer;
 
     public virtual void OnInit(JObject data) {
-      if (data != null) {
-        if (data.ContainsKey(StringMap.ATTRIBUTE)) {
-          _attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
-        }
-        if (data.ContainsKey(StringMap.PASSIVE_BUFFS)) {
-          _passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
-        }
+      m_animator = GetComponent<Animator>();
+
+      m_stateMachine = new StateMachine(new IdleState(this));
+      m_stateMachine.RegisterState(new PlayState(this));
+      m_stateMachine.RegisterState(new DeadState(this));
+
+      m_buffContainer = new BuffContainer(this);
+
+      if (data == null) {
+        throw new Exception("Unit data is null!");
       }
 
-      animator = GetComponent<Animator>();
+      if (data.ContainsKey(StringMap.ATTRIBUTE)) {
+        m_attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
+      } else {
+        throw new Exception("Attribute data is null!");
+      }
 
-      stateMachine = new StateMachine(new IdleState(this));
-      stateMachine.RegisterState(new PlayState(this));
-      stateMachine.RegisterState(new DeadState(this));
-
-      buffContainer = new BuffContainer();
-      foreach (var buffData in _passiveBuffs) {
-        buffContainer.AddBuff(buffData);
+      if (data.ContainsKey(StringMap.PASSIVE_BUFFS)) {
+        var passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
+        foreach (var buff in passiveBuffs) {
+          m_buffContainer.AddBuff(buff);
+        }
       }
     }
 
     public virtual void SwitchState(State state, bool force = false) {
-      stateMachine.SwitchState((int)state, force);
+      m_stateMachine.SwitchState((int)state, force);
     }
   }
 }

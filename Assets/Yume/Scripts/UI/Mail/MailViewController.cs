@@ -75,21 +75,44 @@ namespace Yume.UI {
       _signatureText.text = mailView.mail.signature;
       _dateText.text = Convert.ToDateTime(mailView.mail.dateTime).ToShortDateString();
 
-      for (int i = 0; i < _attachmentContent.childCount; i++) {
-        Destroy(_attachmentContent.GetChild(i).gameObject);
+      Color iconColor = mailView.mail.isReceived ? Color.white * 0.8f : Color.white;
+      if (mailView.mail.attachment.Length > _attachmentContent.childCount) {
+        for (int i = 0; i < mailView.mail.attachment.Length; i++) {
+          if (i < _attachmentContent.childCount) {
+            _OnInitAttachment(_attachmentContent.GetChild(i), mailView.mail.attachment[i], iconColor);
+          } else {
+            var tempAttachment = Instantiate(_attachmentPrefab, _attachmentContent);
+            tempAttachment.GetComponent<ShortItemInfoView>().OnInit(mailView.mail.attachment[i], iconColor);
+          }
+        }
+      } else {
+        for (int i = 0; i < _attachmentContent.childCount; i++) {
+          if (i < mailView.mail.attachment.Length) {
+            _OnInitAttachment(_attachmentContent.GetChild(i), mailView.mail.attachment[i], iconColor);
+          } else {
+            _RecycleAttachment(_attachmentContent.GetChild(i));
+          }
+        }
       }
 
       float width = mailView.mail.attachment.Length * (m_attachmentGLG.spacing.x + m_attachmentGLG.cellSize.x);
-      _attachmentContent.sizeDelta = new Vector2(width, _attachmentContent.sizeDelta.y);
-
-      foreach (ItemDB item in mailView.mail.attachment) {
-        GameObject tempItem = Instantiate(_attachmentPrefab, _attachmentContent);
-        Color iconColor = mailView.mail.isReceived ? Color.white * 0.8f : Color.white;
-        tempItem.GetComponent<ShortItemInfoView>().OnInit(item, iconColor);
-      }
+      _attachmentContent.sizeDelta = new Vector2(width - m_attachmentGLG.spacing.x, _attachmentContent.sizeDelta.y);
 
       m_currentClickedMail = mailView;
       _getButton.interactable = !mailView.mail.isReceived;
+    }
+
+    private void _RecycleAttachment(Transform attachment) {
+      if (attachment.gameObject.activeSelf) {
+        attachment.gameObject.SetActive(false);
+      }
+    }
+
+    private void _OnInitAttachment(Transform attachment, ItemDB item, Color iconColor) {
+      if (!attachment.gameObject.activeSelf) {
+        attachment.gameObject.SetActive(true);
+      }
+      attachment.GetComponent<ShortItemInfoView>().OnInit(item, iconColor);
     }
 
     private void OnDestroy() {
