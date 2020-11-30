@@ -11,6 +11,7 @@ namespace Yume.Battle {
     public string tag;
     public float hp;
     public float maxHp;
+    public float atk;
     public float def;
     public float hitProb;
     public float evadeProb;
