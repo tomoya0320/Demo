@@ -14,18 +14,16 @@ namespace Yume.Scene {
 
       UIController.instance.activeEscapeKey = false;
 
-      UIController.instance.FadeBlackMask(true, fadeTime, () => {
+      UIController.instance.FadeBlackMask(fadeTime, () => {
         UIController.instance.sceneLoadingBGActive = true;
-        UIController.instance.FadeBlackMask(false, fadeTime, () => {
-          SceneManager.LoadSceneAsync(nextSceneName).completed += ao => {
-            UIController.instance.FadeBlackMask(true, fadeTime, () => {
-              UIController.instance.sceneLoadingBGActive = false;
-              UIController.instance.FadeBlackMask(false, fadeTime, () => {
-                UIController.instance.activeEscapeKey = true;
-              });
-            });
-          };
-        });
+      }, () => {
+        SceneManager.LoadSceneAsync(nextSceneName).completed += ao => {
+          UIController.instance.FadeBlackMask(fadeTime, () => {
+            UIController.instance.sceneLoadingBGActive = false;
+          }, () => {
+            UIController.instance.activeEscapeKey = true;
+          });
+        };
       });
     }
 

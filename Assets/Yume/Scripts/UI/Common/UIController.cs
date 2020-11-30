@@ -33,7 +33,6 @@ namespace Yume.UI {
     private List<MessageBox> _messageBoxes;
     public List<MessageBox> messageBoxes => _messageBoxes;
     public MessageManager messageManager { private set; get; }
-
     public bool sceneLoadingBGActive {
       set {
         _sceneLoadingBG.enabled = value;
@@ -48,9 +47,8 @@ namespace Yume.UI {
         }
       }
     }
-
     private IList<UIDisplay> m_UIStack;
-    private Tween m_blackMaskTween;
+    private Tween m_fadeBlackMaskTween;
 
     public bool activeEscapeKey { set; get; }
 
@@ -125,16 +123,22 @@ namespace Yume.UI {
 #endif
     }
 
-    public void FadeBlackMask(bool active, float fadeTime = 0.3f, Action onComplete = null) {
-      if (m_blackMaskTween != null) {
-        m_blackMaskTween.Complete();
+    public void FadeBlackMask(float fadeTime = 0.3f, Action onFadeInComplete = null, Action onFadeOutComplete = null) {
+      if (m_fadeBlackMaskTween != null) {
+        Debug.LogWarning("[UIController]:Fade black mask tween is playing!");
+        return;
       }
-      _blackMask.SetAlpha(active ? 0 : 1.0f);
+
+      _blackMask.SetAlpha(0);
       _blackMask.enabled = true;
-      m_blackMaskTween = _blackMask.DOFade(active ? 1.0f : 0, fadeTime).OnComplete(() => {
-        _blackMask.enabled = false;
-        m_blackMaskTween = null;
-        onComplete?.Invoke();
+
+      m_fadeBlackMaskTween = _blackMask.DOFade(1.0f, fadeTime).OnComplete(() => {
+        onFadeInComplete?.Invoke();
+        m_fadeBlackMaskTween = _blackMask.DOFade(0, fadeTime).OnComplete(() => {
+          _blackMask.enabled = false;
+          m_fadeBlackMaskTween = null;
+          onFadeOutComplete?.Invoke();
+        });
       });
     }
 

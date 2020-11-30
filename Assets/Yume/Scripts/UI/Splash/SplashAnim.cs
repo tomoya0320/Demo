@@ -9,14 +9,13 @@ namespace Yume.UI {
     private float _fadeTime = 0.5f;
     private Image m_image;
 
-    private void Awake() {
+    private void Start() {
       m_image = GetComponent<Image>();
       UIController.instance.activeEscapeKey = false;
     }
 
-    private void _FadeInBlackMask(Sprite sprite) {
-      UIController.instance.FadeBlackMask(true, _fadeTime, () => {
-        UIController.instance.FadeBlackMask(false, _fadeTime);
+    private void _FadeBlackMask(Sprite sprite) {
+      UIController.instance.FadeBlackMask(_fadeTime, () => {
         m_image.sprite = sprite;
       });
     }

@@ -70,18 +70,16 @@ namespace Yume.AVG {
     }
 
     private void _QuitAVGScene(float fadeTime = 0.3f) {
-      UIController.instance.FadeBlackMask(true, fadeTime, () => {
+      UIController.instance.FadeBlackMask(fadeTime, () => {
         UIController.instance.sceneLoadingBGActive = true;
-        UIController.instance.FadeBlackMask(false, fadeTime, () => {
-          SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
-            UIController.instance.FadeBlackMask(true, fadeTime, () => {
-              UIController.instance.sceneLoadingBGActive = false;
-              UIController.instance.FadeBlackMask(false, fadeTime, () => {
-                UIController.instance.activeEscapeKey = true;
-              });
-            });
-          };
-        });
+      }, () => {
+        SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
+          UIController.instance.FadeBlackMask(fadeTime, () => {
+            UIController.instance.sceneLoadingBGActive = false;
+          }, () => {
+            UIController.instance.activeEscapeKey = true;
+          });
+        };
       });
     }
   }
