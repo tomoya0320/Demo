@@ -168,13 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b590bd04c49f96f4b99f316e0c152945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attribute:
-    hp: 0
-    maxHp: 0
-    energy: 0
-    maxEnergy: 0
-    def: 0
-    evadeProb: 0
 --- !u!212 &82086869
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -223,7 +216,7 @@ SpriteRenderer:
   m_Size: {x: 2.47, y: 2.47}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &82086870
@@ -468,6 +461,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1024911994627994370, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024911994627994370, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5026925398425682218, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -481,6 +482,38 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5026925398425682218, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154954111780444946, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154954111780444946, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154954111780444946, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154954111780444946, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831443820463631098, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831443820463631098, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831443820463631098, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831443820463631098, guid: 4b9ff0eb93cd346499da2bde69583128, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -671,7 +704,7 @@ SpriteRenderer:
   m_Size: {x: 2.8, y: 2.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &961002315
@@ -705,13 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa051bda526f2b44847b8db537e3151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attribute:
-    hp: 0
-    maxHp: 0
-    energy: 0
-    maxEnergy: 0
-    def: 0
-    evadeProb: 0
 --- !u!1 &1262150991
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6597ff32ef3867746932b9524139fc9d, type: 3}
+  m_Sprite: {fileID: -552341810818119143, guid: 06c18273e556b284b9fb3ea2f34d25d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

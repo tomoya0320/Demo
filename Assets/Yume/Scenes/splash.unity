@@ -329,7 +329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9570b2fbf12cd5b428dea20b14e6a6cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _downloadError: {fileID: 0}
   _downloadText: {fileID: 1785200620}
   _downloadProcess: {fileID: 1613735955}
   _startButton: {fileID: 1948497362}
@@ -783,6 +782,7 @@ MonoBehaviour:
         m_CallState: 2
   _textComponent: {fileID: 0}
   _overrideSoundName: 
+  _muteWhenInactive: 0
 --- !u!114 &1948497359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeTime: 0.5
+  _image: {fileID: 1967429757}
 --- !u!1001 &159904644433910763
 PrefabInstance:
   m_ObjectHideFlags: 0
