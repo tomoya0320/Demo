@@ -40,8 +40,6 @@ namespace Yume.String {
     public const string BG = "bg";
     public const string NAME = "name";
     public const string DIALOGUE = "dialogue";
-    public const string ATTRIBUTE = "attribute";
-    public const string PASSIVE_BUFFS = "passiveBuffs";
   }
 
   public class StringUtil {
@@ -81,7 +79,7 @@ namespace Yume.String {
           result.Append(description.Substring(start, i - start));
           start = i + 1;
         } else if (description[i] == '}') {
-          result.Append(blackboard.TryGetValueOrDefault(description.Substring(start, i - start), 0));
+          result.Append(blackboard.GetValueOrDefault(description.Substring(start, i - start), 0));
           start = i + 1;
         }
       }

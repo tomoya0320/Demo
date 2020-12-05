@@ -1,8 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
-using Yume.String;
 
 namespace Yume.Battle {
   [Serializable]

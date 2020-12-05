@@ -14,7 +14,7 @@ namespace Yume.Battle {
     [JsonProperty("data")]
     private Dictionary<string, float> m_data;
 
-    public float TryGetValueOrDefault(string key, float defaultValue) {
+    public float GetValueOrDefault(string key, float defaultValue) {
       if (m_data.ContainsKey(key)) {
         return m_data[key];
       } else {

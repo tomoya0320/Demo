@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Yume.FSM;
 using Yume.String;
@@ -78,11 +79,24 @@ namespace Yume.Battle {
     }
 
     private Animator m_animator;
-    private Attribute m_attribute;
     private StateMachine m_stateMachine;
     private BuffContainer m_buffContainer;
 
-    public virtual void OnInit(JObject data) {
+    private Attribute m_attribute;
+    /// <summary>
+    /// 抽牌堆
+    /// </summary>
+    private List<CardDB> m_cardList;
+    /// <summary>
+    /// 弃牌堆
+    /// </summary>
+    private List<CardDB> m_discardCardList;
+    /// <summary>
+    /// 耗牌堆
+    /// </summary>
+    private List<CardDB> m_consumedCardList;
+
+    public virtual void OnInit(Attribute attribute, List<CardDB> cardList, BuffData[] passiveBuffs = null) {
       m_animator = GetComponent<Animator>();
 
       m_stateMachine = new StateMachine(new IdleState(this));
@@ -91,18 +105,14 @@ namespace Yume.Battle {
 
       m_buffContainer = new BuffContainer(this);
 
-      if (data == null) {
-        throw new Exception("Unit data is null!");
-      }
+      m_discardCardList = new List<CardDB>();
+      m_consumedCardList = new List<CardDB>();
 
-      if (data.ContainsKey(StringMap.ATTRIBUTE)) {
-        m_attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
-      } else {
-        throw new Exception("Attribute data is null!");
-      }
+      m_attribute = attribute;
 
-      if (data.ContainsKey(StringMap.PASSIVE_BUFFS)) {
-        var passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
+      m_cardList = cardList;
+
+      if (passiveBuffs != null) {
         foreach (var buff in passiveBuffs) {
           m_buffContainer.AddBuff(buff);
         }
