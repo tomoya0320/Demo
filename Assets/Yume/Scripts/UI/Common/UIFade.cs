@@ -7,47 +7,45 @@ namespace Yume.UI {
     [SerializeField]
     private float _fadeTime = 0.1f;
     private CanvasGroup m_canvasGroup;
-    private CanvasGroup canvasGroup {
+    private Tween m_tween;
+    protected override bool isTweenPlaying {
       get {
-        if (m_canvasGroup == null) {
-          m_canvasGroup = GetComponent<CanvasGroup>();
-        }
-        return m_canvasGroup;
+        return m_tween?.IsPlaying() ?? false;
       }
     }
-    private Tween m_tween;
-    public override bool isTweenPlaying {
-      get {
-        return m_tween != null && m_tween.IsPlaying();
-      }
+
+    private void Awake() {
+      m_canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public override void Open() {
-      if (addToUIStack) {
+      if (isTweenPlaying) {
+        return;
+      }
+
+      if (useUIStack) {
         UIController.instance.AddToBackStack(this);
       }
-      if (m_tween != null) {
-        m_tween.Complete();
-      }
-      canvasGroup.alpha = 0;
-      gameObject.SetActive(true);
-      m_tween = canvasGroup.DOFade(1.0f, _fadeTime).OnComplete(() => {
-        m_tween = null;
-      });
+
+      m_canvasGroup.interactable = true;
+      m_canvasGroup.blocksRaycasts = true;
+      m_tween = m_canvasGroup.DOFade(1.0f, _fadeTime);
     }
 
     public override void Close() {
-      if (m_tween != null) {
-        m_tween.Complete();
+      if (isTweenPlaying) {
+        return;
       }
-      canvasGroup.alpha = 1.0f;
-      m_tween = canvasGroup.DOFade(0, _fadeTime).OnComplete(() => {
-        gameObject.SetActive(false);
-        m_tween = null;
-      });
-      if (addToUIStack) {
-        UIController.instance.RemoveFromBackStack(this);
-      }
+
+      m_tween = m_canvasGroup.DOFade(0, _fadeTime).OnComplete(() => {
+        m_canvasGroup.interactable = false;
+        m_canvasGroup.blocksRaycasts = false;
+
+        if (useUIStack) {
+          UIController.instance.RemoveFromBackStack(this);
+        }
+      })
+    ;
     }
   }
 }

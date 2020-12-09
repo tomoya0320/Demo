@@ -40,6 +40,8 @@ namespace Yume.String {
     public const string BG = "bg";
     public const string NAME = "name";
     public const string DIALOGUE = "dialogue";
+    public const string UI_OPEN_ANIM = "ui_open";
+    public const string UI_CLOSE_ANIM = "ui_close";
   }
 
   public class StringUtil {

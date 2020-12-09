@@ -64,9 +64,7 @@ namespace Yume.UI {
         if (m_UIStack.Count == 0) {
           OpenConfirmationBox(StringMap.QUIT_GAME_TIP, StringMap.QUIT, StringMap.CANCEL, Application.Quit);
         } else {
-          if (!m_UIStack[m_UIStack.Count - 1].isTweenPlaying) {
-            m_UIStack[m_UIStack.Count - 1].Close();
-          }
+          m_UIStack[m_UIStack.Count - 1].Close();
         }
       }
 #if TEST
@@ -124,19 +122,17 @@ namespace Yume.UI {
     }
 
     public void FadeBlackMask(float fadeTime = 0.3f, Action onFadeInComplete = null, Action onFadeOutComplete = null) {
-      if (m_fadeBlackMaskTween != null) {
+      if (m_fadeBlackMaskTween?.IsPlaying() ?? false) {
         Debug.LogWarning("[UIController]:Fade black mask tween is playing!");
         return;
       }
 
-      _blackMask.SetAlpha(0);
-      _blackMask.enabled = true;
+      _blackMask.raycastTarget = true;
 
       m_fadeBlackMaskTween = _blackMask.DOFade(1.0f, fadeTime).OnComplete(() => {
         onFadeInComplete?.Invoke();
         m_fadeBlackMaskTween = _blackMask.DOFade(0, fadeTime).OnComplete(() => {
-          _blackMask.enabled = false;
-          m_fadeBlackMaskTween = null;
+          _blackMask.raycastTarget = false;
           onFadeOutComplete?.Invoke();
         });
       });
