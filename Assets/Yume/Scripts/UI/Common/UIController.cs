@@ -156,9 +156,7 @@ namespace Yume.UI {
     }
 
     public void ClearBackStack() {
-      while (m_UIStack.Count > 0) {
-        m_UIStack[m_UIStack.Count - 1].Close();
-      }
+      m_UIStack.Clear();
     }
 
     public void OpenConfirmationBox(string tip, string okText, string cancelText, UnityAction onOk = null, UnityAction onCancel = null) {
