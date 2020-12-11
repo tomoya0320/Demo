@@ -401,7 +401,7 @@ namespace Yume.DB {
     public static void UpdateUserData(Action onSucceed = null) {
       //全量更新，以后再优化
       _UpdateUserDataInternal(new {
-        account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
+        exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
         mails = userMails, items = userItems, cards = userCards, tasks = userTasks
       }, onSucceed);
     }
