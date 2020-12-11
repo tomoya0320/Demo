@@ -129,22 +129,31 @@ namespace Yume.UI {
     public void GetAttachment() {
       if (m_currentClickedMail && !m_currentClickedMail.mail.isReceived) {
         m_currentClickedMail.mail.GetAttachment();
-        foreach (ShortItemInfoView siif in _attachmentContent.GetComponentsInChildren<ShortItemInfoView>()) {
-          siif.iconImg.color = Color.white * 0.8f;
-        }
-        _getButton.interactable = false;
+        _CurMailInfoDisable();
         _CheckGetAllButton();
+
+        DBManager.UpdateUserData();
       }
     }
 
     public void GetAllAttachment() {
-      GetAttachment();
-      foreach (MailView mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
+      var tempMailList = new List<MailDB>();
+      foreach (var mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
         if (!mailInList.mail.isReceived) {
-          mailInList.mail.GetAttachment();
+          tempMailList.Add(mailInList.mail);
         }
       }
-      _getAllButton.interactable = false;
+      if (tempMailList.Count > 0) {
+        foreach (var mail in tempMailList) {
+          mail.GetAttachment();
+          if (mail == m_currentClickedMail.mail) {
+            _CurMailInfoDisable();
+          }
+        }
+        _getAllButton.interactable = false;
+
+        DBManager.UpdateUserData();
+      }
     }
 
     public void DeleteAllMails() {
@@ -159,6 +168,15 @@ namespace Yume.UI {
       }
       _noMailPanel.SetActive(m_mails.Count == 0);
       _AdjustMailListContentHeight();
+
+      DBManager.UpdateUserData();
+    }
+
+    private void _CurMailInfoDisable() {
+      foreach (ShortItemInfoView siif in _attachmentContent.GetComponentsInChildren<ShortItemInfoView>()) {
+        siif.iconImg.color = Color.white * 0.8f;
+      }
+      _getButton.interactable = false;
     }
 
     private void _AddMailView() {

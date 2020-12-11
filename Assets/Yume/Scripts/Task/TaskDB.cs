@@ -64,7 +64,6 @@ namespace Yume.Task {
     public TaskType activeTaskType;
     public string title;
     public string description;
-    public bool autoComplete;
     public TaskRewards taskRewards;
   }
 
@@ -132,11 +131,6 @@ namespace Yume.Task {
           state = TaskState.COMPLETED;
           UIController.instance.messageManager.AddMessage(new Message
           (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskInfo.title)));
-
-          if (taskInfo.autoComplete) {
-            DBManager.CompleteTask(this);
-          }
-
         } else if (!completed && state == TaskState.COMPLETED) {
           state = TaskState.INPROCESS;
         }
@@ -159,6 +153,8 @@ namespace Yume.Task {
           DBManager.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }
+
+      DBManager.UpdateUserData();
     }
   }
 }

@@ -24,7 +24,6 @@ namespace Yume.MailSystem {
     public void GetAttachment() {
       isReceived = true;
       DBManager.AddItems(attachment);
-      DBManager.UpdateUserMails();
     }
 
     public void Delete() {

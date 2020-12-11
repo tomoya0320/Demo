@@ -288,17 +288,11 @@ namespace Yume.DB {
 
     public static void DeleteMail(MailDB mail) {
       userMails.Remove(mail);
-      UpdateUserMails();
     }    
     
     public static void AddMail(MailDB mail) {
       userMails.Add(mail);
       EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_VIEW);
-      UpdateUserMails();
-    }
-
-    public static void UpdateUserMails() {
-      _UpdateUserData(new { mails = userMails, types = new string[] { "mails" } });
     }
 
     public static void LoadUserDB(JObject json = null) {
@@ -343,12 +337,7 @@ namespace Yume.DB {
         foreach (var item in items) {
           TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
-        //任务和道具一起同步
-        _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
-      } else {
-        //只同步道具
-        _UpdateUserData(new { items = userItems, types = new string[] { "items" } });
-      }
+      } 
     }
 
     public static void AddItems(params ItemDB[] items) {
@@ -369,8 +358,6 @@ namespace Yume.DB {
       foreach (var item in items) {
         TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
       }
-      //任务和道具一起同步
-      _UpdateUserData(new { items = userItems, tasks = userTasks, types = new string[] { "items", "tasks" } });
     }
 
     public static void AddExp(int exp) {
@@ -389,26 +376,13 @@ namespace Yume.DB {
         if (lvMaxApMap.ContainsKey(userLv.ToString())) {
           userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
           userAp += userMaxAp;
-          _UpdateUserData(new {
-            exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp, tasks = userTasks,
-            types = new string[] { "exp", "lv", "ap", "maxAp", "tasks" }
-          });
-        } else {
-          _UpdateUserData(new {
-            exp = userExp, lv = userLv, tasks = userTasks,
-            types = new string[] { "exp", "lv", "tasks" }
-          });
         }
-      } else {
-        _UpdateUserData(new {
-          exp = userExp, lv = userLv, types = new string[] { "exp", "lv" }
-        });
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
     }
 
-    public static void CompleteTask(TaskDB task, Action onCompleted = null) {
+    public static void CompleteTask(TaskDB task) {
       if (task.state == TaskState.COMPLETED) {
         task.Complete();
         TaskInfo taskInfo = GetTaskInfo(task.type, task.id);
@@ -421,11 +395,18 @@ namespace Yume.DB {
           }
         }
         TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
-        _UpdateUserData(new { tasks = userTasks, types = new string[] { "tasks" } }, onCompleted);
       }
     }
 
-    private static void _UpdateUserData<T>(T data, Action onSucceed = null) where T : class {
+    public static void UpdateUserData(Action onSucceed = null) {
+      //全量更新，以后再优化
+      _UpdateUserDataInternal(new {
+        account = userAccount, exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
+        mails = userMails, items = userItems, cards = userCards, tasks = userTasks
+      }, onSucceed);
+    }
+
+    private static void _UpdateUserDataInternal<T>(T data, Action onSucceed = null) where T : class {
       if (s_playMode == PlayMode.REMOTE) {
         ServerController.instance.UpdateUserData(data,
           request => {
@@ -444,7 +425,7 @@ namespace Yume.DB {
               onSucceed?.Invoke();
             } else {
               UIController.instance.OpenConfirmationBox(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _UpdateUserData(data, onSucceed),
+              StringMap.RETURN_TO_LOGIN, () => _UpdateUserDataInternal(data, onSucceed),
               () => SceneLoader.GoToNextScene(StringMap.LOGIN));
             }
           });

@@ -78,7 +78,8 @@ namespace Yume.UI {
     }
 
     public virtual void GetReward() {
-      DBManager.CompleteTask(task, () => {
+      DBManager.CompleteTask(task);
+      DBManager.UpdateUserData(() => {
         _getRewardButton.textComponent.text = StringMap.COMPLETED;
         _getRewardButton.interactable = false;
         transform.SetAsLastSibling();
