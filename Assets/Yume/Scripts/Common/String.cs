@@ -30,6 +30,7 @@ namespace Yume.String {
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";
+    public const string LOGIN_BGM = "SOTE_Shrine_v2";
     public const string HOME_BGM = "STS_Merchant_v2";
     public const string DEFAULT_CLICK_SOUND = "点击2";
     public const string DIAMOND_ID = "item_1_diamond";

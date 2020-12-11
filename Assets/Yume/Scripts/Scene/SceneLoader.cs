@@ -1,4 +1,5 @@
 ﻿using UnityEngine.SceneManagement;
+using Yume.Audio;
 using Yume.AVG;
 using Yume.String;
 using Yume.UI;
@@ -9,6 +10,8 @@ namespace Yume.Scene {
       if (string.IsNullOrEmpty(nextSceneName)) {
         return;
       }
+
+      AudioController.instance.PlayBgmBySceneName(nextSceneName);
 
       UIController.instance.ClearBackStack();
 

@@ -40,7 +40,6 @@ namespace Yume.Server {
               case 1: {
                   DBManager.LoadUserDB(json);
                   SceneLoader.GoToNextScene(StringMap.HOME);
-                  AudioController.instance.PlayBgm(StringMap.HOME_BGM);
                   break;
                 }
             }
@@ -114,7 +113,6 @@ namespace Yume.Server {
     public void OnPlayInLocal() {
       DBManager.LoadUserDB();
       SceneLoader.GoToNextScene(StringMap.HOME);
-      AudioController.instance.PlayBgm(StringMap.HOME_BGM);
     }
   }
 }

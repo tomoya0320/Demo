@@ -402,7 +402,8 @@ namespace Yume.DB {
       //全量更新，以后再优化
       _UpdateUserDataInternal(new {
         exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
-        mails = userMails, items = userItems, cards = userCards, tasks = userTasks
+        mails = userMails, items = userItems, cards = userCards, tasks = userTasks,
+        types = new string[] { "exp", "lv", "ap", "maxAp", "mails", "items", "cards", "tasks" }
       }, onSucceed);
     }
 

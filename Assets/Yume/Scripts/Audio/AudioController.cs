@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Yume.Singleton;
+using Yume.String;
 
 namespace Yume.Audio {
   public class AudioController : SingletonMono<AudioController> {
@@ -26,6 +27,19 @@ namespace Yume.Audio {
     public async void PlayBgm(string audioClipName, float fadeTime) {
       AudioClip audioClip = await Addressables.LoadAssetAsync<AudioClip>(audioClipName).Task;
       m_bgmManager.PlayBgm(audioClip, fadeTime);
+    }
+
+    public void PlayBgmBySceneName(string sceneName) {
+      switch (sceneName) {
+        case StringMap.LOGIN: {
+            PlayBgm(StringMap.LOGIN_BGM);
+            break;
+          }
+        case StringMap.HOME: {
+            PlayBgm(StringMap.HOME_BGM);
+            break;
+          }
+      }   
     }
 
     public void StopBgm() {
