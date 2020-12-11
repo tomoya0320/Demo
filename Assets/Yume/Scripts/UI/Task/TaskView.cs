@@ -78,12 +78,11 @@ namespace Yume.UI {
     }
 
     public virtual void GetReward() {
+      _getRewardButton.textComponent.text = StringMap.COMPLETED;
+      _getRewardButton.interactable = false;
+      transform.SetAsLastSibling();
       DBManager.CompleteTask(task);
-      DBManager.UpdateUserData(() => {
-        _getRewardButton.textComponent.text = StringMap.COMPLETED;
-        _getRewardButton.interactable = false;
-        transform.SetAsLastSibling();
-      });
+      DBManager.UpdateUserData();
     }
   }
 }
