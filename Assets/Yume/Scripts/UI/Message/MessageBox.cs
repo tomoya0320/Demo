@@ -54,8 +54,8 @@ namespace Yume.UI {
     }
 
     private void _ShowNextMessage() {
-      UIController.instance.messageManager.RemoveMessage(m_message);
-      UIController.instance.messageManager.ShowMessage();
+      MessageManager.instance.RemoveMessage(m_message);
+      MessageManager.instance.ShowMessage();
     }
   }
 }

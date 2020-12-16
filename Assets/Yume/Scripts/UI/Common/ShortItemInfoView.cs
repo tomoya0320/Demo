@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.DB;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class ShortItemInfoView : MonoBehaviour {
@@ -15,13 +15,13 @@ namespace Yume.UI {
     public async void OnInit(ItemDB item, Color iconColor) {
       _numText.text = item.num.ToString();
       _iconImg.color = iconColor;
-      _iconImg.sprite = await Addressables.LoadAssetAsync<Sprite>(DBManager.GetItemInfo(item.id).iconFileName).Task;
+      _iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DBManager.GetItemInfo(item.id).iconFileName);
     }
 
     public async void OnInit(string itemId, int itemNum, Color iconColor) {
       _numText.text = itemNum.ToString();
       _iconImg.color = iconColor;
-      _iconImg.sprite = await Addressables.LoadAssetAsync<Sprite>(DBManager.GetItemInfo(itemId).iconFileName).Task;
+      _iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DBManager.GetItemInfo(itemId).iconFileName);
     }
   }
 }

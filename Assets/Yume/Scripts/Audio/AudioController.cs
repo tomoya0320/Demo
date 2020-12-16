@@ -1,32 +1,32 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Yume.Singleton;
 using Yume.String;
+using Yume.Resource;
 
 namespace Yume.Audio {
   public class AudioController : SingletonMono<AudioController> {
     [SerializeField]
-    private AudioSource _bgmAudioSource;    
+    private AudioSource _bgmAudioSource;
     [SerializeField]
-    private AudioSource[] _soundAudioSources;
+    private Transform _soundFolder;
     private BGMManager m_bgmManager;
     private SoundManager m_soundManager;
 
     protected override void OnInit() {
       base.OnInit();
       m_bgmManager = new BGMManager(_bgmAudioSource);
-      m_soundManager = new SoundManager(_soundAudioSources);
+      m_soundManager = new SoundManager(_soundFolder);
     }
 
     #region BGM
     public async void PlayBgm(string audioClipName) {
-      AudioClip audioClip = await Addressables.LoadAssetAsync<AudioClip>(audioClipName).Task;
-      m_bgmManager.PlayBgm(audioClip);
+      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+      m_bgmManager.PlayBgm(audio);
     }
 
     public async void PlayBgm(string audioClipName, float fadeTime) {
-      AudioClip audioClip = await Addressables.LoadAssetAsync<AudioClip>(audioClipName).Task;
-      m_bgmManager.PlayBgm(audioClip, fadeTime);
+      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+      m_bgmManager.PlayBgm(audio, fadeTime);
     }
 
     public void PlayBgmBySceneName(string sceneName) {
@@ -57,8 +57,8 @@ namespace Yume.Audio {
 
     #region Sound
     public async void PlaySound(string audioClipName) {
-      AudioClip audioClip = await Addressables.LoadAssetAsync<AudioClip>(audioClipName).Task;
-      m_soundManager.PlaySound(audioClip);
+      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+      m_soundManager.PlaySound(audio);
     }
 
     public void UpdateSoundVolume() {

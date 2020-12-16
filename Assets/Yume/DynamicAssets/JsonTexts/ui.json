@@ -1,0 +1,30 @@
+{
+  "splash": {
+      "name" : "splash",
+      "uiType": 0,
+      "typeName" : "Yume.UI.SplashAnim",
+      "prefabUrl" : "splash",
+      "isAsyncLoad" : false
+  },
+    "main": {
+      "name" : "main",
+      "uiType": 0,
+      "typeName" : "name",
+      "prefabUrl" : "name",
+      "isAsyncLoad" : false
+  },
+   "login": {
+      "name" : "login",
+      "uiType": 0,
+      "typeName" : "name",
+      "prefabUrl" : "name",
+      "isAsyncLoad" : false
+  },
+    "avgTest": {
+      "name" : "avgTest",
+      "uiType": 0,
+      "typeName" : "name",
+      "prefabUrl" : "name",
+      "isAsyncLoad" : false
+  }
+}

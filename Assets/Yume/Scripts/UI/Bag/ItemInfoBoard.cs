@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.DB;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class ItemInfoBoard : MonoBehaviour {
@@ -22,7 +22,7 @@ namespace Yume.UI {
         var info = DBManager.GetItemInfo(selectedItem.item.id);
         _nameNum.text = info.name + "*" + selectedItem.item.num;
         _description.text = info.description;
-        _iconImg.sprite = await Addressables.LoadAssetAsync<Sprite>(info.iconFileName).Task;
+        _iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);
         gameObject.SetActive(true);
       } else {
         gameObject.SetActive(false);

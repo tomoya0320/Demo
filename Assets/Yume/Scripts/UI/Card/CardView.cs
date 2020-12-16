@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.DB;
 using Yume.String;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class CardView : MonoBehaviour, IViewInit<CardDB> {
@@ -36,7 +36,7 @@ namespace Yume.UI {
         _energyText.text = cardInfo.phases[cardDB.phase].energyConsumption.ToString();
         _descriptionText.text = StringUtil.GetActualDescription(cardInfo.phases[cardDB.phase].description,
                                                                 cardInfo.phases[cardDB.phase].blackboard);
-        _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(cardInfo.iconFileName).Task;
+        _icon.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
       }
     }
 

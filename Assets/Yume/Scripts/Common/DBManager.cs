@@ -9,7 +9,7 @@ using Yume.Battle;
 using Yume.Broadcast;
 using Yume.MailSystem;
 using Yume.Math;
-using Yume.Scene;
+using Yume.Resource;
 using Yume.Server;
 using Yume.String;
 using Yume.Task;
@@ -150,7 +150,7 @@ namespace Yume.DB {
     private static JObject itemJson {
       get {
         if (s_itemJson == null) {
-          s_itemJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.items.text);
+          s_itemJson = JObject.Parse(AssetReader.instance.jsonAsset.items.text);
         }
         return s_itemJson;
       }
@@ -159,7 +159,7 @@ namespace Yume.DB {
     private static JObject taskJson {
       get {
         if (s_taskJson == null) {
-          s_taskJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.tasks.text);
+          s_taskJson = JObject.Parse(AssetReader.instance.jsonAsset.tasks.text);
         }
         return s_taskJson;
       }
@@ -168,7 +168,7 @@ namespace Yume.DB {
     private static JObject lvMaxApMap {
       get {
         if (s_lvMaxApMap == null) {
-          s_lvMaxApMap = JObject.Parse(GlobalJsonHub.instance.jsonAsset.lvMaxApMap.text);
+          s_lvMaxApMap = JObject.Parse(AssetReader.instance.jsonAsset.lvMaxApMap.text);
         }
         return s_lvMaxApMap;
       }
@@ -177,7 +177,7 @@ namespace Yume.DB {
     private static JObject cardJson {
       get {
         if (s_cardJson == null) {
-          s_cardJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.cards.text);
+          s_cardJson = JObject.Parse(AssetReader.instance.jsonAsset.cards.text);
         }
         return s_cardJson;
       }
@@ -186,7 +186,7 @@ namespace Yume.DB {
     private static JObject charJson {
       get {
         if (s_charJson == null) {
-          s_charJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.chars.text);
+          s_charJson = JObject.Parse(AssetReader.instance.jsonAsset.chars.text);
         }
         return s_charJson;
       }
@@ -195,7 +195,7 @@ namespace Yume.DB {
     private static JObject enemyJson {
       get {
         if (s_enemyJson == null) {
-          s_enemyJson = JObject.Parse(GlobalJsonHub.instance.jsonAsset.enemies.text);
+          s_enemyJson = JObject.Parse(AssetReader.instance.jsonAsset.enemies.text);
         }
         return s_enemyJson;
       }
@@ -362,7 +362,7 @@ namespace Yume.DB {
 
     public static void AddExp(int exp) {
       userExp += exp;
-      UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)), true);
+      MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)), true);
       int oLevel = userLv;
       while (userExp >= MathUtil.CalNeededExp(userLv)) {
         userExp -= MathUtil.CalNeededExp(userLv);
@@ -371,7 +371,7 @@ namespace Yume.DB {
       //更新任务状态
       if (userLv > oLevel) {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
-        UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE, tip));
+        MessageManager.instance.AddMessage(new Message(Message.Style.FADE, tip));
         TaskManager.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
         if (lvMaxApMap.ContainsKey(userLv.ToString())) {
           userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
@@ -425,9 +425,9 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              UIController.instance.OpenConfirmationBox(error, StringMap.RETRY,
+              UIManager.instance.OpenConfirmationBox(error, StringMap.RETRY,
               StringMap.RETURN_TO_LOGIN, () => _UpdateUserDataInternal(data, onSucceed),
-              () => SceneLoader.GoToNextScene(StringMap.LOGIN));
+              () => UIManager.instance.OpenUI("login"));
             }
           });
       }else if(s_playMode == PlayMode.LOCAL) {

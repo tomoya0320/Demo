@@ -5,14 +5,16 @@ using Yume.UI;
 
 namespace Yume.Audio {
   public class SoundManager {
+    private Transform m_soundFolder;
     private List<AudioSource> m_audioSources;
     private float m_value;
     private float m_switch;
     private readonly string m_valueKey = SettingType.SOUND.ToString() + StringMap.VALUE;
     private readonly string m_switchKey = SettingType.SOUND.ToString() + StringMap.SWITCH;
 
-    public SoundManager(AudioSource[] audioSources) {
-      m_audioSources = new List<AudioSource>(audioSources);
+    public SoundManager(Transform soundFolder) {
+      m_soundFolder = soundFolder;
+      m_audioSources = new List<AudioSource>();
       if (!PlayerPrefs.HasKey(m_valueKey)) {
         PlayerPrefs.SetInt(m_valueKey, 100);
       }
@@ -33,7 +35,11 @@ namespace Yume.Audio {
     public void PlaySound(AudioClip audioClip) {
       AudioSource audioSource = m_audioSources.Find(a => !a.isPlaying);
       if(audioSource == null) {
-        audioSource = m_audioSources[0];
+        var obj = new GameObject("sound");
+        obj.transform.SetParent(m_soundFolder);
+        audioSource = obj.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        m_audioSources.Add(audioSource);
       }
       audioSource.clip = audioClip;
       audioSource.Play();

@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using Yume.Singleton;
 
 namespace Yume.UI {
   public class Message {
     public enum Style {
-      SLIDE, FADE
+      [Description("slide")]
+      SLIDE,
+      [Description("fade")]
+      FADE
     }
 
     public Style style;
@@ -30,7 +35,7 @@ namespace Yume.UI {
       isShowImg = false;
     }
   }
-  public class MessageManager {
+  public class MessageManager : SingletonNoMono<MessageManager> {
     private bool m_isMessageShowing;
     private List<Message> m_messages;
 
@@ -62,8 +67,7 @@ namespace Yume.UI {
 
     public void ShowMessage() {
       if (m_messages.Count > 0) {
-        UIController.instance.messageBoxes.Find(
-        mb => mb.style == m_messages[0].style).OnInit(m_messages[0]);
+        UIManager.instance.OpenUI($"message_{m_messages[0].style.GetEnumDescription()}", true, m_messages[0]);
       } else {
         m_isMessageShowing = false;
       }

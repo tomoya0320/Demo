@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Yume.Setting {
   [CreateAssetMenu]
-  public class GlobalSetting : ScriptableObject {
+  public class SettingAsset : ScriptableObject {
     private enum ServerUrlType {
       REMOTE, LOCAL
     }

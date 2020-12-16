@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Yume.Server;
 
 namespace Yume.UI {
-  public class SplashAnim : MonoBehaviour {
-    [SerializeField]
-    private float _fadeTime = 0.5f;
-    [SerializeField]
-    private Image _image;
+  public class SplashAnim : UIBase {
+    private Button m_startBtn;
+    private Animation m_animation;
 
-    private void _FadeBlackMask(Sprite sprite) {
-      UIController.instance.FadeBlackMask(_fadeTime, () => {
-        _image.sprite = sprite;
-      });
+    public override void OnInit(UIData uiData, GameObject root) {
+      base.OnInit(uiData, root);
+      m_startBtn = uiObject.GetComponent<Button>("startBtn");
+      m_animation = uiObject.GetComponent<Animation>("animation");
+
+      m_startBtn.onClick.AddListener(() => UIManager.instance.OpenUI("login"));
     }
 
-    private void _UpdateAssets() {
-      UpdateAssetsController.instance.CheckGameAssets();
+    public override void Close(params object[] paramArray) {
+      m_animation.Stop();
+    }
+
+    public override void Open(params object[] paramArray) {
+      m_animation.Play();
     }
   }
 }

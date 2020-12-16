@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
 using Yume.Battle;
 using Yume.String;
 using Yume.DB;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class ItemView : MonoBehaviour, IViewInit<ItemDB> {
@@ -23,8 +23,8 @@ namespace Yume.UI {
         _num.text = StringUtil.IntegerToString(item.num);
 
         _icon.gameObject.SetActive(true);
-        _icon.sprite = await Addressables.LoadAssetAsync<Sprite>(
-                             DBManager.GetItemInfo(item.id).iconFileName).Task;
+        _icon.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
+                             DBManager.GetItemInfo(item.id).iconFileName);
       } else {
         _icon.gameObject.SetActive(false);
         _icon.sprite = null;

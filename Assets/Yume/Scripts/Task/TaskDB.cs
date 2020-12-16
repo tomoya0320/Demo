@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Yume.Battle;
 using Yume.DB;
 using Yume.String;
 using Yume.UI;
+using Yume.Resource;
 
 namespace Yume.Task {
   public enum TaskState {
@@ -129,7 +129,7 @@ namespace Yume.Task {
         if (completed && state == TaskState.INPROCESS) {
           TaskInfo taskInfo = DBManager.GetTaskInfo(type, id);
           state = TaskState.COMPLETED;
-          UIController.instance.messageManager.AddMessage(new Message
+          MessageManager.instance.AddMessage(new Message
           (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskInfo.title)));
         } else if (!completed && state == TaskState.COMPLETED) {
           state = TaskState.INPROCESS;
@@ -143,8 +143,8 @@ namespace Yume.Task {
       foreach (ItemDB item in taskInfo.taskRewards.items) {
         DBManager.AddItems(item);
         var itemInfo = DBManager.GetItemInfo(item.id);
-        Sprite itemIcon = await Addressables.LoadAssetAsync<Sprite>(itemInfo.iconFileName).Task;
-        UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE,
+        Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemInfo.iconFileName);
+        MessageManager.instance.AddMessage(new Message(Message.Style.FADE,
         string.Format(StringMap.GET + "{0}*{1}", itemInfo.name, item.num), itemIcon));
       }
 

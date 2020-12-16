@@ -1,5 +1,4 @@
-﻿
-namespace Yume.Singleton {
+﻿namespace Yume.Singleton {
   public abstract class SingletonNoMono<T> where T : new() {
     private static T s_instance;
 

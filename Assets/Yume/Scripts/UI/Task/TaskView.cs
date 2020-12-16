@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Battle;
 using Yume.String;
 using Yume.Task;
 using Yume.DB;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class TaskView : MonoBehaviour {
@@ -46,8 +46,8 @@ namespace Yume.UI {
 
       foreach (ItemDB item in taskInfo.taskRewards.items) {
         GameObject temp = Instantiate(_rewardPrefab, _rewardContent);
-        temp.GetComponent<Image>().sprite = await Addressables.LoadAssetAsync<Sprite>
-        (DBManager.GetItemInfo(item.id).iconFileName).Task;
+        temp.GetComponent<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
+                                                  (DBManager.GetItemInfo(item.id).iconFileName);
         temp.transform.GetChild(0).GetComponent<Text>().text = item.num.ToString();
       }
 

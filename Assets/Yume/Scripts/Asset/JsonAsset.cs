@@ -2,7 +2,7 @@
 
 namespace Yume.DB {
   [CreateAssetMenu]
-  public class GlobalJson : ScriptableObject {
+  public class JsonAsset : ScriptableObject {
     public TextAsset items;
     public TextAsset tasks;
     public TextAsset lvMaxApMap;
@@ -10,5 +10,6 @@ namespace Yume.DB {
     public TextAsset avgs;
     public TextAsset chars;
     public TextAsset enemies;
+    public TextAsset ui;
   }
 }

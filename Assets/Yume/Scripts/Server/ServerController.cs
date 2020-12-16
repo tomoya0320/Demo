@@ -5,10 +5,9 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
-using Yume.Setting;
+using Yume.Resource;
 using Yume.Singleton;
 using Yume.String;
-using Yume.UI;
 
 namespace Yume.Server {
   public class ServerController : SingletonMono<ServerController> {
@@ -18,8 +17,8 @@ namespace Yume.Server {
 
     private string userUrl {
       get {
-        return Path.Combine(GlobalSettingHub.instance.settingAsset.serverUrl,
-                           GlobalSettingHub.instance.settingAsset.userServlet);
+        return Path.Combine(AssetReader.instance.settingAsset.serverUrl,
+                           AssetReader.instance.settingAsset.userServlet);
       }
     }
   
@@ -62,9 +61,9 @@ namespace Yume.Server {
       request.SetRequestHeader("data", StringUtil.StringToBase64(data.ToString()));
       request.downloadHandler = new DownloadHandlerBuffer();
 
-      UIController.instance.httpRequestWaitingMaskActive = true;
+      //TODO:遮罩
       yield return request.SendWebRequest();
-      UIController.instance.httpRequestWaitingMaskActive = false;
+      //TODO:遮罩
 
       onCompleted?.Invoke(request);
     }

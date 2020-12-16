@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Yume.DB;
 using Yume.Singleton;
 using Yume.String;
 using Yume.UI;
+using Yume.Resource;
 
 namespace Yume.AVG {
   public class AVGController : SingletonMono<AVGController> {
@@ -31,7 +31,7 @@ namespace Yume.AVG {
       dontDestroyOnLoad = false;
       base.OnInit();
       m_avgTextDict = JsonConvert.DeserializeObject<Dictionary<string, JArray>>(
-                      GlobalJsonHub.instance.jsonAsset.avgs.text);
+                      AssetReader.instance.jsonAsset.avgs.text);
     }
 
     public void StartAVG(string avgName) {
@@ -57,8 +57,8 @@ namespace Yume.AVG {
       if (m_currentTextIndex < m_currentTexts.Count) {
         m_textJObject = m_currentTexts[m_currentTextIndex].Value<JObject>();
         if (m_textJObject.ContainsKey(StringMap.BG)) {
-          _bgImage.sprite = await Addressables.LoadAssetAsync<Sprite>(
-                            m_textJObject[StringMap.BG].Value<string>()).Task;
+          _bgImage.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
+                            m_textJObject[StringMap.BG].Value<string>());
         }
         _nameText.text = m_textJObject[StringMap.NAME].Value<string>();
         _dialogueText.text = StringMap.EMPTY;
@@ -70,14 +70,12 @@ namespace Yume.AVG {
     }
 
     private void _QuitAVGScene(float fadeTime = 0.3f) {
-      UIController.instance.FadeBlackMask(fadeTime, () => {
-        UIController.instance.sceneLoadingBGActive = true;
+      UIManager.instance.FadeBlackMask(fadeTime, () => {
+        //加载时候的图
       }, () => {
         SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
-          UIController.instance.FadeBlackMask(fadeTime, () => {
-            UIController.instance.sceneLoadingBGActive = false;
-          }, () => {
-            UIController.instance.activeEscapeKey = true;
+          UIManager.instance.FadeBlackMask(fadeTime, () => {
+            //加载时候的图
           });
         };
       });
