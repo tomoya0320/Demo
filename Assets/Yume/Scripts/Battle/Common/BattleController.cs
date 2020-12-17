@@ -1,6 +1,4 @@
-﻿using Yume.Singleton;
-
-namespace Yume.Battle {
+﻿namespace Yume.Battle {
   public class BattleController : SingletonMono<BattleController> {
     protected override void OnInit() {
       dontDestroyOnLoad = false;

@@ -409,7 +409,7 @@ namespace Yume.DB {
 
     private static void _UpdateUserDataInternal<T>(T data, Action onSucceed = null) where T : class {
       if (s_playMode == PlayMode.REMOTE) {
-        ServerController.instance.UpdateUserData(data,
+        ServerManager.instance.UpdateUserData(data,
           request => {
             string error = StringMap.EMPTY;
             if (!string.IsNullOrEmpty(request.error)) {
@@ -425,9 +425,9 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              UIManager.instance.OpenConfirmationBox(error, StringMap.RETRY,
-              StringMap.RETURN_TO_LOGIN, () => _UpdateUserDataInternal(data, onSucceed),
-              () => UIManager.instance.OpenUI("login"));
+              //UIManager.instance.OpenConfirmationBox(error, StringMap.RETRY,
+              //StringMap.RETURN_TO_LOGIN, () => _UpdateUserDataInternal(data, onSucceed),
+              //() => UIManager.instance.OpenUI("login"));
             }
           });
       }else if(s_playMode == PlayMode.LOCAL) {

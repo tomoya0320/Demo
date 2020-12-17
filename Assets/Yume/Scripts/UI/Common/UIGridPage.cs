@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
+  public interface IViewInit<TData> {
+    void OnInit(TData data);
+  }
+
   public abstract class UIGridPage<TData, TView> : MonoBehaviour where TView : IViewInit<TData> where TData : class {
     [SerializeField]
     private Text _pageText;

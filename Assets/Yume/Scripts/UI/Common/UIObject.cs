@@ -14,12 +14,17 @@ namespace Yume.UI {
     private List<UIKV> _uiList;
 
     public T GetComponent<T>(string objName) where T : Component {
-      var uiKV = _uiList.Find(ui => ui.name == objName);
-      if (uiKV == null || uiKV.gameObject == null) {
+      var obj = GetGameObject(objName);
+      if (obj == null) {
         return null;
       }
-      var component = uiKV.gameObject.GetComponent<T>();
-      return component ?? uiKV.gameObject.AddComponent<T>();
+      var component = obj.GetComponent<T>();
+      return component ?? obj.AddComponent<T>();
+    }
+
+    public GameObject GetGameObject(string objName) {
+      var uiKV = _uiList.Find(ui => ui.name == objName);
+      return uiKV?.gameObject;
     }
   }
 }

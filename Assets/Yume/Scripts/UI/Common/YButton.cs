@@ -18,6 +18,15 @@ namespace Yume.UI {
     protected override void Awake() {
       base.Awake();
       _textComponent = GetComponentInChildren<Text>(true);
+      colors = new ColorBlock {
+        normalColor = Color.white,
+        highlightedColor = Color.white,
+        pressedColor = Color.white,
+        selectedColor = Color.white,
+        disabledColor = Color.white,
+        colorMultiplier = 1.0f,
+        fadeDuration = 0
+      };
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
@@ -27,7 +36,7 @@ namespace Yume.UI {
         string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
                          StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
 
-        AudioController.instance.PlaySound(clipName);
+        AudioManager.instance.PlaySound(clipName);
       }
     }
   }

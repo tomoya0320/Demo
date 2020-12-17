@@ -1,30 +1,54 @@
 {
-  "splash": {
-      "name" : "splash",
-      "uiType": 0,
-      "typeName" : "Yume.UI.SplashAnim",
-      "prefabUrl" : "splash",
+  "message_fade": {
+      "name" : "message_fade",
+      "uiType" : 2,
+      "typeName" : "Yume.UI.FadeMessage",
+      "prefabUrl" : "UI/Prefab/message_fade",
+      "cacheTime" : 10,
       "isAsyncLoad" : false
   },
-    "main": {
-      "name" : "main",
-      "uiType": 0,
-      "typeName" : "name",
-      "prefabUrl" : "name",
+  "message_slide": {
+      "name" : "message_slide",
+      "uiType" : 2,
+      "typeName" : "Yume.UI.SlideMessage",
+      "prefabUrl" : "UI/Prefab/message_slide",
+      "cacheTime" : 10,
       "isAsyncLoad" : false
   },
-   "login": {
+  "blackMask": {
+      "name" : "blackMask",
+      "uiType" : 1,
+      "typeName" : "Yume.UI.BlackMask",
+      "prefabUrl" : "UI/Prefab/blackMask",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : true
+  },
+  "login": {
       "name" : "login",
-      "uiType": 0,
-      "typeName" : "name",
-      "prefabUrl" : "name",
-      "isAsyncLoad" : false
+      "uiType" : 0,
+      "typeName" : "Yume.UI.LoginView",
+      "prefabUrl" : "UI/Prefab/login",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : true
   },
-    "avgTest": {
-      "name" : "avgTest",
-      "uiType": 0,
-      "typeName" : "name",
-      "prefabUrl" : "name",
-      "isAsyncLoad" : false
+  "main": {
+      "name" : "main",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.MainView",
+      "prefabUrl" : "UI/Prefab/main",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : true
+  },
+  "childUITest": {
+      "name" : "childUITest",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.MainView",
+      "prefabUrl" : "UI/Prefab/childUITest",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Yume.DB;
-using Yume.Singleton;
 using Yume.String;
 using Yume.UI;
 using Yume.Resource;
@@ -70,7 +68,7 @@ namespace Yume.AVG {
     }
 
     private void _QuitAVGScene(float fadeTime = 0.3f) {
-      UIManager.instance.FadeBlackMask(fadeTime, () => {
+      /*UIManager.instance.FadeBlackMask(fadeTime, () => {
         //加载时候的图
       }, () => {
         SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
@@ -78,7 +76,7 @@ namespace Yume.AVG {
             //加载时候的图
           });
         };
-      });
+      });*/
     }
   }
 }

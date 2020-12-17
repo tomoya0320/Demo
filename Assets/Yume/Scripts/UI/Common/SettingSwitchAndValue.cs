@@ -63,11 +63,11 @@ namespace Yume.UI {
     private void _UpdateState() {
       switch (_settingType) {
         case SettingType.BGM: {
-            AudioController.instance.UpdateBgmVolume();
+            AudioManager.instance.UpdateBgmVolume();
             break;
           }
         case SettingType.SOUND: {
-            AudioController.instance.UpdateSoundVolume();
+            AudioManager.instance.UpdateSoundVolume();
             break;
           }
       }
