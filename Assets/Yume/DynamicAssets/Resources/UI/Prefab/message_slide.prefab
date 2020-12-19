@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2837326639412497759}
   - component: {fileID: 7417902540802656211}
   - component: {fileID: 2837326639412497746}
+  - component: {fileID: 476359986759111883}
   m_Layer: 5
   m_Name: message_slide
   m_TagString: Untagged
@@ -150,6 +151,21 @@ MonoBehaviour:
     gameObject: {fileID: 2837326640205459748}
   - name: image
     gameObject: {fileID: 2837326640255887535}
+--- !u!111 &476359986759111883
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837326639412497747}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2837326640205459748
 GameObject:
   m_ObjectHideFlags: 0

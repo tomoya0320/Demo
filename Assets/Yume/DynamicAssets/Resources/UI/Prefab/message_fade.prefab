@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6075214251854548880}
   - component: {fileID: 5178428021177175912}
   - component: {fileID: 449155615722213233}
+  - component: {fileID: 6120632837800408010}
   m_Layer: 5
   m_Name: message_fade
   m_TagString: Untagged
@@ -150,6 +151,21 @@ MonoBehaviour:
     gameObject: {fileID: 3536362505591389453}
   - name: image
     gameObject: {fileID: 2094202203159561711}
+--- !u!111 &6120632837800408010
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449155615722213234}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2094202203159561711
 GameObject:
   m_ObjectHideFlags: 0

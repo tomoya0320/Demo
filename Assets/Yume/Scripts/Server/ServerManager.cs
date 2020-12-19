@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
 using Yume.Resource;
 using Yume.String;
+using Yume.Tool;
 
 namespace Yume.Server {
-  public class ServerManager : SingletonMono<ServerManager> {
+  public class ServerManager : Singleton<ServerManager> {
     private enum Methods {
       LOGIN, REGISTER, ALTERPSD, UPDATE
     }
@@ -25,7 +25,7 @@ namespace Yume.Server {
       json.Add("method", Methods.LOGIN.ToString());
       //添加token以验证同步
       json.Add("token", DateTime.Now.ToString() + SystemInfo.deviceUniqueIdentifier);
-      StartCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
+      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
     public void Register(string name, string account, string password, Action<UnityWebRequest> onCompleted) {
@@ -34,7 +34,7 @@ namespace Yume.Server {
       //update：换了一种方式初始化(直接new UserDB())
       JObject json = ServerDataWrapper.Wrapper(new { userDB = new UserDB(name/*暂时测试用*/, account, password) });
       json.Add("method", Methods.REGISTER.ToString());
-      StartCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
+      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
     public void UpdateUserData<T>(T data, Action<UnityWebRequest> onCompleted) where T : class {
@@ -45,13 +45,13 @@ namespace Yume.Server {
       json.Add("password", DBManager.userPassword);
       //添加token以验证同步
       json.Add("token", DBManager.userToken);
-      StartCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
+      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
     public void AlterPassword(string account, string oldPassword, string newPassword, Action<UnityWebRequest> onCompleted) {
       JObject json = ServerDataWrapper.Wrapper(new { account, oldPassword, newPassword });
       json.Add("method", Methods.ALTERPSD.ToString());
-      StartCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
+      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
     private IEnumerator _SendWebRequest(string url, JObject data, Action<UnityWebRequest> onCompleted) {

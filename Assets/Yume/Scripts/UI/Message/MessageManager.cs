@@ -66,7 +66,7 @@ namespace Yume.UI {
 
     public void ShowMessage() {
       if (m_messages.Count > 0) {
-        UIManager.instance.OpenOne($"message_{m_messages[0].style.GetEnumDescription()}", m_messages[0]);
+        UIManager.instance.OpenOne($"message_{m_messages[0].style.GetDescription()}", null, null, m_messages[0]);
       } else {
         m_isMessageShowing = false;
       }

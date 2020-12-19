@@ -7,7 +7,7 @@ using Yume.Server;
 using Yume.String;
 
 namespace Yume.UI {
-  public class LoginView : UIBase {
+  public class UILogin : UIBase {
     private InputField m_nameInput;
     private InputField m_accountInput;
     private InputField m_passwordInput;
@@ -15,7 +15,6 @@ namespace Yume.UI {
     private Text m_result;
     private GameObject m_main;
     private GameObject m_second;
-    private Animation m_animation;
 
     private void _OnLogin() {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text)) {
@@ -113,10 +112,7 @@ namespace Yume.UI {
 
     private void _GoToMain(JObject json = null) {
       DBManager.LoadUserDB(json);
-      Action onFadeInComplete = () => {
-        UIManager.instance.CloseAllAndOpenOne("main");
-      };
-      UIManager.instance.OpenOne("blackMask", 0.5f, onFadeInComplete, null);
+      UIManager.instance.OpenOne("blackMask", null, () => UIManager.instance.CloseAllAndOpenOne("main"));
     }
 
     private void _ClearInput() {
@@ -124,19 +120,6 @@ namespace Yume.UI {
       m_accountInput.text = StringMap.EMPTY;
       m_passwordInput.text = StringMap.EMPTY;
       m_newPasswordInput.text = StringMap.EMPTY;
-    }
-
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
-      m_nameInput = GetComponent<InputField>("NameInput");
-      m_accountInput = GetComponent<InputField>("AccountInput");
-      m_passwordInput = GetComponent<InputField>("PsdInput");
-      m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
-      m_result = GetComponent<Text>("Result");
-      m_main = GetGameObject("Main");
-      m_second = GetGameObject("Second");
-      m_animation = GetComponent<Animation>("Animation");
-      _AddListener();
     }
 
     private void _AddListener() {
@@ -156,23 +139,33 @@ namespace Yume.UI {
       });
     }
 
-    public override void Open(params object[] args) {
-      root.SetActive(true);
-      m_animation.Play();
+    public override void OnInit(UIData uiData, GameObject root) {
+      base.OnInit(uiData, root);
+      m_nameInput = GetComponent<InputField>("NameInput");
+      m_accountInput = GetComponent<InputField>("AccountInput");
+      m_passwordInput = GetComponent<InputField>("PsdInput");
+      m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
+      m_result = GetComponent<Text>("Result");
+      m_main = GetGameObject("Main");
+      m_second = GetGameObject("Second");
 
-      base.Open(args);
+      _AddListener();
     }
 
-    public override void Close(params object[] args) {
-      base.Close(args);
-
-      m_animation.Stop();
-      root.SetActive(false);
-    }
-
-    public override void Recycle(params object[] args) {
-      base.Recycle(args);
+    public override UIBase Recycle() {
+      base.Recycle();
       _ClearInput();
+      return this;
+    }
+
+    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+      onOpenStart = onOpenStart.AddAction(() => root.SetActive(true));
+      base.Open(onOpenStart, onOpenEnd, args);
+    }
+
+    public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      onCloseEnd = onCloseEnd.AddAction(() => root.SetActive(false));
+      base.Close(onCloseStart, onCloseEnd, args);
     }
   }
 }

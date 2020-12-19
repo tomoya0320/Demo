@@ -1,41 +1,27 @@
 ﻿using System;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  public class BlackMask : UIBase {
+  public class UIBlackMask : UIBase {
     private Image m_mask;
-    private float m_fadeTime;
-    private Action m_onFadeInComplete;
-    private Action m_onFadeOutComplete;
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
       m_mask = GetComponent<Image>("Mask");
     }
 
-    public override void Close(params object[] args) {
-      base.Close(args);
+    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+      onOpenStart = onOpenStart.AddAction(() => m_mask.enabled = true);
+      onOpenEnd = onOpenEnd.AddAction(() => UIManager.instance.CloseOne("blackMask"));
 
-      m_mask.enabled = false;
+      base.Open(onOpenStart, onOpenEnd, args);
     }
 
-    public override void Open(params object[] args) {
-      m_mask.enabled = true;
-      m_fadeTime = (float)args[0];
-      m_onFadeInComplete = args[1] as Action;
-      m_onFadeOutComplete = args[2] as Action;
-      m_mask.SetAlpha(0);
-      m_mask.DOFade(1.0f, m_fadeTime).OnComplete(() => {
-        m_onFadeInComplete?.Invoke();
-        m_mask.DOFade(0, m_fadeTime).OnComplete(() => {
-          m_onFadeOutComplete?.Invoke();
-          UIManager.instance.CloseOne("blackMask");
-        });
-      });
+    public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      onCloseEnd = onCloseEnd.AddAction(() => m_mask.enabled = false);
 
-      base.Open(args);
+      base.Close(onCloseStart, onCloseEnd, args);
     }
   }
 }

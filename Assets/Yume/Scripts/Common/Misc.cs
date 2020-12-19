@@ -6,6 +6,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
+/// Action工具类
+/// </summary>
+public static class ActionTools {
+  /// <summary>
+  /// 添加时会判断action和add是否为空
+  /// 不是原地操作
+  /// </summary>
+  /// <param name="action"></param>
+  /// <param name="add"></param>
+  /// <returns></returns>
+  public static Action AddAction(this Action action, Action add) {
+    if (action == null) {
+      action = add;
+    } else if (add != null) {
+      action += add;
+    }
+    return action;
+  }
+}
+
+/// <summary>
 /// List拓展工具类
 /// </summary>
 public static class ListTools {
@@ -53,7 +74,7 @@ public static class EnumTools {
   /// </summary>
   /// <param name="enumValue"></param>
   /// <returns></returns>
-  public static string GetEnumDescription(this Enum enumValue) {
+  public static string GetDescription(this Enum enumValue) {
     Type type = enumValue.GetType();
     MemberInfo[] memInfo = type.GetMember(enumValue.ToString());
     if (null != memInfo && memInfo.Length > 0) {

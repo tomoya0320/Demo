@@ -80,11 +80,11 @@ namespace Yume.UI {
       }
     }
 
-    public object GetSharedArgs(object key) {
+    public T GetSharedArgs<T>(object key) {
       if (m_sharedArgsDict.ContainsKey(key)) {
-        return m_sharedArgsDict[key];
+        return (T)m_sharedArgsDict[key];
       } else {
-        return null;
+        return default;
       }
     }
 
@@ -93,37 +93,48 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public async void OpenOne(string name, params object[] args) {
+    public void OpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
-        UIBase ui = null;
         var data = m_uiDataDict[name];
 
-        if (!_TryGetCache(data, ref ui)) {
-          ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
-          GameObject prefab;
-          if (data.isAsyncLoad) {
-            prefab = await ResourceManager.LoadAssetAsync<GameObject>(data.prefabUrl);
-          } else {
-            prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
-          }
-          if (prefab == null) {
-            Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
-            return;
-          }
-          ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
         }
 
         var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Close();
+          stack.Peek().Close(null, () => {
+            _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          });
+        } else {
+          _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
         }
-
-        ui.Open(args);
-        stack.Push(ui);
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
+    }
+
+    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {    
+      UIBase ui = null;
+      if (!_TryGetCache(data, ref ui)) {
+        ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
+        GameObject prefab;
+        if (data.isAsyncLoad) {
+          //TODO:优化
+          prefab = await ResourceManager.LoadAssetAsync<GameObject>(data.prefabUrl);
+        } else {
+          prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
+        }
+        if (prefab == null) {
+          Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
+          return;
+        }
+        ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
+      }
+      stack.Push(ui);
+      ui.Open(onOpenStart, onOpenEnd, args);
     }
 
     /// <summary>
@@ -143,18 +154,25 @@ namespace Yume.UI {
     }
 
     /// <summary>
-    /// 关闭栈中的所有UI并打开新的UI(关闭过程不会打开上一个UI以实现无缝衔接)
-    /// 相当于场景跳转
+    /// 销毁栈中的所有UI并打开新的UI，相当于场景跳转
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseAllAndOpenOne(string name, params object[] args) {
+    public void CloseAllAndOpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
-        var stack = m_uiStackDict[m_uiDataDict[name].uiType];
-        while (stack.Count > 0) {
-          _CloseInternal(stack.Pop());
+        var data = m_uiDataDict[name];
+
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
         }
-        OpenOne(name, args);
+
+        var stack = m_uiStackDict[data.uiType];
+
+        while (stack.Count > 0) {
+          stack.Pop().Destroy();
+        }
+        OpenOne(name, onOpenStart, onOpenEnd, args);
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
@@ -165,18 +183,23 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseOne(string name, params object[] args) {
+    public void CloseOne(string name, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
+        var data = m_uiDataDict[name];
+
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
+        }
+
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
+
         if (stack.Count == 0) {
           Debug.LogError("UI栈为空！");
           return;
         }
         if (stack.Peek().name == name) {
-          _CloseInternal(stack.Pop(), args);
-          if (stack.Count > 0 && m_uiDataDict[name].isCloseLast) {
-            stack.Peek().Open();
-          }
+          _CloseInternal(data, stack, onCloseStart, onCloseEnd, args);
         } else {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
@@ -185,15 +208,17 @@ namespace Yume.UI {
       }
     }
 
-    /// <summary>
-    /// 关闭一个UIBase实例并回收进缓存字典
-    /// </summary>
-    /// <param name="ui"></param>
-    /// <param name="args"></param>
-    private void _CloseInternal(UIBase ui, params object[] args) {
-      ui.Close(args);
-      ui.Recycle(args);
-      m_cacheUIListDict[ui.uiType].Add((Time.realtimeSinceStartup, ui));
+    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      
+      onCloseEnd = onCloseEnd.AddAction(() => {
+        //回收
+        m_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
+        //选择性打开上一个UI
+        if (stack.Count > 0 && data.isCloseLast) {
+          stack.Peek().Open();
+        }
+      });
+      stack.Peek().Close(onCloseStart, onCloseEnd, args);
     }
 
     private Transform _GetRootByType(UIType uiType) {

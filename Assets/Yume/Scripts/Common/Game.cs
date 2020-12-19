@@ -49,7 +49,6 @@ namespace Yume.Master {
         DBManager.AddMail(new MailDB("Test Title3", "I love {0}", "wzb", new ItemDB("item_1_diamond", 4000), new ItemDB("item_2_gold", 50000), new ItemDB("item_5_key", 10)));
         DBManager.UpdateUserData();
       }
- 
 #endif
     }
   }

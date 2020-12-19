@@ -9,8 +9,8 @@ namespace Yume.Audio {
     private List<AudioSource> m_audioSources;
     private float m_value;
     private float m_switch;
-    private readonly string m_valueKey = SettingType.SOUND.ToString() + StringMap.VALUE;
-    private readonly string m_switchKey = SettingType.SOUND.ToString() + StringMap.SWITCH;
+    private readonly string m_valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
+    private readonly string m_switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
     public SoundManager(Transform soundFolder) {
       m_soundFolder = soundFolder;

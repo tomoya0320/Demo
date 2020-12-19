@@ -2,52 +2,63 @@
   "message_fade": {
       "name" : "message_fade",
       "uiType" : 2,
-      "typeName" : "Yume.UI.FadeMessage",
+      "typeName" : "Yume.UI.UIMessageTip",
       "prefabUrl" : "UI/Prefab/message_fade",
-      "cacheTime" : 30,
-      "isAsyncLoad" : false
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   },
   "message_slide": {
       "name" : "message_slide",
       "uiType" : 2,
-      "typeName" : "Yume.UI.SlideMessage",
+      "typeName" : "Yume.UI.UIMessageTip",
       "prefabUrl" : "UI/Prefab/message_slide",
-      "cacheTime" : 30,
-      "isAsyncLoad" : false
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   },
   "blackMask": {
       "name" : "blackMask",
       "uiType" : 1,
-      "typeName" : "Yume.UI.BlackMask",
+      "typeName" : "Yume.UI.UIBlackMask",
       "prefabUrl" : "UI/Prefab/blackMask",
-      "cacheTime" : 30,
+      "cacheTime" : 10,
       "isAsyncLoad" : false,
-      "isCloseLast" : true
+      "isCloseLast" : false
   },
   "login": {
       "name" : "login",
       "uiType" : 0,
-      "typeName" : "Yume.UI.LoginView",
+      "typeName" : "Yume.UI.UILogin",
       "prefabUrl" : "UI/Prefab/login",
-      "cacheTime" : 30,
+      "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : true
   },
   "main": {
       "name" : "main",
       "uiType" : 0,
-      "typeName" : "Yume.UI.MainView",
+      "typeName" : "Yume.UI.UIMain",
       "prefabUrl" : "UI/Prefab/main",
-      "cacheTime" : 30,
+      "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : true
   },
-  "childUITest": {
-      "name" : "childUITest",
+  "setting": {
+      "name" : "setting",
       "uiType" : 0,
-      "typeName" : "Yume.UI.MainView",
-      "prefabUrl" : "UI/Prefab/childUITest",
-      "cacheTime" : 30,
+      "typeName" : "Yume.UI.UISetting",
+      "prefabUrl" : "UI/Prefab/setting",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "task": {
+      "name" : "task",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UITask",
+      "prefabUrl" : "UI/Prefab/task",
+      "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
   }
