@@ -150,7 +150,7 @@ namespace Yume.DB {
     private static JObject itemJson {
       get {
         if (s_itemJson == null) {
-          s_itemJson = JObject.Parse(AssetReader.instance.jsonAsset.items.text);
+          s_itemJson = JObject.Parse(AssetLoader.instance.GetValue<string>("items"));
         }
         return s_itemJson;
       }
@@ -159,7 +159,7 @@ namespace Yume.DB {
     private static JObject taskJson {
       get {
         if (s_taskJson == null) {
-          s_taskJson = JObject.Parse(AssetReader.instance.jsonAsset.tasks.text);
+          s_taskJson = JObject.Parse(AssetLoader.instance.GetValue<string>("tasks"));
         }
         return s_taskJson;
       }
@@ -168,7 +168,7 @@ namespace Yume.DB {
     private static JObject lvMaxApMap {
       get {
         if (s_lvMaxApMap == null) {
-          s_lvMaxApMap = JObject.Parse(AssetReader.instance.jsonAsset.lvMaxApMap.text);
+          s_lvMaxApMap = JObject.Parse(AssetLoader.instance.GetValue<string>("lvMaxApMap"));
         }
         return s_lvMaxApMap;
       }
@@ -177,7 +177,7 @@ namespace Yume.DB {
     private static JObject cardJson {
       get {
         if (s_cardJson == null) {
-          s_cardJson = JObject.Parse(AssetReader.instance.jsonAsset.cards.text);
+          s_cardJson = JObject.Parse(AssetLoader.instance.GetValue<string>("cards"));
         }
         return s_cardJson;
       }
@@ -186,7 +186,7 @@ namespace Yume.DB {
     private static JObject charJson {
       get {
         if (s_charJson == null) {
-          s_charJson = JObject.Parse(AssetReader.instance.jsonAsset.chars.text);
+          s_charJson = JObject.Parse(AssetLoader.instance.GetValue<string>("chars"));
         }
         return s_charJson;
       }
@@ -195,7 +195,7 @@ namespace Yume.DB {
     private static JObject enemyJson {
       get {
         if (s_enemyJson == null) {
-          s_enemyJson = JObject.Parse(AssetReader.instance.jsonAsset.enemies.text);
+          s_enemyJson = JObject.Parse(AssetLoader.instance.GetValue<string>("enemies"));
         }
         return s_enemyJson;
       }

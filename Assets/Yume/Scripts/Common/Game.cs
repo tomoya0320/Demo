@@ -7,6 +7,13 @@ using Yume.UI;
 
 namespace Yume.Master {
   public class Game : SingletonMono<Game> {
+    /// <summary>
+    /// .asset文件的路径列表
+    /// </summary>
+    [SerializeField]
+    private string[] _assetUrls;
+    public string[] assetUrls => _assetUrls;
+
     private void Start() {
       UIManager.instance.RegisterByJson();
       //暂时先不需要检查资源的UI
@@ -42,20 +49,7 @@ namespace Yume.Master {
         DBManager.AddMail(new MailDB("Test Title3", "I love {0}", "wzb", new ItemDB("item_1_diamond", 4000), new ItemDB("item_2_gold", 50000), new ItemDB("item_5_key", 10)));
         DBManager.UpdateUserData();
       }
-      if (Input.GetKeyDown(KeyCode.U)) {
-        UIManager.instance.CloseOne("login");
-      }
-      if (Input.GetKeyDown(KeyCode.I)) {
-        UIManager.instance.OpenOne("login");
-      }     
-      
-      if (Input.GetKeyDown(KeyCode.O)) {
-        UIManager.instance.OpenOne("childUITest");
-      }    
-      
-      if (Input.GetKeyDown(KeyCode.P)) {
-        UIManager.instance.CloseOne("childUITest");
-      }
+ 
 #endif
     }
   }

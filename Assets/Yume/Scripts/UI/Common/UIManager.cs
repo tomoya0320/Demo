@@ -55,7 +55,9 @@ namespace Yume.UI {
     }
 
     public void RegisterByJson() {
-      var uiDataDict = JsonConvert.DeserializeObject<Dictionary<string, UIData>>(AssetReader.instance.jsonAsset.ui.text);
+      var uiDataDict = JsonConvert.DeserializeObject<Dictionary<string, UIData>>(
+                                   AssetLoader.instance.GetValue<string>("ui"));
+
       foreach (var uiData in uiDataDict.Values) {
         Register(uiData);
       }

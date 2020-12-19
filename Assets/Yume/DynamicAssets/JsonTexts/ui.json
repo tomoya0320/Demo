@@ -4,7 +4,7 @@
       "uiType" : 2,
       "typeName" : "Yume.UI.FadeMessage",
       "prefabUrl" : "UI/Prefab/message_fade",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false
   },
   "message_slide": {
@@ -12,7 +12,7 @@
       "uiType" : 2,
       "typeName" : "Yume.UI.SlideMessage",
       "prefabUrl" : "UI/Prefab/message_slide",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false
   },
   "blackMask": {
@@ -20,7 +20,7 @@
       "uiType" : 1,
       "typeName" : "Yume.UI.BlackMask",
       "prefabUrl" : "UI/Prefab/blackMask",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false,
       "isCloseLast" : true
   },
@@ -29,7 +29,7 @@
       "uiType" : 0,
       "typeName" : "Yume.UI.LoginView",
       "prefabUrl" : "UI/Prefab/login",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false,
       "isCloseLast" : true
   },
@@ -38,7 +38,7 @@
       "uiType" : 0,
       "typeName" : "Yume.UI.MainView",
       "prefabUrl" : "UI/Prefab/main",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false,
       "isCloseLast" : true
   },
@@ -47,7 +47,7 @@
       "uiType" : 0,
       "typeName" : "Yume.UI.MainView",
       "prefabUrl" : "UI/Prefab/childUITest",
-      "cacheTime" : 10,
+      "cacheTime" : 30,
       "isAsyncLoad" : false,
       "isCloseLast" : false
   }

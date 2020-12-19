@@ -54,7 +54,7 @@ namespace Yume.Task {
 
   [Serializable]
   public struct TaskRewards {
-    public List<ItemDB> items;
+    public ItemDB[] items;
   }
 
   public struct TaskInfo {
@@ -80,7 +80,7 @@ namespace Yume.Task {
           _SyncHadNum(taskRequest);
         }
       }
-      _Check();
+      _CheckInternal();
     }
 
     private void _SyncHadNum(TaskRequestDB taskRequest) {
@@ -116,10 +116,10 @@ namespace Yume.Task {
           }
         }
       }
-      _Check();
+      _CheckInternal();
     }
 
-    public void _Check() {
+    private void _CheckInternal() {
       if (state == TaskState.INPROCESS || state == TaskState.COMPLETED) {
         bool completed = true;
         foreach (TaskRequestDB taskRequest in taskRequests) {
