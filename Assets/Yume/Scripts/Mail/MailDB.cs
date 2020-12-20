@@ -23,12 +23,11 @@ namespace Yume.MailSystem {
 
     public void GetAttachment() {
       isReceived = true;
-      DBManager.AddItems(attachment);
-      DBManager.UpdateUserMails();
+      DBManager.instance.AddItems(attachment);
     }
 
     public void Delete() {
-      DBManager.DeleteMail(this);
+      DBManager.instance.DeleteMail(this);
     }
   }
 }

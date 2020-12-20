@@ -58,6 +58,12 @@ namespace Yume.FSM {
       }
     }
 
+    /// <summary>
+    /// 切换状态
+    /// </summary>
+    /// <param name="nextStateId">下一个状态的ID</param>
+    /// <param name="force">只有当前状态和下一个状态不一致时才会切换，当force为true时忽略这条规则</param>
+    /// <returns></returns>
     public bool SwitchState(int nextStateId, bool force = false) {
       if (m_states.ContainsKey(nextStateId) && (force ||
           currentState.stateId != nextStateId)) {

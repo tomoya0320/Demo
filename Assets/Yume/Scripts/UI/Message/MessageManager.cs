@@ -1,69 +1,52 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Yume.UI {
   public class Message {
     public enum Style {
-      SLIDE, FADE
+      [Description("slide")]
+      SLIDE,
+      [Description("fade")]
+      FADE
     }
 
     public Style style;
     public string description;
     public Sprite img;
     public float duration;
-    public float delay;
     public bool isShowImg;
 
-    public Message(Style style, string description, Sprite img, float duration = 0.5f, float delay = 1.0f) {
+    public Message(Style style, string description, Sprite img, float duration = 2.0f) {
       this.style = style;
       this.description = description;
       this.duration = duration;
-      this.delay = delay;
       this.img = img;
       isShowImg = true;
     }
-    public Message(Style style, string description, float duration = 0.8f, float delay = 1.6f) {
+    public Message(Style style, string description, float duration = 2.0f) {
       this.style = style;
       this.description = description;
       this.duration = duration;
-      this.delay = delay;
       isShowImg = false;
     }
   }
-  public class MessageManager {
+  public class MessageManager : Singleton<MessageManager> {
     private bool m_isMessageShowing;
-    private List<Message> m_messages;
+    private Queue<Message> m_messageQueue = new Queue<Message>();
 
-    public MessageManager() {
-      m_messages = new List<Message>();
-    }
-
-    public void AddMessage(Message message, bool duplicate = false) {
-      int index;
-      if (duplicate) {
-        index = -1;
-      } else {
-        index = m_messages.FindIndex(m => {
-          return m.description == message.description;
-        });
+    public void AddMessage(Message message) {
+      m_messageQueue.Enqueue(message);
+      if (!m_isMessageShowing) {
+        m_isMessageShowing = true;
+        ShowMessage();
       }
-      if (index < 0) {
-        m_messages.Add(message);
-        if (!m_isMessageShowing) {
-          m_isMessageShowing = true;
-          ShowMessage();
-        }
-      }
-    }
-
-    public bool RemoveMessage(Message message) {
-      return m_messages.Remove(message);
     }
 
     public void ShowMessage() {
-      if (m_messages.Count > 0) {
-        UIController.instance.messageBoxes.Find(
-        mb => mb.style == m_messages[0].style).OnInit(m_messages[0]);
+      if (m_messageQueue.Count > 0) {
+        var message = m_messageQueue.Dequeue();
+        UIManager.instance.OpenOne($"message_{message.style.GetDescription()}", null, null, message);
       } else {
         m_isMessageShowing = false;
       }

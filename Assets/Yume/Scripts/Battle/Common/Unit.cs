@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Yume.FSM;
-using Yume.String;
 
 namespace Yume.Battle {
   [Serializable]
@@ -11,6 +9,7 @@ namespace Yume.Battle {
     public string tag;
     public float hp;
     public float maxHp;
+    public float atk;
     public float def;
     public float hitProb;
     public float evadeProb;
@@ -76,40 +75,49 @@ namespace Yume.Battle {
       }
     }
 
-    #region Unit Data
-    [SerializeField]
-    private Attribute _attribute;
-    [SerializeField]
-    private BuffData[] _passiveBuffs;
-    #endregion
-    public Animator animator { get; private set; }
-    public StateMachine stateMachine { get; private set; }
-    public BuffContainer buffContainer { get; private set; }
+    private Animator m_animator;
+    private StateMachine m_stateMachine;
+    private BuffContainer m_buffContainer;
 
-    public virtual void OnInit(JObject data) {
-      if (data != null) {
-        if (data.ContainsKey(StringMap.ATTRIBUTE)) {
-          _attribute = JsonConvert.DeserializeObject<Attribute>(data[StringMap.ATTRIBUTE].ToString());
+    private Attribute m_attribute;
+    /// <summary>
+    /// 抽牌堆
+    /// </summary>
+    private List<CardDB> m_cardList;
+    /// <summary>
+    /// 弃牌堆
+    /// </summary>
+    private List<CardDB> m_discardCardList;
+    /// <summary>
+    /// 耗牌堆
+    /// </summary>
+    private List<CardDB> m_consumedCardList;
+
+    public virtual void OnInit(Attribute attribute, List<CardDB> cardList, BuffData[] passiveBuffs = null) {
+      m_animator = GetComponent<Animator>();
+
+      m_stateMachine = new StateMachine(new IdleState(this));
+      m_stateMachine.RegisterState(new PlayState(this));
+      m_stateMachine.RegisterState(new DeadState(this));
+
+      m_buffContainer = new BuffContainer(this);
+
+      m_discardCardList = new List<CardDB>();
+      m_consumedCardList = new List<CardDB>();
+
+      m_attribute = attribute;
+
+      m_cardList = cardList;
+
+      if (passiveBuffs != null) {
+        foreach (var buff in passiveBuffs) {
+          m_buffContainer.AddBuff(buff);
         }
-        if (data.ContainsKey(StringMap.PASSIVE_BUFFS)) {
-          _passiveBuffs = JsonConvert.DeserializeObject<BuffData[]>(data[StringMap.PASSIVE_BUFFS].ToString());
-        }
-      }
-
-      animator = GetComponent<Animator>();
-
-      stateMachine = new StateMachine(new IdleState(this));
-      stateMachine.RegisterState(new PlayState(this));
-      stateMachine.RegisterState(new DeadState(this));
-
-      buffContainer = new BuffContainer();
-      foreach (var buffData in _passiveBuffs) {
-        buffContainer.AddBuff(buffData);
       }
     }
 
     public virtual void SwitchState(State state, bool force = false) {
-      stateMachine.SwitchState((int)state, force);
+      m_stateMachine.SwitchState((int)state, force);
     }
   }
 }

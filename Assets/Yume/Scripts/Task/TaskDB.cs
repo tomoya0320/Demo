@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Yume.Battle;
 using Yume.DB;
 using Yume.String;
 using Yume.UI;
+using Yume.Resource;
+using System.ComponentModel;
 
 namespace Yume.Task {
   public enum TaskState {
@@ -16,7 +17,9 @@ namespace Yume.Task {
   }
 
   public enum TaskType {
+    [Description("daily")]
     DAILY,
+    [Description("main")]
     MAIN
   }
 
@@ -54,7 +57,7 @@ namespace Yume.Task {
 
   [Serializable]
   public struct TaskRewards {
-    public List<ItemDB> items;
+    public ItemDB[] items;
   }
 
   public struct TaskInfo {
@@ -64,7 +67,6 @@ namespace Yume.Task {
     public TaskType activeTaskType;
     public string title;
     public string description;
-    public bool autoComplete;
     public TaskRewards taskRewards;
   }
 
@@ -81,18 +83,18 @@ namespace Yume.Task {
           _SyncHadNum(taskRequest);
         }
       }
-      _Check();
+      _CheckInternal();
     }
 
     private void _SyncHadNum(TaskRequestDB taskRequest) {
       //同步现有的数量
       switch (taskRequest.type) {
         case RequestType.PROP_NUM: {
-            taskRequest.currentNum = DBManager.GetItemDBNum(id);
+            taskRequest.currentNum = DBManager.instance.GetItemDBNum(id);
             break;
           }
         case RequestType.LV_UP_TO: {
-            taskRequest.currentNum = DBManager.userLv;
+            taskRequest.currentNum = DBManager.instance.userLv;
             break;
           }
       }
@@ -117,10 +119,10 @@ namespace Yume.Task {
           }
         }
       }
-      _Check();
+      _CheckInternal();
     }
 
-    public void _Check() {
+    private void _CheckInternal() {
       if (state == TaskState.INPROCESS || state == TaskState.COMPLETED) {
         bool completed = true;
         foreach (TaskRequestDB taskRequest in taskRequests) {
@@ -128,15 +130,10 @@ namespace Yume.Task {
         }
 
         if (completed && state == TaskState.INPROCESS) {
-          TaskInfo taskInfo = DBManager.GetTaskInfo(type, id);
+          TaskInfo taskInfo = DBManager.instance.GetTaskInfo(type, id);
           state = TaskState.COMPLETED;
-          UIController.instance.messageManager.AddMessage(new Message
+          MessageManager.instance.AddMessage(new Message
           (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskInfo.title)));
-
-          if (taskInfo.autoComplete) {
-            DBManager.CompleteTask(this);
-          }
-
         } else if (!completed && state == TaskState.COMPLETED) {
           state = TaskState.INPROCESS;
         }
@@ -145,20 +142,22 @@ namespace Yume.Task {
 
     public async void Complete() {
       state = TaskState.FINAL;
-      TaskInfo taskInfo = DBManager.GetTaskInfo(type, id);
+      TaskInfo taskInfo = DBManager.instance.GetTaskInfo(type, id);
       foreach (ItemDB item in taskInfo.taskRewards.items) {
-        DBManager.AddItems(item);
-        var itemInfo = DBManager.GetItemInfo(item.id);
-        Sprite itemIcon = await Addressables.LoadAssetAsync<Sprite>(itemInfo.iconFileName).Task;
-        UIController.instance.messageManager.AddMessage(new Message(Message.Style.FADE,
+        DBManager.instance.AddItems(item);
+        var itemInfo = DBManager.instance.GetItemInfo(item.id);
+        Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemInfo.iconFileName);
+        MessageManager.instance.AddMessage(new Message(Message.Style.FADE,
         string.Format(StringMap.GET + "{0}*{1}", itemInfo.name, item.num), itemIcon));
       }
 
       foreach (TaskRequestDB taskRequest in taskRequests) {
         if (taskRequest.consumable && taskRequest.type == RequestType.PROP_NUM) {
-          DBManager.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
+          DBManager.instance.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }
+
+      DBManager.instance.UpdateUserData();
     }
   }
 }

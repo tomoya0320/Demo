@@ -30,15 +30,15 @@ namespace Yume.UI {
     }
 
     private void _UpdateUserInfo() {
-      _goldNumText.text = DBManager.GetItemDBNum(StringMap.GOLD_ID).ToString();
-      _diamondNumText.text = DBManager.GetItemDBNum(StringMap.DIAMOND_ID).ToString();
+      _goldNumText.text = DBManager.instance.GetItemDBNum(StringMap.GOLD_ID).ToString();
+      _diamondNumText.text = DBManager.instance.GetItemDBNum(StringMap.DIAMOND_ID).ToString();
 
-      _apText.text = DBManager.userAp + "/" + DBManager.userMaxAp;
-      _lvText.text = DBManager.userLv.ToString();
-      _nameText.text = DBManager.userName;
+      _apText.text = DBManager.instance.userAp + "/" + DBManager.instance.userMaxAp;
+      _lvText.text = DBManager.instance.userLv.ToString();
+      _nameText.text = DBManager.instance.userName;
 
-      float needEXP = MathUtil.CalNeededExp(DBManager.userLv);
-      _expImg.fillAmount = DBManager.userExp / needEXP;
+      float needEXP = MathUtil.CalNeededExp(DBManager.instance.userLv);
+      _expImg.fillAmount = DBManager.instance.userExp / needEXP;
     }
   }
 }

@@ -10,6 +10,11 @@ namespace Yume.Battle {
   }
 
   public class BuffContainer {
+    private Unit m_owner;
+
+    public BuffContainer(Unit owner) {
+      m_owner = owner;
+    }
 
     public bool AddBuff(BuffData buffData) {
       //TODO

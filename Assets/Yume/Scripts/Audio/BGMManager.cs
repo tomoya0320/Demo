@@ -10,8 +10,8 @@ namespace Yume.Audio {
     private Tween m_tween;
     private float m_value;
     private float m_switch;
-    private readonly string m_valueKey = SettingType.BGM.ToString() + StringMap.VALUE;
-    private readonly string m_switchKey = SettingType.BGM.ToString() + StringMap.SWITCH;
+    private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
+    private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
 
     public BGMManager(AudioSource audioSource) {
       m_audioSource = audioSource;

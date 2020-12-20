@@ -1,0 +1,92 @@
+{
+  "message_fade": {
+      "name" : "message_fade",
+      "uiType" : 2,
+      "typeName" : "Yume.UI.UIMessageTip",
+      "prefabUrl" : "UI/Prefab/message_fade",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "message_slide": {
+      "name" : "message_slide",
+      "uiType" : 2,
+      "typeName" : "Yume.UI.UIMessageTip",
+      "prefabUrl" : "UI/Prefab/message_slide",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "blackMask": {
+      "name" : "blackMask",
+      "uiType" : 1,
+      "typeName" : "Yume.UI.UIMask",
+      "prefabUrl" : "UI/Prefab/blackMask",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "login": {
+      "name" : "login",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UILogin",
+      "prefabUrl" : "UI/Prefab/login",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : true
+  },
+  "main": {
+      "name" : "main",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UIMain",
+      "prefabUrl" : "UI/Prefab/main",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : true
+  },
+  "setting": {
+      "name" : "setting",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UISetting",
+      "prefabUrl" : "UI/Prefab/setting",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "task": {
+      "name" : "task",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UITask",
+      "prefabUrl" : "UI/Prefab/task",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "mail": {
+      "name" : "mail",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UIMail",
+      "prefabUrl" : "UI/Prefab/mail",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "bag": {
+      "name" : "bag",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UIBag",
+      "prefabUrl" : "UI/Prefab/bag",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "card": {
+      "name" : "card",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UICard",
+      "prefabUrl" : "UI/Prefab/card",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  }
+}

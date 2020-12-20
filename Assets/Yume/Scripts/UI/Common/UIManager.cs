@@ -1,0 +1,262 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using Yume.Resource;
+
+namespace Yume.UI {
+  public enum UIType {
+    NORMAL, TOP, TIP/*消息提示要放最顶层，所有的消息提示不参与交互*/
+  }
+
+  [Serializable]
+  public struct UIData {
+    public string name;
+    public UIType uiType;
+    public string typeName;
+    public string prefabUrl;
+    public float cacheTime;
+    public bool isAsyncLoad;
+    public bool isCloseLast;
+  }
+
+  public class UIManager : Singleton<UIManager> {
+    private Image m_maskImage;
+    private Transform m_topCanvas;
+    private Transform m_tipCanvas;
+    private Transform m_normalCanvas;
+    public Transform cacheCanvas { private set; get; }
+    private Dictionary<string, UIData> m_uiDataDict = new Dictionary<string, UIData>();
+    private Dictionary<object, object> m_sharedArgsDict = new Dictionary<object, object>();
+    private Dictionary<UIType, Stack<UIBase>> m_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
+    private Dictionary<UIType, List<(float, UIBase)>> m_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
+
+    protected override void OnInit() {
+      base.OnInit();
+      m_topCanvas = GameObject.Find("TopCanvas")?.transform;
+      m_tipCanvas = GameObject.Find("TipCanvas")?.transform;
+      cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
+      m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
+
+      m_maskImage = m_topCanvas?.Find("mask")?.GetComponent<Image>();
+
+      foreach (UIType type in Enum.GetValues(typeof(UIType))) {
+        m_uiStackDict.Add(type, new Stack<UIBase>());
+        m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
+      }
+    }
+
+    public void UpdateCache() {
+      foreach (var list in m_cacheUIListDict.Values) {
+        for (int i = list.Count - 1; i >= 0; i--) {
+          if (list[i].Item1 + list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
+            list[i].Item2.Destroy();
+            list.RemoveAt(i);
+          }
+        }
+      }
+    }
+
+    public void RegisterByJson() {
+      var uiDataDict = JsonConvert.DeserializeObject<Dictionary<string, UIData>>(
+                                   AssetLoader.instance.GetValue<string>("ui"));
+
+      foreach (var uiData in uiDataDict.Values) {
+        Register(uiData);
+      }
+    }
+
+    public bool Register(UIData uIData) {
+      if (m_uiDataDict.ContainsKey(uIData.name)) {
+        Debug.LogWarning($"UI已注册！name：{uIData.name}");
+        return false;
+      }
+      m_uiDataDict.Add(uIData.name, uIData);
+      return true;
+    }
+
+    public void SetSharedArgs(object key, object value) {
+      if (m_sharedArgsDict.ContainsKey(key)) {
+        m_sharedArgsDict[key] = value;
+      } else {
+        m_sharedArgsDict.Add(key, value);
+      }
+    }
+
+    public T GetSharedArgs<T>(object key) {
+      if (m_sharedArgsDict.ContainsKey(key)) {
+        return (T)m_sharedArgsDict[key];
+      } else {
+        return default;
+      }
+    }
+
+    /// <summary>
+    /// 打开一个UI并入栈同时选择性关闭上一个UI
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="args"></param>
+    public void OpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+      if (m_uiDataDict.ContainsKey(name)) {
+        var data = m_uiDataDict[name];
+
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
+        }
+
+        var stack = m_uiStackDict[data.uiType];
+
+        if (stack.Count > 0 && data.isCloseLast) {
+          stack.Peek().Close(null, () => {
+            _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          });
+        } else {
+          _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+        }
+      } else {
+        Debug.LogError($"UI未注册！name：{name}");
+      }
+    }
+
+    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {    
+      UIBase ui = null;
+      if (!_TryGetCache(data, ref ui)) {
+        ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
+        GameObject prefab;
+        if (data.isAsyncLoad) {
+          //TODO:优化
+          prefab = await ResourceManager.LoadAssetAsync<GameObject>(data.prefabUrl);
+        } else {
+          prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
+        }
+        if (prefab == null) {
+          Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
+          return;
+        }
+        ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
+      }
+      stack.Push(ui);
+      ui.Open(onOpenStart, onOpenEnd, args);
+    }
+
+    /// <summary>
+    /// 尝试从缓存中获取UI
+    /// </summary>
+    /// <param name="uiData"></param>
+    /// <returns></returns>
+    private bool _TryGetCache(UIData uiData, ref UIBase ui) {
+      var index = m_cacheUIListDict[uiData.uiType].FindIndex(i => i.Item2.name == uiData.name);
+      if (index >= 0) {
+        ui = m_cacheUIListDict[uiData.uiType][index].Item2;
+        m_cacheUIListDict[uiData.uiType].RemoveAt(index);
+        ui.root.transform.SetParent(_GetRootByType(uiData.uiType));
+        return true;
+      }
+      return false;
+    }
+
+    /// <summary>
+    /// 销毁栈中的所有UI并打开新的UI，相当于场景跳转
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="args"></param>
+    public void CloseAllAndOpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+      if (m_uiDataDict.ContainsKey(name)) {
+        var data = m_uiDataDict[name];
+
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
+        }
+
+        var stack = m_uiStackDict[data.uiType];
+
+        while (stack.Count > 0) {
+          stack.Pop().Destroy();
+        }
+        OpenOne(name, onOpenStart, onOpenEnd, args);
+      } else {
+        Debug.LogError($"UI未注册！name：{name}");
+      }
+    }
+
+    /// <summary>
+    /// 关闭栈顶UI并选择性打开上一个UI
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="args"></param>
+    public void CloseOne(string name, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      if (m_uiDataDict.ContainsKey(name)) {
+        var data = m_uiDataDict[name];
+
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning("上一个UI的动画正在播放中！");
+          return;
+        }
+
+        var stack = m_uiStackDict[m_uiDataDict[name].uiType];
+
+        if (stack.Count == 0) {
+          Debug.LogError("UI栈为空！");
+          return;
+        }
+        if (stack.Peek().name == name) {
+          _CloseInternal(data, stack, onCloseStart, onCloseEnd, args);
+        } else {
+          Debug.LogError($"UI未在栈顶！name：{name}");
+        }
+      } else {
+        Debug.LogError($"UI未注册！name：{name}");
+      }
+    }
+
+    /// <summary>
+    /// 设置全局禁止交互的遮罩
+    /// </summary>
+    /// <param name="active"></param>
+    public void SetMask(bool active) {
+      if (m_maskImage) {
+        m_maskImage.transform.SetAsLastSibling();
+        m_maskImage.raycastTarget = active;
+      } else {
+        Debug.LogError("全局遮罩未正确设置！");
+      }
+    }
+
+    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      //NOTICE
+      //Action的执行顺序要特别当心
+      //先执行回收再执行其他的回调
+      //因为其他的回调里可能会执行打开UI的操作
+      Action action = () => {
+        //回收
+        m_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
+        //选择性打开上一个UI
+        if (stack.Count > 0 && data.isCloseLast) {
+          stack.Peek().Open();
+        }
+      };
+
+      stack.Peek().Close(onCloseStart, action.AddAction(onCloseEnd), args);
+    }
+
+    private Transform _GetRootByType(UIType uiType) {
+      switch (uiType) {
+        case UIType.NORMAL: {
+            return m_normalCanvas;
+          }
+        case UIType.TOP: {
+            return m_topCanvas;
+          }
+        case UIType.TIP: {
+            return m_tipCanvas;
+          }
+        default: {
+            return null;
+          }
+      }
+    }
+  }
+}

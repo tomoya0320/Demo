@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.DB;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class ItemInfoBoard : MonoBehaviour {
@@ -15,21 +15,21 @@ namespace Yume.UI {
     private Text _description; 
     [SerializeField]
     private Image _iconImg;
-    private ItemView selectedItem;
+    private ItemTerm selectedItem;
 
     public async void UpdateInfoBoard() {
       if (selectedItem && selectedItem.item != null) {
-        var info = DBManager.GetItemInfo(selectedItem.item.id);
+        var info = DBManager.instance.GetItemInfo(selectedItem.item.id);
         _nameNum.text = info.name + "*" + selectedItem.item.num;
         _description.text = info.description;
-        _iconImg.sprite = await Addressables.LoadAssetAsync<Sprite>(info.iconFileName).Task;
+        _iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);
         gameObject.SetActive(true);
       } else {
         gameObject.SetActive(false);
       }
     }
 
-    public void SetSelecteItem(ItemView itemView) {
+    public void SetSelecteItem(ItemTerm itemView) {
       if (selectedItem) {
         selectedItem.bottomImg.sprite = _itemUnselectedImg;
       }
