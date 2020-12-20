@@ -22,14 +22,12 @@ namespace Yume.UI {
       m_cancel.textComponent.text = (string)args[2];
 
       m_ok.onClick.RemoveAllListeners();
-      m_ok.onClick.AddListener(()=> {
-        (args[3] as Action)?.Invoke();
-        UIManager.instance.CloseOne(name);
+      m_ok.onClick.AddListener(() => {
+        UIManager.instance.CloseOne(name, null, args[3] as Action);
       });
       m_cancel.onClick.RemoveAllListeners();
-      m_cancel.onClick.AddListener(()=> {
-        (args[4] as Action)?.Invoke();
-        UIManager.instance.CloseOne(name);
+      m_cancel.onClick.AddListener(() => {
+        UIManager.instance.CloseOne(name, null, args[4] as Action);
       });
 
       base.Open(onOpenStart, onOpenEnd, args);

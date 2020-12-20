@@ -423,9 +423,10 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              //UIManager.instance.OpenConfirmationBox(error, StringMap.RETRY,
-              //StringMap.RETURN_TO_LOGIN, () => _UpdateUserDataInternal(data, onSucceed),
-              //() => UIManager.instance.OpenUI("login"));
+              Action ok = () => _UpdateUserDataInternal(data, onSucceed);
+              Action cancel = () => UIManager.instance.CloseAllAndOpenOne("login");
+              UIManager.instance.OpenOne("confirmation", null, null, error, StringMap.RETRY,
+                                         StringMap.RETURN_TO_LOGIN, ok, cancel);
             }
           });
       }else if(s_playMode == PlayMode.LOCAL) {

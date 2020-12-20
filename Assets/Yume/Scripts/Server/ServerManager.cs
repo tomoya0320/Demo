@@ -7,6 +7,7 @@ using Yume.DB;
 using Yume.Resource;
 using Yume.String;
 using Yume.Tool;
+using Yume.UI;
 
 namespace Yume.Server {
   public class ServerManager : Singleton<ServerManager> {
@@ -59,9 +60,9 @@ namespace Yume.Server {
       request.SetRequestHeader("data", StringUtil.StringToBase64(data.ToString()));
       request.downloadHandler = new DownloadHandlerBuffer();
 
-      //TODO:遮罩
+      UIManager.instance.SetMask(true);
       yield return request.SendWebRequest();
-      //TODO:遮罩
+      UIManager.instance.SetMask(false);
 
       onCompleted?.Invoke(request);
     }
