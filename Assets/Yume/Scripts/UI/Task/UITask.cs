@@ -71,10 +71,6 @@ namespace Yume.UI {
           m_processTexts.Add(temp.GetComponent<Text>());
         }
 
-        if (task.state == TaskState.COMPLETED) {
-          transform.SetAsFirstSibling();
-        }
-
         _AddListener();
         _UpdateTaskInfo();
 
@@ -97,14 +93,19 @@ namespace Yume.UI {
         m_getReward.gameObject.SetActive(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
         m_getReward.interactable = task.state == TaskState.COMPLETED;
         m_getReward.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
+        
+        if (task.state == TaskState.COMPLETED) {
+          transform.SetAsFirstSibling();
+        }
       }
 
       private void _GetReward() {
-        m_getReward.textComponent.text = StringMap.COMPLETED;
-        m_getReward.interactable = false;
-        transform.SetAsLastSibling();
         DBManager.instance.CompleteTask(task);
-        DBManager.instance.UpdateUserData();
+        DBManager.instance.UpdateUserData(()=> {
+          m_getReward.textComponent.text = StringMap.COMPLETED;
+          m_getReward.interactable = false;
+          transform.SetAsLastSibling();
+        });
       }
 
       public void Destroy() {
