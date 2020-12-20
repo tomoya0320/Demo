@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
+using Yume.Tool;
 
 namespace Yume.UI {
   public class UIMessageTip : UIBase {
-    private Image m_image;
     private Message m_message;
+    private Image m_image;
     private Text m_description;
     private RectTransform m_textRect;
 
@@ -36,14 +38,18 @@ namespace Yume.UI {
       m_textRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
          Mathf.Clamp(m_description.preferredWidth, 300, 1500));
 
-      onOpenEnd = onOpenEnd.AddAction(() => Close(null, _ShowNextMessage));
+      onOpenEnd = onOpenEnd.AddAction(() => {
+        CoroutineHelper.instance.RunCoroutine(_DelayInvoke(m_message.duration, () => {
+          UIManager.instance.CloseOne(name, null, MessageManager.instance.ShowMessage);
+        }));
+      });
 
       base.Open(onOpenStart, onOpenEnd, args);
     }
 
-    private void _ShowNextMessage() {
-      MessageManager.instance.RemoveMessage(m_message);
-      MessageManager.instance.ShowMessage();
+    private IEnumerator _DelayInvoke(float time,Action callback) {
+      yield return new WaitForSeconds(time);
+      callback?.Invoke();
     }
   }
 }

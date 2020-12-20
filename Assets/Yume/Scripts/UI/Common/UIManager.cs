@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Yume.Resource;
 
 namespace Yume.UI {
   public enum UIType {
-    NORMAL, TOP, TIP
+    NORMAL, TOP, TIP/*消息提示要放最顶层，所有的消息提示不参与交互*/
   }
 
   [Serializable]
@@ -21,6 +22,7 @@ namespace Yume.UI {
   }
 
   public class UIManager : Singleton<UIManager> {
+    private Image m_maskImage;
     private Transform m_topCanvas;
     private Transform m_tipCanvas;
     private Transform m_normalCanvas;
@@ -36,6 +38,8 @@ namespace Yume.UI {
       m_tipCanvas = GameObject.Find("TipCanvas")?.transform;
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
       m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
+
+      m_maskImage = m_topCanvas?.Find("mask")?.GetComponent<Image>();
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
@@ -208,17 +212,34 @@ namespace Yume.UI {
       }
     }
 
+    /// <summary>
+    /// 设置全局禁止交互的遮罩
+    /// </summary>
+    /// <param name="active"></param>
+    public void SetMask(bool active) {
+      if (m_maskImage) {
+        m_maskImage.transform.SetAsLastSibling();
+        m_maskImage.raycastTarget = active;
+      } else {
+        Debug.LogError("全局遮罩未正确设置！");
+      }
+    }
+
     private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      
-      onCloseEnd = onCloseEnd.AddAction(() => {
+      //NOTICE
+      //Action的执行顺序要特别当心
+      //先执行回收再执行其他的回调
+      //因为其他的回调里可能会执行打开UI的操作
+      Action action = () => {
         //回收
         m_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
         //选择性打开上一个UI
         if (stack.Count > 0 && data.isCloseLast) {
           stack.Peek().Open();
         }
-      });
-      stack.Peek().Close(onCloseStart, onCloseEnd, args);
+      };
+
+      stack.Peek().Close(onCloseStart, action.AddAction(onCloseEnd), args);
     }
 
     private Transform _GetRootByType(UIType uiType) {

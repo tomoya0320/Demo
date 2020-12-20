@@ -9,7 +9,7 @@ namespace Yume.UI {
 
     protected override void Start() {
       base.Start();
-      dataList = DBManager.userItems;
+      dataList = DBManager.instance.userItems;
       ReCalMaxPageAndRefresh();
       EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, ReCalMaxPageAndRefresh);
     }

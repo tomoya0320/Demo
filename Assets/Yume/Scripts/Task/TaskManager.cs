@@ -2,11 +2,9 @@
 using Yume.DB;
 
 namespace Yume.Task {
-  public class TaskManager {
-    private TaskManager() { }
-
-    public static void UpdateTaskState(RequestType type, string id, int num) {
-      foreach (var keyValuePair in DBManager.userTasks) {
+  public class TaskManager : Singleton<TaskManager> {
+    public void UpdateTaskState(RequestType type, string id, int num) {
+      foreach (var keyValuePair in DBManager.instance.userTasks) {
         foreach (var task in keyValuePair.Value) {
           if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
             task.Update(type, id, num);

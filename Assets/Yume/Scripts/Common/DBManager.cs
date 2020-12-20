@@ -16,22 +16,22 @@ using Yume.Task;
 using Yume.UI;
 
 namespace Yume.DB {
-  public class DBManager {
+  public class DBManager : Singleton<DBManager> {
     private enum PlayMode {
       LOCAL, REMOTE
     }
 
-    private static PlayMode s_playMode;
-    private static string localUserDBPath {
+    private PlayMode s_playMode;
+    private string localUserDBPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
     }
 
     #region User Data
-    private static UserDB s_userDB;
-    public static string userToken { private set; get; }
-    public static string userAccount {
+    private UserDB s_userDB;
+    public string userToken { private set; get; }
+    public string userAccount {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -39,7 +39,7 @@ namespace Yume.DB {
         return s_userDB.account;
       }
     }
-    public static string userPassword {
+    public string userPassword {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -47,7 +47,7 @@ namespace Yume.DB {
         return s_userDB.password;
       }
     }
-    public static string userName {
+    public string userName {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -55,7 +55,7 @@ namespace Yume.DB {
         return s_userDB.name;
       }
     }    
-    public static int userAp {
+    public int userAp {
       private set {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -69,7 +69,7 @@ namespace Yume.DB {
         return s_userDB.ap;
       }
     }    
-    public static int userMaxAp {
+    public int userMaxAp {
       private set {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -83,7 +83,7 @@ namespace Yume.DB {
         return s_userDB.maxAp;
       }
     }    
-    public static int userLv {
+    public int userLv {
       private set {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -97,7 +97,7 @@ namespace Yume.DB {
         return s_userDB.lv;
       }
     }  
-    public static int userExp {
+    public int userExp {
       private set {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -111,7 +111,7 @@ namespace Yume.DB {
         return s_userDB.exp;
       }
     }
-    public static List<ItemDB> userItems {
+    public List<ItemDB> userItems {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -119,7 +119,7 @@ namespace Yume.DB {
         return s_userDB.items;
       }
     }
-    public static List<CardDB> userCards {
+    public List<CardDB> userCards {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -127,7 +127,7 @@ namespace Yume.DB {
         return s_userDB.cards;
       }
     }
-    public static List<MailDB> userMails {
+    public List<MailDB> userMails {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -135,7 +135,7 @@ namespace Yume.DB {
         return s_userDB.mails;
       }
     }
-    public static Dictionary<string, List<TaskDB>> userTasks {
+    public Dictionary<string, List<TaskDB>> userTasks {
       get {
         if (s_userDB == null) {
           s_userDB = new UserDB();
@@ -146,8 +146,8 @@ namespace Yume.DB {
     #endregion
 
     #region Json
-    private static JObject s_itemJson;
-    private static JObject itemJson {
+    private JObject s_itemJson;
+    private JObject itemJson {
       get {
         if (s_itemJson == null) {
           s_itemJson = JObject.Parse(AssetLoader.instance.GetValue<string>("items"));
@@ -155,8 +155,8 @@ namespace Yume.DB {
         return s_itemJson;
       }
     }
-    private static JObject s_taskJson;
-    private static JObject taskJson {
+    private JObject s_taskJson;
+    private JObject taskJson {
       get {
         if (s_taskJson == null) {
           s_taskJson = JObject.Parse(AssetLoader.instance.GetValue<string>("tasks"));
@@ -164,8 +164,8 @@ namespace Yume.DB {
         return s_taskJson;
       }
     }
-    private static JObject s_lvMaxApMap;
-    private static JObject lvMaxApMap {
+    private JObject s_lvMaxApMap;
+    private JObject lvMaxApMap {
       get {
         if (s_lvMaxApMap == null) {
           s_lvMaxApMap = JObject.Parse(AssetLoader.instance.GetValue<string>("lvMaxApMap"));
@@ -173,8 +173,8 @@ namespace Yume.DB {
         return s_lvMaxApMap;
       }
     }
-    private static JObject s_cardJson;
-    private static JObject cardJson {
+    private JObject s_cardJson;
+    private JObject cardJson {
       get {
         if (s_cardJson == null) {
           s_cardJson = JObject.Parse(AssetLoader.instance.GetValue<string>("cards"));
@@ -182,8 +182,8 @@ namespace Yume.DB {
         return s_cardJson;
       }
     }
-    private static JObject s_charJson;
-    private static JObject charJson {
+    private JObject s_charJson;
+    private JObject charJson {
       get {
         if (s_charJson == null) {
           s_charJson = JObject.Parse(AssetLoader.instance.GetValue<string>("chars"));
@@ -191,8 +191,8 @@ namespace Yume.DB {
         return s_charJson;
       }
     }
-    private static JObject s_enemyJson;
-    private static JObject enemyJson {
+    private JObject s_enemyJson;
+    private JObject enemyJson {
       get {
         if (s_enemyJson == null) {
           s_enemyJson = JObject.Parse(AssetLoader.instance.GetValue<string>("enemies"));
@@ -203,16 +203,14 @@ namespace Yume.DB {
     #endregion
 
 #if TEST
-    public static string setUserToken {
+    public string setUserToken {
       set {
         userToken = value;
       }
     }
 #endif
 
-    private DBManager() { }
-
-    public static ItemInfo GetItemInfo(string id) {
+    public ItemInfo GetItemInfo(string id) {
       if (itemJson.ContainsKey(id)) {
         return JsonConvert.DeserializeObject<ItemInfo>(itemJson[id].Value<JObject>().ToString());
       } else {
@@ -220,7 +218,7 @@ namespace Yume.DB {
       }
     }
 
-    public static CardInfo GetCardInfo(string id) {
+    public CardInfo GetCardInfo(string id) {
       if (cardJson.ContainsKey(id)) {
         return JsonConvert.DeserializeObject<CardInfo>(cardJson[id].Value<JObject>().ToString());
       } else {
@@ -228,7 +226,7 @@ namespace Yume.DB {
       }
     }
 
-    public static TaskInfo GetTaskInfo(TaskType taskType, string id) {
+    public TaskInfo GetTaskInfo(TaskType taskType, string id) {
       if (taskJson.ContainsKey(taskType.ToString())) {
         JObject tempJObject = taskJson[taskType.ToString()].Value<JObject>();
         if (tempJObject.ContainsKey(id)) {
@@ -241,7 +239,7 @@ namespace Yume.DB {
       }    
     }
 
-    public static Dictionary<string, List<TaskDB>> GetDefaultTasks() {
+    public Dictionary<string, List<TaskDB>> GetDefaultTasks() {
       Dictionary<string, List<TaskDB>> defaultTasks = new Dictionary<string, List<TaskDB>>();
 
       foreach(TaskType type in Enum.GetValues(typeof(TaskType))) {
@@ -255,47 +253,47 @@ namespace Yume.DB {
       return defaultTasks;
     }
 
-    public static ItemDB GetItemDB(string id) {
+    public ItemDB GetItemDB(string id) {
       return userItems.Find(obj => obj.id == id);
     } 
     
-    public static int GetItemDBNum(string id) {
+    public int GetItemDBNum(string id) {
       ItemDB itemDB = userItems.Find(obj => obj.id == id);
       return itemDB == null ? 0 : itemDB.num;
     }
 
-    public static List<TaskDB> GetTaskList(TaskType taskType) {
+    public List<TaskDB> GetTaskList(TaskType taskType) {
       return userTasks[taskType.ToString()];
     }
 
-    public static TaskDB GetTaskDB(TaskType taskType,string taskId) {
+    public TaskDB GetTaskDB(TaskType taskType,string taskId) {
       return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
     }
 
-    public static JObject GetEnemyJson(string id) {
+    public JObject GetEnemyJson(string id) {
       if (enemyJson.ContainsKey(id)) {
         return enemyJson[id].Value<JObject>();
       }
       return null;
     }
 
-    public static JObject GetCharJson(string id) {
+    public JObject GetCharJson(string id) {
       if (charJson.ContainsKey(id)) {
         return charJson[id].Value<JObject>();
       }
       return null;
     }
 
-    public static void DeleteMail(MailDB mail) {
+    public void DeleteMail(MailDB mail) {
       userMails.Remove(mail);
     }    
     
-    public static void AddMail(MailDB mail) {
+    public void AddMail(MailDB mail) {
       userMails.Add(mail);
       EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_VIEW);
     }
 
-    public static void LoadUserDB(JObject json = null) {
+    public void LoadUserDB(JObject json = null) {
       if (json == null) {
         s_playMode = PlayMode.LOCAL;
         FileStream fs;
@@ -317,7 +315,7 @@ namespace Yume.DB {
       }
     }
 
-    public static void ConsumeItems(bool isUsed = true, params ItemDB[] items) {
+    public void ConsumeItems(bool isUsed = true, params ItemDB[] items) {
       //更新本地数据
       ItemDB tempItem;
       for (int i = 0; i < items.Length; i++) {
@@ -335,12 +333,12 @@ namespace Yume.DB {
       //更新任务进度
       if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
         foreach (var item in items) {
-          TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
+          TaskManager.instance.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
         }
       } 
     }
 
-    public static void AddItems(params ItemDB[] items) {
+    public void AddItems(params ItemDB[] items) {
       //更新本地数据
       ItemDB tempItem;
       for (int i = 0; i < items.Length; i++) {
@@ -356,13 +354,13 @@ namespace Yume.DB {
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       foreach (var item in items) {
-        TaskManager.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
+        TaskManager.instance.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
       }
     }
 
-    public static void AddExp(int exp) {
+    public void AddExp(int exp) {
       userExp += exp;
-      MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)), true);
+      MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
       int oLevel = userLv;
       while (userExp >= MathUtil.CalNeededExp(userLv)) {
         userExp -= MathUtil.CalNeededExp(userLv);
@@ -372,7 +370,7 @@ namespace Yume.DB {
       if (userLv > oLevel) {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
         MessageManager.instance.AddMessage(new Message(Message.Style.FADE, tip));
-        TaskManager.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
+        TaskManager.instance.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
         if (lvMaxApMap.ContainsKey(userLv.ToString())) {
           userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
           userAp += userMaxAp;
@@ -382,7 +380,7 @@ namespace Yume.DB {
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
     }
 
-    public static void CompleteTask(TaskDB task) {
+    public void CompleteTask(TaskDB task) {
       if (task.state == TaskState.COMPLETED) {
         task.Complete();
         TaskInfo taskInfo = GetTaskInfo(task.type, task.id);
@@ -394,11 +392,11 @@ namespace Yume.DB {
             EventCenter.Broadcast(Broadcast.EventType.ADD_TASK_VIEW, nextTask);
           }
         }
-        TaskManager.UpdateTaskState(RequestType.TASK, task.id, 1);
+        TaskManager.instance.UpdateTaskState(RequestType.TASK, task.id, 1);
       }
     }
 
-    public static void UpdateUserData(Action onSucceed = null) {
+    public void UpdateUserData(Action onSucceed = null) {
       //全量更新，以后再优化
       _UpdateUserDataInternal(new {
         exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
@@ -407,7 +405,7 @@ namespace Yume.DB {
       }, onSucceed);
     }
 
-    private static void _UpdateUserDataInternal<T>(T data, Action onSucceed = null) where T : class {
+    private void _UpdateUserDataInternal<T>(T data, Action onSucceed = null) where T : class {
       if (s_playMode == PlayMode.REMOTE) {
         ServerManager.instance.UpdateUserData(data,
           request => {

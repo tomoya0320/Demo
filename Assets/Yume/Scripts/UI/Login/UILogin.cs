@@ -111,7 +111,7 @@ namespace Yume.UI {
     }
 
     private void _GoToMain(JObject json = null) {
-      DBManager.LoadUserDB(json);
+      DBManager.instance.LoadUserDB(json);
       UIManager.instance.OpenOne("blackMask", null, () => UIManager.instance.CloseAllAndOpenOne("main"));
     }
 

@@ -29,7 +29,7 @@ namespace Yume.UI {
       if (cardDB == null) {
         _Reset();
       } else {
-        CardInfo cardInfo = DBManager.GetCardInfo(cardDB.id);
+        CardInfo cardInfo = DBManager.instance.GetCardInfo(cardDB.id);
         _nameText.text = cardInfo.name;
         _phaseText.text = cardDB.phase.ToString();
         _typeText.text = StringUtil.GetCardTypeName(cardInfo.type);

@@ -6,6 +6,7 @@ using Yume.DB;
 using Yume.String;
 using Yume.UI;
 using Yume.Resource;
+using System.ComponentModel;
 
 namespace Yume.Task {
   public enum TaskState {
@@ -16,7 +17,9 @@ namespace Yume.Task {
   }
 
   public enum TaskType {
+    [Description("daily")]
     DAILY,
+    [Description("main")]
     MAIN
   }
 
@@ -87,11 +90,11 @@ namespace Yume.Task {
       //同步现有的数量
       switch (taskRequest.type) {
         case RequestType.PROP_NUM: {
-            taskRequest.currentNum = DBManager.GetItemDBNum(id);
+            taskRequest.currentNum = DBManager.instance.GetItemDBNum(id);
             break;
           }
         case RequestType.LV_UP_TO: {
-            taskRequest.currentNum = DBManager.userLv;
+            taskRequest.currentNum = DBManager.instance.userLv;
             break;
           }
       }
@@ -127,7 +130,7 @@ namespace Yume.Task {
         }
 
         if (completed && state == TaskState.INPROCESS) {
-          TaskInfo taskInfo = DBManager.GetTaskInfo(type, id);
+          TaskInfo taskInfo = DBManager.instance.GetTaskInfo(type, id);
           state = TaskState.COMPLETED;
           MessageManager.instance.AddMessage(new Message
           (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskInfo.title)));
@@ -139,10 +142,10 @@ namespace Yume.Task {
 
     public async void Complete() {
       state = TaskState.FINAL;
-      TaskInfo taskInfo = DBManager.GetTaskInfo(type, id);
+      TaskInfo taskInfo = DBManager.instance.GetTaskInfo(type, id);
       foreach (ItemDB item in taskInfo.taskRewards.items) {
-        DBManager.AddItems(item);
-        var itemInfo = DBManager.GetItemInfo(item.id);
+        DBManager.instance.AddItems(item);
+        var itemInfo = DBManager.instance.GetItemInfo(item.id);
         Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemInfo.iconFileName);
         MessageManager.instance.AddMessage(new Message(Message.Style.FADE,
         string.Format(StringMap.GET + "{0}*{1}", itemInfo.name, item.num), itemIcon));
@@ -150,11 +153,11 @@ namespace Yume.Task {
 
       foreach (TaskRequestDB taskRequest in taskRequests) {
         if (taskRequest.consumable && taskRequest.type == RequestType.PROP_NUM) {
-          DBManager.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
+          DBManager.instance.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }
 
-      DBManager.UpdateUserData();
+      DBManager.instance.UpdateUserData();
     }
   }
 }

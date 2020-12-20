@@ -44,7 +44,7 @@ namespace Yume.UI {
     private void Start() {
       EventCenter.AddListener(Broadcast.EventType.ADD_MAIL_VIEW, _AddMailView);
 
-      m_mails = DBManager.userMails;
+      m_mails = DBManager.instance.userMails;
       _noMailPanel.SetActive(m_mails.Count == 0);
 
       foreach (MailDB mail in m_mails) {
@@ -71,7 +71,7 @@ namespace Yume.UI {
 
       _mailContentPanel.SetActive(true);
       mailView.bottomImg.sprite = _selectedImg;
-      _contentText.text = string.Format(mailView.mail.content, DBManager.userName);
+      _contentText.text = string.Format(mailView.mail.content, DBManager.instance.userName);
       _signatureText.text = mailView.mail.signature;
       _dateText.text = Convert.ToDateTime(mailView.mail.dateTime).ToShortDateString();
 
@@ -132,7 +132,7 @@ namespace Yume.UI {
         _CurMailInfoDisable();
         _CheckGetAllButton();
 
-        DBManager.UpdateUserData();
+        DBManager.instance.UpdateUserData();
       }
     }
 
@@ -152,7 +152,7 @@ namespace Yume.UI {
         }
         _getAllButton.interactable = false;
 
-        DBManager.UpdateUserData();
+        DBManager.instance.UpdateUserData();
       }
     }
 
@@ -169,7 +169,7 @@ namespace Yume.UI {
       _noMailPanel.SetActive(m_mails.Count == 0);
       _AdjustMailListContentHeight();
 
-      DBManager.UpdateUserData();
+      DBManager.instance.UpdateUserData();
     }
 
     private void _CurMailInfoDisable() {

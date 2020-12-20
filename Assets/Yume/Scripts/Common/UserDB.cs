@@ -30,7 +30,7 @@ namespace Yume.DB {
       mails = new List<MailDB>();
       items = new List<ItemDB>();
       cards = new List<CardDB>();
-      tasks = DBManager.GetDefaultTasks();
+      tasks = DBManager.instance.GetDefaultTasks();
 
 #if TEST
       this.name = "admin";

@@ -19,7 +19,7 @@ namespace Yume.UI {
 
     public async void UpdateInfoBoard() {
       if (selectedItem && selectedItem.item != null) {
-        var info = DBManager.GetItemInfo(selectedItem.item.id);
+        var info = DBManager.instance.GetItemInfo(selectedItem.item.id);
         _nameNum.text = info.name + "*" + selectedItem.item.num;
         _description.text = info.description;
         _iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);

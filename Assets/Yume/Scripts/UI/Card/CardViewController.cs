@@ -6,7 +6,7 @@ namespace Yume.UI {
   public class CardViewController : UIGridPage<CardDB,CardView> {
     protected override void Start() {
       base.Start();
-      dataList = DBManager.userCards;
+      dataList = DBManager.instance.userCards;
       ReCalMaxPageAndRefresh();
       EventCenter.AddListener(EventType.UPDATE_CARD_INFO, ReCalMaxPageAndRefresh);
     }

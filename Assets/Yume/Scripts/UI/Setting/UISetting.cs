@@ -16,7 +16,7 @@ namespace Yume.UI {
   }
 
   public class UISetting : UIBase {
-    private class SwitchAndValue {
+    private class UISwitchAndValue {
       private UISettingType m_type;
       private Slider m_valueSlider;
       private Text m_closeText;
@@ -28,7 +28,7 @@ namespace Yume.UI {
       private string valueKey => m_type.GetDescription() + StringMap.VALUE;
       private string switchKey => m_type.GetDescription() + StringMap.SWITCH;
 
-      public SwitchAndValue(UISettingType type, Slider valueSlider, Button switchButton,
+      public UISwitchAndValue(UISettingType type, Slider valueSlider, Button switchButton,
                                    Text closeText, Text openText, RectTransform switchSlider) {
 
         m_type = type;
@@ -93,7 +93,7 @@ namespace Yume.UI {
       }
     }
 
-    private List<SwitchAndValue> m_settings = new List<SwitchAndValue>();
+    private List<UISwitchAndValue> m_settings = new List<UISwitchAndValue>();
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
@@ -104,7 +104,7 @@ namespace Yume.UI {
         Slider valueSlider = GetComponent<Slider>($"{type.GetDescription()}/{nameof(valueSlider)}");
         Button switchButton = GetComponent<Button>($"{type.GetDescription()}/{nameof(switchButton)}");
         RectTransform switchSlider = GetComponent<RectTransform>($"{type.GetDescription()}/{nameof(switchSlider)}");
-        m_settings.Add(new SwitchAndValue(type, valueSlider, switchButton, closeText, openText, switchSlider));
+        m_settings.Add(new UISwitchAndValue(type, valueSlider, switchButton, closeText, openText, switchSlider));
       }
 
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne("setting"));

@@ -24,7 +24,7 @@ namespace Yume.UI {
 
         _icon.gameObject.SetActive(true);
         _icon.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
-                             DBManager.GetItemInfo(item.id).iconFileName);
+                             DBManager.instance.GetItemInfo(item.id).iconFileName);
       } else {
         _icon.gameObject.SetActive(false);
         _icon.sprite = null;

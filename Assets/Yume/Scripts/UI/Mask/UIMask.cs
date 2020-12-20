@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  public class UIBlackMask : UIBase {
+  public class UIMask : UIBase {
     private Image m_mask;
 
     public override void OnInit(UIData uiData, GameObject root) {
@@ -13,7 +13,7 @@ namespace Yume.UI {
 
     public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       onOpenStart = onOpenStart.AddAction(() => m_mask.enabled = true);
-      onOpenEnd = onOpenEnd.AddAction(() => UIManager.instance.CloseOne("blackMask"));
+      onOpenEnd = onOpenEnd.AddAction(() => UIManager.instance.CloseOne(name));
 
       base.Open(onOpenStart, onOpenEnd, args);
     }

@@ -41,10 +41,10 @@ namespace Yume.Server {
       JObject json = ServerDataWrapper.Wrapper(data);
       json.Add("method", Methods.UPDATE.ToString());
       //用户账号和密码信息
-      json.Add("account", DBManager.userAccount);
-      json.Add("password", DBManager.userPassword);
+      json.Add("account", DBManager.instance.userAccount);
+      json.Add("password", DBManager.instance.userPassword);
       //添加token以验证同步
-      json.Add("token", DBManager.userToken);
+      json.Add("token", DBManager.instance.userToken);
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
