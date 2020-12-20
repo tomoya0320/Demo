@@ -88,5 +88,14 @@
       "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
+  },
+  "confirmation": {
+      "name" : "confirmation",
+      "uiType" : 1,
+      "typeName" : "Yume.UI.UIConfirmation",
+      "prefabUrl" : "UI/Prefab/confirmation",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }

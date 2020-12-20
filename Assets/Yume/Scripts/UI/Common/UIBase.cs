@@ -4,19 +4,22 @@ using UnityEngine;
 using Yume.Tool;
 
 namespace Yume.UI {
-  /// <summary>
-  /// 不进栈
-  /// UI之间的开关彼此独立互不影响
-  /// </summary>
   public abstract class UIBase {
     private UIData m_uiData;
+    private bool m_isShowing;
     private GameObject m_root;
     private UIObject m_uiObject;
+    private bool m_isPlayingAnim;
     private Animation m_animation;
     public GameObject root => m_root;
     public string name => m_uiData.name;
     public UIType uiType => m_uiData.uiType;
     public float cacheTime => m_uiData.cacheTime;
+    /// <summary>
+    /// open动画开始到close动画结束期间都算显示中
+    /// </summary>
+    public bool isShowing => m_isShowing;
+    public bool isPlayingAnim => m_isPlayingAnim;
 
     public virtual void OnInit(UIData uiData, GameObject root) {
       m_root = root;
@@ -41,10 +44,23 @@ namespace Yume.UI {
     /// <param name="onCloseEnd"></param>
     /// <param name="args"></param>
     public virtual void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+      Action action = () => { 
+        m_isPlayingAnim = true;
+        UIManager.instance.SetMask(true);
+      };
+      onCloseStart = action.AddAction(onCloseStart);
+
+      action = () => {
+        m_isShowing = false;
+        m_isPlayingAnim = false;
+        UIManager.instance.SetMask(false);
+      };
+      onCloseEnd = action.AddAction(onCloseEnd);
+
+
       onCloseStart?.Invoke();
       if (m_animation.GetClip("close")) {
         m_animation.Play("close");
-        UIManager.instance.SetSharedArgs(uiType + "isTweening", true);
         CoroutineHelper.instance.RunCoroutine(_AnimCallBack(onCloseEnd));
       } else {
         onCloseEnd?.Invoke();
@@ -58,10 +74,18 @@ namespace Yume.UI {
     /// <param name="onCloseEnd"></param>
     /// <param name="args"></param>
     public virtual void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+      Action action = () => {
+        m_isShowing = true;
+        m_isPlayingAnim = true;
+      };
+      onOpenStart = action.AddAction(onOpenStart);
+
+      action = () => m_isPlayingAnim = false;
+      onOpenEnd = action.AddAction(onOpenEnd);
+
       onOpenStart?.Invoke();
       if (m_animation.GetClip("open")) {
         m_animation.Play("open");
-        UIManager.instance.SetSharedArgs(uiType + "isTweening", true);
         CoroutineHelper.instance.RunCoroutine(_AnimCallBack(onOpenEnd));
       } else {
         onOpenEnd?.Invoke();
@@ -70,7 +94,6 @@ namespace Yume.UI {
 
     private IEnumerator _AnimCallBack(Action callback) {
       yield return new WaitUntil(() => !m_animation.isPlaying);
-      UIManager.instance.SetSharedArgs(uiType + "isTweening", false);
       callback?.Invoke();
     }
 

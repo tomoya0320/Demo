@@ -14,6 +14,8 @@ namespace Yume.Master {
     private string[] _assetUrls;
     public string[] assetUrls => _assetUrls;
 
+    private Action m_quitGame = Application.Quit;
+
     private void Start() {
       UIManager.instance.RegisterByJson();
       //暂时先不需要检查资源的UI
@@ -22,6 +24,14 @@ namespace Yume.Master {
 
     private void Update() {
       UIManager.instance.UpdateCache();
+
+      if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (UIManager.instance.isShowing("confirmation")) {
+          UIManager.instance.CloseOne("confirmation");
+        } else {
+          UIManager.instance.OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+        }
+      }
 
 #if TEST
       if (Input.GetKeyDown(KeyCode.W)) {

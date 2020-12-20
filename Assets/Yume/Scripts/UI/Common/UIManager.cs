@@ -101,12 +101,12 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+        var stack = m_uiStackDict[data.uiType];
+
+        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
           Debug.LogWarning("上一个UI的动画正在播放中！");
           return;
         }
-
-        var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
           stack.Peek().Close(null, () => {
@@ -166,12 +166,12 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+        var stack = m_uiStackDict[data.uiType];
+
+        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
           Debug.LogWarning("上一个UI的动画正在播放中！");
           return;
         }
-
-        var stack = m_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
           stack.Pop().Destroy();
@@ -191,12 +191,12 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+        var stack = m_uiStackDict[m_uiDataDict[name].uiType];
+
+        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
           Debug.LogWarning("上一个UI的动画正在播放中！");
           return;
         }
-
-        var stack = m_uiStackDict[m_uiDataDict[name].uiType];
 
         if (stack.Count == 0) {
           Debug.LogError("UI栈为空！");
@@ -218,11 +218,28 @@ namespace Yume.UI {
     /// <param name="active"></param>
     public void SetMask(bool active) {
       if (m_maskImage) {
+        m_maskImage.enabled = active;
         m_maskImage.transform.SetAsLastSibling();
-        m_maskImage.raycastTarget = active;
       } else {
         Debug.LogError("全局遮罩未正确设置！");
       }
+    }
+
+    /// <summary>
+    /// 判断一个UI是否正在显示
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool isShowing(string name) {
+      foreach (var stack in m_uiStackDict.Values) {
+        foreach (var ui in stack) {
+          if(ui.name == name) {
+            return ui.isShowing;
+          }
+        }
+      }
+
+      return false;
     }
 
     private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
