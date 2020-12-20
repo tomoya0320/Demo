@@ -107,7 +107,11 @@ namespace Yume.UI {
         m_settings.Add(new UISwitchAndValue(type, valueSlider, switchButton, closeText, openText, switchSlider));
       }
 
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne("setting"));
+      _AddListener();
+    }
+
+    private void _AddListener() {
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
     }
   }
 }

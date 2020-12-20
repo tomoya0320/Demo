@@ -159,7 +159,12 @@ namespace Yume.UI {
     }
 
     public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => root.SetActive(true));
+      onOpenStart = onOpenStart.AddAction(() => {
+        UIManager.instance.SetMask(true);
+        root.SetActive(true);
+      });
+      onOpenEnd = onOpenEnd.AddAction(() => UIManager.instance.SetMask(false));
+
       base.Open(onOpenStart, onOpenEnd, args);
     }
 

@@ -6,7 +6,7 @@ using Yume.DB;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public class ItemView : MonoBehaviour, IViewInit<ItemDB> {
+  public class ItemTerm : MonoBehaviour, IViewInit<ItemDB> {
     [SerializeField]
     private Text _num;
     [SerializeField]

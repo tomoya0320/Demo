@@ -15,7 +15,7 @@ namespace Yume.UI {
     private Text _description; 
     [SerializeField]
     private Image _iconImg;
-    private ItemView selectedItem;
+    private ItemTerm selectedItem;
 
     public async void UpdateInfoBoard() {
       if (selectedItem && selectedItem.item != null) {
@@ -29,7 +29,7 @@ namespace Yume.UI {
       }
     }
 
-    public void SetSelecteItem(ItemView itemView) {
+    public void SetSelecteItem(ItemTerm itemView) {
       if (selectedItem) {
         selectedItem.bottomImg.sprite = _itemUnselectedImg;
       }

@@ -13,12 +13,12 @@ namespace Yume.UI {
     [SerializeField]
     private string _overrideSoundName;
     [SerializeField]
-    private bool _muteWhenInactive;
+    private bool _soundEvenInactive;
 
     protected override void Awake() {
       base.Awake();
       _textComponent = GetComponentInChildren<Text>(true);
-      colors = new ColorBlock {
+      /*colors = new ColorBlock {
         normalColor = Color.white,
         highlightedColor = Color.white,
         pressedColor = Color.white,
@@ -26,13 +26,13 @@ namespace Yume.UI {
         disabledColor = Color.white,
         colorMultiplier = 1.0f,
         fadeDuration = 0
-      };
+      };*/
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
       base.OnPointerDown(eventData);
 
-      if (interactable || !_muteWhenInactive) {
+      if (interactable || _soundEvenInactive) {
         string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
                          StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
 

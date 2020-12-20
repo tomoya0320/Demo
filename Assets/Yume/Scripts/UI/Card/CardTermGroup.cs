@@ -3,7 +3,7 @@ using Yume.Broadcast;
 using Yume.DB;
 
 namespace Yume.UI {
-  public class CardViewController : UIGridPage<CardDB,CardView> {
+  public class CardTermGroup : UIGridPage<CardDB,CardTerm> {
     protected override void Start() {
       base.Start();
       dataList = DBManager.instance.userCards;

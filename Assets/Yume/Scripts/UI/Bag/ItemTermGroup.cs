@@ -3,7 +3,7 @@ using Yume.Broadcast;
 using Yume.DB;
 
 namespace Yume.UI {
-  public class ItemViewController : UIGridPage<ItemDB, ItemView> {
+  public class ItemTermGroup : UIGridPage<ItemDB, ItemTerm> {
     [UnityEngine.SerializeField]
     private ItemInfoBoard _itemInfoBoard;
 

@@ -10,7 +10,7 @@ using Yume.Task;
 
 namespace Yume.UI {
   public class UITask : UIBase {
-    public class UITaskItem {
+    public class UITaskTerm {
       private TaskDB m_task;
       public TaskDB task => m_task;
       private Text m_title;
@@ -40,7 +40,7 @@ namespace Yume.UI {
       }
       private List<Text> m_processTexts = new List<Text>();
 
-      public UITaskItem(TaskDB task, GameObject root) {
+      public UITaskTerm(TaskDB task, GameObject root) {
         m_task = task;
         m_root = root;
 
@@ -112,23 +112,23 @@ namespace Yume.UI {
       }
     }
 
-    private class UITaskItemGroup {
+    private class UITaskTermGroup {
       private TaskType m_taskType;
       private RectTransform m_taskContent;
       private static GameObject s_taskItemPrefab;
       private static GameObject taskItemPrefab {
         get {
           if (s_taskItemPrefab == null) {
-            s_taskItemPrefab = ResourceManager.LoadAsset<GameObject>("UI/Prefab/taskItem");
+            s_taskItemPrefab = ResourceManager.LoadAsset<GameObject>("UI/Prefab/taskTerm");
           }
           return s_taskItemPrefab;
         }
       }
       private float m_length;
       private List<TaskDB> m_tasks;
-      private List<UITaskItem> m_taskItemList = new List<UITaskItem>();
+      private List<UITaskTerm> m_taskItemList = new List<UITaskTerm>();
 
-      public UITaskItemGroup(TaskType type, RectTransform content) {
+      public UITaskTermGroup(TaskType type, RectTransform content) {
         m_taskType = type;
         m_taskContent = content;
         m_tasks = DBManager.instance.GetTaskList(m_taskType);
@@ -141,11 +141,11 @@ namespace Yume.UI {
           if (task.state != TaskState.INACTIVE) {
             taskViewNum++;
             GameObject taskItemRoot = Object.Instantiate(taskItemPrefab, m_taskContent);
-            m_taskItemList.Add(new UITaskItem(task, taskItemRoot));
+            m_taskItemList.Add(new UITaskTerm(task, taskItemRoot));
           }
         }
 
-        foreach (UITaskItem taskView in m_taskItemList) {
+        foreach (UITaskTerm taskView in m_taskItemList) {
           if (taskView.task.state == TaskState.FINAL) {
             taskView.transform.SetAsLastSibling();
           }
@@ -159,37 +159,36 @@ namespace Yume.UI {
       public void AddTaskViewBy(TaskDB task) {
         if (task.type == m_taskType && task.state != TaskState.INACTIVE) {
           m_taskContent.sizeDelta += new Vector2(0, m_length);
-          GameObject taskItemRoot= Object.Instantiate(taskItemPrefab, m_taskContent);
-          var taskItem = new UITaskItem(task, taskItemRoot);
-          taskItem.transform.SetAsFirstSibling();
-          m_taskItemList.Add(taskItem);
+          GameObject taskTermRoot= Object.Instantiate(taskItemPrefab, m_taskContent);
+          var taskTerm = new UITaskTerm(task, taskTermRoot);
+          taskTerm.transform.SetAsFirstSibling();
+          m_taskItemList.Add(taskTerm);
         }
       }
 
       public void Destroy() {
-        foreach (var taskItem in m_taskItemList) {
-          taskItem.Destroy();
+        foreach (var taskTerm in m_taskItemList) {
+          taskTerm.Destroy();
         }
         EventCenter.RemoveListener<TaskDB>(Broadcast.EventType.ADD_TASK_VIEW, AddTaskViewBy);
       }
     }
 
-    private Button m_close;
-    private List<UITaskItemGroup> m_taskGroupList = new List<UITaskItemGroup>();
+    private List<UITaskTermGroup> m_taskGroupList = new List<UITaskTermGroup>();
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
-      m_close = GetComponent<Button>("close");
+
       foreach (TaskType type in System.Enum.GetValues(typeof(TaskType))) {
         var content = GetComponent<RectTransform>($"{type.GetDescription()}/content");       
-        m_taskGroupList.Add(new UITaskItemGroup(type, content));
+        m_taskGroupList.Add(new UITaskTermGroup(type, content));
       }
 
       _AddListener();
     }
 
     private void _AddListener() {
-      m_close.onClick.AddListener(() => UIManager.instance.CloseOne("task"));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
     }
 
     public override void Destroy() {

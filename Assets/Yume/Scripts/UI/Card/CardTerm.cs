@@ -6,7 +6,7 @@ using Yume.String;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public class CardView : MonoBehaviour, IViewInit<CardDB> {
+  public class CardTerm : MonoBehaviour, IViewInit<CardDB> {
     [SerializeField]
     private Image _icon;
     [SerializeField]

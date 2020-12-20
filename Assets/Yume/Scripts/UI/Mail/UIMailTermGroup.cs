@@ -8,7 +8,7 @@ using Yume.DB;
 using Yume.MailSystem;
 
 namespace Yume.UI {
-  public class MailViewController : MonoBehaviour {
+  public class UIMailTermGroup : MonoBehaviour {
     [SerializeField]
     private Sprite _selectedImg;
     [SerializeField]
@@ -37,7 +37,7 @@ namespace Yume.UI {
     private GameObject _attachmentPrefab;
 
     private List<MailDB> m_mails;
-    private MailView m_currentClickedMail;
+    private UIMailTerm m_currentClickedMail;
     private GridLayoutGroup m_mailGLG;
     private GridLayoutGroup m_attachmentGLG;
 
@@ -49,7 +49,7 @@ namespace Yume.UI {
 
       foreach (MailDB mail in m_mails) {
         GameObject tempMail = Instantiate(_mailViewPrefab, _mailListContent);
-        tempMail.GetComponent<MailView>().OnInit(mail, this);
+        tempMail.GetComponent<UIMailTerm>().OnInit(mail, this);
       }
 
       m_mailGLG = _mailListContent.GetComponent<GridLayoutGroup>();
@@ -64,7 +64,7 @@ namespace Yume.UI {
       _mailListContent.sizeDelta = new Vector2(_mailListContent.sizeDelta.x, height);
     }
 
-    public void SwitchMail(MailView mailView) {
+    public void SwitchMail(UIMailTerm mailView) {
       if (m_currentClickedMail != null) {
         m_currentClickedMail.bottomImg.sprite = _unselectedImg;
       }
@@ -138,7 +138,7 @@ namespace Yume.UI {
 
     public void GetAllAttachment() {
       var tempMailList = new List<MailDB>();
-      foreach (var mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
+      foreach (var mailInList in _mailListContent.GetComponentsInChildren<UIMailTerm>()) {
         if (!mailInList.mail.isReceived) {
           tempMailList.Add(mailInList.mail);
         }
@@ -157,7 +157,7 @@ namespace Yume.UI {
     }
 
     public void DeleteAllMails() {
-      foreach (MailView mailInList in _mailListContent.GetComponentsInChildren<MailView>()) {
+      foreach (UIMailTerm mailInList in _mailListContent.GetComponentsInChildren<UIMailTerm>()) {
         if (mailInList.mail.isReceived) {
           mailInList.mail.Delete();
           if (mailInList == m_currentClickedMail) {
@@ -183,7 +183,7 @@ namespace Yume.UI {
       _noMailPanel.SetActive(false);
       GameObject tempMail = Instantiate(_mailViewPrefab, _mailListContent);
       MailDB mail = m_mails[m_mails.Count - 1];
-      tempMail.GetComponent<MailView>().OnInit(mail, this);
+      tempMail.GetComponent<UIMailTerm>().OnInit(mail, this);
       _getAllButton.interactable |= !mail.isReceived;
       _AdjustMailListContentHeight();
     }

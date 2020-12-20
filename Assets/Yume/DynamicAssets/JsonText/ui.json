@@ -61,5 +61,32 @@
       "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
+  },
+  "mail": {
+      "name" : "mail",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UIMail",
+      "prefabUrl" : "UI/Prefab/mail",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "bag": {
+      "name" : "bag",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UIBag",
+      "prefabUrl" : "UI/Prefab/bag",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "card": {
+      "name" : "card",
+      "uiType" : 0,
+      "typeName" : "Yume.UI.UICard",
+      "prefabUrl" : "UI/Prefab/card",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }
