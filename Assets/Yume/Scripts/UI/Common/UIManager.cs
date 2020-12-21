@@ -22,7 +22,7 @@ namespace Yume.UI {
   }
 
   public class UIManager : Singleton<UIManager> {
-    private Image m_maskImage;
+    private Graphic m_mask;
     private Transform m_topCanvas;
     private Transform m_tipCanvas;
     private Transform m_normalCanvas;
@@ -39,7 +39,7 @@ namespace Yume.UI {
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
       m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
 
-      m_maskImage = m_topCanvas?.Find("mask")?.GetComponent<Image>();
+      m_mask = m_topCanvas?.Find("mask")?.GetComponent<Graphic>();
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
@@ -217,9 +217,9 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="active"></param>
     public void SetMask(bool active) {
-      if (m_maskImage) {
-        m_maskImage.enabled = active;
-        m_maskImage.transform.SetAsLastSibling();
+      if (m_mask) {
+        m_mask.raycastTarget = active;
+        m_mask.transform.SetAsLastSibling();
       } else {
         Debug.LogError("全局遮罩未正确设置！");
       }
