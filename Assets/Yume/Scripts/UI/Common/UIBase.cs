@@ -77,10 +77,14 @@ namespace Yume.UI {
       Action action = () => {
         m_isShowing = true;
         m_isPlayingAnim = true;
+        UIManager.instance.SetMask(true);
       };
       onOpenStart = action.AddAction(onOpenStart);
 
-      action = () => m_isPlayingAnim = false;
+      action = () => {
+        m_isPlayingAnim = false;
+        UIManager.instance.SetMask(false);
+      };
       onOpenEnd = action.AddAction(onOpenEnd);
 
       onOpenStart?.Invoke();

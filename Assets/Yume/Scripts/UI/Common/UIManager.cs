@@ -103,10 +103,10 @@ namespace Yume.UI {
 
         var stack = m_uiStackDict[data.uiType];
 
-        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
+        //if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
+        //  Debug.LogWarning("上一个UI的动画正在播放中！");
+        //  return;
+        //}
 
         if (stack.Count > 0 && data.isCloseLast) {
           stack.Peek().Close(null, () => {
@@ -168,10 +168,10 @@ namespace Yume.UI {
 
         var stack = m_uiStackDict[data.uiType];
 
-        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
+        //if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
+        //  Debug.LogWarning("上一个UI的动画正在播放中！");
+        //  return;
+        //}
 
         while (stack.Count > 0) {
           stack.Pop().Destroy();
@@ -193,10 +193,10 @@ namespace Yume.UI {
 
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
 
-        if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
+        //if (stack.Count > 0 && stack.Peek().isPlayingAnim) {
+        //  Debug.LogWarning("上一个UI的动画正在播放中！");
+        //  return;
+        //}
 
         if (stack.Count == 0) {
           Debug.LogError("UI栈为空！");
