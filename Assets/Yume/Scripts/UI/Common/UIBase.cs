@@ -9,17 +9,14 @@ namespace Yume.UI {
     private bool m_isShowing;
     private GameObject m_root;
     private UIObject m_uiObject;
-    private bool m_isPlayingAnim;
     private Animation m_animation;
     public GameObject root => m_root;
     public string name => m_uiData.name;
-    public UIType uiType => m_uiData.uiType;
     public float cacheTime => m_uiData.cacheTime;
     /// <summary>
     /// open动画开始到close动画结束期间都算显示中
     /// </summary>
     public bool isShowing => m_isShowing;
-    public bool isPlayingAnim => m_isPlayingAnim;
 
     public virtual void OnInit(UIData uiData, GameObject root) {
       m_root = root;
@@ -45,14 +42,12 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
       Action action = () => { 
-        m_isPlayingAnim = true;
         UIManager.instance.SetMask(true);
       };
       onCloseStart = action.AddAction(onCloseStart);
 
       action = () => {
         m_isShowing = false;
-        m_isPlayingAnim = false;
         UIManager.instance.SetMask(false);
       };
       onCloseEnd = action.AddAction(onCloseEnd);
@@ -76,13 +71,11 @@ namespace Yume.UI {
     public virtual void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       Action action = () => {
         m_isShowing = true;
-        m_isPlayingAnim = true;
         UIManager.instance.SetMask(true);
       };
       onOpenStart = action.AddAction(onOpenStart);
 
       action = () => {
-        m_isPlayingAnim = false;
         UIManager.instance.SetMask(false);
       };
       onOpenEnd = action.AddAction(onOpenEnd);
