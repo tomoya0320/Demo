@@ -290,7 +290,7 @@ namespace Yume.DB {
     
     public void AddMail(MailDB mail) {
       userMails.Add(mail);
-      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_VIEW);
+      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_TERM);
     }
 
     public void LoadUserDB(JObject json = null) {
@@ -389,7 +389,7 @@ namespace Yume.DB {
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
             nextTask.state = TaskState.INPROCESS;
             nextTask.OnInit();
-            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK_VIEW, nextTask);
+            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK_TERM, nextTask);
           }
         }
         TaskManager.instance.UpdateTaskState(RequestType.TASK, task.id, 1);

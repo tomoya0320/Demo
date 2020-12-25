@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 9219061356862201772}
   - component: {fileID: 9219061356862201762}
   - component: {fileID: 9219061356862201773}
-  - component: {fileID: 5847004980492683438}
   - component: {fileID: 2348934559285838211}
+  - component: {fileID: 4624580389898830186}
   m_Layer: 5
-  m_Name: mailView
+  m_Name: mailTerm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,22 +81,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5847004980492683438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9219061356862201775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0560523f2ae938743bb70b44d31862e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attachmentImg: {fileID: 9219061357757127360}
-  _titleText: {fileID: 9219061358317748881}
-  _dateDeltaText: {fileID: 9219061358437458741}
-  _bottomImg: {fileID: 9219061356862201773}
 --- !u!114 &2348934559285838211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,22 +123,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9219061356862201773}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5847004980492683438}
-        m_TargetAssemblyTypeName: Yume.MailSystem.MailInList, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _textComponent: {fileID: 9219061358317748881}
   _overrideSoundName: 
-  _muteWhenInactive: 0
+  _soundEvenInactive: 0
+--- !u!114 &4624580389898830186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219061356862201775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiList:
+  - name: TitleText
+    gameObject: {fileID: 9219061358317748883}
+  - name: BottomImage
+    gameObject: {fileID: 9219061356862201775}
+  - name: DateDeltaText
+    gameObject: {fileID: 9219061358437458743}
+  - name: AttachmentImage
+    gameObject: {fileID: 9219061357757127362}
+  - name: ClickButton
+    gameObject: {fileID: 9219061356862201775}
 --- !u!1 &9219061357757127362
 GameObject:
   m_ObjectHideFlags: 0

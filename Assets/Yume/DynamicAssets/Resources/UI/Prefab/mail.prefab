@@ -236,6 +236,9 @@ MonoBehaviour:
   _uiList:
   - name: close
     gameObject: {fileID: 7928756399068749418}
+  - name: MailGroup
+    gameObject: {fileID: 8843006450543052253}
+  _spriteList: []
 --- !u!1 &7928756398083272097
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +291,7 @@ GameObject:
   - component: {fileID: 7928756398092142448}
   - component: {fileID: 7928756398092142449}
   m_Layer: 5
-  m_Name: mail content
+  m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -474,19 +477,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7928756398199080121}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8843006450543052255}
-        m_TargetAssemblyTypeName: Yume.UI.UIMailItemGroup, Assembly-CSharp
-        m_MethodName: GetAttachment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _textComponent: {fileID: 7928756398321340537}
   _overrideSoundName: 
   _soundEvenInactive: 0
@@ -781,7 +772,7 @@ GameObject:
   - component: {fileID: 7928756399133335729}
   - component: {fileID: 7928756399133335728}
   m_Layer: 5
-  m_Name: attachment content
+  m_Name: content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,19 +940,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7928756399155840591}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8843006450543052255}
-        m_TargetAssemblyTypeName: Yume.UI.UIMailTermGroup, Assembly-CSharp
-        m_MethodName: DeleteAllMails
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _textComponent: {fileID: 7928756399894018346}
   _overrideSoundName: 
   _soundEvenInactive: 0
@@ -1560,19 +1539,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7928756399710799179}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8843006450543052255}
-        m_TargetAssemblyTypeName: Yume.UI.UIMailTermGroup, Assembly-CSharp
-        m_MethodName: GetAllAttachment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _textComponent: {fileID: 7928756399961446074}
   _overrideSoundName: 
   _soundEvenInactive: 0
@@ -1803,7 +1770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8843006450543052254}
-  - component: {fileID: 8843006450543052255}
+  - component: {fileID: 7920153600805702134}
   m_Layer: 5
   m_Name: mail group
   m_TagString: Untagged
@@ -1835,7 +1802,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8843006450543052255
+--- !u!114 &7920153600805702134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1844,19 +1811,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8843006450543052253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6de3be494f8e93048927f6e886419ffd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedImg: {fileID: 21300000, guid: 75af494988cba0542b07b7f2cb39ba1b, type: 3}
-  _unselectedImg: {fileID: 21300000, guid: c7778fb162403cf4b9b4f4bed63eceab, type: 3}
-  _noMailPanel: {fileID: 7928756399581346689}
-  _mailContentPanel: {fileID: 7928756398083272097}
-  _mailListContent: {fileID: 7928756399723759245}
-  _attachmentContent: {fileID: 7928756399133335729}
-  _contentText: {fileID: 7928756398092142449}
-  _signatureText: {fileID: 7928756398933685261}
-  _dateText: {fileID: 7928756399695735156}
-  _getButton: {fileID: 7928756398199080125}
-  _getAllButton: {fileID: 7928756399710799183}
-  _mailViewPrefab: {fileID: 9219061356862201775, guid: aab00c946e3a58d4fb0bd28edd68b954, type: 3}
-  _attachmentPrefab: {fileID: 1521648986653277797, guid: cdeedd9d510fbdc44bbde9d8933603d6, type: 3}
+  _uiList:
+  - name: DateText
+    gameObject: {fileID: 7928756399695735158}
+  - name: NoMailPanel
+    gameObject: {fileID: 7928756399581346689}
+  - name: GetButton
+    gameObject: {fileID: 7928756398199080124}
+  - name: ContentText
+    gameObject: {fileID: 7928756398092142451}
+  - name: MailTermPrefab
+    gameObject: {fileID: 9219061356862201775, guid: aab00c946e3a58d4fb0bd28edd68b954, type: 3}
+  - name: SignatureText
+    gameObject: {fileID: 7928756398933685263}
+  - name: GetAllButton
+    gameObject: {fileID: 7928756399710799182}
+  - name: MailContentPanel
+    gameObject: {fileID: 7928756398083272097}
+  - name: AttachmentPrefab
+    gameObject: {fileID: 1521648986653277797, guid: cdeedd9d510fbdc44bbde9d8933603d6, type: 3}
+  - name: DeleteAllButton
+    gameObject: {fileID: 7928756399155840562}
+  - name: MailListContent
+    gameObject: {fileID: 7928756399723759246}
+  - name: AttachmentContent
+    gameObject: {fileID: 7928756399133335730}
+  _spriteList:
+  - name: SelectedImage
+    sprite: {fileID: 21300000, guid: 75af494988cba0542b07b7f2cb39ba1b, type: 3}
+  - name: UnselectedImage
+    sprite: {fileID: 21300000, guid: c7778fb162403cf4b9b4f4bed63eceab, type: 3}
