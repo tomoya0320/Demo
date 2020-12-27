@@ -4,6 +4,8 @@ using Yume.String;
 
 namespace Yume.Math {
   public class MathUtil {
+    public const float ScrollEpsilon = 0.0001f;
+
     /// <summary>
     /// 在XOZ平面上旋转一个Vector3
     /// </summary>

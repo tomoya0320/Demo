@@ -10,7 +10,7 @@ using Yume.Math;
 
 namespace Yume.UI {
   public class UIMail : UIBase {
-    private class UIMailTerm {
+    private class UIMailTerm : IScrollTerm<MailDB> {
       private MailDB m_mail;
       private Text m_titleText;
       private Image m_bottomImg;
@@ -24,26 +24,34 @@ namespace Yume.UI {
       public Image bottomImg => m_bottomImg;
       public GameObject gameObject => m_root;
 
-      public UIMailTerm(MailDB mail, UIMailGroup mailController, GameObject root) {
+      public UIMailTerm(UIMailGroup mailController, GameObject root) {
         m_root = root;
-        var uiObject = root.GetComponent<UIObject>();
+        m_mailController = mailController;
+
+        var uiObject = m_root.GetComponent<UIObject>();
         m_titleText = uiObject.GetComponent<Text>("TitleText");
         m_bottomImg = uiObject.GetComponent<Image>("BottomImage");
         m_clickButton = uiObject.GetComponent<Button>("ClickButton");
         m_dateDeltaText = uiObject.GetComponent<Text>("DateDeltaText");
         m_attachmentImg = uiObject.GetComponent<Image>("AttachmentImage");
 
-        m_mail = mail;
-        m_titleText.text = mail.title;
-        m_mailController = mailController;
-        m_attachmentImg.enabled = mail.attachment.Length > 0;
-        m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
-
         _AddListener();
       }
 
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => m_mailController.SwitchMail(this));
+      }
+
+      public void Update(MailDB data) {
+        m_mail = data;
+        if (m_mail == null) {
+          gameObject.SetActive(false);
+        } else {
+          gameObject.SetActive(true);
+          m_titleText.text = mail.title;
+          m_attachmentImg.enabled = mail.attachment.Length > 0;
+          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
+        }
       }
     }
 
@@ -60,45 +68,45 @@ namespace Yume.UI {
       private RectTransform m_attachmentContent;
       private GameObject m_noMailPanel;
       private GameObject m_mailContentPanel;
-      private GameObject m_mailTermPrefab;
       private GameObject m_attachmentPrefab;
 
       private List<MailDB> m_mails;
-      private UIMailTerm m_currentClickedMail;
       private GridLayoutGroup m_mailGLG;
+      private ScrollRect m_mailScrollRect;
+      private UIMailTerm m_curClickedMailTerm;
       private GridLayoutGroup m_attachmentGLG;
-
+      private UIScrollView<MailDB, UIMailTerm> m_mailScrollView;
       private List<UIMailTerm> m_mailTermList = new List<UIMailTerm>();
 
       public UIMailGroup(GameObject root) {
         var uiObject = root.GetComponent<UIObject>();
         m_selectedImg = uiObject.GetSprite("SelectedImage");
-        m_unselectedImg = uiObject.GetSprite("UnselectedImage");
         m_dateText = uiObject.GetComponent<Text>("DateText");
         m_noMailPanel = uiObject.GetGameObject("NoMailPanel");
+        m_unselectedImg = uiObject.GetSprite("UnselectedImage");
         m_getButton = uiObject.GetComponent<Button>("GetButton");
         m_contentText = uiObject.GetComponent<Text>("ContentText");
-        m_mailTermPrefab = uiObject.GetGameObject("MailTermPrefab");
         m_signatureText = uiObject.GetComponent<Text>("SignatureText");
         m_getAllButton = uiObject.GetComponent<Button>("GetAllButton");
         m_mailContentPanel = uiObject.GetGameObject("MailContentPanel");
         m_attachmentPrefab = uiObject.GetGameObject("AttachmentPrefab");
         m_deleteAllButton = uiObject.GetComponent<Button>("DeleteAllButton");
+        m_mailScrollRect = uiObject.GetComponent<ScrollRect>("MailScrollRect");
         m_mailListContent = uiObject.GetGameObject("MailListContent").GetRect();
         m_attachmentContent = uiObject.GetGameObject("AttachmentContent").GetRect();
 
         m_mails = DBManager.instance.userMails;
         m_noMailPanel.SetActive(m_mails.Count == 0);
 
-        foreach (MailDB mail in m_mails) {
-          GameObject tempGo = UnityEngine.Object.Instantiate(m_mailTermPrefab, m_mailListContent);
-          m_mailTermList.Add(new UIMailTerm(mail, this, tempGo));
-        }
-
         m_mailGLG = m_mailListContent.GetComponent<GridLayoutGroup>();
         m_attachmentGLG = m_attachmentContent.GetComponent<GridLayoutGroup>();
+       
+        for (int i = 0; i < m_mailListContent.childCount; i++) {
+          m_mailTermList.Add(new UIMailTerm(this, m_mailListContent.GetChild(i).gameObject));
+        }
 
-        _AdjustMailListContentHeight();
+        m_mailScrollView = new UIScrollView<MailDB, UIMailTerm>(m_mailScrollRect, m_mailGLG, m_mails, m_mailTermList);
+
         _CheckGetAllButton();
         _AddListener();
 
@@ -111,14 +119,9 @@ namespace Yume.UI {
         m_deleteAllButton.onClick.AddListener(_DeleteAllMails);
       }
 
-      private void _AdjustMailListContentHeight() {
-        float height = Mathf.Max(0, m_mails.Count * (m_mailGLG.spacing.y + m_mailGLG.cellSize.y) - m_mailGLG.spacing.y);
-        m_mailListContent.sizeDelta = new Vector2(m_mailListContent.sizeDelta.x, height);
-      }
-
       public void SwitchMail(UIMailTerm mailView) {
-        if (m_currentClickedMail != null) {
-          m_currentClickedMail.bottomImg.sprite = m_unselectedImg;
+        if (m_curClickedMailTerm != null) {
+          m_curClickedMailTerm.bottomImg.sprite = m_unselectedImg;
         }
 
         m_mailContentPanel.SetActive(true);
@@ -150,7 +153,7 @@ namespace Yume.UI {
         float width = mailView.mail.attachment.Length * (m_attachmentGLG.spacing.x + m_attachmentGLG.cellSize.x);
         m_attachmentContent.sizeDelta = new Vector2(width - m_attachmentGLG.spacing.x, m_attachmentContent.sizeDelta.y);
 
-        m_currentClickedMail = mailView;
+        m_curClickedMailTerm = mailView;
         m_getButton.interactable = !mailView.mail.isReceived;
       }
 
@@ -179,8 +182,8 @@ namespace Yume.UI {
       }
 
       private void _GetAttachment() {
-        if (m_currentClickedMail != null && !m_currentClickedMail.mail.isReceived) {
-          m_currentClickedMail.mail.GetAttachment();
+        if (m_curClickedMailTerm != null && !m_curClickedMailTerm.mail.isReceived) {
+          m_curClickedMailTerm.mail.GetAttachment();
           _CurMailInfoDisable();
           _CheckGetAllButton();
 
@@ -190,15 +193,15 @@ namespace Yume.UI {
 
       private void _GetAllAttachment() {
         var tempMailList = new List<MailDB>();
-        foreach (var mailTerm in m_mailTermList) {
-          if (!mailTerm.mail.isReceived) {
-            tempMailList.Add(mailTerm.mail);
+        foreach (var mail in m_mails) {
+          if (!mail.isReceived) {
+            tempMailList.Add(mail);
           }
         }
         if (tempMailList.Count > 0) {
           foreach (var mail in tempMailList) {
             mail.GetAttachment();
-            if (mail == m_currentClickedMail?.mail) {
+            if (mail == m_curClickedMailTerm?.mail) {
               _CurMailInfoDisable();
             }
           }
@@ -209,21 +212,14 @@ namespace Yume.UI {
       }
 
       private void _DeleteAllMails() {
-        for (int i = m_mailTermList.Count - 1; i >= 0; i--) {
-          if (m_mailTermList[i].mail.isReceived) {
-            m_mailTermList[i].mail.Delete();
-            if (m_mailTermList[i] == m_currentClickedMail) {
-              m_mailContentPanel.SetActive(false);
-            }
-            if (m_currentClickedMail == m_mailTermList[i]) {
-              m_currentClickedMail = null;
-            }
-            UnityEngine.Object.Destroy(m_mailTermList[i].gameObject);
-            m_mailTermList.RemoveAt(i);
+        for (int i = m_mails.Count-1; i >=0; i--) {
+          if (m_mails[i].isReceived) {
+            m_mails[i].Delete();
           }
         }
+
+        m_mailScrollView.OnRefresh();
         m_noMailPanel.SetActive(m_mails.Count == 0);
-        _AdjustMailListContentHeight();
 
         DBManager.instance.UpdateUserData();
       }
@@ -236,12 +232,9 @@ namespace Yume.UI {
       }
 
       private void _AddMailView() {
+        m_mailScrollView.OnRefresh();
         m_noMailPanel.SetActive(false);
-        GameObject tempGo = UnityEngine.Object.Instantiate(m_mailTermPrefab, m_mailListContent);
-        MailDB mail = m_mails[m_mails.Count - 1];
-        m_mailTermList.Add(new UIMailTerm(mail, this, tempGo));
-        m_getAllButton.interactable |= !mail.isReceived;
-        _AdjustMailListContentHeight();
+        m_getAllButton.interactable |= !m_mails[m_mails.Count - 1].isReceived;
       }
     }
 
