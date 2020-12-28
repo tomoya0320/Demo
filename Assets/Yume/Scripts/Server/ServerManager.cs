@@ -60,9 +60,9 @@ namespace Yume.Server {
       request.SetRequestHeader("data", StringUtil.StringToBase64(data.ToString()));
       request.downloadHandler = new DownloadHandlerBuffer();
 
-      UIManager.instance.SetMask(true);
+      UIManager.instance.SetInteractionMask(true);
       yield return request.SendWebRequest();
-      UIManager.instance.SetMask(false);
+      UIManager.instance.SetInteractionMask(false);
 
       onCompleted?.Invoke(request);
     }

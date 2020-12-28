@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -22,15 +21,17 @@ namespace Yume.UI {
   }
 
   public class UIManager : Singleton<UIManager> {
-    private Graphic m_mask;
     private Transform m_topCanvas;
     private Transform m_tipCanvas;
     private Transform m_normalCanvas;
+    private GameObject m_interactionMask;
     public Transform cacheCanvas { private set; get; }
     private Dictionary<string, UIData> m_uiDataDict = new Dictionary<string, UIData>();
     private Dictionary<object, object> m_sharedArgsDict = new Dictionary<object, object>();
     private Dictionary<UIType, Stack<UIBase>> m_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private Dictionary<UIType, List<(float, UIBase)>> m_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
+
+    private Action m_quitGame = Application.Quit;
 
     protected override void OnInit() {
       base.OnInit();
@@ -39,7 +40,8 @@ namespace Yume.UI {
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
       m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
 
-      m_mask = m_topCanvas?.Find("mask")?.GetComponent<Graphic>();
+      m_interactionMask = GameObject.Find("InteractionMask");
+      m_interactionMask.SetActive(false);
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
@@ -101,6 +103,11 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
+          return;
+        }
+
         var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
@@ -161,6 +168,11 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
+          return;
+        }
+
         var stack = m_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
@@ -181,6 +193,11 @@ namespace Yume.UI {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
 
+        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
+          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
+          return;
+        }
+
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
 
         if (stack.Count == 0) {
@@ -199,14 +216,29 @@ namespace Yume.UI {
 
     /// <summary>
     /// 设置全局禁止交互的遮罩
+    /// 同步用户数据时使用
     /// </summary>
     /// <param name="active"></param>
-    public void SetMask(bool active) {
-      if (m_mask) {
-        m_mask.raycastTarget = active;
-        m_mask.transform.SetAsLastSibling();
+    public void SetInteractionMask(bool active) {
+      if (m_interactionMask) {
+        m_interactionMask.SetActive(active);
       } else {
-        Debug.LogError("全局遮罩未正确设置！");
+        Debug.LogError("交互遮罩未正确设置！");
+      }
+    }
+
+    /// <summary>
+    /// 回退操作只适用于NORMAL层的UI
+    /// </summary>
+    public void Back() {
+      if (isShowing("confirmation")) {
+        CloseOne("confirmation");
+      } else {
+        if (m_uiStackDict[UIType.NORMAL].Count > 1) {
+          CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
+        } else {
+          OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+        }
       }
     }
 

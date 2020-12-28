@@ -4,7 +4,6 @@ using UnityEngine;
 using Yume.Tool;
 
 namespace Yume.UI {
-  // TODO:动画播放中该如何处理?
   public abstract class UIBase {
     private UIData m_uiData;
     private bool m_isShowing;
@@ -43,7 +42,13 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
       Action action = () => {
+        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", true);
+      };
+      onCloseStart = action.AddAction(onCloseStart);
+
+      action = () => {
         m_isShowing = false;
+        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", false);
       };
       onCloseEnd = action.AddAction(onCloseEnd);
 
@@ -65,8 +70,14 @@ namespace Yume.UI {
     public virtual void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       Action action = () => {
         m_isShowing = true;
+        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", true);
       };
       onOpenStart = action.AddAction(onOpenStart);
+
+      action = () => {
+        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", false);
+      };
+      onOpenEnd = action.AddAction(onOpenEnd);
 
       onOpenStart?.Invoke();
       if (m_animation.GetClip("open")) {

@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Yume.Battle;
 using Yume.DB;
 using Yume.MailSystem;
 using Yume.UI;
 
-namespace Yume.Master {
+namespace Yume.Main {
   public class Game : SingletonMono<Game> {
     /// <summary>
     /// .asset文件的路径列表
@@ -13,8 +12,6 @@ namespace Yume.Master {
     [SerializeField]
     private string[] _assetUrls;
     public string[] assetUrls => _assetUrls;
-
-    private Action m_quitGame = Application.Quit;
 
     private void Start() {
       UIManager.instance.RegisterByJson();
@@ -26,11 +23,7 @@ namespace Yume.Master {
       UIManager.instance.UpdateCache();
 
       if (Input.GetKeyDown(KeyCode.Escape)) {
-        if (UIManager.instance.isShowing("confirmation")) {
-          UIManager.instance.CloseOne("confirmation");
-        } else {
-          UIManager.instance.OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
-        }
+        UIManager.instance.Back();
       }
 
 #if TEST

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Newtonsoft.Json.Linq;
-using Yume.Master;
+using Yume.Main;
 
 namespace Yume.Resource {
   /// <summary>
