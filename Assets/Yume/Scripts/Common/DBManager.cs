@@ -33,113 +33,143 @@ namespace Yume.DB {
     public string userToken { private set; get; }
     public string userAccount {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.account;
       }
     }
     public string userPassword {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.password;
       }
     }
     public string userName {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.name;
       }
     }    
     public int userAp {
       private set {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         s_userDB.ap = value;
       }
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.ap;
       }
     }    
     public int userMaxAp {
       private set {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         s_userDB.maxAp = value;
       }
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.maxAp;
       }
     }    
     public int userLv {
       private set {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         s_userDB.lv = value;
       }
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.lv;
       }
     }  
     public int userExp {
       private set {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         s_userDB.exp = value;
       }
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.exp;
       }
     }
     public List<ItemDB> userItems {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.items;
       }
     }
     public List<CardDB> userCards {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.cards;
       }
     }
     public List<MailDB> userMails {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.mails;
       }
     }
-    public Dictionary<string, List<TaskDB>> userTasks {
+    public Dictionary<TaskType, List<TaskDB>> userTasks {
       get {
+#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
         }
+#endif
         return s_userDB.tasks;
       }
     }
@@ -239,15 +269,15 @@ namespace Yume.DB {
       }    
     }
 
-    public Dictionary<string, List<TaskDB>> GetDefaultTasks() {
-      Dictionary<string, List<TaskDB>> defaultTasks = new Dictionary<string, List<TaskDB>>();
+    public Dictionary<TaskType, List<TaskDB>> GetDefaultTasks() {
+      Dictionary<TaskType, List<TaskDB>> defaultTasks = new Dictionary<TaskType, List<TaskDB>>();
 
       foreach(TaskType type in Enum.GetValues(typeof(TaskType))) {
         List<TaskDB> tasks = new List<TaskDB>();
         foreach(var info in taskJson[type.ToString()].Values()) {
           tasks.Add(JsonConvert.DeserializeObject<TaskDB>(info.ToString()));
         }
-        defaultTasks.Add(type.ToString(), tasks);
+        defaultTasks.Add(type, tasks);
       }
 
       return defaultTasks;
@@ -263,11 +293,11 @@ namespace Yume.DB {
     }
 
     public List<TaskDB> GetTaskList(TaskType taskType) {
-      return userTasks[taskType.ToString()];
+      return userTasks[taskType];
     }
 
     public TaskDB GetTaskDB(TaskType taskType,string taskId) {
-      return userTasks[taskType.ToString()].Find(obj => obj.id == taskId);
+      return userTasks[taskType].Find(obj => obj.id == taskId);
     }
 
     public JObject GetEnemyJson(string id) {
@@ -284,13 +314,17 @@ namespace Yume.DB {
       return null;
     }
 
-    public void DeleteMail(MailDB mail) {
-      userMails.Remove(mail);
+    //邮件比较特殊，需要是同一个对象
+    public void DeleteMails(params MailDB[] mails) {
+      foreach (var mail in mails) {
+        userMails.Remove(mail);
+      }
+      EventCenter.Broadcast(Broadcast.EventType.REFRESH_MAIL_VIEW);
     }    
     
-    public void AddMail(MailDB mail) {
-      userMails.Add(mail);
-      EventCenter.Broadcast(Broadcast.EventType.ADD_MAIL_TERM);
+    public void AddMails(params MailDB[] mails) {
+      userMails.AddRange(mails);
+      EventCenter.Broadcast(Broadcast.EventType.REFRESH_MAIL_VIEW);
     }
 
     public void LoadUserDB(JObject json = null) {
@@ -325,17 +359,16 @@ namespace Yume.DB {
           if (tempItem.num == 0) {
             userItems.Remove(tempItem);
           }
+          if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
+            foreach (var item in items) {
+              TaskManager.instance.UpdateTaskState(RequestType.ITEM_NUM, item.id, -item.num);
+            }
+          }
         }
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
-      //更新任务进度
-      if (isUsed/*只有真正使用了道具才能更新*消耗道具类型任务*的进度*/) {
-        foreach (var item in items) {
-          TaskManager.instance.UpdateTaskState(RequestType.PROP_NUM, item.id, -item.num);
-        }
-      } 
     }
 
     public void AddItems(params ItemDB[] items) {
@@ -354,8 +387,21 @@ namespace Yume.DB {
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_USER_INFO);
       //更新任务进度
       foreach (var item in items) {
-        TaskManager.instance.UpdateTaskState(RequestType.PROP_NUM, item.id, item.num);
+        TaskManager.instance.UpdateTaskState(RequestType.ITEM_NUM, item.id, item.num);
       }
+    }
+
+    public void AddCards(params CardDB[] cards) {
+      userCards.AddRange(cards);
+      EventCenter.Broadcast(Broadcast.EventType.REFRESH_CARD_VIEW);
+    }
+
+    //卡牌比较特殊，需要是同一个对象
+    public void RemoveCards(params CardDB[] cards) {
+      foreach (var card in cards) {
+        userCards.Remove(card);
+      }
+      EventCenter.Broadcast(Broadcast.EventType.REFRESH_CARD_VIEW);
     }
 
     public void AddExp(int exp) {
@@ -389,9 +435,11 @@ namespace Yume.DB {
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
             nextTask.state = TaskState.INPROCESS;
             nextTask.OnInit();
-            EventCenter.Broadcast(Broadcast.EventType.ADD_TASK_TERM, nextTask);
+            EventCenter.Broadcast(Broadcast.EventType.REFRESH_TASK_VIEW);
           }
         }
+        //任务排序用
+        EventCenter.Broadcast(Broadcast.EventType.UPDATE_TASK_PROCESS);
         TaskManager.instance.UpdateTaskState(RequestType.TASK, task.id, 1);
       }
     }

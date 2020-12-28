@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
+  /// <summary>
+  /// 作为ScrollView里的子项UI需要实现这个接口
+  /// </summary>
+  /// <typeparam name="TData"></typeparam>
   public interface IScrollTerm<TData> {
     void Update(TData data);
   }
@@ -33,10 +37,15 @@ namespace Yume.UI {
       OnRefresh();
     }
 
+    public void OnRefresh(List<TData> dataList) {
+      m_dataList = dataList;
+      OnRefresh();
+    }
+
     public void OnRefresh() {
       if (m_scrollRect.vertical) {
         int temp = m_dataList.Count / (int)m_maxCellNum.x;
-        if(m_dataList.Count % (int)m_maxCellNum.x > 0) {
+        if (m_dataList.Count % (int)m_maxCellNum.x > 0) {
           temp++;
         }
         m_scrollRect.content.sizeDelta = new Vector2(m_scrollRect.content.sizeDelta.x, m_cellSize.y * temp);
@@ -47,14 +56,15 @@ namespace Yume.UI {
           temp++;
         }
         m_scrollRect.content.sizeDelta = new Vector2(m_cellSize.x * temp, m_scrollRect.content.sizeDelta.y);
-        m_scrollRect.content.anchoredPosition = new Vector2(m_scrollRectTransform.rect.width * 0.5f, 0);
+        //注意，左右的方向是和上下的相反的
+        m_scrollRect.content.anchoredPosition = new Vector2(-m_scrollRectTransform.rect.width * 0.5f, 0);
       }
       m_originPos = m_scrollRect.content.anchoredPosition;
       m_initDataIndex = 0;
-      _UpdateInternal();
+      UpdateViewList();
     }
 
-    private void _UpdateInternal() {
+    public void UpdateViewList() {
       for (int i = 0; i < m_viewList.Count; i++) {
         if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_dataList.Count) {
           m_viewList[i].Update(m_dataList[m_initDataIndex + i]);
@@ -69,14 +79,16 @@ namespace Yume.UI {
         int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y);
         m_initDataIndex = (int)(row * m_maxCellNum.x);
         m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
-        //Grid显示bug，不会马上更新
-        m_gridLayoutGroup.enabled = false;
-        m_gridLayoutGroup.enabled = true;
-        //----------------------
       } else if (m_scrollRect.horizontal) {
-
+        //注意，左右的方向是和上下的相反的
+        int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x);
+        m_initDataIndex = (int)(column * m_maxCellNum.y);
+        m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
       }
-      _UpdateInternal();
+      //Grid显示bug，不会马上更新
+      LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRect.content);
+      //----------------------
+      UpdateViewList();
     }
   }
 }

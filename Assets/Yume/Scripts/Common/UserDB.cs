@@ -17,7 +17,7 @@ namespace Yume.DB {
     public List<MailDB> mails;
     public List<ItemDB> items;
     public List<CardDB> cards;
-    public Dictionary<string, List<TaskDB>> tasks;
+    public Dictionary<TaskType, List<TaskDB>> tasks;
 
     public UserDB(string name = "", string account = "",string password = "") {
       lv = 1;

@@ -1,22 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
+using Yume.Broadcast;
 using Yume.DB;
 using Yume.Resource;
 using Yume.String;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UICard : UIBase {
-    private class UICardTerm {
+    private class UICardTerm : IScrollTerm<CardDB> {
       private CardDB m_card;
       private Text m_nameText;
       private Text m_typeText;
       private Image m_iconImg;
       private Text m_phaseText;
       private Text m_energyText;
+      private GameObject m_root;
       private Text m_descriptionText;
+      public GameObject gameObject => m_root;
 
-      public UICardTerm(CardDB cardDB, GameObject root) {
+      public UICardTerm(GameObject root) {
+        m_root = root;
         var uiObject = root.GetComponent<UIObject>();
         m_nameText = uiObject.GetComponent<Text>("NameText");
         m_typeText = uiObject.GetComponent<Text>("TypeText");
@@ -24,14 +30,14 @@ namespace Yume.UI {
         m_phaseText = uiObject.GetComponent<Text>("PhaseText");
         m_energyText = uiObject.GetComponent<Text>("EnergyText");
         m_descriptionText = uiObject.GetComponent<Text>("DescriptionText");
-
-        m_card = cardDB;
-
-        _OnInitInternal();
       }
 
-      private async void _OnInitInternal() {
-        if (m_card != null) {
+      public async void Update(CardDB data) {
+        m_card = data;
+        if (m_card == null) {
+          gameObject.SetActive(false);
+        } else {
+          gameObject.SetActive(true);
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
           m_nameText.text = cardInfo.name;
           m_phaseText.text = m_card.phase.ToString();
@@ -43,18 +49,51 @@ namespace Yume.UI {
         }
       }
     }
-    private class UICardGroup {
 
+    private class UICardGroup {
+      private List<CardDB> m_cardList;
+      private GridLayoutGroup m_cardGLG;
+      private ScrollRect m_cardScrollRect;
+      private UIScrollView<CardDB, UICardTerm> m_cardScrollView;
+      private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
+
+      public UICardGroup(GameObject root) {
+        var uiObject = root.GetComponent<UIObject>();
+        m_cardScrollRect = uiObject.GetComponent<ScrollRect>("CardScrollRect");
+        m_cardGLG = m_cardScrollRect.content.GetComponent<GridLayoutGroup>();
+        m_cardList = DBManager.instance.userCards;
+
+        for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
+          m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
+        }
+
+        m_cardScrollView = new UIScrollView<CardDB, UICardTerm>(m_cardScrollRect, m_cardGLG, m_cardList, m_cardTermList);
+
+        EventCenter.AddListener(EventType.REFRESH_CARD_VIEW, m_cardScrollView.OnRefresh);
+      }
+
+      public void Destroy() {
+        EventCenter.RemoveListener(EventType.REFRESH_CARD_VIEW, m_cardScrollView.OnRefresh);
+      }
     }
+
+    private UICardGroup m_cardGroup;
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
+
+      m_cardGroup = new UICardGroup(GetGameObject("CardGroup"));
 
       _AddListener();
     }
 
     private void _AddListener() {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+    }
+
+    public override void Destroy() {
+      base.Destroy();
+      m_cardGroup.Destroy();
     }
   }
 }

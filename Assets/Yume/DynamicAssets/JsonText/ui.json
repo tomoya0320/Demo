@@ -1,7 +1,7 @@
 {
   "message_fade": {
       "name" : "message_fade",
-      "uiType" : 2,
+      "uiType" : "TIP",
       "typeName" : "Yume.UI.UIMessageTip",
       "prefabUrl" : "UI/Prefab/message_fade",
       "cacheTime" : 10,
@@ -10,7 +10,7 @@
   },
   "message_slide": {
       "name" : "message_slide",
-      "uiType" : 2,
+      "uiType" : "TIP",
       "typeName" : "Yume.UI.UIMessageTip",
       "prefabUrl" : "UI/Prefab/message_slide",
       "cacheTime" : 10,
@@ -19,7 +19,7 @@
   },
   "blackMask": {
       "name" : "blackMask",
-      "uiType" : 1,
+      "uiType" : "TOP",
       "typeName" : "Yume.UI.UIMask",
       "prefabUrl" : "UI/Prefab/blackMask",
       "cacheTime" : 10,
@@ -28,7 +28,7 @@
   },
   "login": {
       "name" : "login",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UILogin",
       "prefabUrl" : "UI/Prefab/login",
       "cacheTime" : 10,
@@ -37,7 +37,7 @@
   },
   "main": {
       "name" : "main",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UIMain",
       "prefabUrl" : "UI/Prefab/main",
       "cacheTime" : 10,
@@ -46,7 +46,7 @@
   },
   "setting": {
       "name" : "setting",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UISetting",
       "prefabUrl" : "UI/Prefab/setting",
       "cacheTime" : 10,
@@ -55,7 +55,7 @@
   },
   "task": {
       "name" : "task",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UITask",
       "prefabUrl" : "UI/Prefab/task",
       "cacheTime" : 10,
@@ -64,7 +64,7 @@
   },
   "mail": {
       "name" : "mail",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UIMail",
       "prefabUrl" : "UI/Prefab/mail",
       "cacheTime" : 10,
@@ -73,7 +73,7 @@
   },
   "bag": {
       "name" : "bag",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UIBag",
       "prefabUrl" : "UI/Prefab/bag",
       "cacheTime" : 10,
@@ -82,7 +82,7 @@
   },
   "card": {
       "name" : "card",
-      "uiType" : 0,
+      "uiType" : "NORMAL",
       "typeName" : "Yume.UI.UICard",
       "prefabUrl" : "UI/Prefab/card",
       "cacheTime" : 10,
@@ -91,7 +91,7 @@
   },
   "confirmation": {
       "name" : "confirmation",
-      "uiType" : 1,
+      "uiType" : "TOP",
       "typeName" : "Yume.UI.UIConfirmation",
       "prefabUrl" : "UI/Prefab/confirmation",
       "cacheTime" : 10,

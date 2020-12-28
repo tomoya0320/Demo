@@ -19,8 +19,10 @@ namespace Yume.UI {
 
     private void Awake() {
       foreach (var ui in _uiList) {
+        ui.content.SetActive(false);
         ui.button.onClick.AddListener(() => _Switch(ui));
       }
+
       if (_uiList.First() != null) {
         _Switch(_uiList.First());
       }

@@ -9,11 +9,17 @@ using Yume.Resource;
 using System.ComponentModel;
 
 namespace Yume.Task {
+  /// <summary>
+  /// 数值代表排序的优先级，值越小越靠前
+  /// </summary>
   public enum TaskState {
-    INACTIVE,
-    INPROCESS,
-    COMPLETED,
-    FINAL
+    /// <summary>
+    /// 不会参与排序
+    /// </summary>
+    INACTIVE = 0,
+    COMPLETED = 1,
+    INPROCESS = 2,
+    FINAL = 3
   }
 
   public enum TaskType {
@@ -24,7 +30,7 @@ namespace Yume.Task {
   }
 
   public enum RequestType {
-    PROP_NUM,
+    ITEM_NUM,
     TASK,
     LV_UP_TO
   }
@@ -89,7 +95,7 @@ namespace Yume.Task {
     private void _SyncHadNum(TaskRequestDB taskRequest) {
       //同步现有的数量
       switch (taskRequest.type) {
-        case RequestType.PROP_NUM: {
+        case RequestType.ITEM_NUM: {
             taskRequest.currentNum = DBManager.instance.GetItemDBNum(id);
             break;
           }
@@ -152,7 +158,7 @@ namespace Yume.Task {
       }
 
       foreach (TaskRequestDB taskRequest in taskRequests) {
-        if (taskRequest.consumable && taskRequest.type == RequestType.PROP_NUM) {
+        if (taskRequest.consumable && taskRequest.type == RequestType.ITEM_NUM) {
           DBManager.instance.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }

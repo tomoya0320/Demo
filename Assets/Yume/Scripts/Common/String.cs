@@ -27,6 +27,7 @@ namespace Yume.String {
     public const string RETURN_TO_LOGIN = "返回登录界面";
     public const string COMPLETED = "已完成";
     public const string CLICK_GET = "点击领取";
+    public const string GOT = "已领取";
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";

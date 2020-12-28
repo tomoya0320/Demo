@@ -25,9 +25,5 @@ namespace Yume.MailSystem {
       isReceived = true;
       DBManager.instance.AddItems(attachment);
     }
-
-    public void Delete() {
-      DBManager.instance.DeleteMail(this);
-    }
   }
 }
