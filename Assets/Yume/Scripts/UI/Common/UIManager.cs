@@ -41,7 +41,7 @@ namespace Yume.UI {
       m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
 
       m_interactionMask = GameObject.Find("InteractionMask");
-      m_interactionMask.SetActive(false);
+      m_interactionMask.SetActiveEx(false);
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
@@ -52,7 +52,9 @@ namespace Yume.UI {
     public void UpdateCache() {
       foreach (var list in m_cacheUIListDict.Values) {
         for (int i = list.Count - 1; i >= 0; i--) {
-          if (list[i].Item1 + list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
+          if (list[i].Item2.cacheTime > 0 && list[i].Item1 +
+              list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
+
             list[i].Item2.Destroy();
             list.RemoveAt(i);
           }
@@ -221,7 +223,7 @@ namespace Yume.UI {
     /// <param name="active"></param>
     public void SetInteractionMask(bool active) {
       if (m_interactionMask) {
-        m_interactionMask.SetActive(active);
+        m_interactionMask.SetActiveEx(active);
       } else {
         Debug.LogError("交互遮罩未正确设置！");
       }

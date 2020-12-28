@@ -44,17 +44,17 @@ namespace Yume.UI {
           for (int i = 0; i < m_processContent.childCount; i++) {
             var tempGo = m_processContent.GetChild(i).gameObject;
             if (i < task.taskRequests.Count) {
-              tempGo.SetActive(true);
+              tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Text>().text = string.Format("{0}:{1}/{2}", task.taskRequests[i].description,
               task.taskRequests[i].currentNum, task.taskRequests[i].requiredNum);
             } else {
-              tempGo.SetActive(false);
+              tempGo.SetActiveEx(false);
             }
           }
 
-          m_processContent.gameObject.SetActive(task.state == TaskState.INPROCESS);
+          m_processContent.gameObject.SetActiveEx(task.state == TaskState.INPROCESS);
           m_getReward.interactable = task.state == TaskState.COMPLETED;
-          m_getReward.gameObject.SetActive(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
+          m_getReward.gameObject.SetActiveEx(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
           m_getReward.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
         }
       }
@@ -74,9 +74,9 @@ namespace Yume.UI {
       public async void Update(TaskDB data) {
         m_task = data;
         if (task == null) {
-          gameObject.SetActive(false);
+          gameObject.SetActiveEx(false);
         } else {
-          gameObject.SetActive(true);
+          gameObject.SetActiveEx(true);
           TaskInfo taskInfo = DBManager.instance.GetTaskInfo(task.type, task.id);
           m_title.text = taskInfo.title;
           m_description.text = taskInfo.description;
@@ -85,12 +85,12 @@ namespace Yume.UI {
           for (int i = 0; i < m_rewardContent.childCount; i++) {
             var tempGo = m_rewardContent.GetChild(i).gameObject;
             if (i < taskInfo.taskRewards.items.Length) {
-              tempGo.SetActive(true);
+              tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
                      (DBManager.instance.GetItemInfo(taskInfo.taskRewards.items[i].id).iconFileName);
               tempGo.GetComponentInChildren<Text>().text = taskInfo.taskRewards.items[i].num.ToString();
             } else {
-              tempGo.SetActive(false);
+              tempGo.SetActiveEx(false);
             }
           }
 

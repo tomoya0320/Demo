@@ -129,13 +129,13 @@ namespace Yume.UI {
       GetComponent<Button>("AlterPsd").onClick.AddListener(_OnAlterPassword);
       GetComponent<Button>("SwitchAlterPsd").onClick.AddListener(() => {
         _ClearInput();
-        m_main.SetActive(false);
-        m_second.SetActive(true);
+        m_main.SetActiveEx(false);
+        m_second.SetActiveEx(true);
       });
       GetComponent<Button>("Back").onClick.AddListener(() => {
         _ClearInput();
-        m_main.SetActive(true);
-        m_second.SetActive(false);
+        m_main.SetActiveEx(true);
+        m_second.SetActiveEx(false);
       });
     }
 
@@ -159,13 +159,13 @@ namespace Yume.UI {
     }
 
     public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => root.SetActive(true));
+      onOpenStart = onOpenStart.AddAction(() => root.SetActiveEx(true));
 
       base.Open(onOpenStart, onOpenEnd, args);
     }
 
     public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      onCloseEnd = onCloseEnd.AddAction(() => root.SetActive(false));
+      onCloseEnd = onCloseEnd.AddAction(() => root.SetActiveEx(false));
       base.Close(onCloseStart, onCloseEnd, args);
     }
   }

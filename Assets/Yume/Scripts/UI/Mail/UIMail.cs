@@ -51,10 +51,10 @@ namespace Yume.UI {
       public void Update(MailDB data) {
         m_mail = data;
         if (m_mail == null) {
-          gameObject.SetActive(false);
+          gameObject.SetActiveEx(false);
         } else {
-          gameObject.SetActive(true);
-          m_selected.SetActive(m_mail == m_mailGroup.selectedMail);
+          gameObject.SetActiveEx(true);
+          m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
           m_titleText.text = mail.title;
           m_attachmentImg.enabled = mail.attachment.Length > 0;
           m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
@@ -99,7 +99,7 @@ namespace Yume.UI {
         m_attachmentScrollRect = uiObject.GetComponent<ScrollRect>("AttachmentScrollRect");
 
         m_mails = DBManager.instance.userMails;
-        m_noMailPanel.SetActive(m_mails.Count == 0);
+        m_noMailPanel.SetActiveEx(m_mails.Count == 0);
 
         m_mailGLG = m_mailScrollRect.content.GetComponent<GridLayoutGroup>();
         m_attachmentGLG = m_attachmentScrollRect.content.GetComponent<GridLayoutGroup>();
@@ -130,7 +130,7 @@ namespace Yume.UI {
 
       public void SwitchMail(MailDB mail) {
         if (mail != null) {
-          m_mailContentPanel.SetActive(true);
+          m_mailContentPanel.SetActiveEx(true);
           m_signatureText.text = mail.signature;
           m_dateText.text = Convert.ToDateTime(mail.dateTime).ToShortDateString();
           m_contentText.text = string.Format(mail.content, DBManager.instance.userName);
@@ -202,7 +202,7 @@ namespace Yume.UI {
           //这种选中某个子项UI的记得在子项UI被释放时也一并释放掉
           //其他的还有UIBag的UIItemInfoBoard
           m_selectedMail = null;
-          m_mailContentPanel.SetActive(false);
+          m_mailContentPanel.SetActiveEx(false);
         }
 
         DBManager.instance.DeleteMails(tempMailList.ToArray());
@@ -213,8 +213,8 @@ namespace Yume.UI {
       private void _RefreshMailView() {
         _CheckGetAllButton();
         m_mailScrollView.OnRefresh();
-        m_noMailPanel.SetActive(m_mails.Count == 0);
-        m_mailContentPanel.SetActive(m_selectedMail != null);
+        m_noMailPanel.SetActiveEx(m_mails.Count == 0);
+        m_mailContentPanel.SetActiveEx(m_selectedMail != null);
       }
     }
 

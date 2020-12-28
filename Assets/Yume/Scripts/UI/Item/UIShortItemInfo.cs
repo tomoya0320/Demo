@@ -21,9 +21,9 @@ namespace Yume.UI {
 
     public async void Update(ItemDB data) {
       if (data == null) {
-        gameObject.SetActive(false);
+        gameObject.SetActiveEx(false);
       } else {
-        gameObject.SetActive(true);
+        gameObject.SetActiveEx(true);
         m_numText.text = data.num.ToString();
         m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DBManager.instance.GetItemInfo(data.id).iconFileName);
       }

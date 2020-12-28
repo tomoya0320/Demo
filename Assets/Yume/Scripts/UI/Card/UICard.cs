@@ -35,9 +35,9 @@ namespace Yume.UI {
       public async void Update(CardDB data) {
         m_card = data;
         if (m_card == null) {
-          gameObject.SetActive(false);
+          gameObject.SetActiveEx(false);
         } else {
-          gameObject.SetActive(true);
+          gameObject.SetActiveEx(true);
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
           m_nameText.text = cardInfo.name;
           m_phaseText.text = m_card.phase.ToString();

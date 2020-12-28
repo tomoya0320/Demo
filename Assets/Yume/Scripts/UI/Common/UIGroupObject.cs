@@ -19,7 +19,7 @@ namespace Yume.UI {
 
     private void Awake() {
       foreach (var ui in _uiList) {
-        ui.content.SetActive(false);
+        ui.content.SetActiveEx(false);
         ui.button.onClick.AddListener(() => _Switch(ui));
       }
 
@@ -30,10 +30,10 @@ namespace Yume.UI {
 
     private void _Switch(UIKV ui) {
       if (m_lastUI!=null) {
-        m_lastUI.content.SetActive(false);
+        m_lastUI.content.SetActiveEx(false);
         m_lastUI.button.image.sprite = m_lastUI.btnUnselectedImg;
       }
-      ui.content.SetActive(true);
+      ui.content.SetActiveEx(true);
       ui.button.image.sprite = ui.btnSelectedImg; ;
       m_lastUI = ui;
     }

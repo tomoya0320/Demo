@@ -63,6 +63,17 @@ public static class GameObjectTools {
   public static RectTransform GetRect(this GameObject gameObject) {
     return gameObject.GetComponent<RectTransform>();
   }
+
+  /// <summary>
+  /// 只有物体的激活状态与value不同时才会调用
+  /// </summary>
+  /// <param name="gameObject"></param>
+  /// <param name="value"></param>
+  public static void SetActiveEx(this GameObject gameObject, bool value) {
+    if (gameObject.activeSelf != value) {
+      gameObject.SetActive(value);
+    }
+  }
 }
 
 /// <summary>

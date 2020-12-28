@@ -30,13 +30,13 @@ namespace Yume.UI {
     }
 
     public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => root.SetActive(true));
+      onOpenStart = onOpenStart.AddAction(() => root.SetActiveEx(true));
 
       base.Open(onOpenStart, onOpenEnd, args);
     }
 
     public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      onCloseEnd = onCloseEnd.AddAction(() => root.SetActive(false));
+      onCloseEnd = onCloseEnd.AddAction(() => root.SetActiveEx(false));
 
       base.Close(onCloseStart, onCloseEnd, args);
     }
