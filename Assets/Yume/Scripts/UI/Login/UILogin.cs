@@ -112,7 +112,7 @@ namespace Yume.UI {
 
     private void _GoToMain(JObject json = null) {
       DBManager.instance.LoadUserDB(json);
-      UIManager.instance.OpenOne("blackMask", null, () => UIManager.instance.CloseAllAndOpenOne("main"));
+      UIManager.instance.OpenOne("blackMask", () => UIManager.instance.CloseAllAndOpenOne("main"));
     }
 
     private void _ClearInput() {
@@ -158,15 +158,14 @@ namespace Yume.UI {
       return this;
     }
 
-    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => root.SetActiveEx(true));
-
-      base.Open(onOpenStart, onOpenEnd, args);
+    public override void Open(Action callback = null, params object[] args) {
+      root.SetActiveEx(true);
+      base.Open(callback, args);
     }
 
-    public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      onCloseEnd = onCloseEnd.AddAction(() => root.SetActiveEx(false));
-      base.Close(onCloseStart, onCloseEnd, args);
+    public override void Close(Action callback = null, params object[] args) {
+      callback = callback.AddAction(() => root.SetActiveEx(false));
+      base.Close(callback, args);
     }
   }
 }

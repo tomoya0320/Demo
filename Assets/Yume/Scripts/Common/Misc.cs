@@ -5,6 +5,23 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class Colors {
+  public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
+}
+
+/// <summary>
+/// RectTransform工具类
+/// </summary>
+public static class RectTransformTools {
+  public static void SetSizeDeltaX(this RectTransform rt, float x) {
+    rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
+  }
+
+  public static void SetSizeDeltaY(this RectTransform rt, float y) {
+    rt.sizeDelta = new Vector2(rt.sizeDelta.x, y);
+  }
+}
+
 /// <summary>
 /// Action工具类
 /// </summary>

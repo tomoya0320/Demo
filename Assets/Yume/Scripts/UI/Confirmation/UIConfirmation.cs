@@ -16,7 +16,7 @@ namespace Yume.UI {
       m_cancel = GetComponent<YButton>("cancel");
     }
 
-    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public override void Open(Action callback = null, params object[] args) {
       m_label.text = (string)args[0];
       m_ok.textComponent.text = (string)args[1];
       m_cancel.textComponent.text = (string)args[2];
@@ -30,7 +30,7 @@ namespace Yume.UI {
         UIManager.instance.CloseOne(name, null, args[4] as Action);
       });
 
-      base.Open(onOpenStart, onOpenEnd, args);
+      base.Open(callback, args);
     }
   }
 }

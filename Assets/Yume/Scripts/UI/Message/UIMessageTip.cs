@@ -18,7 +18,7 @@ namespace Yume.UI {
       m_textRect = m_description.GetComponent<RectTransform>();
     }
 
-    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public override void Open(Action callback = null, params object[] args) {
       m_message = args[0] as Message;
 
       if (m_message.isShowImg) {
@@ -38,13 +38,15 @@ namespace Yume.UI {
       m_textRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
          Mathf.Clamp(m_description.preferredWidth, 300, 1500));
 
-      onOpenEnd = onOpenEnd.AddAction(() => {
-        CoroutineHelper.instance.RunCoroutine(_DelayInvoke(m_message.duration, () => {
-          UIManager.instance.CloseOne(name, null, MessageManager.instance.ShowMessage);
-        }));
-      });
 
-      base.Open(onOpenStart, onOpenEnd, args);
+      Action action = () => {
+        CoroutineHelper.instance.RunCoroutine(_DelayInvoke(m_message.duration, () => {
+          UIManager.instance.CloseOne(name, MessageManager.instance.ShowMessage);
+        }));
+      };
+      callback = action.AddAction(callback);
+
+      base.Open(callback, args);
     }
 
     private IEnumerator _DelayInvoke(float time,Action callback) {

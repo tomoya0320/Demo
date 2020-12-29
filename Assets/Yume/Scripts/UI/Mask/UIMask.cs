@@ -11,17 +11,15 @@ namespace Yume.UI {
       m_mask = GetComponent<Image>("Mask");
     }
 
-    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => m_mask.enabled = true);
-      onOpenEnd = onOpenEnd.AddAction(() => UIManager.instance.CloseOne(name));
-
-      base.Open(onOpenStart, onOpenEnd, args);
+    public override void Open(Action callback = null, params object[] args) {
+      m_mask.enabled = true;
+      callback = callback.AddAction(() => UIManager.instance.CloseOne(name));
+      base.Open(callback, args);
     }
 
-    public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      onCloseEnd = onCloseEnd.AddAction(() => m_mask.enabled = false);
-
-      base.Close(onCloseStart, onCloseEnd, args);
+    public override void Close(Action callback = null, params object[] args) {
+      callback = callback.AddAction(() => m_mask.enabled = false);
+      base.Close(callback, args);
     }
   }
 }

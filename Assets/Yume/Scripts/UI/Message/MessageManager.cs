@@ -46,7 +46,7 @@ namespace Yume.UI {
     public void ShowMessage() {
       if (m_messageQueue.Count > 0) {
         var message = m_messageQueue.Dequeue();
-        UIManager.instance.OpenOne($"message_{message.style.GetDescription()}", null, null, message);
+        UIManager.instance.OpenOne($"message_{message.style.GetDescription()}", null, message);
       } else {
         m_isMessageShowing = false;
       }

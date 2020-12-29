@@ -29,11 +29,13 @@ namespace Yume.UI {
     public override void OnPointerDown(PointerEventData eventData) {
       base.OnPointerDown(eventData);
 
-      if (interactable || _soundEvenInactive) {
-        string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
-                         StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
+      if (currentSelectionState != SelectionState.Disabled) {
+        if (interactable || _soundEvenInactive) {
+          string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
+                           StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
 
-        AudioManager.instance.PlaySound(clipName);
+          AudioManager.instance.PlaySound(clipName);
+        }
       }
     }
   }

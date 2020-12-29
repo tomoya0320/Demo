@@ -103,24 +103,24 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void OpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public void OpenOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
         var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Close(null, () => {
-            _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          stack.Peek().Close(() => {
+            _OpenInternal(data, stack, callback, args);
           });
         } else {
-          _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          _OpenInternal(data, stack, callback, args);
         }
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
     }
 
-    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {    
+    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
@@ -138,7 +138,7 @@ namespace Yume.UI {
         ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
       }
       stack.Push(ui);
-      ui.Open(onOpenStart, onOpenEnd, args);
+      ui.Open(callback, args);
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseAllAndOpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
         var stack = m_uiStackDict[data.uiType];
@@ -170,7 +170,7 @@ namespace Yume.UI {
         while (stack.Count > 0) {
           stack.Pop().Destroy();
         }
-        OpenOne(name, onOpenStart, onOpenEnd, args);
+        OpenOne(name, callback, args);
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
@@ -181,7 +181,7 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseOne(string name, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+    public void CloseOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
@@ -191,7 +191,7 @@ namespace Yume.UI {
           return;
         }
         if (stack.Peek().name == name) {
-          _CloseInternal(data, stack, onCloseStart, onCloseEnd, args);
+          _CloseInternal(data, stack, callback, args);
         } else {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
@@ -224,7 +224,7 @@ namespace Yume.UI {
           if (m_uiStackDict[UIType.NORMAL].Count > 1) {
             CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
           } else {
-            OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
           }
         }
       }
@@ -238,7 +238,7 @@ namespace Yume.UI {
     public bool isShowing(string name) {
       foreach (var stack in m_uiStackDict.Values) {
         foreach (var ui in stack) {
-          if(ui.name == name) {
+          if (ui.name == name) {
             return ui.isShowing;
           }
         }
@@ -247,7 +247,7 @@ namespace Yume.UI {
       return false;
     }
 
-    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       //NOTICE
       //Action的执行顺序要特别当心
       //先执行回收再执行其他的回调
@@ -261,7 +261,7 @@ namespace Yume.UI {
         }
       };
 
-      stack.Peek().Close(onCloseStart, action.AddAction(onCloseEnd), args);
+      stack.Peek().Close(action.AddAction(callback), args);
     }
 
     private Transform _GetRootByType(UIType uiType) {

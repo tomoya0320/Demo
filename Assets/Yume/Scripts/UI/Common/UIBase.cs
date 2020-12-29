@@ -37,66 +37,53 @@ namespace Yume.UI {
     }
 
     /// <summary>
-    /// 当没有动画时直接执行onCloseEnd
+    /// 当没有动画时直接执行callback
     /// </summary>
-    /// <param name="onCloseStart"></param>
-    /// <param name="onCloseEnd"></param>
+    /// <param name="callback"></param>
     /// <param name="args"></param>
-    public virtual void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      Action action = () => {
-        m_canvasGroup.interactable = false;
-        UIManager.instance.activeBack = false;
-      };
-      onCloseStart = action.AddAction(onCloseStart);
+    public virtual void Close(Action callback = null, params object[] args) {
+      //保证动画完整播放
+      m_canvasGroup.interactable = false;
+      UIManager.instance.activeBack = false;
 
-      action = () => {
+      Action action = () => {
         m_isShowing = false;
         m_canvasGroup.interactable = true;
         UIManager.instance.activeBack = true;
       };
-      onCloseEnd = action.AddAction(onCloseEnd);
+      callback = action.AddAction(callback);
 
-      onCloseStart?.Invoke();
       if (m_animation.GetClip("close")) {
         m_animation.Play("close");
-        CoroutineHelper.instance.RunCoroutine(_AnimCallBack(onCloseEnd));
+        CoroutineHelper.instance.AnimCallback(m_animation, callback);
       } else {
-        onCloseEnd?.Invoke();
+        callback?.Invoke();
       }
     }
 
     /// <summary>
     /// 当没有动画时直接执行onOpenEnd
     /// </summary>
-    /// <param name="onCloseStart"></param>
-    /// <param name="onCloseEnd"></param>
+    /// <param name="callback"></param>
     /// <param name="args"></param>
-    public virtual void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      Action action = () => {
-        m_isShowing = true;
-        m_canvasGroup.interactable = false;
-        UIManager.instance.activeBack = false;
-      };
-      onOpenStart = action.AddAction(onOpenStart);
+    public virtual void Open(Action callback = null, params object[] args) {
+      //保证动画完整播放
+      m_isShowing = true;
+      m_canvasGroup.interactable = false;
+      UIManager.instance.activeBack = false;
 
-      action = () => {
+      Action action = () => {
         m_canvasGroup.interactable = true;
         UIManager.instance.activeBack = true;
       };
-      onOpenEnd = action.AddAction(onOpenEnd);
+      callback = action.AddAction(callback);
 
-      onOpenStart?.Invoke();
       if (m_animation.GetClip("open")) {
         m_animation.Play("open");
-        CoroutineHelper.instance.RunCoroutine(_AnimCallBack(onOpenEnd));
+        CoroutineHelper.instance.AnimCallback(m_animation, callback);
       } else {
-        onOpenEnd?.Invoke();
+        callback?.Invoke();
       }
-    }
-
-    private IEnumerator _AnimCallBack(Action callback) {
-      yield return new WaitUntil(() => !m_animation.isPlaying);
-      callback?.Invoke();
     }
 
     /// <summary>

@@ -56,13 +56,13 @@ namespace Yume.UI {
           m_processContent.gameObject.SetActiveEx(task.state == TaskState.INPROCESS);
           m_getReward.gameObject.SetActiveEx(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
           m_getReward.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
-          m_getReward.image.color = task.state == TaskState.FINAL ? 0.5f * Color.white : m_getReward.colors.normalColor;
+          m_getReward.image.color = task.state == TaskState.FINAL ? Colors.DISABLE_BUTTON : m_getReward.colors.normalColor;
         }
       }
 
       private void _GetReward() {
         m_getReward.interactable = false;
-        m_getReward.image.color = 0.5f * Color.white;
+        m_getReward.image.color = Colors.DISABLE_BUTTON;
         m_getReward.textComponent.text = StringMap.COMPLETED;
 
         DBManager.instance.CompleteTask(task);

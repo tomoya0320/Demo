@@ -136,8 +136,8 @@ namespace Yume.UI {
           m_contentText.text = string.Format(mail.content, DBManager.instance.userName);
 
           m_selectedMail = mail;
-          m_getButton.interactable = !mail.isReceived;
-          m_getButton.textComponent.text = mail.isReceived ? StringMap.GOT : StringMap.CLICK_GET;
+
+          _CheckGetButton();
 
           m_attachmentScrollView.OnRefresh(new List<ItemDB>(mail.attachment));
         }
@@ -147,22 +147,33 @@ namespace Yume.UI {
         EventCenter.RemoveListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
       }
 
+      private void _CheckGetButton() {
+        if (m_selectedMail != null) {
+          m_getButton.interactable = !m_selectedMail.isReceived;
+          m_getButton.textComponent.text = m_selectedMail.isReceived ? StringMap.GOT : StringMap.CLICK_GET;
+          m_getButton.image.color = m_selectedMail.isReceived ? Colors.DISABLE_BUTTON : m_getButton.colors.normalColor;
+        }
+      }
+
       private void _CheckGetAllButton() {
-        m_getAllButton.interactable = false;
         foreach (MailDB mail in m_mails) {
           if (!mail.isReceived) {
             m_getAllButton.interactable = true;
-            break;
+            m_getAllButton.image.color = m_getAllButton.colors.normalColor;
+            return;
           }
         }
+
+        m_getAllButton.interactable = false;
+        m_getAllButton.image.color = Colors.DISABLE_BUTTON;
       }
 
       private void _GetAttachment() {
         if (m_selectedMail != null && !m_selectedMail.isReceived) {
           m_selectedMail.GetAttachment();
-          m_getButton.interactable = false;
-          m_getButton.textComponent.text = StringMap.GOT;
+
           _CheckGetAllButton();
+          _CheckGetButton();
 
           DBManager.instance.UpdateUserData();
         }
@@ -180,11 +191,11 @@ namespace Yume.UI {
         foreach (var mail in tempMailList) {
           mail.GetAttachment();
           if (mail == m_selectedMail) {
-            m_getButton.interactable = false;
-            m_getButton.textComponent.text = StringMap.GOT;
+            _CheckGetButton();
           }
         }
         m_getAllButton.interactable = false;
+        m_getAllButton.image.color = Colors.DISABLE_BUTTON;
 
         DBManager.instance.UpdateUserData();
       }

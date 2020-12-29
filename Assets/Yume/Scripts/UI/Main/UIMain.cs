@@ -29,16 +29,14 @@ namespace Yume.UI {
       m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
     }
 
-    public override void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
-      onOpenStart = onOpenStart.AddAction(() => root.SetActiveEx(true));
-
-      base.Open(onOpenStart, onOpenEnd, args);
+    public override void Open( Action callback = null, params object[] args) {
+      root.SetActiveEx(true);
+      base.Open(callback, args);
     }
 
-    public override void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
-      onCloseEnd = onCloseEnd.AddAction(() => root.SetActiveEx(false));
-
-      base.Close(onCloseStart, onCloseEnd, args);
+    public override void Close(Action callback = null, params object[] args) {
+      callback = callback.AddAction(() => root.SetActiveEx(false));
+      base.Close(callback, args);
     }
   }
 }
