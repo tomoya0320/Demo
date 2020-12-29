@@ -6,7 +6,7 @@ using Yume.Resource;
 
 namespace Yume.UI {
   public enum UIType {
-    NORMAL, TOP, TIP/*消息提示要放最顶层，所有的消息提示不参与交互*/
+    NORMAL, TOP, TIP
   }
 
   [Serializable]
