@@ -18,15 +18,12 @@ namespace Yume.UI {
     protected override void Awake() {
       base.Awake();
       _textComponent = GetComponentInChildren<Text>(true);
-      /*colors = new ColorBlock {
-        normalColor = Color.white,
-        highlightedColor = Color.white,
-        pressedColor = Color.white,
-        selectedColor = Color.white,
-        disabledColor = Color.white,
-        colorMultiplier = 1.0f,
-        fadeDuration = 0
-      };*/
+      ColorBlock newColors = colors;
+      newColors.normalColor = Color.white;
+      newColors.highlightedColor = Color.white;
+      newColors.selectedColor = Color.white;
+      newColors.disabledColor = Color.white;
+      colors = newColors;
     }
 
     public override void OnPointerDown(PointerEventData eventData) {

@@ -33,6 +33,8 @@ namespace Yume.UI {
 
     private Action m_quitGame = Application.Quit;
 
+    public bool activeBack { set; get; }
+
     protected override void OnInit() {
       base.OnInit();
       m_topCanvas = GameObject.Find("TopCanvas")?.transform;
@@ -104,12 +106,6 @@ namespace Yume.UI {
     public void OpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
-          return;
-        }
-
         var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
@@ -169,12 +165,6 @@ namespace Yume.UI {
     public void CloseAllAndOpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
-          return;
-        }
-
         var stack = m_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
@@ -194,12 +184,6 @@ namespace Yume.UI {
     public void CloseOne(string name, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning($"上一个UI正在播放open或close动画！UIType:{data.uiType}");
-          return;
-        }
-
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
 
         if (stack.Count == 0) {
@@ -233,13 +217,15 @@ namespace Yume.UI {
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
     public void Back() {
-      if (isShowing("confirmation")) {
-        CloseOne("confirmation");
-      } else {
-        if (m_uiStackDict[UIType.NORMAL].Count > 1) {
-          CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
+      if (activeBack) {
+        if (isShowing("confirmation")) {
+          CloseOne("confirmation");
         } else {
-          OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+          if (m_uiStackDict[UIType.NORMAL].Count > 1) {
+            CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
+          } else {
+            OpenOne("confirmation", null, null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+          }
         }
       }
     }

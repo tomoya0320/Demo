@@ -11,6 +11,7 @@ namespace Yume.UI {
     private UIObject m_uiObject;
     private Animation m_animation;
     public GameObject root => m_root;
+    private CanvasGroup m_canvasGroup;
     public string name => m_uiData.name;
     public float cacheTime => m_uiData.cacheTime;
     /// <summary>
@@ -22,8 +23,9 @@ namespace Yume.UI {
       m_root = root;
       m_uiData = uiData;
       m_root.name = uiData.name;
-      m_uiObject = root.GetComponentInChildren<UIObject>();
-      m_animation = root.GetComponentInChildren<Animation>();
+      m_uiObject = root.GetComponent<UIObject>();
+      m_animation = root.GetComponent<Animation>();
+      m_canvasGroup = root.GetComponent<CanvasGroup>();
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
@@ -42,13 +44,15 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Close(Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
       Action action = () => {
-        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", true);
+        m_canvasGroup.interactable = false;
+        UIManager.instance.activeBack = false;
       };
       onCloseStart = action.AddAction(onCloseStart);
 
       action = () => {
         m_isShowing = false;
-        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", false);
+        m_canvasGroup.interactable = true;
+        UIManager.instance.activeBack = true;
       };
       onCloseEnd = action.AddAction(onCloseEnd);
 
@@ -70,12 +74,14 @@ namespace Yume.UI {
     public virtual void Open(Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
       Action action = () => {
         m_isShowing = true;
-        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", true);
+        m_canvasGroup.interactable = false;
+        UIManager.instance.activeBack = false;
       };
       onOpenStart = action.AddAction(onOpenStart);
 
       action = () => {
-        UIManager.instance.SetSharedArgs(m_uiData.uiType + "isTweening", false);
+        m_canvasGroup.interactable = true;
+        UIManager.instance.activeBack = true;
       };
       onOpenEnd = action.AddAction(onOpenEnd);
 
