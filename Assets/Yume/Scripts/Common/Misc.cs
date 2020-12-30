@@ -9,9 +9,6 @@ public class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }
 
-/// <summary>
-/// RectTransform工具类
-/// </summary>
 public static class RectTransformTools {
   public static void SetSizeDeltaX(this RectTransform rt, float x) {
     rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
@@ -22,9 +19,6 @@ public static class RectTransformTools {
   }
 }
 
-/// <summary>
-/// Action工具类
-/// </summary>
 public static class ActionTools {
   /// <summary>
   /// 添加时会判断action和add是否为空
@@ -43,9 +37,6 @@ public static class ActionTools {
   }
 }
 
-/// <summary>
-/// List拓展工具类
-/// </summary>
 public static class ListTools {
   public static T First<T>(this List<T> list) {
     if (list.Count == 0) {
@@ -62,9 +53,6 @@ public static class ListTools {
   }
 }
 
-/// <summary>
-/// Image拓展工具类
-/// </summary>
 public static class ImageTools {
   public static void SetAlpha(this Image image, float alpha) {
     Color color = image.color;
@@ -73,12 +61,9 @@ public static class ImageTools {
   }
 }
 
-/// <summary>
-/// GameObject拓展工具类
-/// </summary>
 public static class GameObjectTools {
-  public static RectTransform GetRect(this GameObject gameObject) {
-    return gameObject.GetComponent<RectTransform>();
+  public static void SetParent(this GameObject gameObject, Transform parent) {
+    gameObject.transform.SetParent(parent);
   }
 
   /// <summary>
@@ -93,9 +78,6 @@ public static class GameObjectTools {
   }
 }
 
-/// <summary>
-/// 枚举拓展工具类
-/// </summary>
 public static class EnumTools {
   /// <summary>
   /// 获取当前枚举描述

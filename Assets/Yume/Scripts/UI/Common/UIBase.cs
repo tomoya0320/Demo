@@ -90,7 +90,7 @@ namespace Yume.UI {
     /// 回收UI对象，返回UI实例
     /// </summary>
     public virtual UIBase Recycle() {
-      root.transform.SetParent(UIManager.instance.cacheCanvas);
+      root.SetParent(UIManager.instance.cacheCanvas);
       return this;
     }
 
