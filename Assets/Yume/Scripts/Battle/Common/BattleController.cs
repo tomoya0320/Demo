@@ -1,8 +1,7 @@
 ﻿namespace Yume.Battle {
   public class BattleController : SingletonMono<BattleController> {
-    protected override void OnInit() {
+    protected override void OnBeforeInit() {
       dontDestroyOnLoad = false;
-      base.OnInit();
     }
   }
 }

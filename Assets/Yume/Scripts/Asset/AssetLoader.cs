@@ -10,8 +10,7 @@ namespace Yume.Resource {
   public class AssetLoader : Singleton<AssetLoader> {
     private JObject m_data = new JObject();
 
-    protected override void OnInit() {
-      base.OnInit();
+    protected override void OnBeforeInit() {
       foreach (var url in Game.instance.assetUrls) {
         m_data.Merge(JObject.FromObject(ResourceManager.LoadAsset<Object>(url)));
       }

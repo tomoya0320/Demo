@@ -35,8 +35,7 @@ namespace Yume.UI {
 
     public bool activeBack { set; get; }
 
-    protected override void OnInit() {
-      base.OnInit();
+    protected override void OnBeforeInit() {
       m_topCanvas = GameObject.Find("TopCanvas")?.transform;
       m_tipCanvas = GameObject.Find("TipCanvas")?.transform;
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;

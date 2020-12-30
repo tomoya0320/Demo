@@ -127,20 +127,20 @@ public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T
   }
 
   private void Awake() {
+    OnBeforeInit();
+
     if (s_instance == null) {
       s_instance = this as T;
-      OnInit();
+      if (dontDestroyOnLoad) {
+        DontDestroyOnLoad(gameObject);
+      }
     } else {
-      Debug.LogWarning("Duplicate Instacne:" + typeof(T).Name);
+      Debug.LogWarning("Duplicate Instacne:" + nameof(T));
       Destroy(gameObject);
     }
   }
 
-  protected virtual void OnInit() {
-    if (dontDestroyOnLoad) {
-      DontDestroyOnLoad(gameObject);
-    }
-  }
+  protected virtual void OnBeforeInit() { }
 }
 
 public abstract class Singleton<T> where T : new() {
@@ -161,8 +161,8 @@ public abstract class Singleton<T> where T : new() {
   }
 
   protected Singleton() {
-    OnInit();
+    OnBeforeInit();
   }
 
-  protected virtual void OnInit() { }
+  protected virtual void OnBeforeInit() { }
 }
