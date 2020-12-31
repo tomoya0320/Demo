@@ -164,7 +164,7 @@ namespace Yume.UI {
     }
 
     public override void Close(Action callback = null, params object[] args) {
-      callback = callback.AddAction(() => root.SetActiveEx(false));
+      callback += () => root.SetActiveEx(false);
       base.Close(callback, args);
     }
   }

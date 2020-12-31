@@ -8,6 +8,7 @@ namespace Yume.UI {
   /// </summary>
   /// <typeparam name="TData"></typeparam>
   public interface IScrollTerm<TData> {
+    bool isValid { get; }
     void Update(TData data);
   }
 

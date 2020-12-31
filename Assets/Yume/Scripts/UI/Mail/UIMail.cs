@@ -8,6 +8,7 @@ using Yume.DB;
 using Yume.MailSystem;
 using Yume.Math;
 using Yume.String;
+using Yume.RedPointSystem;
 
 namespace Yume.UI {
   public class UIMail : UIBase {
@@ -24,7 +25,10 @@ namespace Yume.UI {
 
       public MailDB mail => m_mail;
       public Image bottomImg => m_bottomImg;
+      public bool isValid => m_mail != null;
       public GameObject gameObject => m_root;
+
+      private UIRedPoint m_mailRedPoint;
 
       public UIMailTerm(UIMailGroup mailGroup, GameObject root) {
         m_root = root;
@@ -37,6 +41,9 @@ namespace Yume.UI {
         m_clickButton = uiObject.GetComponent<Button>("ClickButton");
         m_dateDeltaText = uiObject.GetComponent<Text>("DateDeltaText");
         m_attachmentImg = uiObject.GetComponent<Image>("AttachmentImage");
+
+        var mailRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointGo);
 
         _AddListener();
       }
@@ -54,9 +61,9 @@ namespace Yume.UI {
           gameObject.SetActiveEx(false);
         } else {
           gameObject.SetActiveEx(true);
-          m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
           m_titleText.text = mail.title;
           m_attachmentImg.enabled = mail.attachment.Length > 0;
+          m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
           m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
         }
       }

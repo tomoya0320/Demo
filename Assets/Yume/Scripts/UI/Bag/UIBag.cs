@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Broadcast;
 using Yume.DB;
+using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.String;
 
@@ -17,8 +18,12 @@ namespace Yume.UI {
       private Button m_clickButton;
       public ItemDB item => m_item;
       private GameObject m_selected;
+      public bool isValid => m_item != null;
       public GameObject gameObject => m_root;
+
       private UIItemInfoBoard m_itemInfoBoard;
+
+      private UIRedPoint m_itemRedPoint;
 
       public UIItemTerm(UIItemInfoBoard itemInfoBoard, GameObject root) {
         m_root = root;
@@ -30,6 +35,9 @@ namespace Yume.UI {
 
         m_itemInfoBoard = itemInfoBoard;
 
+        var itemRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointGo);
+
         _AddListener();
       }
 
@@ -37,6 +45,13 @@ namespace Yume.UI {
         m_clickButton.onClick.AddListener(() => {
           m_itemInfoBoard.SetSelecteItem(m_item);
           m_itemInfoBoard.itemScrollView.UpdateViewList();
+          if (m_item != null && !m_item.isViewed) {
+            m_item.isViewed = true;
+            //这个得手动存档一下
+            DBManager.instance.UpdateUserData();
+            //更新RedPoint
+            RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, m_item.id, MainItemRedPointTree.MAIN_ITEM, 0);
+          }
         });
       }
 
@@ -53,6 +68,10 @@ namespace Yume.UI {
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
                                    DBManager.instance.GetItemInfo(item.id).iconFileName);
         }
+      }
+
+      public void Destroy() {
+
       }
     }
 
@@ -83,6 +102,10 @@ namespace Yume.UI {
       }
 
       public void Destroy() {
+        foreach (var itemTerm in m_itemTermList) {
+          itemTerm.Destroy();
+        }
+
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemInfoBoard.UpdateInfoBoard);
       }

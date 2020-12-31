@@ -51,7 +51,7 @@ namespace Yume.UI {
         m_canvasGroup.interactable = true;
         UIManager.instance.activeBack = true;
       };
-      callback = action.AddAction(callback);
+      callback = action + callback;
 
       if (m_animation.GetClip("close")) {
         m_animation.Play("close");
@@ -76,7 +76,7 @@ namespace Yume.UI {
         m_canvasGroup.interactable = true;
         UIManager.instance.activeBack = true;
       };
-      callback = action.AddAction(callback);
+      callback = action + callback;
 
       if (m_animation.GetClip("open")) {
         m_animation.Play("open");

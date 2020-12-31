@@ -44,7 +44,7 @@ namespace Yume.UI {
           UIManager.instance.CloseOne(name, MessageManager.instance.ShowMessage);
         }));
       };
-      callback = action.AddAction(callback);
+      callback = action + callback;
 
       base.Open(callback, args);
     }

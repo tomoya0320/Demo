@@ -7,6 +7,7 @@ using Yume.String;
 using Yume.UI;
 using Yume.Resource;
 using System.ComponentModel;
+using Yume.RedPointSystem;
 
 namespace Yume.Task {
   /// <summary>
@@ -138,10 +139,14 @@ namespace Yume.Task {
         if (completed && state == TaskState.INPROCESS) {
           TaskInfo taskInfo = DBManager.instance.GetTaskInfo(type, id);
           state = TaskState.COMPLETED;
+          //更新RedPoint
+          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, id, type.GetDescription(), 1);
           MessageManager.instance.AddMessage(new Message
           (Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskInfo.title)));
         } else if (!completed && state == TaskState.COMPLETED) {
           state = TaskState.INPROCESS;
+          //更新RedPoint
+          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, id, type.GetDescription(), 0);
         }
       }
     }
@@ -162,7 +167,8 @@ namespace Yume.Task {
           DBManager.instance.ConsumeItems(false, new ItemDB(taskRequest.requirementId, taskRequest.requiredNum));
         }
       }
-
+      //更新RedPoint
+      RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, id, type.GetDescription(), 0);
       DBManager.instance.UpdateUserData();
     }
   }

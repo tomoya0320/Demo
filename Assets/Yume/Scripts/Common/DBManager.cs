@@ -9,6 +9,7 @@ using Yume.Battle;
 using Yume.Broadcast;
 using Yume.MailSystem;
 using Yume.Math;
+using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.Server;
 using Yume.String;
@@ -324,6 +325,10 @@ namespace Yume.DB {
     
     public void AddMails(params MailDB[] mails) {
       userMails.AddRange(mails);
+      foreach (var mail in mails) {
+        //更新RedPoint
+        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
+      }
       EventCenter.Broadcast(Broadcast.EventType.REFRESH_MAIL_VIEW);
     }
 
@@ -377,10 +382,14 @@ namespace Yume.DB {
       for (int i = 0; i < items.Length; i++) {
         tempItem = GetItemDB(items[i].id);
         if (tempItem == null) {
-          userItems.Add(items[i]);
+          tempItem = items[i];
+          userItems.Add(tempItem);
         } else {
+          tempItem.isViewed = false;
           tempItem.num += items[i].num;
         }
+        //更新RedPoint
+        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
       }
       //更新UI显示
       EventCenter.Broadcast(Broadcast.EventType.UPDATE_ITEM_INFO);

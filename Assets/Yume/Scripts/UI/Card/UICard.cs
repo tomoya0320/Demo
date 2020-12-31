@@ -19,6 +19,7 @@ namespace Yume.UI {
       private Text m_energyText;
       private GameObject m_root;
       private Text m_descriptionText;
+      public bool isValid => m_card != null;
       public GameObject gameObject => m_root;
 
       public UICardTerm(GameObject root) {

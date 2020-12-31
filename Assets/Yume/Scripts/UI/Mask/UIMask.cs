@@ -13,12 +13,12 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       m_mask.enabled = true;
-      callback = callback.AddAction(() => UIManager.instance.CloseOne(name));
+      callback += () => UIManager.instance.CloseOne(name);
       base.Open(callback, args);
     }
 
     public override void Close(Action callback = null, params object[] args) {
-      callback = callback.AddAction(() => m_mask.enabled = false);
+      callback += () => m_mask.enabled = false;
       base.Close(callback, args);
     }
   }

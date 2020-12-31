@@ -9,6 +9,30 @@ public class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }
 
+public static class TransformTools {
+  /// <summary>
+  /// 深度优先遍历查找所有的子物体
+  /// </summary>
+  /// <param name="transform"></param>
+  /// <param name="name"></param>
+  /// <returns></returns>
+  public static GameObject FindGo(this Transform transform,string name) {
+    Stack<Transform> stack = new Stack<Transform>();
+    stack.Push(transform);
+    while (stack.Count > 0) {
+      var tempTransform = stack.Pop();
+      if (tempTransform.name == name) {
+        return tempTransform.gameObject;
+      }
+      for (int i = 0; i < tempTransform.childCount; i++) {
+        stack.Push(tempTransform.GetChild(i));
+      }
+    }
+
+    return null;
+  }
+}
+
 public static class RectTransformTools {
   public static void SetSizeDeltaX(this RectTransform rt, float x) {
     rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
@@ -16,24 +40,6 @@ public static class RectTransformTools {
 
   public static void SetSizeDeltaY(this RectTransform rt, float y) {
     rt.sizeDelta = new Vector2(rt.sizeDelta.x, y);
-  }
-}
-
-public static class ActionTools {
-  /// <summary>
-  /// 添加时会判断action和add是否为空
-  /// 不是原地操作
-  /// </summary>
-  /// <param name="action"></param>
-  /// <param name="add"></param>
-  /// <returns></returns>
-  public static Action AddAction(this Action action, Action add) {
-    if (action == null) {
-      action = add;
-    } else if (add != null) {
-      action += add;
-    }
-    return action;
   }
 }
 

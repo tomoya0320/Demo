@@ -44,6 +44,7 @@ namespace Yume.String {
     public const string DIALOGUE = "dialogue";
     public const string UI_OPEN_ANIM = "ui_open";
     public const string UI_CLOSE_ANIM = "ui_close";
+    public const string UI_RED_POINT = "red point";
   }
 
   public class StringUtil {

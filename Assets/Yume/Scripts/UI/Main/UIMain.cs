@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.RedPointSystem;
+using Yume.String;
 
 namespace Yume.UI {
   public class UIMain : UIBase {
@@ -10,6 +12,10 @@ namespace Yume.UI {
     private Button m_mail; 
     private Button m_setting;
 
+    private UIRedPoint m_bagRedPoint;
+    private UIRedPoint m_taskRedPoint;
+    private UIRedPoint m_mailRedPoint;
+
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
       m_bag = GetComponent<Button>("Bag");
@@ -17,6 +23,13 @@ namespace Yume.UI {
       m_card = GetComponent<Button>("Card");
       m_mail = GetComponent<Button>("Mail");
       m_setting = GetComponent<Button>("Setting");
+
+      var bagRedPointGo = m_bag.transform.FindGo(StringMap.UI_RED_POINT);
+      m_bagRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, MainItemRedPointTree.MAIN_ITEM, null, bagRedPointGo);
+      var taskRedPointGo = m_task.transform.FindGo(StringMap.UI_RED_POINT);
+      m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK, null, taskRedPointGo);
+      var mailRedPointGo = m_mail.transform.FindGo(StringMap.UI_RED_POINT);
+      m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, MainMailRedPointTree.MAIN_MAIL, null, mailRedPointGo);
 
       _AddListener();
     }
@@ -35,8 +48,12 @@ namespace Yume.UI {
     }
 
     public override void Close(Action callback = null, params object[] args) {
-      callback = callback.AddAction(() => root.SetActiveEx(false));
+      callback += () => root.SetActiveEx(false);
       base.Close(callback, args);
+    }
+
+    public override void Destroy() {
+
     }
   }
 }

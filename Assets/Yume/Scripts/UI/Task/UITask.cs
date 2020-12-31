@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.DB;
+using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.String;
 using Yume.Task;
@@ -16,12 +17,14 @@ namespace Yume.UI {
       private Text m_description;
       private YButton m_getReward;
       public TaskDB task => m_task;
+      private UIRedPoint m_taskRedPoint;
+      public bool isValid => m_task != null;
       private RectTransform m_rewardContent;
       private RectTransform m_processContent;
       public GameObject gameObject => m_root;
       public Transform transform => m_root.transform;
 
-      public UITaskTerm(GameObject root) {
+      public UITaskTerm(TaskType type, GameObject root) {
         m_root = root;
         var uiObject = root.GetComponent<UIObject>();
         m_title = uiObject.GetComponent<Text>("title");
@@ -29,6 +32,9 @@ namespace Yume.UI {
         m_getReward = uiObject.GetComponent<YButton>("getReward");
         m_rewardContent = uiObject.GetComponent<RectTransform>("rewardContent");
         m_processContent = uiObject.GetComponent<RectTransform>("processContent");
+
+        var taskRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, type.GetDescription(), taskRedPointGo);
 
         _AddListener();
 
@@ -105,15 +111,17 @@ namespace Yume.UI {
     private class UITaskGroup {
       private TaskType m_taskType;
       private List<TaskDB> m_tasks;
+      private UIRedPoint m_taskRedPoint;
       private GridLayoutGroup m_taskGLG;
       private ScrollRect m_taskScrollRect;
       private List<TaskDB> m_taskShowList = new List<TaskDB>();
       private UIScrollView<TaskDB, UITaskTerm> m_taskScrollView;
       private List<UITaskTerm> m_taskTermList = new List<UITaskTerm>();
 
-      public UITaskGroup(TaskType type, ScrollRect taskScrollRect) {
+      public UITaskGroup(TaskType type, GameObject root) {
         m_taskType = type;
-        m_taskScrollRect = taskScrollRect;
+        var uiObject = root.GetComponent<UIObject>();
+        m_taskScrollRect = uiObject.GetComponent<ScrollRect>("ScrollRect");
         m_taskGLG = m_taskScrollRect.content.GetComponent<GridLayoutGroup>();
 
         m_tasks = DBManager.instance.GetTaskList(m_taskType);
@@ -127,10 +135,13 @@ namespace Yume.UI {
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
 
         for (int i = 0; i < m_taskScrollRect.content.childCount; i++) {
-          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject));
+          m_taskTermList.Add(new UITaskTerm(m_taskType, m_taskScrollRect.content.GetChild(i).gameObject));
         }
 
         m_taskScrollView = new UIScrollView<TaskDB, UITaskTerm>(m_taskScrollRect, m_taskGLG, m_taskShowList, m_taskTermList);
+
+        var taskRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointGo);
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
@@ -166,8 +177,7 @@ namespace Yume.UI {
       base.OnInit(uiData, root);
 
       foreach (TaskType type in System.Enum.GetValues(typeof(TaskType))) {
-        var scrollRect = GetComponent<ScrollRect>($"{type.GetDescription()}/scrollRect");       
-        m_taskGroupList.Add(new UITaskGroup(type, scrollRect));
+        m_taskGroupList.Add(new UITaskGroup(type, GetGameObject($"{type.GetDescription()}/root")));
       }
 
       _AddListener();

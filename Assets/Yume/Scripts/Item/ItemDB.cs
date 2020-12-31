@@ -3,8 +3,12 @@
 namespace Yume.Battle {
   [Serializable]
   public class ItemDB {
-    public string id;
     public int num;
+    public string id;
+    /// <summary>
+    /// RedPoint用
+    /// </summary>
+    public bool isViewed;
 
     public ItemDB(string id, int num) {
       this.id = id;

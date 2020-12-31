@@ -249,7 +249,7 @@ namespace Yume.UI {
     private void _CloseInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       //NOTICE
       //Action的执行顺序要特别当心
-      //先执行回收再执行其他的回调
+      //先执行下面的再执行其他的回调
       //因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
         //回收
@@ -259,8 +259,9 @@ namespace Yume.UI {
           stack.Peek().Open();
         }
       };
+      callback = action + callback;
 
-      stack.Peek().Close(action.AddAction(callback), args);
+      stack.Peek().Close(callback, args);
     }
 
     private Transform _GetRootByType(UIType uiType) {
