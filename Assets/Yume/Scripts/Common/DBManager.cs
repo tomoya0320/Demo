@@ -31,146 +31,132 @@ namespace Yume.DB {
 
     #region User Data
     private UserDB s_userDB;
+    public bool isLogged => s_userDB != null;
     public string userToken { private set; get; }
     public string userAccount {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.account;
       }
     }
     public string userPassword {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.password;
       }
     }
     public string userName {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.name;
       }
     }    
     public int userAp {
       private set {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         s_userDB.ap = value;
       }
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.ap;
       }
     }    
     public int userMaxAp {
       private set {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         s_userDB.maxAp = value;
       }
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.maxAp;
       }
     }    
     public int userLv {
       private set {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         s_userDB.lv = value;
       }
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.lv;
       }
     }  
     public int userExp {
       private set {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         s_userDB.exp = value;
       }
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.exp;
       }
     }
     public List<ItemDB> userItems {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.items;
       }
     }
     public List<CardDB> userCards {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.cards;
       }
     }
     public List<MailDB> userMails {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.mails;
       }
     }
     public Dictionary<TaskType, List<TaskDB>> userTasks {
       get {
-#if TEST
         if (s_userDB == null) {
           s_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
         }
-#endif
         return s_userDB.tasks;
       }
     }
