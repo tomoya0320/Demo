@@ -16,9 +16,9 @@ public static class TransformTools {
   /// <param name="transform"></param>
   /// <param name="name"></param>
   /// <returns></returns>
-  public static GameObject FindGo(this Transform transform,string name) {
+  public static GameObject FindGo(this GameObject gameObject, string name) {
     Stack<Transform> stack = new Stack<Transform>();
-    stack.Push(transform);
+    stack.Push(gameObject.transform);
     while (stack.Count > 0) {
       var tempTransform = stack.Pop();
       if (tempTransform.name == name) {

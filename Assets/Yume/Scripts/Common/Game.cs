@@ -38,7 +38,7 @@ namespace Yume.Main {
       }
 
       if (Input.GetKeyDown(KeyCode.R)) {
-        DBManager.instance.AddExp(100);
+        DBManager.instance.AddExp(300);
         DBManager.instance.UpdateUserData();
       }
 
@@ -50,11 +50,11 @@ namespace Yume.Main {
       }
 
       if (Input.GetKeyDown(KeyCode.U)) {
-        DBManager.instance.AddCards(new CardDB("card_001_atk", 0));
+        DBManager.instance.AddMails(new MailDB("Test Title4", "Test Title4", "我是傻逼", "瀚瀚"));
+        DBManager.instance.AddMails(new MailDB("Test Title5", "Test Title5", "你是傻逼", "小白"));
+        DBManager.instance.AddMails(new MailDB("Test Title6", "Test Title6", "我爱{0}", "波哥", new ItemDB("item_5_key", 100)));
+        DBManager.instance.UpdateUserData();
       }   
-      if (Input.GetKeyDown(KeyCode.I)) {
-        DBManager.instance.RemoveCards(DBManager.instance.userCards[0]);
-      }
 
 #endif
     }

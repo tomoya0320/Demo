@@ -326,8 +326,10 @@ namespace Yume.DB {
     public void AddMails(params MailDB[] mails) {
       userMails.AddRange(mails);
       foreach (var mail in mails) {
-        //更新RedPoint
-        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
+        if (!mail.isReceived) {
+          //更新RedPoint
+          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
+        }
       }
       EventCenter.Broadcast(Broadcast.EventType.REFRESH_MAIL_VIEW);
     }

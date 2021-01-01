@@ -18,12 +18,10 @@ namespace Yume.UI {
       private Button m_clickButton;
       public ItemDB item => m_item;
       private GameObject m_selected;
+      private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
       public GameObject gameObject => m_root;
-
       private UIItemInfoBoard m_itemInfoBoard;
-
-      private UIRedPoint m_itemRedPoint;
 
       public UIItemTerm(UIItemInfoBoard itemInfoBoard, GameObject root) {
         m_root = root;
@@ -35,7 +33,7 @@ namespace Yume.UI {
 
         m_itemInfoBoard = itemInfoBoard;
 
-        var itemRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        var itemRedPointGo = root.FindGo(StringMap.UI_RED_POINT);
         m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointGo);
 
         _AddListener();
@@ -68,10 +66,11 @@ namespace Yume.UI {
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
                                    DBManager.instance.GetItemInfo(item.id).iconFileName);
         }
+        m_itemRedPoint.Update(m_item?.id);
       }
 
       public void Destroy() {
-
+        m_itemRedPoint.Destroy();
       }
     }
 

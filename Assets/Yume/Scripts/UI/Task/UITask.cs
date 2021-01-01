@@ -33,7 +33,7 @@ namespace Yume.UI {
         m_rewardContent = uiObject.GetComponent<RectTransform>("rewardContent");
         m_processContent = uiObject.GetComponent<RectTransform>("processContent");
 
-        var taskRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        var taskRedPointGo = root.FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, type.GetDescription(), taskRedPointGo);
 
         _AddListener();
@@ -75,10 +75,6 @@ namespace Yume.UI {
         DBManager.instance.UpdateUserData();
       }
 
-      public void Destroy() {
-        EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _UpdateTaskProcess);
-      }
-
       public async void Update(TaskDB data) {
         m_task = data;
         if (task == null) {
@@ -105,6 +101,12 @@ namespace Yume.UI {
           //刷新任务进度
           _UpdateTaskProcess();
         }
+        m_taskRedPoint.Update(m_task?.id);
+      }
+
+      public void Destroy() {
+        m_taskRedPoint.Destroy();
+        EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _UpdateTaskProcess);
       }
     }
 
@@ -140,7 +142,7 @@ namespace Yume.UI {
 
         m_taskScrollView = new UIScrollView<TaskDB, UITaskTerm>(m_taskScrollRect, m_taskGLG, m_taskShowList, m_taskTermList);
 
-        var taskRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        var taskRedPointGo = uiObject.GetGameObject("Button").FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointGo);
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
@@ -151,6 +153,8 @@ namespace Yume.UI {
         foreach (var taskTerm in m_taskTermList) {
           taskTerm.Destroy();
         }
+        m_taskRedPoint.Destroy();
+
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.RemoveListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
       }

@@ -42,7 +42,7 @@ namespace Yume.UI {
         m_dateDeltaText = uiObject.GetComponent<Text>("DateDeltaText");
         m_attachmentImg = uiObject.GetComponent<Image>("AttachmentImage");
 
-        var mailRedPointGo = root.transform.FindGo(StringMap.UI_RED_POINT);
+        var mailRedPointGo = root.FindGo(StringMap.UI_RED_POINT);
         m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointGo);
 
         _AddListener();
@@ -66,6 +66,11 @@ namespace Yume.UI {
           m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
           m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
         }
+        m_mailRedPoint.Update(m_mail?.id);
+      }
+
+      public void Destroy() {
+        m_mailRedPoint.Destroy();
       }
     }
 
@@ -151,6 +156,9 @@ namespace Yume.UI {
       }
 
       public void Destroy() {
+        foreach (var mailTerm in m_mailTermList) {
+          mailTerm.Destroy();
+        }
         EventCenter.RemoveListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
       }
 

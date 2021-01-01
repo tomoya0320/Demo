@@ -7,7 +7,7 @@ namespace Yume.RedPointSystem {
     public override RedPointTree OnInit() {
       redPointTreeType = RedPointTreeType.MAIN_ITEM;
 
-      redPointDict.Add(MAIN_ITEM, new RedPointNode(MAIN_ITEM, null));
+      redPointDict.Add(MAIN_ITEM, new RedPointNode(redPointTreeType, MAIN_ITEM, null));
       foreach (var item in DBManager.instance.userItems) {
         if (!item.isViewed) {
           InitLeafNode(item.id, MAIN_ITEM);

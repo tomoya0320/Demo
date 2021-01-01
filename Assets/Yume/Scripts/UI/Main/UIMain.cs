@@ -24,11 +24,11 @@ namespace Yume.UI {
       m_mail = GetComponent<Button>("Mail");
       m_setting = GetComponent<Button>("Setting");
 
-      var bagRedPointGo = m_bag.transform.FindGo(StringMap.UI_RED_POINT);
+      var bagRedPointGo = m_bag.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_bagRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, MainItemRedPointTree.MAIN_ITEM, null, bagRedPointGo);
-      var taskRedPointGo = m_task.transform.FindGo(StringMap.UI_RED_POINT);
+      var taskRedPointGo = m_task.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK, null, taskRedPointGo);
-      var mailRedPointGo = m_mail.transform.FindGo(StringMap.UI_RED_POINT);
+      var mailRedPointGo = m_mail.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, MainMailRedPointTree.MAIN_MAIL, null, mailRedPointGo);
 
       _AddListener();
@@ -53,7 +53,9 @@ namespace Yume.UI {
     }
 
     public override void Destroy() {
-
+      m_bagRedPoint.Destroy();
+      m_taskRedPoint.Destroy();
+      m_mailRedPoint.Destroy();
     }
   }
 }

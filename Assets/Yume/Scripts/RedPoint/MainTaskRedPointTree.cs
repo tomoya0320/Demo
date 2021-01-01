@@ -9,9 +9,9 @@ namespace Yume.RedPointSystem {
     public override RedPointTree OnInit() {
       redPointTreeType = RedPointTreeType.MAIN_TASK;
 
-      redPointDict.Add(MAIN_TASK, new RedPointNode(MAIN_TASK, null));
+      redPointDict.Add(MAIN_TASK, new RedPointNode(redPointTreeType, MAIN_TASK, null));
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
-        redPointDict.Add(type.GetDescription(), new RedPointNode(
+        redPointDict.Add(type.GetDescription(), new RedPointNode(redPointTreeType,
                          type.GetDescription(), redPointDict[MAIN_TASK]));
 
         foreach (var task in DBManager.instance.userTasks[type]) {
