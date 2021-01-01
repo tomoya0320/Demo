@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using Yume.Tool;
 
@@ -53,9 +52,9 @@ namespace Yume.UI {
       };
       callback = action + callback;
 
-      if (m_animation.GetClip("close")) {
-        m_animation.Play("close");
-        CoroutineHelper.instance.AnimCallback(m_animation, callback);
+      var closeClip = m_animation.GetClip("close");
+      if (closeClip != null) {
+        CoroutineHelper.instance.PlayAnimCallback(closeClip, m_animation, callback);
       } else {
         callback?.Invoke();
       }
@@ -78,9 +77,9 @@ namespace Yume.UI {
       };
       callback = action + callback;
 
-      if (m_animation.GetClip("open")) {
-        m_animation.Play("open");
-        CoroutineHelper.instance.AnimCallback(m_animation, callback);
+      var opneClip = m_animation.GetClip("open");
+      if (opneClip != null) {
+        CoroutineHelper.instance.PlayAnimCallback(opneClip, m_animation, callback);
       } else {
         callback?.Invoke();
       }
