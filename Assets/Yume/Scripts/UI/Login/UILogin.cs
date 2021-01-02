@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.DB;
@@ -112,7 +111,10 @@ namespace Yume.UI {
 
     private void _GoToMain(JObject json = null) {
       DBManager.instance.LoadUserDB(json);
-      UIManager.instance.OpenOne("blackMask", () => UIManager.instance.CloseAllAndOpenOne("main"));
+      UIManager.instance.OpenOne("blackMask", () => {
+        UIManager.instance.CloseOne("blackMask");
+        UIManager.instance.CloseAllAndOpenOne("main");
+      });
     }
 
     private void _ClearInput() {
@@ -141,13 +143,13 @@ namespace Yume.UI {
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
-      m_nameInput = GetComponent<InputField>("NameInput");
-      m_accountInput = GetComponent<InputField>("AccountInput");
-      m_passwordInput = GetComponent<InputField>("PsdInput");
-      m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
-      m_result = GetComponent<Text>("Result");
       m_main = GetGameObject("Main");
       m_second = GetGameObject("Second");
+      m_result = GetComponent<Text>("Result");
+      m_nameInput = GetComponent<InputField>("NameInput");
+      m_passwordInput = GetComponent<InputField>("PsdInput");
+      m_accountInput = GetComponent<InputField>("AccountInput");
+      m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
 
       _AddListener();
     }
@@ -156,16 +158,6 @@ namespace Yume.UI {
       base.Recycle();
       _ClearInput();
       return this;
-    }
-
-    public override void Open(Action callback = null, params object[] args) {
-      root.SetActiveEx(true);
-      base.Open(callback, args);
-    }
-
-    public override void Close(Action callback = null, params object[] args) {
-      callback += () => root.SetActiveEx(false);
-      base.Close(callback, args);
     }
   }
 }

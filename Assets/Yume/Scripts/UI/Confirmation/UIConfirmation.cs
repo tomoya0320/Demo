@@ -11,8 +11,8 @@ namespace Yume.UI {
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
 
-      m_label = GetComponent<Text>("label");
       m_ok = GetComponent<YButton>("ok");
+      m_label = GetComponent<Text>("label");
       m_cancel = GetComponent<YButton>("cancel");
     }
 

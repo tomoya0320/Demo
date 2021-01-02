@@ -77,10 +77,13 @@ public static class GameObjectTools {
   /// </summary>
   /// <param name="gameObject"></param>
   /// <param name="value"></param>
-  public static void SetActiveEx(this GameObject gameObject, bool value) {
+  /// <returns></returns>
+  public static bool SetActiveEx(this GameObject gameObject, bool value) {
     if (gameObject.activeSelf != value) {
       gameObject.SetActive(value);
+      return true;
     }
+    return false;
   }
 }
 

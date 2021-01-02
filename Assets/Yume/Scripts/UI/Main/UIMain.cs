@@ -42,16 +42,6 @@ namespace Yume.UI {
       m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
     }
 
-    public override void Open( Action callback = null, params object[] args) {
-      root.SetActiveEx(true);
-      base.Open(callback, args);
-    }
-
-    public override void Close(Action callback = null, params object[] args) {
-      callback += () => root.SetActiveEx(false);
-      base.Close(callback, args);
-    }
-
     public override void Destroy() {
       m_bagRedPoint.Destroy();
       m_taskRedPoint.Destroy();

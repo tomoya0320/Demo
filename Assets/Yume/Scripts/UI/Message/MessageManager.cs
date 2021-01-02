@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using Yume.Tool;
 
 namespace Yume.UI {
   public class Message {
@@ -46,10 +49,19 @@ namespace Yume.UI {
     public void ShowMessage() {
       if (m_messageQueue.Count > 0) {
         var message = m_messageQueue.Dequeue();
-        UIManager.instance.OpenOne($"message_{message.style.GetDescription()}", null, message);
+        var uiName = $"message_{message.style.GetDescription()}";
+        void action() => CoroutineHelper.instance.RunCoroutine(
+          _DelayInvoke(message.duration, () => UIManager.instance.CloseOne(uiName, ShowMessage)));
+
+        UIManager.instance.OpenOne(uiName, action, message);
       } else {
         m_isMessageShowing = false;
       }
+    }
+
+    private IEnumerator _DelayInvoke(float time, Action callback) {
+      yield return new WaitForSeconds(time);
+      callback?.Invoke();
     }
   }
 }

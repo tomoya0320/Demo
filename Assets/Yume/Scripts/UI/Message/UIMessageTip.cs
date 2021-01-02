@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Collections;
-using Yume.Tool;
 
 namespace Yume.UI {
   public class UIMessageTip : UIBase {
@@ -38,20 +36,7 @@ namespace Yume.UI {
       m_textRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
          Mathf.Clamp(m_description.preferredWidth, 300, 1500));
 
-
-      Action action = () => {
-        CoroutineHelper.instance.RunCoroutine(_DelayInvoke(m_message.duration, () => {
-          UIManager.instance.CloseOne(name, MessageManager.instance.ShowMessage);
-        }));
-      };
-      callback = action + callback;
-
       base.Open(callback, args);
-    }
-
-    private IEnumerator _DelayInvoke(float time,Action callback) {
-      yield return new WaitForSeconds(time);
-      callback?.Invoke();
     }
   }
 }
