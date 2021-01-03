@@ -4,25 +4,23 @@ using Yume.RedPointSystem;
 using Yume.String;
 
 namespace Yume.UI {
-  public class UIRedPoint {
+  public class UIRedPoint : UIChildBase {
     private string m_name;
     private bool m_showNum;
     private string m_parent;
     private int m_redPointNum;
-    private Text m_redPointText;
     public string name => m_name;
-    private GameObject m_redPointGo;
+    private Text m_redPointNumText;
     public string parent => m_parent;
     private RedPointTreeType m_redPointTreeType;
     public RedPointTreeType redPointTreeType => m_redPointTreeType;
 
-    public UIRedPoint(RedPointTreeType redPointTreeType, string name, string parent, GameObject redPointGo, bool showNum = false) {
+    public UIRedPoint(RedPointTreeType redPointTreeType, string name, string parent, GameObject root, bool showNum = false) : base(root) {
       m_name = name;
       m_parent = parent;
       m_showNum = showNum;
-      m_redPointGo = redPointGo;
       m_redPointTreeType = redPointTreeType;
-      m_redPointText = m_redPointGo.GetComponentInChildren<Text>(true);
+      m_redPointNumText = GetComponent<Text>("RedPointNumText");
 
       RedPointManager.instance.AddUIRedPoint(this);
     }
@@ -40,10 +38,10 @@ namespace Yume.UI {
     public void OnChanged() {
       m_redPointNum = RedPointManager.instance.GetRedPointNum(m_redPointTreeType, m_name, m_parent);
       if (m_redPointNum > 0) {
-        m_redPointGo.SetActiveEx(true);
-        m_redPointText.text = m_showNum ? m_redPointNum.ToString() : StringMap.EMPTY;
+        gameObject.SetActiveEx(true);
+        m_redPointNumText.text = m_showNum ? m_redPointNum.ToString() : StringMap.EMPTY;
       } else {
-        m_redPointGo.SetActiveEx(false);
+        gameObject.SetActiveEx(false);
       }
     }
 

@@ -84,9 +84,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 9028042774359287380}
-  - {fileID: 9028042775813417689}
   - {fileID: 9028042775068323363}
+  - {fileID: 9028042775813417689}
+  - {fileID: 9028042774359287380}
   m_Father: {fileID: 9028042774449638083}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 9028042774359287380}
   - component: {fileID: 9028042774359287370}
   - component: {fileID: 9028042774359287371}
+  - component: {fileID: 8337134045664416429}
   m_Layer: 5
   m_Name: sound
   m_TagString: Untagged
@@ -681,7 +682,7 @@ RectTransform:
   - {fileID: 9028042775007948969}
   - {fileID: 9028042776069897100}
   m_Father: {fileID: 8288618982395714997}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -726,6 +727,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8337134045664416429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028042774359287381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiList:
+  - name: OpenText
+    gameObject: {fileID: 9028042775408593660}
+  - name: CloseText
+    gameObject: {fileID: 9028042776050549152}
+  - name: ValueSlider
+    gameObject: {fileID: 9028042776069897101}
+  - name: SwitchRectTransform
+    gameObject: {fileID: 9028042774250535404}
+  - name: SwitchButton
+    gameObject: {fileID: 9028042775007948982}
 --- !u!1 &9028042774392842889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,28 +1613,12 @@ MonoBehaviour:
   _uiList:
   - name: close
     gameObject: {fileID: 9028042775608049482}
-  - name: bgm/valueSlider
-    gameObject: {fileID: 9028042774580052731}
-  - name: bgm/openText
-    gameObject: {fileID: 9028042776103940318}
-  - name: bgm/closeText
-    gameObject: {fileID: 9028042775661148948}
-  - name: bgm/switchSlider
-    gameObject: {fileID: 9028042774831036540}
-  - name: sound/valueSlider
-    gameObject: {fileID: 9028042776069897101}
-  - name: sound/openText
-    gameObject: {fileID: 9028042775408593660}
-  - name: sound/closeText
-    gameObject: {fileID: 9028042776050549152}
-  - name: sound/switchSlider
-    gameObject: {fileID: 9028042774250535404}
-  - name: bgm/switchButton
-    gameObject: {fileID: 9028042775866520647}
-  - name: sound/switchButton
-    gameObject: {fileID: 9028042775007948982}
-  - name: settingGroup
+  - name: setting group
     gameObject: {fileID: 1029726717130577861}
+  - name: bgm
+    gameObject: {fileID: 9028042775813417690}
+  - name: sound
+    gameObject: {fileID: 9028042774359287381}
 --- !u!1 &9028042775068323372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1650,7 @@ RectTransform:
   m_Children:
   - {fileID: 9028042775221920775}
   m_Father: {fileID: 8288618982395714997}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2168,6 +2176,7 @@ GameObject:
   - component: {fileID: 9028042775813417689}
   - component: {fileID: 9028042775813417695}
   - component: {fileID: 9028042775813417688}
+  - component: {fileID: 4914932303143677669}
   m_Layer: 5
   m_Name: bgm
   m_TagString: Untagged
@@ -2235,6 +2244,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4914932303143677669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028042775813417690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiList:
+  - name: OpenText
+    gameObject: {fileID: 9028042776103940318}
+  - name: CloseText
+    gameObject: {fileID: 9028042775661148948}
+  - name: ValueSlider
+    gameObject: {fileID: 9028042774580052731}
+  - name: SwitchRectTransform
+    gameObject: {fileID: 9028042774831036540}
+  - name: SwitchButton
+    gameObject: {fileID: 9028042775866520647}
 --- !u!1 &9028042775866520647
 GameObject:
   m_ObjectHideFlags: 0

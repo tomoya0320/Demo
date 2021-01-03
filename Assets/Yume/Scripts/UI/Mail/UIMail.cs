@@ -12,11 +12,10 @@ using Yume.RedPointSystem;
 
 namespace Yume.UI {
   public class UIMail : UIBase {
-    private class UIMailTerm : IScrollTerm<MailDB> {
+    private class UIMailTerm : UIChildBase, IScrollTerm<MailDB> {
       private MailDB m_mail;
       private Text m_titleText;
       private Image m_bottomImg;
-      private GameObject m_root;
       private Button m_clickButton;
       private Text m_dateDeltaText;
       private Image m_attachmentImg;
@@ -26,24 +25,20 @@ namespace Yume.UI {
       public MailDB mail => m_mail;
       public Image bottomImg => m_bottomImg;
       public bool isValid => m_mail != null;
-      public GameObject gameObject => m_root;
 
       private UIRedPoint m_mailRedPoint;
 
-      public UIMailTerm(UIMailGroup mailGroup, GameObject root) {
-        m_root = root;
+      public UIMailTerm(UIMailGroup mailGroup, GameObject root) : base(root) {
         m_mailGroup = mailGroup;
+        m_selected = GetGameObject("Selected");
+        m_titleText = GetComponent<Text>("TitleText");
+        m_bottomImg = GetComponent<Image>("BottomImage");
+        m_clickButton = GetComponent<Button>("ClickButton");
+        m_dateDeltaText = GetComponent<Text>("DateDeltaText");
+        m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
-        var uiObject = m_root.GetComponent<UIObject>();
-        m_selected = uiObject.GetGameObject("Selected");
-        m_titleText = uiObject.GetComponent<Text>("TitleText");
-        m_bottomImg = uiObject.GetComponent<Image>("BottomImage");
-        m_clickButton = uiObject.GetComponent<Button>("ClickButton");
-        m_dateDeltaText = uiObject.GetComponent<Text>("DateDeltaText");
-        m_attachmentImg = uiObject.GetComponent<Image>("AttachmentImage");
-
-        var mailRedPointGo = root.FindGo(StringMap.UI_RED_POINT);
-        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointGo);
+        var mailRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
+        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointRoot);
 
         _AddListener();
       }
@@ -74,7 +69,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIMailGroup {
+    private class UIMailGroup : UIChildBase {
       private Text m_dateText;
       private Text m_contentText;
       private YButton m_getButton;
@@ -97,29 +92,28 @@ namespace Yume.UI {
       private UIScrollView<ItemDB, UIShortItemInfo> m_attachmentScrollView;
       private List<UIShortItemInfo> m_attachmentTermList = new List<UIShortItemInfo>();
 
-      public UIMailGroup(GameObject root) {
-        var uiObject = root.GetComponent<UIObject>();
-        m_dateText = uiObject.GetComponent<Text>("DateText");
-        m_noMailPanel = uiObject.GetGameObject("NoMailPanel");
-        m_getButton = uiObject.GetComponent<YButton>("GetButton");
-        m_contentText = uiObject.GetComponent<Text>("ContentText");
-        m_signatureText = uiObject.GetComponent<Text>("SignatureText");
-        m_getAllButton = uiObject.GetComponent<Button>("GetAllButton");
-        m_mailContentPanel = uiObject.GetGameObject("MailContentPanel");
-        m_deleteAllButton = uiObject.GetComponent<Button>("DeleteAllButton");
-        m_mailScrollRect = uiObject.GetComponent<ScrollRect>("MailScrollRect");
-        m_attachmentScrollRect = uiObject.GetComponent<ScrollRect>("AttachmentScrollRect");
+      public UIMailGroup(GameObject root) : base(root) {
+        m_dateText = GetComponent<Text>("DateText");
+        m_noMailPanel = GetGameObject("NoMailPanel");
+        m_getButton = GetComponent<YButton>("GetButton");
+        m_contentText = GetComponent<Text>("ContentText");
+        m_signatureText = GetComponent<Text>("SignatureText");
+        m_getAllButton = GetComponent<Button>("GetAllButton");
+        m_mailContentPanel = GetGameObject("MailContentPanel");
+        m_deleteAllButton = GetComponent<Button>("DeleteAllButton");
+        m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
+        m_attachmentScrollRect = GetComponent<ScrollRect>("AttachmentScrollRect");
 
         m_mails = DBManager.instance.userMails;
         m_noMailPanel.SetActiveEx(m_mails.Count == 0);
 
         m_mailGLG = m_mailScrollRect.content.GetComponent<GridLayoutGroup>();
         m_attachmentGLG = m_attachmentScrollRect.content.GetComponent<GridLayoutGroup>();
-       
+
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
           m_mailTermList.Add(new UIMailTerm(this, m_mailScrollRect.content.GetChild(i).gameObject));
-        }       
-        
+        }
+
         for (int i = 0; i < m_attachmentScrollRect.content.childCount; i++) {
           m_attachmentTermList.Add(new UIShortItemInfo(m_attachmentScrollRect.content.GetChild(i).gameObject));
         }

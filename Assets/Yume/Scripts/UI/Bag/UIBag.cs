@@ -10,31 +10,27 @@ using Yume.String;
 
 namespace Yume.UI {
   public class UIBag : UIBase {
-    private class UIItemTerm : IScrollTerm<ItemDB> {
+    private class UIItemTerm : UIChildBase, IScrollTerm<ItemDB> {
       private ItemDB m_item;
       private Text m_numText;
       private Image m_iconImg;
-      private GameObject m_root;
       private Button m_clickButton;
       public ItemDB item => m_item;
       private GameObject m_selected;
       private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
-      public GameObject gameObject => m_root;
       private UIItemInfoBoard m_itemInfoBoard;
 
-      public UIItemTerm(UIItemInfoBoard itemInfoBoard, GameObject root) {
-        m_root = root;
-        var uiObject = root.GetComponent<UIObject>();
-        m_selected = uiObject.GetGameObject("Selected");
-        m_numText = uiObject.GetComponent<Text>("NumText");
-        m_iconImg = uiObject.GetComponent<Image>("IconImg");
-        m_clickButton = uiObject.GetComponent<Button>("ClickButton");
+      public UIItemTerm(UIItemInfoBoard itemInfoBoard, GameObject root) : base(root) {
+        m_selected = GetGameObject("Selected");
+        m_numText = GetComponent<Text>("NumText");
+        m_iconImg = GetComponent<Image>("IconImg");
+        m_clickButton = GetComponent<Button>("ClickButton");
 
         m_itemInfoBoard = itemInfoBoard;
 
-        var itemRedPointGo = root.FindGo(StringMap.UI_RED_POINT);
-        m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointGo);
+        var itemRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
+        m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointRoot);
 
         _AddListener();
       }
@@ -74,7 +70,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIItemGroup {
+    private class UIItemGroup : UIChildBase {
       private List<ItemDB> m_itemList;
       private GridLayoutGroup m_itemGLG;
       private ScrollRect m_itemScrollRect;
@@ -83,11 +79,10 @@ namespace Yume.UI {
       public UIScrollView<ItemDB, UIItemTerm> itemScrollView => m_itemScrollView;
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
 
-      public UIItemGroup(GameObject root) {
-        var uiObject = root.GetComponent<UIObject>();
-        m_itemScrollRect = uiObject.GetComponent<ScrollRect>("ItemScrollRect");
+      public UIItemGroup(GameObject root) : base(root) {
+        m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
         m_itemGLG = m_itemScrollRect.content.GetComponent<GridLayoutGroup>();
-        m_itemInfoBoard = new UIItemInfoBoard(this, uiObject.GetGameObject("ItemInfoBoard"));
+        m_itemInfoBoard = new UIItemInfoBoard(this, GetGameObject("ItemInfoBoard"));
         m_itemList = DBManager.instance.userItems;
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
@@ -110,7 +105,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIItemInfoBoard {
+    private class UIItemInfoBoard:UIChildBase {
       private Text m_nameNum;
       private Text m_description;
       private Image m_iconImg;
@@ -120,11 +115,10 @@ namespace Yume.UI {
       public ItemDB selectedItem => m_selectedItem;
       public UIScrollView<ItemDB, UIItemTerm> itemScrollView => m_itemGroup.itemScrollView;
 
-      public UIItemInfoBoard(UIItemGroup itemGroup, GameObject root) {
-        var uiObject = root.GetComponent<UIObject>();
-        m_iconImg = uiObject.GetComponent<Image>("IconImage");
-        m_nameNum = uiObject.GetComponent<Text>("NameNumText");
-        m_description = uiObject.GetComponent<Text>("DescriptionText");
+      public UIItemInfoBoard(UIItemGroup itemGroup, GameObject root) : base(root) {
+        m_iconImg = GetComponent<Image>("IconImage");
+        m_nameNum = GetComponent<Text>("NameNumText");
+        m_description = GetComponent<Text>("DescriptionText");
 
         m_itemGroup = itemGroup;
 

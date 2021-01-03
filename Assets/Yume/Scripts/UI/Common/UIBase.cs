@@ -28,11 +28,11 @@ namespace Yume.UI {
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
-      return m_uiObject.GetComponent<T>(objName);
+      return m_uiObject?.GetComponent<T>(objName);
     }
 
     protected GameObject GetGameObject(string objName) {
-      return m_uiObject.GetGameObject(objName);
+      return m_uiObject?.GetGameObject(objName);
     }
 
     /// <summary>
@@ -98,6 +98,44 @@ namespace Yume.UI {
     /// </summary>
     public virtual void Destroy() {
       UnityEngine.Object.Destroy(root);
+    }
+  }
+
+  /// <summary>
+  /// 不受UIManager管理，由父UI管理
+  /// </summary>
+  public abstract class UIChildBase {
+    private GameObject m_root;
+    private UIObject m_uiObject;
+    public GameObject gameObject => m_root;
+
+    public UIChildBase(GameObject root) {
+      m_root = root;
+      m_uiObject = root.GetComponent<UIObject>();
+    }
+
+    protected T GetComponent<T>(string objName) where T : Component {
+      return m_uiObject?.GetComponent<T>(objName);
+    }
+
+    protected GameObject GetGameObject(string objName) {
+      return m_uiObject?.GetGameObject(objName);
+    }
+
+    /// <summary>
+    /// 父UI打开时调用
+    /// </summary>
+    /// <param name="args"></param>
+    public virtual void OnOpen(params object[] args) {
+
+    }
+
+    /// <summary>
+    /// 父UI关闭时调用
+    /// </summary>
+    /// <param name="args"></param>
+    public virtual void OnClose(params object[] args) {
+
     }
   }
 }

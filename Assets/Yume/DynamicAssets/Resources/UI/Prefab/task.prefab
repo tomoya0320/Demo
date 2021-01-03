@@ -17135,6 +17135,8 @@ MonoBehaviour:
     gameObject: {fileID: 3609040777198388950}
   - name: daily/root
     gameObject: {fileID: 5778052118592478513}
+  - name: task group
+    gameObject: {fileID: 5778052119172726811}
 --- !u!1 &5778052118929724768
 GameObject:
   m_ObjectHideFlags: 0
@@ -17413,7 +17415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5778052119172726810}
-  - component: {fileID: 4967358625960264135}
+  - component: {fileID: 7518573666781802115}
   m_Layer: 5
   m_Name: task group
   m_TagString: Untagged
@@ -17442,7 +17444,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4967358625960264135
+--- !u!114 &7518573666781802115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 namespace Yume.UI {
   /// <summary>
-  /// 在同一个UI中属于一个Group的不同子UI之间切换
+  /// 在同一个父UI中属于一个Group的不同子UI之间切换
   /// 这个类只提供最基础的切换功能，如果还有其他的需要可以创建子类去扩展
   /// </summary>
-  public class UIGroup : MonoBehaviour {
+  public class UIGroupSwitch : MonoBehaviour {
     [Serializable]
     private class UIKV {
       public Button button;
@@ -32,12 +32,13 @@ namespace Yume.UI {
         ui.button.onClick.AddListener(() => _Switch(ui));
       }
 
-      if (_uiList.First() != null) {
-        _Switch(_uiList.First());
-      }
+      m_currentUI = _uiList.First();
     }
 
-    private void OnTransformParentChanged() {
+    /// <summary>
+    /// 父UI打开时调用
+    /// </summary>
+    public void OnOpen() {
       _Switch(m_currentUI, true);
     }
 

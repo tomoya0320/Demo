@@ -10,27 +10,23 @@ using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UICard : UIBase {
-    private class UICardTerm : IScrollTerm<CardDB> {
+    private class UICardTerm : UIChildBase, IScrollTerm<CardDB> {
       private CardDB m_card;
       private Text m_nameText;
       private Text m_typeText;
       private Image m_iconImg;
       private Text m_phaseText;
       private Text m_energyText;
-      private GameObject m_root;
       private Text m_descriptionText;
       public bool isValid => m_card != null;
-      public GameObject gameObject => m_root;
 
-      public UICardTerm(GameObject root) {
-        m_root = root;
-        var uiObject = root.GetComponent<UIObject>();
-        m_nameText = uiObject.GetComponent<Text>("NameText");
-        m_typeText = uiObject.GetComponent<Text>("TypeText");
-        m_iconImg = uiObject.GetComponent<Image>("IconImage");
-        m_phaseText = uiObject.GetComponent<Text>("PhaseText");
-        m_energyText = uiObject.GetComponent<Text>("EnergyText");
-        m_descriptionText = uiObject.GetComponent<Text>("DescriptionText");
+      public UICardTerm(GameObject root) : base(root) {
+        m_nameText = GetComponent<Text>("NameText");
+        m_typeText = GetComponent<Text>("TypeText");
+        m_iconImg = GetComponent<Image>("IconImage");
+        m_phaseText = GetComponent<Text>("PhaseText");
+        m_energyText = GetComponent<Text>("EnergyText");
+        m_descriptionText = GetComponent<Text>("DescriptionText");
       }
 
       public async void Update(CardDB data) {
@@ -51,16 +47,15 @@ namespace Yume.UI {
       }
     }
 
-    private class UICardGroup {
+    private class UICardGroup : UIChildBase {
       private List<CardDB> m_cardList;
       private GridLayoutGroup m_cardGLG;
       private ScrollRect m_cardScrollRect;
       private UIScrollView<CardDB, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
-      public UICardGroup(GameObject root) {
-        var uiObject = root.GetComponent<UIObject>();
-        m_cardScrollRect = uiObject.GetComponent<ScrollRect>("CardScrollRect");
+      public UICardGroup(GameObject root) : base(root) {
+        m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         m_cardGLG = m_cardScrollRect.content.GetComponent<GridLayoutGroup>();
         m_cardList = DBManager.instance.userCards;
 

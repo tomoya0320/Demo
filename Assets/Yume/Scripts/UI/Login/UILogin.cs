@@ -7,13 +7,13 @@ using Yume.String;
 
 namespace Yume.UI {
   public class UILogin : UIBase {
+    private Text m_result;
+    private GameObject m_main;
+    private GameObject m_second;
     private InputField m_nameInput;
     private InputField m_accountInput;
     private InputField m_passwordInput;
     private InputField m_newPasswordInput;
-    private Text m_result;
-    private GameObject m_main;
-    private GameObject m_second;
 
     private void _OnLogin() {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text)) {
