@@ -1445,6 +1445,7 @@ GameObject:
   - component: {fileID: 1532161707}
   - component: {fileID: 1532161706}
   - component: {fileID: 1532161705}
+  - component: {fileID: 1532161708}
   m_Layer: 5
   m_Name: CacheCanvas
   m_TagString: Untagged
@@ -1531,6 +1532,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1532161708
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532161703}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1601482754
 GameObject:
   m_ObjectHideFlags: 0
