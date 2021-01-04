@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Yume.AVG;
 using Yume.Battle;
 using Yume.DB;
 using Yume.MailSystem;
@@ -54,8 +55,12 @@ namespace Yume.Main {
         DBManager.instance.AddMails(new MailDB("Test Title5", "Test Title5", "你是傻逼", "小白"));
         DBManager.instance.AddMails(new MailDB("Test Title6", "Test Title6", "我爱{0}", "波哥", new ItemDB("item_5_key", 100)));
         DBManager.instance.UpdateUserData();
-      }   
+      }
 
+      if (Input.GetKeyDown(KeyCode.G)) {
+        Instantiate(Resources.Load<GameObject>("AVG/Prefab/avg"), UIManager.instance.topCanvas);
+        AVGController.instance.StartAVG("test1");
+      }
 #endif
     }
   }

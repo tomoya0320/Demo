@@ -21,11 +21,11 @@ namespace Yume.UI {
   }
 
   public class UIManager : Singleton<UIManager> {
-    private Transform m_topCanvas;
-    private Transform m_tipCanvas;
-    private Transform m_normalCanvas;
     private GameObject m_interactionMask;
+    public Transform topCanvas { private set; get; }
+    public Transform tipCanvas { private set; get; }
     public Transform cacheCanvas { private set; get; }
+    public Transform normalCanvas { private set; get; }
     private Dictionary<string, UIData> m_uiDataDict = new Dictionary<string, UIData>();
     private Dictionary<object, object> m_sharedArgsDict = new Dictionary<object, object>();
     private Dictionary<UIType, Stack<UIBase>> m_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
@@ -36,10 +36,10 @@ namespace Yume.UI {
     public bool activeBack { set; get; }
 
     protected override void OnBeforeInit() {
-      m_topCanvas = GameObject.Find("TopCanvas")?.transform;
-      m_tipCanvas = GameObject.Find("TipCanvas")?.transform;
+      topCanvas = GameObject.Find("TopCanvas")?.transform;
+      tipCanvas = GameObject.Find("TipCanvas")?.transform;
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
-      m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
+      normalCanvas = GameObject.Find("NormalCanvas")?.transform;
 
       m_interactionMask = GameObject.Find("InteractionMask");
       m_interactionMask.SetActiveEx(false);
@@ -267,13 +267,13 @@ namespace Yume.UI {
     private Transform _GetRootByType(UIType uiType) {
       switch (uiType) {
         case UIType.NORMAL: {
-            return m_normalCanvas;
+            return normalCanvas;
           }
         case UIType.TOP: {
-            return m_topCanvas;
+            return topCanvas;
           }
         case UIType.TIP: {
-            return m_tipCanvas;
+            return tipCanvas;
           }
         default: {
             return null;

@@ -65,16 +65,11 @@ namespace Yume.AVG {
       }
     }
 
-    private void _QuitAVGScene(float fadeTime = 0.3f) {
-      /*UIManager.instance.FadeBlackMask(fadeTime, () => {
-        //加载时候的图
-      }, () => {
-        SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
-          UIManager.instance.FadeBlackMask(fadeTime, () => {
-            //加载时候的图
-          });
-        };
-      });*/
+    private void _QuitAVGScene() {
+      UIManager.instance.OpenOne("blackMask", () => {
+        Destroy(gameObject);
+        UIManager.instance.CloseOne("blackMask");
+      });
     }
   }
 }
