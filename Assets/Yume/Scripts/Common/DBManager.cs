@@ -199,22 +199,13 @@ namespace Yume.DB {
         return s_cardJson;
       }
     }
-    private JObject s_charJson;
-    private JObject charJson {
+    private JObject s_unitJson;
+    private JObject unitJson {
       get {
-        if (s_charJson == null) {
-          s_charJson = JObject.Parse(AssetLoader.instance.GetValue<string>("chars"));
+        if (s_unitJson == null) {
+          s_unitJson = JObject.Parse(AssetLoader.instance.GetValue<string>("units"));
         }
-        return s_charJson;
-      }
-    }
-    private JObject s_enemyJson;
-    private JObject enemyJson {
-      get {
-        if (s_enemyJson == null) {
-          s_enemyJson = JObject.Parse(AssetLoader.instance.GetValue<string>("enemies"));
-        }
-        return s_enemyJson;
+        return s_unitJson;
       }
     }
     #endregion
@@ -270,6 +261,15 @@ namespace Yume.DB {
       return defaultTasks;
     }
 
+    public bool TryGetMaxApBy(int level, out int maxAp) {
+      maxAp = 0;
+      if (lvMaxApMap.ContainsKey(level.ToString())) {
+        maxAp = lvMaxApMap[level.ToString()].Value<int>();
+        return true;
+      }
+      return false;
+    }
+
     public ItemDB GetItemDB(string id) {
       return userItems.Find(obj => obj.id == id);
     } 
@@ -287,18 +287,11 @@ namespace Yume.DB {
       return userTasks[taskType].Find(obj => obj.id == taskId);
     }
 
-    public JObject GetEnemyJson(string id) {
-      if (enemyJson.ContainsKey(id)) {
-        return enemyJson[id].Value<JObject>();
+    public UnitInfo GetUnitInfo(string id) {
+      if (unitJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<UnitInfo>(unitJson[id].Value<JObject>().ToString());
       }
-      return null;
-    }
-
-    public JObject GetCharJson(string id) {
-      if (charJson.ContainsKey(id)) {
-        return charJson[id].Value<JObject>();
-      }
-      return null;
+      throw new Exception($"unit is not found! id:{id}");
     }
 
     //邮件比较特殊，需要是同一个对象
@@ -414,8 +407,8 @@ namespace Yume.DB {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
         MessageManager.instance.AddMessage(new Message(Message.Style.FADE, tip));
         TaskManager.instance.UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
-        if (lvMaxApMap.ContainsKey(userLv.ToString())) {
-          userMaxAp = lvMaxApMap[userLv.ToString()].Value<int>();
+        if (TryGetMaxApBy(userLv, out int maxAp)) {
+          userMaxAp = maxAp;
           userAp += userMaxAp;
         }
       }
@@ -443,14 +436,12 @@ namespace Yume.DB {
 
     public void UpdateUserData(Action onSucceed = null) {
       //全量更新，以后再优化
-      _UpdateUserDataInternal(new {
-        exp = userExp, lv = userLv, ap = userAp, maxAp = userMaxAp,
-        mails = userMails, items = userItems, cards = userCards, tasks = userTasks,
-        types = new string[] { "exp", "lv", "ap", "maxAp", "mails", "items", "cards", "tasks" }
-      }, onSucceed);
+      JObject data = JObject.FromObject(s_userDB);
+      data.Merge(JObject.FromObject(new { types = typeof(UserDB).GetFieldNames() }));
+      _UpdateUserDataInternal(data, onSucceed);
     }
 
-    private void _UpdateUserDataInternal<T>(T data, Action onSucceed = null) where T : class {
+    private void _UpdateUserDataInternal(JObject data, Action onSucceed = null) {
       if (s_playMode == PlayMode.REMOTE) {
         ServerManager.instance.UpdateUserData(data,
           request => {
@@ -470,7 +461,7 @@ namespace Yume.DB {
             } else {
               Action ok = () => _UpdateUserDataInternal(data, onSucceed);
               Action cancel = () => UIManager.instance.CloseAllAndOpenOne("login");
-              UIManager.instance.OpenOne("confirmation", null, null, error, StringMap.RETRY,
+              UIManager.instance.OpenOne("confirmation", null, error, StringMap.RETRY,
                                          StringMap.RETURN_TO_LOGIN, ok, cancel);
             }
           });

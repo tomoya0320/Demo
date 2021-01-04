@@ -7,30 +7,28 @@ using Yume.Task;
 namespace Yume.DB {
   [Serializable]
   public class UserDB {
-    public int ap;
-    public int maxAp;
-    public int lv;
     public int exp;
+    public int lv = 1;
+    public int ap = 30;
+    public int maxAp = 30;
     public string name;
     public string account;
     public string password;
-    public List<MailDB> mails;
-    public List<ItemDB> items;
-    public List<CardDB> cards;
+    public List<MailDB> mails = new List<MailDB>();
+    public List<ItemDB> items = new List<ItemDB>();
+    public List<CardDB> cards = new List<CardDB>();
+    public List<UnitDB> chars = new List<UnitDB>();
     public Dictionary<TaskType, List<TaskDB>> tasks;
 
     public UserDB(string name = "", string account = "",string password = "") {
-      lv = 1;
-      exp = 0;
-      ap = 30;
-      maxAp = 30;
       this.name = name;
       this.account = account;
       this.password = password;
-      mails = new List<MailDB>();
-      items = new List<ItemDB>();
-      cards = new List<CardDB>();
       tasks = DBManager.instance.GetDefaultTasks();
+      if (DBManager.instance.TryGetMaxApBy(lv, out int maxAp)) {
+        ap = maxAp;
+        this.maxAp = maxAp;
+      }
 
 #if TEST
       this.name = "admin";

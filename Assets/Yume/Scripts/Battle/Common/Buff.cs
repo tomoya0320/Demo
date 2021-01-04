@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
 
 namespace Yume.Battle {
   [Serializable]
   public struct BuffData {
-
+    public string id;
   }
 
   public class BuffContainer {
@@ -16,7 +13,7 @@ namespace Yume.Battle {
       m_owner = owner;
     }
 
-    public bool AddBuff(BuffData buffData) {
+    public bool AddBuffs(params BuffData[] buffData) {
       //TODO
       return true;
     }

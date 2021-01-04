@@ -93,22 +93,5 @@ namespace Yume.String {
       }
       return result.ToString();
     }
-
-    public static string GetCardTypeName(CardInfo.Type type) {
-      switch (type) {
-        case CardInfo.Type.ATTACK: {
-            return "攻击";
-          }
-        case CardInfo.Type.SKILL: {
-            return "技能";
-          }
-        case CardInfo.Type.CURSE: {
-            return "诅咒";
-          }
-        default: {
-            return "未知";
-          }
-      }
-    }
   }
 }

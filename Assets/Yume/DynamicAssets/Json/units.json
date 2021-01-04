@@ -1,0 +1,147 @@
+{
+  "char_001_brave": {
+    "id" : "char_001_brave",
+    "tag" : null,
+    "name" : "勇者",
+    "maxLevel" : 100,
+    "prefabName" : "char_001_brave",
+    "minAttribDict" : {
+      "HP" : {
+        "value" : 100,
+        "maxValue" : 100
+      },
+      "ATK" : {
+        "value" : 10,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 10,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 0.1,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0.05,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 3,
+        "maxValue" : 999
+      }
+    },
+    "maxAttribDict" : {
+      "HP" : {
+        "value" : 10000,
+        "maxValue" : 10000
+      },
+      "ATK" : {
+        "value" : 1000,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 1000,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 1.0,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0.5,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 6,
+        "maxValue" : 999
+      }
+    },
+    "passiveSkillPhases": [
+      {
+        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "buffData" : [],
+        "blackboard" : {
+          "maxHp" : 100,
+          "atk" : 10
+        }
+      },
+      {
+        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "buffData" : [],
+        "blackboard" : {
+          "maxHp" : 200,
+          "atk" : 20
+        }
+      },
+      {
+        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "buffData" : [],
+        "blackboard" : {
+          "maxHp" : 300,
+          "atk" : 30
+        }
+      }
+    ]
+  },
+  "enemy_001_slime": {
+    "id" : "enemy_001_slime",
+    "tag" : "slime",
+    "name" : "史莱姆",
+    "maxLevel" : 100,
+    "prefabName" : "enemy_001_slime",
+    "minAttribDict" : {
+      "HP" : {
+        "value" : 10,
+        "maxValue" : 10
+      },
+      "ATK" : {
+        "value" : 1,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 0,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 1,
+        "maxValue" : 999
+      }
+    },
+    "maxAttribDict" : {
+      "HP" : {
+        "value" : 100,
+        "maxValue" : 100
+      },
+      "ATK" : {
+        "value" : 10,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 0,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 1,
+        "maxValue" : 999
+      }
+    },
+    "passiveSkillPhases": []
+  }
+}

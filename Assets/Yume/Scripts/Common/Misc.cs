@@ -5,8 +5,19 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Colors {
+public static class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
+}
+
+public static class TypeTools {
+  public static List<string> GetFieldNames(this Type type) {
+    FieldInfo[] fieldInfos = type.GetFields();
+    List<string> fieldNameList = new List<string>(fieldInfos.Length);
+    foreach (var fieldInfo in fieldInfos) {
+      fieldNameList.Add(fieldInfo.Name);
+    }
+    return fieldNameList;
+  }
 }
 
 public static class TransformTools {

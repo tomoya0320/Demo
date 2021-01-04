@@ -38,10 +38,10 @@ namespace Yume.UI {
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
           m_nameText.text = cardInfo.name;
           m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = StringUtil.GetCardTypeName(cardInfo.type);
-          m_energyText.text = cardInfo.phases[m_card.phase].energyConsumption.ToString();
-          m_descriptionText.text = StringUtil.GetActualDescription(cardInfo.phases[m_card.phase].description,
-                                                                  cardInfo.phases[m_card.phase].blackboard);
+          m_typeText.text = cardInfo.cardType.GetDescription();
+          m_energyText.text = cardInfo.cardPhases[m_card.phase].energyConsumption.ToString();
+          m_descriptionText.text = StringUtil.GetActualDescription(cardInfo.cardPhases[m_card.phase].description,
+                                                                   cardInfo.cardPhases[m_card.phase].blackboard);
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
         }
       }
