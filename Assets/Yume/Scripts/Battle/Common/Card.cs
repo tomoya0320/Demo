@@ -28,7 +28,6 @@ namespace Yume.Battle {
     public struct CardPhase {
       public string description;
       public int energyConsumption;
-      public BuffData[] buffData;
       public Blackboard blackboard;
     }
 

@@ -72,7 +72,6 @@ namespace Yume.Battle {
     [Serializable]
     public struct PassiveSkillPhase {
       public string description;
-      public BuffData[] buffData;
       public Blackboard blackboard;
     }
 
@@ -166,7 +165,6 @@ namespace Yume.Battle {
     protected Attrib[] attribs;
     protected List<CardDB> cardList; //抽牌堆
     protected StateMachine stateMachine;
-    protected BuffContainer buffContainer;
     protected List<CardDB> discardCardList = new List<CardDB>(); //弃堆
     protected List<CardDB> consumedCardList = new List<CardDB>(); //耗牌堆
 
@@ -182,9 +180,7 @@ namespace Yume.Battle {
       //TODO:Init Prefab
       this.cardList = cardList;
 
-      buffContainer = new BuffContainer(this);
       stateMachine = new StateMachine(new IdleState(this));
-
       stateMachine.RegisterState(new PlayState(this));
       stateMachine.RegisterState(new DeadState(this));
     }

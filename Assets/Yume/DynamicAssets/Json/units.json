@@ -60,7 +60,6 @@
     "passiveSkillPhases": [
       {
         "description" : "最大生命+{maxHp},攻击力+{atk}",
-        "buffData" : [],
         "blackboard" : {
           "maxHp" : 100,
           "atk" : 10
@@ -68,7 +67,6 @@
       },
       {
         "description" : "最大生命+{maxHp},攻击力+{atk}",
-        "buffData" : [],
         "blackboard" : {
           "maxHp" : 200,
           "atk" : 20
@@ -76,7 +74,6 @@
       },
       {
         "description" : "最大生命+{maxHp},攻击力+{atk}",
-        "buffData" : [],
         "blackboard" : {
           "maxHp" : 300,
           "atk" : 30
