@@ -22,7 +22,7 @@ namespace Yume.DB {
       LOCAL, REMOTE
     }
 
-    private PlayMode s_playMode;
+    private PlayMode m_playMode;
     private string localUserDBPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
@@ -30,213 +30,175 @@ namespace Yume.DB {
     }
 
     #region User Data
-    private UserDB s_userDB;
-    public bool isLogged => s_userDB != null;
+    private UserDB m_userDB;
+    public bool isLogged => m_userDB != null;
     public string userToken { private set; get; }
     public string userAccount {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.account;
+        return m_userDB.account;
       }
     }
     public string userPassword {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.password;
+        return m_userDB.password;
       }
     }
     public string userName {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.name;
+        return m_userDB.name;
       }
     }    
     public int userAp {
       private set {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        s_userDB.ap = value;
+        m_userDB.ap = value;
       }
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.ap;
+        return m_userDB.ap;
       }
     }    
     public int userMaxAp {
       private set {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        s_userDB.maxAp = value;
+        m_userDB.maxAp = value;
       }
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.maxAp;
+        return m_userDB.maxAp;
       }
     }    
     public int userLv {
       private set {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        s_userDB.lv = value;
+        m_userDB.lv = value;
       }
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.lv;
+        return m_userDB.lv;
       }
     }  
     public int userExp {
       private set {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        s_userDB.exp = value;
+        m_userDB.exp = value;
       }
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.exp;
+        return m_userDB.exp;
       }
     }
     public List<ItemDB> userItems {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.items;
+        return m_userDB.items;
       }
     }
     public List<CardDB> userCards {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.cards;
+        return m_userDB.cards;
       }
     }
     public List<MailDB> userMails {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.mails;
+        return m_userDB.mails;
       }
     }
     public Dictionary<TaskType, List<TaskDB>> userTasks {
       get {
-        if (s_userDB == null) {
-          s_userDB = new UserDB();
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return s_userDB.tasks;
+        return m_userDB.tasks;
       }
     }
     #endregion
 
     #region Json
-    private JObject s_itemJson;
-    private JObject itemJson {
-      get {
-        if (s_itemJson == null) {
-          s_itemJson = JObject.Parse(AssetLoader.instance.GetValue<string>("items"));
-        }
-        return s_itemJson;
-      }
-    }
-    private JObject s_taskJson;
-    private JObject taskJson {
-      get {
-        if (s_taskJson == null) {
-          s_taskJson = JObject.Parse(AssetLoader.instance.GetValue<string>("tasks"));
-        }
-        return s_taskJson;
-      }
-    }
-    private JObject s_lvMaxApMap;
-    private JObject lvMaxApMap {
-      get {
-        if (s_lvMaxApMap == null) {
-          s_lvMaxApMap = JObject.Parse(AssetLoader.instance.GetValue<string>("lvMaxApMap"));
-        }
-        return s_lvMaxApMap;
-      }
-    }
-    private JObject s_cardJson;
-    private JObject cardJson {
-      get {
-        if (s_cardJson == null) {
-          s_cardJson = JObject.Parse(AssetLoader.instance.GetValue<string>("cards"));
-        }
-        return s_cardJson;
-      }
-    }
-    private JObject s_unitJson;
-    private JObject unitJson {
-      get {
-        if (s_unitJson == null) {
-          s_unitJson = JObject.Parse(AssetLoader.instance.GetValue<string>("units"));
-        }
-        return s_unitJson;
-      }
-    }
+    private JObject m_itemJson;
+    private JObject m_taskJson;
+    private JObject m_cardJson;
+    private JObject m_unitJson;
+    private JObject m_lvMaxApMap;
+    private List<AttribCurve> m_attribCurveList;
     #endregion
 
-#if TEST
-    public string setUserToken {
-      set {
-        userToken = value;
-      }
+    protected override void OnInit() {
+      m_itemJson = AssetLoader.instance.GetObject<JObject>("items");
+      m_taskJson = AssetLoader.instance.GetObject<JObject>("tasks");
+      m_cardJson = AssetLoader.instance.GetObject<JObject>("cards");
+      m_unitJson = AssetLoader.instance.GetObject<JObject>("units");
+      m_lvMaxApMap = AssetLoader.instance.GetObject<JObject>("lvMaxApMap");
+      m_attribCurveList = AssetLoader.instance.GetObject<List<AttribCurve>>("attribCurves");
     }
-#endif
 
     public ItemInfo GetItemInfo(string id) {
-      if (itemJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<ItemInfo>(itemJson[id].Value<JObject>().ToString());
+      if (m_itemJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<ItemInfo>(m_itemJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
       }
     }
 
     public CardInfo GetCardInfo(string id) {
-      if (cardJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<CardInfo>(cardJson[id].Value<JObject>().ToString());
+      if (m_cardJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<CardInfo>(m_cardJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 
     public TaskInfo GetTaskInfo(TaskType taskType, string id) {
-      if (taskJson.ContainsKey(taskType.ToString())) {
-        JObject tempJObject = taskJson[taskType.ToString()].Value<JObject>();
+      if (m_taskJson.ContainsKey(taskType.ToString())) {
+        JObject tempJObject = m_taskJson[taskType.ToString()].Value<JObject>();
         if (tempJObject.ContainsKey(id)) {
           return JsonConvert.DeserializeObject<TaskInfo>(tempJObject[id].Value<JObject>().ToString());
         } else {
@@ -252,7 +214,7 @@ namespace Yume.DB {
 
       foreach(TaskType type in Enum.GetValues(typeof(TaskType))) {
         List<TaskDB> tasks = new List<TaskDB>();
-        foreach(var info in taskJson[type.ToString()].Values()) {
+        foreach(var info in m_taskJson[type.ToString()].Values()) {
           tasks.Add(JsonConvert.DeserializeObject<TaskDB>(info.ToString()));
         }
         defaultTasks.Add(type, tasks);
@@ -263,11 +225,20 @@ namespace Yume.DB {
 
     public bool TryGetMaxApBy(int level, out int maxAp) {
       maxAp = 0;
-      if (lvMaxApMap.ContainsKey(level.ToString())) {
-        maxAp = lvMaxApMap[level.ToString()].Value<int>();
+      if (m_lvMaxApMap.ContainsKey(level.ToString())) {
+        maxAp = m_lvMaxApMap[level.ToString()].Value<int>();
         return true;
       }
       return false;
+    }
+
+    public AnimationCurve GetAttribCurve(string id) {
+      int index = m_attribCurveList.FindIndex(ac => ac.id == id);
+      if (index >= 0) {
+        return m_attribCurveList[index].curve;
+      } else {
+        throw new Exception($"找不到属性曲线！id:{id}");
+      }
     }
 
     public ItemDB GetItemDB(string id) {
@@ -288,8 +259,8 @@ namespace Yume.DB {
     }
 
     public UnitInfo GetUnitInfo(string id) {
-      if (unitJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<UnitInfo>(unitJson[id].Value<JObject>().ToString());
+      if (m_unitJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<UnitInfo>(m_unitJson[id].Value<JObject>().ToString());
       }
       throw new Exception($"unit is not found! id:{id}");
     }
@@ -315,22 +286,22 @@ namespace Yume.DB {
 
     public void LoadUserDB(JObject json = null) {
       if (json == null) {
-        s_playMode = PlayMode.LOCAL;
+        m_playMode = PlayMode.LOCAL;
         FileStream fs;
         BinaryFormatter bf = new BinaryFormatter();
         if (File.Exists(localUserDBPath)) {
           fs = new FileStream(localUserDBPath, FileMode.Open);
-          s_userDB = (UserDB)bf.Deserialize(fs);
+          m_userDB = (UserDB)bf.Deserialize(fs);
         } else {
-          s_userDB = new UserDB();
+          m_userDB = new UserDB();
           fs = File.Open(localUserDBPath, FileMode.Create);
           //序列化     
-          bf.Serialize(fs, s_userDB);
+          bf.Serialize(fs, m_userDB);
         }
         fs.Close();
       } else {
-        s_playMode = PlayMode.REMOTE;
-        s_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
+        m_playMode = PlayMode.REMOTE;
+        m_userDB = JsonConvert.DeserializeObject<UserDB>(json["userDB"].ToString());
         userToken = json["token"].Value<string>();
       }
     }
@@ -436,13 +407,13 @@ namespace Yume.DB {
 
     public void UpdateUserData(Action onSucceed = null) {
       //全量更新，以后再优化
-      JObject data = JObject.FromObject(s_userDB);
+      JObject data = JObject.FromObject(m_userDB);
       data.Merge(JObject.FromObject(new { types = typeof(UserDB).GetFieldNames() }));
       _UpdateUserDataInternal(data, onSucceed);
     }
 
     private void _UpdateUserDataInternal(JObject data, Action onSucceed = null) {
-      if (s_playMode == PlayMode.REMOTE) {
+      if (m_playMode == PlayMode.REMOTE) {
         ServerManager.instance.UpdateUserData(data,
           request => {
             string error = StringMap.EMPTY;
@@ -465,13 +436,13 @@ namespace Yume.DB {
                                          StringMap.RETURN_TO_LOGIN, ok, cancel);
             }
           });
-      }else if(s_playMode == PlayMode.LOCAL) {
+      }else if(m_playMode == PlayMode.LOCAL) {
         onSucceed?.Invoke();
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = File.Open(localUserDBPath, FileMode.Create);
         //序列化     
-        bf.Serialize(fs, s_userDB);
+        bf.Serialize(fs, m_userDB);
         fs.Close();
       }
     }

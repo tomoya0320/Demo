@@ -35,7 +35,7 @@ namespace Yume.UI {
 
     public bool activeBack { set; get; }
 
-    protected override void OnBeforeInit() {
+    protected override void OnInit() {
       topCanvas = GameObject.Find("TopCanvas")?.transform;
       tipCanvas = GameObject.Find("TipCanvas")?.transform;
       cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
@@ -47,6 +47,11 @@ namespace Yume.UI {
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
         m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
+      }
+
+      var uiDataDict = AssetLoader.instance.GetObject<Dictionary<string, UIData>>("ui");
+      foreach (var uiData in uiDataDict.Values) {
+        Register(uiData);
       }
     }
 
@@ -60,15 +65,6 @@ namespace Yume.UI {
             list.RemoveAt(i);
           }
         }
-      }
-    }
-
-    public void RegisterByJson() {
-      var uiDataDict = JsonConvert.DeserializeObject<Dictionary<string, UIData>>(
-                                   AssetLoader.instance.GetValue<string>("ui"));
-
-      foreach (var uiData in uiDataDict.Values) {
-        Register(uiData);
       }
     }
 

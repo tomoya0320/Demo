@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Yume.Battle;
+using Yume.DB;
 using Yume.String;
 
 namespace Yume.Math {
@@ -49,16 +50,17 @@ namespace Yume.Math {
       return 50 + lv * 50;
     }
 
-    public static Attrib[] CalculateAttribs(int level, int maxLevel, Attrib[] minAttribs, Attrib[] maxAttribs) {
+    public static Attrib[] CalculateAttribs(string id, int level, int maxLevel, Attrib[] minAttribs, Attrib[] maxAttribs) {
 
       if (minAttribs.Length != maxAttribs.Length) {
         throw new Exception("最小属性数组和最大属性数组长度不一致！");
       }
 
+      float p = (float)level / maxLevel;
       Attrib[] attribs = new Attrib[minAttribs.Length];
-
+      var curve = DBManager.instance.GetAttribCurve(id);
       for (int i = 0; i < attribs.Length; i++) {
-        attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * ((float)level / maxLevel); // 先用线性函数测试一下
+        attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
       }
 
       return attribs;

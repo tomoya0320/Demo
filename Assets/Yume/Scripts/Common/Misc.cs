@@ -129,7 +129,6 @@ public class AssemblyTool {
 
 public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T> {
   private static T s_instance;
-  protected bool dontDestroyOnLoad = true;
 
   public static T instance {
     get {
@@ -147,20 +146,16 @@ public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T
   }
 
   private void Awake() {
-    OnBeforeInit();
-
-    if (s_instance == null) {
+    if (!hasInstance) {
       s_instance = this as T;
-      if (dontDestroyOnLoad) {
-        DontDestroyOnLoad(gameObject);
-      }
+      OnInit();
     } else {
       Debug.LogWarning("Duplicate Instacne:" + nameof(T));
       Destroy(gameObject);
     }
   }
 
-  protected virtual void OnBeforeInit() { }
+  protected virtual void OnInit() { }
 }
 
 public abstract class Singleton<T> where T : new() {
@@ -181,8 +176,8 @@ public abstract class Singleton<T> where T : new() {
   }
 
   protected Singleton() {
-    OnBeforeInit();
+    OnInit();
   }
 
-  protected virtual void OnBeforeInit() { }
+  protected virtual void OnInit() { }
 }

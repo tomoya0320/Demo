@@ -25,9 +25,8 @@ namespace Yume.AVG {
     private int m_currentTextIndex;
     private Dictionary<string, JArray> m_avgTextDict;
 
-    protected override void OnBeforeInit() {
-      dontDestroyOnLoad = false;
-      m_avgTextDict = JsonConvert.DeserializeObject<Dictionary<string, JArray>>(AssetLoader.instance.GetValue<string>("avgs"));
+    protected override void OnInit() {
+      m_avgTextDict = AssetLoader.instance.GetObject<Dictionary<string, JArray>>("avgs");
     }
 
     public void StartAVG(string avgName) {

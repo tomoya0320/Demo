@@ -58,6 +58,10 @@ namespace Yume.Battle {
       };
       return attrib;
     }
+
+    public override string ToString() {
+      return $"value:{value},maxValue:{maxValue}";
+    }
   }
 
   [Serializable]
@@ -174,8 +178,8 @@ namespace Yume.Battle {
       unitTag = unitInfo.tag;
       unitLevel = unitDB.level;
       unitName = unitInfo.name;
-      attribs = MathUtil.CalculateAttribs(unitDB.level, unitInfo.maxLevel,
-                         unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
+      attribs = MathUtil.CalculateAttribs(unitDB.id, unitDB.level, unitInfo.maxLevel,
+                                          unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
       //TODO:Init PassiveSkill
       //TODO:Init Prefab
       this.cardList = cardList;

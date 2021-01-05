@@ -145,7 +145,7 @@ namespace Yume.RedPointSystem {
     private List<UIRedPoint> m_uiRedPointList = new List<UIRedPoint>();
     private Dictionary<RedPointTreeType, RedPointTree> m_redPointTreeDict = new Dictionary<RedPointTreeType, RedPointTree>();
 
-    protected override void OnBeforeInit() {
+    protected override void OnInit() {
       foreach (RedPointTreeType redPointTreeType in Enum.GetValues(typeof(RedPointTreeType))) {
         if (redPointTreeType != RedPointTreeType.NONE) {
           var redPointTree = AssemblyTool.CreateInstance(redPointTreeType.GetDescription()) as RedPointTree;
