@@ -168,7 +168,7 @@ namespace Yume.Battle {
     protected List<CardDB> discardCardList = new List<CardDB>(); //弃堆
     protected List<CardDB> consumedCardList = new List<CardDB>(); //耗牌堆
 
-    public virtual void OnInit(UnitDB unitDB, List<CardDB> cardList) {
+    public Unit(UnitDB unitDB, List<CardDB> cardList) {
       UnitInfo unitInfo = DBManager.instance.GetUnitInfo(unitDB.id);
       unitId = unitDB.id;
       unitTag = unitInfo.tag;

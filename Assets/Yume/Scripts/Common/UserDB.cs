@@ -7,10 +7,10 @@ using Yume.Task;
 namespace Yume.DB {
   [Serializable]
   public class UserDB {
+    public int lv;
+    public int ap;
     public int exp;
-    public int lv = 1;
-    public int ap = 30;
-    public int maxAp = 30;
+    public int maxAp;
     public string name;
     public string account;
     public string password;
@@ -25,9 +25,10 @@ namespace Yume.DB {
       this.account = account;
       this.password = password;
       tasks = DBManager.instance.GetDefaultTasks();
-      if (DBManager.instance.TryGetMaxApBy(lv, out int maxAp)) {
-        ap = maxAp;
-        this.maxAp = maxAp;
+      if (DBManager.instance.TryGetMaxApBy(lv, out int ret)) {
+        ap = maxAp = ret;
+      } else {
+        ap = maxAp = 30;
       }
 
 #if TEST
