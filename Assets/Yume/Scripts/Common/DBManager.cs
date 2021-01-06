@@ -430,7 +430,7 @@ namespace Yume.DB {
             if (string.IsNullOrEmpty(error)) {
               onSucceed?.Invoke();
             } else {
-              Action ok = () => _UpdateUserDataInternal(data, onSucceed);
+              Action ok = () => UpdateUserData(onSucceed);
               Action cancel = () => UIManager.instance.CloseAllAndOpenOne("login");
               UIManager.instance.OpenOne("confirmation", null, error, StringMap.RETRY,
                                          StringMap.RETURN_TO_LOGIN, ok, cancel);

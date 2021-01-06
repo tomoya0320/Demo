@@ -23,11 +23,11 @@ namespace Yume.UI {
 
       m_ok.onClick.RemoveAllListeners();
       m_ok.onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name, null, args[3] as Action);
+        UIManager.instance.CloseOne(name, args[3] as Action);
       });
       m_cancel.onClick.RemoveAllListeners();
       m_cancel.onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name, null, args[4] as Action);
+        UIManager.instance.CloseOne(name, args[4] as Action);
       });
 
       base.Open(callback, args);
