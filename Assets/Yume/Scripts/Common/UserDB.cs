@@ -32,7 +32,9 @@ namespace Yume.DB {
       }
 
 #if TEST
-      this.name = "admin";
+      if (string.IsNullOrEmpty(name)) {
+        this.name = "游客";
+      }
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
