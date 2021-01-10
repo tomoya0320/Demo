@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
@@ -53,7 +54,8 @@ namespace Yume.Server {
 
     private IEnumerator _SendWebRequest(string url, JObject data, Action<UnityWebRequest> onCompleted) {
       UnityWebRequest request = UnityWebRequest.Get(url);
-      request.SetRequestHeader("data", StringUtil.StringToBase64(data.ToString()));
+      byte[] bytes = Encoding.UTF8.GetBytes(StringUtil.StringToBase64(data.ToString()));
+      request.uploadHandler = new UploadHandlerRaw(bytes);
       request.downloadHandler = new DownloadHandlerBuffer();
 
       UIManager.instance.SetInteractionMask(true);
