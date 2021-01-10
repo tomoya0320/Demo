@@ -16,7 +16,7 @@ namespace Yume.RedPointSystem {
 
         foreach (var task in DBManager.instance.userTasks[type]) {
           if (task.state == TaskState.COMPLETED) {
-            InitLeafNode(task.id, type.GetDescription());
+            AddLeafNode(task.id, type.GetDescription());
           }
         }
       }

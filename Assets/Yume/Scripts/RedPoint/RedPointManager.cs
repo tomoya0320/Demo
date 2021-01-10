@@ -94,7 +94,7 @@ namespace Yume.RedPointSystem {
       return 0;
     }
 
-    protected void InitLeafNode(string name, string parent, int initRedPointNum = 1) {
+    protected void AddLeafNode(string name, string parent, int initRedPointNum = 1) {
       if(string.IsNullOrEmpty(name) || string.IsNullOrEmpty(parent)) {
         Debug.LogError("父子节点名均不能为空！");
         return;
@@ -129,7 +129,7 @@ namespace Yume.RedPointSystem {
           Debug.LogError($"父节点不一致！name:{name},parent:{parent},correctParent:{redPointNode.parentName}");
         }
       } else {
-        InitLeafNode(name, parent, redPointNum);
+        AddLeafNode(name, parent, redPointNum);
       }
     }
 

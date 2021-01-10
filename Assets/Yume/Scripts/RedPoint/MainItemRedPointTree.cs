@@ -10,7 +10,7 @@ namespace Yume.RedPointSystem {
       redPointDict.Add(MAIN_ITEM, new RedPointNode(redPointTreeType, MAIN_ITEM, null));
       foreach (var item in DBManager.instance.userItems) {
         if (!item.isViewed) {
-          InitLeafNode(item.id, MAIN_ITEM);
+          AddLeafNode(item.id, MAIN_ITEM);
         }
       }
 

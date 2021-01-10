@@ -20,7 +20,7 @@ namespace Yume.Server {
         return AssetLoader.instance.GetValue<string>("userServerUrl");
       }
     }
-  
+
     public void Login(string account, string password, Action<UnityWebRequest> onCompleted) {
       JObject json = JObject.FromObject(new { account, password });
       json.Add("method", Methods.LOGIN.ToString());
