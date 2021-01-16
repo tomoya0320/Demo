@@ -15,7 +15,6 @@ namespace Yume.UI {
       private Text m_numText;
       private Image m_iconImg;
       private Button m_clickButton;
-      public ItemDB item => m_item;
       private GameObject m_selected;
       private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
@@ -51,18 +50,17 @@ namespace Yume.UI {
 
       public async void Update(ItemDB data) {
         m_item = data;
-        if (m_item == null) {
-          gameObject.SetActiveEx(false);
-        } else {
-          gameObject.SetActiveEx(true);
-          m_selected.SetActiveEx(m_item == m_itemInfoBoard.selectedItem);
-          m_item = item;
-          m_numText.text = StringUtil.IntegerToString(item.num);
+
+        m_itemRedPoint.Update(m_item?.id);
+        gameObject.SetActiveEx(m_item != null);
+        m_selected.SetActiveEx(m_item == m_itemInfoBoard.selectedItem);
+
+        if (m_item != null) {
+          m_numText.text = StringUtil.IntegerToString(m_item.num);
           m_iconImg.gameObject.SetActiveEx(true);
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
-                                   DBManager.instance.GetItemInfo(item.id).iconFileName);
+                                   DBManager.instance.GetItemInfo(m_item.id).iconFileName);
         }
-        m_itemRedPoint.Update(m_item?.id);
       }
 
       public void Destroy() {

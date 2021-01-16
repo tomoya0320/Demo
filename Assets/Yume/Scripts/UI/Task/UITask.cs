@@ -16,7 +16,6 @@ namespace Yume.UI {
       private TaskDB m_task;
       private Text m_description;
       private YButton m_getReward;
-      public TaskDB task => m_task;
       private UIRedPoint m_taskRedPoint;
       public bool isValid => m_task != null;
       private RectTransform m_rewardContent;
@@ -43,23 +42,23 @@ namespace Yume.UI {
       }
 
       private void _UpdateTaskProcess() {
-        if (task != null) {
+        if (m_task != null) {
           for (int i = 0; i < m_processContent.childCount; i++) {
             var tempGo = m_processContent.GetChild(i).gameObject;
-            if (i < task.taskRequests.Count) {
+            if (i < m_task.taskRequests.Count) {
               tempGo.SetActiveEx(true);
-              tempGo.GetComponentInChildren<Text>().text = string.Format("{0}:{1}/{2}", task.taskRequests[i].description,
-              task.taskRequests[i].currentNum, task.taskRequests[i].requiredNum);
+              tempGo.GetComponentInChildren<Text>().text = string.Format("{0}:{1}/{2}", m_task.taskRequests[i].description,
+              m_task.taskRequests[i].currentNum, m_task.taskRequests[i].requiredNum);
             } else {
               tempGo.SetActiveEx(false);
             }
           }
 
-          m_getReward.interactable = task.state == TaskState.COMPLETED;
-          m_processContent.gameObject.SetActiveEx(task.state == TaskState.INPROCESS);
-          m_getReward.gameObject.SetActiveEx(task.state == TaskState.COMPLETED || task.state == TaskState.FINAL);
-          m_getReward.textComponent.text = task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
-          m_getReward.image.color = task.state == TaskState.FINAL ? Colors.DISABLE_BUTTON : m_getReward.colors.normalColor;
+          m_getReward.interactable = m_task.state == TaskState.COMPLETED;
+          m_processContent.gameObject.SetActiveEx(m_task.state == TaskState.INPROCESS);
+          m_getReward.gameObject.SetActiveEx(m_task.state == TaskState.COMPLETED || m_task.state == TaskState.FINAL);
+          m_getReward.textComponent.text = m_task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
+          m_getReward.image.color = m_task.state == TaskState.FINAL ? Colors.DISABLE_BUTTON : m_getReward.colors.normalColor;
         }
       }
 
@@ -68,17 +67,18 @@ namespace Yume.UI {
         m_getReward.image.color = Colors.DISABLE_BUTTON;
         m_getReward.textComponent.text = StringMap.COMPLETED;
 
-        DBManager.instance.CompleteTask(task);
+        DBManager.instance.CompleteTask(m_task);
         DBManager.instance.UpdateUserData();
       }
 
       public async void Update(TaskDB data) {
         m_task = data;
-        if (task == null) {
-          gameObject.SetActiveEx(false);
-        } else {
-          gameObject.SetActiveEx(true);
-          TaskInfo taskInfo = DBManager.instance.GetTaskInfo(task.type, task.id);
+
+        m_taskRedPoint.Update(m_task?.id);
+        gameObject.SetActiveEx(m_task != null);
+
+        if (m_task != null) {
+          TaskInfo taskInfo = DBManager.instance.GetTaskInfo(m_task.type, m_task.id);
           m_title.text = taskInfo.title;
           m_description.text = taskInfo.description;
 
@@ -98,7 +98,6 @@ namespace Yume.UI {
           //刷新任务进度
           _UpdateTaskProcess();
         }
-        m_taskRedPoint.Update(m_task?.id);
       }
 
       public void Destroy() {

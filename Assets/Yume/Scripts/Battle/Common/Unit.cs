@@ -121,6 +121,21 @@ namespace Yume.Battle {
       DEAD
     }
 
+    public enum CardHeapType {
+      /// <summary>
+      /// 抽牌堆
+      /// </summary>
+      DRAW,
+      /// <summary>
+      /// 弃牌堆
+      /// </summary>
+      DISCARD,
+      /// <summary>
+      /// 耗牌堆
+      /// </summary>
+      CONSUME,
+    }
+
     public class IdleState : StateBase<Unit> {
       public IdleState(Unit onwer) : base((int)State.IDLE, onwer) { }
 
@@ -167,10 +182,8 @@ namespace Yume.Battle {
     protected string unitTag;
     protected string unitName;
     protected Attrib[] attribs;
-    protected List<CardDB> cardList; //抽牌堆
     protected StateMachine stateMachine;
-    protected List<CardDB> discardCardList = new List<CardDB>(); //弃堆
-    protected List<CardDB> consumedCardList = new List<CardDB>(); //耗牌堆
+    protected Dictionary<CardHeapType,List<CardDB>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
     public Unit(UnitDB unitDB, List<CardDB> cardList) {
       UnitInfo unitInfo = DBManager.instance.GetUnitInfo(unitDB.id);
@@ -182,7 +195,12 @@ namespace Yume.Battle {
                                           unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
       //TODO:Init PassiveSkill
       //TODO:Init Prefab
-      this.cardList = cardList;
+
+      cardHeapDict = new Dictionary<CardHeapType, List<CardDB>>();
+      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
+        cardHeapDict.Add(cardHeapType, new List<CardDB>());
+      }
+      cardHeapDict[CardHeapType.DRAW].AddRange(cardList);
 
       stateMachine = new StateMachine(new IdleState(this));
       stateMachine.RegisterState(new PlayState(this));

@@ -21,8 +21,6 @@ namespace Yume.UI {
       private Image m_attachmentImg;
       private GameObject m_selected;
       private UIMailGroup m_mailGroup;
-
-      public MailDB mail => m_mail;
       public Image bottomImg => m_bottomImg;
       public bool isValid => m_mail != null;
 
@@ -52,16 +50,16 @@ namespace Yume.UI {
 
       public void Update(MailDB data) {
         m_mail = data;
-        if (m_mail == null) {
-          gameObject.SetActiveEx(false);
-        } else {
-          gameObject.SetActiveEx(true);
-          m_titleText.text = mail.title;
-          m_attachmentImg.enabled = mail.attachment.Length > 0;
-          m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
-          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(mail.dateTime);
-        }
+
         m_mailRedPoint.Update(m_mail?.id);
+        gameObject.SetActiveEx(m_mail != null);
+        m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
+
+        if (m_mail != null) {
+          m_titleText.text = m_mail.title;
+          m_attachmentImg.enabled = m_mail.attachment.Length > 0;
+          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.dateTime);
+        }
       }
 
       public void Destroy() {

@@ -70,11 +70,11 @@ public static class ListTools {
   }
 }
 
-public static class ImageTools {
-  public static void SetAlpha(this Image image, float alpha) {
-    Color color = image.color;
+public static class TextTools {
+  public static void SetAlpha(this Text text, float alpha) {
+    Color color = text.color;
     color.a = alpha;
-    image.color = color;
+    text.color = color;
   }
 }
 

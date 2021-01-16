@@ -6,14 +6,14 @@
     "cardType": "ATTACK",
     "cardPhases": [
       {
-        "description": "对一个敌人造成{atk}点少量的伤害",
+        "description": "对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害",
         "energyConsumption": 1,
         "blackboard": {
           "atk": 10
         }
       },
       {
-        "description": "对一个敌人造成{atk}点大量的伤害",
+        "description": "对一个敌人造成{atk}点大量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害",
         "energyConsumption": 1,
         "blackboard": {
           "atk": 16

@@ -19,12 +19,12 @@ namespace Yume.UI {
 
     public async void Update(ItemDB data) {
       m_item = data;
-      if (m_item == null) {
-        gameObject.SetActiveEx(false);
-      } else {
-        gameObject.SetActiveEx(true);
-        m_numText.text = data.num.ToString();
-        m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DBManager.instance.GetItemInfo(data.id).iconFileName);
+
+      gameObject.SetActiveEx(m_item != null);
+
+      if (m_item != null) {
+        m_numText.text = m_item.num.ToString();
+        m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DBManager.instance.GetItemInfo(m_item.id).iconFileName);
       }
     }
   }

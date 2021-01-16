@@ -321,6 +321,8 @@ namespace Yume.DB {
               TaskManager.instance.UpdateTaskState(RequestType.ITEM_NUM, item.id, -item.num);
             }
           }
+          //更新RedPoint
+          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 0);
         }
       }
       //更新UI显示

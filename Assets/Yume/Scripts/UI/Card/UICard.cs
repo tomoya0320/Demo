@@ -17,7 +17,7 @@ namespace Yume.UI {
       private Image m_iconImg;
       private Text m_phaseText;
       private Text m_energyText;
-      private Text m_descriptionText;
+      private YTextAutoScroll m_descriptionText;
       public bool isValid => m_card != null;
 
       public UICardTerm(GameObject root) : base(root) {
@@ -26,23 +26,28 @@ namespace Yume.UI {
         m_iconImg = GetComponent<Image>("IconImage");
         m_phaseText = GetComponent<Text>("PhaseText");
         m_energyText = GetComponent<Text>("EnergyText");
-        m_descriptionText = GetComponent<Text>("DescriptionText");
+        m_descriptionText = GetComponent<YTextAutoScroll>("DescriptionText");
       }
 
       public async void Update(CardDB data) {
+        CardDB oldCard = m_card;
+
         m_card = data;
-        if (m_card == null) {
-          gameObject.SetActiveEx(false);
-        } else {
-          gameObject.SetActiveEx(true);
+
+        gameObject.SetActiveEx(m_card != null);
+
+        if (m_card != null) {
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
           m_nameText.text = cardInfo.name;
           m_phaseText.text = m_card.phase.ToString();
           m_typeText.text = cardInfo.cardType.GetDescription();
           m_energyText.text = cardInfo.cardPhases[m_card.phase].energyConsumption.ToString();
-          m_descriptionText.text = StringUtil.GetActualDescription(cardInfo.cardPhases[m_card.phase].description,
-                                                                   cardInfo.cardPhases[m_card.phase].blackboard);
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
+          if (oldCard != m_card) {
+            string description = cardInfo.cardPhases[m_card.phase].description;
+            Blackboard blackboard = cardInfo.cardPhases[m_card.phase].blackboard;
+            m_descriptionText.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
+          }
         }
       }
     }
