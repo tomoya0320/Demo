@@ -297,7 +297,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: top right menu/setting
+    path: left menu/setting
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves: []
@@ -326,7 +326,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: bottom menu/buttons/bag button
+    path: right menu/bag button
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -351,7 +351,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: bottom menu/buttons/card button
+    path: right menu/card button
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -376,7 +376,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: bottom menu/buttons/task button
+    path: right menu/task button
   m_FloatCurves:
   - curve:
       serializedVersion: 2
@@ -403,7 +403,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: top left menu/mail button
+    path: left menu/mail button
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_PPtrCurves: []
@@ -461,7 +461,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: bottom menu/buttons/bag button
+    path: right menu/bag button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -489,7 +489,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: bottom menu/buttons/bag button
+    path: right menu/bag button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -517,7 +517,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: bottom menu/buttons/bag button
+    path: right menu/bag button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -545,7 +545,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: bottom menu/buttons/card button
+    path: right menu/card button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -573,7 +573,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: bottom menu/buttons/card button
+    path: right menu/card button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -601,7 +601,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: bottom menu/buttons/card button
+    path: right menu/card button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -629,7 +629,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: bottom menu/buttons/task button
+    path: right menu/task button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -657,7 +657,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: bottom menu/buttons/task button
+    path: right menu/task button
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -685,37 +685,9 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: bottom menu/buttons/task button
+    path: right menu/task button
     classID: 224
     script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Color.a
-    path: top left menu/mail button
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1002,7 +974,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.x
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1291,7 +1263,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.y
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1580,7 +1552,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.z
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1869,9 +1841,37 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Color.a
+    path: left menu/mail button
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_EulerEditorCurves:
   - curve:
       serializedVersion: 2
@@ -1898,7 +1898,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.x
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1926,7 +1926,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.y
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -1954,7 +1954,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.z
-    path: top right menu/setting
+    path: left menu/setting
     classID: 224
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
