@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -36,12 +37,13 @@ namespace Yume.UI {
     public bool activeBack { set; get; }
 
     protected override void OnInit() {
-      topCanvas = GameObject.Find("TopCanvas")?.transform;
-      tipCanvas = GameObject.Find("TipCanvas")?.transform;
-      cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
-      normalCanvas = GameObject.Find("NormalCanvas")?.transform;
+      UIObject uiRootObject = Game.instance.uiRootObject;
+      topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
+      tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
+      cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
+      normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
 
-      m_interactionMask = GameObject.Find("InteractionMask");
+      m_interactionMask = uiRootObject.GetGameObject("InteractionMask");
       m_interactionMask.SetActiveEx(false);
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {

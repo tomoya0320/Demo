@@ -8,6 +8,12 @@ using Yume.UI;
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
     /// <summary>
+    /// UIRoot的对象引用
+    /// </summary>
+    [SerializeField]
+    private UIObject _uiRootObject;
+    public UIObject uiRootObject => _uiRootObject;
+    /// <summary>
     /// .asset文件的路径列表
     /// </summary>
     [SerializeField]
