@@ -17,7 +17,7 @@ namespace Yume.UI {
       private Image m_iconImg;
       private Text m_phaseText;
       private Text m_energyText;
-      private YTextAutoScroll m_descriptionText;
+      private YTextAutoScroll m_descTextAutoScroll;
       public bool isValid => m_card != null;
 
       public UICardTerm(GameObject root) : base(root) {
@@ -26,7 +26,7 @@ namespace Yume.UI {
         m_iconImg = GetComponent<Image>("IconImage");
         m_phaseText = GetComponent<Text>("PhaseText");
         m_energyText = GetComponent<Text>("EnergyText");
-        m_descriptionText = GetComponent<YTextAutoScroll>("DescriptionText");
+        m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
       }
 
       public async void Update(CardDB data) {
@@ -43,7 +43,7 @@ namespace Yume.UI {
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
           string description = cardInfo.cardPhases[m_card.phase].description;
           Blackboard blackboard = cardInfo.cardPhases[m_card.phase].blackboard;
-          m_descriptionText.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
+          m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
         }
       }
     }
