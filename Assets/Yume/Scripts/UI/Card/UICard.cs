@@ -30,8 +30,6 @@ namespace Yume.UI {
       }
 
       public async void Update(CardDB data) {
-        CardDB oldCard = m_card;
-
         m_card = data;
 
         gameObject.SetActiveEx(m_card != null);
@@ -43,11 +41,9 @@ namespace Yume.UI {
           m_typeText.text = cardInfo.cardType.GetDescription();
           m_energyText.text = cardInfo.cardPhases[m_card.phase].energyConsumption.ToString();
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
-          if (oldCard != m_card) {
-            string description = cardInfo.cardPhases[m_card.phase].description;
-            Blackboard blackboard = cardInfo.cardPhases[m_card.phase].blackboard;
-            m_descriptionText.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
-          }
+          string description = cardInfo.cardPhases[m_card.phase].description;
+          Blackboard blackboard = cardInfo.cardPhases[m_card.phase].blackboard;
+          m_descriptionText.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
         }
       }
     }

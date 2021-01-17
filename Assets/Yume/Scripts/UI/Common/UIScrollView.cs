@@ -85,16 +85,23 @@ namespace Yume.UI {
         if (m_scrollRect.vertical && pos.y >= 0 && pos.y <= 1) {
           int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y);
           m_initDataIndex = (int)(row * m_maxCellNum.x);
-          m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
+          int newTop = (int)(m_cellSize.y * row);
+          if (m_gridLayoutGroup.padding.top != newTop) {
+            m_gridLayoutGroup.padding.top = newTop;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+            UpdateViewList();
+          }
         } else if (m_scrollRect.horizontal && pos.x >= 0 && pos.x <= 1) {
           //注意，左右的方向是和上下的相反的
           int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x);
           m_initDataIndex = (int)(column * m_maxCellNum.y);
-          m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
+          int newLeft = (int)(m_cellSize.x * column);
+          if (m_gridLayoutGroup.padding.left != newLeft) {
+            m_gridLayoutGroup.padding.left = newLeft;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+            UpdateViewList();
+          }
         }
-        //强制刷新
-        LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-        UpdateViewList();
       }
     }
   }
