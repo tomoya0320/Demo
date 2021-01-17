@@ -13,7 +13,7 @@ namespace Yume.UI {
     [SerializeField]
     private string _overrideSoundName;
     [SerializeField]
-    private bool _soundEvenInactive;
+    private bool _soundEvenDisabled;
 
     protected override void Awake() {
       base.Awake();
@@ -26,17 +26,13 @@ namespace Yume.UI {
       colors = newColors;
     }
 
-    public override void OnPointerDown(PointerEventData eventData) {
-      base.OnPointerDown(eventData);
-
-      if (currentSelectionState != SelectionState.Disabled) {
-        if (interactable || _soundEvenInactive) {
-          string clipName = string.IsNullOrEmpty(_overrideSoundName) ?
-                           StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
-
-          AudioManager.instance.PlaySound(clipName);
-        }
+    public override void OnPointerClick(PointerEventData eventData) {
+      if (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled) {
+        string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
+        AudioManager.instance.PlaySound(clipName);
       }
+
+      base.OnPointerClick(eventData);
     }
   }
 }
