@@ -102,11 +102,10 @@ namespace Yume.UI {
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
         m_attachmentScrollRect = GetComponent<ScrollRect>("AttachmentScrollRect");
 
-        m_mails = DBManager.instance.userMails;
-        m_noMailPanel.SetActiveEx(m_mails.Count == 0);
-
         m_mailGLG = m_mailScrollRect.content.GetComponent<GridLayoutGroup>();
         m_attachmentGLG = m_attachmentScrollRect.content.GetComponent<GridLayoutGroup>();
+
+        m_mails = DBManager.instance.userMails;
 
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
           m_mailTermList.Add(new UIMailTerm(this, m_mailScrollRect.content.GetChild(i).gameObject));
@@ -120,8 +119,8 @@ namespace Yume.UI {
         m_attachmentScrollView = new UIScrollView<ItemDB, UIShortItemInfo>(m_attachmentScrollRect, m_attachmentGLG,
                                                                            new List<ItemDB>(), m_attachmentTermList);
 
-        _CheckGetAllButton();
         _AddListener();
+        _RefreshMailView();
 
         EventCenter.AddListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
       }
@@ -227,7 +226,7 @@ namespace Yume.UI {
         DBManager.instance.UpdateUserData();
       }
 
-      //当有新邮件时会触发
+      //当有新邮件时会触发(另外还有初始化的时候)
       private void _RefreshMailView() {
         _CheckGetAllButton();
         m_mailScrollView.OnRefresh();

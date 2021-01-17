@@ -81,6 +81,7 @@ namespace Yume.UI {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
         m_itemGLG = m_itemScrollRect.content.GetComponent<GridLayoutGroup>();
         m_itemInfoBoard = new UIItemInfoBoard(this, GetGameObject("ItemInfoBoard"));
+        
         m_itemList = DBManager.instance.userItems;
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {

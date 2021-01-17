@@ -62,6 +62,7 @@ namespace Yume.UI {
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         m_cardGLG = m_cardScrollRect.content.GetComponent<GridLayoutGroup>();
+        
         m_cardList = DBManager.instance.userCards;
 
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {

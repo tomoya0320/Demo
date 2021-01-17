@@ -107,7 +107,6 @@ namespace Yume.UI {
     }
 
     private class UITaskGroup : UIChildBase {
-      private TaskType m_taskType;
       private List<TaskDB> m_tasks;
       private UIRedPoint m_taskRedPoint;
       private GridLayoutGroup m_taskGLG;
@@ -116,12 +115,11 @@ namespace Yume.UI {
       private UIScrollView<TaskDB, UITaskTerm> m_taskScrollView;
       private List<UITaskTerm> m_taskTermList = new List<UITaskTerm>();
 
-      public UITaskGroup(TaskType type, GameObject root) : base(root) {
-        m_taskType = type;
+      public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
         m_taskGLG = m_taskScrollRect.content.GetComponent<GridLayoutGroup>();
 
-        m_tasks = DBManager.instance.GetTaskList(m_taskType);
+        m_tasks = DBManager.instance.GetTaskList(taskType);
 
         foreach (TaskDB task in m_tasks) {
           if (task.state != TaskState.INACTIVE) {
@@ -132,13 +130,13 @@ namespace Yume.UI {
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
 
         for (int i = 0; i < m_taskScrollRect.content.childCount; i++) {
-          m_taskTermList.Add(new UITaskTerm(m_taskType, m_taskScrollRect.content.GetChild(i).gameObject));
+          m_taskTermList.Add(new UITaskTerm(taskType, m_taskScrollRect.content.GetChild(i).gameObject));
         }
 
         m_taskScrollView = new UIScrollView<TaskDB, UITaskTerm>(m_taskScrollRect, m_taskGLG, m_taskShowList, m_taskTermList);
 
         var taskRedPointRoot = GetGameObject("Button").FindGo(StringMap.UI_RED_POINT);
-        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointRoot);
+        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointRoot);
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
