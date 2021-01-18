@@ -1,0 +1,62 @@
+{
+  "enemy_001_slime": {
+    "id" : "enemy_001_slime",
+    "tag" : "slime",
+    "name" : "史莱姆",
+    "maxLevel" : 100,
+    "prefabName" : "enemy_001_slime",
+    "minAttribDict" : {
+      "HP" : {
+        "value" : 10,
+        "maxValue" : 10
+      },
+      "ATK" : {
+        "value" : 1,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 0,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 1,
+        "maxValue" : 999
+      }
+    },
+    "maxAttribDict" : {
+      "HP" : {
+        "value" : 100,
+        "maxValue" : 100
+      },
+      "ATK" : {
+        "value" : 10,
+        "maxValue" : 999999
+      },
+      "DEF" : {
+        "value" : 0,
+        "maxValue" : 999999
+      },
+      "HIT_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "EVADE_PROB" : {
+        "value" : 0,
+        "maxValue" : 99.9
+      },
+      "ENERGY" : {
+        "value" : 1,
+        "maxValue" : 999
+      }
+    },
+    "passiveSkillPhases": []
+  }
+}

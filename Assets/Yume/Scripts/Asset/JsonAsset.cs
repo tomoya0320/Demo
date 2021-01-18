@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Yume.DB {
@@ -10,22 +11,30 @@ namespace Yume.DB {
     public TextAsset itemsText;
     public TextAsset tasksText;
     public TextAsset cardsText;
-    public TextAsset unitsText;
+    public TextAsset charsText;
+    public TextAsset enemiesText;
     public TextAsset lvMaxApMapText;
-    
+
     [JsonProperty]
-    public string ui => uiText.text;
+    public JObject ui => JObject.Parse(uiText.text);
     [JsonProperty]
-    public string avgs => avgsText.text;
+    public JObject avgs => JObject.Parse(avgsText.text);
     [JsonProperty]
-    public string items => itemsText.text;
+    public JObject items => JObject.Parse(itemsText.text);
     [JsonProperty]
-    public string tasks => tasksText.text;
+    public JObject tasks => JObject.Parse(tasksText.text);
     [JsonProperty]
-    public string cards => cardsText.text;
+    public JObject cards => JObject.Parse(cardsText.text);
     [JsonProperty]
-    public string units => unitsText.text;
+    public JObject units {
+      get {
+        JObject json = new JObject();
+        json.Merge(JObject.Parse(charsText.text));
+        json.Merge(JObject.Parse(enemiesText.text));
+        return json;
+      }
+    }
     [JsonProperty]
-    public string lvMaxApMap => lvMaxApMapText.text;
+    public JObject lvMaxApMap => JObject.Parse(lvMaxApMapText.text);
   }
 }
