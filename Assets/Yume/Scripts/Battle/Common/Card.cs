@@ -13,28 +13,28 @@ namespace Yume.Battle {
     }
   }
 
+  public enum CardType {
+    [Description("攻击")]
+    ATTACK,
+    [Description("技能")]
+    SKILL,
+    [Description("诅咒")]
+    CURSE
+  }
+
+  [Serializable]
+  public struct CardPhase {
+    public string name;
+    public string description;
+    public string iconFileName;
+    public int energyConsumption;
+    public Blackboard blackboard;
+  }
+
   [Serializable]
   public struct CardInfo {
-    public enum CardType {
-      [Description("攻击")]
-      ATTACK,
-      [Description("技能")]
-      SKILL,
-      [Description("诅咒")]
-      CURSE
-    }
-
-    [Serializable]
-    public struct CardPhase {
-      public string description;
-      public int energyConsumption;
-      public Blackboard blackboard;
-    }
-
     public string id;
-    public string name;
     public CardType cardType;
-    public string iconFileName;
     public CardPhase[] cardPhases;
   }
 }

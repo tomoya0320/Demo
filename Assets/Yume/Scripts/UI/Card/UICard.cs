@@ -36,14 +36,14 @@ namespace Yume.UI {
 
         if (m_card != null) {
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
-          m_nameText.text = cardInfo.name;
+          CardPhase cardPhase = cardInfo.cardPhases[m_card.phase];
+
           m_phaseText.text = m_card.phase.ToString();
           m_typeText.text = cardInfo.cardType.GetDescription();
-          m_energyText.text = cardInfo.cardPhases[m_card.phase].energyConsumption.ToString();
-          m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardInfo.iconFileName);
-          string description = cardInfo.cardPhases[m_card.phase].description;
-          Blackboard blackboard = cardInfo.cardPhases[m_card.phase].blackboard;
-          m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(description, blackboard));
+          m_nameText.text = cardPhase.name;
+          m_energyText.text = cardPhase.energyConsumption.ToString();
+          m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
+          m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
         }
       }
     }

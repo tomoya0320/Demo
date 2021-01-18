@@ -89,6 +89,15 @@
       "isAsyncLoad" : false,
       "isCloseLast" : false
   },
+  "char": {
+      "name" : "char",
+      "uiType" : "NORMAL",
+      "typeName" : "Yume.UI.UIChar",
+      "prefabUrl" : "UI/Prefab/char",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
   "confirmation": {
       "name" : "confirmation",
       "uiType" : "TOP",

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
-using UnityEngine;
 using Yume.DB;
 using Yume.FSM;
 using Yume.Math;
@@ -69,13 +68,21 @@ namespace Yume.Battle {
     public string id;
     public int level;
     public int passiveSkillLevels;
+
+    public UnitDB(string id, int level, int passiveSkillLevels) {
+      this.id = id;
+      this.level = level;
+      this.passiveSkillLevels = passiveSkillLevels;
+    }
   }
 
   [Serializable]
   public struct UnitInfo {
     [Serializable]
     public struct PassiveSkillPhase {
+      public string name;
       public string description;
+      public string iconFileName;
       public Blackboard blackboard;
     }
 
@@ -84,6 +91,7 @@ namespace Yume.Battle {
     public string name;
     public int maxLevel;
     public string prefabName;
+    public string portraitFileName;
     public PassiveSkillPhase[] passiveSkillPhases;
     public Dictionary<AttribType, Attrib> minAttribDict;
     public Dictionary<AttribType, Attrib> maxAttribDict;

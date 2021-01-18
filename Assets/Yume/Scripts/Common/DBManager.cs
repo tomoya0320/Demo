@@ -141,6 +141,15 @@ namespace Yume.DB {
         }
         return m_userDB.cards;
       }
+    }   
+    public List<UnitDB> userChars {
+      get {
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        return m_userDB.chars;
+      }
     }
     public List<MailDB> userMails {
       get {

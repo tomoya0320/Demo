@@ -1,11 +1,11 @@
 {
   "card_001_atk": {
     "id": "card_001_atk",
-    "name": "打击",
-    "iconFileName": "cards[cards_35]",
     "cardType": "ATTACK",
     "cardPhases": [
       {
+        "name": "打击",
+        "iconFileName": "cards[cards_35]",
         "description": "对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害",
         "energyConsumption": 1,
         "blackboard": {
@@ -13,6 +13,8 @@
         }
       },
       {
+        "name": "打击+",
+        "iconFileName": "cards[cards_35]",
         "description": "对一个敌人造成{atk}点大量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害,对一个敌人造成{atk}点少量的伤害",
         "energyConsumption": 1,
         "blackboard": {

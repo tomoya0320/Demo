@@ -12,6 +12,7 @@ namespace Yume.UI {
     private Button m_bag;
     private Button m_task;
     private Button m_card;
+    private Button m_char;
     private Button m_mail; 
     private Button m_setting;
 
@@ -39,6 +40,7 @@ namespace Yume.UI {
       m_bag = GetComponent<Button>("Bag");
       m_task = GetComponent<Button>("Task");
       m_card = GetComponent<Button>("Card");
+      m_char = GetComponent<Button>("Char");
       m_mail = GetComponent<Button>("Mail");
       m_setting = GetComponent<Button>("Setting");
 
@@ -59,6 +61,7 @@ namespace Yume.UI {
       m_bag.onClick.AddListener(() => UIManager.instance.OpenOne("bag"));
       m_task.onClick.AddListener(() => UIManager.instance.OpenOne("task"));
       m_card.onClick.AddListener(() => UIManager.instance.OpenOne("card"));
+      m_char.onClick.AddListener(() => UIManager.instance.OpenOne("char"));
       m_mail.onClick.AddListener(() => UIManager.instance.OpenOne("mail"));
       m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
     }

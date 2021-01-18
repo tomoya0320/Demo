@@ -5,6 +5,7 @@
     "name" : "勇者",
     "maxLevel" : 100,
     "prefabName" : "char_001_brave",
+    "portraitFileName" : "半身像[半身像_3]",
     "minAttribDict" : {
       "HP" : {
         "value" : 100,
@@ -59,6 +60,8 @@
     },
     "passiveSkillPhases": [
       {
+        "name" : "燃烧之血",
+        "iconFileName" : "attackBuff",
         "description" : "最大生命+{maxHp},攻击力+{atk}",
         "blackboard" : {
           "maxHp" : 100,
@@ -66,6 +69,8 @@
         }
       },
       {
+        "name" : "燃烧之血",
+        "iconFileName" : "attackBuff",
         "description" : "最大生命+{maxHp},攻击力+{atk}",
         "blackboard" : {
           "maxHp" : 200,
@@ -73,6 +78,8 @@
         }
       },
       {
+        "name" : "燃烧之血",
+        "iconFileName" : "attackBuff",
         "description" : "最大生命+{maxHp},攻击力+{atk}",
         "blackboard" : {
           "maxHp" : 300,

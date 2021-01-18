@@ -35,6 +35,9 @@ namespace Yume.DB {
       if (string.IsNullOrEmpty(name)) {
         this.name = "游客";
       }
+
+      chars.Add(new UnitDB("char_001_brave", 0, 0));
+
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));
