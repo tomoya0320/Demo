@@ -13,13 +13,13 @@ namespace Yume.Battle {
   public enum AttribType {
     [Description("生命")]
     HP,
-    [Description("攻击力")]
+    [Description("攻击")]
     ATK,
-    [Description("防御力")]
+    [Description("防御")]
     DEF,
-    [Description("命中率")]
+    [Description("命中")]
     HIT_PROB,
-    [Description("回避率")]
+    [Description("回避")]
     EVADE_PROB,
     [Description("能量")]
     ENERGY,
@@ -77,21 +77,22 @@ namespace Yume.Battle {
   }
 
   [Serializable]
-  public struct UnitInfo {
-    [Serializable]
-    public struct PassiveSkillPhase {
-      public string name;
-      public string description;
-      public string iconFileName;
-      public Blackboard blackboard;
-    }
+  public struct PassiveSkillPhase {
+    public string name;
+    public string description;
+    public string iconFileName;
+    public Blackboard blackboard;
+  }
 
+  [Serializable]
+  public struct UnitInfo {
     public string id;
     public string tag;
     public string name;
     public int maxLevel;
     public string prefabName;
     public string portraitFileName;
+    public string illustrationFileName;
     public PassiveSkillPhase[] passiveSkillPhases;
     public Dictionary<AttribType, Attrib> minAttribDict;
     public Dictionary<AttribType, Attrib> maxAttribDict;
