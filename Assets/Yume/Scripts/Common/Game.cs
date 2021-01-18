@@ -3,6 +3,7 @@ using Yume.AVG;
 using Yume.Battle;
 using Yume.DB;
 using Yume.MailSystem;
+using Yume.Resource;
 using Yume.UI;
 
 namespace Yume.Main {
@@ -13,12 +14,10 @@ namespace Yume.Main {
     [SerializeField]
     private UIObject _uiRootObject;
     public UIObject uiRootObject => _uiRootObject;
-    /// <summary>
-    /// .asset文件的路径列表
-    /// </summary>
+
     [SerializeField]
-    private string[] _assetUrls;
-    public string[] assetUrls => _assetUrls;
+    private YScriptableObject[] _assets;
+    public YScriptableObject[] assets => _assets;
 
     private void Start() {
       //暂时先不需要检查资源的UI

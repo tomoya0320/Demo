@@ -20,18 +20,18 @@ namespace Yume.AVG {
     [SerializeField]
     private Text _dialogueText;
     private Tween m_textTween;
+    private JObject m_avgJson;
     private JArray m_currentTexts;
     private JObject m_textJObject;
     private int m_currentTextIndex;
-    private Dictionary<string, JArray> m_avgTextDict;
 
     protected override void OnInit() {
-      m_avgTextDict = AssetLoader.instance.GetObject<Dictionary<string, JArray>>("avgJson");
+      m_avgJson = AssetLoader.instance.GetValue<JObject>("avgJson");
     }
 
     public void StartAVG(string avgName) {
-      if (m_avgTextDict.ContainsKey(avgName)) {
-        m_currentTexts = m_avgTextDict[avgName];
+      if (m_avgJson.ContainsKey(avgName)) {
+        m_currentTexts = m_avgJson[avgName].Value<JArray>();
         m_currentTextIndex = -1;
         _MoveToNext();
       } else {

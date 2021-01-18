@@ -1,40 +1,26 @@
 ﻿using UnityEngine;
-using Newtonsoft.Json.Linq;
 using Yume.Main;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Yume.Resource {
+  public abstract class YScriptableObject : ScriptableObject {
+    public abstract Dictionary<string, object> GetAssets();
+  }
+
   public class AssetLoader : Singleton<AssetLoader> {
-    private JObject m_data = new JObject();
+    private Dictionary<string, object> m_assets = new Dictionary<string, object>();
 
     protected override void OnInit() {
-      foreach (var url in Game.instance.assetUrls) {
-        m_data.Merge(JObject.FromObject(ResourceManager.LoadAsset<Object>(url)));
+      foreach (var asset in Game.instance.assets) {
+        foreach (var kv in asset.GetAssets()) {
+          m_assets.Add(kv.Key, kv.Value);
+        }
       }
     }
 
-    /// <summary>
-    /// string int float等基本类型
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="name"></param>
-    /// <returns></returns>
     public T GetValue<T>(string name) {
-      if (m_data.ContainsKey(name)) {
-        return m_data[name].Value<T>();
-      }
-      return default;
-    }
-
-    /// <summary>
-    /// struct class Array等类型
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public T GetObject<T>(string name) {
-      if (m_data.ContainsKey(name)) {
-        return JsonConvert.DeserializeObject<T>(m_data[name].ToString());
+      if (m_assets.ContainsKey(name)) {
+        return (T)m_assets[name];
       }
       return default;
     }

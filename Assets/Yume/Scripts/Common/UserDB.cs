@@ -8,8 +8,6 @@ using Yume.UI;
 namespace Yume.DB {
   [Serializable]
   public class UserDB {
-    public const int MAX_TEAN_NUM = 5;
-
     public int lv;
     public int ap;
     public int exp;
@@ -31,7 +29,7 @@ namespace Yume.DB {
 
       tasks = DBManager.instance.GetDefaultTasks();
 
-      for (int i = 0; i < MAX_TEAN_NUM; i++) {
+      for (int i = 0; i < Constant.MAX_TEAN_NUM; i++) {
         teams.Add(new TeamDB());
       }
       teams[0].isSelected = true;
@@ -48,6 +46,7 @@ namespace Yume.DB {
       }
 
       chars.Add(new UnitDB("char_001_brave", 0, 0));
+      chars.Add(new UnitDB("char_002_wzb", 0, 0));
 
       cards.Add(new CardDB("card_001_atk",0));
       cards.Add(new CardDB("card_001_atk",0));

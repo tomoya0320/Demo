@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,9 +52,8 @@ namespace Yume.UI {
         m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      var uiDataDict = AssetLoader.instance.GetObject<Dictionary<string, UIData>>("uiJson");
-      foreach (var uiData in uiDataDict.Values) {
-        Register(uiData);
+      foreach (var kv in AssetLoader.instance.GetValue<JObject>("uiJson")) {
+        Register(kv.Value.ToObject<UIData>());
       }
     }
 

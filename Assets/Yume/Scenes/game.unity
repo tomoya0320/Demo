@@ -691,10 +691,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiRootObject: {fileID: 63756148}
-  _assetUrls:
-  - Asset/jsonAsset
-  - Asset/configAsset
-  - Asset/attribCurveAsset
+  _assets:
+  - {fileID: 11400000, guid: 3a766d48dd38a42419ae71de84da86d7, type: 2}
+  - {fileID: 11400000, guid: 9cbc7429fab218344a5550cfffc1f67c, type: 2}
+  - {fileID: 11400000, guid: 1109950c410825645abf16c0eccbc5af, type: 2}
+  - {fileID: 11400000, guid: d85d97b952e1da844b5fcdaa19332a19, type: 2}
 --- !u!1 &693098949
 GameObject:
   m_ObjectHideFlags: 0

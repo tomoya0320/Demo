@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using Yume.Resource;
 
 namespace Yume.DB {
-  //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
-  [JsonObject(MemberSerialization.OptIn)]
-  public class JsonAsset : ScriptableObject {
+  public class JsonAsset : YScriptableObject {
     [SerializeField]
     private TextAsset _uiText;
     [SerializeField]
@@ -23,17 +22,6 @@ namespace Yume.DB {
     [SerializeField]
     private TextAsset _lvMaxApMapText;
 
-    [JsonProperty]
-    public JObject uiJson => JObject.Parse(_uiText.text);
-    [JsonProperty]
-    public JObject avgJson => JObject.Parse(_avgsText.text);
-    [JsonProperty]
-    public JObject itemJson => JObject.Parse(_itemsText.text);
-    [JsonProperty]
-    public JObject taskJson => JObject.Parse(_tasksText.text);
-    [JsonProperty]
-    public JObject cardJson => JObject.Parse(_cardsText.text);
-    [JsonProperty]
     public JObject unitJson {
       get {
         JObject json = new JObject();
@@ -42,7 +30,24 @@ namespace Yume.DB {
         return json;
       }
     }
-    [JsonProperty]
+    public JObject uiJson => JObject.Parse(_uiText.text);
+    public JObject avgJson => JObject.Parse(_avgsText.text);
+    public JObject itemJson => JObject.Parse(_itemsText.text);
+    public JObject taskJson => JObject.Parse(_tasksText.text);
+    public JObject cardJson => JObject.Parse(_cardsText.text);
     public JObject lvMaxApMapJson => JObject.Parse(_lvMaxApMapText.text);
+
+    public override Dictionary<string, object> GetAssets() {
+      Dictionary<string, object> assets = new Dictionary<string, object>();
+      assets.Add(nameof(unitJson), unitJson);
+      assets.Add(nameof(uiJson), uiJson);
+      assets.Add(nameof(avgJson), avgJson);
+      assets.Add(nameof(itemJson), itemJson);
+      assets.Add(nameof(taskJson), taskJson);
+      assets.Add(nameof(cardJson), cardJson);
+      assets.Add(nameof(lvMaxApMapJson), lvMaxApMapJson);
+
+      return assets;
+    }
   }
 }

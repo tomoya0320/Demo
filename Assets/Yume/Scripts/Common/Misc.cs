@@ -5,6 +5,10 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+public static class Constant {
+  public const int MAX_TEAN_NUM = 5;
+}
+
 public static class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }

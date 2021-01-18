@@ -124,5 +124,23 @@
       "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
+  },
+  "text_editor": {
+      "name" : "text_editor",
+      "uiType" : "NORMAL",
+      "typeName" : "Yume.UI.UITextEditor",
+      "prefabUrl" : "UI/Prefab/text_editor",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
+  },
+  "char_choice": {
+      "name" : "char_choice",
+      "uiType" : "NORMAL",
+      "typeName" : "Yume.UI.UICharChoice",
+      "prefabUrl" : "UI/Prefab/char_choice",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }

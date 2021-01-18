@@ -190,12 +190,12 @@ namespace Yume.DB {
     #endregion
 
     protected override void OnInit() {
-      m_itemJson = AssetLoader.instance.GetObject<JObject>("itemJson");
-      m_taskJson = AssetLoader.instance.GetObject<JObject>("taskJson");
-      m_cardJson = AssetLoader.instance.GetObject<JObject>("cardJson");
-      m_unitJson = AssetLoader.instance.GetObject<JObject>("unitJson");
-      m_lvMaxApMapJson = AssetLoader.instance.GetObject<JObject>("lvMaxApMapJson");
-      m_attribCurveList = AssetLoader.instance.GetObject<List<AttribCurve>>("attribCurves");
+      m_itemJson = AssetLoader.instance.GetValue<JObject>("itemJson");
+      m_taskJson = AssetLoader.instance.GetValue<JObject>("taskJson");
+      m_cardJson = AssetLoader.instance.GetValue<JObject>("cardJson");
+      m_unitJson = AssetLoader.instance.GetValue<JObject>("unitJson");
+      m_lvMaxApMapJson = AssetLoader.instance.GetValue<JObject>("lvMaxApMapJson");
+      m_attribCurveList = AssetLoader.instance.GetValue<List<AttribCurve>>("attribCurves");
     }
 
     public ItemInfo GetItemInfo(string id) {
@@ -278,6 +278,10 @@ namespace Yume.DB {
 
     public CardDB GetCardDB(string cardId) {
       return userCards.Find(obj => obj.id == cardId);
+    }
+
+    public UnitDB GetCharDB(string charId) {
+      return userChars.Find(obj => obj.id == charId);
     }
 
     public UnitInfo GetUnitInfo(string id) {

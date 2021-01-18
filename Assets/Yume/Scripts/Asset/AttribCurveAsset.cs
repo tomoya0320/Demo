@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Yume.Resource;
 
 namespace Yume.DB {
   [Serializable]
@@ -9,13 +10,17 @@ namespace Yume.DB {
     public AnimationCurve curve;
   }
 
-  //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
-  [JsonObject(MemberSerialization.OptIn)]
-  public class AttribCurveAsset : ScriptableObject {
+  public class AttribCurveAsset : YScriptableObject {
     [SerializeField]
-    private AttribCurve[] _attribCurves;
+    private List<AttribCurve> _attribCurves;
 
-    [JsonProperty]
-    public AttribCurve[] attribCurves => _attribCurves;
+    public List<AttribCurve> attribCurves => _attribCurves;
+
+    public override Dictionary<string, object> GetAssets() {
+      Dictionary<string, object> assets = new Dictionary<string, object>();
+      assets.Add(nameof(attribCurves), attribCurves);
+
+      return assets;
+    }
   }
 }

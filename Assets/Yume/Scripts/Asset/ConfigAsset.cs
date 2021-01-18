@@ -1,12 +1,11 @@
 ﻿using Yume.String;
 using UnityEngine;
-using Newtonsoft.Json;
 using System.IO;
+using Yume.Resource;
+using System.Collections.Generic;
 
 namespace Yume.Setting {
-  //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
-  [JsonObject(MemberSerialization.OptIn)]
-  public class ConfigAsset : ScriptableObject {
+  public class ConfigAsset : YScriptableObject {
     private enum ServerUrlType {
       REMOTE, LOCAL
     }
@@ -20,7 +19,6 @@ namespace Yume.Setting {
     [SerializeField]
     private string _userServlet;
 
-    [JsonProperty]
     public string userServerUrl {
       get {
         switch (_serverUrlType) {
@@ -35,6 +33,13 @@ namespace Yume.Setting {
             }
         }
       }
+    }
+
+    public override Dictionary<string, object> GetAssets() {
+      Dictionary<string, object> assets = new Dictionary<string, object>();
+      assets.Add(nameof(userServerUrl), userServerUrl);
+
+      return assets;
     }
   }
 }

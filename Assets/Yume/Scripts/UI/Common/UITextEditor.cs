@@ -1,0 +1,35 @@
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Yume.UI {
+  public class UITextEditor : UIBase {
+    private InputField m_textInputField;
+    private Action<string> m_onCompleted;
+
+    public override void OnInit(UIData uiData, GameObject root) {
+      base.OnInit(uiData, root);
+
+      m_textInputField = GetComponent<InputField>("TextInputField");
+
+      _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      base.Open(callback, args);
+
+      m_textInputField.text = args[0].ToString();
+      m_onCompleted = args[1] as Action<string>;
+    }
+
+    private void _AddListener() {
+      GetComponent<Button>("ok").onClick.AddListener(() => {
+        UIManager.instance.CloseOne(name, () => {
+          m_onCompleted?.Invoke(m_textInputField.text);
+         });
+      });
+      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("CancelFull").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+    }
+  }
+}
