@@ -12,7 +12,10 @@ namespace Yume.DB {
   //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
   [JsonObject(MemberSerialization.OptIn)]
   public class AttribCurveAsset : ScriptableObject {
+    [SerializeField]
+    private AttribCurve[] _attribCurves;
+
     [JsonProperty]
-    public AttribCurve[] attribCurves;
+    public AttribCurve[] attribCurves => _attribCurves;
   }
 }

@@ -167,16 +167,16 @@ namespace Yume.DB {
     private JObject m_taskJson;
     private JObject m_cardJson;
     private JObject m_unitJson;
-    private JObject m_lvMaxApMap;
+    private JObject m_lvMaxApMapJson;
     private List<AttribCurve> m_attribCurveList;
     #endregion
 
     protected override void OnInit() {
-      m_itemJson = AssetLoader.instance.GetObject<JObject>("items");
-      m_taskJson = AssetLoader.instance.GetObject<JObject>("tasks");
-      m_cardJson = AssetLoader.instance.GetObject<JObject>("cards");
-      m_unitJson = AssetLoader.instance.GetObject<JObject>("units");
-      m_lvMaxApMap = AssetLoader.instance.GetObject<JObject>("lvMaxApMap");
+      m_itemJson = AssetLoader.instance.GetObject<JObject>("itemJson");
+      m_taskJson = AssetLoader.instance.GetObject<JObject>("taskJson");
+      m_cardJson = AssetLoader.instance.GetObject<JObject>("cardJson");
+      m_unitJson = AssetLoader.instance.GetObject<JObject>("unitJson");
+      m_lvMaxApMapJson = AssetLoader.instance.GetObject<JObject>("lvMaxApMapJson");
       m_attribCurveList = AssetLoader.instance.GetObject<List<AttribCurve>>("attribCurves");
     }
 
@@ -225,8 +225,8 @@ namespace Yume.DB {
 
     public bool TryGetMaxApBy(int level, out int maxAp) {
       maxAp = 0;
-      if (m_lvMaxApMap.ContainsKey(level.ToString())) {
-        maxAp = m_lvMaxApMap[level.ToString()].Value<int>();
+      if (m_lvMaxApMapJson.ContainsKey(level.ToString())) {
+        maxAp = m_lvMaxApMapJson[level.ToString()].Value<int>();
         return true;
       }
       return false;

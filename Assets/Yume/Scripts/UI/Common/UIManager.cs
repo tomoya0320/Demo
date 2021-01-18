@@ -51,7 +51,7 @@ namespace Yume.UI {
         m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      var uiDataDict = AssetLoader.instance.GetObject<Dictionary<string, UIData>>("ui");
+      var uiDataDict = AssetLoader.instance.GetObject<Dictionary<string, UIData>>("uiJson");
       foreach (var uiData in uiDataDict.Values) {
         Register(uiData);
       }

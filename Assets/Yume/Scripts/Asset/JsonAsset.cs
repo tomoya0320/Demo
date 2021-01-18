@@ -6,35 +6,43 @@ namespace Yume.DB {
   //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
   [JsonObject(MemberSerialization.OptIn)]
   public class JsonAsset : ScriptableObject {
-    public TextAsset uiText;
-    public TextAsset avgsText;
-    public TextAsset itemsText;
-    public TextAsset tasksText;
-    public TextAsset cardsText;
-    public TextAsset charsText;
-    public TextAsset enemiesText;
-    public TextAsset lvMaxApMapText;
+    [SerializeField]
+    private TextAsset _uiText;
+    [SerializeField]
+    private TextAsset _avgsText;
+    [SerializeField]
+    private TextAsset _itemsText;
+    [SerializeField]
+    private TextAsset _tasksText;
+    [SerializeField]
+    private TextAsset _cardsText;
+    [SerializeField]
+    private TextAsset _charsText;
+    [SerializeField]
+    private TextAsset _enemiesText;
+    [SerializeField]
+    private TextAsset _lvMaxApMapText;
 
     [JsonProperty]
-    public JObject ui => JObject.Parse(uiText.text);
+    public JObject uiJson => JObject.Parse(_uiText.text);
     [JsonProperty]
-    public JObject avgs => JObject.Parse(avgsText.text);
+    public JObject avgJson => JObject.Parse(_avgsText.text);
     [JsonProperty]
-    public JObject items => JObject.Parse(itemsText.text);
+    public JObject itemJson => JObject.Parse(_itemsText.text);
     [JsonProperty]
-    public JObject tasks => JObject.Parse(tasksText.text);
+    public JObject taskJson => JObject.Parse(_tasksText.text);
     [JsonProperty]
-    public JObject cards => JObject.Parse(cardsText.text);
+    public JObject cardJson => JObject.Parse(_cardsText.text);
     [JsonProperty]
-    public JObject units {
+    public JObject unitJson {
       get {
         JObject json = new JObject();
-        json.Merge(JObject.Parse(charsText.text));
-        json.Merge(JObject.Parse(enemiesText.text));
+        json.Merge(JObject.Parse(_charsText.text));
+        json.Merge(JObject.Parse(_enemiesText.text));
         return json;
       }
     }
     [JsonProperty]
-    public JObject lvMaxApMap => JObject.Parse(lvMaxApMapText.text);
+    public JObject lvMaxApMapJson => JObject.Parse(_lvMaxApMapText.text);
   }
 }

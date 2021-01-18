@@ -4,10 +4,6 @@ using Yume.Main;
 using Newtonsoft.Json;
 
 namespace Yume.Resource {
-  /// <summary>
-  /// 只支持值类型的序列化
-  /// TODO:添加UnityEngine类型的支持
-  /// </summary>
   public class AssetLoader : Singleton<AssetLoader> {
     private JObject m_data = new JObject();
 
