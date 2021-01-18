@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using Yume.Battle;
 using Yume.MailSystem;
 using Yume.Task;
+using Yume.UI;
 
 namespace Yume.DB {
   [Serializable]
   public class UserDB {
+    public const int MAX_TEAN_NUM = 5;
+
     public int lv;
     public int ap;
     public int exp;
@@ -18,13 +21,21 @@ namespace Yume.DB {
     public List<ItemDB> items = new List<ItemDB>();
     public List<CardDB> cards = new List<CardDB>();
     public List<UnitDB> chars = new List<UnitDB>();
+    public List<TeamDB> teams = new List<TeamDB>();
     public Dictionary<TaskType, List<TaskDB>> tasks;
 
     public UserDB(string name = "", string account = "",string password = "") {
       this.name = name;
       this.account = account;
       this.password = password;
+
       tasks = DBManager.instance.GetDefaultTasks();
+
+      for (int i = 0; i < MAX_TEAN_NUM; i++) {
+        teams.Add(new TeamDB());
+      }
+      teams[0].isSelected = true;
+
       if (DBManager.instance.TryGetMaxApBy(lv, out int ret)) {
         ap = maxAp = ret;
       } else {

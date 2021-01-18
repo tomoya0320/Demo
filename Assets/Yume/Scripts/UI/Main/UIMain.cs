@@ -14,6 +14,7 @@ namespace Yume.UI {
     private Button m_card;
     private Button m_char;
     private Button m_mail; 
+    private Button m_team; 
     private Button m_setting;
 
     private Text m_apText;
@@ -42,6 +43,7 @@ namespace Yume.UI {
       m_card = GetComponent<Button>("Card");
       m_char = GetComponent<Button>("Char");
       m_mail = GetComponent<Button>("Mail");
+      m_team = GetComponent<Button>("Team");
       m_setting = GetComponent<Button>("Setting");
 
       var bagRedPointRoot = m_bag.gameObject.FindGo(StringMap.UI_RED_POINT);
@@ -63,6 +65,7 @@ namespace Yume.UI {
       m_card.onClick.AddListener(() => UIManager.instance.OpenOne("card"));
       m_char.onClick.AddListener(() => UIManager.instance.OpenOne("char"));
       m_mail.onClick.AddListener(() => UIManager.instance.OpenOne("mail"));
+      m_team.onClick.AddListener(() => UIManager.instance.OpenOne("team"));
       m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
     }
 

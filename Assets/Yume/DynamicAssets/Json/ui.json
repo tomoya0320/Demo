@@ -115,5 +115,14 @@
       "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
+  },
+  "team": {
+      "name" : "team",
+      "uiType" : "NORMAL",
+      "typeName" : "Yume.UI.UITeam",
+      "prefabUrl" : "UI/Prefab/team",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }

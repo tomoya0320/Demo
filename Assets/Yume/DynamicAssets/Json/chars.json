@@ -63,7 +63,7 @@
       {
         "name" : "燃烧之血",
         "iconFileName" : "attackBuff",
-        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "description" : "每场战斗中永久增加{maxHp}最大生命和{atk}攻击",
         "blackboard" : {
           "maxHp" : 100,
           "atk" : 10
@@ -72,7 +72,7 @@
       {
         "name" : "燃烧之血",
         "iconFileName" : "attackBuff",
-        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "description" : "每场战斗中永久增加{maxHp}最大生命和{atk}攻击",
         "blackboard" : {
           "maxHp" : 200,
           "atk" : 20
@@ -81,7 +81,7 @@
       {
         "name" : "燃烧之血",
         "iconFileName" : "attackBuff",
-        "description" : "最大生命+{maxHp},攻击力+{atk}",
+        "description" : "每场战斗中永久增加{maxHp}最大生命和{atk}攻击",
         "blackboard" : {
           "maxHp" : 300,
           "atk" : 30

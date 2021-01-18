@@ -141,6 +141,15 @@ namespace Yume.DB {
         }
         return m_userDB.cards;
       }
+    }    
+    public List<TeamDB> userTeams {
+      get {
+        if (m_userDB == null) {
+          m_userDB = new UserDB();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        return m_userDB.teams;
+      }
     }   
     public List<UnitDB> userChars {
       get {
@@ -265,6 +274,10 @@ namespace Yume.DB {
 
     public TaskDB GetTaskDB(TaskType taskType,string taskId) {
       return userTasks[taskType].Find(obj => obj.id == taskId);
+    }
+
+    public CardDB GetCardDB(string cardId) {
+      return userCards.Find(obj => obj.id == cardId);
     }
 
     public UnitInfo GetUnitInfo(string id) {

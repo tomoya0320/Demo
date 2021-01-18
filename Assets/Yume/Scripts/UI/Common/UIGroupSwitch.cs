@@ -10,7 +10,7 @@ namespace Yume.UI {
   /// </summary>
   public class UIGroupSwitch : MonoBehaviour {
     [Serializable]
-    private class UIKV {
+    public class UIKV {
       public Button button;
       public GameObject content;
       /// <summary>
@@ -22,9 +22,9 @@ namespace Yume.UI {
       public Sprite btnUnselectedImg;
     }
 
+    private UIKV m_currentUI;
     [SerializeField]
     private List<UIKV> _uiList;
-    private UIKV m_currentUI;
 
     private void Awake() {
       foreach (var ui in _uiList) {
