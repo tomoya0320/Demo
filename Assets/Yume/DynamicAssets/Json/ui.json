@@ -142,5 +142,14 @@
       "cacheTime" : 10,
       "isAsyncLoad" : false,
       "isCloseLast" : false
+  },
+  "card_choice": {
+      "name" : "card_choice",
+      "uiType" : "NORMAL",
+      "typeName" : "Yume.UI.UICardChoice",
+      "prefabUrl" : "UI/Prefab/card_choice",
+      "cacheTime" : 10,
+      "isAsyncLoad" : false,
+      "isCloseLast" : false
   }
 }

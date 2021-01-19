@@ -81,30 +81,37 @@ namespace Yume.UI {
         _OnRefreshCards();
 
         Action<string> onCharSelected = selectedCharId => {
-          if(m_curTeam.charId != selectedCharId) {
-            m_curTeam.charId = selectedCharId;
-            _OnRefreshChar();
-            DBManager.instance.UpdateUserData();
-          }
+          m_curTeam.charId = selectedCharId;
+          _OnRefreshChar();
         };
         m_charBtn.onClick.AddListener(() => {
-          UnitDB unitDB = DBManager.instance.GetCharDB(m_curTeam.charId);
-          UIManager.instance.OpenOne("char_choice", null, unitDB, onCharSelected);
+          UIManager.instance.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
         });
 
-        //TODO:¿¨ÅÆÑ¡ÔñÊÂ¼þ¼àÌý×¢²á
+        Action<List<string>> onCardSelected = selectedCardIds => {
+          m_curTeam.cardIdList = selectedCardIds;
+          _OnRefreshCards();
+        };
+        foreach (var cardBtn in m_cardBtns) {
+          cardBtn.onClick.AddListener(() => {
+            UIManager.instance.OpenOne("card_choice", null, m_cardBtns.Count, m_curTeam.cardIdList, onCardSelected);
+          });
+        }
 
         DBManager.instance.UpdateUserData();
       } else {
         Action<string> onEditCompleted = text => {
-          if (m_curTeam.name != text) {
-            m_curTeam.name = text;
-            m_teamBtns[m_curTeamIdx].textComponent.text = text;
-            DBManager.instance.UpdateUserData();
-          }
+          m_curTeam.name = text;
+          m_teamBtns[m_curTeamIdx].textComponent.text = text;
         };
         UIManager.instance.OpenOne("text_editor", null, m_curTeam.name, onEditCompleted);
       }
+    }
+
+    public override void Close(Action callback = null, params object[] args) {
+      DBManager.instance.UpdateUserData();
+      
+      base.Close(callback, args);
     }
 
     private async void _OnRefreshCards() {
@@ -115,6 +122,8 @@ namespace Yume.UI {
           CardInfo cardInfo = DBManager.instance.GetCardInfo(cardId);
           CardPhase cardPhase = cardInfo.cardPhases[cardDB.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
+        } else {
+          m_cardBtns[i].image.sprite = m_noCardSprite;
         }
       }
     }

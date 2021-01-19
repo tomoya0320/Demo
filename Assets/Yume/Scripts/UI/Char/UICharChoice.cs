@@ -87,7 +87,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_selectedChar = args[0] as UnitDB;
+      m_selectedChar = DBManager.instance.GetCharDB((string)args[0]);
       m_onSelected = args[1] as Action<string>;
 
       m_charChoiceGroup.OnRefresh();

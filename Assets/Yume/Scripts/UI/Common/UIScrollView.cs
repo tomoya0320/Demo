@@ -56,16 +56,20 @@ namespace Yume.UI {
           temp++;
         }
         m_scrollRect.content.SetSizeDeltaY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
+        LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+        int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y);
+        m_initDataIndex = (int)(row * m_maxCellNum.x);
       } else if (m_scrollRect.horizontal) {
         int temp = m_dataList.Count / (int)m_maxCellNum.y;
         if (m_dataList.Count % (int)m_maxCellNum.y > 0) {
           temp++;
         }
         m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
+        LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+        //注意，左右的方向是和上下的相反的
+        int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x);
+        m_initDataIndex = (int)(column * m_maxCellNum.y);
       }
-      m_scrollRect.content.anchoredPosition = m_originPos;
-      m_scrollRect.StopMovement();
-      m_initDataIndex = 0;
       UpdateViewList();
     }
 
