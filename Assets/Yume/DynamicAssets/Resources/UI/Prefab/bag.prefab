@@ -1194,8 +1194,12 @@ MonoBehaviour:
   _uiList:
   - name: ItemScrollRect
     gameObject: {fileID: 1230938460017756375}
-  - name: ItemInfoBoard
-    gameObject: {fileID: 7941105707873050567}
+  - name: IconImage
+    gameObject: {fileID: 7941105707437263857}
+  - name: NameNumText
+    gameObject: {fileID: 7941105706776249730}
+  - name: DescriptionText
+    gameObject: {fileID: 7941105708327543691}
 --- !u!1 &1247133578364674684
 GameObject:
   m_ObjectHideFlags: 0
@@ -10292,7 +10296,7 @@ GameObject:
   - component: {fileID: 7941105706776249743}
   - component: {fileID: 7941105706776249740}
   m_Layer: 5
-  m_Name: name_num
+  m_Name: name and num
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10519,9 +10523,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7941105707873050566}
-  - component: {fileID: 7041422483933593126}
   m_Layer: 5
-  m_Name: Information
+  m_Name: item detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10549,25 +10552,6 @@ RectTransform:
   m_AnchoredPosition: {x: -24, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7041422483933593126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7941105707873050567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiList:
-  - name: NameNumText
-    gameObject: {fileID: 7941105706776249730}
-  - name: DescriptionText
-    gameObject: {fileID: 7941105708327543691}
-  - name: IconImage
-    gameObject: {fileID: 7941105707437263857}
 --- !u!1 &7941105708327543691
 GameObject:
   m_ObjectHideFlags: 0

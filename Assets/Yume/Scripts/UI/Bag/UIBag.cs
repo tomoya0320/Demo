@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
@@ -7,6 +8,7 @@ using Yume.DB;
 using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.String;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UIBag : UIBase {
@@ -16,33 +18,30 @@ namespace Yume.UI {
       private Image m_iconImg;
       private Button m_clickButton;
       private GameObject m_selected;
+      private UIItemGroup m_itemGroup;
       private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
-      private UIItemInfoBoard m_itemInfoBoard;
 
-      public UIItemTerm(UIItemInfoBoard itemInfoBoard, GameObject root) : base(root) {
+      public UIItemTerm(GameObject root, UIItemGroup itemGroup) : base(root) {
         m_selected = GetGameObject("Selected");
         m_numText = GetComponent<Text>("NumText");
         m_iconImg = GetComponent<Image>("IconImg");
         m_clickButton = GetComponent<Button>("ClickButton");
 
-        m_itemInfoBoard = itemInfoBoard;
-
         var itemRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
         m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointRoot);
+
+        m_itemGroup = itemGroup;
 
         _AddListener();
       }
 
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => {
-          m_itemInfoBoard.SetSelecteItem(m_item);
-          m_itemInfoBoard.itemScrollView.UpdateViewList();
-          if (m_item != null && !m_item.isViewed) {
+          m_itemGroup.SwitchMail(m_item);
+          if (!m_item.isViewed) {
             m_item.isViewed = true;
-            //这个得手动存档一下
-            DBManager.instance.UpdateUserData();
-            //更新RedPoint
+
             RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, m_item.id, MainItemRedPointTree.MAIN_ITEM, 0);
           }
         });
@@ -53,7 +52,7 @@ namespace Yume.UI {
 
         m_itemRedPoint.Update(m_item?.id);
         gameObject.SetActiveEx(m_item != null);
-        m_selected.SetActiveEx(m_item == m_itemInfoBoard.selectedItem);
+        m_selected.SetActiveEx(m_item == m_itemGroup.selectedItem);
 
         if (m_item != null) {
           m_numText.text = StringUtil.IntegerToString(m_item.num);
@@ -69,29 +68,37 @@ namespace Yume.UI {
     }
 
     private class UIItemGroup : UIChildBase {
+      private Text m_nameNum;
+      private Image m_iconImg;
+      private Text m_description;
+      private Sprite m_noItemSprite;
+      private ItemDB m_selectedItem;
       private List<ItemDB> m_itemList;
       private GridLayoutGroup m_itemGLG;
       private ScrollRect m_itemScrollRect;
-      private UIItemInfoBoard m_itemInfoBoard;
+      public ItemDB selectedItem => m_selectedItem;
       private UIScrollView<ItemDB, UIItemTerm> m_itemScrollView;
       public UIScrollView<ItemDB, UIItemTerm> itemScrollView => m_itemScrollView;
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
 
       public UIItemGroup(GameObject root) : base(root) {
+        m_iconImg = GetComponent<Image>("IconImage");
+        m_nameNum = GetComponent<Text>("NameNumText");
+        m_description = GetComponent<Text>("DescriptionText");
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
         m_itemGLG = m_itemScrollRect.content.GetComponent<GridLayoutGroup>();
-        m_itemInfoBoard = new UIItemInfoBoard(this, GetGameObject("ItemInfoBoard"));
-        
+
         m_itemList = DBManager.instance.userItems;
+        m_noItemSprite = AssetLoader.instance.GetValue<Sprite>("noItemSprite");
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
-          m_itemTermList.Add(new UIItemTerm(m_itemInfoBoard, m_itemScrollRect.content.GetChild(i).gameObject));
+          m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
         }
 
         m_itemScrollView = new UIScrollView<ItemDB, UIItemTerm>(m_itemScrollRect, m_itemGLG, m_itemList, m_itemTermList);
 
-        EventCenter.AddListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
-        EventCenter.AddListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemInfoBoard.UpdateInfoBoard);
+        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
+        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
       }
 
       public void Destroy() {
@@ -99,48 +106,33 @@ namespace Yume.UI {
           itemTerm.Destroy();
         }
 
-        EventCenter.RemoveListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
-        EventCenter.RemoveListener(Broadcast.EventType.UPDATE_ITEM_INFO, m_itemInfoBoard.UpdateInfoBoard);
-      }
-    }
-
-    private class UIItemInfoBoard:UIChildBase {
-      private Text m_nameNum;
-      private Text m_description;
-      private Image m_iconImg;
-      private Sprite m_defaultIcon;
-      private ItemDB m_selectedItem;
-      private UIItemGroup m_itemGroup;
-      public ItemDB selectedItem => m_selectedItem;
-      public UIScrollView<ItemDB, UIItemTerm> itemScrollView => m_itemGroup.itemScrollView;
-
-      public UIItemInfoBoard(UIItemGroup itemGroup, GameObject root) : base(root) {
-        m_iconImg = GetComponent<Image>("IconImage");
-        m_nameNum = GetComponent<Text>("NameNumText");
-        m_description = GetComponent<Text>("DescriptionText");
-
-        m_itemGroup = itemGroup;
-
-        m_defaultIcon = m_iconImg.sprite;
+        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
+        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
       }
 
-      public async void UpdateInfoBoard() {
-        if (m_selectedItem != null && m_selectedItem.num > 0) {
-          var info = DBManager.instance.GetItemInfo(m_selectedItem.id);
-          m_nameNum.text = info.name + "*" + m_selectedItem.num;
-          m_description.text = info.description;
-          m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);
-        } else {
-          m_selectedItem = null;
-          m_nameNum.text = StringMap.EMPTY;
-          m_description.text = StringMap.EMPTY;
-          m_iconImg.sprite = m_defaultIcon;
+      private async void _UpdateInfoBoard() {
+        if (m_selectedItem != null) {
+          if (m_selectedItem.num > 0) {
+            var info = DBManager.instance.GetItemInfo(m_selectedItem.id);
+            m_nameNum.text = info.name + "*" + m_selectedItem.num;
+            m_description.text = info.description;
+            m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);
+          } else {
+            m_selectedItem = null;
+            m_nameNum.text = StringMap.EMPTY;
+            m_description.text = StringMap.EMPTY;
+            m_iconImg.sprite = m_noItemSprite;
+          }
         }
       }
 
-      public void SetSelecteItem(ItemDB item) {
-        m_selectedItem = item;
-        UpdateInfoBoard();
+      public void SwitchMail(ItemDB m_item) {
+        if(m_selectedItem != m_item) {
+          m_selectedItem = m_item;
+          _UpdateInfoBoard();
+
+          m_itemScrollView.UpdateViewData();
+        }
       }
     }
 
@@ -152,6 +144,12 @@ namespace Yume.UI {
       m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
 
       _AddListener();
+    }
+
+    public override void Close(Action callback = null, params object[] args) {
+      DBManager.instance.UpdateUserData();
+      
+      base.Close(callback, args);
     }
 
     private void _AddListener() {

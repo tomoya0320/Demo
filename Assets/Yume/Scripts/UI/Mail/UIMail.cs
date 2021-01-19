@@ -15,22 +15,18 @@ namespace Yume.UI {
     private class UIMailTerm : UIChildBase, IScrollTerm<MailDB> {
       private MailDB m_mail;
       private Text m_titleText;
-      private Image m_bottomImg;
       private Button m_clickButton;
       private Text m_dateDeltaText;
       private Image m_attachmentImg;
       private GameObject m_selected;
       private UIMailGroup m_mailGroup;
-      public Image bottomImg => m_bottomImg;
-      public bool isValid => m_mail != null;
-
       private UIRedPoint m_mailRedPoint;
+      public bool isValid => m_mail != null;
 
       public UIMailTerm(UIMailGroup mailGroup, GameObject root) : base(root) {
         m_mailGroup = mailGroup;
         m_selected = GetGameObject("Selected");
         m_titleText = GetComponent<Text>("TitleText");
-        m_bottomImg = GetComponent<Image>("BottomImage");
         m_clickButton = GetComponent<Button>("ClickButton");
         m_dateDeltaText = GetComponent<Text>("DateDeltaText");
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
@@ -44,7 +40,6 @@ namespace Yume.UI {
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => {
           m_mailGroup.SwitchMail(m_mail);
-          m_mailGroup.mailScrollView.UpdateViewList();
         });
       }
 
@@ -79,11 +74,11 @@ namespace Yume.UI {
 
       private List<MailDB> m_mails;
       private MailDB m_selectedMail;
-      public MailDB selectedMail => m_selectedMail;
       private GridLayoutGroup m_mailGLG;
       private ScrollRect m_mailScrollRect;
       private GridLayoutGroup m_attachmentGLG;
       private ScrollRect m_attachmentScrollRect;
+      public MailDB selectedMail => m_selectedMail;
       private UIScrollView<MailDB, UIMailTerm> m_mailScrollView;
       public UIScrollView<MailDB, UIMailTerm> mailScrollView => m_mailScrollView;
       private List<UIMailTerm> m_mailTermList = new List<UIMailTerm>();
@@ -132,18 +127,22 @@ namespace Yume.UI {
       }
 
       public void SwitchMail(MailDB mail) {
-        if (mail != null) {
-          m_mailContentPanel.SetActiveEx(true);
-          m_signatureText.text = mail.signature;
-          m_dateText.text = Convert.ToDateTime(mail.dateTime).ToShortDateString();
-          m_contentText.text = string.Format(mail.content, DBManager.instance.userName);
-
+        if (m_selectedMail != mail) {
           m_selectedMail = mail;
+          _UpdateMailContent();
 
-          _CheckGetButton();
-
+          m_mailScrollView.UpdateViewData();
           m_attachmentScrollView.OnRefresh(new List<ItemDB>(mail.attachment));
         }
+      }
+
+      private void _UpdateMailContent() {
+        m_mailContentPanel.SetActiveEx(true);
+        m_signatureText.text = m_selectedMail.signature;
+        m_dateText.text = Convert.ToDateTime(m_selectedMail.dateTime).ToShortDateString();
+        m_contentText.text = string.Format(m_selectedMail.content, DBManager.instance.userName);
+
+        _CheckGetButton();
       }
 
       public void Destroy() {
@@ -154,11 +153,9 @@ namespace Yume.UI {
       }
 
       private void _CheckGetButton() {
-        if (m_selectedMail != null) {
-          m_getButton.interactable = !m_selectedMail.isReceived;
-          m_getButton.textComponent.text = m_selectedMail.isReceived ? StringMap.GOT : StringMap.CLICK_GET;
-          m_getButton.image.color = m_selectedMail.isReceived ? Colors.DISABLE_BUTTON : m_getButton.colors.normalColor;
-        }
+        m_getButton.interactable = !m_selectedMail.isReceived;
+        m_getButton.textComponent.text = m_selectedMail.isReceived ? StringMap.GOT : StringMap.CLICK_GET;
+        m_getButton.image.color = m_selectedMail.isReceived ? Colors.DISABLE_BUTTON : m_getButton.colors.normalColor;
       }
 
       private void _CheckGetAllButton() {
@@ -175,11 +172,11 @@ namespace Yume.UI {
       }
 
       private void _GetAttachment() {
-        if (m_selectedMail != null && !m_selectedMail.isReceived) {
+        if (!m_selectedMail.isReceived) {
           m_selectedMail.GetAttachment();
 
-          _CheckGetAllButton();
           _CheckGetButton();
+          _CheckGetAllButton();
 
           DBManager.instance.UpdateUserData();
         }
@@ -207,26 +204,13 @@ namespace Yume.UI {
       }
 
       private void _DeleteAllMails() {
-        List<MailDB> tempMailList = new List<MailDB>();
+        m_selectedMail = null;
+        List<MailDB> deleteMailList = m_mails.FindAll(mail => mail.isReceived);
+        DBManager.instance.DeleteMails(deleteMailList.ToArray());
 
-        for (int i = m_mails.Count-1; i >=0; i--) {
-          if (m_mails[i].isReceived) {
-            tempMailList.Add(m_mails[i]);
-          }
-        }
-
-        if (m_selectedMail != null) {
-          //这种选中某个子项UI的记得在子项UI被释放时也一并释放掉
-          //其他的还有UIBag的UIItemInfoBoard
-          m_selectedMail = null;
-          m_mailContentPanel.SetActiveEx(false);
-        }
-
-        DBManager.instance.DeleteMails(tempMailList.ToArray());
         DBManager.instance.UpdateUserData();
       }
 
-      //当有新邮件时会触发(另外还有初始化的时候)
       private void _RefreshMailView() {
         _CheckGetAllButton();
         m_mailScrollView.OnRefresh();
