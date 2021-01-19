@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public static class Constant {
   public const int MAX_TEAN_NUM = 5;
+  public const int MAX_CARD_NUM = 12;
 }
 
 public static class Colors {

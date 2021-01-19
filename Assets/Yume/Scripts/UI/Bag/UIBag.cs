@@ -74,7 +74,6 @@ namespace Yume.UI {
       private Sprite m_noItemSprite;
       private ItemDB m_selectedItem;
       private List<ItemDB> m_itemList;
-      private GridLayoutGroup m_itemGLG;
       private ScrollRect m_itemScrollRect;
       public ItemDB selectedItem => m_selectedItem;
       private UIScrollView<ItemDB, UIItemTerm> m_itemScrollView;
@@ -86,7 +85,6 @@ namespace Yume.UI {
         m_nameNum = GetComponent<Text>("NameNumText");
         m_description = GetComponent<Text>("DescriptionText");
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
-        m_itemGLG = m_itemScrollRect.content.GetComponent<GridLayoutGroup>();
 
         m_itemList = DBManager.instance.userItems;
         m_noItemSprite = AssetLoader.instance.GetValue<Sprite>("noItemSprite");
@@ -95,7 +93,7 @@ namespace Yume.UI {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_itemScrollView = new UIScrollView<ItemDB, UIItemTerm>(m_itemScrollRect, m_itemGLG, m_itemList, m_itemTermList);
+        m_itemScrollView = new UIScrollView<ItemDB, UIItemTerm>(m_itemScrollRect, m_itemList, m_itemTermList);
 
         EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
         EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);

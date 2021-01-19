@@ -50,14 +50,12 @@ namespace Yume.UI {
 
     private class UICardGroup : UIChildBase {
       private List<CardDB> m_cardList;
-      private GridLayoutGroup m_cardGLG;
       private ScrollRect m_cardScrollRect;
       private UIScrollView<CardDB, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
-        m_cardGLG = m_cardScrollRect.content.GetComponent<GridLayoutGroup>();
         
         m_cardList = DBManager.instance.userCards;
 
@@ -65,7 +63,7 @@ namespace Yume.UI {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_cardScrollView = new UIScrollView<CardDB, UICardTerm>(m_cardScrollRect, m_cardGLG, m_cardList, m_cardTermList);
+        m_cardScrollView = new UIScrollView<CardDB, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
 
         EventCenter.AddListener(EventType.REFRESH_CARD_VIEW, m_cardScrollView.OnRefresh);
       }

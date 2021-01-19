@@ -17,11 +17,11 @@ namespace Yume.UI {
       private Text m_phaseText;
       private Text m_energyText;
       private GameObject m_selected;
-      private UICardChoice m_cardChoice;
       public bool isValid => m_card != null;
+      private UICardChoiceGroup m_cardChoiceGroup;
       private YTextAutoScroll m_descTextAutoScroll;
 
-      public UICardChoiceTerm(GameObject root, UICardChoice cardChoice) : base(root) {
+      public UICardChoiceTerm(GameObject root, UICardChoiceGroup cardChoiceGroup) : base(root) {
         m_selected = GetGameObject("Selected");
         m_nameText = GetComponent<Text>("NameText");
         m_typeText = GetComponent<Text>("TypeText");
@@ -30,19 +30,20 @@ namespace Yume.UI {
         m_energyText = GetComponent<Text>("EnergyText");
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
 
-        m_cardChoice = cardChoice;
+        m_cardChoiceGroup = cardChoiceGroup;
 
         _AddListener();
       }
 
       private void _AddListener() {
         GetComponent<Button>("SelectButton").onClick.AddListener(() => {
-          if (m_cardChoice.m_selectedCards.Contains(m_card)) {
-            m_cardChoice.m_selectedCards.Remove(m_card);
-          } else if (m_cardChoice.m_selectedCards.Count < m_cardChoice.m_maxCardNum) {
-            m_cardChoice.m_selectedCards.Add(m_card);
+          if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
+            m_cardChoiceGroup.selectedCards.Remove(m_card);
+            m_cardChoiceGroup.UpdateViewData();
+          } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_NUM) {
+            m_cardChoiceGroup.selectedCards.Add(m_card);
+            m_cardChoiceGroup.UpdateViewData();
           }
-          m_cardChoice.m_cardChoiceGroup.OnRefresh();
         });
       }
 
@@ -50,7 +51,7 @@ namespace Yume.UI {
         m_card = data;
 
         gameObject.SetActiveEx(m_card != null);
-        m_selected.SetActiveEx(m_cardChoice.m_selectedCards.Contains(m_card));
+        m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
 
         if (m_card != null) {
           CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
@@ -67,51 +68,51 @@ namespace Yume.UI {
     }
 
     private class UICardChoiceGroup : UIChildBase {
-      private List<CardDB> m_cardChoiceList;
-      private GridLayoutGroup m_cardChoiceGLG;
+      public List<CardDB> cardChoiceList;
       private ScrollRect m_cardChoiceScrollRect;
+      public List<CardDB> selectedCards = new List<CardDB>();
       private UIScrollView<CardDB, UICardChoiceTerm> m_cardChoiceScrollView;
       private List<UICardChoiceTerm> m_cardChoiceTermList = new List<UICardChoiceTerm>();
 
-      public UICardChoiceGroup(GameObject root, UICardChoice cardChoice) : base(root) {
+      public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
-        m_cardChoiceGLG = m_cardChoiceScrollRect.content.GetComponent<GridLayoutGroup>();
 
-        m_cardChoiceList = DBManager.instance.userCards;
+        cardChoiceList = DBManager.instance.userCards;
 
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
-          m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, cardChoice));
+          m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_cardChoiceScrollView = new UIScrollView<CardDB, UICardChoiceTerm>(m_cardChoiceScrollRect, m_cardChoiceGLG, m_cardChoiceList, m_cardChoiceTermList);
+        m_cardChoiceScrollView = new UIScrollView<CardDB, UICardChoiceTerm>(m_cardChoiceScrollRect, cardChoiceList, m_cardChoiceTermList);
       }
 
       public void OnRefresh() {
         m_cardChoiceScrollView.OnRefresh();
       }
+
+      public void UpdateViewData() {
+        m_cardChoiceScrollView.UpdateViewData();
+      }
     }
 
-    private int m_maxCardNum;
     private Action<List<string>> m_onSelected;
     private UICardChoiceGroup m_cardChoiceGroup;
-    private List<CardDB> m_selectedCards = new List<CardDB>();
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
 
-      m_cardChoiceGroup = new UICardChoiceGroup(GetGameObject("CardChoiceGroup"), this);
+      m_cardChoiceGroup = new UICardChoiceGroup(GetGameObject("CardChoiceGroup"));
 
       _AddListener();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_maxCardNum = (int)args[0];
-      List<string> cardIds = args[1] as List<string>;
-      m_selectedCards.Clear();
+      List<string> cardIds = args[0] as List<string>;
+      m_cardChoiceGroup.selectedCards.Clear();
       foreach (var cardId in cardIds) {
-        m_selectedCards.Add(DBManager.instance.GetCardDB(cardId));
+        m_cardChoiceGroup.selectedCards.Add(DBManager.instance.GetCardDB(cardId));
       }
-      m_onSelected = args[2] as Action<List<string>>;
+      m_onSelected = args[1] as Action<List<string>>;
 
       m_cardChoiceGroup.OnRefresh();
 
@@ -122,7 +123,7 @@ namespace Yume.UI {
       GetComponent<Button>("ok").onClick.AddListener(() => {
         UIManager.instance.CloseOne(name);
         List<string> cardIds = new List<string>();
-        foreach (var card in m_selectedCards) {
+        foreach (var card in m_cardChoiceGroup.selectedCards) {
           cardIds.Add(card.id);
         }
         m_onSelected?.Invoke(cardIds);

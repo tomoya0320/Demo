@@ -26,11 +26,12 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_selectButton.onClick.AddListener(() => {
-          if (m_charChoiceGroup.selectedChar == m_char) {
-            m_charChoiceGroup.OnRefresh(null);
+          if(m_charChoiceGroup.selectedChar == m_char) {
+            m_charChoiceGroup.selectedChar = null;
           } else {
-            m_charChoiceGroup.OnRefresh(m_char);
+            m_charChoiceGroup.selectedChar = m_char;
           }
+          m_charChoiceGroup.UpdateViewData();
         });
       }
 
@@ -49,17 +50,14 @@ namespace Yume.UI {
     }
 
     private class UICharChoiceGroup : UIChildBase {
-      private UnitDB m_selectedChar;
+      public UnitDB selectedChar;
       private List<UnitDB> m_charChoiceList;
-      private GridLayoutGroup m_charChoiceGLG;
       private ScrollRect m_charChoiceScrollRect;
-      public UnitDB selectedChar => m_selectedChar;
       private UIScrollView<UnitDB, UICharChoiceTerm> m_charChoiceScrollView;
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
 
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
-        m_charChoiceGLG = m_charChoiceScrollRect.content.GetComponent<GridLayoutGroup>();
 
         m_charChoiceList = DBManager.instance.userChars;
 
@@ -67,12 +65,15 @@ namespace Yume.UI {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_charChoiceScrollView = new UIScrollView<UnitDB, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceGLG, m_charChoiceList, m_charChoiceTermList);
+        m_charChoiceScrollView = new UIScrollView<UnitDB, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceList, m_charChoiceTermList);
       }
 
-      public void OnRefresh(UnitDB charDB) {
-        m_selectedChar = charDB;
+      public void OnRefresh() {
         m_charChoiceScrollView.OnRefresh();
+      }
+
+      public void UpdateViewData() {
+        m_charChoiceScrollView.UpdateViewData();
       }
     }
 
@@ -89,9 +90,10 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       string charId = (string)args[0];
+      m_charChoiceGroup.selectedChar = DBManager.instance.GetCharDB(charId);
       m_onSelected = args[1] as Action<string>;
 
-      m_charChoiceGroup.OnRefresh(DBManager.instance.GetCharDB(charId));
+      m_charChoiceGroup.OnRefresh();
 
       base.Open(callback, args);
     }

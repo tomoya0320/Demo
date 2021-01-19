@@ -37,14 +37,12 @@ namespace Yume.UI {
 
     private class UICharGroup : UIChildBase {
       private List<UnitDB> m_charList;
-      private GridLayoutGroup m_charGLG;
       private ScrollRect m_charScrollRect;
       private UIScrollView<UnitDB, UICharTerm> m_charScrollView;
       private List<UICharTerm> m_charTermList = new List<UICharTerm>();
 
       public UICharGroup(GameObject root) : base(root) {
         m_charScrollRect = GetComponent<ScrollRect>("CharScrollRect");
-        m_charGLG = m_charScrollRect.content.GetComponent<GridLayoutGroup>();
 
         m_charList = DBManager.instance.userChars;
 
@@ -52,7 +50,7 @@ namespace Yume.UI {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_charScrollView = new UIScrollView<UnitDB, UICharTerm>(m_charScrollRect, m_charGLG, m_charList, m_charTermList);
+        m_charScrollView = new UIScrollView<UnitDB, UICharTerm>(m_charScrollRect, m_charList, m_charTermList);
       }
     }
 

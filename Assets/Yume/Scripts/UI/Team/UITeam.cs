@@ -94,7 +94,7 @@ namespace Yume.UI {
         };
         foreach (var cardBtn in m_cardBtns) {
           cardBtn.onClick.AddListener(() => {
-            UIManager.instance.OpenOne("card_choice", null, m_cardBtns.Count, m_curTeam.cardIdList, onCardSelected);
+            UIManager.instance.OpenOne("card_choice", null, m_curTeam.cardIdList, onCardSelected);
           });
         }
 
@@ -115,11 +115,10 @@ namespace Yume.UI {
     }
 
     private async void _OnRefreshCards() {
-      for (int i = 0; i < m_curTeam.cardIdList.Count; i++) {
-        string cardId = m_curTeam.cardIdList[i];
-        if (!string.IsNullOrEmpty(cardId)) {
-          CardDB cardDB = DBManager.instance.GetCardDB(cardId);
-          CardInfo cardInfo = DBManager.instance.GetCardInfo(cardId);
+      for (int i = 0; i < m_cardBtns.Count; i++) {
+        if (i < m_curTeam.cardIdList.Count) {
+          CardDB cardDB = DBManager.instance.GetCardDB(m_curTeam.cardIdList[i]);
+          CardInfo cardInfo = DBManager.instance.GetCardInfo(m_curTeam.cardIdList[i]);
           CardPhase cardPhase = cardInfo.cardPhases[cardDB.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
         } else {

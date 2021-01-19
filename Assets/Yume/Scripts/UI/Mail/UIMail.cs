@@ -74,9 +74,7 @@ namespace Yume.UI {
 
       private List<MailDB> m_mails;
       private MailDB m_selectedMail;
-      private GridLayoutGroup m_mailGLG;
       private ScrollRect m_mailScrollRect;
-      private GridLayoutGroup m_attachmentGLG;
       private ScrollRect m_attachmentScrollRect;
       public MailDB selectedMail => m_selectedMail;
       private UIScrollView<MailDB, UIMailTerm> m_mailScrollView;
@@ -97,9 +95,6 @@ namespace Yume.UI {
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
         m_attachmentScrollRect = GetComponent<ScrollRect>("AttachmentScrollRect");
 
-        m_mailGLG = m_mailScrollRect.content.GetComponent<GridLayoutGroup>();
-        m_attachmentGLG = m_attachmentScrollRect.content.GetComponent<GridLayoutGroup>();
-
         m_mails = DBManager.instance.userMails;
 
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
@@ -110,8 +105,8 @@ namespace Yume.UI {
           m_attachmentTermList.Add(new UIShortItemInfo(m_attachmentScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_mailScrollView = new UIScrollView<MailDB, UIMailTerm>(m_mailScrollRect, m_mailGLG, m_mails, m_mailTermList);
-        m_attachmentScrollView = new UIScrollView<ItemDB, UIShortItemInfo>(m_attachmentScrollRect, m_attachmentGLG,
+        m_mailScrollView = new UIScrollView<MailDB, UIMailTerm>(m_mailScrollRect, m_mails, m_mailTermList);
+        m_attachmentScrollView = new UIScrollView<ItemDB, UIShortItemInfo>(m_attachmentScrollRect,
                                                                            new List<ItemDB>(), m_attachmentTermList);
 
         _AddListener();
@@ -132,7 +127,7 @@ namespace Yume.UI {
           _UpdateMailContent();
 
           m_mailScrollView.UpdateViewData();
-          m_attachmentScrollView.OnRefresh(new List<ItemDB>(mail.attachment));
+          m_attachmentScrollView.OnRefresh(mail.attachment);
         }
       }
 

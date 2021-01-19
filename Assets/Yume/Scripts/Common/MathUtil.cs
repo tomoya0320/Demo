@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Yume.Battle;
 using Yume.DB;
@@ -7,7 +6,7 @@ using Yume.String;
 
 namespace Yume.Math {
   public class MathUtil {
-    public const float ScrollEpsilon = 0.0001f;
+    public const float SCROLL_EPSILON = 0.00001f;
 
     /// <summary>
     /// 在XOZ平面上旋转一个Vector3
