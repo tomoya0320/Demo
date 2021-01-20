@@ -87,7 +87,7 @@ namespace Yume.RedPointSystem {
     /// <param name="parent"></param>
     /// <returns></returns>
     public int GetRedPointNum(string name, string parent) {
-      if(redPointDict.ContainsKey(name) && redPointDict[name].parentName == parent) {
+      if (redPointDict.ContainsKey(name) && redPointDict[name].parentName == parent) {
         return redPointDict[name].redPointNum;
       }
       Debug.Log($"父子节点不存在 name:{name},parent:{parent}");
@@ -95,7 +95,7 @@ namespace Yume.RedPointSystem {
     }
 
     protected void AddLeafNode(string name, string parent, int initRedPointNum = 1) {
-      if(string.IsNullOrEmpty(name) || string.IsNullOrEmpty(parent)) {
+      if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(parent)) {
         Debug.LogError("父子节点名均不能为空！");
         return;
       }
@@ -166,7 +166,7 @@ namespace Yume.RedPointSystem {
       }
     }
 
-    public int GetRedPointNum(RedPointTreeType redPointTreeType, string name,string parent) {
+    public int GetRedPointNum(RedPointTreeType redPointTreeType, string name, string parent) {
       if (string.IsNullOrEmpty(name)) {
         return 0;
       }
