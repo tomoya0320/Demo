@@ -5,30 +5,60 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Action工具类
-/// </summary>
-public static class ActionTools {
-  /// <summary>
-  /// 添加时会判断action和add是否为空
-  /// 不是原地操作
-  /// </summary>
-  /// <param name="action"></param>
-  /// <param name="add"></param>
-  /// <returns></returns>
-  public static Action AddAction(this Action action, Action add) {
-    if (action == null) {
-      action = add;
-    } else if (add != null) {
-      action += add;
+public static class Constant {
+  public const int MAX_TEAN_NUM = 5;
+  public const int MAX_CARD_NUM = 12;
+}
+
+public static class Colors {
+  public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
+}
+
+public static class TypeTools {
+  public static List<string> GetFieldNames(this Type type) {
+    FieldInfo[] fieldInfos = type.GetFields();
+    List<string> fieldNameList = new List<string>(fieldInfos.Length);
+    foreach (var fieldInfo in fieldInfos) {
+      fieldNameList.Add(fieldInfo.Name);
     }
-    return action;
+    return fieldNameList;
   }
 }
 
-/// <summary>
-/// List拓展工具类
-/// </summary>
+public static class TransformTools {
+  /// <summary>
+  /// 深度优先遍历查找所有的子物体
+  /// </summary>
+  /// <param name="transform"></param>
+  /// <param name="name"></param>
+  /// <returns></returns>
+  public static GameObject FindGo(this GameObject gameObject, string name) {
+    Stack<Transform> stack = new Stack<Transform>();
+    stack.Push(gameObject.transform);
+    while (stack.Count > 0) {
+      var tempTransform = stack.Pop();
+      if (tempTransform.name == name) {
+        return tempTransform.gameObject;
+      }
+      for (int i = 0; i < tempTransform.childCount; i++) {
+        stack.Push(tempTransform.GetChild(i));
+      }
+    }
+
+    return null;
+  }
+}
+
+public static class RectTransformTools {
+  public static void SetSizeDeltaX(this RectTransform rt, float x) {
+    rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
+  }
+
+  public static void SetSizeDeltaY(this RectTransform rt, float y) {
+    rt.sizeDelta = new Vector2(rt.sizeDelta.x, y);
+  }
+}
+
 public static class ListTools {
   public static T First<T>(this List<T> list) {
     if (list.Count == 0) {
@@ -45,29 +75,34 @@ public static class ListTools {
   }
 }
 
-/// <summary>
-/// Image拓展工具类
-/// </summary>
-public static class ImageTools {
-  public static void SetAlpha(this Image image, float alpha) {
-    Color color = image.color;
+public static class TextTools {
+  public static void SetAlpha(this Text text, float alpha) {
+    Color color = text.color;
     color.a = alpha;
-    image.color = color;
+    text.color = color;
   }
 }
 
-/// <summary>
-/// GameObject拓展工具类
-/// </summary>
 public static class GameObjectTools {
-  public static RectTransform GetRect(this GameObject gameObject) {
-    return gameObject.GetComponent<RectTransform>();
+  public static void SetParent(this GameObject gameObject, Transform parent) {
+    gameObject.transform.SetParent(parent);
+  }
+
+  /// <summary>
+  /// 只有物体的激活状态与value不同时才会调用
+  /// </summary>
+  /// <param name="gameObject"></param>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static bool SetActiveEx(this GameObject gameObject, bool value) {
+    if (gameObject.activeSelf != value) {
+      gameObject.SetActive(value);
+      return true;
+    }
+    return false;
   }
 }
 
-/// <summary>
-/// 枚举拓展工具类
-/// </summary>
 public static class EnumTools {
   /// <summary>
   /// 获取当前枚举描述
@@ -99,7 +134,6 @@ public class AssemblyTool {
 
 public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T> {
   private static T s_instance;
-  protected bool dontDestroyOnLoad = true;
 
   public static T instance {
     get {
@@ -117,20 +151,16 @@ public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T
   }
 
   private void Awake() {
-    if (s_instance == null) {
+    if (!hasInstance) {
       s_instance = this as T;
       OnInit();
     } else {
-      Debug.LogWarning("Duplicate Instacne:" + typeof(T).Name);
+      Debug.LogWarning("Duplicate Instacne:" + nameof(T));
       Destroy(gameObject);
     }
   }
 
-  protected virtual void OnInit() {
-    if (dontDestroyOnLoad) {
-      DontDestroyOnLoad(gameObject);
-    }
-  }
+  protected virtual void OnInit() { }
 }
 
 public abstract class Singleton<T> where T : new() {

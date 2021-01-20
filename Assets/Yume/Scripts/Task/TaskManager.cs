@@ -11,7 +11,7 @@ namespace Yume.Task {
           }
         }
       }
-      EventCenter.Broadcast(EventType.UPDATE_TASK_INFO);
+      EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
     }
   }
 }

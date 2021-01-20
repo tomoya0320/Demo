@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539139feb1181074cb2d6bd497860654, type: 3}
   m_Name: configAsset
   m_EditorClassIdentifier: 
-  serverUrlType: 1
-  remoteServerUrl: http://26t84737h4.wicp.vip/GameServlet
-  localServerUrl: http://192.168.31.206:8080/GameServlet
-  userServlet: UserServlet
+  _serverUrlType: 1
+  _remoteServerUrl: http://26t84737h4.wicp.vip/GameServlet
+  _localServerUrl: http://192.168.31.206:8080/GameServlet
+  _userServlet: UserServlet

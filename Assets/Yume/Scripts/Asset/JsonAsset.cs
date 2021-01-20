@@ -1,34 +1,53 @@
-﻿using Newtonsoft.Json;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using Yume.Resource;
 
 namespace Yume.DB {
-  //因为ScriptableObject父类里有些其他不需要的字段所以需要反向剔除
-  [JsonObject(MemberSerialization.OptIn)]
-  public class JsonAsset : ScriptableObject {
-    public TextAsset itemsText;
-    public TextAsset tasksText;
-    public TextAsset lvMaxApMapText;
-    public TextAsset cardsText;
-    public TextAsset avgsText;
-    public TextAsset charsText;
-    public TextAsset enemiesText;
-    public TextAsset uiText;
-    
-    [JsonProperty]
-    public string items => itemsText.text;
-    [JsonProperty]
-    public string tasks => tasksText.text;
-    [JsonProperty]
-    public string lvMaxApMap => lvMaxApMapText.text;
-    [JsonProperty]
-    public string cards => cardsText.text;
-    [JsonProperty]
-    public string avgs => avgsText.text;
-    [JsonProperty]
-    public string chars => charsText.text;
-    [JsonProperty]
-    public string enemies => enemiesText.text;
-    [JsonProperty]
-    public string ui => uiText.text;
+  public class JsonAsset : YScriptableObject {
+    [SerializeField]
+    private TextAsset _uiText;
+    [SerializeField]
+    private TextAsset _avgsText;
+    [SerializeField]
+    private TextAsset _itemsText;
+    [SerializeField]
+    private TextAsset _tasksText;
+    [SerializeField]
+    private TextAsset _cardsText;
+    [SerializeField]
+    private TextAsset _charsText;
+    [SerializeField]
+    private TextAsset _enemiesText;
+    [SerializeField]
+    private TextAsset _lvMaxApMapText;
+
+    public JObject unitJson {
+      get {
+        JObject json = new JObject();
+        json.Merge(JObject.Parse(_charsText.text));
+        json.Merge(JObject.Parse(_enemiesText.text));
+        return json;
+      }
+    }
+    public JObject uiJson => JObject.Parse(_uiText.text);
+    public JObject avgJson => JObject.Parse(_avgsText.text);
+    public JObject itemJson => JObject.Parse(_itemsText.text);
+    public JObject taskJson => JObject.Parse(_tasksText.text);
+    public JObject cardJson => JObject.Parse(_cardsText.text);
+    public JObject lvMaxApMapJson => JObject.Parse(_lvMaxApMapText.text);
+
+    public override Dictionary<string, object> GetAssets() {
+      Dictionary<string, object> assets = new Dictionary<string, object>();
+      assets.Add(nameof(unitJson), unitJson);
+      assets.Add(nameof(uiJson), uiJson);
+      assets.Add(nameof(avgJson), avgJson);
+      assets.Add(nameof(itemJson), itemJson);
+      assets.Add(nameof(taskJson), taskJson);
+      assets.Add(nameof(cardJson), cardJson);
+      assets.Add(nameof(lvMaxApMapJson), lvMaxApMapJson);
+
+      return assets;
+    }
   }
 }

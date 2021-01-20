@@ -12,7 +12,6 @@ namespace Yume.Audio {
     private SoundManager m_soundManager;
 
     protected override void OnInit() {
-      base.OnInit();
       m_bgmManager = new BGMManager(_bgmAudioSource);
       m_soundManager = new SoundManager(_soundFolder);
     }

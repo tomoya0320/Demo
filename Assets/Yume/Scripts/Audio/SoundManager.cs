@@ -5,41 +5,41 @@ using Yume.UI;
 
 namespace Yume.Audio {
   public class SoundManager {
-    private Transform m_soundFolder;
-    private List<AudioSource> m_audioSources;
     private float m_value;
     private float m_switch;
-    private readonly string m_valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
-    private readonly string m_switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
+    private Transform m_soundFolder;
+    private List<AudioSource> m_audioSourceList = new List<AudioSource>();
+    private readonly string valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
+    private readonly string switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
     public SoundManager(Transform soundFolder) {
       m_soundFolder = soundFolder;
-      m_audioSources = new List<AudioSource>();
-      if (!PlayerPrefs.HasKey(m_valueKey)) {
-        PlayerPrefs.SetInt(m_valueKey, 100);
+      for (int i = 0; i < m_soundFolder.childCount; i++) {
+        m_audioSourceList.Add(m_soundFolder.GetChild(i).GetComponent<AudioSource>());
       }
-      if (!PlayerPrefs.HasKey(m_switchKey)) {
-        PlayerPrefs.SetInt(m_switchKey, 1);
+
+      if (!PlayerPrefs.HasKey(valueKey)) {
+        PlayerPrefs.SetInt(valueKey, 100);
+      }
+      if (!PlayerPrefs.HasKey(switchKey)) {
+        PlayerPrefs.SetInt(switchKey, 1);
       }
       UpdateVolume();
     }
 
     public void UpdateVolume() {
-      m_switch = PlayerPrefs.GetInt(m_switchKey);
-      m_value = 0.01f * PlayerPrefs.GetInt(m_valueKey);
-      for (int i = 0; i < m_audioSources.Count; i++) {
-        m_audioSources[i].volume = m_switch * m_value;
+      m_switch = PlayerPrefs.GetInt(switchKey);
+      m_value = 0.01f * PlayerPrefs.GetInt(valueKey);
+      for (int i = 0; i < m_audioSourceList.Count; i++) {
+        m_audioSourceList[i].volume = m_switch * m_value;
       }
     }
 
     public void PlaySound(AudioClip audioClip) {
-      AudioSource audioSource = m_audioSources.Find(a => !a.isPlaying);
-      if(audioSource == null) {
-        var obj = new GameObject("sound");
-        obj.transform.SetParent(m_soundFolder);
-        audioSource = obj.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        m_audioSources.Add(audioSource);
+      AudioSource audioSource = m_audioSourceList.Find(a => !a.isPlaying);
+      if (audioSource == null) {
+        audioSource = m_audioSourceList.First();
+        audioSource.Stop();
       }
       audioSource.clip = audioClip;
       audioSource.Play();

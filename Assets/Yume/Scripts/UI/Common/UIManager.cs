@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
   public enum UIType {
-    NORMAL, TOP, TIP/*消息提示要放最顶层，所有的消息提示不参与交互*/
+    NORMAL, TOP, TIP
   }
 
   [Serializable]
@@ -22,48 +23,63 @@ namespace Yume.UI {
   }
 
   public class UIManager : Singleton<UIManager> {
-    private Image m_maskImage;
-    private Transform m_topCanvas;
-    private Transform m_tipCanvas;
-    private Transform m_normalCanvas;
+    private GameObject m_interactionMask;
+    public Transform topCanvas { private set; get; }
+    public Transform tipCanvas { private set; get; }
     public Transform cacheCanvas { private set; get; }
+    public Transform normalCanvas { private set; get; }
     private Dictionary<string, UIData> m_uiDataDict = new Dictionary<string, UIData>();
     private Dictionary<object, object> m_sharedArgsDict = new Dictionary<object, object>();
     private Dictionary<UIType, Stack<UIBase>> m_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private Dictionary<UIType, List<(float, UIBase)>> m_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
 
-    protected override void OnInit() {
-      base.OnInit();
-      m_topCanvas = GameObject.Find("TopCanvas")?.transform;
-      m_tipCanvas = GameObject.Find("TipCanvas")?.transform;
-      cacheCanvas = GameObject.Find("CacheCanvas")?.transform;
-      m_normalCanvas = GameObject.Find("NormalCanvas")?.transform;
+    private Action m_quitGame = Application.Quit;
 
-      m_maskImage = m_topCanvas?.Find("mask")?.GetComponent<Image>();
+    public bool activeBack { set; get; }
+
+    protected override void OnInit() {
+      UIObject uiRootObject = Game.instance.uiRootObject;
+      topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
+      tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
+      cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
+      normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
+
+      m_interactionMask = uiRootObject.GetGameObject("InteractionMask");
+      m_interactionMask.SetActiveEx(false);
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         m_uiStackDict.Add(type, new Stack<UIBase>());
         m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
+
+      foreach (var kv in AssetLoader.instance.GetValue<JObject>("uiJson")) {
+        Register(kv.Value.ToObject<UIData>());
+      }
     }
 
-    public void UpdateCache() {
-      foreach (var list in m_cacheUIListDict.Values) {
-        for (int i = list.Count - 1; i >= 0; i--) {
-          if (list[i].Item1 + list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
-            list[i].Item2.Destroy();
-            list.RemoveAt(i);
-          }
+    public void OnUpdate() {
+      _UpdateUI();
+      _UpdateCache();
+    }
+
+    private void _UpdateUI() {
+      foreach (var uiStack in m_uiStackDict.Values) {
+        foreach (var ui in uiStack) {
+          ui.OnUpdate();
         }
       }
     }
 
-    public void RegisterByJson() {
-      var uiDataDict = JsonConvert.DeserializeObject<Dictionary<string, UIData>>(
-                                   AssetLoader.instance.GetValue<string>("ui"));
+    private void _UpdateCache() {
+      foreach (var list in m_cacheUIListDict.Values) {
+        for (int i = list.Count - 1; i >= 0; i--) {
+          if (list[i].Item2.cacheTime > 0 && list[i].Item1 +
+              list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
 
-      foreach (var uiData in uiDataDict.Values) {
-        Register(uiData);
+            list[i].Item2.Destroy();
+            list.RemoveAt(i);
+          }
+        }
       }
     }
 
@@ -97,30 +113,24 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void OpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public void OpenOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
-
         var stack = m_uiStackDict[data.uiType];
 
         if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Close(null, () => {
-            _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          stack.Peek().Close(() => {
+            _OpenInternal(data, stack, callback, args);
           });
         } else {
-          _OpenInternal(data, stack, onOpenStart, onOpenEnd, args);
+          _OpenInternal(data, stack, callback, args);
         }
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
     }
 
-    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {    
+    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
@@ -138,7 +148,7 @@ namespace Yume.UI {
         ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
       }
       stack.Push(ui);
-      ui.Open(onOpenStart, onOpenEnd, args);
+      ui.Open(callback, args);
     }
 
     /// <summary>
@@ -162,21 +172,15 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseAllAndOpenOne(string name, Action onOpenStart = null, Action onOpenEnd = null, params object[] args) {
+    public void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
-
         var stack = m_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
           stack.Pop().Destroy();
         }
-        OpenOne(name, onOpenStart, onOpenEnd, args);
+        OpenOne(name, callback, args);
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
@@ -187,15 +191,9 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseOne(string name, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+    public void CloseOne(string name, Action callback = null, params object[] args) {
       if (m_uiDataDict.ContainsKey(name)) {
         var data = m_uiDataDict[name];
-
-        if (GetSharedArgs<bool>(data.uiType + "isTweening")) {
-          Debug.LogWarning("上一个UI的动画正在播放中！");
-          return;
-        }
-
         var stack = m_uiStackDict[m_uiDataDict[name].uiType];
 
         if (stack.Count == 0) {
@@ -203,7 +201,7 @@ namespace Yume.UI {
           return;
         }
         if (stack.Peek().name == name) {
-          _CloseInternal(data, stack, onCloseStart, onCloseEnd, args);
+          _CloseInternal(data, stack, callback, args);
         } else {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
@@ -214,21 +212,55 @@ namespace Yume.UI {
 
     /// <summary>
     /// 设置全局禁止交互的遮罩
+    /// 同步用户数据时使用
     /// </summary>
     /// <param name="active"></param>
-    public void SetMask(bool active) {
-      if (m_maskImage) {
-        m_maskImage.transform.SetAsLastSibling();
-        m_maskImage.raycastTarget = active;
+    public void SetInteractionMask(bool active) {
+      if (m_interactionMask) {
+        m_interactionMask.SetActiveEx(active);
       } else {
-        Debug.LogError("全局遮罩未正确设置！");
+        Debug.LogError("交互遮罩未正确设置！");
       }
     }
 
-    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action onCloseStart = null, Action onCloseEnd = null, params object[] args) {
+    /// <summary>
+    /// 回退操作只适用于NORMAL层的UI
+    /// </summary>
+    public void Back() {
+      if (activeBack) {
+        if (isShowing("confirmation")) {
+          CloseOne("confirmation");
+        } else {
+          if (m_uiStackDict[UIType.NORMAL].Count > 1) {
+            CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
+          } else {
+            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// 判断一个UI是否正在显示
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool isShowing(string name) {
+      foreach (var stack in m_uiStackDict.Values) {
+        foreach (var ui in stack) {
+          if (ui.name == name) {
+            return ui.isShowing;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       //NOTICE
       //Action的执行顺序要特别当心
-      //先执行回收再执行其他的回调
+      //先执行下面的再执行其他的回调
       //因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
         //回收
@@ -238,20 +270,21 @@ namespace Yume.UI {
           stack.Peek().Open();
         }
       };
+      callback = action + callback;
 
-      stack.Peek().Close(onCloseStart, action.AddAction(onCloseEnd), args);
+      stack.Peek().Close(callback, args);
     }
 
     private Transform _GetRootByType(UIType uiType) {
       switch (uiType) {
         case UIType.NORMAL: {
-            return m_normalCanvas;
+            return normalCanvas;
           }
         case UIType.TOP: {
-            return m_topCanvas;
+            return topCanvas;
           }
         case UIType.TIP: {
-            return m_tipCanvas;
+            return tipCanvas;
           }
         default: {
             return null;

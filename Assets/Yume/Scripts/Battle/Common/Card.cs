@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Yume.Battle {
   [Serializable]
@@ -12,24 +13,28 @@ namespace Yume.Battle {
     }
   }
 
+  public enum CardType {
+    [Description("攻击")]
+    ATTACK,
+    [Description("技能")]
+    SKILL,
+    [Description("诅咒")]
+    CURSE
+  }
+
+  [Serializable]
+  public struct CardPhase {
+    public string name;
+    public string description;
+    public string iconFileName;
+    public int energyConsumption;
+    public Blackboard blackboard;
+  }
+
   [Serializable]
   public struct CardInfo {
-    public enum Type {
-      ATTACK, SKILL, CURSE
-    }
-
-    [Serializable]
-    public struct Phase {
-      public string description;
-      public int energyConsumption;
-      public BuffData[] buffData;
-      public Blackboard blackboard;
-    }
-
     public string id;
-    public string name;
-    public string iconFileName;
-    public Type type;
-    public Phase[] phases;
+    public CardType cardType;
+    public CardPhase[] cardPhases;
   }
 }

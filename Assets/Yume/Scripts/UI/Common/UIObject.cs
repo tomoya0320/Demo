@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Yume.UI {
+  /// <summary>
+  /// 该类不包含UI业务逻辑
+  /// 只包含对象的引用
+  /// </summary>
   public class UIObject : MonoBehaviour {
     [Serializable]
     private class UIKV {
@@ -11,7 +15,7 @@ namespace Yume.UI {
     }
 
     [SerializeField]
-    private List<UIKV> _uiList;
+    private List<UIKV> _uiList;  
 
     public T GetComponent<T>(string objName) where T : Component {
       var obj = GetGameObject(objName);

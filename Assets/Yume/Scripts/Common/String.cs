@@ -27,6 +27,7 @@ namespace Yume.String {
     public const string RETURN_TO_LOGIN = "返回登录界面";
     public const string COMPLETED = "已完成";
     public const string CLICK_GET = "点击领取";
+    public const string GOT = "已领取";
     public const string GET = "获得";
     public const string LOGIN = "login";
     public const string HOME = "home";
@@ -43,6 +44,7 @@ namespace Yume.String {
     public const string DIALOGUE = "dialogue";
     public const string UI_OPEN_ANIM = "ui_open";
     public const string UI_CLOSE_ANIM = "ui_close";
+    public const string UI_RED_POINT = "red point";
   }
 
   public class StringUtil {
@@ -90,23 +92,6 @@ namespace Yume.String {
         result.Append(description.Substring(start));
       }
       return result.ToString();
-    }
-
-    public static string GetCardTypeName(CardInfo.Type type) {
-      switch (type) {
-        case CardInfo.Type.ATTACK: {
-            return "攻击";
-          }
-        case CardInfo.Type.SKILL: {
-            return "技能";
-          }
-        case CardInfo.Type.CURSE: {
-            return "诅咒";
-          }
-        default: {
-            return "未知";
-          }
-      }
     }
   }
 }

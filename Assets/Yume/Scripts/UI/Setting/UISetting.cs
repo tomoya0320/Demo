@@ -16,34 +16,35 @@ namespace Yume.UI {
   }
 
   public class UISetting : UIBase {
-    private class UISwitchAndValue {
+    /// <summary>
+    /// SV指Switch和Value
+    /// </summary>
+    private class UISettingSV : UIChildBase {
+      private Tween m_tween;
+      private Text m_openText;
+      private Text m_closeText;
       private UISettingType m_type;
       private Slider m_valueSlider;
-      private Text m_closeText;
-      private Text m_openText;
       private Button m_switchButton;
-      private RectTransform m_switchSlider;
-      private Tween m_tween;
       private float m_switchSliderMoveDist;
+      private RectTransform m_switchRectTransform;
       private string valueKey => m_type.GetDescription() + StringMap.VALUE;
       private string switchKey => m_type.GetDescription() + StringMap.SWITCH;
 
-      public UISwitchAndValue(UISettingType type, Slider valueSlider, Button switchButton,
-                                   Text closeText, Text openText, RectTransform switchSlider) {
-
+      public UISettingSV(UISettingType type, GameObject root) : base(root) {
         m_type = type;
-        m_openText = openText;
-        m_closeText = closeText;
-        m_valueSlider = valueSlider;
-        m_switchSlider = switchSlider;
-        m_switchButton = switchButton;
+        m_openText = GetComponent<Text>("OpenText");
+        m_closeText = GetComponent<Text>("CloseText");
+        m_valueSlider = GetComponent<Slider>("ValueSlider");
+        m_switchButton = GetComponent<Button>("SwitchButton");
+        m_switchRectTransform = GetComponent<RectTransform>("SwitchRectTransform");
 
-        m_switchSliderMoveDist = m_switchSlider.sizeDelta.x;
+        m_switchSliderMoveDist = m_switchRectTransform.sizeDelta.x;
         if (PlayerPrefs.GetInt(switchKey) <= 0) {
           Color tempColor = m_closeText.color;
           m_closeText.color = m_openText.color;
           m_openText.color = tempColor;
-          m_switchSlider.anchoredPosition -= new Vector2(m_switchSlider.sizeDelta.x, 0);
+          m_switchRectTransform.anchoredPosition -= new Vector2(m_switchRectTransform.sizeDelta.x, 0);
           m_switchSliderMoveDist *= -1.0f;
         }
         if (m_valueSlider) {
@@ -68,7 +69,7 @@ namespace Yume.UI {
         if (m_tween != null) {
           m_tween.Complete();
         }
-        m_tween = m_switchSlider.DOAnchorPosX(m_switchSliderMoveDist, 0.15f).SetRelative().OnComplete(() => {
+        m_tween = m_switchRectTransform.DOAnchorPosX(m_switchSliderMoveDist, 0.15f).SetRelative().OnComplete(() => {
           m_tween = null;
         });
         _UpdateState();
@@ -93,18 +94,16 @@ namespace Yume.UI {
       }
     }
 
-    private List<UISwitchAndValue> m_settings = new List<UISwitchAndValue>();
+    private UIGroupSwitch m_settingGroupSwitch;
+    private List<UISettingSV> m_settings = new List<UISettingSV>();
 
     public override void OnInit(UIData uiData, GameObject root) {
       base.OnInit(uiData, root);
 
+      m_settingGroupSwitch = GetComponent<UIGroupSwitch>("setting group");
+
       foreach (UISettingType type in Enum.GetValues(typeof(UISettingType))) {
-        Text openText = GetComponent<Text>($"{type.GetDescription()}/{nameof(openText)}");
-        Text closeText = GetComponent<Text>($"{type.GetDescription()}/{nameof(closeText)}");
-        Slider valueSlider = GetComponent<Slider>($"{type.GetDescription()}/{nameof(valueSlider)}");
-        Button switchButton = GetComponent<Button>($"{type.GetDescription()}/{nameof(switchButton)}");
-        RectTransform switchSlider = GetComponent<RectTransform>($"{type.GetDescription()}/{nameof(switchSlider)}");
-        m_settings.Add(new UISwitchAndValue(type, valueSlider, switchButton, closeText, openText, switchSlider));
+        m_settings.Add(new UISettingSV(type, GetGameObject(type.GetDescription())));
       }
 
       _AddListener();
@@ -112,6 +111,12 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      base.Open(callback, args);
+
+      m_settingGroupSwitch.OnOpen();
     }
   }
 }

@@ -20,20 +20,18 @@ namespace Yume.AVG {
     [SerializeField]
     private Text _dialogueText;
     private Tween m_textTween;
+    private JObject m_avgJson;
     private JArray m_currentTexts;
     private JObject m_textJObject;
     private int m_currentTextIndex;
-    private Dictionary<string, JArray> m_avgTextDict;
 
     protected override void OnInit() {
-      dontDestroyOnLoad = false;
-      base.OnInit();
-      m_avgTextDict = JsonConvert.DeserializeObject<Dictionary<string, JArray>>(AssetLoader.instance.GetValue<string>("avgs"));
+      m_avgJson = AssetLoader.instance.GetValue<JObject>("avgJson");
     }
 
     public void StartAVG(string avgName) {
-      if (m_avgTextDict.ContainsKey(avgName)) {
-        m_currentTexts = m_avgTextDict[avgName];
+      if (m_avgJson.ContainsKey(avgName)) {
+        m_currentTexts = m_avgJson[avgName].Value<JArray>();
         m_currentTextIndex = -1;
         _MoveToNext();
       } else {
@@ -66,16 +64,11 @@ namespace Yume.AVG {
       }
     }
 
-    private void _QuitAVGScene(float fadeTime = 0.3f) {
-      /*UIManager.instance.FadeBlackMask(fadeTime, () => {
-        //加载时候的图
-      }, () => {
-        SceneManager.UnloadSceneAsync(StringMap.AVG).completed += ao => {
-          UIManager.instance.FadeBlackMask(fadeTime, () => {
-            //加载时候的图
-          });
-        };
-      });*/
+    private void _QuitAVGScene() {
+      UIManager.instance.OpenOne("blackMask", () => {
+        Destroy(gameObject);
+        UIManager.instance.CloseOne("blackMask");
+      });
     }
   }
 }
