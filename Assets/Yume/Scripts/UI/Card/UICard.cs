@@ -29,7 +29,7 @@ namespace Yume.UI {
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
       }
 
-      public async void Update(CardDB data) {
+      public async void UpdateScrollTerm(CardDB data) {
         m_card = data;
 
         gameObject.SetActiveEx(m_card != null);
@@ -64,12 +64,10 @@ namespace Yume.UI {
         }
 
         m_cardScrollView = new UIScrollView<CardDB, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
-
-        EventCenter.AddListener(EventType.REFRESH_CARD_VIEW, m_cardScrollView.OnRefresh);
       }
 
-      public void Destroy() {
-        EventCenter.RemoveListener(EventType.REFRESH_CARD_VIEW, m_cardScrollView.OnRefresh);
+      public override void OnUpdate() {
+        m_cardScrollView.OnUpdate();
       }
     }
 
@@ -81,6 +79,10 @@ namespace Yume.UI {
       m_cardGroup = new UICardGroup(GetGameObject("CardGroup"));
 
       _AddListener();
+    }
+
+    public override void OnUpdate() {
+      m_cardGroup.OnUpdate();
     }
 
     private void _AddListener() {

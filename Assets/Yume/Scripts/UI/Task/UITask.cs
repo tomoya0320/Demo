@@ -71,7 +71,7 @@ namespace Yume.UI {
         DBManager.instance.UpdateUserData();
       }
 
-      public async void Update(TaskDB data) {
+      public async void UpdateScrollTerm(TaskDB data) {
         m_task = data;
 
         m_taskRedPoint.Update(m_task?.id);
@@ -100,7 +100,7 @@ namespace Yume.UI {
         }
       }
 
-      public void Destroy() {
+      public override void Destroy() {
         m_taskRedPoint.Destroy();
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _UpdateTaskProcess);
       }
@@ -140,7 +140,11 @@ namespace Yume.UI {
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
       }
 
-      public void Destroy() {
+      public override void OnUpdate() {
+        m_taskScrollView.OnUpdate();
+      }
+
+      public override void Destroy() {
         foreach (var taskTerm in m_taskTermList) {
           taskTerm.Destroy();
         }
@@ -157,12 +161,12 @@ namespace Yume.UI {
             m_taskShowList.Add(task);
           }
         }
-        m_taskScrollView.OnRefresh(m_taskShowList.ToArray());
+        m_taskScrollView.UpdateView(m_taskShowList.ToArray());
       }
 
       private void _ResortTasks() {
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
-        m_taskScrollView.OnRefresh(m_taskShowList.ToArray());
+        m_taskScrollView.UpdateView(m_taskShowList.ToArray());
       }
     }
 
@@ -189,6 +193,12 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       m_taskGroupSwitch.OnOpen();
+    }
+
+    public override void OnUpdate() {
+      foreach (var taskGroup in m_taskGroupList) {
+        taskGroup.OnUpdate();
+      }
     }
 
     public override void Destroy() {

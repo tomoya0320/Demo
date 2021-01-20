@@ -25,7 +25,7 @@ namespace Yume.Main {
     }
 
     private void Update() {
-      UIManager.instance.UpdateCache();
+      UIManager.instance.OnUpdate();
 
       if (Input.GetKeyDown(KeyCode.Escape)) {
         UIManager.instance.Back();

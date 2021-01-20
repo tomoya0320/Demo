@@ -39,15 +39,15 @@ namespace Yume.UI {
         GetComponent<Button>("SelectButton").onClick.AddListener(() => {
           if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
             m_cardChoiceGroup.selectedCards.Remove(m_card);
-            m_cardChoiceGroup.UpdateViewData();
+            m_cardChoiceGroup.UpdateView(false);
           } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_NUM) {
             m_cardChoiceGroup.selectedCards.Add(m_card);
-            m_cardChoiceGroup.UpdateViewData();
+            m_cardChoiceGroup.UpdateView(false);
           }
         });
       }
 
-      public async void Update(CardDB data) {
+      public async void UpdateScrollTerm(CardDB data) {
         m_card = data;
 
         gameObject.SetActiveEx(m_card != null);
@@ -86,12 +86,12 @@ namespace Yume.UI {
         m_cardChoiceScrollView = new UIScrollView<CardDB, UICardChoiceTerm>(m_cardChoiceScrollRect, cardChoiceList, m_cardChoiceTermList);
       }
 
-      public void OnRefresh() {
-        m_cardChoiceScrollView.OnRefresh();
+      public override void OnUpdate() {
+        m_cardChoiceScrollView.OnUpdate();
       }
 
-      public void UpdateViewData() {
-        m_cardChoiceScrollView.UpdateViewData();
+      public void UpdateView(bool recalLen) {
+        m_cardChoiceScrollView.UpdateView(recalLen);
       }
     }
 
@@ -114,9 +114,13 @@ namespace Yume.UI {
       }
       m_onSelected = args[1] as Action<List<string>>;
 
-      m_cardChoiceGroup.OnRefresh();
+      m_cardChoiceGroup.UpdateView(true);
 
       base.Open(callback, args);
+    }
+
+    public override void OnUpdate() {
+      m_cardChoiceGroup.OnUpdate();
     }
 
     private void _AddListener() {

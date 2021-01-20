@@ -47,7 +47,7 @@ namespace Yume.UI {
         });
       }
 
-      public async void Update(ItemDB data) {
+      public async void UpdateScrollTerm(ItemDB data) {
         m_item = data;
 
         m_itemRedPoint.Update(m_item?.id);
@@ -62,7 +62,7 @@ namespace Yume.UI {
         }
       }
 
-      public void Destroy() {
+      public override void Destroy() {
         m_itemRedPoint.Destroy();
       }
     }
@@ -96,16 +96,20 @@ namespace Yume.UI {
         m_itemScrollView = new UIScrollView<ItemDB, UIItemTerm>(m_itemScrollRect, m_itemList, m_itemTermList);
 
         EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
-        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
+        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
       }
 
-      public void Destroy() {
+      public override void Destroy() {
         foreach (var itemTerm in m_itemTermList) {
           itemTerm.Destroy();
         }
 
         EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
-        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, m_itemScrollView.OnRefresh);
+        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
+      }
+
+      private void _UpdateScrollView() {
+        m_itemScrollView.UpdateView();
       }
 
       private async void _UpdateInfoBoard() {
@@ -129,8 +133,12 @@ namespace Yume.UI {
           m_selectedItem = m_item;
           _UpdateInfoBoard();
 
-          m_itemScrollView.UpdateViewData();
+          m_itemScrollView.UpdateView(false);
         }
+      }
+
+      public override void OnUpdate() {
+        m_itemScrollView.OnUpdate();
       }
     }
 
@@ -148,6 +156,10 @@ namespace Yume.UI {
       DBManager.instance.UpdateUserData();
       
       base.Close(callback, args);
+    }
+
+    public override void OnUpdate() {
+      m_itemGroup.OnUpdate();
     }
 
     private void _AddListener() {

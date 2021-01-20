@@ -4,7 +4,6 @@
     /// 只更新目前已接受的任务进度
     /// </summary>
     UPDATE_TASK_PROCESS,
-    REFRESH_CARD_VIEW,
     REFRESH_MAIL_VIEW,
     /// <summary>
     /// 有新任务添加时调用

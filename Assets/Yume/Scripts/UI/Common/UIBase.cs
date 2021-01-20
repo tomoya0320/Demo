@@ -85,6 +85,8 @@ namespace Yume.UI {
       }
     }
 
+    public virtual void OnUpdate() { }
+
     /// <summary>
     /// 回收UI对象，返回UI实例
     /// </summary>
@@ -126,16 +128,16 @@ namespace Yume.UI {
     /// 父UI打开时调用
     /// </summary>
     /// <param name="args"></param>
-    public virtual void OnOpen(params object[] args) {
-
-    }
+    public virtual void OnOpen(params object[] args) { }
 
     /// <summary>
     /// 父UI关闭时调用
     /// </summary>
     /// <param name="args"></param>
-    public virtual void OnClose(params object[] args) {
+    public virtual void OnClose(params object[] args) { }
 
-    }
+    public virtual void OnUpdate() { }
+
+    public virtual void Destroy() { }
   }
 }

@@ -57,7 +57,20 @@ namespace Yume.UI {
       }
     }
 
-    public void UpdateCache() {
+    public void OnUpdate() {
+      _UpdateUI();
+      _UpdateCache();
+    }
+
+    private void _UpdateUI() {
+      foreach (var uiStack in m_uiStackDict.Values) {
+        foreach (var ui in uiStack) {
+          ui.OnUpdate();
+        }
+      }
+    }
+
+    private void _UpdateCache() {
       foreach (var list in m_cacheUIListDict.Values) {
         for (int i = list.Count - 1; i >= 0; i--) {
           if (list[i].Item2.cacheTime > 0 && list[i].Item1 +

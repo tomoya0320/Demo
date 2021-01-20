@@ -31,11 +31,11 @@ namespace Yume.UI {
           } else {
             m_charChoiceGroup.selectedChar = m_char;
           }
-          m_charChoiceGroup.UpdateViewData();
+          m_charChoiceGroup.UpdateView(false);
         });
       }
 
-      public async void Update(UnitDB data) {
+      public async void UpdateScrollTerm(UnitDB data) {
         m_char = data;
 
         gameObject.SetActiveEx(m_char != null);
@@ -68,12 +68,12 @@ namespace Yume.UI {
         m_charChoiceScrollView = new UIScrollView<UnitDB, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceList, m_charChoiceTermList);
       }
 
-      public void OnRefresh() {
-        m_charChoiceScrollView.OnRefresh();
+      public override void OnUpdate() {
+        m_charChoiceScrollView.OnUpdate();
       }
 
-      public void UpdateViewData() {
-        m_charChoiceScrollView.UpdateViewData();
+      public void UpdateView(bool recalLen) {
+        m_charChoiceScrollView.UpdateView(recalLen);
       }
     }
 
@@ -93,9 +93,13 @@ namespace Yume.UI {
       m_charChoiceGroup.selectedChar = DBManager.instance.GetCharDB(charId);
       m_onSelected = args[1] as Action<string>;
 
-      m_charChoiceGroup.OnRefresh();
+      m_charChoiceGroup.UpdateView(true);
 
       base.Open(callback, args);
+    }
+
+    public override void OnUpdate() {
+      m_charChoiceGroup.OnUpdate();
     }
 
     private void _AddListener() {

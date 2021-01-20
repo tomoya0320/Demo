@@ -22,7 +22,7 @@ namespace Yume.UI {
         m_detailButton.onClick.AddListener(() => UIManager.instance.OpenOne("char_detail", null, m_char));
       }
 
-      public async void Update(UnitDB data) {
+      public async void UpdateScrollTerm(UnitDB data) {
         m_char = data;
 
         gameObject.SetActiveEx(m_char != null);
@@ -52,6 +52,10 @@ namespace Yume.UI {
 
         m_charScrollView = new UIScrollView<UnitDB, UICharTerm>(m_charScrollRect, m_charList, m_charTermList);
       }
+
+      public override void OnUpdate() {
+        m_charScrollView.OnUpdate();
+      }
     }
 
     private UICharGroup m_charGroup;
@@ -62,6 +66,10 @@ namespace Yume.UI {
       m_charGroup = new UICharGroup(GetGameObject("CharGroup"));
 
       _AddListener();
+    }
+
+    public override void OnUpdate() {
+      m_charGroup.OnUpdate();
     }
 
     private void _AddListener() {

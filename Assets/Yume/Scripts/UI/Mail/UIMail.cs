@@ -43,7 +43,7 @@ namespace Yume.UI {
         });
       }
 
-      public void Update(MailDB data) {
+      public void UpdateScrollTerm(MailDB data) {
         m_mail = data;
 
         m_mailRedPoint.Update(m_mail?.id);
@@ -57,7 +57,7 @@ namespace Yume.UI {
         }
       }
 
-      public void Destroy() {
+      public override void Destroy() {
         m_mailRedPoint.Destroy();
       }
     }
@@ -110,7 +110,8 @@ namespace Yume.UI {
                                                                            new List<ItemDB>(), m_attachmentTermList);
 
         _AddListener();
-        _RefreshMailView();
+        _CheckGetAllButton();
+        _CheckContentPanel();
 
         EventCenter.AddListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
       }
@@ -126,8 +127,8 @@ namespace Yume.UI {
           m_selectedMail = mail;
           _UpdateMailContent();
 
-          m_mailScrollView.UpdateViewData();
-          m_attachmentScrollView.OnRefresh(mail.attachment);
+          m_mailScrollView.UpdateView(false);
+          m_attachmentScrollView.UpdateView(mail.attachment);
         }
       }
 
@@ -140,7 +141,12 @@ namespace Yume.UI {
         _CheckGetButton();
       }
 
-      public void Destroy() {
+      public override void OnUpdate() {
+        m_mailScrollView.OnUpdate();
+        m_attachmentScrollView.OnUpdate();
+      }
+
+      public override void Destroy() {
         foreach (var mailTerm in m_mailTermList) {
           mailTerm.Destroy();
         }
@@ -208,7 +214,11 @@ namespace Yume.UI {
 
       private void _RefreshMailView() {
         _CheckGetAllButton();
-        m_mailScrollView.OnRefresh();
+        _CheckContentPanel();
+        m_mailScrollView.UpdateView();
+      }
+
+      private void _CheckContentPanel() {
         m_noMailPanel.SetActiveEx(m_mails.Count == 0);
         m_mailContentPanel.SetActiveEx(m_selectedMail != null);
       }
@@ -222,6 +232,10 @@ namespace Yume.UI {
       m_mailGroup = new UIMailGroup(GetGameObject("MailGroup"));
 
       _AddListener();
+    }
+
+    public override void OnUpdate() {
+      m_mailGroup.OnUpdate();
     }
 
     private void _AddListener() {

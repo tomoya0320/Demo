@@ -7,10 +7,10 @@ namespace Yume.UI {
   /// <summary>
   /// 作为ScrollView里的子项UI需要实现这个接口
   /// </summary>
-  /// <typeparam name="TData"></typeparam>
-  public interface IScrollTerm<TData> {
+  /// <typeparam name="TData">数据类型</typeparam>
+  public interface IScrollTerm<TData> where TData : class {
     bool isValid { get; }
-    void Update(TData data);
+    void UpdateScrollTerm(TData data);
   }
 
   public class UIScrollView<TData, TView> where TData : class where TView : IScrollTerm<TData> {
@@ -40,56 +40,57 @@ namespace Yume.UI {
       };
       m_originPos = m_scrollRect.content.anchoredPosition;
 
-      _AddListener();
-      OnRefresh();
+      UpdateView();
     }
 
-    private void _AddListener() {
-      m_scrollRect.onValueChanged.AddListener(_OnScrollPosChanged);
-    }
-
-    public void OnRefresh(TData[] data) {
+    /// <summary>
+    /// 更新视图
+    /// </summary>
+    /// <param name="data">新的数据列表</param>
+    public void UpdateView(TData[] data) {
+      int oldLen = m_dataList.Count;
       m_dataList.Clear();
       m_dataList.AddRange(data);
-      OnRefresh();
+      UpdateView(oldLen != m_dataList.Count);
     }
 
-    public void OnRefresh() {
-      if (m_scrollRect.vertical) {
-        int temp = m_dataList.Count / m_maxCellNum.x;
-        if (m_dataList.Count % m_maxCellNum.x > 0) {
-          temp++;
+    /// <summary>
+    /// 更新视图
+    /// </summary>
+    /// <param name="recalLen">是否重新计算内容的长度</param>
+    public void UpdateView(bool recalLen = true) {
+      if (recalLen) {
+        if (m_scrollRect.vertical) {
+          int temp = m_dataList.Count / m_maxCellNum.x;
+          if (m_dataList.Count % m_maxCellNum.x > 0) {
+            temp++;
+          }
+          m_scrollRect.content.SetSizeDeltaY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
+        } else if (m_scrollRect.horizontal) {
+          int temp = m_dataList.Count / m_maxCellNum.y;
+          if (m_dataList.Count % m_maxCellNum.y > 0) {
+            temp++;
+          }
+          m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
         }
-        m_gridLayoutGroup.padding.top = 0;
-        m_scrollRect.content.SetSizeDeltaY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
-      } else if (m_scrollRect.horizontal) {
-        int temp = m_dataList.Count / m_maxCellNum.y;
-        if (m_dataList.Count % m_maxCellNum.y > 0) {
-          temp++;
-        }
-        m_gridLayoutGroup.padding.left = 0;
-        m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
+        LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
       }
 
-      m_initDataIndex = 0;
-      m_scrollRect.StopMovement();
-      m_scrollRect.content.anchoredPosition = m_originPos;
-      LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-
-      UpdateViewData();
-    }
-
-    public void UpdateViewData() {
       for (int i = 0; i < m_viewList.Count; i++) {
         if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_dataList.Count) {
-          m_viewList[i].Update(m_dataList[m_initDataIndex + i]);
+          m_viewList[i].UpdateScrollTerm(m_dataList[m_initDataIndex + i]);
         } else {
-          m_viewList[i].Update(null);
+          m_viewList[i].UpdateScrollTerm(null);
         }
       }
     }
 
-    private void _OnScrollPosChanged(Vector2 pos) {
+    public void OnUpdate() {
+      _UpdateInitDataIndex();
+    }
+
+    private void _UpdateInitDataIndex() {
+      Vector2 pos = m_scrollRect.normalizedPosition;
       //不这么判断的话当显示的内容没超过显示区域时pos的坐标会一直保持在0和1
       if (m_dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
         if (m_scrollRect.vertical && pos.y + MathUtil.SCROLL_EPSILON >= 0 && pos.y <= 1 + MathUtil.SCROLL_EPSILON) {
@@ -99,8 +100,8 @@ namespace Yume.UI {
             m_initDataIndex = newInitDataIndex;
             m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-            
-            UpdateViewData();
+
+            UpdateView(false);
           }
         } else if (m_scrollRect.horizontal && pos.x + MathUtil.SCROLL_EPSILON >= 0 && pos.x <= 1 + MathUtil.SCROLL_EPSILON) {
           //注意，左右的方向是和上下的相反的
@@ -110,8 +111,8 @@ namespace Yume.UI {
             m_initDataIndex = newInitDataIndex;
             m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-            
-            UpdateViewData();
+
+            UpdateView(false);
           }
         }
       }

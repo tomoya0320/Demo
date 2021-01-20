@@ -45,7 +45,7 @@ namespace Yume.UI {
       }
     }
 
-    public void Destroy() {
+    public override void Destroy() {
       RedPointManager.instance.RemoveUIRedPoint(this);
     }
   }

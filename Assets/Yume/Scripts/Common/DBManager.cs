@@ -382,7 +382,6 @@ namespace Yume.DB {
 
     public void AddCards(params CardDB[] cards) {
       userCards.AddRange(cards);
-      EventCenter.Broadcast(Broadcast.EventType.REFRESH_CARD_VIEW);
     }
 
     //卡牌比较特殊，需要是同一个对象
@@ -390,7 +389,6 @@ namespace Yume.DB {
       foreach (var card in cards) {
         userCards.Remove(card);
       }
-      EventCenter.Broadcast(Broadcast.EventType.REFRESH_CARD_VIEW);
     }
 
     public void AddExp(int exp) {

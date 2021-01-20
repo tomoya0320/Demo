@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
+using Yume.Broadcast;
 using Yume.DB;
 using Yume.Resource;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
-  public class UIShortItemInfo :UIChildBase, IScrollTerm<ItemDB> {
+  public class UIShortItemInfo : UIChildBase, IScrollTerm<ItemDB> {
     private ItemDB m_item;
     private Text m_numText;
     private Image m_iconImg;
@@ -17,7 +19,7 @@ namespace Yume.UI {
       m_iconImg = GetComponent<Image>("IconImage");
     }
 
-    public async void Update(ItemDB data) {
+    public async void UpdateScrollTerm(ItemDB data) {
       m_item = data;
 
       gameObject.SetActiveEx(m_item != null);
