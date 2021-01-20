@@ -161,12 +161,12 @@ namespace Yume.UI {
             m_taskShowList.Add(task);
           }
         }
-        m_taskScrollView.UpdateView(m_taskShowList.ToArray());
+        m_taskScrollView.UpdateView();
       }
 
       private void _ResortTasks() {
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
-        m_taskScrollView.UpdateView(m_taskShowList.ToArray());
+        m_taskScrollView.UpdateView();
       }
     }
 

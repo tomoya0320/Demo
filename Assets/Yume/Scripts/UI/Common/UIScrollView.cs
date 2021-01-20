@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Math;
 
 namespace Yume.UI {
   /// <summary>
@@ -35,23 +34,12 @@ namespace Yume.UI {
       m_cellSize = m_gridLayoutGroup.cellSize + m_gridLayoutGroup.spacing;
       m_scrollRectRect = m_scrollRectTransform.rect;
       m_maxCellNum = new Vector2Int {
-        x = (int)(m_scrollRectRect.size.x / m_cellSize.x + MathUtil.SCROLL_EPSILON),
-        y = (int)(m_scrollRectRect.size.y / m_cellSize.y + MathUtil.SCROLL_EPSILON)
+        x = (int)(m_scrollRectRect.size.x / m_cellSize.x),
+        y = (int)(m_scrollRectRect.size.y / m_cellSize.y)
       };
       m_originPos = m_scrollRect.content.anchoredPosition;
 
       UpdateView();
-    }
-
-    /// <summary>
-    /// 更新视图
-    /// </summary>
-    /// <param name="data">新的数据列表</param>
-    public void UpdateView(TData[] data) {
-      int oldLen = m_dataList.Count;
-      m_dataList.Clear();
-      m_dataList.AddRange(data);
-      UpdateView(oldLen != m_dataList.Count);
     }
 
     /// <summary>
@@ -74,6 +62,13 @@ namespace Yume.UI {
           m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+        //强制刷新ScrollBar
+        if (m_scrollRect.verticalScrollbar != null) {
+          m_scrollRect.verticalScrollbar.value = m_scrollRect.normalizedPosition.y;
+        }
+        if (m_scrollRect.horizontalScrollbar != null) {
+          m_scrollRect.horizontalScrollbar.value = m_scrollRect.normalizedPosition.x;
+        }
       }
 
       for (int i = 0; i < m_viewList.Count; i++) {
@@ -90,30 +85,26 @@ namespace Yume.UI {
     }
 
     private void _UpdateInitDataIndex() {
-      Vector2 pos = m_scrollRect.normalizedPosition;
-      //不这么判断的话当显示的内容没超过显示区域时pos的坐标会一直保持在0和1
-      if (m_dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
-        if (m_scrollRect.vertical && pos.y + MathUtil.SCROLL_EPSILON >= 0 && pos.y <= 1 + MathUtil.SCROLL_EPSILON) {
-          int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y + MathUtil.SCROLL_EPSILON);
-          int newInitDataIndex = row * m_maxCellNum.x;
-          if (m_initDataIndex != newInitDataIndex) {
-            m_initDataIndex = newInitDataIndex;
-            m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+      if (m_scrollRect.vertical) {
+        int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y);
+        int newInitDataIndex = row * m_maxCellNum.x;
+        if (m_initDataIndex != newInitDataIndex) {
+          m_initDataIndex = newInitDataIndex;
+          m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
+          LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
-            UpdateView(false);
-          }
-        } else if (m_scrollRect.horizontal && pos.x + MathUtil.SCROLL_EPSILON >= 0 && pos.x <= 1 + MathUtil.SCROLL_EPSILON) {
-          //注意，左右的方向是和上下的相反的
-          int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x + MathUtil.SCROLL_EPSILON);
-          int newInitDataIndex = column * m_maxCellNum.y;
-          if (m_initDataIndex != newInitDataIndex) {
-            m_initDataIndex = newInitDataIndex;
-            m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
+          UpdateView(false);
+        }
+      } else if (m_scrollRect.horizontal) {
+        //注意，左右的方向是和上下的相反的
+        int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x);
+        int newInitDataIndex = column * m_maxCellNum.y;
+        if (m_initDataIndex != newInitDataIndex) {
+          m_initDataIndex = newInitDataIndex;
+          m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
+          LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
-            UpdateView(false);
-          }
+          UpdateView(false);
         }
       }
     }

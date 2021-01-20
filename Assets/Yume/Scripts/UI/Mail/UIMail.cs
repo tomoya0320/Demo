@@ -24,13 +24,13 @@ namespace Yume.UI {
       public bool isValid => m_mail != null;
 
       public UIMailTerm(UIMailGroup mailGroup, GameObject root) : base(root) {
-        m_mailGroup = mailGroup;
         m_selected = GetGameObject("Selected");
         m_titleText = GetComponent<Text>("TitleText");
         m_clickButton = GetComponent<Button>("ClickButton");
         m_dateDeltaText = GetComponent<Text>("DateDeltaText");
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
+        m_mailGroup = mailGroup;
         var mailRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
         m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointRoot);
 
@@ -52,7 +52,7 @@ namespace Yume.UI {
 
         if (m_mail != null) {
           m_titleText.text = m_mail.title;
-          m_attachmentImg.enabled = m_mail.attachment.Length > 0;
+          m_attachmentImg.enabled = m_mail.attachment.Count > 0;
           m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.dateTime);
         }
       }
@@ -78,7 +78,7 @@ namespace Yume.UI {
       private ScrollRect m_attachmentScrollRect;
       public MailDB selectedMail => m_selectedMail;
       private UIScrollView<MailDB, UIMailTerm> m_mailScrollView;
-      public UIScrollView<MailDB, UIMailTerm> mailScrollView => m_mailScrollView;
+      private List<ItemDB> m_selectedAttachment = new List<ItemDB>();
       private List<UIMailTerm> m_mailTermList = new List<UIMailTerm>();
       private UIScrollView<ItemDB, UIShortItemInfo> m_attachmentScrollView;
       private List<UIShortItemInfo> m_attachmentTermList = new List<UIShortItemInfo>();
@@ -106,8 +106,7 @@ namespace Yume.UI {
         }
 
         m_mailScrollView = new UIScrollView<MailDB, UIMailTerm>(m_mailScrollRect, m_mails, m_mailTermList);
-        m_attachmentScrollView = new UIScrollView<ItemDB, UIShortItemInfo>(m_attachmentScrollRect,
-                                                                           new List<ItemDB>(), m_attachmentTermList);
+        m_attachmentScrollView = new UIScrollView<ItemDB, UIShortItemInfo>(m_attachmentScrollRect, m_selectedAttachment, m_attachmentTermList);
 
         _AddListener();
         _CheckGetAllButton();
@@ -126,9 +125,10 @@ namespace Yume.UI {
         if (m_selectedMail != mail) {
           m_selectedMail = mail;
           _UpdateMailContent();
-
           m_mailScrollView.UpdateView(false);
-          m_attachmentScrollView.UpdateView(mail.attachment);
+          m_selectedAttachment.Clear();
+          m_selectedAttachment.AddRange(m_selectedMail.attachment);
+          m_attachmentScrollView.UpdateView();
         }
       }
 
@@ -206,9 +206,7 @@ namespace Yume.UI {
 
       private void _DeleteAllMails() {
         m_selectedMail = null;
-        List<MailDB> deleteMailList = m_mails.FindAll(mail => mail.isReceived);
-        DBManager.instance.DeleteMails(deleteMailList.ToArray());
-
+        DBManager.instance.DeleteMails(m_mails.FindAll(mail => mail.isReceived).ToArray());
         DBManager.instance.UpdateUserData();
       }
 

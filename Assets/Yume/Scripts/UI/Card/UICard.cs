@@ -2,11 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.Broadcast;
 using Yume.DB;
 using Yume.Resource;
 using Yume.String;
-using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UICard : UIBase {

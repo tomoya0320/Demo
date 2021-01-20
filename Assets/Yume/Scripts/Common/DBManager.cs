@@ -297,8 +297,8 @@ namespace Yume.DB {
         userMails.Remove(mail);
       }
       EventCenter.Broadcast(Broadcast.EventType.REFRESH_MAIL_VIEW);
-    }    
-    
+    }
+
     public void AddMails(params MailDB[] mails) {
       userMails.AddRange(mails);
       foreach (var mail in mails) {
