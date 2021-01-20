@@ -6,7 +6,7 @@ using Yume.String;
 
 namespace Yume.Math {
   public class MathUtil {
-    public const float SCROLL_EPSILON = 0.00001f;
+    public const float SCROLL_EPSILON = 0.01f;
 
     /// <summary>
     /// 在XOZ平面上旋转一个Vector3
