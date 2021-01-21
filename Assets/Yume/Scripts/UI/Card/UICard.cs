@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
+using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
   public class UICard : UIBase {
-    private class UICardTerm : UIChildBase, IScrollTerm<CardDB> {
-      private CardDB m_card;
+    private class UICardTerm : UIChildBase, IScrollTerm<CardData> {
+      private CardData m_card;
       private Text m_nameText;
       private Text m_typeText;
       private Image m_iconImg;
@@ -26,17 +26,17 @@ namespace Yume.UI {
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
       }
 
-      public async void UpdateScrollTerm(CardDB data) {
-        m_card = data;
+      public async void UpdateScrollTerm(CardData card) {
+        m_card = card;
 
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
-          CardPhase cardPhase = cardInfo.cardPhases[m_card.phase];
+          CardPrototype cardPrototype = DataManager.instance.GetCardPrototype(m_card.id);
+          CardPhase cardPhase = cardPrototype.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = cardInfo.cardType.GetDescription();
+          m_typeText.text = cardPrototype.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
@@ -46,21 +46,21 @@ namespace Yume.UI {
     }
 
     private class UICardGroup : UIChildBase {
-      private List<CardDB> m_cardList;
+      private List<CardData> m_cardList;
       private ScrollRect m_cardScrollRect;
-      private UIScrollView<CardDB, UICardTerm> m_cardScrollView;
+      private UIScrollView<CardData, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         
-        m_cardList = DBManager.instance.userCards;
+        m_cardList = DataManager.instance.userCards;
 
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_cardScrollView = new UIScrollView<CardDB, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
+        m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
       }
 
       public override void OnUpdate() {

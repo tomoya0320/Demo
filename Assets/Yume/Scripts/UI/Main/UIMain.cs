@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.DB;
+using Yume.Data;
 using Yume.RedPointSystem;
 using EventType = Yume.Broadcast.EventType;
 
@@ -68,15 +68,15 @@ namespace Yume.UI {
     }
 
     private void _UpdateUserInfo() {
-      m_goldNumText.text = DBManager.instance.GetItemDBNum(StringMap.GOLD_ID).ToString();
-      m_diamondNumText.text = DBManager.instance.GetItemDBNum(StringMap.DIAMOND_ID).ToString();
+      m_goldNumText.text = DataManager.instance.GetItemCount(StringMap.GOLD_ID).ToString();
+      m_diamondNumText.text = DataManager.instance.GetItemCount(StringMap.DIAMOND_ID).ToString();
 
-      m_apText.text = DBManager.instance.userAp + "/" + DBManager.instance.userMaxAp;
-      m_lvText.text = DBManager.instance.userLv.ToString();
-      m_nameText.text = DBManager.instance.userName;
+      m_apText.text = DataManager.instance.userAp + "/" + DataManager.instance.userMaxAp;
+      m_lvText.text = DataManager.instance.userLv.ToString();
+      m_nameText.text = DataManager.instance.userName;
 
-      float needEXP = MathUtil.CalNeededExp(DBManager.instance.userLv);
-      m_expImg.fillAmount = DBManager.instance.userExp / needEXP;
+      float needEXP = MathUtil.CalNeededExp(DataManager.instance.userLv);
+      m_expImg.fillAmount = DataManager.instance.userExp / needEXP;
     }
 
     public override void Destroy() {

@@ -2,21 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
+using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
-  [Serializable]
-  public class TeamDB {
-    public string charId;
-    public bool isSelected;
-    public string name = "Ä¬ÈÏ¶ÓÎéÃû";
-    public List<string> cardIdList = new List<string>();
-  }
-
   public class UITeam : UIBase {
-    private TeamDB m_curTeam {
+    private TeamData m_curTeam {
       get {
         if (m_curTeamIdx >= 0 && m_curTeamIdx < m_teams.Count) {
           return m_teams[m_curTeamIdx];
@@ -25,7 +17,7 @@ namespace Yume.UI {
       }
     }
     private Button m_charBtn;
-    private List<TeamDB> m_teams;
+    private List<TeamData> m_teams;
     private int m_curTeamIdx = -1;
     private Sprite m_noCharSprite;
     private Sprite m_noCardSprite;
@@ -41,7 +33,7 @@ namespace Yume.UI {
       m_noCharSprite = AssetLoader.instance.GetValue<Sprite>("noCharSprite");
       m_noCardSprite = AssetLoader.instance.GetValue<Sprite>("noCardSprite");
 
-      m_teams = DBManager.instance.userTeams;
+      m_teams = DataManager.instance.userTeams;
 
       _SwitchTeam(m_teams.Find(t => t.isSelected));
 
@@ -50,13 +42,13 @@ namespace Yume.UI {
 
     private void _AddListener() {
       for (int i = 0; i < m_teams.Count; i++) {
-        TeamDB teamDB = m_teams[i];
+        TeamData teamDB = m_teams[i];
         m_teamBtns[i].onClick.AddListener(() => _SwitchTeam(teamDB));
       }
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
     }
 
-    private void _SwitchTeam(TeamDB teamDB) {
+    private void _SwitchTeam(TeamData teamDB) {
       int newIdx = m_teams.FindIndex(t => t == teamDB);
 
       if (m_curTeamIdx != newIdx) {
@@ -97,8 +89,6 @@ namespace Yume.UI {
             UIManager.instance.OpenOne("card_choice", null, m_curTeam.cardIdList, onCardSelected);
           });
         }
-
-        DBManager.instance.UpdateUserData();
       } else {
         Action<string> onEditCompleted = text => {
           m_curTeam.name = text;
@@ -108,18 +98,12 @@ namespace Yume.UI {
       }
     }
 
-    public override void Close(Action callback = null, params object[] args) {
-      DBManager.instance.UpdateUserData();
-      
-      base.Close(callback, args);
-    }
-
     private async void _OnRefreshCards() {
       for (int i = 0; i < m_cardBtns.Count; i++) {
         if (i < m_curTeam.cardIdList.Count) {
-          CardDB cardDB = DBManager.instance.GetCardDB(m_curTeam.cardIdList[i]);
-          CardInfo cardInfo = DBManager.instance.GetCardInfo(m_curTeam.cardIdList[i]);
-          CardPhase cardPhase = cardInfo.cardPhases[cardDB.phase];
+          CardData card = DataManager.instance.GetCard(m_curTeam.cardIdList[i]);
+          CardPrototype cardPrototype = DataManager.instance.GetCardPrototype(m_curTeam.cardIdList[i]);
+          CardPhase cardPhase = cardPrototype.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
         } else {
           m_cardBtns[i].image.sprite = m_noCardSprite;
@@ -129,8 +113,8 @@ namespace Yume.UI {
 
     private async void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(m_curTeam.charId)) {
-        UnitInfo charInfo = DBManager.instance.GetUnitInfo(m_curTeam.charId);
-        m_charBtn.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charInfo.portraitFileName);
+        UnitPrototype charPrototype = DataManager.instance.GetUnitPrototype(m_curTeam.charId);
+        m_charBtn.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charPrototype.portraitFileName);
       } else {
         m_charBtn.image.sprite = m_noCharSprite;
       }

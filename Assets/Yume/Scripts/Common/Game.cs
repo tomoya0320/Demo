@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Yume.AVG;
-using Yume.Battle;
-using Yume.DB;
-using Yume.MailSystem;
+using Yume.Data;
 using Yume.Resource;
 using Yume.UI;
 
@@ -33,25 +31,21 @@ namespace Yume.Main {
 
 #if TEST
       if (Input.GetKeyDown(KeyCode.W)) {
-        DBManager.instance.AddItems(new ItemDB("item_2_gold", 1000));
-        DBManager.instance.UpdateUserData();
+        DataManager.instance.AddItem(new ItemData("item_2_gold", 1000));
       }
 
       if (Input.GetKeyDown(KeyCode.E)) {
-        DBManager.instance.ConsumeItems(true, new ItemDB("item_2_gold", 10000));
-        DBManager.instance.UpdateUserData();
+        DataManager.instance.ConsumeItem(new ItemData("item_2_gold", 10000));
       }
 
       if (Input.GetKeyDown(KeyCode.R)) {
-        DBManager.instance.AddExp(300);
-        DBManager.instance.UpdateUserData();
+        DataManager.instance.AddExp(300);
       }
 
       if (Input.GetKeyDown(KeyCode.Y)) {
-        DBManager.instance.AddMails(new MailDB("Test Title", "Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemDB("item_1_diamond", 1000)));
-        DBManager.instance.AddMails(new MailDB("Test Title2", "Test Title2", "You are alone", "admin", new ItemDB("item_1_diamond", 2000), new ItemDB("item_2_gold", 30000)));
-        DBManager.instance.AddMails(new MailDB("Test Title3", "Test Title3", "I love {0}", "wzb", new ItemDB("item_1_diamond", 4000), new ItemDB("item_2_gold", 50000), new ItemDB("item_5_key", 10)));
-        DBManager.instance.UpdateUserData();
+        DataManager.instance.AddMail(new MailData("Test Title", "Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemData("item_1_diamond", 1000)));
+        DataManager.instance.AddMail(new MailData("Test Title2", "Test Title2", "You are alone", "admin", new ItemData("item_1_diamond", 2000), new ItemData("item_2_gold", 30000)));
+        DataManager.instance.AddMail(new MailData("Test Title3", "Test Title3", "I love {0}", "wzb", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
+using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
   public class UICardChoice : UIBase {
-    private class UICardChoiceTerm : UIChildBase, IScrollTerm<CardDB> {
-      private CardDB m_card;
+    private class UICardChoiceTerm : UIChildBase, IScrollTerm<CardData> {
+      private CardData m_card;
       private Text m_nameText;
       private Text m_typeText;
       private Image m_iconImg;
@@ -46,18 +46,18 @@ namespace Yume.UI {
         });
       }
 
-      public async void UpdateScrollTerm(CardDB data) {
-        m_card = data;
+      public async void UpdateScrollTerm(CardData card) {
+        m_card = card;
 
         gameObject.SetActiveEx(m_card != null);
         m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
 
         if (m_card != null) {
-          CardInfo cardInfo = DBManager.instance.GetCardInfo(m_card.id);
-          CardPhase cardPhase = cardInfo.cardPhases[m_card.phase];
+          CardPrototype cardPrototype = DataManager.instance.GetCardPrototype(m_card.id);
+          CardPhase cardPhase = cardPrototype.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = cardInfo.cardType.GetDescription();
+          m_typeText.text = cardPrototype.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
@@ -67,22 +67,22 @@ namespace Yume.UI {
     }
 
     private class UICardChoiceGroup : UIChildBase {
-      public List<CardDB> cardChoiceList;
+      public List<CardData> cardChoiceList;
       private ScrollRect m_cardChoiceScrollRect;
-      public List<CardDB> selectedCards = new List<CardDB>();
-      private UIScrollView<CardDB, UICardChoiceTerm> m_cardChoiceScrollView;
+      public List<CardData> selectedCards = new List<CardData>();
+      private UIScrollView<CardData, UICardChoiceTerm> m_cardChoiceScrollView;
       private List<UICardChoiceTerm> m_cardChoiceTermList = new List<UICardChoiceTerm>();
 
       public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
 
-        cardChoiceList = DBManager.instance.userCards;
+        cardChoiceList = DataManager.instance.userCards;
 
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_cardChoiceScrollView = new UIScrollView<CardDB, UICardChoiceTerm>(m_cardChoiceScrollRect, cardChoiceList, m_cardChoiceTermList);
+        m_cardChoiceScrollView = new UIScrollView<CardData, UICardChoiceTerm>(m_cardChoiceScrollRect, cardChoiceList, m_cardChoiceTermList);
       }
 
       public override void OnUpdate() {
@@ -109,7 +109,7 @@ namespace Yume.UI {
       List<string> cardIds = args[0] as List<string>;
       m_cardChoiceGroup.selectedCards.Clear();
       foreach (var cardId in cardIds) {
-        m_cardChoiceGroup.selectedCards.Add(DBManager.instance.GetCardDB(cardId));
+        m_cardChoiceGroup.selectedCards.Add(DataManager.instance.GetCard(cardId));
       }
       m_onSelected = args[1] as Action<List<string>>;
 

@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
+using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
   public class UICharChoice : UIBase {
-    private class UICharChoiceTerm : UIChildBase, IScrollTerm<UnitDB> {
-      private UnitDB m_char;
+    private class UICharChoiceTerm : UIChildBase, IScrollTerm<UnitData> {
+      private UnitData m_character;
       private Button m_selectButton;
       private GameObject m_selected;
-      public bool isValid => m_char != null;
+      public bool isValid => m_character != null;
       private UICharChoiceGroup m_charChoiceGroup;
 
       public UICharChoiceTerm(GameObject root, UICharChoiceGroup charChoiceGroup) : base(root) {
@@ -26,46 +26,46 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_selectButton.onClick.AddListener(() => {
-          if(m_charChoiceGroup.selectedChar == m_char) {
+          if(m_charChoiceGroup.selectedChar == m_character) {
             m_charChoiceGroup.selectedChar = null;
           } else {
-            m_charChoiceGroup.selectedChar = m_char;
+            m_charChoiceGroup.selectedChar = m_character;
           }
           m_charChoiceGroup.UpdateView(false);
         });
       }
 
-      public async void UpdateScrollTerm(UnitDB data) {
-        m_char = data;
+      public async void UpdateScrollTerm(UnitData character) {
+        m_character = character;
 
-        gameObject.SetActiveEx(m_char != null);
-        m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_char);
+        gameObject.SetActiveEx(m_character != null);
+        m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
 
-        if (m_char != null) {
-          UnitInfo unitInfo = DBManager.instance.GetUnitInfo(m_char.id);
+        if (m_character != null) {
+          UnitPrototype charPrototype = DataManager.instance.GetUnitPrototype(m_character.id);
 
-          m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(unitInfo.portraitFileName);
+          m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charPrototype.portraitFileName);
         }
       }
     }
 
     private class UICharChoiceGroup : UIChildBase {
-      public UnitDB selectedChar;
-      private List<UnitDB> m_charChoiceList;
+      public UnitData selectedChar;
+      private List<UnitData> m_charChoiceList;
       private ScrollRect m_charChoiceScrollRect;
-      private UIScrollView<UnitDB, UICharChoiceTerm> m_charChoiceScrollView;
+      private UIScrollView<UnitData, UICharChoiceTerm> m_charChoiceScrollView;
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
 
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
 
-        m_charChoiceList = DBManager.instance.userChars;
+        m_charChoiceList = DataManager.instance.userChars;
 
         for (int i = 0; i < m_charChoiceScrollRect.content.childCount; i++) {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_charChoiceScrollView = new UIScrollView<UnitDB, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceList, m_charChoiceTermList);
+        m_charChoiceScrollView = new UIScrollView<UnitData, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceList, m_charChoiceTermList);
       }
 
       public override void OnUpdate() {
@@ -90,7 +90,7 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       string charId = (string)args[0];
-      m_charChoiceGroup.selectedChar = DBManager.instance.GetCharDB(charId);
+      m_charChoiceGroup.selectedChar = DataManager.instance.GetChar(charId);
       m_onSelected = args[1] as Action<string>;
 
       m_charChoiceGroup.UpdateView(true);

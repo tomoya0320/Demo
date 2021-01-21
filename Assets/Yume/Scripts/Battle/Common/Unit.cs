@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
-using Yume.DB;
-using Yume.FSM;
+using Yume.Data;
+using Yume.Prototype;
 
 namespace Yume.Battle {
   /// <summary>
@@ -59,57 +59,6 @@ namespace Yume.Battle {
 
     public override string ToString() {
       return $"value:{value},maxValue:{maxValue}";
-    }
-  }
-
-  [Serializable]
-  public class UnitDB {
-    public string id;
-    public int level;
-    public int passiveSkillLevels;
-
-    public UnitDB(string id, int level, int passiveSkillLevels) {
-      this.id = id;
-      this.level = level;
-      this.passiveSkillLevels = passiveSkillLevels;
-    }
-  }
-
-  [Serializable]
-  public struct PassiveSkillPhase {
-    public string name;
-    public string description;
-    public string iconFileName;
-    public Blackboard blackboard;
-  }
-
-  [Serializable]
-  public struct UnitInfo {
-    public string id;
-    public string tag;
-    public string name;
-    public int maxLevel;
-    public string prefabName;
-    public string portraitFileName;
-    public string illustrationFileName;
-    public PassiveSkillPhase[] passiveSkillPhases;
-    public Dictionary<AttribType, Attrib> minAttribDict;
-    public Dictionary<AttribType, Attrib> maxAttribDict;
-
-    public Attrib[] GetMinAttribs() {
-      Attrib[] minAttribs = new Attrib[(int)AttribType.LENGTH];
-      foreach (var kv in minAttribDict) {
-        minAttribs[(int)kv.Key] = kv.Value;
-      }
-      return minAttribs;
-    }    
-    
-    public Attrib[] GetMaxAttribs() {
-      Attrib[] maxAttribs = new Attrib[(int)AttribType.LENGTH];
-      foreach (var kv in maxAttribDict) {
-        maxAttribs[(int)kv.Key] = kv.Value;
-      }
-      return maxAttribs;
     }
   }
 
@@ -191,22 +140,22 @@ namespace Yume.Battle {
     protected string unitName;
     protected Attrib[] attribs;
     protected StateMachine stateMachine;
-    protected Dictionary<CardHeapType,List<CardDB>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
+    protected Dictionary<CardHeapType,List<CardData>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
-    public Unit(UnitDB unitDB, List<CardDB> cardList) {
-      UnitInfo unitInfo = DBManager.instance.GetUnitInfo(unitDB.id);
-      unitId = unitDB.id;
-      unitTag = unitInfo.tag;
-      unitLevel = unitDB.level;
-      unitName = unitInfo.name;
-      attribs = MathUtil.CalculateAttribs(unitDB.id, unitDB.level, unitInfo.maxLevel,
-                                          unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
+    public Unit(UnitData unit, List<CardData> cardList) {
+      UnitPrototype unitPrototype = DataManager.instance.GetUnitPrototype(unit.id);
+      unitId = unit.id;
+      unitTag = unitPrototype.tag;
+      unitLevel = unit.level;
+      unitName = unitPrototype.name;
+      attribs = MathUtil.CalculateAttribs(unit.id, unit.level, unitPrototype.maxLevel,
+                                          unitPrototype.GetMinAttribs(), unitPrototype.GetMaxAttribs());
       //TODO:Init PassiveSkill
       //TODO:Init Prefab
 
-      cardHeapDict = new Dictionary<CardHeapType, List<CardDB>>();
+      cardHeapDict = new Dictionary<CardHeapType, List<CardData>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
-        cardHeapDict.Add(cardHeapType, new List<CardDB>());
+        cardHeapDict.Add(cardHeapType, new List<CardData>());
       }
       cardHeapDict[CardHeapType.DRAW].AddRange(cardList);
 

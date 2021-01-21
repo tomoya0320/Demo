@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Yume.Data;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
-    public Enemy(UnitDB unitDB, List<CardDB> cardList) : base(unitDB, cardList) {
+    public Enemy(UnitData enemy, List<CardData> cardList) : base(enemy, cardList) {
 
     }
   }

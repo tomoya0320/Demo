@@ -1,4 +1,4 @@
-﻿using Yume.DB;
+﻿using Yume.Data;
 
 namespace Yume.RedPointSystem {
   public class MainMailRedPointTree : RedPointTree {
@@ -8,7 +8,7 @@ namespace Yume.RedPointSystem {
       redPointTreeType = RedPointTreeType.MAIN_MAIL;
 
       redPointDict.Add(MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null));
-      foreach (var mail in DBManager.instance.userMails) {
+      foreach (var mail in DataManager.instance.userMails) {
         if (!mail.isReceived) {
           AddLeafNode(mail.id, MAIN_MAIL);
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Yume.FSM {
+namespace Yume.Battle {
   public abstract class State {
     public int stateId { get; private set; }
     public StateMachine stateMachine { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yume.Resource;
 
-namespace Yume.DB {
+namespace Yume.Data {
   public class JsonAsset : YScriptableObject {
     [SerializeField]
     private TextAsset _uiText;

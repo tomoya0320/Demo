@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.DB;
+using Yume.Data;
+using Yume.Prototype;
 using Yume.RedPointSystem;
 using Yume.Resource;
-using Yume.Task;
 
 namespace Yume.UI {
   public class UITask : UIBase {
-    private class UITaskTerm : UIChildBase, IScrollTerm<TaskDB> {
+    private class UITaskTerm : UIChildBase, IScrollTerm<TaskData> {
       private Text m_title;
-      private TaskDB m_task;
+      private TaskData m_task;
       private Text m_description;
       private YButton m_getReward;
       private UIRedPoint m_taskRedPoint;
@@ -47,7 +47,7 @@ namespace Yume.UI {
             if (i < m_task.taskRequests.Count) {
               tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Text>().text = string.Format("{0}:{1}/{2}", m_task.taskRequests[i].description,
-              m_task.taskRequests[i].currentNum, m_task.taskRequests[i].requiredNum);
+              m_task.taskRequests[i].currentCount, m_task.taskRequests[i].requiredCount);
             } else {
               tempGo.SetActiveEx(false);
             }
@@ -66,29 +66,28 @@ namespace Yume.UI {
         m_getReward.image.color = Colors.DISABLE_BUTTON;
         m_getReward.textComponent.text = StringMap.COMPLETED;
 
-        DBManager.instance.CompleteTask(m_task);
-        DBManager.instance.UpdateUserData();
+        DataManager.instance.CompleteTask(m_task);
       }
 
-      public async void UpdateScrollTerm(TaskDB data) {
-        m_task = data;
+      public async void UpdateScrollTerm(TaskData task) {
+        m_task = task;
 
         m_taskRedPoint.Update(m_task?.id);
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
-          TaskInfo taskInfo = DBManager.instance.GetTaskInfo(m_task.type, m_task.id);
-          m_title.text = taskInfo.title;
-          m_description.text = taskInfo.description;
+          TaskPrototype taskPrototype = DataManager.instance.GetTaskPrototype(m_task.type, m_task.id);
+          m_title.text = taskPrototype.title;
+          m_description.text = taskPrototype.description;
 
           //初始化任务奖励
           for (int i = 0; i < m_rewardContent.childCount; i++) {
             var tempGo = m_rewardContent.GetChild(i).gameObject;
-            if (i < taskInfo.taskRewards.items.Length) {
+            if (i < taskPrototype.taskRewards.items.Length) {
               tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
-                     (DBManager.instance.GetItemInfo(taskInfo.taskRewards.items[i].id).iconFileName);
-              tempGo.GetComponentInChildren<Text>().text = taskInfo.taskRewards.items[i].num.ToString();
+                     (DataManager.instance.GetItemPrototype(taskPrototype.taskRewards.items[i].id).iconFileName);
+              tempGo.GetComponentInChildren<Text>().text = taskPrototype.taskRewards.items[i].count.ToString();
             } else {
               tempGo.SetActiveEx(false);
             }
@@ -106,19 +105,19 @@ namespace Yume.UI {
     }
 
     private class UITaskGroup : UIChildBase {
-      private List<TaskDB> m_tasks;
+      private List<TaskData> m_tasks;
       private UIRedPoint m_taskRedPoint;
       private ScrollRect m_taskScrollRect;
-      private List<TaskDB> m_taskShowList = new List<TaskDB>();
-      private UIScrollView<TaskDB, UITaskTerm> m_taskScrollView;
+      private List<TaskData> m_taskShowList = new List<TaskData>();
+      private UIScrollView<TaskData, UITaskTerm> m_taskScrollView;
       private List<UITaskTerm> m_taskTermList = new List<UITaskTerm>();
 
       public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
 
-        m_tasks = DBManager.instance.GetTaskList(taskType);
+        m_tasks = DataManager.instance.GetTaskList(taskType);
 
-        foreach (TaskDB task in m_tasks) {
+        foreach (TaskData task in m_tasks) {
           if (task.state != TaskState.INACTIVE) {
             m_taskShowList.Add(task);
           }
@@ -130,7 +129,7 @@ namespace Yume.UI {
           m_taskTermList.Add(new UITaskTerm(taskType, m_taskScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_taskScrollView = new UIScrollView<TaskDB, UITaskTerm>(m_taskScrollRect, m_taskShowList, m_taskTermList);
+        m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, m_taskShowList, m_taskTermList);
 
         var taskRedPointRoot = GetGameObject("Button").FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointRoot);
@@ -155,7 +154,7 @@ namespace Yume.UI {
 
       private void _RefreshTaskView() {
         m_taskShowList.Clear();
-        foreach (TaskDB task in m_tasks) {
+        foreach (TaskData task in m_tasks) {
           if (task.state != TaskState.INACTIVE) {
             m_taskShowList.Add(task);
           }

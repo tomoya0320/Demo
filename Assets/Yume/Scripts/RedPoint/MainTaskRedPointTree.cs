@@ -1,6 +1,6 @@
 ﻿using System;
-using Yume.DB;
-using Yume.Task;
+using Yume.Data;
+using Yume.Prototype;
 
 namespace Yume.RedPointSystem {
   public class MainTaskRedPointTree : RedPointTree {
@@ -14,7 +14,7 @@ namespace Yume.RedPointSystem {
         redPointDict.Add(type.GetDescription(), new RedPointNode(redPointTreeType,
                          type.GetDescription(), redPointDict[MAIN_TASK]));
 
-        foreach (var task in DBManager.instance.userTasks[type]) {
+        foreach (var task in DataManager.instance.userTasks[type]) {
           if (task.state == TaskState.COMPLETED) {
             AddLeafNode(task.id, type.GetDescription());
           }

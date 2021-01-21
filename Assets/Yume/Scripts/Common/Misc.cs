@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
 
 public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
@@ -177,6 +177,7 @@ public static class StringMap {
   public const string UI_OPEN_ANIM = "ui_open";
   public const string UI_CLOSE_ANIM = "ui_close";
   public const string UI_RED_POINT = "red point";
+  public const string SAVE_DATA_SUCCEED = "同步数据成功！";
 }
 
 public static class StringUtil {
@@ -312,7 +313,7 @@ public static class MathUtil {
 
     float p = (float)level / maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
-    var curve = DBManager.instance.GetAttribCurve(id);
+    var curve = DataManager.instance.GetAttribCurve(id);
     for (int i = 0; i < attribs.Length; i++) {
       attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
     }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using Yume.DB;
+using Yume.Data;
 using Yume.Resource;
 using Yume.Tool;
 using Yume.UI;
@@ -33,7 +33,7 @@ namespace Yume.Server {
       //Java那边的Json有个bug，转数组时输入的Json字符串不能是空（""）
       //否则会出现类似"[null]"这样的结果，导致反序列化得到的List会变成Count为1且第一个元素为null
       //update：换了一种方式初始化(直接new UserDB())
-      JObject json = JObject.FromObject(new { userDB = new UserDB(name/*暂时测试用*/, account, password) });
+      JObject json = JObject.FromObject(new { user = new UserData(name/*暂时测试用*/, account, password) });
       json.Add("method", Methods.REGISTER.ToString());
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
@@ -41,7 +41,7 @@ namespace Yume.Server {
     public void UpdateUserData(JObject data, Action<UnityWebRequest> onCompleted) {
       data.Add("method", Methods.UPDATE.ToString());
       //添加token以验证同步
-      data.Add("token", DBManager.instance.userToken);
+      data.Add("token", DataManager.instance.userToken);
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, data, onCompleted));
     }
 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.DB;
+using Yume.Data;
 using Yume.Server;
 
 namespace Yume.UI {
@@ -109,7 +109,7 @@ namespace Yume.UI {
     }
 
     private void _GoToMain(JObject json = null) {
-      DBManager.instance.LoadUserDB(json);
+      DataManager.instance.LoadUserDB(json);
       UIManager.instance.OpenOne("blackMask", () => {
         UIManager.instance.CloseOne("blackMask");
         UIManager.instance.CloseAllAndOpenOne("main");

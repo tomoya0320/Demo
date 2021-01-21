@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using Yume.DB;
+using Yume.Data;
 using Yume.RedPointSystem;
 
 namespace Yume.Editor {
@@ -23,7 +23,7 @@ namespace Yume.Editor {
         return;
       }
 
-      if (!DBManager.instance.isLogged) {
+      if (!DataManager.instance.isLogged) {
         EditorGUILayout.LabelField("玩家未登录");
         return;
       }

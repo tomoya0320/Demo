@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.DB;
+using Yume.Data;
 using Yume.Resource;
+using Yume.Prototype;
 
 namespace Yume.UI {
   public class UICharDetail : UIBase {
@@ -34,14 +35,14 @@ namespace Yume.UI {
     }
 
     public async override void Open(Action callback = null, params object[] args) {
-      UnitDB unitDB = args[0] as UnitDB;
-      UnitInfo unitInfo = DBManager.instance.GetUnitInfo(unitDB.id);
-      PassiveSkillPhase passiveSkillPhase = unitInfo.passiveSkillPhases[unitDB.passiveSkillLevels];
-      Attrib[] attribs = MathUtil.CalculateAttribs(unitInfo.id, unitDB.level, unitInfo.maxLevel,
-                                                   unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
+      UnitData unit = args[0] as UnitData;
+      UnitPrototype unitPrototype = DataManager.instance.GetUnitPrototype(unit.id);
+      PassiveSkillPhase passiveSkillPhase = unitPrototype.passiveSkillPhases[unit.passiveSkillLevels];
+      Attrib[] attribs = MathUtil.CalculateAttribs(unitPrototype.id, unit.level, unitPrototype.maxLevel,
+                                                   unitPrototype.GetMinAttribs(), unitPrototype.GetMaxAttribs());
 
-      m_lv.text = $"Lv:{unitDB.level}/{unitInfo.maxLevel}";
-      m_illustration.sprite = await ResourceManager.LoadAssetAsync<Sprite>(unitInfo.illustrationFileName);
+      m_lv.text = $"Lv:{unit.level}/{unitPrototype.maxLevel}";
+      m_illustration.sprite = await ResourceManager.LoadAssetAsync<Sprite>(unitPrototype.illustrationFileName);
       m_passiveSkillIcon.sprite = await ResourceManager.LoadAssetAsync<Sprite>(passiveSkillPhase.iconFileName);
       m_passiveSkillName.text = passiveSkillPhase.name;
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.blackboard);

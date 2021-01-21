@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yume.Resource;
 
-namespace Yume.DB {
+namespace Yume.Data {
   [Serializable]
   public struct AttribCurve {
     public string id;

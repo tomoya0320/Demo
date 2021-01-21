@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yume.Resource;
 
-namespace Yume.DB {
+namespace Yume.Data {
   public class DefaultSpriteAsset : YScriptableObject {
     [SerializeField]
     private Sprite _noCharSprite;
