@@ -12,7 +12,7 @@
         "items": [
           {
             "id": "item_3_mcake",
-            "num": 10
+            "count": 10
           }
         ]
       },
@@ -24,7 +24,7 @@
           "type": "ITEM_NUM",
           "requirementId": "item_2_gold",
           "description": "金币",
-          "requiredNum": 5000
+          "requiredCount": 5000
         }
       ]
     },
@@ -40,7 +40,7 @@
         "items": [
           {
             "id": "item_1_diamond",
-            "num": 100
+            "count": 100
           }
         ]
       },
@@ -52,7 +52,7 @@
           "type": "ITEM_NUM",
           "requirementId": "item_2_gold",
           "description": "金币",
-          "requiredNum": 3000
+          "requiredCount": 3000
         }
       ]
     }
@@ -70,7 +70,7 @@
         "items": [
           {
             "id": "item_4_cwine",
-            "num": 1
+            "count": 1
           }
         ]
       },
@@ -82,7 +82,7 @@
           "type": "LV_UP_TO",
           "requirementId": null,
           "description": "等级",
-          "requiredNum": 5
+          "requiredCount": 5
         }
       ]
     },
@@ -98,7 +98,7 @@
         "items": [
           {
             "id": "item_4_cwine",
-            "num": 3
+            "count": 3
           }
         ]
       },
@@ -110,7 +110,7 @@
           "type": "LV_UP_TO",
           "requirementId": null,
           "description": "等级",
-          "requiredNum": 10
+          "requiredCount": 10
         }
       ]
     },
@@ -126,7 +126,7 @@
         "items": [
           {
             "id": "item_4_cwine",
-            "num": 10
+            "count": 10
           }
         ]
       },
@@ -138,7 +138,7 @@
           "type": "LV_UP_TO",
           "requirementId": null,
           "description": "等级",
-          "requiredNum": 15
+          "requiredCount": 15
         }
       ]
     }
