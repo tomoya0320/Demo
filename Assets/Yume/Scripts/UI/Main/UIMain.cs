@@ -2,9 +2,7 @@
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.DB;
-using Yume.Math;
 using Yume.RedPointSystem;
-using Yume.String;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.RedPointSystem;
-using Yume.String;
 
 namespace Yume.UI {
   public class UIRedPoint : UIChildBase {

@@ -6,8 +6,6 @@ using Yume.Broadcast;
 using Yume.Battle;
 using Yume.DB;
 using Yume.MailSystem;
-using Yume.Math;
-using Yume.String;
 using Yume.RedPointSystem;
 
 namespace Yume.UI {
@@ -53,7 +51,7 @@ namespace Yume.UI {
         if (m_mail != null) {
           m_titleText.text = m_mail.title;
           m_attachmentImg.enabled = m_mail.attachment.Count > 0;
-          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.dateTime);
+          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.timeStamp);
         }
       }
 
@@ -135,7 +133,7 @@ namespace Yume.UI {
       private void _UpdateMailContent() {
         m_mailContentPanel.SetActiveEx(true);
         m_signatureText.text = m_selectedMail.signature;
-        m_dateText.text = Convert.ToDateTime(m_selectedMail.dateTime).ToShortDateString();
+        m_dateText.text = MathUtil.GetDateTime(m_selectedMail.timeStamp).ToShortDateString();
         m_contentText.text = string.Format(m_selectedMail.content, DBManager.instance.userName);
 
         _CheckGetButton();

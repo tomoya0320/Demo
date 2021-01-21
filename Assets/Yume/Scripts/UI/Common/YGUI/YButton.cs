@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Yume.Audio;
-using Yume.String;
 
 namespace Yume.UI {
   [ExecuteInEditMode]

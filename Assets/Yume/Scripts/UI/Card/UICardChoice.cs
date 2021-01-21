@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.DB;
 using Yume.Resource;
-using Yume.String;
 
 namespace Yume.UI {
   public class UICardChoice : UIBase {
@@ -40,7 +39,7 @@ namespace Yume.UI {
           if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
             m_cardChoiceGroup.selectedCards.Remove(m_card);
             m_cardChoiceGroup.UpdateView(false);
-          } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_NUM) {
+          } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_COUNT) {
             m_cardChoiceGroup.selectedCards.Add(m_card);
             m_cardChoiceGroup.UpdateView(false);
           }

@@ -29,7 +29,7 @@ namespace Yume.DB {
 
       tasks = DBManager.instance.GetDefaultTasks();
 
-      for (int i = 0; i < Constant.MAX_TEAN_NUM; i++) {
+      for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamDB());
       }
       teams[0].isSelected = true;

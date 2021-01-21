@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.DB;
 using Yume.Server;
-using Yume.String;
 
 namespace Yume.UI {
   public class UILogin : UIBase {

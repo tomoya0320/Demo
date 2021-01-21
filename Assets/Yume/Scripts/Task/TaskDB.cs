@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yume.Battle;
 using Yume.DB;
-using Yume.String;
 using Yume.UI;
 using Yume.Resource;
 using System.ComponentModel;

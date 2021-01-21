@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Yume.String;
 using Yume.Resource;
 
 namespace Yume.Audio {

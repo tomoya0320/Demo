@@ -7,7 +7,6 @@ using Yume.Broadcast;
 using Yume.DB;
 using Yume.RedPointSystem;
 using Yume.Resource;
-using Yume.String;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {

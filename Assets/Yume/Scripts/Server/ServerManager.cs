@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Yume.DB;
 using Yume.Resource;
-using Yume.String;
 using Yume.Tool;
 using Yume.UI;
 
@@ -26,7 +25,7 @@ namespace Yume.Server {
       JObject json = JObject.FromObject(new { account, password });
       json.Add("method", Methods.LOGIN.ToString());
       //添加token以验证同步
-      json.Add("token", DateTime.Now.ToString() + SystemInfo.deviceUniqueIdentifier);
+      json.Add("token", MathUtil.GetTimeStamp(DateTime.Now) + SystemInfo.deviceUniqueIdentifier);
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 

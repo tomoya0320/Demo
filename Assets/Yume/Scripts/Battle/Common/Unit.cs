@@ -4,7 +4,6 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using Yume.DB;
 using Yume.FSM;
-using Yume.Math;
 
 namespace Yume.Battle {
   /// <summary>

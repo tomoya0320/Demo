@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using System;
 using UnityEngine;
-using Yume.String;
 using Yume.UI;
 
 namespace Yume.Audio {

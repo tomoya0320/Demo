@@ -6,7 +6,6 @@ using Yume.Broadcast;
 using Yume.DB;
 using Yume.RedPointSystem;
 using Yume.Resource;
-using Yume.String;
 using Yume.Task;
 
 namespace Yume.UI {

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Yume.String;
 using Yume.Audio;
 using System.ComponentModel;
 using System.Collections.Generic;

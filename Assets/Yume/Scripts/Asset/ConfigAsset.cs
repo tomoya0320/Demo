@@ -1,5 +1,4 @@
-﻿using Yume.String;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using Yume.Resource;
 using System.Collections.Generic;

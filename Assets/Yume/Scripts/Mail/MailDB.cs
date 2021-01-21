@@ -9,10 +9,10 @@ namespace Yume.MailSystem {
   public class MailDB {
     public string id;
     public string title;
+    public int timeStamp;
     public string content;
     public bool isReceived;
     public string signature;
-    public DateTime dateTime;
     public List<ItemDB> attachment = new List<ItemDB>();
 
     public MailDB(string id, string title, string content, string signature, params ItemDB[] attachment) {
@@ -24,7 +24,7 @@ namespace Yume.MailSystem {
         this.attachment.AddRange(attachment);
       }
       isReceived = this.attachment.Count == 0;
-      dateTime = DateTime.Now;
+      timeStamp = MathUtil.GetTimeStamp(DateTime.Now);
     }
 
     public void GetAttachment() {

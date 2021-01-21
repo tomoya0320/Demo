@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.DB;
 using Yume.Resource;
-using Yume.String;
 
 namespace Yume.UI {
   public class UICard : UIBase {

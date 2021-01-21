@@ -3,9 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.DB;
-using Yume.Math;
 using Yume.Resource;
-using Yume.String;
 
 namespace Yume.UI {
   public class UICharDetail : UIBase {

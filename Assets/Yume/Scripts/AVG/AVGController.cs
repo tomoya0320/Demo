@@ -1,11 +1,7 @@
 ﻿using DG.Tweening;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Yume.String;
 using Yume.UI;
 using Yume.Resource;
 
