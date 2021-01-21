@@ -18,20 +18,12 @@ namespace Yume.UI {
     public string description;
     public Sprite img;
     public float duration;
-    public bool isShowImg;
 
-    public Message(Style style, string description, Sprite img, float duration = 2.0f) {
+    public Message(Style style, string description, Sprite img = null, float duration = 2.0f) {
       this.style = style;
       this.description = description;
       this.duration = duration;
       this.img = img;
-      isShowImg = true;
-    }
-    public Message(Style style, string description, float duration = 2.0f) {
-      this.style = style;
-      this.description = description;
-      this.duration = duration;
-      isShowImg = false;
     }
   }
   public class MessageManager : Singleton<MessageManager> {
