@@ -313,7 +313,7 @@ public static class MathUtil {
 
     float p = (float)level / maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
-    var curve = DataManager.instance.GetAttribCurve(id);
+    var curve = DataManager.GetAttribCurve(id);
     for (int i = 0; i < attribs.Length; i++) {
       attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
     }
@@ -348,30 +348,6 @@ public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T
       Debug.LogWarning("Duplicate Instacne:" + nameof(T));
       Destroy(gameObject);
     }
-  }
-
-  protected virtual void OnInit() { }
-}
-
-public abstract class Singleton<T> where T : new() {
-  private static T s_instance;
-
-  public static T instance {
-    get {
-      if (s_instance == null) {
-        s_instance = new T();
-      }
-      return s_instance;
-    }
-  }
-  public static bool hasInstance {
-    get {
-      return s_instance != null;
-    }
-  }
-
-  protected Singleton() {
-    OnInit();
   }
 
   protected virtual void OnInit() { }

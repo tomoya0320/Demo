@@ -23,7 +23,7 @@ namespace Yume.Editor {
         return;
       }
 
-      if (!DataManager.instance.isLogged) {
+      if (!DataManager.isLogged) {
         EditorGUILayout.LabelField("玩家未登录");
         return;
       }
@@ -45,7 +45,7 @@ namespace Yume.Editor {
     }
 
     private void _DrawTree(RedPointTreeType redPointTreeType) {
-      var tree = RedPointManager.instance.GetRedPointTree(redPointTreeType);
+      var tree = RedPointManager.GetRedPointTree(redPointTreeType);
       foreach (var node in tree.RedPointDict.Values) {
         EditorGUILayout.LabelField($"\tname:{node.name},parent:{node.parentName},redPointNum:{node.redPointNum}");
       }

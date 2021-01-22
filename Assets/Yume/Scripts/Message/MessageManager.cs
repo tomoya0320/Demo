@@ -26,32 +26,32 @@ namespace Yume.UI {
       this.img = img;
     }
   }
-  public class MessageManager : Singleton<MessageManager> {
-    private bool m_isMessageShowing;
-    private Queue<Message> m_messageQueue = new Queue<Message>();
+  public static class MessageManager {
+    private static bool s_isMessageShowing;
+    private static Queue<Message> s_messageQueue = new Queue<Message>();
 
-    public void AddMessage(Message message) {
-      m_messageQueue.Enqueue(message);
-      if (!m_isMessageShowing) {
-        m_isMessageShowing = true;
+    public static void AddMessage(Message message) {
+      s_messageQueue.Enqueue(message);
+      if (!s_isMessageShowing) {
+        s_isMessageShowing = true;
         ShowMessage();
       }
     }
 
-    public void ShowMessage() {
-      if (m_messageQueue.Count > 0) {
-        var message = m_messageQueue.Dequeue();
+    public static void ShowMessage() {
+      if (s_messageQueue.Count > 0) {
+        var message = s_messageQueue.Dequeue();
         var uiName = $"message_{message.style.GetDescription()}";
         void action() => CoroutineHelper.instance.RunCoroutine(
-          _DelayInvoke(message.duration, () => UIManager.instance.CloseOne(uiName, ShowMessage)));
+          _DelayInvoke(message.duration, () => UIManager.CloseOne(uiName, ShowMessage)));
 
-        UIManager.instance.OpenOne(uiName, action, message);
+        UIManager.OpenOne(uiName, action, message);
       } else {
-        m_isMessageShowing = false;
+        s_isMessageShowing = false;
       }
     }
 
-    private IEnumerator _DelayInvoke(float time, Action callback) {
+    private static IEnumerator _DelayInvoke(float time, Action callback) {
       yield return new WaitForSeconds(time);
       callback?.Invoke();
     }

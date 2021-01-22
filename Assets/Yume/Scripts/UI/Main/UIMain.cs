@@ -58,25 +58,25 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      m_bag.onClick.AddListener(() => UIManager.instance.OpenOne("bag"));
-      m_task.onClick.AddListener(() => UIManager.instance.OpenOne("task"));
-      m_card.onClick.AddListener(() => UIManager.instance.OpenOne("card"));
-      m_char.onClick.AddListener(() => UIManager.instance.OpenOne("char"));
-      m_mail.onClick.AddListener(() => UIManager.instance.OpenOne("mail"));
-      m_team.onClick.AddListener(() => UIManager.instance.OpenOne("team"));
-      m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
+      m_bag.onClick.AddListener(() => UIManager.OpenOne("bag"));
+      m_task.onClick.AddListener(() => UIManager.OpenOne("task"));
+      m_card.onClick.AddListener(() => UIManager.OpenOne("card"));
+      m_char.onClick.AddListener(() => UIManager.OpenOne("char"));
+      m_mail.onClick.AddListener(() => UIManager.OpenOne("mail"));
+      m_team.onClick.AddListener(() => UIManager.OpenOne("team"));
+      m_setting.onClick.AddListener(() => UIManager.OpenOne("setting"));
     }
 
     private void _UpdateUserInfo() {
-      m_goldNumText.text = DataManager.instance.GetItemCount(StringMap.GOLD_ID).ToString();
-      m_diamondNumText.text = DataManager.instance.GetItemCount(StringMap.DIAMOND_ID).ToString();
+      m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ID).ToString();
+      m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ID).ToString();
 
-      m_apText.text = DataManager.instance.userAp + "/" + DataManager.instance.userMaxAp;
-      m_lvText.text = DataManager.instance.userLv.ToString();
-      m_nameText.text = DataManager.instance.userName;
+      m_apText.text = DataManager.userAp + "/" + DataManager.userMaxAp;
+      m_lvText.text = DataManager.userLv.ToString();
+      m_nameText.text = DataManager.userName;
 
-      float needEXP = MathUtil.CalNeededExp(DataManager.instance.userLv);
-      m_expImg.fillAmount = DataManager.instance.userExp / needEXP;
+      float needEXP = MathUtil.CalNeededExp(DataManager.userLv);
+      m_expImg.fillAmount = DataManager.userExp / needEXP;
     }
 
     public override void Destroy() {

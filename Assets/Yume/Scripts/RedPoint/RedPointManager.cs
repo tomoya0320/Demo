@@ -51,12 +51,7 @@ namespace Yume.RedPointSystem {
         int delta = num - m_redPointNum;
         if (delta != 0) {
           m_redPointNum = num;
-          //因为这个函数会在RedPointManager初始化的时候调用
-          //所以需要先判断一下RedPointManager有没有初始化完毕
-          //如果是第一次初始化的话不需要执行UI的回调
-          if (RedPointManager.hasInstance) {
-            RedPointManager.instance.GetUIOnChanged(m_redPointTreeType, m_name, parentName)?.Invoke();
-          }
+          RedPointManager.GetUIOnChanged(m_redPointTreeType, m_name, parentName)?.Invoke();
           //更新父节点
           if (m_parentNode != null) {
             m_parentNode.SetRedPointNum(m_parentNode.m_redPointNum + delta);
@@ -71,14 +66,14 @@ namespace Yume.RedPointSystem {
   }
 
   public abstract class RedPointTree {
-    protected RedPointTreeType redPointTreeType = RedPointTreeType.NONE;
-    protected Dictionary<string, RedPointNode> redPointDict = new Dictionary<string, RedPointNode>();
+    protected Dictionary<string, RedPointNode> redPointDict;
+    protected abstract RedPointTreeType redPointTreeType { get; }
 
     /// <summary>
     /// 每次被实例化时初始化具体的红点业务逻辑
     /// 由子类负责这部分
     /// </summary>
-    public abstract RedPointTree OnInit();
+    public abstract void InitData();
 
     /// <summary>
     /// 当不存在该节点对时返回0
@@ -141,47 +136,53 @@ namespace Yume.RedPointSystem {
   /// <summary>
   /// 外部都通过这个类进行操作
   /// </summary>
-  public class RedPointManager : Singleton<RedPointManager> {
-    private List<UIRedPoint> m_uiRedPointList = new List<UIRedPoint>();
-    private Dictionary<RedPointTreeType, RedPointTree> m_redPointTreeDict = new Dictionary<RedPointTreeType, RedPointTree>();
+  public static class RedPointManager {
+    private static List<UIRedPoint> s_uiRedPointList = new List<UIRedPoint>();
+    private static Dictionary<RedPointTreeType, RedPointTree> s_redPointTreeDict = new Dictionary<RedPointTreeType, RedPointTree>();
 
-    protected override void OnInit() {
+    public static void Init() {
       foreach (RedPointTreeType redPointTreeType in Enum.GetValues(typeof(RedPointTreeType))) {
         if (redPointTreeType != RedPointTreeType.NONE) {
           var redPointTree = AssemblyTool.CreateInstance(redPointTreeType.GetDescription()) as RedPointTree;
-          m_redPointTreeDict.Add(redPointTreeType, redPointTree.OnInit());
+          s_redPointTreeDict.Add(redPointTreeType, redPointTree);
         }
       }
     }
 
-    public void SetRedPointNum(RedPointTreeType redPointTreeType, string name, string parent, int redPointNum) {
+    public static void InitData() {
+      foreach (var redPointTree in s_redPointTreeDict.Values) {
+        redPointTree.InitData();
+      }
+    }
+
+    public static void SetRedPointNum(RedPointTreeType redPointTreeType, string name, string parent, int redPointNum) {
       if (string.IsNullOrEmpty(name)) {
         return;
       }
 
-      if (m_redPointTreeDict.ContainsKey(redPointTreeType)) {
-        m_redPointTreeDict[redPointTreeType].SetRedPointNum(name, parent, redPointNum);
+      if (s_redPointTreeDict.ContainsKey(redPointTreeType)) {
+        s_redPointTreeDict[redPointTreeType].SetRedPointNum(name, parent, redPointNum);
       } else {
         Debug.LogError($"该类型的Tree未注册！Type:{redPointTreeType}");
       }
     }
 
-    public int GetRedPointNum(RedPointTreeType redPointTreeType, string name, string parent) {
+    public static int GetRedPointNum(RedPointTreeType redPointTreeType, string name, string parent) {
       if (string.IsNullOrEmpty(name)) {
         return 0;
       }
 
-      if (m_redPointTreeDict.ContainsKey(redPointTreeType)) {
-        return m_redPointTreeDict[redPointTreeType].GetRedPointNum(name, parent);
+      if (s_redPointTreeDict.ContainsKey(redPointTreeType)) {
+        return s_redPointTreeDict[redPointTreeType].GetRedPointNum(name, parent);
       } else {
         Debug.LogError($"该类型的Tree未注册！Type:{redPointTreeType}");
         return 0;
       }
     }
 
-    public void AddUIRedPoint(UIRedPoint uiRedPoint) {
-      if (!m_uiRedPointList.Contains(uiRedPoint)) {
-        m_uiRedPointList.Add(uiRedPoint);
+    public static void AddUIRedPoint(UIRedPoint uiRedPoint) {
+      if (!s_uiRedPointList.Contains(uiRedPoint)) {
+        s_uiRedPointList.Add(uiRedPoint);
         //添加的时候就执行一次，减少冗余的代码
         uiRedPoint.OnChanged();
       } else {
@@ -189,16 +190,16 @@ namespace Yume.RedPointSystem {
       }
     }
 
-    public void RemoveUIRedPoint(UIRedPoint uiRedPoint) {
-      if (m_uiRedPointList.Contains(uiRedPoint)) {
-        m_uiRedPointList.Remove(uiRedPoint);
+    public static void RemoveUIRedPoint(UIRedPoint uiRedPoint) {
+      if (s_uiRedPointList.Contains(uiRedPoint)) {
+        s_uiRedPointList.Remove(uiRedPoint);
       } else {
         Debug.LogError($"红点UI未添加！name:{uiRedPoint.name},parent:{uiRedPoint.parent}");
       }
     }
 
-    public Action GetUIOnChanged(RedPointTreeType redPointTreeType, string name, string parent) {
-      var uiRedPoint = m_uiRedPointList.Find(ui => ui.redPointTreeType == redPointTreeType &&
+    public static Action GetUIOnChanged(RedPointTreeType redPointTreeType, string name, string parent) {
+      var uiRedPoint = s_uiRedPointList.Find(ui => ui.redPointTreeType == redPointTreeType &&
                                              ui.name == name && ui.parent == parent);
       if (uiRedPoint == null) {
         return null;
@@ -208,9 +209,9 @@ namespace Yume.RedPointSystem {
     }
 
 #if UNITY_EDITOR
-    public RedPointTree GetRedPointTree(RedPointTreeType redPointTreeType) {
-      if (m_redPointTreeDict.ContainsKey(redPointTreeType)) {
-        return m_redPointTreeDict[redPointTreeType];
+    public static RedPointTree GetRedPointTree(RedPointTreeType redPointTreeType) {
+      if (s_redPointTreeDict.ContainsKey(redPointTreeType)) {
+        return s_redPointTreeDict[redPointTreeType];
       }
       return null;
     }

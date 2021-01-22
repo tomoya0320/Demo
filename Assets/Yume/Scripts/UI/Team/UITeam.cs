@@ -29,10 +29,10 @@ namespace Yume.UI {
       m_charBtn = GetComponent<Button>("char");
       m_cardBtns = new List<Button>(GetGameObject("cards").GetComponentsInChildren<Button>());
       m_teamBtns = new List<YButton>(GetGameObject("team_buttons").GetComponentsInChildren<YButton>());
-      m_noCharSprite = AssetLoader.instance.GetValue<Sprite>("noCharSprite");
-      m_noCardSprite = AssetLoader.instance.GetValue<Sprite>("noCardSprite");
+      m_noCharSprite = AssetLoader.GetValue<Sprite>("noCharSprite");
+      m_noCardSprite = AssetLoader.GetValue<Sprite>("noCardSprite");
 
-      m_teams = DataManager.instance.userTeams;
+      m_teams = DataManager.userTeams;
 
       _SwitchTeam(m_teams.Find(t => t.isSelected));
 
@@ -44,7 +44,7 @@ namespace Yume.UI {
         TeamData teamDB = m_teams[i];
         m_teamBtns[i].onClick.AddListener(() => _SwitchTeam(teamDB));
       }
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     private void _SwitchTeam(TeamData teamDB) {
@@ -76,7 +76,7 @@ namespace Yume.UI {
           _OnRefreshChar();
         };
         m_charBtn.onClick.AddListener(() => {
-          UIManager.instance.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
+          UIManager.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
         });
 
         Action<List<string>> onCardSelected = selectedCardIds => {
@@ -85,7 +85,7 @@ namespace Yume.UI {
         };
         foreach (var cardBtn in m_cardBtns) {
           cardBtn.onClick.AddListener(() => {
-            UIManager.instance.OpenOne("card_choice", null, m_curTeam.cardIdList, onCardSelected);
+            UIManager.OpenOne("card_choice", null, m_curTeam.cardIdList, onCardSelected);
           });
         }
       } else {
@@ -93,15 +93,15 @@ namespace Yume.UI {
           m_curTeam.name = text;
           m_teamBtns[m_curTeamIdx].textComponent.text = text;
         };
-        UIManager.instance.OpenOne("text_editor", null, m_curTeam.name, onEditCompleted);
+        UIManager.OpenOne("text_editor", null, m_curTeam.name, onEditCompleted);
       }
     }
 
     private async void _OnRefreshCards() {
       for (int i = 0; i < m_cardBtns.Count; i++) {
         if (i < m_curTeam.cardIdList.Count) {
-          CardData card = DataManager.instance.GetCard(m_curTeam.cardIdList[i]);
-          CardTemplate cardTemplate = DataManager.instance.GetCardTemplate(m_curTeam.cardIdList[i]);
+          CardData card = DataManager.GetCard(m_curTeam.cardIdList[i]);
+          CardTemplate cardTemplate = DataManager.GetCardTemplate(m_curTeam.cardIdList[i]);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
         } else {
@@ -112,7 +112,7 @@ namespace Yume.UI {
 
     private async void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(m_curTeam.charId)) {
-        UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_curTeam.charId);
+        UnitTemplate charTemplate = DataManager.GetUnitTemplate(m_curTeam.charId);
         m_charBtn.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
       } else {
         m_charBtn.image.sprite = m_noCharSprite;

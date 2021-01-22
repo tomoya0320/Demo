@@ -7,10 +7,10 @@ namespace Yume.Resource {
     public abstract Dictionary<string, object> GetAssets();
   }
 
-  public class AssetLoader : Singleton<AssetLoader> {
-    private Dictionary<string, object> m_assets = new Dictionary<string, object>();
+  public static class AssetLoader {
+    private static Dictionary<string, object> m_assets = new Dictionary<string, object>();
 
-    protected override void OnInit() {
+    public static void Init() {
       foreach (var asset in Game.instance.assets) {
         foreach (var kv in asset.GetAssets()) {
           m_assets.Add(kv.Key, kv.Value);
@@ -18,7 +18,7 @@ namespace Yume.Resource {
       }
     }
 
-    public T GetValue<T>(string name) {
+    public static T GetValue<T>(string name) {
       if (m_assets.ContainsKey(name)) {
         return (T)m_assets[name];
       }

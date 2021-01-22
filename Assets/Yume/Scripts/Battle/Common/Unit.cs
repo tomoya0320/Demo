@@ -142,7 +142,7 @@ namespace Yume.Battle {
     protected Dictionary<CardHeapType,List<CardData>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
     public Unit(UnitData unit, List<CardData> cardList) {
-      UnitTemplate unitTemplate = DataManager.instance.GetUnitTemplate(unit.id);
+      UnitTemplate unitTemplate = DataManager.GetUnitTemplate(unit.id);
       unitId = unit.id;
       unitTag = unitTemplate.tag;
       unitLevel = unit.level;

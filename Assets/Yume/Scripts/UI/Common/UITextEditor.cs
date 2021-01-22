@@ -24,12 +24,12 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name, () => {
+        UIManager.CloseOne(name, () => {
           m_onCompleted?.Invoke(m_textInputField.text);
          });
       });
-      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.instance.CloseOne(name));
-      GetComponent<Button>("CancelFull").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
+      GetComponent<Button>("CancelFull").onClick.AddListener(() => UIManager.CloseOne(name));
     }
   }
 }

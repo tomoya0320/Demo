@@ -22,7 +22,7 @@ namespace Yume.AVG {
     private int m_currentTextIndex;
 
     protected override void OnInit() {
-      m_avgJson = AssetLoader.instance.GetValue<JObject>("avgJson");
+      m_avgJson = AssetLoader.GetValue<JObject>("avgJson");
     }
 
     public void StartAVG(string avgName) {
@@ -61,9 +61,9 @@ namespace Yume.AVG {
     }
 
     private void _QuitAVGScene() {
-      UIManager.instance.OpenOne("blackMask", () => {
+      UIManager.OpenOne("blackMask", () => {
         Destroy(gameObject);
-        UIManager.instance.CloseOne("blackMask");
+        UIManager.CloseOne("blackMask");
       });
     }
   }

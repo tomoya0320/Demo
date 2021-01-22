@@ -52,7 +52,7 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
 
         if (m_card != null) {
-          CardTemplate cardTemplate = DataManager.instance.GetCardTemplate(m_card.id);
+          CardTemplate cardTemplate = DataManager.GetCardTemplate(m_card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
@@ -75,7 +75,7 @@ namespace Yume.UI {
       public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
 
-        cardChoiceList = DataManager.instance.userCards;
+        cardChoiceList = DataManager.userCards;
 
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
@@ -108,7 +108,7 @@ namespace Yume.UI {
       List<string> cardIds = args[0] as List<string>;
       m_cardChoiceGroup.selectedCards.Clear();
       foreach (var cardId in cardIds) {
-        m_cardChoiceGroup.selectedCards.Add(DataManager.instance.GetCard(cardId));
+        m_cardChoiceGroup.selectedCards.Add(DataManager.GetCard(cardId));
       }
       m_onSelected = args[1] as Action<List<string>>;
 
@@ -123,14 +123,14 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name);
+        UIManager.CloseOne(name);
         List<string> cardIds = new List<string>();
         foreach (var card in m_cardChoiceGroup.selectedCards) {
           cardIds.Add(card.id);
         }
         m_onSelected?.Invoke(cardIds);
       });
-      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
     }
   }
 }

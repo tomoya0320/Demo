@@ -31,7 +31,7 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          CardTemplate cardTemplate = DataManager.instance.GetCardTemplate(m_card.id);
+          CardTemplate cardTemplate = DataManager.GetCardTemplate(m_card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
@@ -53,7 +53,7 @@ namespace Yume.UI {
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         
-        m_cardList = DataManager.instance.userCards;
+        m_cardList = DataManager.userCards;
 
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
@@ -82,7 +82,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public override void Destroy() {

@@ -111,11 +111,11 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("SaveData").onClick.AddListener(() => {
-        DataManager.instance.SaveData(() => {
-          MessageManager.instance.AddMessage(new Message(Message.Style.FADE, StringMap.SAVE_DATA_SUCCEED));
+        DataManager.SaveData(() => {
+          MessageManager.AddMessage(new Message(Message.Style.FADE, StringMap.SAVE_DATA_SUCCEED));
         });
       });
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public override void Open(Action callback = null, params object[] args) {

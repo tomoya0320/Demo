@@ -18,7 +18,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        m_detailButton.onClick.AddListener(() => UIManager.instance.OpenOne("char_detail", null, m_character));
+        m_detailButton.onClick.AddListener(() => UIManager.OpenOne("char_detail", null, m_character));
       }
 
       public async void UpdateScrollTerm(UnitData character) {
@@ -27,7 +27,7 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_character != null);
 
         if (m_character != null) {
-          UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_character.id);
+          UnitTemplate charTemplate = DataManager.GetUnitTemplate(m_character.id);
 
           m_detailButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
         }
@@ -43,7 +43,7 @@ namespace Yume.UI {
       public UICharGroup(GameObject root) : base(root) {
         m_charScrollRect = GetComponent<ScrollRect>("CharScrollRect");
 
-        m_charList = DataManager.instance.userChars;
+        m_charList = DataManager.userChars;
 
         for (int i = 0; i < m_charScrollRect.content.childCount; i++) {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
@@ -72,7 +72,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
   }
 }

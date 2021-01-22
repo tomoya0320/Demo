@@ -43,12 +43,12 @@ namespace Yume.UI {
     public virtual void Close(Action callback = null, params object[] args) {
       //保证动画完整播放
       m_canvasGroup.interactable = false;
-      UIManager.instance.activeBack = false;
+      UIManager.activeBack = false;
 
       Action action = () => {
         m_isShowing = false;
         m_canvasGroup.interactable = true;
-        UIManager.instance.activeBack = true;
+        UIManager.activeBack = true;
       };
       callback = action + callback;
 
@@ -69,11 +69,11 @@ namespace Yume.UI {
       //保证动画完整播放
       m_isShowing = true;
       m_canvasGroup.interactable = false;
-      UIManager.instance.activeBack = false;
+      UIManager.activeBack = false;
 
       Action action = () => {
         m_canvasGroup.interactable = true;
-        UIManager.instance.activeBack = true;
+        UIManager.activeBack = true;
       };
       callback = action + callback;
 
@@ -91,7 +91,7 @@ namespace Yume.UI {
     /// 回收UI对象，返回UI实例
     /// </summary>
     public virtual UIBase Recycle() {
-      root.SetParent(UIManager.instance.cacheCanvas);
+      root.SetParent(UIManager.cacheCanvas);
       return this;
     }
 

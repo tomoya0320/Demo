@@ -41,7 +41,7 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
 
         if (m_character != null) {
-          UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_character.id);
+          UnitTemplate charTemplate = DataManager.GetUnitTemplate(m_character.id);
 
           m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
         }
@@ -58,7 +58,7 @@ namespace Yume.UI {
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
 
-        m_charChoiceList = DataManager.instance.userChars;
+        m_charChoiceList = DataManager.userChars;
 
         for (int i = 0; i < m_charChoiceScrollRect.content.childCount; i++) {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
@@ -89,7 +89,7 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       string charId = (string)args[0];
-      m_charChoiceGroup.selectedChar = DataManager.instance.GetChar(charId);
+      m_charChoiceGroup.selectedChar = DataManager.GetCharacter(charId);
       m_onSelected = args[1] as Action<string>;
 
       m_charChoiceGroup.UpdateView(true);
@@ -103,10 +103,10 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name);
+        UIManager.CloseOne(name);
         m_onSelected?.Invoke(m_charChoiceGroup.selectedChar?.id);
       });
-      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
     }
   }
 }

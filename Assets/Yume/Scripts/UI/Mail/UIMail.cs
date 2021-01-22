@@ -90,7 +90,7 @@ namespace Yume.UI {
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
         m_attachmentScrollRect = GetComponent<ScrollRect>("AttachmentScrollRect");
 
-        m_mails = DataManager.instance.userMails;
+        m_mails = DataManager.userMails;
 
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
           m_mailTermList.Add(new UIMailTerm(this, m_mailScrollRect.content.GetChild(i).gameObject));
@@ -131,7 +131,7 @@ namespace Yume.UI {
         m_mailContentPanel.SetActiveEx(true);
         m_signatureText.text = m_selectedMail.signature;
         m_dateText.text = MathUtil.GetDateTime(m_selectedMail.timeStamp).ToShortDateString();
-        m_contentText.text = string.Format(m_selectedMail.content, DataManager.instance.userName);
+        m_contentText.text = string.Format(m_selectedMail.content, DataManager.userName);
 
         _CheckGetButton();
       }
@@ -169,7 +169,7 @@ namespace Yume.UI {
 
       private void _GetAttachment() {
         if (!m_selectedMail.isReceived) {
-          DataManager.instance.GetAttachment(m_selectedMail);
+          DataManager.GetAttachment(m_selectedMail);
 
           _CheckGetButton();
           _CheckGetAllButton();
@@ -178,7 +178,7 @@ namespace Yume.UI {
 
       private void _GetAllAttachment() {
         foreach (var mail in m_mails.FindAll(mail => !mail.isReceived)) {
-          DataManager.instance.GetAttachment(mail);
+          DataManager.GetAttachment(mail);
           if (mail == m_selectedMail) {
             _CheckGetButton();
           }
@@ -190,7 +190,7 @@ namespace Yume.UI {
       private void _DeleteAllMails() {
         m_selectedMail = null;
         foreach (var mail in m_mails.FindAll(mail => mail.isReceived)) {
-          DataManager.instance.DeleteMail(mail);
+          DataManager.DeleteMail(mail);
         }
       }
 
@@ -221,7 +221,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public override void Destroy() {

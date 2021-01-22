@@ -30,12 +30,12 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public async override void Open(Action callback = null, params object[] args) {
       UnitData unit = args[0] as UnitData;
-      UnitTemplate unitTemplate = DataManager.instance.GetUnitTemplate(unit.id);
+      UnitTemplate unitTemplate = DataManager.GetUnitTemplate(unit.id);
       PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevels];
       Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level, unitTemplate.maxLevel,
                                                    unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());

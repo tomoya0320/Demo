@@ -65,7 +65,7 @@ namespace Yume.UI {
         m_getReward.image.color = Colors.DISABLE_BUTTON;
         m_getReward.textComponent.text = StringMap.COMPLETED;
 
-        DataManager.instance.CompleteTask(m_task);
+        DataManager.CompleteTask(m_task);
       }
 
       public async void UpdateScrollTerm(TaskData task) {
@@ -75,7 +75,7 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
-          TaskTemplate taskTemplate = DataManager.instance.GetTaskTemplate(m_task.type, m_task.id);
+          TaskTemplate taskTemplate = DataManager.GetTaskTemplate(m_task.type, m_task.id);
           m_title.text = taskTemplate.title;
           m_description.text = taskTemplate.description;
 
@@ -85,7 +85,7 @@ namespace Yume.UI {
             if (i < taskTemplate.taskRewards.items.Length) {
               tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
-                     (DataManager.instance.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
+                     (DataManager.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
               tempGo.GetComponentInChildren<Text>().text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
               tempGo.SetActiveEx(false);
@@ -114,7 +114,7 @@ namespace Yume.UI {
       public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
 
-        m_tasks = DataManager.instance.GetTaskList(taskType);
+        m_tasks = DataManager.GetTaskList(taskType);
 
         foreach (TaskData task in m_tasks) {
           if (task.state != TaskState.INACTIVE) {
@@ -183,7 +183,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public override void Open(Action callback = null, params object[] args) {

@@ -233,13 +233,13 @@ namespace Yume.Data {
       this.name = name;
       this.account = account;
       this.password = password;
-      if(DataManager.instance.TryGetMaxAp(lv, out int ret)) {
+      if(DataManager.TryGetMaxAp(lv, out int ret)) {
         ap = maxAp = ret;
       } else {
         ap = maxAp = 30;
       }
 
-      tasks = DataManager.instance.GetDefaultTasks();
+      tasks = DataManager.GetDefaultTasks();
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Yume.UI {
+namespace Yume.Editor {
   public class YTextAutoScrollEditor {
     private const string TEXT_AUTO_SCROLL = "TextAutoScroll";
 

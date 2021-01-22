@@ -13,207 +13,198 @@ using Yume.UI;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Data {
-  public class DataManager : Singleton<DataManager> {
+  public static class DataManager {
     private enum PlayMode {
       LOCAL, REMOTE
     }
 
-    private PlayMode m_playMode;
-    private string localUserDBPath {
+    private static PlayMode m_playMode;
+    private static string localUserDBPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
     }
 
-    protected override void OnInit() {
-      m_itemJson = AssetLoader.instance.GetValue<JObject>("itemJson");
-      m_taskJson = AssetLoader.instance.GetValue<JObject>("taskJson");
-      m_cardJson = AssetLoader.instance.GetValue<JObject>("cardJson");
-      m_unitJson = AssetLoader.instance.GetValue<JObject>("unitJson");
-      m_lvMaxApMapJson = AssetLoader.instance.GetValue<JObject>("lvMaxApMapJson");
-      m_attribCurveList = AssetLoader.instance.GetValue<List<AttribCurve>>("attribCurves");
-    }
-
     #region User
-    private UserData m_user;
-    public bool isLogged => m_user != null;
-    public string userToken { private set; get; }
-    public string userAccount {
+    private static UserData s_user;
+    public static bool isLogged => s_user != null;
+    public static string userToken { private set; get; }
+    public static string userAccount {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.account;
+        return s_user.account;
       }
     }
-    public string userPassword {
+    public static string userPassword {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.password;
+        return s_user.password;
       }
     }
-    public string userName {
+    public static string userName {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.name;
+        return s_user.name;
       }
     }
-    public int userAp {
+    public static int userAp {
       private set {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        m_user.ap = value;
+        s_user.ap = value;
       }
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.ap;
+        return s_user.ap;
       }
     }
-    public int userMaxAp {
+    public static int userMaxAp {
       private set {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        m_user.maxAp = value;
+        s_user.maxAp = value;
       }
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.maxAp;
+        return s_user.maxAp;
       }
     }
-    public int userLv {
+    public static int userLv {
       private set {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        m_user.lv = value;
+        s_user.lv = value;
       }
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.lv;
+        return s_user.lv;
       }
     }
-    public int userExp {
+    public static int userExp {
       private set {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        m_user.exp = value;
+        s_user.exp = value;
       }
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.exp;
-      }
-    }
-    public List<ItemData> userItems {
-      get {
-        if (m_user == null) {
-          m_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return m_user.items;
+        return s_user.exp;
       }
     }
-    public List<CardData> userCards {
+    public static List<ItemData> userItems {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.cards;
+        return s_user.items;
       }
     }
-    public List<TeamData> userTeams {
+    public static List<CardData> userCards {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.teams;
+        return s_user.cards;
       }
     }
-    public List<UnitData> userChars {
+    public static List<TeamData> userTeams {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.chars;
+        return s_user.teams;
       }
     }
-    public List<MailData> userMails {
+    public static List<UnitData> userChars {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.mails;
+        return s_user.chars;
       }
     }
-    public Dictionary<TaskType, List<TaskData>> userTasks {
+    public static List<MailData> userMails {
       get {
-        if (m_user == null) {
-          m_user = new UserData();
+        if (s_user == null) {
+          s_user = new UserData();
           Debug.LogWarning("用户未登录，创建新的存档！");
         }
-        return m_user.tasks;
+        return s_user.mails;
+      }
+    }
+    public static Dictionary<TaskType, List<TaskData>> userTasks {
+      get {
+        if (s_user == null) {
+          s_user = new UserData();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        return s_user.tasks;
       }
     }
     #endregion
 
     #region Json
-    private JObject m_itemJson;
-    private JObject m_taskJson;
-    private JObject m_cardJson;
-    private JObject m_unitJson;
-    private JObject m_lvMaxApMapJson;
-    private List<AttribCurve> m_attribCurveList;
+    private static JObject s_itemJson;
+    private static JObject s_taskJson;
+    private static JObject s_cardJson;
+    private static JObject s_unitJson;
+    private static JObject s_lvMaxApMapJson;
+    private static List<AttribCurve> s_attribCurveList;
     #endregion
 
-    #region Prototype
-    public ItemTemplate GetItemTemplate(string id) {
-      if (m_itemJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<ItemTemplate>(m_itemJson[id].Value<JObject>().ToString());
+    #region Template
+    public static ItemTemplate GetItemTemplate(string id) {
+      if (s_itemJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<ItemTemplate>(s_itemJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
       }
     }
 
-    public CardTemplate GetCardTemplate(string id) {
-      if (m_cardJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<CardTemplate>(m_cardJson[id].Value<JObject>().ToString());
+    public static CardTemplate GetCardTemplate(string id) {
+      if (s_cardJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<CardTemplate>(s_cardJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 
-    public TaskTemplate GetTaskTemplate(TaskType taskType, string id) {
-      if (m_taskJson.ContainsKey(taskType.ToString())) {
-        JObject tempJObject = m_taskJson[taskType.ToString()].Value<JObject>();
+    public static TaskTemplate GetTaskTemplate(TaskType taskType, string id) {
+      if (s_taskJson.ContainsKey(taskType.ToString())) {
+        JObject tempJObject = s_taskJson[taskType.ToString()].Value<JObject>();
         if (tempJObject.ContainsKey(id)) {
           return JsonConvert.DeserializeObject<TaskTemplate>(tempJObject[id].Value<JObject>().ToString());
         } else {
@@ -224,21 +215,21 @@ namespace Yume.Data {
       }
     }
 
-    public UnitTemplate GetUnitTemplate(string id) {
-      if (m_unitJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<UnitTemplate>(m_unitJson[id].Value<JObject>().ToString());
+    public static UnitTemplate GetUnitTemplate(string id) {
+      if (s_unitJson.ContainsKey(id)) {
+        return JsonConvert.DeserializeObject<UnitTemplate>(s_unitJson[id].Value<JObject>().ToString());
       }
       throw new Exception($"unit is not found! id:{id}");
     }
     #endregion
 
     #region Data
-    public Dictionary<TaskType, List<TaskData>> GetDefaultTasks() {
+    public static Dictionary<TaskType, List<TaskData>> GetDefaultTasks() {
       Dictionary<TaskType, List<TaskData>> defaultTasks = new Dictionary<TaskType, List<TaskData>>();
 
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
         List<TaskData> tasks = new List<TaskData>();
-        foreach (var info in m_taskJson[type.ToString()].Values()) {
+        foreach (var info in s_taskJson[type.ToString()].Values()) {
           tasks.Add(JsonConvert.DeserializeObject<TaskData>(info.ToString()));
         }
         defaultTasks.Add(type, tasks);
@@ -247,79 +238,82 @@ namespace Yume.Data {
       return defaultTasks;
     }
 
-    public bool TryGetMaxAp(int level, out int maxAp) {
+    public static bool TryGetMaxAp(int level, out int maxAp) {
       maxAp = 0;
-      if (m_lvMaxApMapJson.ContainsKey(level.ToString())) {
-        maxAp = m_lvMaxApMapJson[level.ToString()].Value<int>();
+      if (s_lvMaxApMapJson.ContainsKey(level.ToString())) {
+        maxAp = s_lvMaxApMapJson[level.ToString()].Value<int>();
         return true;
       }
       return false;
     }
 
-    public AnimationCurve GetAttribCurve(string id) {
-      int index = m_attribCurveList.FindIndex(ac => ac.id == id);
+    public static AnimationCurve GetAttribCurve(string id) {
+      int index = s_attribCurveList.FindIndex(ac => ac.id == id);
       if (index >= 0) {
-        return m_attribCurveList[index].curve;
+        return s_attribCurveList[index].curve;
       } else {
         throw new Exception($"找不到属性曲线！id:{id}");
       }
     }
 
-    public ItemData GetItem(string id) {
+    public static ItemData GetItem(string id) {
       return userItems.Find(obj => obj.id == id);
     }
 
-    public int GetItemCount(string id) {
+    public static int GetItemCount(string id) {
       ItemData itemDB = userItems.Find(obj => obj.id == id);
       return itemDB == null ? 0 : itemDB.count;
     }
 
-    public List<TaskData> GetTaskList(TaskType taskType) {
+    public static List<TaskData> GetTaskList(TaskType taskType) {
       return userTasks[taskType];
     }
 
-    public TaskData GetTask(TaskType taskType, string taskId) {
+    public static TaskData GetTask(TaskType taskType, string taskId) {
       return userTasks[taskType].Find(obj => obj.id == taskId);
     }
 
-    public CardData GetCard(string cardId) {
+    public static CardData GetCard(string cardId) {
       //TODO:解决Id重复的问题
       return userCards.Find(obj => obj.id == cardId);
     }
 
-    public UnitData GetChar(string charId) {
+    public static UnitData GetCharacter(string charId) {
       return userChars.Find(obj => obj.id == charId);
     }
     #endregion
 
     #region Operate
+    #region Mail
     //邮件比较特殊，需要是同一个对象
-    public void DeleteMail(MailData mail) {
+    public static void DeleteMail(MailData mail) {
       if (mail.isReceived) {
         userMails.Remove(mail);
         EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
       }
     }
 
-    public void GetAttachment(MailData mail) {
+    public static void GetAttachment(MailData mail) {
       if (!mail.isReceived) {
         mail.isReceived = true;
         foreach (var item in mail.attachment) {
           AddItem(item);
         }
-        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 0);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 0);
       }
     }
 
-    public void AddMail(MailData mail) {
+    public static void AddMail(MailData mail) {
       userMails.Add(mail);
       if (!mail.isReceived) {
-        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
       }
       EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
     }
+    #endregion
 
-    public void ConsumeItem(ItemData item, bool isUsed = true) {
+    #region Item
+    public static void ConsumeItem(ItemData item, bool isUsed = true) {
       ItemData tempItem = GetItem(item.id);
       if (tempItem != null && tempItem.count >= item.count) {
         tempItem.count -= item.count;
@@ -328,7 +322,7 @@ namespace Yume.Data {
         }
         _UpdateTaskState(RequestType.ITEM_NUM, item.id, isUsed ? -item.count : 0);
 
-        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 0);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 0);
 
         //更新UI显示
         EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -336,7 +330,7 @@ namespace Yume.Data {
       }
     }
 
-    public void AddItem(ItemData item) {
+    public static void AddItem(ItemData item) {
       ItemData tempItem = GetItem(item.id);
       if (tempItem == null) {
         tempItem = item;
@@ -346,7 +340,7 @@ namespace Yume.Data {
         tempItem.count += item.count;
       }
 
-      RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
+      RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
 
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -355,8 +349,10 @@ namespace Yume.Data {
       //更新任务进度
       _UpdateTaskState(RequestType.ITEM_NUM, item.id, item.count);
     }
+    #endregion
 
-    public void _UpdateTaskState(RequestType type, string reqId, int reqCount) {
+    #region Task
+    private static void _UpdateTaskState(RequestType type, string reqId, int reqCount) {
       foreach (var taskList in userTasks.Values) {
         foreach (var task in taskList) {
           if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
@@ -385,29 +381,7 @@ namespace Yume.Data {
       EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
     }
 
-    public void AddExp(int exp) {
-      userExp += exp;
-      MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
-      int oLevel = userLv;
-      while (userExp >= MathUtil.CalNeededExp(userLv)) {
-        userExp -= MathUtil.CalNeededExp(userLv);
-        userLv++;
-      }
-      //更新任务状态
-      if (userLv > oLevel) {
-        string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
-        MessageManager.instance.AddMessage(new Message(Message.Style.FADE, tip));
-        _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
-        if (TryGetMaxAp(userLv, out int maxAp)) {
-          userMaxAp = maxAp;
-          userAp += userMaxAp;
-        }
-      }
-      //更新UI显示
-      EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
-    }
-
-    public void ActivateTask(TaskData task) {
+    private static void _ActivateTask(TaskData task) {
       if (task.state == TaskState.INACTIVE) {
         task.state = TaskState.INPROCESS;
         foreach (var taskRequest in task.taskRequests) {
@@ -420,7 +394,7 @@ namespace Yume.Data {
       }
     }
 
-    private void _CheckTask(TaskData task) {
+    private static void _CheckTask(TaskData task) {
       if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
         bool completed = true;
         foreach (TaskRequestData taskRequest in task.taskRequests) {
@@ -430,16 +404,16 @@ namespace Yume.Data {
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
           TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
-          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
-          MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
+          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
+          MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
-          RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
+          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
         }
       }
     }
 
-    private void _SyncTaskHadCount(TaskRequestData taskRequest) {
+    private static void _SyncTaskHadCount(TaskRequestData taskRequest) {
       if (taskRequest.method == Method.HAD) {
         switch (taskRequest.type) {
           case RequestType.ITEM_NUM: {
@@ -454,7 +428,7 @@ namespace Yume.Data {
       }
     }
 
-    public async void CompleteTask(TaskData task) {
+    public async static void CompleteTask(TaskData task) {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
@@ -462,7 +436,7 @@ namespace Yume.Data {
           AddItem(item);
           ItemTemplate itemTemplate = GetItemTemplate(item.id);
           Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemTemplate.iconFileName);
-          MessageManager.instance.AddMessage(new Message(Message.Style.FADE,
+          MessageManager.AddMessage(new Message(Message.Style.FADE,
           string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
 
@@ -472,12 +446,12 @@ namespace Yume.Data {
           }
         }
 
-        RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
 
         if (!string.IsNullOrEmpty(taskTemplate.activeTaskId)) {
           TaskData nextTask = GetTask(taskTemplate.activeTaskType, taskTemplate.activeTaskId);
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
-            ActivateTask(nextTask);
+            _ActivateTask(nextTask);
           }
         }
         //任务排序用
@@ -485,35 +459,70 @@ namespace Yume.Data {
         _UpdateTaskState(RequestType.TASK, task.id, 1);
       }
     }
+    #endregion
 
-    public void LoadUserDB(JObject json = null) {
+    #region Exp&Lv
+    public static void AddExp(int exp) {
+      userExp += exp;
+      MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
+      int oLevel = userLv;
+      while (userExp >= MathUtil.CalNeededExp(userLv)) {
+        userExp -= MathUtil.CalNeededExp(userLv);
+        userLv++;
+      }
+      //更新任务状态
+      if (userLv > oLevel) {
+        string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
+        MessageManager.AddMessage(new Message(Message.Style.FADE, tip));
+        _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
+        if (TryGetMaxAp(userLv, out int maxAp)) {
+          userMaxAp = maxAp;
+          userAp += userMaxAp;
+        }
+      }
+      //更新UI显示
+      EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
+    }
+    #endregion
+
+    #region Load&Save
+    public static void Init() {
+      s_itemJson = AssetLoader.GetValue<JObject>("itemJson");
+      s_taskJson = AssetLoader.GetValue<JObject>("taskJson");
+      s_cardJson = AssetLoader.GetValue<JObject>("cardJson");
+      s_unitJson = AssetLoader.GetValue<JObject>("unitJson");
+      s_lvMaxApMapJson = AssetLoader.GetValue<JObject>("lvMaxApMapJson");
+      s_attribCurveList = AssetLoader.GetValue<List<AttribCurve>>("attribCurves");
+    }
+
+    public static void LoadUserDB(JObject json = null) {
       if (json == null) {
         m_playMode = PlayMode.LOCAL;
         FileStream fs;
         BinaryFormatter bf = new BinaryFormatter();
         if (File.Exists(localUserDBPath)) {
           fs = new FileStream(localUserDBPath, FileMode.Open);
-          m_user = (UserData)bf.Deserialize(fs);
+          s_user = (UserData)bf.Deserialize(fs);
         } else {
-          m_user = new UserData();
+          s_user = new UserData();
           fs = File.Open(localUserDBPath, FileMode.Create);
           //序列化     
-          bf.Serialize(fs, m_user);
+          bf.Serialize(fs, s_user);
         }
         fs.Close();
       } else {
         m_playMode = PlayMode.REMOTE;
-        m_user = JsonConvert.DeserializeObject<UserData>(json["user"].ToString());
+        s_user = JsonConvert.DeserializeObject<UserData>(json["user"].ToString());
         userToken = json["token"].Value<string>();
       }
     }
 
-    public void SaveData(Action onSucceed = null) {
-      JObject data = JObject.FromObject(m_user);
+    public static void SaveData(Action onSucceed = null) {
+      JObject data = JObject.FromObject(s_user);
       data.Merge(JObject.FromObject(new { types = typeof(UserData).GetFieldNames() }));
 
       if (m_playMode == PlayMode.REMOTE) {
-        ServerManager.instance.UpdateUserData(data,
+        ServerManager.UpdateUserData(data,
           request => {
             string error = StringMap.EMPTY;
             if (!string.IsNullOrEmpty(request.error)) {
@@ -528,8 +537,8 @@ namespace Yume.Data {
             }
             if (!string.IsNullOrEmpty(error)) {
               Action ok = () => SaveData(onSucceed);
-              Action cancel = () => UIManager.instance.CloseAllAndOpenOne("login");
-              UIManager.instance.OpenOne("confirmation", null, error, StringMap.RETRY,
+              Action cancel = () => UIManager.CloseAllAndOpenOne("login");
+              UIManager.OpenOne("confirmation", null, error, StringMap.RETRY,
                                          StringMap.RETURN_TO_LOGIN, ok, cancel);
             } else {
               onSucceed?.Invoke();
@@ -539,12 +548,13 @@ namespace Yume.Data {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = File.Open(localUserDBPath, FileMode.Create);
         //序列化     
-        bf.Serialize(fs, m_user);
+        bf.Serialize(fs, s_user);
         fs.Close();
 
         onSucceed?.Invoke();
       }
     }
+    #endregion
     #endregion
   }
 }

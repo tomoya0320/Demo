@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
+using Yume.RedPointSystem;
 using Yume.Server;
 
 namespace Yume.UI {
@@ -17,7 +18,7 @@ namespace Yume.UI {
     private void _OnLogin() {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text)) {
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.Login(m_accountInput.text, m_passwordInput.text, request => {
+        ServerManager.Login(m_accountInput.text, m_passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             m_result.text = "连接出错！" + request.error;
           } else {
@@ -49,7 +50,7 @@ namespace Yume.UI {
           !string.IsNullOrEmpty(m_accountInput.text)) {
 
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.Register(m_nameInput.text, m_accountInput.text, m_passwordInput.text, request => {
+        ServerManager.Register(m_nameInput.text, m_accountInput.text, m_passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             m_result.text = "连接出错！" + request.error;
           } else {
@@ -76,7 +77,7 @@ namespace Yume.UI {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text) &&
           !string.IsNullOrEmpty(m_newPasswordInput.text)) {
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.AlterPassword(m_accountInput.text, m_passwordInput.text, m_newPasswordInput.text,
+        ServerManager.AlterPassword(m_accountInput.text, m_passwordInput.text, m_newPasswordInput.text,
           request => {
             if (!string.IsNullOrEmpty(request.error)) {
               m_result.text = "连接出错！" + request.error;
@@ -109,10 +110,11 @@ namespace Yume.UI {
     }
 
     private void _GoToMain(JObject json = null) {
-      DataManager.instance.LoadUserDB(json);
-      UIManager.instance.OpenOne("blackMask", () => {
-        UIManager.instance.CloseOne("blackMask");
-        UIManager.instance.CloseAllAndOpenOne("main");
+      DataManager.LoadUserDB(json);
+      RedPointManager.InitData();
+      UIManager.OpenOne("blackMask", () => {
+        UIManager.CloseOne("blackMask");
+        UIManager.CloseAllAndOpenOne("main");
       });
     }
 
