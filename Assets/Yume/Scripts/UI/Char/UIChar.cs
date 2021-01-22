@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,6 +53,10 @@ namespace Yume.UI {
         m_charScrollView = new UIScrollView<UnitData, UICharTerm>(m_charScrollRect, m_charList, m_charTermList);
       }
 
+      public override void OnOpen(params object[] args) {
+        m_charScrollView.UpdateView(true);
+      }
+
       public override void OnUpdate() {
         m_charScrollView.OnUpdate();
       }
@@ -65,6 +70,12 @@ namespace Yume.UI {
       m_charGroup = new UICharGroup(GetGameObject("CharGroup"));
 
       _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_charGroup.OnOpen(args);
+
+      base.Open(callback, args);
     }
 
     public override void OnUpdate() {

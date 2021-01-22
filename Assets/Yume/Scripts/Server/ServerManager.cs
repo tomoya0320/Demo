@@ -25,7 +25,7 @@ namespace Yume.Server {
       JObject json = JObject.FromObject(new { account, password });
       json.Add("method", Methods.LOGIN.ToString());
       //添加token以验证同步
-      json.Add("token", MathUtil.GetTimeStamp(DateTime.Now) + SystemInfo.deviceUniqueIdentifier);
+      json.Add("token", DateTime.Now.Ticks + SystemInfo.deviceUniqueIdentifier);
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 

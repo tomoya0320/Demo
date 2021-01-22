@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
@@ -62,6 +63,10 @@ namespace Yume.UI {
         m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
       }
 
+      public override void OnOpen(params object[] args) {
+        m_cardScrollView.UpdateView(true);
+      }
+
       public override void OnUpdate() {
         m_cardScrollView.OnUpdate();
       }
@@ -79,6 +84,12 @@ namespace Yume.UI {
 
     public override void OnUpdate() {
       m_cardGroup.OnUpdate();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_cardGroup.OnOpen(args);
+
+      base.Open(callback, args);
     }
 
     private void _AddListener() {

@@ -11,7 +11,7 @@ namespace Yume.RedPointSystem {
       redPointDict.Add(MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null));
       foreach (var mail in DataManager.userMails) {
         if (!mail.isReceived) {
-          AddLeafNode(mail.id, MAIN_MAIL);
+          AddLeafNode(mail.title, MAIN_MAIL);
         }
       }
     }

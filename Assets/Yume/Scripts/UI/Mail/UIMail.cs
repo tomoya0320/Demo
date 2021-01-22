@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
@@ -27,7 +28,7 @@ namespace Yume.UI {
 
         m_mailGroup = mailGroup;
         var mailRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
-        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.id, MainMailRedPointTree.MAIN_MAIL, mailRedPointRoot);
+        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.title, MainMailRedPointTree.MAIN_MAIL, mailRedPointRoot);
 
         _AddListener();
       }
@@ -41,14 +42,14 @@ namespace Yume.UI {
       public void UpdateScrollTerm(MailData mail) {
         m_mail = mail;
 
-        m_mailRedPoint.Update(m_mail?.id);
+        m_mailRedPoint.Update(m_mail?.title);
         gameObject.SetActiveEx(m_mail != null);
         m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
 
         if (m_mail != null) {
           m_titleText.text = m_mail.title;
           m_attachmentImg.enabled = m_mail.attachment.Count > 0;
-          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.timeStamp);
+          m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.ticks);
         }
       }
 
@@ -130,7 +131,7 @@ namespace Yume.UI {
       private void _UpdateMailContent() {
         m_mailContentPanel.SetActiveEx(true);
         m_signatureText.text = m_selectedMail.signature;
-        m_dateText.text = MathUtil.GetDateTime(m_selectedMail.timeStamp).ToShortDateString();
+        m_dateText.text = DateTime.FromBinary(m_selectedMail.ticks).ToShortDateString();
         m_contentText.text = string.Format(m_selectedMail.content, DataManager.userName);
 
         _CheckGetButton();

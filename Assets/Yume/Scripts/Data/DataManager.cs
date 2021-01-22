@@ -273,9 +273,8 @@ namespace Yume.Data {
       return userTasks[taskType].Find(obj => obj.id == taskId);
     }
 
-    public static CardData GetCard(string cardId) {
-      //TODO:解决Id重复的问题
-      return userCards.Find(obj => obj.id == cardId);
+    public static CardData GetCard(int guid) {
+      return userCards.Find(obj => obj.guid == guid);
     }
 
     public static UnitData GetCharacter(string charId) {
@@ -299,16 +298,29 @@ namespace Yume.Data {
         foreach (var item in mail.attachment) {
           AddItem(item);
         }
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 0);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 0);
       }
     }
 
     public static void AddMail(MailData mail) {
       userMails.Add(mail);
       if (!mail.isReceived) {
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.id, MainMailRedPointTree.MAIN_MAIL, 1);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 1);
       }
       EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
+    }
+    #endregion
+
+    #region Card
+    public static void AddCard(CardData card) {
+      userCards.Add(card);
+      card.guid = s_user.validGuid++;
+    }
+    #endregion
+
+    #region Character
+    public static void AddCharacter(UnitData character) {
+      userChars.Add(character);
     }
     #endregion
 

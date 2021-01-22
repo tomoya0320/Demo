@@ -134,16 +134,14 @@ namespace Yume.Data {
 
   [Serializable]
   public class MailData {
-    public string id;
+    public long ticks;
     public string title;
-    public int timeStamp;
     public string content;
     public bool isReceived;
     public string signature;
     public List<ItemData> attachment = new List<ItemData>();
 
-    public MailData(string id, string title, string content, string signature, params ItemData[] attachment) {
-      this.id = id;
+    public MailData(string title, string content, string signature, params ItemData[] attachment) {
       this.title = title;
       this.content = content;
       this.signature = signature;
@@ -151,18 +149,21 @@ namespace Yume.Data {
         this.attachment.AddRange(attachment);
       }
       isReceived = this.attachment.Count == 0;
-      timeStamp = MathUtil.GetTimeStamp(DateTime.Now);
+      ticks = DateTime.Now.Ticks;
     }
   }
 
   [Serializable]
   public class CardData {
+    public int guid;
     public string id;
     public int phase;
+    public long ticks;
 
     public CardData(string id, int phase) {
       this.id = id;
       this.phase = phase;
+      ticks = DateTime.Now.Ticks;
     }
   }
 
@@ -170,12 +171,14 @@ namespace Yume.Data {
   public class UnitData {
     public string id;
     public int level;
+    public long ticks;
     public int passiveSkillLevels;
 
     public UnitData(string id, int level, int passiveSkillLevels) {
       this.id = id;
       this.level = level;
       this.passiveSkillLevels = passiveSkillLevels;
+      ticks = DateTime.Now.Ticks;
     }
   }
 
@@ -210,7 +213,7 @@ namespace Yume.Data {
     public string charId;
     public bool isSelected;
     public string name = "默认队伍名";
-    public List<string> cardIdList = new List<string>();
+    public List<int> cardIdList = new List<int>();
   }
 
   [Serializable]
@@ -220,6 +223,7 @@ namespace Yume.Data {
     public int exp;
     public int maxAp;
     public string name;
+    public int validGuid;
     public string account;
     public string password;
     public List<MailData> mails = new List<MailData>();
@@ -250,26 +254,6 @@ namespace Yume.Data {
       if (string.IsNullOrEmpty(name)) {
         this.name = "游客";
       }
-
-      chars.Add(new UnitData("char_001_brave", 0, 0));
-      chars.Add(new UnitData("char_002_wzb", 0, 0));
-
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 1));
-      cards.Add(new CardData("card_001_atk", 0));
-      cards.Add(new CardData("card_001_atk", 1));
 #endif
     }
   }

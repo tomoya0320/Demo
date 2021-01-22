@@ -93,7 +93,7 @@ namespace Yume.UI {
       }
     }
 
-    private Action<List<string>> m_onSelected;
+    private Action<List<int>> m_onSelected;
     private UICardChoiceGroup m_cardChoiceGroup;
 
     public override void OnInit(UIData uiData, GameObject root) {
@@ -105,12 +105,12 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      List<string> cardIds = args[0] as List<string>;
+      List<int> cardGuids = args[0] as List<int>;
       m_cardChoiceGroup.selectedCards.Clear();
-      foreach (var cardId in cardIds) {
-        m_cardChoiceGroup.selectedCards.Add(DataManager.GetCard(cardId));
+      foreach (var cardGuid in cardGuids) {
+        m_cardChoiceGroup.selectedCards.Add(DataManager.GetCard(cardGuid));
       }
-      m_onSelected = args[1] as Action<List<string>>;
+      m_onSelected = args[1] as Action<List<int>>;
 
       m_cardChoiceGroup.UpdateView(true);
 
@@ -124,11 +124,11 @@ namespace Yume.UI {
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
         UIManager.CloseOne(name);
-        List<string> cardIds = new List<string>();
+        List<int> cardGuids = new List<int>();
         foreach (var card in m_cardChoiceGroup.selectedCards) {
-          cardIds.Add(card.id);
+          cardGuids.Add(card.guid);
         }
-        m_onSelected?.Invoke(cardIds);
+        m_onSelected?.Invoke(cardGuids);
       });
       GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
     }

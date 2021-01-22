@@ -79,7 +79,7 @@ namespace Yume.UI {
           UIManager.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
         });
 
-        Action<List<string>> onCardSelected = selectedCardIds => {
+        Action<List<int>> onCardSelected = selectedCardIds => {
           m_curTeam.cardIdList = selectedCardIds;
           _OnRefreshCards();
         };
@@ -101,7 +101,7 @@ namespace Yume.UI {
       for (int i = 0; i < m_cardBtns.Count; i++) {
         if (i < m_curTeam.cardIdList.Count) {
           CardData card = DataManager.GetCard(m_curTeam.cardIdList[i]);
-          CardTemplate cardTemplate = DataManager.GetCardTemplate(m_curTeam.cardIdList[i]);
+          CardTemplate cardTemplate = DataManager.GetCardTemplate(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
         } else {
