@@ -1,5 +1,7 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 using Yume.AVG;
 using Yume.Data;
 using Yume.RedPointSystem;
@@ -12,22 +14,37 @@ namespace Yume.Main {
     /// UIRoot的对象引用
     /// </summary>
     [SerializeField]
-    private UIObject _uiRootObject;
-    public UIObject uiRootObject => _uiRootObject;
-
+    private ObjectContainer _uiRootObject;
+    public ObjectContainer uiRootObject => _uiRootObject;
     [SerializeField]
-    private YScriptableObject[] _assets;
-    public YScriptableObject[] assets => _assets;
+    private Button _goToLoginBtn;
+    [SerializeField]
+    private Image _initProcessImg;
+    [SerializeField]
+    private GameObject _initPanel;
+    public float initProcess {
+      set {
+        _initProcessImg.fillAmount = value;
+        _goToLoginBtn.gameObject.SetActiveEx(value == 1.0f);
+        _initProcessImg.gameObject.SetActiveEx(value < 1.0f);
+      }
+    }
 
     protected override void OnInit() {
-      AssetLoader.Init();
+      _goToLoginBtn.onClick.AddListener(() => {
+        Destroy(_initPanel);
+        UIManager.OpenOne("login");
+      });
+      _initProcessImg.fillAmount = 0;
+
+      StartCoroutine(_InitAll());
+    }
+
+    private IEnumerator _InitAll() {
+      yield return ResourceManager.Init();
 
       UIManager.Init();
-      DataManager.Init();
       RedPointManager.Init();
-
-      //暂时先不需要检查资源的UI
-      UIManager.OpenOne("login");
     }
 
     private void Update() {

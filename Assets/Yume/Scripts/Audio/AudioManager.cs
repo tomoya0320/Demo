@@ -16,13 +16,13 @@ namespace Yume.Audio {
     }
 
     #region BGM
-    public async void PlayBgm(string audioClipName) {
-      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+    public void PlayBgm(string audioClipName) {
+      var audio = ResourceManager.LoadAsset<AudioClip>(audioClipName);
       m_bgmManager.PlayBgm(audio);
     }
 
-    public async void PlayBgm(string audioClipName, float fadeTime) {
-      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+    public void PlayBgm(string audioClipName, float fadeTime) {
+      var audio = ResourceManager.LoadAsset<AudioClip>(audioClipName);
       m_bgmManager.PlayBgm(audio, fadeTime);
     }
 
@@ -53,8 +53,8 @@ namespace Yume.Audio {
     #endregion
 
     #region Sound
-    public async void PlaySound(string audioClipName) {
-      var audio = await ResourceManager.LoadAssetAsync<AudioClip>(audioClipName);
+    public void PlaySound(string audioClipName) {
+      var audio = ResourceManager.LoadAsset<AudioClip>(audioClipName);
       m_soundManager.PlaySound(audio);
     }
 

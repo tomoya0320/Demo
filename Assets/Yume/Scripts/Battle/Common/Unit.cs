@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Yume.Data;
+using Yume.Resource;
 
 namespace Yume.Battle {
   /// <summary>
@@ -142,7 +143,7 @@ namespace Yume.Battle {
     protected Dictionary<CardHeapType,List<CardData>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
     public Unit(UnitData unit, List<CardData> cardList) {
-      UnitTemplate unitTemplate = DataManager.GetUnitTemplate(unit.id);
+      UnitTemplate unitTemplate = ResourceManager.GetUnitTemplate(unit.id);
       unitId = unit.id;
       unitTag = unitTemplate.tag;
       unitLevel = unit.level;

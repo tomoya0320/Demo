@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Yume.Battle;
+using Yume.Resource;
 
 namespace Yume.Data {
   #region Template
@@ -237,7 +238,7 @@ namespace Yume.Data {
       this.name = name;
       this.account = account;
       this.password = password;
-      if(DataManager.TryGetMaxAp(lv, out int ret)) {
+      if(ResourceManager.TryGetMaxAp(lv, out int ret)) {
         ap = maxAp = ret;
       } else {
         ap = maxAp = 30;

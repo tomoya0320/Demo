@@ -7,7 +7,7 @@ namespace Yume.UI {
     private UIData m_uiData;
     private bool m_isShowing;
     private GameObject m_root;
-    private UIObject m_uiObject;
+    private ObjectContainer m_uiObject;
     private Animation m_animation;
     public GameObject root => m_root;
     private CanvasGroup m_canvasGroup;
@@ -22,7 +22,7 @@ namespace Yume.UI {
       m_root = root;
       m_uiData = uiData;
       m_root.name = uiData.name;
-      m_uiObject = root.GetComponent<UIObject>();
+      m_uiObject = root.GetComponent<ObjectContainer>();
       m_animation = root.GetComponent<Animation>();
       m_canvasGroup = root.GetComponent<CanvasGroup>();
     }
@@ -108,12 +108,12 @@ namespace Yume.UI {
   /// </summary>
   public abstract class UIChildBase {
     private GameObject m_root;
-    private UIObject m_uiObject;
+    private ObjectContainer m_uiObject;
     public GameObject gameObject => m_root;
 
     public UIChildBase(GameObject root) {
       m_root = root;
-      m_uiObject = root.GetComponent<UIObject>();
+      m_uiObject = root.GetComponent<ObjectContainer>();
     }
 
     protected T GetComponent<T>(string objName) where T : Component {

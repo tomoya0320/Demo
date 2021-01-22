@@ -16,18 +16,14 @@ namespace Yume.AVG {
     [SerializeField]
     private Text _dialogueText;
     private Tween m_textTween;
-    private JObject m_avgJson;
     private JArray m_currentTexts;
     private JObject m_textJObject;
     private int m_currentTextIndex;
 
-    protected override void OnInit() {
-      m_avgJson = AssetLoader.GetValue<JObject>("avgJson");
-    }
-
     public void StartAVG(string avgName) {
-      if (m_avgJson.ContainsKey(avgName)) {
-        m_currentTexts = m_avgJson[avgName].Value<JArray>();
+      var avgJson = ResourceManager.GetAvgJson(avgName);
+      if (avgJson != null) {
+        m_currentTexts = avgJson;
         m_currentTextIndex = -1;
         _MoveToNext();
       } else {
@@ -43,12 +39,12 @@ namespace Yume.AVG {
       }
     }
 
-    private async void _MoveToNext() {
+    private void _MoveToNext() {
       m_currentTextIndex++;
       if (m_currentTextIndex < m_currentTexts.Count) {
         m_textJObject = m_currentTexts[m_currentTextIndex].Value<JObject>();
         if (m_textJObject.ContainsKey(StringMap.BG)) {
-          _bgImage.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
+          _bgImage.sprite = ResourceManager.LoadAsset<Sprite>(
                             m_textJObject[StringMap.BG].Value<string>());
         }
         _nameText.text = m_textJObject[StringMap.NAME].Value<string>();

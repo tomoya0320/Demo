@@ -176,84 +176,19 @@ namespace Yume.Data {
     }
     #endregion
 
-    #region Json
-    private static JObject s_itemJson;
-    private static JObject s_taskJson;
-    private static JObject s_cardJson;
-    private static JObject s_unitJson;
-    private static JObject s_lvMaxApMapJson;
-    private static List<AttribCurve> s_attribCurveList;
-    #endregion
-
-    #region Template
-    public static ItemTemplate GetItemTemplate(string id) {
-      if (s_itemJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<ItemTemplate>(s_itemJson[id].Value<JObject>().ToString());
-      } else {
-        throw new Exception(string.Format("item id:{0} is not found", id));
-      }
-    }
-
-    public static CardTemplate GetCardTemplate(string id) {
-      if (s_cardJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<CardTemplate>(s_cardJson[id].Value<JObject>().ToString());
-      } else {
-        throw new Exception(string.Format("card id:{0} is not found", id));
-      }
-    }
-
-    public static TaskTemplate GetTaskTemplate(TaskType taskType, string id) {
-      if (s_taskJson.ContainsKey(taskType.ToString())) {
-        JObject tempJObject = s_taskJson[taskType.ToString()].Value<JObject>();
-        if (tempJObject.ContainsKey(id)) {
-          return JsonConvert.DeserializeObject<TaskTemplate>(tempJObject[id].Value<JObject>().ToString());
-        } else {
-          throw new Exception(string.Format("task id:{0} is not found", id));
-        }
-      } else {
-        throw new Exception(string.Format("task type:{0} is not found", taskType.ToString()));
-      }
-    }
-
-    public static UnitTemplate GetUnitTemplate(string id) {
-      if (s_unitJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<UnitTemplate>(s_unitJson[id].Value<JObject>().ToString());
-      }
-      throw new Exception($"unit is not found! id:{id}");
-    }
-    #endregion
-
     #region Data
     public static Dictionary<TaskType, List<TaskData>> GetDefaultTasks() {
       Dictionary<TaskType, List<TaskData>> defaultTasks = new Dictionary<TaskType, List<TaskData>>();
 
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
         List<TaskData> tasks = new List<TaskData>();
-        foreach (var info in s_taskJson[type.ToString()].Values()) {
+        foreach (var info in ResourceManager.GetTaskJsons(type)) {
           tasks.Add(JsonConvert.DeserializeObject<TaskData>(info.ToString()));
         }
         defaultTasks.Add(type, tasks);
       }
 
       return defaultTasks;
-    }
-
-    public static bool TryGetMaxAp(int level, out int maxAp) {
-      maxAp = 0;
-      if (s_lvMaxApMapJson.ContainsKey(level.ToString())) {
-        maxAp = s_lvMaxApMapJson[level.ToString()].Value<int>();
-        return true;
-      }
-      return false;
-    }
-
-    public static AnimationCurve GetAttribCurve(string id) {
-      int index = s_attribCurveList.FindIndex(ac => ac.id == id);
-      if (index >= 0) {
-        return s_attribCurveList[index].curve;
-      } else {
-        throw new Exception($"找不到属性曲线！id:{id}");
-      }
     }
 
     public static ItemData GetItem(string id) {
@@ -415,7 +350,7 @@ namespace Yume.Data {
 
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
-          TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
+          TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(task.type, task.id);
           RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
           MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
         } else if (!completed && task.state == TaskState.COMPLETED) {
@@ -440,14 +375,14 @@ namespace Yume.Data {
       }
     }
 
-    public async static void CompleteTask(TaskData task) {
+    public static void CompleteTask(TaskData task) {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
-        TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
+        TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(task.type, task.id);
         foreach (ItemData item in taskTemplate.taskRewards.items) {
           AddItem(item);
-          ItemTemplate itemTemplate = GetItemTemplate(item.id);
-          Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemTemplate.iconFileName);
+          ItemTemplate itemTemplate = ResourceManager.GetItemTemplate(item.id);
+          Sprite itemIcon = ResourceManager.LoadAsset<Sprite>(itemTemplate.iconFileName);
           MessageManager.AddMessage(new Message(Message.Style.FADE,
           string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
@@ -487,7 +422,7 @@ namespace Yume.Data {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
         MessageManager.AddMessage(new Message(Message.Style.FADE, tip));
         _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
-        if (TryGetMaxAp(userLv, out int maxAp)) {
+        if (ResourceManager.TryGetMaxAp(userLv, out int maxAp)) {
           userMaxAp = maxAp;
           userAp += userMaxAp;
         }
@@ -498,15 +433,6 @@ namespace Yume.Data {
     #endregion
 
     #region Load&Save
-    public static void Init() {
-      s_itemJson = AssetLoader.GetValue<JObject>("itemJson");
-      s_taskJson = AssetLoader.GetValue<JObject>("taskJson");
-      s_cardJson = AssetLoader.GetValue<JObject>("cardJson");
-      s_unitJson = AssetLoader.GetValue<JObject>("unitJson");
-      s_lvMaxApMapJson = AssetLoader.GetValue<JObject>("lvMaxApMapJson");
-      s_attribCurveList = AssetLoader.GetValue<List<AttribCurve>>("attribCurves");
-    }
-
     public static void LoadUserDB(JObject json = null) {
       if (json == null) {
         m_playMode = PlayMode.LOCAL;

@@ -18,7 +18,6 @@ namespace Yume.UI {
     public string typeName;
     public string prefabUrl;
     public float cacheTime;
-    public bool isAsyncLoad;
     public bool isCloseLast;
   }
 
@@ -38,7 +37,7 @@ namespace Yume.UI {
     public static bool activeBack { set; get; }
 
     public static void Init() {
-      UIObject uiRootObject = Game.instance.uiRootObject;
+      ObjectContainer uiRootObject = Game.instance.uiRootObject;
       topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
       tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
       cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
@@ -52,8 +51,8 @@ namespace Yume.UI {
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      foreach (var kv in AssetLoader.GetValue<JObject>("uiJson")) {
-        Register(kv.Value.ToObject<UIData>());
+      foreach (var ui in ResourceManager.GetAllUIJsons()) {
+        Register(ui.ToObject<UIData>());
       }
     }
 
@@ -130,17 +129,11 @@ namespace Yume.UI {
       }
     }
 
-    private static async void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
-        GameObject prefab;
-        if (data.isAsyncLoad) {
-          //TODO:优化
-          prefab = await ResourceManager.LoadAssetAsync<GameObject>(data.prefabUrl);
-        } else {
-          prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
-        }
+        GameObject prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
         if (prefab == null) {
           Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
           return;

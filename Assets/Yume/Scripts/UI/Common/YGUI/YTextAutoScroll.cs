@@ -12,7 +12,7 @@ namespace Yume.UI {
     private RectTransform m_textRectTransform;
 
     public YTextAutoScroll(GameObject root) {
-      UIObject uiObject = root.GetComponent<UIObject>();
+      ObjectContainer uiObject = root.GetComponent<ObjectContainer>();
       m_rectTransform = root.GetComponent<RectTransform>();
       m_textComponent = uiObject.GetComponent<Text>("Text");
       m_textRectTransform = m_textComponent.rectTransform;

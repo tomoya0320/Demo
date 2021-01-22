@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Data;
+using Yume.Resource;
 
 public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
@@ -289,7 +290,7 @@ public static class MathUtil {
 
     float p = (float)level / maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
-    var curve = DataManager.GetAttribCurve(id);
+    var curve = ResourceManager.GetAttribCurve(id);
     for (int i = 0; i < attribs.Length; i++) {
       attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
     }

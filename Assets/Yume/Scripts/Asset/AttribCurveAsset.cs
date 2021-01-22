@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Resource;
 
 namespace Yume.Data {
   [Serializable]
@@ -10,17 +9,10 @@ namespace Yume.Data {
     public AnimationCurve curve;
   }
 
-  public class AttribCurveAsset : YScriptableObject {
+  public class AttribCurveAsset : ScriptableObject {
     [SerializeField]
     private List<AttribCurve> _attribCurves;
 
     public List<AttribCurve> attribCurves => _attribCurves;
-
-    public override Dictionary<string, object> GetAssets() {
-      Dictionary<string, object> assets = new Dictionary<string, object>();
-      assets.Add(nameof(attribCurves), attribCurves);
-
-      return assets;
-    }
   }
 }

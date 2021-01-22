@@ -16,14 +16,14 @@ namespace Yume.UI {
       m_iconImg = GetComponent<Image>("IconImage");
     }
 
-    public async void UpdateScrollTerm(ItemData item) {
+    public void UpdateScrollTerm(ItemData item) {
       m_item = item;
 
       gameObject.SetActiveEx(m_item != null);
 
       if (m_item != null) {
         m_numText.text = m_item.count.ToString();
-        m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DataManager.GetItemTemplate(m_item.id).iconFileName);
+        m_iconImg.sprite = ResourceManager.LoadAsset<Sprite>(ResourceManager.GetItemTemplate(m_item.id).iconFileName);
       }
     }
   }

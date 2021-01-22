@@ -34,16 +34,16 @@ namespace Yume.UI {
         });
       }
 
-      public async void UpdateScrollTerm(UnitData character) {
+      public void UpdateScrollTerm(UnitData character) {
         m_character = character;
 
         gameObject.SetActiveEx(m_character != null);
         m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
 
         if (m_character != null) {
-          UnitTemplate charTemplate = DataManager.GetUnitTemplate(m_character.id);
+          UnitTemplate charTemplate = ResourceManager.GetUnitTemplate(m_character.id);
 
-          m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
+          m_selectButton.image.sprite = ResourceManager.LoadAsset<Sprite>(charTemplate.portraitFileName);
         }
       }
     }

@@ -26,20 +26,20 @@ namespace Yume.UI {
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
       }
 
-      public async void UpdateScrollTerm(CardData card) {
+      public void UpdateScrollTerm(CardData card) {
         m_card = card;
 
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          CardTemplate cardTemplate = DataManager.GetCardTemplate(m_card.id);
+          CardTemplate cardTemplate = ResourceManager.GetCardTemplate(m_card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
           m_typeText.text = cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
-          m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
+          m_iconImg.sprite = ResourceManager.LoadAsset<Sprite>(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
         }
       }

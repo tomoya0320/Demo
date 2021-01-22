@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Json
+  m_EditorClassIdentifier: 
+  m_GroupName: Json
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f7b4381d843d23c4ca7e7734becab142
+  m_SerializeEntries:
+  - m_GUID: b314fae7e5d46f740bc4d72d027ca6f3
+    m_Address: taskJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: b314fae7e5d46f740bc4d72d027ca6f3, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: b314fae7e5d46f740bc4d72d027ca6f3, type: 3}
+  - m_GUID: f2089475acf86164a8a26a0139016a09
+    m_Address: lvMaxApMapJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: f2089475acf86164a8a26a0139016a09, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: f2089475acf86164a8a26a0139016a09, type: 3}
+  - m_GUID: 18ebcbe7a4d60aa4db2649406be22676
+    m_Address: itemJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 18ebcbe7a4d60aa4db2649406be22676, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 18ebcbe7a4d60aa4db2649406be22676, type: 3}
+  - m_GUID: 081af8e16444fb04dbe71df9291df770
+    m_Address: enemyJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 081af8e16444fb04dbe71df9291df770, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 081af8e16444fb04dbe71df9291df770, type: 3}
+  - m_GUID: 1cf548a006d0c664f826793dcba1ad23
+    m_Address: charJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 1cf548a006d0c664f826793dcba1ad23, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 1cf548a006d0c664f826793dcba1ad23, type: 3}
+  - m_GUID: 8634b6dfa110c6949bb447ef170e75ed
+    m_Address: cardJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 8634b6dfa110c6949bb447ef170e75ed, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 8634b6dfa110c6949bb447ef170e75ed, type: 3}
+  - m_GUID: 5fef9379f8f826745893f6a2d297521b
+    m_Address: avgJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 5fef9379f8f826745893f6a2d297521b, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 5fef9379f8f826745893f6a2d297521b, type: 3}
+  - m_GUID: 5a701ace425219a4394d29780a031191
+    m_Address: uiJson
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 4900000, guid: 5a701ace425219a4394d29780a031191, type: 3}
+    m_TargetAsset: {fileID: 4900000, guid: 5a701ace425219a4394d29780a031191, type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0f1256057e291764288d79d5742d6a29, type: 2}
+    - {fileID: 11400000, guid: c637dfb3fd760f34e882e24996c47897, type: 2}

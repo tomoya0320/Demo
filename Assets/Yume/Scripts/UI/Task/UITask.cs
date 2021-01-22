@@ -68,14 +68,14 @@ namespace Yume.UI {
         DataManager.CompleteTask(m_task);
       }
 
-      public async void UpdateScrollTerm(TaskData task) {
+      public void UpdateScrollTerm(TaskData task) {
         m_task = task;
 
         m_taskRedPoint.Update(m_task?.id);
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
-          TaskTemplate taskTemplate = DataManager.GetTaskTemplate(m_task.type, m_task.id);
+          TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(m_task.type, m_task.id);
           m_title.text = taskTemplate.title;
           m_description.text = taskTemplate.description;
 
@@ -84,8 +84,8 @@ namespace Yume.UI {
             var tempGo = m_rewardContent.GetChild(i).gameObject;
             if (i < taskTemplate.taskRewards.items.Length) {
               tempGo.SetActiveEx(true);
-              tempGo.GetComponentInChildren<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
-                     (DataManager.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
+              tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.LoadAsset<Sprite>
+                     (ResourceManager.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
               tempGo.GetComponentInChildren<Text>().text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
               tempGo.SetActiveEx(false);
@@ -176,7 +176,7 @@ namespace Yume.UI {
       m_taskGroupSwitch = GetComponent<UIGroupSwitch>("task group");
 
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
-        m_taskGroupList.Add(new UITaskGroup(type, GetGameObject($"{type.GetDescription()}/root")));
+        m_taskGroupList.Add(new UITaskGroup(type, GetGameObject(type.GetDescription())));
       }
 
       _AddListener();

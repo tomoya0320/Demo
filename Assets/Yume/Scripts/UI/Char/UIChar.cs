@@ -22,15 +22,15 @@ namespace Yume.UI {
         m_detailButton.onClick.AddListener(() => UIManager.OpenOne("char_detail", null, m_character));
       }
 
-      public async void UpdateScrollTerm(UnitData character) {
+      public void UpdateScrollTerm(UnitData character) {
         m_character = character;
 
         gameObject.SetActiveEx(m_character != null);
 
         if (m_character != null) {
-          UnitTemplate charTemplate = DataManager.GetUnitTemplate(m_character.id);
+          UnitTemplate charTemplate = ResourceManager.GetUnitTemplate(m_character.id);
 
-          m_detailButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
+          m_detailButton.image.sprite = ResourceManager.LoadAsset<Sprite>(charTemplate.portraitFileName);
         }
       }
     }
