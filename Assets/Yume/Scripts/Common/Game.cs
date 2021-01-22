@@ -32,8 +32,11 @@ namespace Yume.Main {
 
     protected override void OnInit() {
       _goToLoginBtn.onClick.AddListener(() => {
-        Destroy(_initPanel);
-        UIManager.OpenOne("login");
+        UIManager.OpenOne("blackMask", () => {
+          Destroy(_initPanel);
+          UIManager.OpenOne("login");
+          UIManager.CloseOne("blackMask");
+        });
       });
       _initProcessImg.fillAmount = 0;
 

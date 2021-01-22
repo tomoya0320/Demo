@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DefaultGroup: f7b4381d843d23c4ca7e7734becab142
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
   m_UniqueBundleIds: 0
   m_maxConcurrentWebRequests: 500
   m_ContiguousBundles: 0
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 3ee7422eec322cc4fa379df8506e7e97
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: 182b3d2a168fb8346a648580c798a691
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: 719e617549f4e2e408843fa16e87b9d8, type: 2}
@@ -54,7 +54,7 @@ MonoBehaviour:
       - m_Id: 3ee7422eec322cc4fa379df8506e7e97
         m_Value: ServerData/[BuildTarget]
       - m_Id: 182b3d2a168fb8346a648580c798a691
-        m_Value: http://localhost/[BuildTarget]
+        m_Value: https://demo-1300228367.cos.ap-guangzhou.myqcloud.com
     m_ProfileEntryNames:
     - m_Id: 4c835fb2deb3b7f44bb30bc1119f49cb
       m_Name: BuildTarget
