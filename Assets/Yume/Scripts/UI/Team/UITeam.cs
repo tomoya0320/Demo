@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
-using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -102,8 +101,8 @@ namespace Yume.UI {
       for (int i = 0; i < m_cardBtns.Count; i++) {
         if (i < m_curTeam.cardIdList.Count) {
           CardData card = DataManager.instance.GetCard(m_curTeam.cardIdList[i]);
-          CardPrototype cardPrototype = DataManager.instance.GetCardPrototype(m_curTeam.cardIdList[i]);
-          CardPhase cardPhase = cardPrototype.cardPhases[card.phase];
+          CardTemplate cardTemplate = DataManager.instance.GetCardTemplate(m_curTeam.cardIdList[i]);
+          CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);
         } else {
           m_cardBtns[i].image.sprite = m_noCardSprite;
@@ -113,8 +112,8 @@ namespace Yume.UI {
 
     private async void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(m_curTeam.charId)) {
-        UnitPrototype charPrototype = DataManager.instance.GetUnitPrototype(m_curTeam.charId);
-        m_charBtn.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charPrototype.portraitFileName);
+        UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_curTeam.charId);
+        m_charBtn.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
       } else {
         m_charBtn.image.sprite = m_noCharSprite;
       }

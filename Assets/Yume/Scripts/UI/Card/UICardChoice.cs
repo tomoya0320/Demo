@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
-using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -53,11 +52,11 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
 
         if (m_card != null) {
-          CardPrototype cardPrototype = DataManager.instance.GetCardPrototype(m_card.id);
-          CardPhase cardPhase = cardPrototype.cardPhases[m_card.phase];
+          CardTemplate cardTemplate = DataManager.instance.GetCardTemplate(m_card.id);
+          CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = cardPrototype.cardType.GetDescription();
+          m_typeText.text = cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(cardPhase.iconFileName);

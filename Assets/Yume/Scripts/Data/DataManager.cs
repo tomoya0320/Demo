@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using Yume.Prototype;
 using Yume.Broadcast;
 using Yume.RedPointSystem;
 using Yume.Resource;
@@ -196,27 +195,27 @@ namespace Yume.Data {
     #endregion
 
     #region Prototype
-    public ItemPrototype GetItemPrototype(string id) {
+    public ItemTemplate GetItemTemplate(string id) {
       if (m_itemJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<ItemPrototype>(m_itemJson[id].Value<JObject>().ToString());
+        return JsonConvert.DeserializeObject<ItemTemplate>(m_itemJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("item id:{0} is not found", id));
       }
     }
 
-    public CardPrototype GetCardPrototype(string id) {
+    public CardTemplate GetCardTemplate(string id) {
       if (m_cardJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<CardPrototype>(m_cardJson[id].Value<JObject>().ToString());
+        return JsonConvert.DeserializeObject<CardTemplate>(m_cardJson[id].Value<JObject>().ToString());
       } else {
         throw new Exception(string.Format("card id:{0} is not found", id));
       }
     }
 
-    public TaskPrototype GetTaskPrototype(TaskType taskType, string id) {
+    public TaskTemplate GetTaskTemplate(TaskType taskType, string id) {
       if (m_taskJson.ContainsKey(taskType.ToString())) {
         JObject tempJObject = m_taskJson[taskType.ToString()].Value<JObject>();
         if (tempJObject.ContainsKey(id)) {
-          return JsonConvert.DeserializeObject<TaskPrototype>(tempJObject[id].Value<JObject>().ToString());
+          return JsonConvert.DeserializeObject<TaskTemplate>(tempJObject[id].Value<JObject>().ToString());
         } else {
           throw new Exception(string.Format("task id:{0} is not found", id));
         }
@@ -225,9 +224,9 @@ namespace Yume.Data {
       }
     }
 
-    public UnitPrototype GetUnitPrototype(string id) {
+    public UnitTemplate GetUnitTemplate(string id) {
       if (m_unitJson.ContainsKey(id)) {
-        return JsonConvert.DeserializeObject<UnitPrototype>(m_unitJson[id].Value<JObject>().ToString());
+        return JsonConvert.DeserializeObject<UnitTemplate>(m_unitJson[id].Value<JObject>().ToString());
       }
       throw new Exception($"unit is not found! id:{id}");
     }
@@ -430,9 +429,9 @@ namespace Yume.Data {
 
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
-          TaskPrototype taskPrototype = GetTaskPrototype(task.type, task.id);
+          TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
           RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
-          MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskPrototype.title)));
+          MessageManager.instance.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
           RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
@@ -458,13 +457,13 @@ namespace Yume.Data {
     public async void CompleteTask(TaskData task) {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
-        TaskPrototype taskPrototype = GetTaskPrototype(task.type, task.id);
-        foreach (ItemData item in taskPrototype.taskRewards.items) {
+        TaskTemplate taskTemplate = GetTaskTemplate(task.type, task.id);
+        foreach (ItemData item in taskTemplate.taskRewards.items) {
           AddItem(item);
-          ItemPrototype itemPrototype = GetItemPrototype(item.id);
-          Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemPrototype.iconFileName);
+          ItemTemplate itemTemplate = GetItemTemplate(item.id);
+          Sprite itemIcon = await ResourceManager.LoadAssetAsync<Sprite>(itemTemplate.iconFileName);
           MessageManager.instance.AddMessage(new Message(Message.Style.FADE,
-          string.Format(StringMap.GET + "{0}*{1}", itemPrototype.name, item.count), itemIcon));
+          string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
 
         foreach (TaskRequestData taskRequest in task.taskRequests) {
@@ -475,8 +474,8 @@ namespace Yume.Data {
 
         RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
 
-        if (!string.IsNullOrEmpty(taskPrototype.activeTaskId)) {
-          TaskData nextTask = GetTask(taskPrototype.activeTaskType, taskPrototype.activeTaskId);
+        if (!string.IsNullOrEmpty(taskTemplate.activeTaskId)) {
+          TaskData nextTask = GetTask(taskTemplate.activeTaskType, taskTemplate.activeTaskId);
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
             ActivateTask(nextTask);
           }

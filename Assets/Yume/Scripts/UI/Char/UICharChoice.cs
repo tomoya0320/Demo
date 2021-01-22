@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
-using Yume.Prototype;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -42,9 +41,9 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
 
         if (m_character != null) {
-          UnitPrototype charPrototype = DataManager.instance.GetUnitPrototype(m_character.id);
+          UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_character.id);
 
-          m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charPrototype.portraitFileName);
+          m_selectButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
         }
       }
     }

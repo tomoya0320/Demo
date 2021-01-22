@@ -1,6 +1,5 @@
 ﻿using System;
 using Yume.Data;
-using Yume.Prototype;
 
 namespace Yume.RedPointSystem {
   public class MainTaskRedPointTree : RedPointTree {

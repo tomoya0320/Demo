@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
-using Yume.Prototype;
 using Yume.RedPointSystem;
 using Yume.Resource;
 
@@ -76,18 +75,18 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
-          TaskPrototype taskPrototype = DataManager.instance.GetTaskPrototype(m_task.type, m_task.id);
-          m_title.text = taskPrototype.title;
-          m_description.text = taskPrototype.description;
+          TaskTemplate taskTemplate = DataManager.instance.GetTaskTemplate(m_task.type, m_task.id);
+          m_title.text = taskTemplate.title;
+          m_description.text = taskTemplate.description;
 
           //初始化任务奖励
           for (int i = 0; i < m_rewardContent.childCount; i++) {
             var tempGo = m_rewardContent.GetChild(i).gameObject;
-            if (i < taskPrototype.taskRewards.items.Length) {
+            if (i < taskTemplate.taskRewards.items.Length) {
               tempGo.SetActiveEx(true);
               tempGo.GetComponentInChildren<Image>().sprite = await ResourceManager.LoadAssetAsync<Sprite>
-                     (DataManager.instance.GetItemPrototype(taskPrototype.taskRewards.items[i].id).iconFileName);
-              tempGo.GetComponentInChildren<Text>().text = taskPrototype.taskRewards.items[i].count.ToString();
+                     (DataManager.instance.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
+              tempGo.GetComponentInChildren<Text>().text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
               tempGo.SetActiveEx(false);
             }

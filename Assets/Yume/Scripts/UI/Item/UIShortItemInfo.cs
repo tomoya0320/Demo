@@ -23,7 +23,7 @@ namespace Yume.UI {
 
       if (m_item != null) {
         m_numText.text = m_item.count.ToString();
-        m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DataManager.instance.GetItemPrototype(m_item.id).iconFileName);
+        m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(DataManager.instance.GetItemTemplate(m_item.id).iconFileName);
       }
     }
   }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Prototype;
 using Yume.Data;
 using Yume.Resource;
 
@@ -28,9 +27,9 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_character != null);
 
         if (m_character != null) {
-          UnitPrototype charPrototype = DataManager.instance.GetUnitPrototype(m_character.id);
+          UnitTemplate charTemplate = DataManager.instance.GetUnitTemplate(m_character.id);
 
-          m_detailButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charPrototype.portraitFileName);
+          m_detailButton.image.sprite = await ResourceManager.LoadAssetAsync<Sprite>(charTemplate.portraitFileName);
         }
       }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Yume.Data;
-using Yume.Prototype;
 
 namespace Yume.Battle {
   /// <summary>
@@ -143,13 +142,13 @@ namespace Yume.Battle {
     protected Dictionary<CardHeapType,List<CardData>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
     public Unit(UnitData unit, List<CardData> cardList) {
-      UnitPrototype unitPrototype = DataManager.instance.GetUnitPrototype(unit.id);
+      UnitTemplate unitTemplate = DataManager.instance.GetUnitTemplate(unit.id);
       unitId = unit.id;
-      unitTag = unitPrototype.tag;
+      unitTag = unitTemplate.tag;
       unitLevel = unit.level;
-      unitName = unitPrototype.name;
-      attribs = MathUtil.CalculateAttribs(unit.id, unit.level, unitPrototype.maxLevel,
-                                          unitPrototype.GetMinAttribs(), unitPrototype.GetMaxAttribs());
+      unitName = unitTemplate.name;
+      attribs = MathUtil.CalculateAttribs(unit.id, unit.level, unitTemplate.maxLevel,
+                                          unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());
       //TODO:Init PassiveSkill
       //TODO:Init Prefab
 

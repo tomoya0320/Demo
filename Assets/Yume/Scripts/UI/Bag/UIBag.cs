@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
-using Yume.Prototype;
 using Yume.RedPointSystem;
 using Yume.Resource;
 using EventType = Yume.Broadcast.EventType;
@@ -57,7 +55,7 @@ namespace Yume.UI {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
           m_iconImg.gameObject.SetActiveEx(true);
           m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
-                                   DataManager.instance.GetItemPrototype(m_item.id).iconFileName);
+                                   DataManager.instance.GetItemTemplate(m_item.id).iconFileName);
         }
       }
 
@@ -114,10 +112,10 @@ namespace Yume.UI {
       private async void _UpdateInfoBoard() {
         if (m_selectedItem != null) {
           if (m_selectedItem.count > 0) {
-            ItemPrototype itemPrototype = DataManager.instance.GetItemPrototype(m_selectedItem.id);
-            m_nameNum.text = itemPrototype.name + "*" + m_selectedItem.count;
-            m_description.text = itemPrototype.description;
-            m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(itemPrototype.iconFileName);
+            ItemTemplate itemTemplate = DataManager.instance.GetItemTemplate(m_selectedItem.id);
+            m_nameNum.text = itemTemplate.name + "*" + m_selectedItem.count;
+            m_description.text = itemTemplate.description;
+            m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(itemTemplate.iconFileName);
           } else {
             m_selectedItem = null;
             m_nameNum.text = StringMap.EMPTY;
