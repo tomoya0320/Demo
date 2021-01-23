@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Yume.Audio;
+using System;
+using System.Collections;
 
 namespace Yume.UI {
   [ExecuteInEditMode]
@@ -13,6 +15,8 @@ namespace Yume.UI {
     private string _overrideSoundName;
     [SerializeField]
     private bool _soundEvenDisabled;
+    public event Action onLongPress;
+    private float m_longPressMinTime = 1.0f;
 
     protected override void Awake() {
       base.Awake();
@@ -34,6 +38,27 @@ namespace Yume.UI {
       }
 
       base.OnPointerClick(eventData);
+    }
+
+    public override void OnPointerDown(PointerEventData eventData) {
+      StartCoroutine(_LongPress());
+
+      base.OnPointerDown(eventData);
+    }
+
+    private IEnumerator _LongPress() {
+      yield return null;
+
+      float startTime = Time.time;
+      while(Time.time < startTime + m_longPressMinTime) {
+        if (currentSelectionState == SelectionState.Pressed) {
+          yield return null;
+        } else {
+          yield break;
+        }
+      }
+
+      onLongPress?.Invoke();
     }
   }
 }

@@ -392,6 +392,25 @@ namespace Yume.Data {
     }
     #endregion
 
+    #region Team
+    public static void ChangeTeamSelect(TeamData lastTeam, TeamData newTeam) {
+      lastTeam.isSelected = false;
+      newTeam.isSelected = true;
+    }
+
+    public static void ChangeTeamName(TeamData team, string newName) {
+      team.name = newName;
+    }
+
+    public static void ChangeTeamChar(TeamData team, string newCharId) {
+      team.charId = newCharId;
+    }
+
+    public static void ChangeTeamCards(TeamData team, List<int> newCardGuidList) {
+      team.cardGuidList = newCardGuidList;
+    }
+    #endregion
+
     #region Exp&Lv
     public static void AddExp(int exp) {
       userExp += exp;
@@ -440,7 +459,7 @@ namespace Yume.Data {
       }
     }
 
-    public static void SaveData(Action onSucceed = null) {
+    private static void _SaveData(Action onSucceed = null) {
       JObject data = JObject.FromObject(s_user);
       data.Merge(JObject.FromObject(new { types = typeof(UserData).GetFieldNames() }));
 
@@ -459,7 +478,7 @@ namespace Yume.Data {
               }
             }
             if (!string.IsNullOrEmpty(error)) {
-              Action ok = () => SaveData(onSucceed);
+              Action ok = () => _SaveData(onSucceed);
               Action cancel = () => UIManager.CloseAllAndOpenOne("login");
               UIManager.OpenOne("confirmation", null, error, StringMap.RETRY,
                                          StringMap.RETURN_TO_LOGIN, ok, cancel);

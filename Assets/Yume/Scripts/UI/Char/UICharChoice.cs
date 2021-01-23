@@ -9,14 +9,14 @@ namespace Yume.UI {
   public class UICharChoice : UIBase {
     private class UICharChoiceTerm : UIChildBase, IScrollTerm<UnitData> {
       private UnitData m_character;
-      private Button m_selectButton;
+      private YButton m_selectButton;
       private GameObject m_selected;
       public bool isValid => m_character != null;
       private UICharChoiceGroup m_charChoiceGroup;
 
       public UICharChoiceTerm(GameObject root, UICharChoiceGroup charChoiceGroup) : base(root) {
         m_selected = GetGameObject("Selected");
-        m_selectButton = GetComponent<Button>("SelectButton");
+        m_selectButton = GetComponent<YButton>("SelectButton");
 
         m_charChoiceGroup = charChoiceGroup;
 
@@ -32,6 +32,12 @@ namespace Yume.UI {
           }
           m_charChoiceGroup.UpdateView(false);
         });
+
+        m_selectButton.onLongPress += () => {
+          if (m_character != null) {
+            UIManager.OpenOne("char_detail", null, m_character);
+          }
+        };
       }
 
       public void UpdateScrollTerm(UnitData character) {

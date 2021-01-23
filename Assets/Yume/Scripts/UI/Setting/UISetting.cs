@@ -5,7 +5,6 @@ using Yume.Audio;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System;
-using Yume.Data;
 
 namespace Yume.UI {
   public enum UISettingType {
@@ -110,11 +109,6 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("SaveData").onClick.AddListener(() => {
-        DataManager.SaveData(() => {
-          MessageManager.AddMessage(new Message(Message.Style.FADE, StringMap.SAVE_DATA_SUCCEED));
-        });
-      });
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 

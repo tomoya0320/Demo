@@ -33,17 +33,38 @@ namespace Yume.UI {
       m_noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
 
       m_teams = DataManager.userTeams;
-
-      _SwitchTeam(m_teams.Find(t => t.isSelected));
+      m_curTeamIdx = m_teams.FindIndex(t => t.isSelected);
 
       _AddListener();
+      _OnRefreshChar();
+      _OnRefreshCards();
     }
 
     private void _AddListener() {
       for (int i = 0; i < m_teams.Count; i++) {
-        TeamData teamDB = m_teams[i];
-        m_teamBtns[i].onClick.AddListener(() => _SwitchTeam(teamDB));
+        TeamData team = m_teams[i];
+        m_teamBtns[i].textComponent.text = team.name;
+        m_teamBtns[i].onClick.AddListener(() => _SwitchTeam(team));
       }
+
+      Action<string> onCharSelected = selectedCharId => {
+        DataManager.ChangeTeamChar(m_curTeam, selectedCharId);
+        _OnRefreshChar();
+      };
+      m_charBtn.onClick.AddListener(() => {
+        UIManager.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
+      });
+
+      Action<List<int>> onCardSelected = selectedCardIds => {
+        DataManager.ChangeTeamCards(m_curTeam, selectedCardIds);
+        _OnRefreshCards();
+      };
+      foreach (var cardBtn in m_cardBtns) {
+        cardBtn.onClick.AddListener(() => {
+          UIManager.OpenOne("card_choice", null, m_curTeam.cardGuidList, onCardSelected);
+        });
+      }
+
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
@@ -51,46 +72,18 @@ namespace Yume.UI {
       int newIdx = m_teams.FindIndex(t => t == teamDB);
 
       if (m_curTeamIdx != newIdx) {
-        if (m_curTeam != null) {
-          m_curTeam.isSelected = false;
-          m_teamBtns[m_curTeamIdx].image.color = Color.white;
-          m_charBtn.onClick.RemoveAllListeners();
-          for (int i = 0; i < m_cardBtns.Count; i++) {
-            m_cardBtns[i].onClick.RemoveAllListeners();
-          }
-        }
-
+        TeamData lastTeam = m_curTeam;
+        m_teamBtns[m_curTeamIdx].image.color = Color.white;
         m_curTeamIdx = newIdx;
-        m_curTeam.isSelected = true;
         m_teamBtns[m_curTeamIdx].image.color = Color.blue;
 
-        for (int i = 0; i < m_teams.Count; i++) {
-          m_teamBtns[i].textComponent.text = m_teams[i].name;
-        }
+        DataManager.ChangeTeamSelect(lastTeam, m_curTeam);
 
         _OnRefreshChar();
         _OnRefreshCards();
-
-        Action<string> onCharSelected = selectedCharId => {
-          m_curTeam.charId = selectedCharId;
-          _OnRefreshChar();
-        };
-        m_charBtn.onClick.AddListener(() => {
-          UIManager.OpenOne("char_choice", null, m_curTeam.charId, onCharSelected);
-        });
-
-        Action<List<int>> onCardSelected = selectedCardIds => {
-          m_curTeam.cardIdList = selectedCardIds;
-          _OnRefreshCards();
-        };
-        foreach (var cardBtn in m_cardBtns) {
-          cardBtn.onClick.AddListener(() => {
-            UIManager.OpenOne("card_choice", null, m_curTeam.cardIdList, onCardSelected);
-          });
-        }
       } else {
         Action<string> onEditCompleted = text => {
-          m_curTeam.name = text;
+          DataManager.ChangeTeamName(m_curTeam, text);
           m_teamBtns[m_curTeamIdx].textComponent.text = text;
         };
         UIManager.OpenOne("text_editor", null, m_curTeam.name, onEditCompleted);
@@ -99,8 +92,8 @@ namespace Yume.UI {
 
     private void _OnRefreshCards() {
       for (int i = 0; i < m_cardBtns.Count; i++) {
-        if (i < m_curTeam.cardIdList.Count) {
-          CardData card = DataManager.GetCard(m_curTeam.cardIdList[i]);
+        if (i < m_curTeam.cardGuidList.Count) {
+          CardData card = DataManager.GetCard(m_curTeam.cardGuidList[i]);
           CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);

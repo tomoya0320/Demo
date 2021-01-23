@@ -214,7 +214,7 @@ namespace Yume.Data {
     public string charId;
     public bool isSelected;
     public string name = "Ä¬ÈÏ¶ÓÎéÃû";
-    public List<int> cardIdList = new List<int>();
+    public List<int> cardGuidList = new List<int>();
   }
 
   [Serializable]
