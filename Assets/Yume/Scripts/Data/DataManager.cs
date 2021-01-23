@@ -18,12 +18,13 @@ namespace Yume.Data {
       LOCAL, REMOTE
     }
 
-    private static PlayMode m_playMode;
+    private static PlayMode s_playMode;
     private static string localUserDataPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
     }
+    private static HashSet<string> s_saveDataTypes = new HashSet<string>();
 
     #region User
     private static UserData s_user;
@@ -204,12 +205,30 @@ namespace Yume.Data {
     #endregion
 
     #region Operate
+    public static void OnLateUpdate() {
+      if (s_saveDataTypes.Count > 0) {
+        JObject data = new JObject();
+        foreach (var saveDataType in s_saveDataTypes) {
+          object value = typeof(UserData).GetField(saveDataType).GetValue(s_user);
+          data.Add(saveDataType, JToken.FromObject(value));
+        }
+        data.Add("account", userAccount);
+        data.Add("password", userPassword);
+        data.Add("types", JArray.FromObject(s_saveDataTypes));
+        _SaveData(data.ToString());
+
+        s_saveDataTypes.Clear();
+      }
+    }
+
     #region Mail
     //邮件比较特殊，需要是同一个对象
     public static void DeleteMail(MailData mail) {
       if (mail.isReceived) {
         userMails.Remove(mail);
         EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
+
+        s_saveDataTypes.Add("mails");
       }
     }
 
@@ -220,6 +239,7 @@ namespace Yume.Data {
           AddItem(item);
         }
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 0);
+        s_saveDataTypes.Add("mails");
       }
     }
 
@@ -229,6 +249,7 @@ namespace Yume.Data {
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 1);
       }
       EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
+      s_saveDataTypes.Add("mails");
     }
     #endregion
 
@@ -236,12 +257,14 @@ namespace Yume.Data {
     public static void AddCard(CardData card) {
       userCards.Add(card);
       card.guid = s_user.validGuid++;
+      s_saveDataTypes.Add("cards");
     }
     #endregion
 
     #region Character
     public static void AddCharacter(UnitData character) {
       userChars.Add(character);
+      s_saveDataTypes.Add("chars");
     }
     #endregion
 
@@ -260,6 +283,8 @@ namespace Yume.Data {
         //更新UI显示
         EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
         EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
+
+        s_saveDataTypes.Add("items");
       }
     }
 
@@ -281,6 +306,8 @@ namespace Yume.Data {
 
       //更新任务进度
       _UpdateTaskState(RequestType.ITEM_NUM, item.id, item.count);
+
+      s_saveDataTypes.Add("items");
     }
     #endregion
 
@@ -310,6 +337,7 @@ namespace Yume.Data {
         }
       }
       EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
+      s_saveDataTypes.Add("tasks");
     }
 
     private static void _ActivateTask(TaskData task) {
@@ -322,6 +350,7 @@ namespace Yume.Data {
         }
         _CheckTask(task);
         EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
+        s_saveDataTypes.Add("tasks");
       }
     }
 
@@ -337,9 +366,11 @@ namespace Yume.Data {
           TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
           RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
           MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
+          s_saveDataTypes.Add("tasks");
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
           RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
+          s_saveDataTypes.Add("tasks");
         }
       }
     }
@@ -356,6 +387,7 @@ namespace Yume.Data {
               break;
             }
         }
+        s_saveDataTypes.Add("tasks");
       }
     }
 
@@ -388,6 +420,8 @@ namespace Yume.Data {
         //任务排序用
         EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
         _UpdateTaskState(RequestType.TASK, task.id, 1);
+
+        s_saveDataTypes.Add("tasks");
       }
     }
     #endregion
@@ -396,18 +430,22 @@ namespace Yume.Data {
     public static void ChangeTeamSelect(TeamData lastTeam, TeamData newTeam) {
       lastTeam.isSelected = false;
       newTeam.isSelected = true;
+      s_saveDataTypes.Add("teams");
     }
 
     public static void ChangeTeamName(TeamData team, string newName) {
       team.name = newName;
+      s_saveDataTypes.Add("teams");
     }
 
     public static void ChangeTeamChar(TeamData team, string newCharId) {
       team.charId = newCharId;
+      s_saveDataTypes.Add("teams");
     }
 
     public static void ChangeTeamCards(TeamData team, List<int> newCardGuidList) {
       team.cardGuidList = newCardGuidList;
+      s_saveDataTypes.Add("teams");
     }
     #endregion
 
@@ -429,17 +467,21 @@ namespace Yume.Data {
         if (maxAp > userMaxAp) {
           userMaxAp = maxAp;
           userAp += userMaxAp;
+          s_saveDataTypes.Add("ap");
+          s_saveDataTypes.Add("maxAp");
         }
+        s_saveDataTypes.Add("lv");
       }
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
+      s_saveDataTypes.Add("exp");
     }
     #endregion
 
     #region Load&Save
     public static void LoadUserDB(JObject json = null) {
       if (json == null) {
-        m_playMode = PlayMode.LOCAL;
+        s_playMode = PlayMode.LOCAL;
         FileStream fs;
         BinaryFormatter bf = new BinaryFormatter();
         if (File.Exists(localUserDataPath)) {
@@ -453,17 +495,14 @@ namespace Yume.Data {
         }
         fs.Close();
       } else {
-        m_playMode = PlayMode.REMOTE;
+        s_playMode = PlayMode.REMOTE;
         s_user = JsonConvert.DeserializeObject<UserData>(json["user"].ToString());
         userToken = json["token"].Value<string>();
       }
     }
 
-    private static void _SaveData(Action onSucceed = null) {
-      JObject data = JObject.FromObject(s_user);
-      data.Merge(JObject.FromObject(new { types = typeof(UserData).GetFieldNames() }));
-
-      if (m_playMode == PlayMode.REMOTE) {
+    private static void _SaveData(string data) {
+      if (s_playMode == PlayMode.REMOTE) {
         ServerManager.UpdateUserData(data,
           request => {
             string error = StringMap.EMPTY;
@@ -478,22 +517,18 @@ namespace Yume.Data {
               }
             }
             if (!string.IsNullOrEmpty(error)) {
-              Action ok = () => _SaveData(onSucceed);
+              Action ok = () => _SaveData(data);
               Action cancel = () => UIManager.CloseAllAndOpenOne("login");
               UIManager.OpenOne("confirmation", null, error, StringMap.RETRY,
-                                         StringMap.RETURN_TO_LOGIN, ok, cancel);
-            } else {
-              onSucceed?.Invoke();
+                                StringMap.RETURN_TO_LOGIN, ok, cancel);
             }
           });
-      } else if (m_playMode == PlayMode.LOCAL) {
+      } else if (s_playMode == PlayMode.LOCAL) {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = File.Open(localUserDataPath, FileMode.Create);
         //序列化     
         bf.Serialize(fs, s_user);
         fs.Close();
-
-        onSucceed?.Invoke();
       }
     }
     #endregion

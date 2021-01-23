@@ -103,5 +103,10 @@ namespace Yume.Main {
       }
 #endif
     }
+
+    private void LateUpdate() {
+      // 同步数据用
+      DataManager.OnLateUpdate();
+    }
   }
 }

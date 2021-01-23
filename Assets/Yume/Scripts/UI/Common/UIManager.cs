@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Yume.Main;
@@ -42,9 +40,7 @@ namespace Yume.UI {
       tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
       cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
       normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
-
       s_interactionMask = uiRootObject.GetGameObject("InteractionMask");
-      s_interactionMask.SetActiveEx(false);
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_uiStackDict.Add(type, new Stack<UIBase>());

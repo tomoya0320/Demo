@@ -38,11 +38,11 @@ namespace Yume.Server {
       CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
-    public static void UpdateUserData(JObject data, Action<UnityWebRequest> onCompleted) {
-      data.Add("method", Methods.UPDATE.ToString());
-      //添加token以验证同步
-      data.Add("token", DataManager.userToken);
-      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, data, onCompleted));
+    public static void UpdateUserData(string data, Action<UnityWebRequest> onCompleted) {
+      JObject json = JObject.Parse(data);
+      json.Add("token", DataManager.userToken);
+      json.Add("method", Methods.UPDATE.ToString());
+      CoroutineHelper.instance.RunCoroutine(_SendWebRequest(userServerUrl, json, onCompleted));
     }
 
     public static void AlterPassword(string account, string oldPassword, string newPassword, Action<UnityWebRequest> onCompleted) {
