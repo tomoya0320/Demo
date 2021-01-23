@@ -51,9 +51,7 @@ namespace Yume.UI {
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      foreach (var ui in ResourceManager.GetAllUIJsons()) {
-        Register(ui.ToObject<UIData>());
-      }
+      Register(ResourceManager.LoadAll<UIData>());
     }
 
     public static void OnUpdate() {
@@ -82,13 +80,13 @@ namespace Yume.UI {
       }
     }
 
-    public static bool Register(UIData uIData) {
-      if (s_uiDataDict.ContainsKey(uIData.name)) {
-        Debug.LogWarning($"UI已注册！name：{uIData.name}");
-        return false;
+    public static void Register(params UIData[] uiList) {
+      foreach (var ui in uiList) {
+        if (s_uiDataDict.ContainsKey(ui.name)) {
+          Debug.LogWarning($"UI已注册！name：{ui.name}");
+        }
+        s_uiDataDict.Add(ui.name, ui);
       }
-      s_uiDataDict.Add(uIData.name, uIData);
-      return true;
     }
 
     public static void SetSharedArgs(object key, object value) {
@@ -133,7 +131,7 @@ namespace Yume.UI {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
-        GameObject prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
+        GameObject prefab = ResourceManager.Load<GameObject>(data.prefabUrl);
         if (prefab == null) {
           Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
           return;

@@ -54,7 +54,7 @@ namespace Yume.UI {
         if (m_item != null) {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
           m_iconImg.gameObject.SetActiveEx(true);
-          m_iconImg.sprite = ResourceManager.LoadAsset<Sprite>(ResourceManager.GetItemTemplate(m_item.id).iconFileName);
+          m_iconImg.sprite = ResourceManager.Load<Sprite>(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
       }
 
@@ -83,7 +83,7 @@ namespace Yume.UI {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
 
         m_itemList = DataManager.userItems;
-        m_noItemSprite = ResourceManager.LoadAsset<Sprite>("noItemSprite");
+        m_noItemSprite = ResourceManager.Load<Sprite>("noItemSprite");
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
@@ -111,10 +111,10 @@ namespace Yume.UI {
       private void _UpdateInfoBoard() {
         if (m_selectedItem != null) {
           if (m_selectedItem.count > 0) {
-            ItemTemplate itemTemplate = ResourceManager.GetItemTemplate(m_selectedItem.id);
+            ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(m_selectedItem.id);
             m_nameNum.text = itemTemplate.name + "*" + m_selectedItem.count;
             m_description.text = itemTemplate.description;
-            m_iconImg.sprite = ResourceManager.LoadAsset<Sprite>(itemTemplate.iconFileName);
+            m_iconImg.sprite = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
           } else {
             m_selectedItem = null;
             m_nameNum.text = StringMap.EMPTY;

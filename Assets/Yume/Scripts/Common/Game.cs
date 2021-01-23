@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.AVG;
 using Yume.Data;
@@ -77,7 +76,7 @@ namespace Yume.Main {
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {
-        Instantiate(Resources.Load<GameObject>("AVG/Prefab/avg"), UIManager.topCanvas);
+        Instantiate(ResourceManager.Load<GameObject>("avg"), UIManager.topCanvas);
         AVGController.instance.StartAVG("test1");
       }
 

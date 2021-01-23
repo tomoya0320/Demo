@@ -32,14 +32,14 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          CardTemplate cardTemplate = ResourceManager.GetCardTemplate(m_card.id);
+          CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
 
           m_phaseText.text = m_card.phase.ToString();
           m_typeText.text = cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
-          m_iconImg.sprite = ResourceManager.LoadAsset<Sprite>(cardPhase.iconFileName);
+          m_iconImg.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
         }
       }

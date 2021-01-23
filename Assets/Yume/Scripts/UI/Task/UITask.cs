@@ -75,7 +75,7 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
-          TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(m_task.type, m_task.id);
+          TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(m_task.id);
           m_title.text = taskTemplate.title;
           m_description.text = taskTemplate.description;
 
@@ -84,8 +84,8 @@ namespace Yume.UI {
             var tempGo = m_rewardContent.GetChild(i).gameObject;
             if (i < taskTemplate.taskRewards.items.Length) {
               tempGo.SetActiveEx(true);
-              tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.LoadAsset<Sprite>
-                     (ResourceManager.GetItemTemplate(taskTemplate.taskRewards.items[i].id).iconFileName);
+              tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
+                     (ResourceManager.Load<ItemTemplate>(taskTemplate.taskRewards.items[i].id).iconFileName);
               tempGo.GetComponentInChildren<Text>().text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
               tempGo.SetActiveEx(false);

@@ -21,56 +21,55 @@ MonoBehaviour:
     m_Address: taskJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: b314fae7e5d46f740bc4d72d027ca6f3, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: b314fae7e5d46f740bc4d72d027ca6f3, type: 3}
   - m_GUID: f2089475acf86164a8a26a0139016a09
     m_Address: lvMaxApMapJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: f2089475acf86164a8a26a0139016a09, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: f2089475acf86164a8a26a0139016a09, type: 3}
   - m_GUID: 18ebcbe7a4d60aa4db2649406be22676
     m_Address: itemJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: 18ebcbe7a4d60aa4db2649406be22676, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: 18ebcbe7a4d60aa4db2649406be22676, type: 3}
-  - m_GUID: 081af8e16444fb04dbe71df9291df770
-    m_Address: enemyJson
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 4900000, guid: 081af8e16444fb04dbe71df9291df770, type: 3}
-    m_TargetAsset: {fileID: 4900000, guid: 081af8e16444fb04dbe71df9291df770, type: 3}
   - m_GUID: 1cf548a006d0c664f826793dcba1ad23
-    m_Address: charJson
+    m_Address: unitJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: 1cf548a006d0c664f826793dcba1ad23, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: 1cf548a006d0c664f826793dcba1ad23, type: 3}
   - m_GUID: 8634b6dfa110c6949bb447ef170e75ed
     m_Address: cardJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: 8634b6dfa110c6949bb447ef170e75ed, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: 8634b6dfa110c6949bb447ef170e75ed, type: 3}
   - m_GUID: 5fef9379f8f826745893f6a2d297521b
     m_Address: avgJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: 5fef9379f8f826745893f6a2d297521b, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: 5fef9379f8f826745893f6a2d297521b, type: 3}
   - m_GUID: 5a701ace425219a4394d29780a031191
     m_Address: uiJson
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Json
+    - JObject
     m_MainAsset: {fileID: 4900000, guid: 5a701ace425219a4394d29780a031191, type: 3}
     m_TargetAsset: {fileID: 4900000, guid: 5a701ace425219a4394d29780a031191, type: 3}
   m_ReadOnly: 0

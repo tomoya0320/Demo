@@ -290,7 +290,7 @@ public static class MathUtil {
 
     float p = (float)level / maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
-    var curve = ResourceManager.GetAttribCurve(id);
+    var curve = ResourceManager.Load<AnimationCurve>(id);
     for (int i = 0; i < attribs.Length; i++) {
       attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
     }

@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Yume.Data;
 using Yume.Resource;
-using Yume.Setting;
 using Yume.Tool;
 using Yume.UI;
 
@@ -18,7 +17,7 @@ namespace Yume.Server {
 
     private static string userServerUrl {
       get {
-        return ResourceManager.LoadAsset<ConfigAsset>("configAsset").userServerUrl;
+        return ResourceManager.Load<string>("userServerUrl");
       }
     }
 

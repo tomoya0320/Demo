@@ -35,14 +35,14 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       UnitData unit = args[0] as UnitData;
-      UnitTemplate unitTemplate = ResourceManager.GetUnitTemplate(unit.id);
+      UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
       PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevels];
       Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level, unitTemplate.maxLevel,
                                                    unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());
 
       m_lv.text = $"Lv:{unit.level}/{unitTemplate.maxLevel}";
-      m_illustration.sprite = ResourceManager.LoadAsset<Sprite>(unitTemplate.illustrationFileName);
-      m_passiveSkillIcon.sprite = ResourceManager.LoadAsset<Sprite>(passiveSkillPhase.iconFileName);
+      m_illustration.sprite = ResourceManager.Load<Sprite>(unitTemplate.illustrationFileName);
+      m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
       m_passiveSkillName.text = passiveSkillPhase.name;
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.blackboard);
       for (int i = 0; i < m_attribs.Length; i++) {

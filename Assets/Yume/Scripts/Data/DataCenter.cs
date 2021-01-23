@@ -102,11 +102,11 @@ namespace Yume.Data {
     HAD, CONSUME, ADD
   }
 
-  public struct TaskTemplate {
-    public struct TaskRewards {
-      public ItemData[] items;
-    }
+  public struct TaskRewards {
+    public ItemData[] items;
+  }
 
+  public struct TaskTemplate {
     public string id;
     public string title;
     public TaskType type;
@@ -232,19 +232,16 @@ namespace Yume.Data {
     public List<CardData> cards = new List<CardData>();
     public List<UnitData> chars = new List<UnitData>();
     public List<TeamData> teams = new List<TeamData>();
-    public Dictionary<TaskType, List<TaskData>> tasks;
+    public List<TaskData> tasks = new List<TaskData>();
 
     public UserData(string name = "", string account = "", string password = "") {
       this.name = name;
       this.account = account;
       this.password = password;
-      if(ResourceManager.TryGetMaxAp(lv, out int ret)) {
-        ap = maxAp = ret;
-      } else {
-        ap = maxAp = 30;
-      }
 
-      tasks = DataManager.GetDefaultTasks();
+      ap = maxAp = ResourceManager.Load<int>($"{lv}");
+
+      tasks.AddRange(ResourceManager.LoadAll<TaskData>());
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());

@@ -19,7 +19,7 @@ namespace Yume.Data {
     }
 
     private static PlayMode m_playMode;
-    private static string localUserDBPath {
+    private static string localUserDataPath {
       get {
         return Path.Combine(Application.persistentDataPath, "savedata");
       }
@@ -165,7 +165,7 @@ namespace Yume.Data {
         return s_user.mails;
       }
     }
-    public static Dictionary<TaskType, List<TaskData>> userTasks {
+    public static List<TaskData> userTasks {
       get {
         if (s_user == null) {
           s_user = new UserData();
@@ -177,20 +177,6 @@ namespace Yume.Data {
     #endregion
 
     #region Data
-    public static Dictionary<TaskType, List<TaskData>> GetDefaultTasks() {
-      Dictionary<TaskType, List<TaskData>> defaultTasks = new Dictionary<TaskType, List<TaskData>>();
-
-      foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
-        List<TaskData> tasks = new List<TaskData>();
-        foreach (var info in ResourceManager.GetTaskJsons(type)) {
-          tasks.Add(JsonConvert.DeserializeObject<TaskData>(info.ToString()));
-        }
-        defaultTasks.Add(type, tasks);
-      }
-
-      return defaultTasks;
-    }
-
     public static ItemData GetItem(string id) {
       return userItems.Find(obj => obj.id == id);
     }
@@ -201,11 +187,11 @@ namespace Yume.Data {
     }
 
     public static List<TaskData> GetTaskList(TaskType taskType) {
-      return userTasks[taskType];
+      return userTasks.FindAll(obj => obj.type == taskType);
     }
 
     public static TaskData GetTask(TaskType taskType, string taskId) {
-      return userTasks[taskType].Find(obj => obj.id == taskId);
+      return userTasks.Find(obj => obj.id == taskId && obj.type == taskType);
     }
 
     public static CardData GetCard(int guid) {
@@ -300,29 +286,27 @@ namespace Yume.Data {
 
     #region Task
     private static void _UpdateTaskState(RequestType type, string reqId, int reqCount) {
-      foreach (var taskList in userTasks.Values) {
-        foreach (var task in taskList) {
-          if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
-            foreach (TaskRequestData taskRequest in task.taskRequests) {
-              if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
-                switch (taskRequest.method) {
-                  case Method.ADD: {
-                      taskRequest.currentCount += reqCount > 0 ? reqCount : 0;
-                      break;
-                    }
-                  case Method.CONSUME: {
-                      taskRequest.currentCount += reqCount < 0 ? -reqCount : 0;
-                      break;
-                    }
-                  case Method.HAD: {
-                      _SyncTaskHadCount(taskRequest);
-                      break;
-                    }
-                }
+      foreach (var task in userTasks) {
+        if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
+          foreach (TaskRequestData taskRequest in task.taskRequests) {
+            if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
+              switch (taskRequest.method) {
+                case Method.ADD: {
+                    taskRequest.currentCount += reqCount > 0 ? reqCount : 0;
+                    break;
+                  }
+                case Method.CONSUME: {
+                    taskRequest.currentCount += reqCount < 0 ? -reqCount : 0;
+                    break;
+                  }
+                case Method.HAD: {
+                    _SyncTaskHadCount(taskRequest);
+                    break;
+                  }
               }
             }
-            _CheckTask(task);
           }
+          _CheckTask(task);
         }
       }
       EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
@@ -350,7 +334,7 @@ namespace Yume.Data {
 
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
-          TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(task.type, task.id);
+          TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
           RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
           MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
         } else if (!completed && task.state == TaskState.COMPLETED) {
@@ -378,11 +362,11 @@ namespace Yume.Data {
     public static void CompleteTask(TaskData task) {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
-        TaskTemplate taskTemplate = ResourceManager.GetTaskTemplate(task.type, task.id);
+        TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
         foreach (ItemData item in taskTemplate.taskRewards.items) {
           AddItem(item);
-          ItemTemplate itemTemplate = ResourceManager.GetItemTemplate(item.id);
-          Sprite itemIcon = ResourceManager.LoadAsset<Sprite>(itemTemplate.iconFileName);
+          ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
+          Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
           MessageManager.AddMessage(new Message(Message.Style.FADE,
           string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
@@ -422,7 +406,8 @@ namespace Yume.Data {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
         MessageManager.AddMessage(new Message(Message.Style.FADE, tip));
         _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
-        if (ResourceManager.TryGetMaxAp(userLv, out int maxAp)) {
+        int maxAp = ResourceManager.Load<int>($"{userLv}");
+        if (maxAp > userMaxAp) {
           userMaxAp = maxAp;
           userAp += userMaxAp;
         }
@@ -438,12 +423,12 @@ namespace Yume.Data {
         m_playMode = PlayMode.LOCAL;
         FileStream fs;
         BinaryFormatter bf = new BinaryFormatter();
-        if (File.Exists(localUserDBPath)) {
-          fs = new FileStream(localUserDBPath, FileMode.Open);
+        if (File.Exists(localUserDataPath)) {
+          fs = new FileStream(localUserDataPath, FileMode.Open);
           s_user = (UserData)bf.Deserialize(fs);
         } else {
           s_user = new UserData();
-          fs = File.Open(localUserDBPath, FileMode.Create);
+          fs = File.Open(localUserDataPath, FileMode.Create);
           //序列化     
           bf.Serialize(fs, s_user);
         }
@@ -484,7 +469,7 @@ namespace Yume.Data {
           });
       } else if (m_playMode == PlayMode.LOCAL) {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(localUserDBPath, FileMode.Create);
+        FileStream fs = File.Open(localUserDataPath, FileMode.Create);
         //序列化     
         bf.Serialize(fs, s_user);
         fs.Close();

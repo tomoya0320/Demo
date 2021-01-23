@@ -21,9 +21,9 @@ namespace Yume.AVG {
     private int m_currentTextIndex;
 
     public void StartAVG(string avgName) {
-      var avgJson = ResourceManager.GetAvgJson(avgName);
-      if (avgJson != null) {
-        m_currentTexts = avgJson;
+      var avg = ResourceManager.Load<JArray>(avgName);
+      if (avg != null) {
+        m_currentTexts = avg;
         m_currentTextIndex = -1;
         _MoveToNext();
       } else {
@@ -44,7 +44,7 @@ namespace Yume.AVG {
       if (m_currentTextIndex < m_currentTexts.Count) {
         m_textJObject = m_currentTexts[m_currentTextIndex].Value<JObject>();
         if (m_textJObject.ContainsKey(StringMap.BG)) {
-          _bgImage.sprite = ResourceManager.LoadAsset<Sprite>(
+          _bgImage.sprite = ResourceManager.Load<Sprite>(
                             m_textJObject[StringMap.BG].Value<string>());
         }
         _nameText.text = m_textJObject[StringMap.NAME].Value<string>();

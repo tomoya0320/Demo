@@ -29,8 +29,8 @@ namespace Yume.UI {
       m_charBtn = GetComponent<Button>("char");
       m_cardBtns = new List<Button>(GetGameObject("cards").GetComponentsInChildren<Button>());
       m_teamBtns = new List<YButton>(GetGameObject("team_buttons").GetComponentsInChildren<YButton>());
-      m_noCharSprite = ResourceManager.LoadAsset<Sprite>("noCharSprite");
-      m_noCardSprite = ResourceManager.LoadAsset<Sprite>("noCardSprite");
+      m_noCharSprite = ResourceManager.Load<Sprite>("noCharSprite");
+      m_noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
 
       m_teams = DataManager.userTeams;
 
@@ -101,9 +101,9 @@ namespace Yume.UI {
       for (int i = 0; i < m_cardBtns.Count; i++) {
         if (i < m_curTeam.cardIdList.Count) {
           CardData card = DataManager.GetCard(m_curTeam.cardIdList[i]);
-          CardTemplate cardTemplate = ResourceManager.GetCardTemplate(card.id);
+          CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
-          m_cardBtns[i].image.sprite = ResourceManager.LoadAsset<Sprite>(cardPhase.iconFileName);
+          m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
         } else {
           m_cardBtns[i].image.sprite = m_noCardSprite;
         }
@@ -112,8 +112,8 @@ namespace Yume.UI {
 
     private void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(m_curTeam.charId)) {
-        UnitTemplate charTemplate = ResourceManager.GetUnitTemplate(m_curTeam.charId);
-        m_charBtn.image.sprite = ResourceManager.LoadAsset<Sprite>(charTemplate.portraitFileName);
+        UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(m_curTeam.charId);
+        m_charBtn.image.sprite = ResourceManager.Load<Sprite>(charTemplate.portraitFileName);
       } else {
         m_charBtn.image.sprite = m_noCharSprite;
       }

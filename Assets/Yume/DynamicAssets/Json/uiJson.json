@@ -1,138 +1,138 @@
 {
-  "message_fade": {
-      "name" : "message_fade",
-      "uiType" : "TIP",
-      "typeName" : "Yume.UI.UIMessageTip",
-      "prefabUrl" : "message_fade",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "message_slide": {
-      "name" : "message_slide",
-      "uiType" : "TIP",
-      "typeName" : "Yume.UI.UIMessageTip",
-      "prefabUrl" : "message_slide",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "blackMask": {
-      "name" : "blackMask",
-      "uiType" : "TOP",
-      "typeName" : "Yume.UI.UIMask",
-      "prefabUrl" : "blackMask",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "login": {
-      "name" : "login",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UILogin",
-      "prefabUrl" : "login",
-      "cacheTime" : 10,
-      "isCloseLast" : true
-  },
-  "main": {
-      "name" : "main",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UIMain",
-      "prefabUrl" : "main",
-      "cacheTime" : 10,
-      "isCloseLast" : true
-  },
-  "setting": {
-      "name" : "setting",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UISetting",
-      "prefabUrl" : "setting",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "task": {
-      "name" : "task",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UITask",
-      "prefabUrl" : "task",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "mail": {
-      "name" : "mail",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UIMail",
-      "prefabUrl" : "mail",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "bag": {
-      "name" : "bag",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UIBag",
-      "prefabUrl" : "bag",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "card": {
-      "name" : "card",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UICard",
-      "prefabUrl" : "card",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "char": {
-      "name" : "char",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UIChar",
-      "prefabUrl" : "char",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "char_detail": {
-      "name" : "char_detail",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UICharDetail",
-      "prefabUrl" : "char_detail",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "confirmation": {
-      "name" : "confirmation",
-      "uiType" : "TOP",
-      "typeName" : "Yume.UI.UIConfirmation",
-      "prefabUrl" : "confirmation",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "team": {
-      "name" : "team",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UITeam",
-      "prefabUrl" : "team",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "text_editor": {
-      "name" : "text_editor",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UITextEditor",
-      "prefabUrl" : "text_editor",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "char_choice": {
-      "name" : "char_choice",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UICharChoice",
-      "prefabUrl" : "char_choice",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  },
-  "card_choice": {
-      "name" : "card_choice",
-      "uiType" : "NORMAL",
-      "typeName" : "Yume.UI.UICardChoice",
-      "prefabUrl" : "card_choice",
-      "cacheTime" : 10,
-      "isCloseLast" : false
-  }
+    "message_fade": {
+        "name": "message_fade",
+        "uiType": "TIP",
+        "typeName": "Yume.UI.UIMessageTip",
+        "prefabUrl": "message_fade",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "message_slide": {
+        "name": "message_slide",
+        "uiType": "TIP",
+        "typeName": "Yume.UI.UIMessageTip",
+        "prefabUrl": "message_slide",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "blackMask": {
+        "name": "blackMask",
+        "uiType": "TOP",
+        "typeName": "Yume.UI.UIMask",
+        "prefabUrl": "blackMask",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "login": {
+        "name": "login",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UILogin",
+        "prefabUrl": "login",
+        "cacheTime": 10,
+        "isCloseLast": true
+    },
+    "main": {
+        "name": "main",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UIMain",
+        "prefabUrl": "main",
+        "cacheTime": 10,
+        "isCloseLast": true
+    },
+    "setting": {
+        "name": "setting",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UISetting",
+        "prefabUrl": "setting",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "task": {
+        "name": "task",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UITask",
+        "prefabUrl": "task",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "mail": {
+        "name": "mail",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UIMail",
+        "prefabUrl": "mail",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "bag": {
+        "name": "bag",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UIBag",
+        "prefabUrl": "bag",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "card": {
+        "name": "card",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UICard",
+        "prefabUrl": "card",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "char": {
+        "name": "char",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UIChar",
+        "prefabUrl": "char",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "char_detail": {
+        "name": "char_detail",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UICharDetail",
+        "prefabUrl": "char_detail",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "confirmation": {
+        "name": "confirmation",
+        "uiType": "TOP",
+        "typeName": "Yume.UI.UIConfirmation",
+        "prefabUrl": "confirmation",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "team": {
+        "name": "team",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UITeam",
+        "prefabUrl": "team",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "text_editor": {
+        "name": "text_editor",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UITextEditor",
+        "prefabUrl": "text_editor",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "char_choice": {
+        "name": "char_choice",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UICharChoice",
+        "prefabUrl": "char_choice",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "card_choice": {
+        "name": "card_choice",
+        "uiType": "NORMAL",
+        "typeName": "Yume.UI.UICardChoice",
+        "prefabUrl": "card_choice",
+        "cacheTime": 10,
+        "isCloseLast": false
+    }
 }
