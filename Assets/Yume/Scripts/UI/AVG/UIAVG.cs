@@ -144,6 +144,9 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("DoOperation").onClick.AddListener(_DoOperation);
+      GetComponent<Button>("skip").onClick.AddListener(() => {
+        UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", new Action(_QuitAVG), null);
+      });
     }
 
     public override void Open(Action callback = null, params object[] args) {
@@ -192,8 +195,12 @@ namespace Yume.UI {
           operatio.DoOperation(this);
         }
       } else {
-        UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
+        _QuitAVG();
       }
+    }
+
+    private void _QuitAVG() {
+      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
     }
 
     public override void Close(Action callback = null, params object[] args) {
