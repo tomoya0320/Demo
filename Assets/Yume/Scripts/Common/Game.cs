@@ -2,10 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.AVG;
-using Yume.Data;
 using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.UI;
+using Yume.Data;
 
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
@@ -31,10 +31,13 @@ namespace Yume.Main {
 
     protected override void OnInit() {
       _goToLoginBtn.onClick.AddListener(() => {
-        UIManager.OpenOne("blackMask", () => {
+        Vector2 clickPos = new Vector2 {
+          x = Input.mousePosition.x / Screen.width,
+          y = Input.mousePosition.y / Screen.height
+        };
+        UIManager.OpenOne("globalBlackFade", () => {
           Destroy(_initPanel);
           UIManager.OpenOne("login");
-          UIManager.CloseOne("blackMask");
         });
       });
       _initProcessImg.fillAmount = 0;
@@ -43,6 +46,7 @@ namespace Yume.Main {
     }
 
     private IEnumerator _InitAll() {
+      // first
       yield return ResourceManager.Init();
 
       UIManager.Init();

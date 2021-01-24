@@ -2,12 +2,12 @@
 
 Shader "PostEffect/GrayScale"
 {
-    Properties{
+  Properties{
     _MainTex("MainTex",2D)="white"{}
-    }
+  }
 
-    SubShader{
-      Pass{
+  SubShader{
+    Pass{
       ZTest Always
       Cull Off
       ZWrite Off
@@ -45,6 +45,6 @@ Shader "PostEffect/GrayScale"
       }
 
       ENDCG
-      }
     }
+  }
 }

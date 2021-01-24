@@ -112,10 +112,9 @@ namespace Yume.UI {
     private void _GoToMain(JObject json = null) {
       DataManager.LoadUserDB(json);
       RedPointManager.InitData();
-      UIManager.OpenOne("blackMask", () => {
-        UIManager.CloseOne("blackMask");
+      UIManager.OpenOne("globalCircleBlackFade", () => {
         UIManager.CloseAllAndOpenOne("main");
-      });
+      }, MathUtil.mousePosNormalized);
     }
 
     private void _ClearInput() {

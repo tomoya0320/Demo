@@ -6,12 +6,12 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.Data;
 using Yume.Resource;
 
 public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
   public const int MAX_CARD_COUNT = 12;
+  public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
 }
 
 public static class Colors {
@@ -230,6 +230,9 @@ public static class StringUtil {
 }
 
 public static class MathUtil {
+  public static Vector2 mousePos => Input.mousePosition;
+  public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
+
   /// <summary>
   /// 在XOZ平面上旋转一个Vector3
   /// </summary>

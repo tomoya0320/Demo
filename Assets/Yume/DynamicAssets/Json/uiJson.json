@@ -15,11 +15,19 @@
         "cacheTime": 10,
         "isCloseLast": false
     },
-    "blackMask": {
-        "name": "blackMask",
+    "globalBlackFade": {
+        "name": "globalBlackFade",
         "uiType": "TOP",
-        "typeName": "Yume.UI.UIMask",
-        "prefabUrl": "blackMask",
+        "typeName": "Yume.UI.UIGlobalFade",
+        "prefabUrl": "globalBlackFade",
+        "cacheTime": 10,
+        "isCloseLast": false
+    },
+    "globalCircleBlackFade": {
+        "name": "globalCircleBlackFade",
+        "uiType": "TOP",
+        "typeName": "Yume.UI.UIGlobalCircleBlackFade",
+        "prefabUrl": "globalCircleBlackFade",
         "cacheTime": 10,
         "isCloseLast": false
     },

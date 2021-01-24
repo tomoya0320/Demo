@@ -57,9 +57,8 @@ namespace Yume.AVG {
     }
 
     private void _QuitAVGScene() {
-      UIManager.OpenOne("blackMask", () => {
+      UIManager.OpenOne("globalBlackFade", () => {
         Destroy(gameObject);
-        UIManager.CloseOne("blackMask");
       });
     }
   }

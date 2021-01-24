@@ -36,11 +36,11 @@ namespace Yume.UI {
 
     public static void Init() {
       ObjectContainer uiRootObject = Game.instance.uiRootObject;
+      s_interactionMask = uiRootObject.GetGameObject("InteractMask");
       topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
       tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
       cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
       normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
-      s_interactionMask = uiRootObject.GetGameObject("InteractionMask");
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_uiStackDict.Add(type, new Stack<UIBase>());
