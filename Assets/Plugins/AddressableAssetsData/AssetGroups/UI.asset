@@ -10,20 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UI Prefab
+  m_Name: UI
   m_EditorClassIdentifier: 
-  m_GroupName: UI Prefab
+  m_GroupName: UI
   m_Data:
     m_SerializedData: []
   m_GUID: d679860c5f387974b9b25e18faedc080
   m_SerializeEntries:
-  - m_GUID: dc24b4ef291ccee4f87ea5520bf0c8ab
-    m_Address: avg
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: aafbb5acf1c195c4884ea769f4676db0
     m_Address: bag
     m_ReadOnly: 0
@@ -36,8 +29,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2612420339400026366, guid: eb4a4fe068075b443a33395bd5d99102, type: 3}
-    m_TargetAsset: {fileID: 2612420339400026366, guid: eb4a4fe068075b443a33395bd5d99102, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 760b7b905f07e2b4da15b81a3e1598aa
     m_Address: card
     m_ReadOnly: 0
@@ -50,8 +43,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 5874671052253434715, guid: 1b842d1ce21e2194ea52dc36a0aa0d04, type: 3}
-    m_TargetAsset: {fileID: 5874671052253434715, guid: 1b842d1ce21e2194ea52dc36a0aa0d04, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 82f90768bfd59f844bb5d3e33e4d2cf9
     m_Address: char
     m_ReadOnly: 0
@@ -127,8 +120,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 9028042775060224594, guid: a6bb64c9ea84c9947b02ecdb17bd61a6, type: 3}
-    m_TargetAsset: {fileID: 9028042775060224594, guid: a6bb64c9ea84c9947b02ecdb17bd61a6, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: b7229273a71fd2342a4fa731af72ece5
     m_Address: task
     m_ReadOnly: 0
@@ -155,8 +148,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 5318362762920329432, guid: fba92a444f2800e41afca3e6f8a5db76, type: 3}
-    m_TargetAsset: {fileID: 5318362762920329432, guid: fba92a444f2800e41afca3e6f8a5db76, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dc24b4ef291ccee4f87ea5520bf0c8ab
+    m_Address: avg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 559400990073914152, guid: dc24b4ef291ccee4f87ea5520bf0c8ab, type: 3}
+    m_TargetAsset: {fileID: 559400990073914152, guid: dc24b4ef291ccee4f87ea5520bf0c8ab, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

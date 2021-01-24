@@ -5,10 +5,10 @@ using Yume.UI;
 
 namespace Yume.Audio {
   public class BGMManager {
-    private AudioSource m_audioSource;
     private Tween m_tween;
     private float m_value;
     private float m_switch;
+    private AudioSource m_audioSource;
     private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
     private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
 
@@ -16,7 +16,7 @@ namespace Yume.Audio {
       m_audioSource = audioSource;
       if (!PlayerPrefs.HasKey(m_valueKey)) {
         PlayerPrefs.SetInt(m_valueKey, 100);
-      }    
+      }
       if (!PlayerPrefs.HasKey(m_switchKey)) {
         PlayerPrefs.SetInt(m_switchKey, 1);
       }
@@ -33,20 +33,22 @@ namespace Yume.Audio {
       if (m_tween != null) {
         m_tween.Complete();
       }
-      m_tween = m_audioSource.DOFade(0, fadeTime).OnComplete(() => {
-        m_audioSource.Stop();
-        m_tween = null;
-        onCompleted?.Invoke();
-      });
+      m_tween = m_audioSource
+                  .DOFade(0, fadeTime)
+                  .OnComplete(() => {
+                    m_tween = null;
+                    m_audioSource.Stop();
+                    onCompleted?.Invoke();
+                  });
     }
 
     public void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
       StopBgm(() => {
         m_audioSource.clip = audioClip;
         m_audioSource.Play();
-        m_tween = m_audioSource.DOFade(m_switch * m_value, fadeTime).OnComplete(() => {
-          m_tween = null;
-        });
+        m_tween = m_audioSource
+                    .DOFade(m_switch * m_value, fadeTime)
+                    .OnComplete(() => m_tween = null);
       });
     }
   }

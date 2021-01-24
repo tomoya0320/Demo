@@ -1,19 +1,92 @@
 {
   "test1": [
-    {
-      "bg": "avg_bg1",
-      "name": "???",
-      "dialogue": "我是谁？"
-    },
-    {
-      "bg": "avg_bg2",
-      "name": "???",
-      "dialogue": "我在哪？"
-    },
-    {
-      "bg": "avg_bg3",
-      "name": "习大大",
-      "dialogue": "习近平新时代中国特色社会主义思想是引领中国、影响世界的当代中国马克思主义、21世纪马克思主义，\n是新时代指引党和国家事业发展的思想旗帜。"
-    }
+    [
+      {
+        "type": "Yume.UI.UIAVG+SetDialogueVisible",
+        "rawData": {
+          "visible": false,
+          "fadeTime": 0,
+          "onFadeCompleted": []
+        }
+      },
+      {
+        "type": "Yume.UI.UIAVG+SetBackground",
+        "rawData": {
+          "bg": "avg_bg1",
+          "fadeTime": 0,
+          "onFadeCompleted": []
+        }
+      },
+      {
+        "type": "Yume.UI.UIAVG+SetIllustration",
+        "rawData": {
+          "illustration": "char_101_sora_summer",
+          "fadeTime": 0.5,
+          "onFadeCompleted": []
+        }
+      }
+    ],
+    [
+      {
+        "type": "Yume.UI.UIAVG+SetIllustrationVisible",
+        "rawData": {
+          "visible": false,
+          "fadeTime": 0.5,
+          "onFadeCompleted": []
+        }
+      },
+      {
+        "type": "Yume.UI.UIAVG+SetBackground",
+        "rawData": {
+          "bg": "avg_bg2",
+          "fadeTime": 1.0,
+          "onFadeCompleted": [
+            {
+              "type": "Yume.UI.UIAVG+SetIllustration",
+              "rawData": {
+                "illustration": "char_164_nightm_epoque#5b",
+                "fadeTime": 0.5,
+                "onFadeCompleted": []
+              }
+            },
+            {
+              "type": "Yume.UI.UIAVG+SetDialogueVisible",
+              "rawData": {
+                "visible": true,
+                "fadeTime": 0.5,
+                "onFadeCompleted": [
+                  {
+                    "type": "Yume.UI.UIAVG+SetDialogue",
+                    "rawData": {
+                      "name": "测试",
+                      "dialogue": "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type": "Yume.UI.UIAVG+SetIllustrationVisible",
+        "rawData": {
+          "visible": false,
+          "fadeTime": 0.5,
+          "onFadeCompleted": [
+            {
+              "type": "Yume.UI.UIAVG+SetBackground",
+              "rawData": {
+                "bg": "avg_bg3",
+                "fadeTime": 1.0,
+                "onFadeCompleted": []
+              }
+            }
+          ]
+        }
+      }
+    ]
   ]
 }

@@ -19,7 +19,10 @@ namespace Yume.UI {
     }
 
     public void SetTextContent(string content) {
-      m_tween?.Kill();
+      if (m_tween != null) {
+        m_tween.Kill();
+        m_tween = null;
+      }
       m_textComponent.text = content;
       LayoutRebuilder.ForceRebuildLayoutImmediate(m_textRectTransform);
       float endValue = m_textRectTransform.rect.height - m_rectTransform.rect.height;

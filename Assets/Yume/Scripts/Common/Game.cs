@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.AVG;
 using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.UI;
@@ -80,8 +79,9 @@ namespace Yume.Main {
       }
 
       if (Input.GetKeyDown(KeyCode.G)) {
-        Instantiate(ResourceManager.Load<GameObject>("avg"), UIManager.topCanvas);
-        AVGController.instance.StartAVG("test1");
+        UIManager.OpenOne("globalBlackFade", () => {
+          UIManager.OpenOne("avg", null, "test1");
+        });
       }
 
       if (Input.GetKeyDown(KeyCode.C)) {

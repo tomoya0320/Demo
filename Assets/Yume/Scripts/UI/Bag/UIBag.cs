@@ -83,7 +83,7 @@ namespace Yume.UI {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
 
         m_itemList = DataManager.userItems;
-        m_noItemSprite = ResourceManager.Load<Sprite>("noItemSprite");
+        m_noItemSprite = ResourceManager.Load<Sprite>("noSprite");
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));

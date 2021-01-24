@@ -59,19 +59,19 @@ namespace Yume.UI {
       }
 
       private void _ChangeSwitch() {
-        PlayerPrefs.SetInt(switchKey, (PlayerPrefs.GetInt(switchKey) + 1) % 2);
-        Color tempColor = m_closeText.color;
-        m_closeText.color = m_openText.color;
-        m_openText.color = tempColor;
-        m_switchSliderMoveDist *= -1.0f;
+        if (m_tween == null) {
+          PlayerPrefs.SetInt(switchKey, (PlayerPrefs.GetInt(switchKey) + 1) % 2);
+          Color tempColor = m_closeText.color;
+          m_closeText.color = m_openText.color;
+          m_openText.color = tempColor;
+          m_switchSliderMoveDist *= -1.0f;
+          m_tween = m_switchRectTransform
+                      .DOAnchorPosX(m_switchSliderMoveDist, 0.15f)
+                      .SetRelative()
+                      .OnComplete(() => m_tween = null);
 
-        if (m_tween != null) {
-          m_tween.Complete();
+          _UpdateState();
         }
-        m_tween = m_switchRectTransform.DOAnchorPosX(m_switchSliderMoveDist, 0.15f).SetRelative().OnComplete(() => {
-          m_tween = null;
-        });
-        _UpdateState();
       }
 
       private void _ChangeValue(float _) {
