@@ -149,9 +149,14 @@ namespace Yume.UI {
     }
 
     public override void Close(Action callback = null, params object[] args) {
-      base.Close(callback, args);
+      callback += () => {
+        _CleanUp();
+        m_onQuitAVG?.Invoke();
+        UIManager.onBackStack.Pop();
+        AudioManager.instance.PlayBgm(m_beforeBgmName);
+      };
 
-      UIManager.onBackStack.Pop();
+      base.Close(callback, args);
     }
 
     private void _SkipAVG() {
@@ -203,14 +208,25 @@ namespace Yume.UI {
     }
 
     private void _QuitAVG() {
-      UIManager.OpenOne("globalBlackFade", () => {
-        m_onQuitAVG?.Invoke();
-        UIManager.CloseOne(name);
-        AudioManager.instance.PlayBgm(m_beforeBgmName);
-      });
+      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
     }
 
     private void _InitAVG(string avgName, Action onQuitAVG) {
+      m_beforeBgmName = AudioManager.instance.GetCurrentBgmName();
+      JArray arrayArray = ResourceManager.Load<JArray>(avgName);
+      m_avgOperations = _InitAVGOperations(arrayArray);
+      m_onQuitAVG = onQuitAVG;
+    }
+
+    private void _CleanUp() {
+      if (m_tweenList.Count > 0) {
+        foreach (var tween in m_tweenList) {
+          tween?.Kill();
+        }
+        m_tweenList.Clear();
+      }
+
+      m_block = 0;
       m_bgImage.sprite = null;
       m_illustration.SetAlpha(0);
       m_illustration.sprite = null;
@@ -218,11 +234,6 @@ namespace Yume.UI {
       m_dialogueCanvasGroup.alpha = 0;
       m_nameText.text = StringMap.EMPTY;
       m_dialogueText.text = StringMap.EMPTY;
-      m_beforeBgmName = AudioManager.instance.GetCurrentBgmName();
-
-      m_onQuitAVG = onQuitAVG;
-      JArray arrayArray = ResourceManager.Load<JArray>(avgName);
-      m_avgOperations = _InitAVGOperations(arrayArray);
     }
   }
 }
