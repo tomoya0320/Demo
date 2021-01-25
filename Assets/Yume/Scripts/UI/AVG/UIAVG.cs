@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
+using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -135,10 +136,8 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
+      GetComponent<Button>("skip").onClick.AddListener(SkipAVG);
       GetComponent<Button>("DoOperation").onClick.AddListener(_DoOperation);
-      GetComponent<Button>("skip").onClick.AddListener(() => {
-        UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", new Action(_QuitAVG), null);
-      });
     }
 
     public override void Open(Action callback = null, params object[] args) {
@@ -146,6 +145,14 @@ namespace Yume.UI {
 
       _InitAVG((string)args[0], args[1] as Action);
       _DoOperation();
+    }
+
+    public void SkipAVG() {
+      if (UIManager.IsShowing("confirmation")) {
+        UIManager.CloseOne("confirmation");
+      } else {
+        UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", new Action(_QuitAVG), null);
+      }
     }
 
     private AVGOperation _GetAVGOperation(JToken data) {

@@ -16,7 +16,6 @@ namespace Yume.UI {
     public string typeName;
     public string prefabUrl;
     public float cacheTime;
-    public bool isCloseLast;
   }
 
   public static class UIManager {
@@ -48,6 +47,8 @@ namespace Yume.UI {
       }
 
       Register(ResourceManager.LoadAll<UIData>());
+
+      Game.instance.onBack += _Back;
     }
 
     public static void OnUpdate() {
@@ -110,14 +111,7 @@ namespace Yume.UI {
       if (s_uiDataDict.ContainsKey(name)) {
         var data = s_uiDataDict[name];
         var stack = s_uiStackDict[data.uiType];
-
-        if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Close(() => {
-            _OpenInternal(data, stack, callback, args);
-          });
-        } else {
-          _OpenInternal(data, stack, callback, args);
-        }
+        _OpenInternal(data, stack, callback, args);
       } else {
         Debug.LogError($"UI未注册！name：{name}");
       }
@@ -213,16 +207,12 @@ namespace Yume.UI {
     /// <summary>
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
-    public static void Back() {
+    private static void _Back() {
       if (activeBack) {
-        if (isShowing("confirmation")) {
-          CloseOne("confirmation");
+        if (s_uiStackDict[UIType.NORMAL].Count > 1) {
+          CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
         } else {
-          if (s_uiStackDict[UIType.NORMAL].Count > 1) {
-            CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
-          } else {
-            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", s_quitGame, null);
-          }
+          OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", s_quitGame, null);
         }
       }
     }
@@ -232,7 +222,7 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static bool isShowing(string name) {
+    public static bool IsShowing(string name) {
       foreach (var stack in s_uiStackDict.Values) {
         foreach (var ui in stack) {
           if (ui.name == name) {
@@ -252,10 +242,6 @@ namespace Yume.UI {
       Action action = () => {
         //回收
         s_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
-        //选择性打开上一个UI
-        if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Open();
-        }
       };
       callback = action + callback;
 

@@ -5,6 +5,8 @@ using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
+using System;
+using System.Collections.Generic;
 
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
@@ -27,6 +29,7 @@ namespace Yume.Main {
         _initProcessImg.gameObject.SetActiveEx(value < 1.0f);
       }
     }
+    public event Action onBack;
 
     protected override void OnInit() {
       _goToLoginBtn.onClick.AddListener(() => {
@@ -56,7 +59,7 @@ namespace Yume.Main {
       UIManager.OnUpdate();
 
       if (Input.GetKeyDown(KeyCode.Escape)) {
-        UIManager.Back();
+        onBack?.Invoke();
       }
 
 #if TEST
