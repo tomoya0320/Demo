@@ -33,7 +33,8 @@ namespace Yume.UI {
       m_noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
 
       m_teams = DataManager.userTeams;
-      m_curTeamIdx = m_teams.FindIndex(t => t.isSelected);
+      m_curTeamIdx = DataManager.userTeamIndex;
+      m_teamBtns[m_curTeamIdx].image.color = Color.blue;
 
       _AddListener();
       _OnRefreshChar();
@@ -77,7 +78,7 @@ namespace Yume.UI {
         m_curTeamIdx = newIdx;
         m_teamBtns[m_curTeamIdx].image.color = Color.blue;
 
-        DataManager.ChangeTeamSelect(lastTeam, m_curTeam);
+        DataManager.ChangeTeamIndex(m_curTeamIdx);
 
         _OnRefreshChar();
         _OnRefreshCards();

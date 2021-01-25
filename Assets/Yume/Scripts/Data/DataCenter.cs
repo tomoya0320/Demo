@@ -212,7 +212,6 @@ namespace Yume.Data {
   [Serializable]
   public class TeamData {
     public string charId;
-    public bool isSelected;
     public string name = "Ä¬ÈÏ¶ÓÎéÃû";
     public List<int> cardGuidList = new List<int>();
   }
@@ -225,6 +224,7 @@ namespace Yume.Data {
     public int maxAp;
     public string name;
     public int validGuid;
+    public int teamIndex;
     public string account;
     public string password;
     public List<MailData> mails = new List<MailData>();
@@ -246,7 +246,6 @@ namespace Yume.Data {
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());
       }
-      teams[0].isSelected = true;
 
 #if TEST
       if (string.IsNullOrEmpty(name)) {

@@ -121,6 +121,22 @@ namespace Yume.Data {
         return s_user.exp;
       }
     }
+    public static int userTeamIndex {
+      private set {
+        if (s_user == null) {
+          s_user = new UserData();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        s_user.teamIndex = value;
+      }
+      get {
+        if (s_user == null) {
+          s_user = new UserData();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        return s_user.teamIndex;
+      }
+    }
     public static List<ItemData> userItems {
       get {
         if (s_user == null) {
@@ -427,9 +443,8 @@ namespace Yume.Data {
     #endregion
 
     #region Team
-    public static void ChangeTeamSelect(TeamData lastTeam, TeamData newTeam) {
-      lastTeam.isSelected = false;
-      newTeam.isSelected = true;
+    public static void ChangeTeamIndex(int newTeamIndex) {
+      userTeamIndex = newTeamIndex;
       s_saveDataTypes.Add("teams");
     }
 
