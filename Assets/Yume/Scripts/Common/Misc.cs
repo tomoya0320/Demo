@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -310,7 +311,7 @@ public static class MathUtil {
   }
 }
 
-public abstract class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T> {
+public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : SingletonMono<T> {
   private static T s_instance;
 
   public static T instance {

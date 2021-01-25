@@ -173,17 +173,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectKVList:
-  - name: TopCanvas
-    gameObject: {fileID: 1696280219}
-  - name: TipCanvas
-    gameObject: {fileID: 431500162}
-  - name: CacheCanvas
-    gameObject: {fileID: 1532161703}
-  - name: NormalCanvas
-    gameObject: {fileID: 699907437}
-  - name: InteractMask
-    gameObject: {fileID: 853665333}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 853665333}
+    - {fileID: 1696280219}
+    - {fileID: 431500162}
+    - {fileID: 1532161703}
+    - {fileID: 699907437}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _objectDict
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.GameObject,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: InteractMask
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: TopCanvas
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: TipCanvas
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: CacheCanvas
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: NormalCanvas
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &322619632
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +448,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &431500165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +677,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38f79f470c8cdf4286f8dd47f837416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _uiRootObject: {fileID: 63756148}
   _goToLoginBtn: {fileID: 1244739855}
   _initProcessImg: {fileID: 1671591908}
@@ -1015,7 +1107,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &853665337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,7 +1997,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1532161706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,5 +2565,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0655f47e20faf5841bbc1057c40ad70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _bgmAudioSource: {fileID: 693098951}
   _soundFolder: {fileID: 4508023519448360766}

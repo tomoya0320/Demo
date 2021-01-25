@@ -561,33 +561,204 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9526fd8d82c8545aea8491cce9982c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectKVList:
-  - name: ApText
-    gameObject: {fileID: 5503095573371546012}
-  - name: LvText
-    gameObject: {fileID: 8822092641842038165}
-  - name: ExpImage
-    gameObject: {fileID: 1700980145584541288}
-  - name: NameText
-    gameObject: {fileID: 8822092642496068433}
-  - name: GoldNumText
-    gameObject: {fileID: 5503095572874232311}
-  - name: DiamondNumText
-    gameObject: {fileID: 5503095572161043405}
-  - name: Bag
-    gameObject: {fileID: 1700980146765980991}
-  - name: Task
-    gameObject: {fileID: 1700980145103121397}
-  - name: Card
-    gameObject: {fileID: 1700980145166656957}
-  - name: Char
-    gameObject: {fileID: 6168878873714815477}
-  - name: Mail
-    gameObject: {fileID: 1700980146099428318}
-  - name: Team
-    gameObject: {fileID: 5158326591377199946}
-  - name: Setting
-    gameObject: {fileID: 1700980146285782221}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 5503095573371546012}
+    - {fileID: 8822092641842038165}
+    - {fileID: 1700980145584541288}
+    - {fileID: 8822092642496068433}
+    - {fileID: 5503095572874232311}
+    - {fileID: 5503095572161043405}
+    - {fileID: 1700980146765980991}
+    - {fileID: 1700980145103121397}
+    - {fileID: 1700980145166656957}
+    - {fileID: 6168878873714815477}
+    - {fileID: 1700980146099428318}
+    - {fileID: 5158326591377199946}
+    - {fileID: 1700980146285782221}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _objectDict
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.GameObject,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 13
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: ApText
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: LvText
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: ExpImage
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: NameText
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: GoldNumText
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: DiamondNumText
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Bag
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Task
+    - Name: $v
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Card
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Char
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Mail
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Team
+    - Name: $v
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Setting
+    - Name: $v
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &1700980145584541288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3011,6 +3182,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
 --- !u!114 &4853642672453460184 stripped
@@ -3124,6 +3299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
 --- !u!224 &2969074301090007411 stripped
@@ -3226,6 +3405,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
 --- !u!224 &2414924416194928799 stripped

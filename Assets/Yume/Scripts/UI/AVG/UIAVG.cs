@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
-using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {

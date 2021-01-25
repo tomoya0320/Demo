@@ -1,17 +1,11 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Yume.UI {
-  public class ObjectContainer : MonoBehaviour {
-    [Serializable]
-    public class ObjectKV {
-      public string name;
-      public GameObject gameObject;
-    }
-
-    [SerializeField]
-    private List<ObjectKV> _objectKVList;  
+  public class ObjectContainer : SerializedMonoBehaviour {
+    [SerializeField, DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "GameObject")]
+    private Dictionary<string, GameObject> _objectDict;
 
     public T GetComponent<T>(string objName) where T : Component {
       var obj = GetGameObject(objName);
@@ -23,8 +17,10 @@ namespace Yume.UI {
     }
 
     public GameObject GetGameObject(string objName) {
-      var result = _objectKVList.Find(obj => obj.name == objName);
-      return result?.gameObject;
+      if (_objectDict.ContainsKey(objName)) {
+        return _objectDict[objName];
+      }
+      return null;
     }
   }
 }
