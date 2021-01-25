@@ -59,33 +59,54 @@ namespace Yume.Main {
       if (Input.GetKeyDown(KeyCode.Escape)) {
         UIManager.Back();
       }
+    }
+
+    private void LateUpdate() {
+      // 同步数据用
+      DataManager.OnLateUpdate();
+    }
 
 #if TEST
-      if (Input.GetKeyDown(KeyCode.W)) {
+    private bool m_isShowCheat = true;
+
+    private void OnGUI() {
+      if (!DataManager.isLogged) {
+        return;
+      }
+
+      if (GUILayout.Button("作弊指令", GUILayout.Width(300), GUILayout.Height(100))) {
+        m_isShowCheat = !m_isShowCheat;
+      }
+
+      if (!m_isShowCheat) {
+        return;
+      }
+
+      if (GUILayout.Button("增加金币", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddItem(new ItemData("item_2_gold", 1000));
       }
 
-      if (Input.GetKeyDown(KeyCode.E)) {
+      if (GUILayout.Button("消耗金币", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.ConsumeItem(new ItemData("item_2_gold", 10000));
       }
 
-      if (Input.GetKeyDown(KeyCode.R)) {
+      if (GUILayout.Button("增加经验", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddExp(300);
       }
 
-      if (Input.GetKeyDown(KeyCode.Y)) {
+      if (GUILayout.Button("增加邮件", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddMail(new MailData("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemData("item_1_diamond", 1000)));
         DataManager.AddMail(new MailData("Test Title2", "You are alone", "admin", new ItemData("item_1_diamond", 2000), new ItemData("item_2_gold", 30000)));
         DataManager.AddMail(new MailData("Test Title3", "I love {0}", "wzb", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
       }
 
-      if (Input.GetKeyDown(KeyCode.G)) {
+      if (GUILayout.Button("进入测试avg", GUILayout.Width(300), GUILayout.Height(100))) {
         UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.OpenOne("avg", null, "test1", new System.Action(() => Debug.Log("test1结束")));
+          UIManager.OpenOne("avg", null, "test1", new Action(() => Debug.Log("test1结束")));
         });
       }
 
-      if (Input.GetKeyDown(KeyCode.C)) {
+      if (GUILayout.Button("增加角色和卡牌", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddCharacter(new UnitData("char_001_brave", 0, 0));
         DataManager.AddCharacter(new UnitData("char_002_wzb", 0, 0));
 
@@ -106,12 +127,7 @@ namespace Yume.Main {
         DataManager.AddCard(new CardData("card_001_atk", 0));
         DataManager.AddCard(new CardData("card_001_atk", 1));
       }
+    }
 #endif
-    }
-
-    private void LateUpdate() {
-      // 同步数据用
-      DataManager.OnLateUpdate();
-    }
   }
 }
