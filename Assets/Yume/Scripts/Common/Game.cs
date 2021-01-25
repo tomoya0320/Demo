@@ -80,7 +80,7 @@ namespace Yume.Main {
 
       if (Input.GetKeyDown(KeyCode.G)) {
         UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.OpenOne("avg", null, "test1");
+          UIManager.OpenOne("avg", null, "test1", new System.Action(() => Debug.Log("test1结束")));
         });
       }
 

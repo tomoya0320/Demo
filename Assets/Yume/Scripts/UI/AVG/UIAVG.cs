@@ -117,6 +117,7 @@ namespace Yume.UI {
     #endregion
 
     private int m_block;
+    private Action m_onQuitAVG;
     private string m_beforeBgmName;
     private Queue<Queue<AVGOperation>> m_avgOperations;
     private List<Tween> m_tweenList = new List<Tween>();
@@ -143,7 +144,7 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
 
-      _InitAVG((string)args[0]);
+      _InitAVG((string)args[0], args[1] as Action);
       _DoOperation();
     }
 
@@ -189,12 +190,13 @@ namespace Yume.UI {
 
     private void _QuitAVG() {
       UIManager.OpenOne("globalBlackFade", () => {
+        m_onQuitAVG?.Invoke();
         UIManager.CloseOne(name);
         AudioManager.instance.PlayBgm(m_beforeBgmName);
       });
     }
 
-    private void _InitAVG(string avgName) {
+    private void _InitAVG(string avgName, Action onQuitAVG) {
       m_bgImage.sprite = null;
       m_illustration.SetAlpha(0);
       m_illustration.sprite = null;
@@ -204,6 +206,7 @@ namespace Yume.UI {
       m_dialogueText.text = StringMap.EMPTY;
       m_beforeBgmName = AudioManager.instance.GetCurrentBgmName();
 
+      m_onQuitAVG = onQuitAVG;
       JArray arrayArray = ResourceManager.Load<JArray>(avgName);
       m_avgOperations = _InitAVGOperations(arrayArray);
     }
