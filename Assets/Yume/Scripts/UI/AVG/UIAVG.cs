@@ -1,29 +1,34 @@
 ﻿using DG.Tweening;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Audio;
 using Yume.Resource;
 
 namespace Yume.UI {
   public class UIAVG : UIBase {
     #region AVGOperation
+    #region 无过渡的
     private abstract class AVGOperation {
+      protected UIAVG avg;
       protected Dictionary<string, string> dataDict = new Dictionary<string, string>();
 
-      public AVGOperation Init(JObject rawData) {
+      public AVGOperation Init(UIAVG avg, JObject rawData) {
+        this.avg = avg;
         foreach (var kv in rawData) {
           dataDict.Add(kv.Key, kv.Value.ToString());
         }
         return this;
       }
 
-      public abstract void DoOperation(UIAVG avg);
+      public abstract void DoOperation();
     }
 
     private class SetDialogue : AVGOperation {
-      public override void DoOperation(UIAVG avg) {
+      public override void DoOperation() {
         avg.m_nameText.text = dataDict["name"];
         avg.m_dialogueText.text = StringMap.EMPTY;
         Tween tween = avg.m_dialogueText.DOText(dataDict["dialogue"], 20.0f).SetSpeedBased();
@@ -32,90 +37,75 @@ namespace Yume.UI {
       }
     }
 
-    private abstract class AVGOperationWithFade : AVGOperation {
-      protected float fadeTime;
+    private class SetBackground : AVGOperation {
+      public override void DoOperation() {
+        avg.m_bgImage.sprite = ResourceManager.Load<Sprite>(dataDict["bg"]);
+      }
+    }
 
-      public override void DoOperation(UIAVG avg) {
+    private class SetIllustration : AVGOperation {
+      public override void DoOperation() {
+        avg.m_illustration.sprite = ResourceManager.Load<Sprite>(dataDict["illustration"]);
+      }
+    }
+
+    private class PlayBgm : AVGOperation {
+      public override void DoOperation() {
+        AudioManager.instance.PlayBgm(dataDict["bgm"]);
+      }
+    }
+
+    private class PlaySound : AVGOperation {
+      public override void DoOperation() {
+        AudioManager.instance.PlaySound(dataDict["sound"]);
+      }
+    }
+    #endregion
+
+    #region 有过渡的
+    private abstract class AVGFadeOperation : AVGOperation {
+      public override void DoOperation() {
         avg.m_block++;
-        fadeTime = float.Parse(dataDict["fadeTime"]);
+        Tween tween = DOTween(float.Parse(dataDict["fadeTime"]));
+        tween.OnComplete(() => {
+          avg.m_tweenList.Remove(tween);
+          OnFadeCompleted();
+        });
+        avg.m_tweenList.Add(tween);
       }
 
-      protected void OnFadeCompleted(UIAVG avg) {
+      protected abstract Tween DOTween(float fadeTime);
+
+      protected void OnFadeCompleted() {
         foreach (var item in JArray.Parse(dataDict["onFadeCompleted"])) {
           AVGOperation operation = avg._GetAVGOperation(item);
-          operation.DoOperation(avg);
+          operation.DoOperation();
         }
         avg.m_block--;
       }
     }
 
-    private class SetBackground : AVGOperationWithFade {
-      public override void DoOperation(UIAVG avg) {
-        base.DoOperation(avg);
-
-        Tween fadeIn = avg.m_bgImage.DOColor(Color.black, fadeTime);
-        fadeIn.OnComplete(() => {
-          avg.m_tweenList.Remove(fadeIn);
-          avg.m_bgImage.sprite = ResourceManager.Load<Sprite>(dataDict["bg"]);
-
-          Tween fadeOut = avg.m_bgImage.DOColor(Color.white, fadeTime);
-          fadeOut.OnComplete(() => {
-            avg.m_tweenList.Remove(fadeOut);
-            OnFadeCompleted(avg);
-          });
-          avg.m_tweenList.Add(fadeOut);
-        });
-        avg.m_tweenList.Add(fadeIn);
-      }
-    }
-
-    private class SetDialogueVisible : AVGOperationWithFade {
-      public override void DoOperation(UIAVG avg) {
-        base.DoOperation(avg);
-
+    private class SetDialogueVisible : AVGFadeOperation {
+      protected override Tween DOTween(float fadeTime) {
         float alpha = bool.Parse(dataDict["visible"]) ? 1.0f : 0;
-        Tween tween = avg.m_dialogueCanvasGroup.DOFade(alpha, fadeTime);
-        tween.OnComplete(() => {
-          avg.m_tweenList.Remove(tween);
-          OnFadeCompleted(avg);
-        });
-        avg.m_tweenList.Add(tween);
+        return avg.m_dialogueCanvasGroup.DOFade(alpha, fadeTime);
       }
-    }  
-    
-    private class SetIllustrationVisible : AVGOperationWithFade {
-      public override void DoOperation(UIAVG avg) {
-        base.DoOperation(avg);
+    }
 
+    private class SetIllustrationVisible : AVGFadeOperation {
+      protected override Tween DOTween(float fadeTime) {
         float alpha = bool.Parse(dataDict["visible"]) ? 1.0f : 0;
-        Tween tween = avg.m_illustration.DOFade(alpha, fadeTime);
-        tween.OnComplete(() => {
-          avg.m_tweenList.Remove(tween);
-          OnFadeCompleted(avg);
-        });
-        avg.m_tweenList.Add(tween);
+        return avg.m_illustration.DOFade(alpha, fadeTime);
       }
     }
 
-    private class SetIllustration : AVGOperationWithFade {
-      public override void DoOperation(UIAVG avg) {
-        base.DoOperation(avg);
-
-        Tween fadeIn = avg.m_illustration.DOFade(0, fadeTime);
-        fadeIn.OnComplete(() => {
-          avg.m_tweenList.Remove(fadeIn);
-          avg.m_illustration.sprite = ResourceManager.Load<Sprite>(dataDict["illustration"]);
-
-          Tween fadeOut = avg.m_illustration.DOFade(1.0f, fadeTime);
-          fadeOut.OnComplete(() => {
-            avg.m_tweenList.Remove(fadeOut);
-            OnFadeCompleted(avg);
-          });
-          avg.m_tweenList.Add(fadeOut);
-        });
-        avg.m_tweenList.Add(fadeIn);
+    private class SetBackgroundColor : AVGFadeOperation {
+      protected override Tween DOTween(float fadeTime) {
+        Color color = JsonConvert.DeserializeObject<Color>(dataDict["color"]);
+        return avg.m_bgImage.DOColor(color, fadeTime);
       }
     }
+    #endregion
     #endregion
 
     #region Component
@@ -127,6 +117,7 @@ namespace Yume.UI {
     #endregion
 
     private int m_block;
+    private string m_beforeBgmName;
     private Queue<Queue<AVGOperation>> m_avgOperations;
     private List<Tween> m_tweenList = new List<Tween>();
 
@@ -150,20 +141,17 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      callback += () => {
-        JArray arrayArray = ResourceManager.Load<JArray>(args[0] as string);
-        m_avgOperations = _InitAVGOperations(arrayArray);
-        _DoOperation();
-      };
-
       base.Open(callback, args);
+
+      _InitAVG((string)args[0]);
+      _DoOperation();
     }
 
     private AVGOperation _GetAVGOperation(JToken data) {
       string type = data["type"].Value<string>();
       JObject rawData = data["rawData"].Value<JObject>();
       AVGOperation operation = AssemblyTool.CreateInstance(type) as AVGOperation;
-      return operation.Init(rawData);
+      return operation.Init(this, rawData);
     }
 
     private Queue<Queue<AVGOperation>> _InitAVGOperations(JArray arrayArray) {
@@ -192,7 +180,7 @@ namespace Yume.UI {
 
       if (m_avgOperations.Count > 0) {
         foreach (var operatio in m_avgOperations.Dequeue()) {
-          operatio.DoOperation(this);
+          operatio.DoOperation();
         }
       } else {
         _QuitAVG();
@@ -200,21 +188,24 @@ namespace Yume.UI {
     }
 
     private void _QuitAVG() {
-      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
+      UIManager.OpenOne("globalBlackFade", () => {
+        UIManager.CloseOne(name);
+        AudioManager.instance.PlayBgm(m_beforeBgmName);
+      });
     }
 
-    public override void Close(Action callback = null, params object[] args) {
-      callback += _CleanUp;
-
-      base.Close(callback, args);
-    }
-
-    private void _CleanUp() {
-      m_dialogueCanvasGroup.alpha = 1.0f;
+    private void _InitAVG(string avgName) {
+      m_bgImage.sprite = null;
+      m_illustration.SetAlpha(0);
+      m_illustration.sprite = null;
+      m_bgImage.color = Color.white;
+      m_dialogueCanvasGroup.alpha = 0;
       m_nameText.text = StringMap.EMPTY;
       m_dialogueText.text = StringMap.EMPTY;
-      m_bgImage.sprite = ResourceManager.Load<Sprite>("noSprite");
-      m_illustration.sprite = ResourceManager.Load<Sprite>("noSprite");
+      m_beforeBgmName = AudioManager.instance.GetCurrentBgmName();
+
+      JArray arrayArray = ResourceManager.Load<JArray>(avgName);
+      m_avgOperations = _InitAVGOperations(arrayArray);
     }
   }
 }

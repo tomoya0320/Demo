@@ -107,6 +107,14 @@ public static class GameObjectTools {
   }
 }
 
+public static class ImageTools {
+  public static void SetAlpha(this Image image, float a) {
+    Color color = image.color;
+    color.a = a;
+    image.color = color;
+  }
+}
+
 public static class EnumTools {
   /// <summary>
   /// 获取当前枚举描述

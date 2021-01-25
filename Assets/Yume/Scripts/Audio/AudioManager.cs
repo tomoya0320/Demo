@@ -21,22 +21,9 @@ namespace Yume.Audio {
       m_bgmManager.PlayBgm(audio);
     }
 
-    public void PlayBgm(string audioClipName, float fadeTime) {
+    public void PlayBgm(string audioClipName, bool force, float fadeTime) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      m_bgmManager.PlayBgm(audio, fadeTime);
-    }
-
-    public void PlayBgmBySceneName(string sceneName) {
-      switch (sceneName) {
-        case StringMap.LOGIN: {
-            PlayBgm(StringMap.LOGIN_BGM);
-            break;
-          }
-        case StringMap.HOME: {
-            PlayBgm(StringMap.HOME_BGM);
-            break;
-          }
-      }   
+      m_bgmManager.PlayBgm(audio, force, fadeTime);
     }
 
     public void StopBgm() {
@@ -49,6 +36,10 @@ namespace Yume.Audio {
 
     public void UpdateBgmVolume() {
       m_bgmManager.UpdateVolume();
+    }
+
+    public string GetCurrentBgmName() {
+      return m_bgmManager.GetCurrentClipName();
     }
     #endregion
 

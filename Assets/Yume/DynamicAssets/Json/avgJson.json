@@ -2,64 +2,40 @@
   "test1": [
     [
       {
-        "type": "Yume.UI.UIAVG+SetDialogueVisible",
+        "type": "Yume.UI.UIAVG+PlayBgm",
         "rawData": {
-          "visible": false,
-          "fadeTime": 0,
-          "onFadeCompleted": []
+          "bgm": "STS_Boss1MindBloom_v1"
         }
       },
       {
         "type": "Yume.UI.UIAVG+SetBackground",
         "rawData": {
-          "bg": "avg_bg1",
-          "fadeTime": 0,
-          "onFadeCompleted": []
+          "bg": "avg_bg1"
         }
       },
       {
         "type": "Yume.UI.UIAVG+SetIllustration",
         "rawData": {
-          "illustration": "char_101_sora_summer",
-          "fadeTime": 0.5,
-          "onFadeCompleted": []
-        }
-      }
-    ],
-    [
-      {
-        "type": "Yume.UI.UIAVG+SetIllustrationVisible",
-        "rawData": {
-          "visible": false,
-          "fadeTime": 0.5,
-          "onFadeCompleted": []
+          "illustration": "char_101_sora_summer"
         }
       },
       {
-        "type": "Yume.UI.UIAVG+SetBackground",
+        "type": "Yume.UI.UIAVG+SetIllustrationVisible",
         "rawData": {
-          "bg": "avg_bg2",
+          "visible": true,
           "fadeTime": 1.0,
           "onFadeCompleted": [
-            {
-              "type": "Yume.UI.UIAVG+SetIllustration",
-              "rawData": {
-                "illustration": "char_164_nightm_epoque#5b",
-                "fadeTime": 0.5,
-                "onFadeCompleted": []
-              }
-            },
             {
               "type": "Yume.UI.UIAVG+SetDialogueVisible",
               "rawData": {
                 "visible": true,
-                "fadeTime": 0.5,
+                "fadeTime": 0.3,
                 "onFadeCompleted": [
                   {
                     "type": "Yume.UI.UIAVG+SetDialogue",
                     "rawData": {
-                      "name": "测试",
-                      "dialogue": "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
+                      "name": "空",
+                      "dialogue": "你好啊，我是Sora酱"
                     }
                   }
                 ]
@@ -71,17 +47,96 @@
     ],
     [
       {
+        "type": "Yume.UI.UIAVG+SetDialogueVisible",
+        "rawData": {
+          "visible": false,
+          "fadeTime": 1.0,
+          "onFadeCompleted": [
+            {
+              "type": "Yume.UI.UIAVG+SetDialogue",
+              "rawData": {
+                "name": null,
+                "dialogue": null
+              }
+            }
+          ]
+        }
+      },
+      {
         "type": "Yume.UI.UIAVG+SetIllustrationVisible",
         "rawData": {
           "visible": false,
-          "fadeTime": 0.5,
+          "fadeTime": 1.0,
           "onFadeCompleted": [
             {
-              "type": "Yume.UI.UIAVG+SetBackground",
+              "type": "Yume.UI.UIAVG+SetBackgroundColor",
               "rawData": {
-                "bg": "avg_bg3",
+                "color": {
+                  "r": 0,
+                  "g": 0,
+                  "b": 0,
+                  "a": 1.0
+                },
                 "fadeTime": 1.0,
-                "onFadeCompleted": []
+                "onFadeCompleted": [
+                  {
+                    "type": "Yume.UI.UIAVG+SetBackground",
+                    "rawData": {
+                      "bg": "avg_bg2"
+                    }
+                  },
+                  {
+                    "type": "Yume.UI.UIAVG+SetBackgroundColor",
+                    "rawData": {
+                      "color": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                      },
+                      "fadeTime": 1.0,
+                      "onFadeCompleted": [
+                        {
+                          "type": "Yume.UI.UIAVG+PlaySound",
+                          "rawData": {
+                            "sound": "SOTE_SFX_GainDefense_RR1_v3"
+                          }
+                        },
+                        {
+                          "type": "Yume.UI.UIAVG+SetIllustration",
+                          "rawData": {
+                            "illustration": "char_164_nightm_epoque#5b"
+                          }
+                        },
+                        {
+                          "type": "Yume.UI.UIAVG+SetIllustrationVisible",
+                          "rawData": {
+                            "visible": true,
+                            "fadeTime": 1.0,
+                            "onFadeCompleted": [
+                              {
+                                "type": "Yume.UI.UIAVG+SetDialogueVisible",
+                                "rawData": {
+                                  "visible": true,
+                                  "fadeTime": 0.3,
+                                  "onFadeCompleted": [
+                                    {
+                                      "type": "Yume.UI.UIAVG+SetDialogue",
+                                      "rawData": {
+                                        "name": "夜魔",
+                                        "dialogue": "你好啊，我是夜魔"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
               }
             }
           ]

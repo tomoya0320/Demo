@@ -42,14 +42,20 @@ namespace Yume.Audio {
                   });
     }
 
-    public void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
-      StopBgm(() => {
-        m_audioSource.clip = audioClip;
-        m_audioSource.Play();
-        m_tween = m_audioSource
-                    .DOFade(m_switch * m_value, fadeTime)
-                    .OnComplete(() => m_tween = null);
-      });
+    public void PlayBgm(AudioClip audioClip, bool force = false, float fadeTime = 1.0f) {
+      if (m_audioSource.clip?.name != audioClip?.name || force) {
+        StopBgm(() => {
+          m_audioSource.clip = audioClip;
+          m_audioSource.Play();
+          m_tween = m_audioSource
+                      .DOFade(m_switch * m_value, fadeTime)
+                      .OnComplete(() => m_tween = null);
+        });
+      }
+    }
+
+    public string GetCurrentClipName() {
+      return m_audioSource.clip?.name;
     }
   }
 }
