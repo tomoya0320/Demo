@@ -12,6 +12,7 @@ namespace Yume.UI {
     public GameObject root => m_root;
     private CanvasGroup m_canvasGroup;
     public string name => m_uiData.name;
+    public UIType uiType => m_uiData.uiType;
     public float cacheTime => m_uiData.cacheTime;
     /// <summary>
     /// open动画开始到close动画结束期间都算显示中

@@ -29,9 +29,8 @@ namespace Yume.UI {
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
 
-    private static Action s_quitGame = Application.Quit;
-
     public static bool activeBack { set; get; }
+    public static Stack<Action> onBackStack = new Stack<Action>();
 
     public static void Init() {
       ObjectContainer uiRootObject = Game.instance.uiRootObject;
@@ -48,7 +47,13 @@ namespace Yume.UI {
 
       Register(ResourceManager.LoadAll<UIData>());
 
-      Game.instance.onBack += _Back;
+      onBackStack.Push(() => {
+        if (s_uiStackDict[UIType.NORMAL].Count > 1) {
+          CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
+        } else {
+          OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
+        }
+      });
     }
 
     public static void OnUpdate() {
@@ -100,6 +105,10 @@ namespace Yume.UI {
       } else {
         return default;
       }
+    }
+
+    public static UIBase GetTopUI(UIType uiType) {
+      return s_uiStackDict[uiType].Peek();
     }
 
     /// <summary>
@@ -207,13 +216,9 @@ namespace Yume.UI {
     /// <summary>
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
-    private static void _Back() {
+    public static void Back() {
       if (activeBack) {
-        if (s_uiStackDict[UIType.NORMAL].Count > 1) {
-          CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
-        } else {
-          OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", s_quitGame, null);
-        }
+        onBackStack.Peek()?.Invoke();
       }
     }
 

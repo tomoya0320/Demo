@@ -136,7 +136,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("skip").onClick.AddListener(SkipAVG);
+      GetComponent<Button>("skip").onClick.AddListener(_SkipAVG);
       GetComponent<Button>("DoOperation").onClick.AddListener(_DoOperation);
     }
 
@@ -145,13 +145,21 @@ namespace Yume.UI {
 
       _InitAVG((string)args[0], args[1] as Action);
       _DoOperation();
+
+      UIManager.onBackStack.Push(_SkipAVG);
     }
 
-    public void SkipAVG() {
-      if (UIManager.IsShowing("confirmation")) {
-        UIManager.CloseOne("confirmation");
-      } else {
+    public override void Close(Action callback = null, params object[] args) {
+      base.Close(callback, args);
+
+      UIManager.onBackStack.Pop();
+    }
+
+    private void _SkipAVG() {
+      if (UIManager.GetTopUI(uiType).name == name) {
         UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", new Action(_QuitAVG), null);
+      } else {
+        UIManager.CloseOne("confirmation");
       }
     }
 
