@@ -51,13 +51,13 @@ namespace Yume.UI {
 
     private class PlayBgm : AVGOperation {
       public override void DoOperation() {
-        AudioManager.instance.PlayBgm(dataDict["bgm"]);
+        AudioManager.PlayBgm(dataDict["bgm"]);
       }
     }
 
     private class PlaySound : AVGOperation {
       public override void DoOperation() {
-        AudioManager.instance.PlaySound(dataDict["sound"]);
+        AudioManager.PlaySound(dataDict["sound"]);
       }
     }
     #endregion
@@ -153,7 +153,7 @@ namespace Yume.UI {
         _CleanUp();
         m_onQuitAVG?.Invoke();
         UIManager.onBackStack.Pop();
-        AudioManager.instance.PlayBgm(m_beforeBgmName);
+        AudioManager.PlayBgm(m_beforeBgmName);
       };
 
       base.Close(callback, args);
@@ -212,7 +212,7 @@ namespace Yume.UI {
     }
 
     private void _InitAVG(string avgName, Action onQuitAVG) {
-      m_beforeBgmName = AudioManager.instance.GetCurrentBgmName();
+      m_beforeBgmName = AudioManager.GetCurrentBgmName();
       JArray arrayArray = ResourceManager.Load<JArray>(avgName);
       m_avgOperations = _InitAVGOperations(arrayArray);
       m_onQuitAVG = onQuitAVG;

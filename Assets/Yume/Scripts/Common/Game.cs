@@ -6,6 +6,7 @@ using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
 using System;
+using Yume.Audio;
 
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
@@ -21,6 +22,9 @@ namespace Yume.Main {
     private Image _initProcessImg;
     [SerializeField]
     private GameObject _initPanel;
+    [SerializeField]
+    private Transform _audioRoot;
+    public Transform audioRoot => _audioRoot;
     public float initProcess {
       set {
         _initProcessImg.fillAmount = value;
@@ -31,10 +35,6 @@ namespace Yume.Main {
 
     protected override void OnInit() {
       _goToLoginBtn.onClick.AddListener(() => {
-        Vector2 clickPos = new Vector2 {
-          x = Input.mousePosition.x / Screen.width,
-          y = Input.mousePosition.y / Screen.height
-        };
         UIManager.OpenOne("globalBlackFade", () => {
           Destroy(_initPanel);
           UIManager.OpenOne("login");
@@ -50,7 +50,11 @@ namespace Yume.Main {
       yield return ResourceManager.Init();
 
       UIManager.Init();
+      AudioManager.Init();
       RedPointManager.Init();
+
+      // final
+      initProcess = 1.0f;
     }
 
     private void Update() {

@@ -34,7 +34,7 @@ namespace Yume.UI {
     public override void OnPointerClick(PointerEventData eventData) {
       if (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled) {
         string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
-        AudioManager.instance.PlaySound(clipName);
+        AudioManager.PlaySound(clipName);
       }
 
       base.OnPointerClick(eventData);

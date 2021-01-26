@@ -12,6 +12,7 @@ using Yume.Resource;
 public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
   public const int MAX_CARD_COUNT = 12;
+  public const int MAX_SOUND_COUNT = 5;
   public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
 }
 
@@ -173,8 +174,7 @@ public static class StringMap {
   public const string GET = "获得";
   public const string LOGIN = "login";
   public const string HOME = "home";
-  public const string LOGIN_BGM = "SOTE_Shrine_v2";
-  public const string HOME_BGM = "STS_Merchant_v2";
+  public const string DEFAULT_BGM = "SOTE_Shrine_v2";
   public const string DEFAULT_CLICK_SOUND = "点击2";
   public const string DIAMOND_ID = "item_1_diamond";
   public const string GOLD_ID = "item_2_gold";

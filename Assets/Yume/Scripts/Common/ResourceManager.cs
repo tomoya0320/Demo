@@ -100,7 +100,7 @@ namespace Yume.Resource {
       s_resourceDict.Add((nameof(configAsset.Result.userServerUrl), typeof(string)), configAsset.Result.userServerUrl);
       #endregion
 
-      Game.instance.initProcess = 0.2f;
+      Game.instance.initProcess = 0.1f;
 
       #region 其他预加载的资源可以直接加载
       var locationList = Addressables.LoadResourceLocationsAsync("Preload");
@@ -127,11 +127,11 @@ namespace Yume.Resource {
           s_resourceDict.Add((location.PrimaryKey, location.ResourceType), res.Result);
         }
 
-        Game.instance.initProcess = 0.2f + 0.8f * (process++ / locationList.Result.Count);
+        Game.instance.initProcess = 0.1f + 0.8f * (process++ / locationList.Result.Count);
       }
       #endregion
 
-      Game.instance.initProcess = 1.0f;
+      Game.instance.initProcess = 0.9f;
 
       #region 回收内存
       yield return Resources.UnloadUnusedAssets();

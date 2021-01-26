@@ -1,56 +1,172 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Yume.Main;
 using Yume.Resource;
+using Yume.UI;
 
 namespace Yume.Audio {
-  public class AudioManager : SingletonMono<AudioManager> {
-    [SerializeField]
-    private AudioSource _bgmAudioSource;
-    [SerializeField]
-    private Transform _soundFolder;
-    private BGMManager m_bgmManager;
-    private SoundManager m_soundManager;
+  public static class AudioManager {
+    private class SoundManager {
+      private float m_value;
+      private float m_switch;
+      private List<AudioSource> m_audioSourceList = new List<AudioSource>();
+      private readonly string valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
+      private readonly string switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
-    protected override void OnInit() {
-      m_bgmManager = new BGMManager(_bgmAudioSource);
-      m_soundManager = new SoundManager(_soundFolder);
+      public SoundManager(Transform root) {
+        GameObject gameObject;
+        AudioSource audioSource;
+        for (int i = 1; i <= Constant.MAX_SOUND_COUNT; i++) {
+          gameObject = new GameObject($"Sound_{i}");
+          gameObject.transform.parent = root;
+          audioSource = gameObject.AddComponent<AudioSource>();
+          audioSource.playOnAwake = false;
+
+          m_audioSourceList.Add(audioSource);
+        }
+
+        if (!PlayerPrefs.HasKey(valueKey)) {
+          PlayerPrefs.SetInt(valueKey, 100);
+        }
+        if (!PlayerPrefs.HasKey(switchKey)) {
+          PlayerPrefs.SetInt(switchKey, 1);
+        }
+        UpdateVolume();
+      }
+
+      public void UpdateVolume() {
+        m_switch = PlayerPrefs.GetInt(switchKey);
+        m_value = 0.01f * PlayerPrefs.GetInt(valueKey);
+        for (int i = 0; i < m_audioSourceList.Count; i++) {
+          m_audioSourceList[i].volume = m_switch * m_value;
+        }
+      }
+
+      public void PlaySound(AudioClip audioClip) {
+        AudioSource audioSource = m_audioSourceList.Find(a => !a.isPlaying);
+        if (audioSource == null) {
+          audioSource = m_audioSourceList.First();
+          audioSource.Stop();
+        }
+        audioSource.clip = audioClip;
+        audioSource.Play();
+      }
+    }
+
+    private class BGMManager {
+      private Tween m_tween;
+      private float m_value;
+      private float m_switch;
+      private AudioSource m_audioSource;
+      private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
+      private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
+
+      public BGMManager(Transform root) {
+        GameObject gameObject = new GameObject("BGM");
+        gameObject.transform.parent = root;
+        m_audioSource = gameObject.AddComponent<AudioSource>();
+        m_audioSource.loop = true;
+
+        if (!PlayerPrefs.HasKey(m_valueKey)) {
+          PlayerPrefs.SetInt(m_valueKey, 100);
+        }
+        if (!PlayerPrefs.HasKey(m_switchKey)) {
+          PlayerPrefs.SetInt(m_switchKey, 1);
+        }
+        UpdateVolume();
+      }
+
+      public void UpdateVolume() {
+        m_switch = PlayerPrefs.GetInt(m_switchKey);
+        m_value = 0.01f * PlayerPrefs.GetInt(m_valueKey);
+        m_audioSource.volume = m_switch * m_value;
+      }
+
+      public void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
+        if (m_tween != null) {
+          m_tween.Complete();
+        }
+        m_tween = m_audioSource
+                    .DOFade(0, fadeTime)
+                    .OnComplete(() => {
+                      m_tween = null;
+                      m_audioSource.Stop();
+                      onCompleted?.Invoke();
+                    });
+      }
+
+      public void PlayBgm(AudioClip audioClip, bool immediate = false, float fadeTime = 1.0f) {
+        if (immediate) {
+          _PlayBgmInternal(audioClip);
+        } else {
+          StopBgm(() => {
+            _PlayBgmInternal(audioClip);
+            m_tween = m_audioSource
+                        .DOFade(m_switch * m_value, fadeTime)
+                        .OnComplete(() => m_tween = null);
+          });
+        }
+      }
+
+      private void _PlayBgmInternal(AudioClip audioClip) {
+        m_audioSource.clip = audioClip;
+        m_audioSource.Play();
+      }
+
+      public string GetCurrentClipName() {
+        return m_audioSource.clip?.name;
+      }
+    }
+
+    private static BGMManager s_bgmManager;
+    private static SoundManager s_soundManager;
+
+    public static void Init() {
+      s_bgmManager = new BGMManager(Game.instance.audioRoot);
+      s_soundManager = new SoundManager(Game.instance.audioRoot);
+
+      // 播放默认的bgm
+      PlayBgm(StringMap.DEFAULT_BGM, true);
     }
 
     #region BGM
-    public void PlayBgm(string audioClipName) {
+    public static void PlayBgm(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      m_bgmManager.PlayBgm(audio);
+      s_bgmManager.PlayBgm(audio);
     }
 
-    public void PlayBgm(string audioClipName, bool force, float fadeTime) {
+    public static void PlayBgm(string audioClipName, bool immediate) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      m_bgmManager.PlayBgm(audio, force, fadeTime);
+      s_bgmManager.PlayBgm(audio, immediate);
     }
 
-    public void StopBgm() {
-      m_bgmManager.StopBgm();
+    public static void StopBgm() {
+      s_bgmManager.StopBgm();
     }
 
-    public void StopBgm(float fadeTime) {
-      m_bgmManager.StopBgm(null, fadeTime);
+    public static void StopBgm(float fadeTime) {
+      s_bgmManager.StopBgm(null, fadeTime);
     }
 
-    public void UpdateBgmVolume() {
-      m_bgmManager.UpdateVolume();
+    public static void UpdateBgmVolume() {
+      s_bgmManager.UpdateVolume();
     }
 
-    public string GetCurrentBgmName() {
-      return m_bgmManager.GetCurrentClipName();
+    public static string GetCurrentBgmName() {
+      return s_bgmManager.GetCurrentClipName();
     }
     #endregion
 
     #region Sound
-    public void PlaySound(string audioClipName) {
+    public static void PlaySound(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      m_soundManager.PlaySound(audio);
+      s_soundManager.PlaySound(audio);
     }
 
-    public void UpdateSoundVolume() {
-      m_soundManager.UpdateVolume();
+    public static void UpdateSoundVolume() {
+      s_soundManager.UpdateVolume();
     }
     #endregion
   }
