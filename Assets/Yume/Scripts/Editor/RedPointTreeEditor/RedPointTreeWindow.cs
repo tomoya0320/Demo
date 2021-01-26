@@ -11,10 +11,7 @@ namespace Yume.Editor {
 
     [MenuItem("Tools/红点树逻辑查看")]
     public static void ShowWin() {
-      var win = GetWindow<RedPointTreeWindow>();
-      win.titleContent.text = "红点树系统";
-      win.titleContent.image = Resources.Load<Texture>("red point");
-      win.Show();
+      GetWindow<RedPointTreeWindow>("红点树逻辑").Show();
     }
 
     private void OnGUI() {
