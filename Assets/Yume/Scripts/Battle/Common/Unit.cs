@@ -134,20 +134,22 @@ namespace Yume.Battle {
       }
     }
 
-    protected int unitLevel;
-    protected string unitId;
-    protected string unitTag;
-    protected string unitName;
+    protected int level;
+    protected string id;
+    protected string tag;
+    protected string name;
     protected Attrib[] attribs;
     protected StateMachine stateMachine;
     protected Dictionary<CardHeapType,List<CardData>> cardHeapDict; //牌堆(抽牌、弃牌、耗牌)
 
+    public bool isAlive => attribs[(int)AttribType.HP].value > 0;
+
     public Unit(UnitData unit, List<CardData> cardList) {
       UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
-      unitId = unit.id;
-      unitTag = unitTemplate.tag;
-      unitLevel = unit.level;
-      unitName = unitTemplate.name;
+      id = unit.id;
+      level = unit.level;
+      tag = unitTemplate.tag;
+      name = unitTemplate.name;
       attribs = MathUtil.CalculateAttribs(unit.id, unit.level, unitTemplate.maxLevel,
                                           unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());
       //TODO:Init PassiveSkill
