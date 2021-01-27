@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using Yume.Data;
 using Yume.Tool;
 
 namespace Yume.UI {
   public abstract class UIBase {
-    private UIData m_uiData;
+    private UITemplate m_uiData;
     private bool m_isShowing;
     private GameObject m_root;
     private ObjectContainer m_uiObject;
@@ -19,10 +20,10 @@ namespace Yume.UI {
     /// </summary>
     public bool isShowing => m_isShowing;
 
-    public virtual void OnInit(UIData uiData, GameObject root) {
+    public virtual void OnInit(UITemplate uiTemplate, GameObject root) {
       m_root = root;
-      m_uiData = uiData;
-      m_root.name = uiData.name;
+      m_uiData = uiTemplate;
+      m_root.name = uiTemplate.name;
       m_uiObject = root.GetComponent<ObjectContainer>();
       m_animation = root.GetComponent<Animation>();
       m_canvasGroup = root.GetComponent<CanvasGroup>();

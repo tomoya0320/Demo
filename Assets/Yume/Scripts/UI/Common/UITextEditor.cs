@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Data;
 
 namespace Yume.UI {
   public class UITextEditor : UIBase {
     private InputField m_textInputField;
     private Action<string> m_onCompleted;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_textInputField = GetComponent<InputField>("TextInputField");
 

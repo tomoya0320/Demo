@@ -64,8 +64,8 @@ namespace Yume.UI {
 
     private UICharGroup m_charGroup;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_charGroup = new UICharGroup(GetGameObject("CharGroup"));
 

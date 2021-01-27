@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Data;
 
 namespace Yume.UI {
   public class UIConfirmation : UIBase {
@@ -8,8 +9,8 @@ namespace Yume.UI {
     private YButton m_ok;
     private YButton m_cancel;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_ok = GetComponent<YButton>("ok");
       m_label = GetComponent<Text>("label");

@@ -115,6 +115,19 @@ namespace Yume.Data {
     public TaskType activeTaskType;
     public TaskRewards taskRewards;
   }
+
+  public enum UIType {
+    NORMAL, TOP, TIP
+  }
+
+  [Serializable]
+  public struct UITemplate {
+    public string name;
+    public UIType uiType;
+    public string typeName;
+    public string prefabUrl;
+    public float cacheTime;
+  }
   #endregion
 
   #region Data

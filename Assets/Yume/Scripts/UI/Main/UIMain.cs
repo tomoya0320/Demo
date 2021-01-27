@@ -26,8 +26,8 @@ namespace Yume.UI {
     private UIRedPoint m_taskRedPoint;
     private UIRedPoint m_mailRedPoint;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_apText = GetComponent<Text>("ApText");
       m_lvText = GetComponent<Text>("LvText");

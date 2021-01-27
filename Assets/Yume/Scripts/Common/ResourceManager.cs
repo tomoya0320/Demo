@@ -39,8 +39,8 @@ namespace Yume.Resource {
 
       json = JObject.Parse(textAsset.Result.text);
       foreach (var kv in json) {
-        UIData ui = JsonConvert.DeserializeObject<UIData>(kv.Value.ToString());
-        s_resourceDict.Add((kv.Key, typeof(UIData)), ui);
+        UITemplate ui = JsonConvert.DeserializeObject<UITemplate>(kv.Value.ToString());
+        s_resourceDict.Add((kv.Key, typeof(UITemplate)), ui);
       }    
       
       textAsset = Addressables.LoadAssetAsync<TextAsset>("itemJson");

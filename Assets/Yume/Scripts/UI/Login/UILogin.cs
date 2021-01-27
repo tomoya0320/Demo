@@ -141,8 +141,8 @@ namespace Yume.UI {
       });
     }
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
       m_main = GetGameObject("Main");
       m_second = GetGameObject("Second");
       m_result = GetComponent<Text>("Result");

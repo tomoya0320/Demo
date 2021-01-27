@@ -1,30 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Yume.Data;
 using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public enum UIType {
-    NORMAL, TOP, TIP
-  }
-
-  [Serializable]
-  public struct UIData {
-    public string name;
-    public UIType uiType;
-    public string typeName;
-    public string prefabUrl;
-    public float cacheTime;
-  }
-
   public static class UIManager {
     private static GameObject s_interactionMask;
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
-    private static Dictionary<string, UIData> s_uiDataDict = new Dictionary<string, UIData>();
+    private static Dictionary<string, UITemplate> s_uiDataDict = new Dictionary<string, UITemplate>();
     private static Dictionary<object, object> s_sharedArgsDict = new Dictionary<object, object>();
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
@@ -45,7 +33,7 @@ namespace Yume.UI {
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      Register(ResourceManager.LoadAll<UIData>());
+      Register(ResourceManager.LoadAll<UITemplate>());
 
       onBackStack.Push(() => {
         if (s_uiStackDict[UIType.NORMAL].Count > 1) {
@@ -82,7 +70,7 @@ namespace Yume.UI {
       }
     }
 
-    public static void Register(params UIData[] uiList) {
+    public static void Register(params UITemplate[] uiList) {
       foreach (var ui in uiList) {
         if (s_uiDataDict.ContainsKey(ui.name)) {
           Debug.LogWarning($"UI已注册！name：{ui.name}");
@@ -126,7 +114,7 @@ namespace Yume.UI {
       }
     }
 
-    private static void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _OpenInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
@@ -144,14 +132,14 @@ namespace Yume.UI {
     /// <summary>
     /// 尝试从缓存中获取UI
     /// </summary>
-    /// <param name="uiData"></param>
+    /// <param name="uiTemplate"></param>
     /// <returns></returns>
-    private static bool _TryGetCache(UIData uiData, ref UIBase ui) {
-      var index = s_cacheUIListDict[uiData.uiType].FindIndex(i => i.Item2.name == uiData.name);
+    private static bool _TryGetCache(UITemplate uiTemplate, ref UIBase ui) {
+      var index = s_cacheUIListDict[uiTemplate.uiType].FindIndex(i => i.Item2.name == uiTemplate.name);
       if (index >= 0) {
-        ui = s_cacheUIListDict[uiData.uiType][index].Item2;
-        s_cacheUIListDict[uiData.uiType].RemoveAt(index);
-        ui.root.transform.SetParent(_GetRootByType(uiData.uiType));
+        ui = s_cacheUIListDict[uiTemplate.uiType][index].Item2;
+        s_cacheUIListDict[uiTemplate.uiType].RemoveAt(index);
+        ui.root.transform.SetParent(_GetRootByType(uiTemplate.uiType));
         return true;
       }
       return false;
@@ -239,7 +227,7 @@ namespace Yume.UI {
       return false;
     }
 
-    private static void _CloseInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _CloseInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       //NOTICE
       //Action的执行顺序要特别当心
       //先执行下面的再执行其他的回调

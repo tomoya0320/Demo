@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Yume.UI {
   public class ObjectContainer : SerializedMonoBehaviour {
-    [SerializeField, DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "GameObject")]
+    [SerializeField, DictionaryDrawerSettings(KeyLabel = "名称", ValueLabel = "对象引用")]
     private Dictionary<string, GameObject> _objectDict;
 
     public T GetComponent<T>(string objName) where T : Component {

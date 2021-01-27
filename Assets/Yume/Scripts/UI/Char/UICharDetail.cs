@@ -14,8 +14,8 @@ namespace Yume.UI {
     private Image m_passiveSkillIcon;
     private Text[] m_attribs = new Text[(int)AttribType.LENGTH];
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_lv = GetComponent<Text>("lv");
       m_illustration = GetComponent<Image>("illustration");

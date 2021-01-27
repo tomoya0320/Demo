@@ -37,9 +37,7 @@ namespace Yume.UI {
         m_clickButton.onClick.AddListener(() => {
           m_itemGroup.SwitchMail(m_item);
           if (!m_item.isViewed) {
-            m_item.isViewed = true;
-
-            RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, m_item.id, MainItemRedPointTree.MAIN_ITEM, 0);
+            DataManager.SetItemViewed(m_item);
           }
         });
       }
@@ -140,8 +138,8 @@ namespace Yume.UI {
 
     private UIItemGroup m_itemGroup;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
 

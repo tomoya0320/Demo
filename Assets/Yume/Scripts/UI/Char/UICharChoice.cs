@@ -85,8 +85,8 @@ namespace Yume.UI {
     private Action<string> m_onSelected;
     private UICharChoiceGroup m_charChoiceGroup;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_charChoiceGroup = new UICharChoiceGroup(GetGameObject("CharChoiceGroup"));
 

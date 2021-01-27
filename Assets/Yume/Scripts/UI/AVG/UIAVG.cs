@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
+using Yume.Data;
 using Yume.Resource;
 
 namespace Yume.UI {
@@ -122,8 +123,8 @@ namespace Yume.UI {
     private Queue<Queue<AVGOperation>> m_avgOperations;
     private List<Tween> m_tweenList = new List<Tween>();
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_bgImage = GetComponent<Image>("bg");
       m_nameText = GetComponent<Text>("name");

@@ -5,6 +5,7 @@ using Yume.Audio;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System;
+using Yume.Data;
 
 namespace Yume.UI {
   public enum UISettingType {
@@ -96,8 +97,8 @@ namespace Yume.UI {
     private UIGroupSwitch m_settingGroupSwitch;
     private List<UISettingSV> m_settings = new List<UISettingSV>();
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_settingGroupSwitch = GetComponent<UIGroupSwitch>("setting group");
 

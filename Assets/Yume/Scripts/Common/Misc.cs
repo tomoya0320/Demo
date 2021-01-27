@@ -227,7 +227,7 @@ public static class StringUtil {
         result.Append(description.Substring(start, i - start));
         start = i + 1;
       } else if (description[i] == '}') {
-        result.Append(blackboard.GetValueOrDefault(description.Substring(start, i - start), 0));
+        result.Append(blackboard.GetValue<object>(description.Substring(start, i - start)));
         start = i + 1;
       }
     }

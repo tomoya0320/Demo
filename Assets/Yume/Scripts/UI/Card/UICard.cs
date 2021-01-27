@@ -74,8 +74,8 @@ namespace Yume.UI {
 
     private UICardGroup m_cardGroup;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_cardGroup = new UICardGroup(GetGameObject("CardGroup"));
 

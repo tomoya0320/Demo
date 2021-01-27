@@ -325,6 +325,12 @@ namespace Yume.Data {
 
       s_saveDataTypes.Add("items");
     }
+
+    public static void SetItemViewed(ItemData item) {
+      item.isViewed = true;
+      RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, item.id, MainItemRedPointTree.MAIN_ITEM, 0);
+      s_saveDataTypes.Add("items");
+    }
     #endregion
 
     #region Task
