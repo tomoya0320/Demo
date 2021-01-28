@@ -12,8 +12,9 @@ namespace Yume.Editor {
     private const string PREFAB_FOLDER = "../Demo/Assets/Yume/DynamicAssets/UI/Prefab";
     private const string PREFAB_ASSET_PATH = "Assets/Yume/DynamicAssets/UI/Prefab/{0}.prefab";
     private Dictionary<string, UITemplate> m_uiDict;
-    private Vector2 m_itemScrollPos;
+    private Vector2 m_scrollPos;
     #region UI属性
+    private string m_name;
     private UIType m_uiType;
     private float m_cacheTime;
     private int m_typeNameIndex;
@@ -46,7 +47,7 @@ namespace Yume.Editor {
     private void OnGUI() {
       bool changed = false;
       EditorGUILayout.LabelField("UI模板");
-      EditorGUILayout.LabelField("UI名称", m_prefabNames[m_prefabNameIndex]);
+      m_name = EditorGUILayout.TextField("UI名称", m_name);
       m_uiType = (UIType)EditorGUILayout.EnumPopup("UI类型", m_uiType);
       m_typeNameIndex = EditorGUILayout.Popup("UI类名", m_typeNameIndex, m_typeNames.ToArray());
       m_prefabNameIndex = EditorGUILayout.Popup("UI预制体", m_prefabNameIndex, m_prefabNames.ToArray());
@@ -56,11 +57,9 @@ namespace Yume.Editor {
       }
       m_cacheTime = EditorGUILayout.FloatField("UI缓存时间", m_cacheTime);
       if (GUILayout.Button("添加")) {
-        if (!string.IsNullOrEmpty(m_prefabNames[m_prefabNameIndex]) &&
-            !m_uiDict.ContainsKey(m_prefabNames[m_prefabNameIndex])) {
-
-          m_uiDict.Add(m_prefabNames[m_prefabNameIndex], new UITemplate {
-            name = m_prefabNames[m_prefabNameIndex],
+        if (!string.IsNullOrEmpty(m_name) && !m_uiDict.ContainsKey(m_name)) {
+          m_uiDict.Add(m_name, new UITemplate {
+            name = m_name,
             uiType = m_uiType,
             typeName = m_typeNames[m_typeNameIndex],
             prefabName = m_prefabNames[m_prefabNameIndex],
@@ -71,12 +70,12 @@ namespace Yume.Editor {
       }
       EditorGUILayout.Separator();
 
-      m_itemScrollPos = EditorGUILayout.BeginScrollView(m_itemScrollPos);
+      m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
       List<string> uiNames = new List<string>(m_uiDict.Keys);
       foreach (var uiName in uiNames) {
         EditorGUILayout.Separator();
         UITemplate uiTemplate = m_uiDict[uiName];
-        EditorGUILayout.LabelField("UI名称", uiTemplate.name);
+        uiTemplate.name = EditorGUILayout.TextField("UI名称", uiTemplate.name);
         uiTemplate.uiType = (UIType)EditorGUILayout.EnumPopup("UI类型", uiTemplate.uiType);
         uiTemplate.typeName = m_typeNames[EditorGUILayout.Popup("UI类名", m_typeNames.IndexOf(uiTemplate.typeName), m_typeNames.ToArray())];
         uiTemplate.prefabName = m_prefabNames[EditorGUILayout.Popup("UI预制体", m_prefabNames.IndexOf(uiTemplate.prefabName), m_prefabNames.ToArray())];
@@ -85,7 +84,6 @@ namespace Yume.Editor {
           EditorGUIUtility.PingObject(obj);
         }
         uiTemplate.cacheTime = EditorGUILayout.FloatField("UI缓存时间", uiTemplate.cacheTime);
-        uiTemplate.name = uiTemplate.prefabName;
         if (GUILayout.Button("删除")) {
           m_uiDict.Remove(uiName);
           changed = true;

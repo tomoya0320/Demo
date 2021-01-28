@@ -11,7 +11,7 @@ namespace Yume.Editor {
     private const string SPRITE_FOLDER = "../Demo/Assets/Yume/DynamicAssets/UI/Sprite/Item";
     private const string SPRITE_ASSET_PATH = "Assets/Yume/DynamicAssets/UI/Sprite/Item/{0}.png";
     private Dictionary<string, ItemTemplate> m_itemDict;
-    private Vector2 m_itemScrollPos;
+    private Vector2 m_scrollPos;
     #region µ¿æﬂ Ù–‘
     private string m_id;
     private string m_name;
@@ -26,14 +26,7 @@ namespace Yume.Editor {
     }
 
     private void OnEnable() {
-      foreach (var path in Directory.GetFiles(SPRITE_FOLDER)) {
-        if (Path.GetExtension(path) == ".png") {
-          string name = Path.GetFileNameWithoutExtension(path);
-          Texture icon = AssetDatabase.LoadAssetAtPath<Texture>(string.Format(SPRITE_ASSET_PATH, name));
-          GUIContent content = new GUIContent(name, icon);
-          m_icons.Add(content);
-        }
-      }
+      m_icons = EditorWinTools.GetImageWithName(SPRITE_FOLDER, SPRITE_ASSET_PATH);
 
       string text = File.ReadAllText(Path.Combine(Application.dataPath, JSON_PATH));
       m_itemDict = JsonConvert.DeserializeObject<Dictionary<string, ItemTemplate>>(text);
@@ -59,7 +52,7 @@ namespace Yume.Editor {
       }
       EditorGUILayout.Separator();
 
-      m_itemScrollPos = EditorGUILayout.BeginScrollView(m_itemScrollPos);
+      m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
       List<string> itemIds = new List<string>(m_itemDict.Keys);
       foreach (var itemId in itemIds) {
         EditorGUILayout.Separator();

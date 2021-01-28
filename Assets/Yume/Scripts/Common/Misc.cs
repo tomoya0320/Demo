@@ -29,6 +29,14 @@ public static class TypeTools {
     }
     return fieldNameList;
   }
+
+  public static List<string> GetDescriptions(this Type type) {
+    List<string> descriptions = new List<string>();
+    foreach (Enum enumValue in Enum.GetValues(type)) {
+      descriptions.Add(enumValue.GetDescription());
+    }
+    return descriptions;
+  }
 }
 
 public static class TransformTools {

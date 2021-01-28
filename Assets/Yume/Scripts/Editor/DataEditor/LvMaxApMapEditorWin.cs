@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -9,7 +8,7 @@ namespace Yume.Editor {
   public class LvMaxApMapEditorWin : EditorWindow {
     private const string JSON_PATH = "Yume/DynamicAssets/Json/lvMaxApMapJson.json";
     private Dictionary<int, int> m_lvMaxApMap;
-    private Vector2 m_itemScrollPos;
+    private Vector2 m_scrollPos;
     #region ”≥…‰
     private int m_lv;
     private int m_maxAp;
@@ -38,7 +37,7 @@ namespace Yume.Editor {
       }
       EditorGUILayout.Separator();
 
-      m_itemScrollPos = EditorGUILayout.BeginScrollView(m_itemScrollPos);
+      m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
       List<int> lvs = new List<int>(m_lvMaxApMap.Keys);
       foreach (var l in lvs) {
         EditorGUILayout.Separator();
