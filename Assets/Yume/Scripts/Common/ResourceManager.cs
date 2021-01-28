@@ -24,8 +24,8 @@ namespace Yume.Resource {
       JObject json = JObject.Parse(textAsset.Result.text);
       foreach (var kv in json) {
         s_resourceDict.Add((kv.Key, typeof(JArray)), kv.Value.Value<JArray>());
-      }     
-      
+      }
+
       textAsset = Addressables.LoadAssetAsync<TextAsset>("lvMaxApMapJson");
       yield return textAsset;
 
@@ -41,8 +41,8 @@ namespace Yume.Resource {
       foreach (var kv in json) {
         UITemplate ui = JsonConvert.DeserializeObject<UITemplate>(kv.Value.ToString());
         s_resourceDict.Add((kv.Key, typeof(UITemplate)), ui);
-      }    
-      
+      }
+
       textAsset = Addressables.LoadAssetAsync<TextAsset>("itemJson");
       yield return textAsset;
 
@@ -50,8 +50,8 @@ namespace Yume.Resource {
       foreach (var kv in json) {
         ItemTemplate itemTemplate = JsonConvert.DeserializeObject<ItemTemplate>(kv.Value.ToString());
         s_resourceDict.Add((kv.Key, typeof(ItemTemplate)), itemTemplate);
-      }   
-      
+      }
+
       textAsset = Addressables.LoadAssetAsync<TextAsset>("taskJson");
       yield return textAsset;
 
@@ -62,9 +62,9 @@ namespace Yume.Resource {
         s_resourceDict.Add((kv.Key, typeof(TaskData)), task);
 
         TaskTemplate taskTemplate = JsonConvert.DeserializeObject<TaskTemplate>(kv.Value.ToString());
-        s_resourceDict.Add((kv.Key, typeof(TaskTemplate)), taskTemplate);      
-      }   
-      
+        s_resourceDict.Add((kv.Key, typeof(TaskTemplate)), taskTemplate);
+      }
+
       textAsset = Addressables.LoadAssetAsync<TextAsset>("cardJson");
       yield return textAsset;
 
@@ -72,8 +72,8 @@ namespace Yume.Resource {
       foreach (var kv in json) {
         CardTemplate cardTemplate = JsonConvert.DeserializeObject<CardTemplate>(kv.Value.ToString());
         s_resourceDict.Add((kv.Key, typeof(CardTemplate)), cardTemplate);
-      }     
-      
+      }
+
       textAsset = Addressables.LoadAssetAsync<TextAsset>("unitJson");
       yield return textAsset;
 
@@ -92,8 +92,8 @@ namespace Yume.Resource {
 
       foreach (var attribCurve in attribCurveAsset.Result.attribCurves) {
         s_resourceDict.Add((attribCurve.id, typeof(AnimationCurve)), attribCurve.curve);
-      }    
-      
+      }
+
       var configAsset = Addressables.LoadAssetAsync<ConfigAsset>("configAsset");
       yield return configAsset;
 
@@ -113,7 +113,7 @@ namespace Yume.Resource {
           Debug.LogWarning($"冗余的类型:{location.ResourceType.FullName}");
         }
         // 特殊处理
-        else if(typeof(Sprite).IsAssignableFrom(location.ResourceType)) {
+        else if (typeof(Sprite).IsAssignableFrom(location.ResourceType)) {
           var sprite = Addressables.LoadAssetAsync<Sprite>(location);
           yield return sprite;
 
@@ -135,7 +135,7 @@ namespace Yume.Resource {
 
       #region 回收内存
       yield return Resources.UnloadUnusedAssets();
-      
+
       GC.Collect();
       #endregion
     }
@@ -156,6 +156,10 @@ namespace Yume.Resource {
         }
       }
       return resList.ToArray();
+    }
+
+    public static bool Contains<T>(string key) {
+      return s_resourceDict.ContainsKey((key, typeof(T)));
     }
   }
 }

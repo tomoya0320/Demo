@@ -12,7 +12,6 @@ namespace Yume.UI {
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
-    private static Dictionary<string, UITemplate> s_uiDataDict = new Dictionary<string, UITemplate>();
     private static Dictionary<object, object> s_sharedArgsDict = new Dictionary<object, object>();
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
@@ -32,8 +31,6 @@ namespace Yume.UI {
         s_uiStackDict.Add(type, new Stack<UIBase>());
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
-
-      Register(ResourceManager.LoadAll<UITemplate>());
 
       onBackStack.Push(() => {
         if (s_uiStackDict[UIType.NORMAL].Count > 1) {
@@ -70,15 +67,6 @@ namespace Yume.UI {
       }
     }
 
-    public static void Register(params UITemplate[] uiList) {
-      foreach (var ui in uiList) {
-        if (s_uiDataDict.ContainsKey(ui.name)) {
-          Debug.LogWarning($"UI已注册！name：{ui.name}");
-        }
-        s_uiDataDict.Add(ui.name, ui);
-      }
-    }
-
     public static void SetSharedArgs(object key, object value) {
       if (s_sharedArgsDict.ContainsKey(key)) {
         s_sharedArgsDict[key] = value;
@@ -105,12 +93,12 @@ namespace Yume.UI {
     /// <param name="name"></param>
     /// <param name="args"></param>
     public static void OpenOne(string name, Action callback = null, params object[] args) {
-      if (s_uiDataDict.ContainsKey(name)) {
-        var data = s_uiDataDict[name];
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
         var stack = s_uiStackDict[data.uiType];
         _OpenInternal(data, stack, callback, args);
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
@@ -151,8 +139,8 @@ namespace Yume.UI {
     /// <param name="name"></param>
     /// <param name="args"></param>
     public static void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
-      if (s_uiDataDict.ContainsKey(name)) {
-        var data = s_uiDataDict[name];
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
         var stack = s_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
@@ -160,7 +148,7 @@ namespace Yume.UI {
         }
         OpenOne(name, callback, args);
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
@@ -170,9 +158,9 @@ namespace Yume.UI {
     /// <param name="name"></param>
     /// <param name="args"></param>
     public static void CloseOne(string name, Action callback = null, params object[] args) {
-      if (s_uiDataDict.ContainsKey(name)) {
-        var data = s_uiDataDict[name];
-        var stack = s_uiStackDict[s_uiDataDict[name].uiType];
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
+        var stack = s_uiStackDict[data.uiType];
 
         if (stack.Count == 0) {
           Debug.LogError("UI栈为空！");
@@ -184,7 +172,7 @@ namespace Yume.UI {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
