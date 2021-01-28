@@ -9,6 +9,7 @@ namespace Yume.Editor {
   public class ItemEditorWin : EditorWindow {
     private const string JSON_PATH = "Yume/DynamicAssets/Json/itemJson.json";
     private const string SPRITE_FOLDER = "../Demo/Assets/Yume/DynamicAssets/UI/Sprite/Item";
+    private const string SPRITE_ASSET_PATH = "Assets/Yume/DynamicAssets/UI/Sprite/Item/{0}.png";
     private Dictionary<string, ItemTemplate> m_itemDict;
     private Vector2 m_itemScrollPos;
     #region 道具属性
@@ -16,7 +17,7 @@ namespace Yume.Editor {
     private string m_name;
     private string m_description;
     private int m_iconFileNameIndex;
-    private List<string> m_iconFileNames = new List<string>();
+    private List<GUIContent> m_icons = new List<GUIContent>();
     #endregion
 
     [MenuItem("Tools/道具编辑器")]
@@ -27,7 +28,10 @@ namespace Yume.Editor {
     private void OnEnable() {
       foreach (var path in Directory.GetFiles(SPRITE_FOLDER)) {
         if (Path.GetExtension(path) == ".png") {
-          m_iconFileNames.Add(Path.GetFileNameWithoutExtension(path));
+          string name = Path.GetFileNameWithoutExtension(path);
+          Texture icon = AssetDatabase.LoadAssetAtPath<Texture>(string.Format(SPRITE_ASSET_PATH, name));
+          GUIContent content = new GUIContent(name, icon);
+          m_icons.Add(content);
         }
       }
 
@@ -41,14 +45,14 @@ namespace Yume.Editor {
       m_id = EditorGUILayout.TextField("道具id", m_id);
       m_name = EditorGUILayout.TextField("道具名", m_name);
       m_description = EditorGUILayout.TextField("道具描述", m_description);
-      m_iconFileNameIndex = EditorGUILayout.Popup("道具图标", m_iconFileNameIndex, m_iconFileNames.ToArray());
+      m_iconFileNameIndex = EditorGUILayout.Popup(new GUIContent("道具图标"), m_iconFileNameIndex, m_icons.ToArray());
       if (GUILayout.Button("添加")) {
         if (!string.IsNullOrEmpty(m_id) && !m_itemDict.ContainsKey(m_id)) {
           m_itemDict.Add(m_id, new ItemTemplate {
             id = m_id,
             name = m_name,
             description = m_description,
-            iconFileName = m_iconFileNames[m_iconFileNameIndex]
+            iconFileName = m_icons[m_iconFileNameIndex].text
           });
           changed = true;
         }
@@ -63,12 +67,16 @@ namespace Yume.Editor {
         itemTemplate.id = EditorGUILayout.TextField("道具id", itemTemplate.id);
         itemTemplate.name = EditorGUILayout.TextField("道具名", itemTemplate.name);
         itemTemplate.description = EditorGUILayout.TextField("道具描述", itemTemplate.description);
-        itemTemplate.iconFileName = m_iconFileNames[EditorGUILayout.Popup("道具图标", m_iconFileNames.IndexOf(itemTemplate.iconFileName), m_iconFileNames.ToArray())];
+        itemTemplate.iconFileName = m_icons[EditorGUILayout.Popup(new GUIContent("道具图标"),
+          m_icons.FindIndex(i => i.text == itemTemplate.iconFileName), m_icons.ToArray())].text;
         if (GUILayout.Button("删除")) {
           m_itemDict.Remove(itemId);
           changed = true;
         } else if (!m_itemDict[itemId].Equals(itemTemplate)) {
-          if (!m_itemDict.ContainsKey(itemTemplate.id)) {
+          if (itemTemplate.id == itemId) {
+            m_itemDict[itemTemplate.id] = itemTemplate;
+            changed = true;
+          } else if (!m_itemDict.ContainsKey(itemTemplate.id)) {
             m_itemDict.Remove(itemId);
             m_itemDict.Add(itemTemplate.id, itemTemplate);
             changed = true;

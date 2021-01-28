@@ -125,8 +125,8 @@ namespace Yume.Data {
     public string name;
     public UIType uiType;
     public string typeName;
-    public string prefabUrl;
     public float cacheTime;
+    public string prefabName;
   }
   #endregion
 

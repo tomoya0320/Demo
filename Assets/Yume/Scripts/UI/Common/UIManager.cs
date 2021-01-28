@@ -106,9 +106,9 @@ namespace Yume.UI {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
-        GameObject prefab = ResourceManager.Load<GameObject>(data.prefabUrl);
+        GameObject prefab = ResourceManager.Load<GameObject>(data.prefabName);
         if (prefab == null) {
-          Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
+          Debug.LogError($"Prefab为空！url:{data.prefabName}");
           return;
         }
         ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
