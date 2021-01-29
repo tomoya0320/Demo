@@ -76,13 +76,13 @@ namespace Yume.Data {
   /// 数值代表排序的优先级，值越小越靠前
   /// </summary>
   public enum TaskState {
+    COMPLETED = 0,
+    INPROCESS = 1,
+    FINAL = 2,
     /// <summary>
-    /// 不会参与排序
+    /// 并不会显示
     /// </summary>
-    INACTIVE = 0,
-    COMPLETED = 1,
-    INPROCESS = 2,
-    FINAL = 3
+    INACTIVE = 3
   }
 
   public enum TaskType {
@@ -112,7 +112,6 @@ namespace Yume.Data {
     public TaskType type;
     public string description;
     public string activeTaskId;
-    public TaskType activeTaskType;
     public TaskRewards taskRewards;
   }
 

@@ -206,9 +206,9 @@ namespace Yume.Data {
     public static List<TaskData> GetTaskList(TaskType taskType) {
       return userTasks.FindAll(obj => obj.type == taskType);
     }
-
-    public static TaskData GetTask(TaskType taskType, string taskId) {
-      return userTasks.Find(obj => obj.id == taskId && obj.type == taskType);
+    
+    public static TaskData GetTask(string taskId) {
+      return userTasks.Find(obj => obj.id == taskId);
     }
 
     public static CardData GetCard(int guid) {
@@ -434,7 +434,7 @@ namespace Yume.Data {
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
 
         if (!string.IsNullOrEmpty(taskTemplate.activeTaskId)) {
-          TaskData nextTask = GetTask(taskTemplate.activeTaskType, taskTemplate.activeTaskId);
+          TaskData nextTask = GetTask(taskTemplate.activeTaskId);
           if (nextTask != null && nextTask.state == TaskState.INACTIVE) {
             _ActivateTask(nextTask);
           }
