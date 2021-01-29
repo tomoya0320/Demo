@@ -76,7 +76,7 @@ public static class RectTransformTools {
 public static class ListTools {
   public static T First<T>(this List<T> list) {
     if (list.Count == 0) {
-      return default(T);
+      return default;
     }
     return list[0];
   }

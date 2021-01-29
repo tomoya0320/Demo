@@ -33,6 +33,9 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => {
+          if (!m_item.isViewed) {
+            DataManager.SetItemViewed(m_item);
+          }
           UIManager.OpenOne("item_detail", null, m_item);
         });
       }

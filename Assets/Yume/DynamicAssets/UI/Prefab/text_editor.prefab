@@ -409,6 +409,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &3876354685940861656
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,8 +475,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2109255216722457810, guid: edeb93042e011be42b0d75350be368ac, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 3496da199e2128b44924b44be7759996, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

@@ -104,6 +104,8 @@ namespace Yume.UI {
         m_mailScrollView = new UIScrollView<MailData, UIMailTerm>(m_mailScrollRect, m_mails, m_mailTermList);
         m_attachmentScrollView = new UIScrollView<ItemData, UIShortItemInfo>(m_attachmentScrollRect, m_selectedAttachment, m_attachmentTermList);
 
+        SwitchMail(m_mails.First());
+
         _AddListener();
         _CheckGetAllButton();
         _CheckContentPanel();
