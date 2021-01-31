@@ -1,1 +1,142 @@
-{"message_fade":{"name":"message_fade","uiType":2,"typeName":"Yume.UI.UIMessageTip","cacheTime":10.0,"prefabName":"message_fade"},"message_slide":{"name":"message_slide","uiType":2,"typeName":"Yume.UI.UIMessageTip","cacheTime":10.0,"prefabName":"message_slide"},"globalBlackFade":{"name":"globalBlackFade","uiType":1,"typeName":"Yume.UI.UIGlobalFade","cacheTime":10.0,"prefabName":"globalBlackFade"},"globalCircleBlackFade":{"name":"globalCircleBlackFade","uiType":1,"typeName":"Yume.UI.UIGlobalCircleFade","cacheTime":10.0,"prefabName":"globalCircleBlackFade"},"avg":{"name":"avg","uiType":0,"typeName":"Yume.UI.UIAVG","cacheTime":10.0,"prefabName":"avg"},"login":{"name":"login","uiType":0,"typeName":"Yume.UI.UILogin","cacheTime":10.0,"prefabName":"login"},"main":{"name":"main","uiType":0,"typeName":"Yume.UI.UIMain","cacheTime":10.0,"prefabName":"main"},"setting":{"name":"setting","uiType":0,"typeName":"Yume.UI.UISetting","cacheTime":10.0,"prefabName":"setting"},"task":{"name":"task","uiType":0,"typeName":"Yume.UI.UITask","cacheTime":10.0,"prefabName":"task"},"mail":{"name":"mail","uiType":0,"typeName":"Yume.UI.UIMail","cacheTime":10.0,"prefabName":"mail"},"bag":{"name":"bag","uiType":0,"typeName":"Yume.UI.UIBag","cacheTime":10.0,"prefabName":"bag"},"card":{"name":"card","uiType":0,"typeName":"Yume.UI.UICard","cacheTime":10.0,"prefabName":"card"},"char":{"name":"char","uiType":0,"typeName":"Yume.UI.UIChar","cacheTime":10.0,"prefabName":"char"},"char_detail":{"name":"char_detail","uiType":0,"typeName":"Yume.UI.UICharDetail","cacheTime":10.0,"prefabName":"char_detail"},"confirmation":{"name":"confirmation","uiType":0,"typeName":"Yume.UI.UIConfirmation","cacheTime":10.0,"prefabName":"confirmation"},"team":{"name":"team","uiType":0,"typeName":"Yume.UI.UITeam","cacheTime":10.0,"prefabName":"team"},"text_editor":{"name":"text_editor","uiType":0,"typeName":"Yume.UI.UITextEditor","cacheTime":10.0,"prefabName":"text_editor"},"char_choice":{"name":"char_choice","uiType":0,"typeName":"Yume.UI.UICharChoice","cacheTime":10.0,"prefabName":"char_choice"},"card_choice":{"name":"card_choice","uiType":0,"typeName":"Yume.UI.UICardChoice","cacheTime":10.0,"prefabName":"card_choice"},"item_detail":{"name":"item_detail","uiType":0,"typeName":"Yume.UI.UIItemDetail","cacheTime":10.0,"prefabName":"item_detail"}}
+{
+    "message_fade": {
+        "name": "message_fade",
+        "uiType": 2,
+        "typeName": "Yume.UI.UIMessageTip",
+        "cacheTime": 10.0,
+        "prefabName": "message_fade"
+    },
+    "message_slide": {
+        "name": "message_slide",
+        "uiType": 2,
+        "typeName": "Yume.UI.UIMessageTip",
+        "cacheTime": 10.0,
+        "prefabName": "message_slide"
+    },
+    "globalBlackFade": {
+        "name": "globalBlackFade",
+        "uiType": 1,
+        "typeName": "Yume.UI.UIGlobalFade",
+        "cacheTime": 10.0,
+        "prefabName": "globalBlackFade"
+    },
+    "globalCircleBlackFade": {
+        "name": "globalCircleBlackFade",
+        "uiType": 1,
+        "typeName": "Yume.UI.UIGlobalCircleFade",
+        "cacheTime": 10.0,
+        "prefabName": "globalCircleBlackFade"
+    },
+    "avg": {
+        "name": "avg",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIAVG",
+        "cacheTime": 10.0,
+        "prefabName": "avg"
+    },
+    "login": {
+        "name": "login",
+        "uiType": 0,
+        "typeName": "Yume.UI.UILogin",
+        "cacheTime": 10.0,
+        "prefabName": "login"
+    },
+    "main": {
+        "name": "main",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIMain",
+        "cacheTime": 10.0,
+        "prefabName": "main"
+    },
+    "setting": {
+        "name": "setting",
+        "uiType": 0,
+        "typeName": "Yume.UI.UISetting",
+        "cacheTime": 10.0,
+        "prefabName": "setting"
+    },
+    "task": {
+        "name": "task",
+        "uiType": 0,
+        "typeName": "Yume.UI.UITask",
+        "cacheTime": 10.0,
+        "prefabName": "task"
+    },
+    "mail": {
+        "name": "mail",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIMail",
+        "cacheTime": 10.0,
+        "prefabName": "mail"
+    },
+    "bag": {
+        "name": "bag",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIBag",
+        "cacheTime": 10.0,
+        "prefabName": "bag"
+    },
+    "card": {
+        "name": "card",
+        "uiType": 0,
+        "typeName": "Yume.UI.UICard",
+        "cacheTime": 10.0,
+        "prefabName": "card"
+    },
+    "char": {
+        "name": "char",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIChar",
+        "cacheTime": 10.0,
+        "prefabName": "char"
+    },
+    "char_detail": {
+        "name": "char_detail",
+        "uiType": 0,
+        "typeName": "Yume.UI.UICharDetail",
+        "cacheTime": 10.0,
+        "prefabName": "char_detail"
+    },
+    "confirmation": {
+        "name": "confirmation",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIConfirmation",
+        "cacheTime": 10.0,
+        "prefabName": "confirmation"
+    },
+    "team": {
+        "name": "team",
+        "uiType": 0,
+        "typeName": "Yume.UI.UITeam",
+        "cacheTime": 10.0,
+        "prefabName": "team"
+    },
+    "text_editor": {
+        "name": "text_editor",
+        "uiType": 0,
+        "typeName": "Yume.UI.UITextEditor",
+        "cacheTime": 10.0,
+        "prefabName": "text_editor"
+    },
+    "char_choice": {
+        "name": "char_choice",
+        "uiType": 0,
+        "typeName": "Yume.UI.UICharChoice",
+        "cacheTime": 10.0,
+        "prefabName": "char_choice"
+    },
+    "card_choice": {
+        "name": "card_choice",
+        "uiType": 0,
+        "typeName": "Yume.UI.UICardChoice",
+        "cacheTime": 10.0,
+        "prefabName": "card_choice"
+    },
+    "item_detail": {
+        "name": "item_detail",
+        "uiType": 0,
+        "typeName": "Yume.UI.UIItemDetail",
+        "cacheTime": 10.0,
+        "prefabName": "item_detail"
+    }
+}
