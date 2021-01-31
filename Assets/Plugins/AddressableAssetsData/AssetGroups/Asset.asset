@@ -21,7 +21,6 @@ MonoBehaviour:
     m_Address: attribCurveAsset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ScriptableObject
     - Preload
     m_MainAsset: {fileID: 11400000, guid: 3a766d48dd38a42419ae71de84da86d7, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 3a766d48dd38a42419ae71de84da86d7, type: 2}
@@ -29,17 +28,9 @@ MonoBehaviour:
     m_Address: configAsset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ScriptableObject
     - Preload
     m_MainAsset: {fileID: 11400000, guid: 9cbc7429fab218344a5550cfffc1f67c, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 9cbc7429fab218344a5550cfffc1f67c, type: 2}
-  - m_GUID: ebb828dcd27457a4d963afc5db1a2618
-    m_Address: avg_test1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 259cadba724d6a547a6f6942b355632e
     m_Address: uiAsset
     m_ReadOnly: 0
@@ -82,6 +73,13 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 11400000, guid: 404cdc77c0ab0194d920ea400090b2ba, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 404cdc77c0ab0194d920ea400090b2ba, type: 2}
+  - m_GUID: a7132eb8ea1a70241a008820f0a39d00
+    m_Address: avg_test1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 11400000, guid: a7132eb8ea1a70241a008820f0a39d00, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: a7132eb8ea1a70241a008820f0a39d00, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
