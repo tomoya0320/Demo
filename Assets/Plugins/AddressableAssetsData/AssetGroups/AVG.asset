@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AVG
+  m_EditorClassIdentifier: 
+  m_GroupName: AVG
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 84b9f614d9659914fa2536095b9c739e
+  m_SerializeEntries:
+  - m_GUID: ebb828dcd27457a4d963afc5db1a2618
+    m_Address: avg_test1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 11400000, guid: ebb828dcd27457a4d963afc5db1a2618, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: ebb828dcd27457a4d963afc5db1a2618, type: 2}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2dbc10731f6e6f3499b0155fd4aad1cc, type: 2}
+    - {fileID: 11400000, guid: 2851f88bafef48a47b8c6af1bdc52db5, type: 2}

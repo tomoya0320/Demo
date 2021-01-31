@@ -106,7 +106,7 @@ namespace Yume.Main {
 
       if (GUILayout.Button("进入测试avg", GUILayout.Width(300), GUILayout.Height(100))) {
         UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.OpenOne("avg", null, "test1", new Action(() => Debug.Log("test1结束")));
+          UIManager.OpenOne("avg", null, "avg_test1", new Action(() => Debug.Log("test1结束")));
         });
       }
 

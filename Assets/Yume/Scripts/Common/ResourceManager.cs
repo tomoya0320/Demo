@@ -18,18 +18,10 @@ namespace Yume.Resource {
       yield return Addressables.InitializeAsync();
 
       #region 加载Json 这个比较特殊需要转换一下
-      var textAsset = Addressables.LoadAssetAsync<TextAsset>("avgJson");
+      var textAsset = Addressables.LoadAssetAsync<TextAsset>("lvMaxApMapJson");
       yield return textAsset;
 
       JObject json = JObject.Parse(textAsset.Result.text);
-      foreach (var kv in json) {
-        s_resourceDict.Add((kv.Key, typeof(JArray)), kv.Value.Value<JArray>());
-      }
-
-      textAsset = Addressables.LoadAssetAsync<TextAsset>("lvMaxApMapJson");
-      yield return textAsset;
-
-      json = JObject.Parse(textAsset.Result.text);
       foreach (var kv in json) {
         s_resourceDict.Add((kv.Key, typeof(int)), kv.Value.Value<int>());
       }

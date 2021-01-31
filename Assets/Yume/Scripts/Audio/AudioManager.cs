@@ -132,6 +132,10 @@ namespace Yume.Audio {
     }
 
     #region BGM
+    public static void PlayBgm(AudioClip audioClip) {
+      s_bgmManager.PlayBgm(audioClip);
+    }   
+    
     public static void PlayBgm(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
       s_bgmManager.PlayBgm(audio);
@@ -163,6 +167,10 @@ namespace Yume.Audio {
     public static void PlaySound(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
       s_soundManager.PlaySound(audio);
+    }    
+    
+    public static void PlaySound(AudioClip audioClip) {
+      s_soundManager.PlaySound(audioClip);
     }
 
     public static void UpdateSoundVolume() {
