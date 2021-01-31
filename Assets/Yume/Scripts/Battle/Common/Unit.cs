@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Newtonsoft.Json;
 using Yume.Data;
 using Yume.Resource;
 
@@ -22,16 +21,12 @@ namespace Yume.Battle {
     EVADE_PROB,
     [Description("能量")]
     ENERGY,
-
-    LENGTH // 属性类型总数
   }
 
   [Serializable]
   public struct Attrib {
-    [JsonProperty]
-    public float value { get; private set; }
-    [JsonProperty]
-    public float maxValue { get; private set; }
+    public float value;
+    public float maxValue;
 
     public static Attrib operator +(Attrib a1, Attrib a2) {
       Attrib attrib = new Attrib {

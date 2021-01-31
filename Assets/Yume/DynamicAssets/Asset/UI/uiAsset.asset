@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca761edbacba54b44add955e0fea835c, type: 3}
+  m_Name: uiAsset
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _uiTemplates:
+  - name: message_fade
+    uiType: 2
+    typeName: Yume.UI.UIMessageTip
+    prefabName: message_fade
+    cacheTime: 10
+  - name: message_slide
+    uiType: 2
+    typeName: Yume.UI.UIMessageTip
+    prefabName: message_slide
+    cacheTime: 10
+  - name: globalBlackFade
+    uiType: 1
+    typeName: Yume.UI.UIGlobalFade
+    prefabName: globalBlackFade
+    cacheTime: 10
+  - name: globalCircleBlackFade
+    uiType: 1
+    typeName: Yume.UI.UIGlobalCircleFade
+    prefabName: globalCircleBlackFade
+    cacheTime: 10
+  - name: avg
+    uiType: 0
+    typeName: Yume.UI.UIAVG
+    prefabName: avg
+    cacheTime: 10
+  - name: login
+    uiType: 0
+    typeName: Yume.UI.UILogin
+    prefabName: login
+    cacheTime: 10
+  - name: main
+    uiType: 0
+    typeName: Yume.UI.UIMain
+    prefabName: main
+    cacheTime: 10
+  - name: setting
+    uiType: 0
+    typeName: Yume.UI.UISetting
+    prefabName: setting
+    cacheTime: 10
+  - name: task
+    uiType: 0
+    typeName: Yume.UI.UITask
+    prefabName: task
+    cacheTime: 10
+  - name: mail
+    uiType: 0
+    typeName: Yume.UI.UIMail
+    prefabName: mail
+    cacheTime: 10
+  - name: bag
+    uiType: 0
+    typeName: Yume.UI.UIBag
+    prefabName: bag
+    cacheTime: 10
+  - name: card
+    uiType: 0
+    typeName: Yume.UI.UICard
+    prefabName: card
+    cacheTime: 10
+  - name: char
+    uiType: 0
+    typeName: Yume.UI.UIChar
+    prefabName: char
+    cacheTime: 10
+  - name: char_detail
+    uiType: 0
+    typeName: Yume.UI.UICharDetail
+    prefabName: char_detail
+    cacheTime: 10
+  - name: confirmation
+    uiType: 0
+    typeName: Yume.UI.UIConfirmation
+    prefabName: confirmation
+    cacheTime: 10
+  - name: team
+    uiType: 0
+    typeName: Yume.UI.UITeam
+    prefabName: team
+    cacheTime: 10
+  - name: text_editor
+    uiType: 0
+    typeName: Yume.UI.UITextEditor
+    prefabName: text_editor
+    cacheTime: 10
+  - name: char_choice
+    uiType: 0
+    typeName: Yume.UI.UICharChoice
+    prefabName: char_choice
+    cacheTime: 10
+  - name: card_choice
+    uiType: 0
+    typeName: Yume.UI.UICardChoice
+    prefabName: card_choice
+    cacheTime: 10
+  - name: item_detail
+    uiType: 0
+    typeName: Yume.UI.UIItemDetail
+    prefabName: item_detail
+    cacheTime: 10

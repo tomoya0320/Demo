@@ -5,6 +5,19 @@ using Yume.Audio;
 using Yume.UI;
 
 namespace Yume.AVG {
+	public class EnterNode : Node {
+		[Output(ShowBackingValue.Never)]
+		public int first;
+
+		public AVGNodeBase GetFirstAVGNode() {
+			var connection = GetOutputPort(nameof(first)).Connection;
+			if (connection != null) {
+				return connection.node as AVGNodeBase;
+			}
+			return null;
+		}
+	}
+
 	public abstract class AVGNodeBase : Node {
 		[Input(ShowBackingValue.Never)]
 		public int last;
@@ -62,7 +75,7 @@ namespace Yume.AVG {
 		}
 	}
 
-	public class AVGNodes : AVGNodeBase {
+	public class ParallelNode : AVGNodeBase {
 		[Output]
 		public AVGNodeBase avgNodes;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;
 
@@ -10,6 +11,7 @@ namespace Yume.Data {
     public string id;
     public string name;
     public string iconFileName;
+    [TextArea]
     public string description;
   }
 
@@ -24,6 +26,7 @@ namespace Yume.Data {
 
   public struct CardPhase {
     public string name;
+    [TextArea]
     public string description;
     public string iconFileName;
     public int energyConsumption;
@@ -38,6 +41,7 @@ namespace Yume.Data {
 
   public struct PassiveSkillPhase {
     public string name;
+    [TextArea]
     public string description;
     public string iconFileName;
     public Blackboard blackboard;
@@ -56,7 +60,7 @@ namespace Yume.Data {
     public Dictionary<AttribType, Attrib> maxAttribDict;
 
     public Attrib[] GetMinAttribs() {
-      Attrib[] minAttribs = new Attrib[(int)AttribType.LENGTH];
+      Attrib[] minAttribs = new Attrib[Constant.ATTRIB_LENGTH];
       foreach (var kv in minAttribDict) {
         minAttribs[(int)kv.Key] = kv.Value;
       }
@@ -64,7 +68,7 @@ namespace Yume.Data {
     }
 
     public Attrib[] GetMaxAttribs() {
-      Attrib[] maxAttribs = new Attrib[(int)AttribType.LENGTH];
+      Attrib[] maxAttribs = new Attrib[Constant.ATTRIB_LENGTH];
       foreach (var kv in maxAttribDict) {
         maxAttribs[(int)kv.Key] = kv.Value;
       }
@@ -102,14 +106,17 @@ namespace Yume.Data {
     HAD, CONSUME, ADD
   }
 
+  [Serializable]
   public struct TaskRewards {
     public ItemData[] items;
   }
 
+  [Serializable]
   public struct TaskTemplate {
     public string id;
     public string title;
     public TaskType type;
+    [TextArea]
     public string description;
     public string activeTaskId;
     public TaskRewards taskRewards;
@@ -124,8 +131,8 @@ namespace Yume.Data {
     public string name;
     public UIType uiType;
     public string typeName;
-    public float cacheTime;
     public string prefabName;
+    public float cacheTime;
   }
   #endregion
 
@@ -137,11 +144,16 @@ namespace Yume.Data {
     /// <summary>
     /// RedPoint”√
     /// </summary>
+    [HideInInspector]
     public bool isViewed;
 
     public ItemData(string id, int count) {
       this.id = id;
       this.count = count;
+    }
+
+    public ItemData Clone() {
+      return new ItemData(id, count);
     }
   }
 
@@ -207,16 +219,17 @@ namespace Yume.Data {
     /// </summary>
     public bool ignoreId;
     public RequestType type;
+    [HideInInspector]
     public int currentCount;
     public int requiredCount;
-    public string description;
     public string requirementId;
+    [TextArea]
+    public string description;
   }
 
   [Serializable]
   public class TaskData {
     public string id;
-    public TaskType type;
     public TaskState state;
     public List<TaskRequestData> taskRequests;
   }

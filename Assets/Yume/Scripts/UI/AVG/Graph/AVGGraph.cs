@@ -12,8 +12,10 @@ namespace Yume.AVG {
     public List<Tween> tweenList = new List<Tween>();
 
     public AVGGraph Init() {
-      m_avgNode = nodes.First() as AVGNodeBase;
-
+      var enter = nodes.Find(n => n is EnterNode);
+      if(enter != null) {
+        m_avgNode = (enter as EnterNode).GetFirstAVGNode();
+      }
       return this;
     }
 

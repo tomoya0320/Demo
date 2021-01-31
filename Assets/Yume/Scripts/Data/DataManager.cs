@@ -204,7 +204,7 @@ namespace Yume.Data {
     }
 
     public static List<TaskData> GetTaskList(TaskType taskType) {
-      return userTasks.FindAll(obj => obj.type == taskType);
+      return userTasks.FindAll(obj => ResourceManager.Load<TaskTemplate>(obj.id).type == taskType);
     }
     
     public static TaskData GetTask(string taskId) {
@@ -386,12 +386,13 @@ namespace Yume.Data {
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
           TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
-          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 1);
+          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 1);
           MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
           s_saveDataTypes.Add("tasks");
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
-          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
+          TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
+          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
           s_saveDataTypes.Add("tasks");
         }
       }
@@ -418,7 +419,8 @@ namespace Yume.Data {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
         foreach (ItemData item in taskTemplate.taskRewards.items) {
-          AddItem(item);
+          // 注意任务的道具奖励是引用类型得深度克隆一个
+          AddItem(item.Clone());
           ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
           Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
           MessageManager.AddMessage(new Message(Message.Style.FADE,
@@ -431,7 +433,7 @@ namespace Yume.Data {
           }
         }
 
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, task.type.GetDescription(), 0);
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
 
         if (!string.IsNullOrEmpty(taskTemplate.activeTaskId)) {
           TaskData nextTask = GetTask(taskTemplate.activeTaskId);

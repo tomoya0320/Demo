@@ -12,7 +12,7 @@ namespace Yume.UI {
     private Text m_passiveSkillName;
     private Text m_passiveSkillDesc;
     private Image m_passiveSkillIcon;
-    private Text[] m_attribs = new Text[(int)AttribType.LENGTH];
+    private Text[] m_attribs = new Text[Constant.ATTRIB_LENGTH];
 
     public override void OnInit(UITemplate uiTemplate, GameObject root) {
       base.OnInit(uiTemplate, root);

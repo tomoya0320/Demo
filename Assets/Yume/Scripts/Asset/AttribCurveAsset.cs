@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Yume.Data {
-  [Serializable]
-  public struct AttribCurve {
-    public string id;
-    public AnimationCurve curve;
-  }
-
-  public class AttribCurveAsset : ScriptableObject {
+namespace Yume.Asset {
+  public class AttribCurveAsset : YScriptableObject {
     [SerializeField]
-    private List<AttribCurve> _attribCurves;
+    private Dictionary<string, AnimationCurve> _attribCurves;
 
-    public List<AttribCurve> attribCurves => _attribCurves;
+    public override Dictionary<(string, Type), object> GetActualData() {
+      Dictionary<(string, Type), object> data = new Dictionary<(string, Type), object>();
+      foreach (var kv in _attribCurves) {
+        data.Add((kv.Key, typeof(AnimationCurve)), kv.Value);
+      }
+      return data;
+    }
   }
 }

@@ -13,6 +13,7 @@ public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
   public const int MAX_CARD_COUNT = 12;
   public const int MAX_SOUND_COUNT = 5;
+  public static int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
   public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
 }
 
