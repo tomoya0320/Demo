@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
@@ -13,6 +14,8 @@ namespace Yume.UI {
     public Text nameText { private set; get; }
     public Text dialogueText { private set; get; }
     public Image illustration { private set; get; }
+    public GameObject dialogOptions { private set; get; }
+    public YButton[] dialogOptionBtns { private set; get; }
     public CanvasGroup dialogueCanvasGroup { private set; get; }
     #endregion
 
@@ -26,8 +29,11 @@ namespace Yume.UI {
       bgImage = GetComponent<Image>("bg");
       nameText = GetComponent<Text>("name");
       dialogueText = GetComponent<Text>("dialogue");
+      dialogOptions = GetGameObject("DialogOptions");
       illustration = GetComponent<Image>("illustration");
       dialogueCanvasGroup = GetComponent<CanvasGroup>("dialogueCanvasGroup");
+
+      dialogOptionBtns = dialogOptions.GetComponentsInChildren<YButton>(true);
 
       _AddListener();
     }
@@ -41,9 +47,8 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       _InitAVG((string)args[0], args[1] as Action);
-      _DoOperation();
-
       UIManager.onBackStack.Push(_SkipAVG);
+      m_avgGraph.Enter(this);
     }
 
     public override void Close(Action callback = null, params object[] args) {
@@ -76,7 +81,7 @@ namespace Yume.UI {
     private void _InitAVG(string avgName, Action onQuitAVG) {
       m_onQuitAVG = onQuitAVG;
       m_beforeBgmName = AudioManager.GetCurrentBgmName();
-      m_avgGraph = ResourceManager.Load<AVGGraph>(avgName).Init();
+      m_avgGraph = ResourceManager.Load<AVGGraph>(avgName);
     }
 
     private void _CleanUp() {

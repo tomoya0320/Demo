@@ -10,16 +10,14 @@ namespace Yume.AVG {
   public class AVGGraph : NodeGraph {
     [NonSerialized]
     public int block;
-    private AVGNodeBase m_avgNode;
+    [NonSerialized]
+    public AVGNodeBase avgNode;
     [NonSerialized]
     public List<Tween> tweenList = new List<Tween>();
 
-    public AVGGraph Init() {
-      var enter = nodes.Find(n => n is EnterNode);
-      if(enter != null) {
-        m_avgNode = (enter as EnterNode).GetFirstAVGNode();
-      }
-      return this;
+    public void Enter(UIAVG avg) {
+      var node = nodes.Find(n => n is Enter);
+      (node as AVGNodeBase)?.Run(avg);
     }
 
     public void Run(UIAVG avg) {
@@ -34,8 +32,7 @@ namespace Yume.AVG {
         return;
       }
 
-      m_avgNode?.DoOperation(avg);
-      m_avgNode = m_avgNode?.GetNextAVGNode();
+      avgNode?.Run(avg);
     }
 
     public void CleanUp() {
@@ -45,7 +42,7 @@ namespace Yume.AVG {
         }
         tweenList.Clear();
       }
-
+      avgNode = null;
       block = 0;
     }
   }

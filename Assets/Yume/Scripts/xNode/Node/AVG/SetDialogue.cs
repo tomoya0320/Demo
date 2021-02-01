@@ -3,18 +3,24 @@ using UnityEngine;
 using Yume.UI;
 
 namespace Yume.AVG {
-  public class SetDialogue : AVGNodeBase {
+	public class SetDialogue : FadeNodeBase {
+		[Input(ShowBackingValue.Never)]
+		public int node;
 		[SerializeField]
 		private string _name;
 		[SerializeField, TextArea]
 		private string _dialogue;
 
-		public override void DoOperation(UIAVG avg) {
+    protected override void Init() {
+      base.Init();
+
+			block = false;
+    }
+
+    protected override Tween DOTween(UIAVG avg, float fadeTime) {
 			avg.nameText.text = _name;
 			avg.dialogueText.text = StringMap.EMPTY;
-			Tween tween = avg.dialogueText.DOText(_dialogue, 20.0f).SetSpeedBased();
-			tween.OnComplete(() => avgGraph.tweenList.Remove(tween));
-			avgGraph.tweenList.Add(tween);
+			return avg.dialogueText.DOText(_dialogue, fadeTime);
 		}
 	}
 }

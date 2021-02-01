@@ -3,7 +3,9 @@ using UnityEngine;
 using Yume.UI;
 
 namespace Yume.AVG {
-	public class SetDialogueVisible : AVGFadeOperation {
+	public class SetDialogueVisible : FadeNodeBase {
+		[Input(ShowBackingValue.Never)]
+		public int node;
 		[SerializeField]
 		private bool _visible;
 

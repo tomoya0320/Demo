@@ -5,10 +5,6 @@ using Yume.UI;
 
 namespace Yume.AVG {
   public abstract class AVGNodeBase : Node {
-		[Input(ShowBackingValue.Never)]
-		public int last;
-		[Output(ShowBackingValue.Never)]
-		public int next;
 		protected AVGGraph avgGraph;
 
 		protected override void Init() {
@@ -17,35 +13,22 @@ namespace Yume.AVG {
 			avgGraph = graph as AVGGraph;
 		}
 
-    public override object GetValue(NodePort port) {
-			// 暂时没用
-      return null;
-    }
-
-    public AVGNodeBase GetNextAVGNode() {
-			var connection = GetOutputPort(nameof(next)).Connection;
-			if (connection != null) {
-				return connection.node as AVGNodeBase;
-			}
-			return null;
-		}
-
-		public abstract void DoOperation(UIAVG avg);
+		public abstract void Run(UIAVG avg);
 	}
 
-	public abstract class AVGFadeOperation : AVGNodeBase {
+	public abstract class FadeNodeBase : AVGNodeBase {
 		[SerializeField]
-		private bool _block = true;
+		protected bool block = true;
 		[SerializeField]
-		private float _fadeTime;
+		protected float fadeTime;
 		[Output(ShowBackingValue.Never)]
 		public int onFadeCompleted;
 
-		public override void DoOperation(UIAVG avg) {
-			if (_block) {
+		public override void Run(UIAVG avg) {
+			if (block) {
 				avgGraph.block++;
 			}
-			Tween tween = DOTween(avg, _fadeTime);
+			Tween tween = DOTween(avg, fadeTime);
 			tween.OnComplete(() => {
 				avgGraph.tweenList.Remove(tween);
 				OnFadeCompleted(avg);
@@ -58,9 +41,9 @@ namespace Yume.AVG {
 		protected void OnFadeCompleted(UIAVG avg) {
 			var connections = GetOutputPort(nameof(onFadeCompleted)).GetConnections();
 			foreach (var connection in connections) {
-				(connection.node as AVGNodeBase)?.DoOperation(avg);
+				(connection.node as AVGNodeBase)?.Run(avg);
 			}
-			if (_block) {
+			if (block) {
 				avgGraph.block--;
 			}
 		}
