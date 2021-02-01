@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
@@ -7,8 +8,10 @@ using Yume.UI;
 namespace Yume.AVG {
   [CreateAssetMenu]
   public class AVGGraph : NodeGraph {
+    [NonSerialized]
     public int block;
     private AVGNodeBase m_avgNode;
+    [NonSerialized]
     public List<Tween> tweenList = new List<Tween>();
 
     public AVGGraph Init() {
