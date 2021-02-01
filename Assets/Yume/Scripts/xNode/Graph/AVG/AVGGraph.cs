@@ -31,16 +31,11 @@ namespace Yume.AVG {
         return;
       }
 
-      if (m_avgNode == null) {
-        _CleanUp();
-        avg.QuitAVG();
-      } else {
-        m_avgNode.DoOperation(avg);
-        m_avgNode = m_avgNode.GetNextAVGNode();
-      }
+      m_avgNode?.DoOperation(avg);
+      m_avgNode = m_avgNode?.GetNextAVGNode();
     }
 
-    private void _CleanUp() {
+    public void CleanUp() {
       if (tweenList.Count > 0) {
         foreach (var tween in tweenList) {
           tween?.Kill();
