@@ -6,7 +6,6 @@ namespace Yume.AVG {
     public int node;
 
     public override void Run(UIAVG avg) {
-      avgGraph.CleanUp();
       avg.QuitAVG();
     }
   }

@@ -85,6 +85,12 @@ namespace Yume.UI {
     }
 
     private void _CleanUp() {
+      m_avgGraph.CleanUp();
+      foreach (var dialogOptionBtn in dialogOptionBtns) {
+        dialogOptionBtn.textComponent.text = StringMap.EMPTY;
+        dialogOptionBtn.onClick.RemoveAllListeners();
+      }
+      dialogOptions.SetActiveEx(false);
       bgImage.color = Color.white;
       nameText.text = StringMap.EMPTY;
       illustration.color = Color.white;
