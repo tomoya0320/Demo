@@ -127,3 +127,13 @@ MonoBehaviour:
     typeName: Yume.UI.UIBattle
     prefabName: battle
     cacheTime: 10
+  - name: main_story
+    uiType: 0
+    typeName: Yume.UI.UIMainStory
+    prefabName: main_story
+    cacheTime: 10
+  - name: level_panel
+    uiType: 0
+    typeName: Yume.UI.UILevelPanel
+    prefabName: level_panel
+    cacheTime: 10

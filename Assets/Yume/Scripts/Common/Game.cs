@@ -131,6 +131,10 @@ namespace Yume.Main {
         DataManager.AddCard(new CardData("card_001_atk", 0));
         DataManager.AddCard(new CardData("card_001_atk", 1));
       }
+
+      if (GUILayout.Button("通关全部关卡", GUILayout.Width(300), GUILayout.Height(100))) {
+        DataManager.CompleteAllLevelsTestOnly();
+      }
     }
 #endif
   }

@@ -107,7 +107,7 @@ namespace Yume.Data {
   }
 
   [Serializable]
-  public struct TaskRewards {
+  public struct Rewards {
     public ItemData[] items;
   }
 
@@ -119,7 +119,7 @@ namespace Yume.Data {
     [TextArea]
     public string description;
     public string activeTaskId;
-    public TaskRewards taskRewards;
+    public Rewards taskRewards;
   }
 
   public enum UIType {
@@ -133,6 +133,21 @@ namespace Yume.Data {
     public string typeName;
     public string prefabName;
     public float cacheTime;
+  }
+
+  [Serializable]
+  public struct LevelTemplate {
+    public string id;
+    public string title;
+    [TextArea]
+    public string description;
+    public string iconFileName;
+    public string beforeAVGId;
+    public string afterAVGId;
+    public string preLevelId;
+    public Rewards regularRewards;
+    public Rewards firstCompletedRewards;
+    // TODO:µÐÈËÊý¾Ý
   }
   #endregion
 
@@ -258,6 +273,7 @@ namespace Yume.Data {
     public List<UnitData> chars = new List<UnitData>();
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
+    public List<LevelData> levels = new List<LevelData>();
 
     public UserData(string name = "", string account = "", string password = "") {
       this.name = name;
@@ -267,6 +283,7 @@ namespace Yume.Data {
       ap = maxAp = ResourceManager.Load<int>($"{lv}");
 
       tasks.AddRange(ResourceManager.LoadAll<TaskData>());
+      levels.AddRange(ResourceManager.LoadAll<LevelData>());
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());
@@ -278,6 +295,12 @@ namespace Yume.Data {
       }
 #endif
     }
+  }
+
+  [Serializable]
+  public class LevelData {
+    public string id;
+    public bool completed;
   }
   #endregion
 }

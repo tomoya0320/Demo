@@ -87,7 +87,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.OnOpen(args);
+      m_cardGroup.OnOpen();
 
       base.Open(callback, args);
     }

@@ -190,6 +190,15 @@ namespace Yume.Data {
         }
         return s_user.tasks;
       }
+    }  
+    public static List<LevelData> userLevels {
+      get {
+        if (s_user == null) {
+          s_user = new UserData();
+          Debug.LogWarning("用户未登录，创建新的存档！");
+        }
+        return s_user.levels;
+      }
     }
     #endregion
 
@@ -500,6 +509,17 @@ namespace Yume.Data {
       s_saveDataTypes.Add("exp");
     }
     #endregion
+
+    #region Level
+#if TEST
+    public static void CompleteAllLevelsTestOnly() {
+      foreach (var level in userLevels) {
+        level.completed = true;
+      }
+      s_saveDataTypes.Add("levels");
+    }
+#endif
+#endregion
 
     #region Load&Save
     public static void LoadUserDB(JObject json = null) {

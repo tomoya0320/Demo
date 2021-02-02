@@ -73,7 +73,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_charGroup.OnOpen(args);
+      m_charGroup.OnOpen();
 
       base.Open(callback, args);
     }
