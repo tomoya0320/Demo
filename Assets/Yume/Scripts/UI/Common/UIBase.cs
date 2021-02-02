@@ -5,28 +5,21 @@ using Yume.Tool;
 
 namespace Yume.UI {
   public abstract class UIBase {
-    private UITemplate m_uiData;
-    private bool m_isShowing;
     private GameObject m_root;
-    private ObjectContainer m_uiObject;
+    private UITemplate m_uiData;
     private Animation m_animation;
     public GameObject root => m_root;
-    private CanvasGroup m_canvasGroup;
+    private ObjectContainer m_uiObject;
     public string name => m_uiData.name;
     public UIType uiType => m_uiData.uiType;
     public float cacheTime => m_uiData.cacheTime;
-    /// <summary>
-    /// open动画开始到close动画结束期间都算显示中
-    /// </summary>
-    public bool isShowing => m_isShowing;
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject root) {
       m_root = root;
       m_uiData = uiTemplate;
       m_root.name = uiTemplate.name;
-      m_uiObject = root.GetComponent<ObjectContainer>();
       m_animation = root.GetComponent<Animation>();
-      m_canvasGroup = root.GetComponent<CanvasGroup>();
+      m_uiObject = root.GetComponent<ObjectContainer>();
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
@@ -44,13 +37,10 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Close(Action callback = null, params object[] args) {
       //保证动画完整播放
-      m_canvasGroup.interactable = false;
-      UIManager.activeBack = false;
+      UIManager.Block(this);
 
       Action action = () => {
-        m_isShowing = false;
-        m_canvasGroup.interactable = true;
-        UIManager.activeBack = true;
+        UIManager.Unblock(this);
       };
       callback = action + callback;
 
@@ -69,13 +59,10 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
       //保证动画完整播放
-      m_isShowing = true;
-      m_canvasGroup.interactable = false;
-      UIManager.activeBack = false;
+      UIManager.Block(this);
 
       Action action = () => {
-        m_canvasGroup.interactable = true;
-        UIManager.activeBack = true;
+        UIManager.Unblock(this);
       };
       callback = action + callback;
 

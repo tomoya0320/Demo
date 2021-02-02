@@ -15,8 +15,7 @@ namespace Yume.UI {
     private static Dictionary<object, object> s_sharedArgsDict = new Dictionary<object, object>();
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
-
-    public static bool activeBack { set; get; }
+    private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
     public static Stack<Action> onBackStack = new Stack<Action>();
 
     public static void Init() {
@@ -28,6 +27,7 @@ namespace Yume.UI {
       normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
+        s_blockDict.Add(type, 0);
         s_uiStackDict.Add(type, new Stack<UIBase>());
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
@@ -95,6 +95,11 @@ namespace Yume.UI {
     public static void OpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
         var stack = s_uiStackDict[data.uiType];
         _OpenInternal(data, stack, callback, args);
       } else {
@@ -141,6 +146,11 @@ namespace Yume.UI {
     public static void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
         var stack = s_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
@@ -160,6 +170,11 @@ namespace Yume.UI {
     public static void CloseOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
         var stack = s_uiStackDict[data.uiType];
 
         if (stack.Count == 0) {
@@ -193,26 +208,7 @@ namespace Yume.UI {
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
     public static void Back() {
-      if (activeBack) {
-        onBackStack.Peek()?.Invoke();
-      }
-    }
-
-    /// <summary>
-    /// 判断一个UI是否正在显示
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public static bool IsShowing(string name) {
-      foreach (var stack in s_uiStackDict.Values) {
-        foreach (var ui in stack) {
-          if (ui.name == name) {
-            return ui.isShowing;
-          }
-        }
-      }
-
-      return false;
+      onBackStack.Peek()?.Invoke();
     }
 
     private static void _CloseInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
@@ -244,6 +240,14 @@ namespace Yume.UI {
             return null;
           }
       }
+    }
+
+    public static void Block(UIBase ui) {
+      s_blockDict[ui.uiType]++;
+    }
+
+    public static void Unblock(UIBase ui) {
+      s_blockDict[ui.uiType]--;
     }
   }
 }

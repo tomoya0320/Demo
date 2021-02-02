@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
@@ -11,6 +12,7 @@ namespace Yume.UI {
     private GameObject m_main;
     private GameObject m_second;
     private InputField m_nameInput;
+    private CanvasGroup m_canvasGroup;
     private InputField m_accountInput;
     private InputField m_passwordInput;
     private InputField m_newPasswordInput;
@@ -146,12 +148,23 @@ namespace Yume.UI {
       m_main = GetGameObject("Main");
       m_second = GetGameObject("Second");
       m_result = GetComponent<Text>("Result");
+      m_canvasGroup = root.GetComponent<CanvasGroup>();
       m_nameInput = GetComponent<InputField>("NameInput");
       m_passwordInput = GetComponent<InputField>("PsdInput");
       m_accountInput = GetComponent<InputField>("AccountInput");
       m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
 
       _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_canvasGroup.interactable = false;
+      Action action = () => {
+        m_canvasGroup.interactable = true;
+      };
+      callback = action + callback;
+
+      base.Open(callback, args);
     }
 
     public override UIBase Recycle() {
