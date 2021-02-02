@@ -122,3 +122,8 @@ MonoBehaviour:
     typeName: Yume.UI.UIItemDetail
     prefabName: item_detail
     cacheTime: 10
+  - name: battle
+    uiType: 0
+    typeName: Yume.UI.UIBattle
+    prefabName: battle
+    cacheTime: 10

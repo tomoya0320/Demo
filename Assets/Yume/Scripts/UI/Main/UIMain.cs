@@ -14,6 +14,7 @@ namespace Yume.UI {
     private Button m_mail; 
     private Button m_team; 
     private Button m_setting;
+    private Button m_battle;
 
     private Text m_apText;
     private Text m_lvText;
@@ -43,6 +44,7 @@ namespace Yume.UI {
       m_mail = GetComponent<Button>("Mail");
       m_team = GetComponent<Button>("Team");
       m_setting = GetComponent<Button>("Setting");
+      m_battle = GetComponent<Button>("Battle");
 
       var bagRedPointRoot = m_bag.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_bagRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, MainItemRedPointTree.MAIN_ITEM, null, bagRedPointRoot);
@@ -65,6 +67,7 @@ namespace Yume.UI {
       m_mail.onClick.AddListener(() => UIManager.OpenOne("mail"));
       m_team.onClick.AddListener(() => UIManager.OpenOne("team"));
       m_setting.onClick.AddListener(() => UIManager.OpenOne("setting"));
+      m_battle.onClick.AddListener(() => UIManager.OpenOne("battle"));
     }
 
     private void _UpdateUserInfo() {
