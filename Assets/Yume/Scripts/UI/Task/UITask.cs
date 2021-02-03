@@ -11,21 +11,21 @@ namespace Yume.UI {
   public class UITask : UIBase {
     private class UITaskTerm : UIChildBase, IScrollTerm<TaskData> {
       private Text m_title;
+      private Text m_process;
       private TaskData m_task;
       private Text m_description;
       private YButton m_getReward;
       private UIRedPoint m_taskRedPoint;
       public bool isValid => m_task != null;
       private RectTransform m_rewardContent;
-      private RectTransform m_processContent;
       public Transform transform => gameObject.transform;
 
       public UITaskTerm(TaskType type, GameObject root) : base(root) {
         m_title = GetComponent<Text>("title");
-        m_description = GetComponent<Text>("description");
+        m_process = GetComponent<Text>("process");
         m_getReward = GetComponent<YButton>("getReward");
+        m_description = GetComponent<Text>("description");
         m_rewardContent = GetComponent<RectTransform>("rewardContent");
-        m_processContent = GetComponent<RectTransform>("processContent");
 
         var taskRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, type.GetDescription(), taskRedPointRoot);
@@ -41,19 +41,13 @@ namespace Yume.UI {
 
       private void _UpdateTaskProcess() {
         if (m_task != null) {
-          for (int i = 0; i < m_processContent.childCount; i++) {
-            var tempGo = m_processContent.GetChild(i).gameObject;
-            if (i < m_task.taskRequests.Count) {
-              tempGo.SetActiveEx(true);
-              tempGo.GetComponentInChildren<Text>().text = string.Format("{0}:{1}/{2}", m_task.taskRequests[i].description,
-              m_task.taskRequests[i].currentCount, m_task.taskRequests[i].requiredCount);
-            } else {
-              tempGo.SetActiveEx(false);
-            }
-          }
+          var taskRequest = ResourceManager.Load<TaskTemplate>(m_task.id).taskRequest;
+
+          m_process.text = string.Format("{0}:{1}/{2}", taskRequest.description,
+                                         m_task.process, taskRequest.requiredCount);
 
           m_getReward.interactable = m_task.state == TaskState.COMPLETED;
-          m_processContent.gameObject.SetActiveEx(m_task.state == TaskState.INPROCESS);
+          m_process.gameObject.SetActiveEx(m_task.state == TaskState.INPROCESS);
           m_getReward.gameObject.SetActiveEx(m_task.state == TaskState.COMPLETED || m_task.state == TaskState.FINAL);
           m_getReward.textComponent.text = m_task.state == TaskState.FINAL ? StringMap.COMPLETED : StringMap.CLICK_GET;
           m_getReward.image.color = m_task.state == TaskState.FINAL ? Colors.DISABLE_BUTTON : m_getReward.colors.normalColor;

@@ -113,6 +113,24 @@ namespace Yume.Data {
 
   [Serializable]
   public struct TaskTemplate {
+    [Serializable]
+    public struct RequestTemplate {
+      public Method method;
+      /// <summary>
+      /// 完成任务后是否消耗所需物品
+      /// </summary>
+      public bool consumable;
+      /// <summary>
+      /// 是否忽略需求的ID
+      /// </summary>
+      public bool ignoreId;
+      public RequestType type;
+      public int requiredCount;
+      public string requirementId;
+      [TextArea]
+      public string description;
+    }
+
     public string id;
     public string title;
     public TaskType type;
@@ -120,6 +138,7 @@ namespace Yume.Data {
     public string description;
     public string activeTaskId;
     public Rewards taskRewards;
+    public RequestTemplate taskRequest;
   }
 
   public enum UIType {
@@ -223,30 +242,10 @@ namespace Yume.Data {
   }
 
   [Serializable]
-  public class TaskRequestData {
-    public Method method;
-    /// <summary>
-    /// 完成任务后是否消耗所需物品
-    /// </summary>
-    public bool consumable;
-    /// <summary>
-    /// 是否忽略需求的ID
-    /// </summary>
-    public bool ignoreId;
-    public RequestType type;
-    [HideInInspector]
-    public int currentCount;
-    public int requiredCount;
-    public string requirementId;
-    [TextArea]
-    public string description;
-  }
-
-  [Serializable]
   public class TaskData {
     public string id;
+    public int process;
     public TaskState state;
-    public List<TaskRequestData> taskRequests;
   }
 
   [Serializable]

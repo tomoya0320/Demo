@@ -346,23 +346,23 @@ namespace Yume.Data {
     private static void _UpdateTaskState(RequestType type, string reqId, int reqCount) {
       foreach (var task in userTasks) {
         if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
-          foreach (TaskRequestData taskRequest in task.taskRequests) {
-            if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
-              switch (taskRequest.method) {
-                case Method.ADD: {
-                    taskRequest.currentCount += reqCount > 0 ? reqCount : 0;
-                    break;
-                  }
-                case Method.CONSUME: {
-                    taskRequest.currentCount += reqCount < 0 ? -reqCount : 0;
-                    break;
-                  }
-                case Method.HAD: {
-                    _SyncTaskHadCount(taskRequest);
-                    break;
-                  }
-              }
+          var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
+          if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
+            switch (taskRequest.method) {
+              case Method.ADD: {
+                  task.process += reqCount > 0 ? reqCount : 0;
+                  break;
+                }
+              case Method.CONSUME: {
+                  task.process += reqCount < 0 ? -reqCount : 0;
+                  break;
+                }
+              case Method.HAD: {
+                  _SyncTaskHadCount(task);
+                  break;
+                }
             }
+
           }
           _CheckTask(task);
         }
@@ -373,11 +373,10 @@ namespace Yume.Data {
 
     private static void _ActivateTask(TaskData task) {
       if (task.state == TaskState.INACTIVE) {
+        var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
         task.state = TaskState.INPROCESS;
-        foreach (var taskRequest in task.taskRequests) {
-          if (taskRequest.method == Method.HAD) {
-            _SyncTaskHadCount(taskRequest);
-          }
+        if (taskRequest.method == Method.HAD) {
+          _SyncTaskHadCount(task);
         }
         _CheckTask(task);
         EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
@@ -387,10 +386,8 @@ namespace Yume.Data {
 
     private static void _CheckTask(TaskData task) {
       if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
-        bool completed = true;
-        foreach (TaskRequestData taskRequest in task.taskRequests) {
-          completed &= taskRequest.currentCount >= taskRequest.requiredCount;
-        }
+        var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
+        bool completed = task.process >= taskRequest.requiredCount;
 
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
@@ -407,15 +404,16 @@ namespace Yume.Data {
       }
     }
 
-    private static void _SyncTaskHadCount(TaskRequestData taskRequest) {
+    private static void _SyncTaskHadCount(TaskData task) {
+      var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
       if (taskRequest.method == Method.HAD) {
         switch (taskRequest.type) {
           case RequestType.ITEM_NUM: {
-              taskRequest.currentCount = GetItemCount(taskRequest.requirementId);
+              task.process = GetItemCount(taskRequest.requirementId);
               break;
             }
           case RequestType.LV_UP_TO: {
-              taskRequest.currentCount = userLv;
+              task.process = userLv;
               break;
             }
         }
@@ -436,10 +434,8 @@ namespace Yume.Data {
           string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
 
-        foreach (TaskRequestData taskRequest in task.taskRequests) {
-          if (taskRequest.consumable && taskRequest.type == RequestType.ITEM_NUM) {
-            ConsumeItem(new ItemData(taskRequest.requirementId, taskRequest.requiredCount), false);
-          }
+        if (taskTemplate.taskRequest.consumable && taskTemplate.taskRequest.type == RequestType.ITEM_NUM) {
+          ConsumeItem(new ItemData(taskTemplate.taskRequest.requirementId, taskTemplate.taskRequest.requiredCount), false);
         }
 
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);

@@ -24,15 +24,8 @@ MonoBehaviour:
   _tasks:
   - data:
       id: DAILY_xfja
+      process: 0
       state: 1
-      taskRequests:
-      - method: 2
-        consumable: 0
-        ignoreId: 0
-        type: 0
-        requiredCount: 5000
-        requirementId: item_2_gold
-        description: "\u91D1\u5E01"
     template:
       id: DAILY_xfja
       title: "\u5C0F\u5BCC\u5373\u5B89"
@@ -43,17 +36,19 @@ MonoBehaviour:
         items:
         - id: item_3_mcake
           count: 10
-  - data:
-      id: DAILY_hjrt
-      state: 1
-      taskRequests:
-      - method: 1
+          isViewed: 0
+      taskRequest:
+        method: 2
         consumable: 0
         ignoreId: 0
         type: 0
-        requiredCount: 3000
+        requiredCount: 5000
         requirementId: item_2_gold
         description: "\u91D1\u5E01"
+  - data:
+      id: DAILY_hjrt
+      process: 0
+      state: 1
     template:
       id: DAILY_hjrt
       title: "\u6325\u91D1\u5982\u571F"
@@ -64,17 +59,19 @@ MonoBehaviour:
         items:
         - id: item_1_diamond
           count: 100
+          isViewed: 0
+      taskRequest:
+        method: 1
+        consumable: 0
+        ignoreId: 0
+        type: 0
+        requiredCount: 3000
+        requirementId: item_2_gold
+        description: "\u91D1\u5E01"
   - data:
       id: MAIN_lvto5
+      process: 0
       state: 1
-      taskRequests:
-      - method: 0
-        consumable: 0
-        ignoreId: 1
-        type: 2
-        requiredCount: 5
-        requirementId: 
-        description: "\u7B49\u7EA7"
     template:
       id: MAIN_lvto5
       title: "\u65B0\u624B\u4EFB\u52A11"
@@ -85,17 +82,19 @@ MonoBehaviour:
         items:
         - id: item_4_cwine
           count: 1
-  - data:
-      id: MAIN_lvto10
-      state: 3
-      taskRequests:
-      - method: 0
+          isViewed: 0
+      taskRequest:
+        method: 0
         consumable: 0
         ignoreId: 1
         type: 2
-        requiredCount: 10
+        requiredCount: 5
         requirementId: 
         description: "\u7B49\u7EA7"
+  - data:
+      id: MAIN_lvto10
+      process: 0
+      state: 3
     template:
       id: MAIN_lvto10
       title: "\u65B0\u624B\u4EFB\u52A12"
@@ -106,17 +105,19 @@ MonoBehaviour:
         items:
         - id: item_4_cwine
           count: 3
-  - data:
-      id: MAIN_lvto15
-      state: 3
-      taskRequests:
-      - method: 0
+          isViewed: 0
+      taskRequest:
+        method: 0
         consumable: 0
         ignoreId: 1
         type: 2
-        requiredCount: 15
+        requiredCount: 10
         requirementId: 
         description: "\u7B49\u7EA7"
+  - data:
+      id: MAIN_lvto15
+      process: 0
+      state: 3
     template:
       id: MAIN_lvto15
       title: "\u65B0\u624B\u4EFB\u52A13"
@@ -127,3 +128,12 @@ MonoBehaviour:
         items:
         - id: item_4_cwine
           count: 5
+          isViewed: 0
+      taskRequest:
+        method: 0
+        consumable: 0
+        ignoreId: 1
+        type: 2
+        requiredCount: 15
+        requirementId: 
+        description: "\u7B49\u7EA7"
