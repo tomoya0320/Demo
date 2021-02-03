@@ -2,10 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.DB;
-using Yume.Math;
+using Yume.Data;
 using Yume.Resource;
-using Yume.String;
 
 namespace Yume.UI {
   public class UICharDetail : UIBase {
@@ -14,10 +12,10 @@ namespace Yume.UI {
     private Text m_passiveSkillName;
     private Text m_passiveSkillDesc;
     private Image m_passiveSkillIcon;
-    private Text[] m_attribs = new Text[(int)AttribType.LENGTH];
+    private Text[] m_attribs = new Text[Constant.ATTRIB_LENGTH];
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_lv = GetComponent<Text>("lv");
       m_illustration = GetComponent<Image>("illustration");
@@ -32,19 +30,19 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
-    public async override void Open(Action callback = null, params object[] args) {
-      UnitDB unitDB = args[0] as UnitDB;
-      UnitInfo unitInfo = DBManager.instance.GetUnitInfo(unitDB.id);
-      PassiveSkillPhase passiveSkillPhase = unitInfo.passiveSkillPhases[unitDB.passiveSkillLevels];
-      Attrib[] attribs = MathUtil.CalculateAttribs(unitInfo.id, unitDB.level, unitInfo.maxLevel,
-                                                   unitInfo.GetMinAttribs(), unitInfo.GetMaxAttribs());
+    public override void Open(Action callback = null, params object[] args) {
+      UnitData unit = args[0] as UnitData;
+      UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
+      PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevels];
+      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level, unitTemplate.maxLevel,
+                                                   unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());
 
-      m_lv.text = $"Lv:{unitDB.level}/{unitInfo.maxLevel}";
-      m_illustration.sprite = await ResourceManager.LoadAssetAsync<Sprite>(unitInfo.illustrationFileName);
-      m_passiveSkillIcon.sprite = await ResourceManager.LoadAssetAsync<Sprite>(passiveSkillPhase.iconFileName);
+      m_lv.text = $"Lv:{unit.level}/{unitTemplate.maxLevel}";
+      m_illustration.sprite = ResourceManager.Load<Sprite>(unitTemplate.illustrationFileName);
+      m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
       m_passiveSkillName.text = passiveSkillPhase.name;
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.blackboard);
       for (int i = 0; i < m_attribs.Length; i++) {

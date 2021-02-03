@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Data;
 
 namespace Yume.UI {
   public class UITextEditor : UIBase {
     private InputField m_textInputField;
     private Action<string> m_onCompleted;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_textInputField = GetComponent<InputField>("TextInputField");
 
@@ -24,12 +25,12 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
-        UIManager.instance.CloseOne(name, () => {
+        UIManager.CloseOne(name, () => {
           m_onCompleted?.Invoke(m_textInputField.text);
          });
       });
-      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.instance.CloseOne(name));
-      GetComponent<Button>("CancelFull").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
+      GetComponent<Button>("CancelFull").onClick.AddListener(() => UIManager.CloseOne(name));
     }
   }
 }

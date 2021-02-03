@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Yume.Data;
 
 namespace Yume.UI {
   public class UIMessageTip : UIBase {
@@ -9,8 +10,8 @@ namespace Yume.UI {
     private Text m_description;
     private RectTransform m_textRect;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
       m_image = GetComponent<Image>("image");
       m_description = GetComponent<Text>("description");
       m_textRect = m_description.GetComponent<RectTransform>();
@@ -19,13 +20,8 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       m_message = args[0] as Message;
 
-      if (m_message.isShowImg) {
-        if (m_message.img != null) {
-          m_image.sprite = m_message.img;
-        }
-      } else {
-        m_image.enabled = false;
-      }
+      m_image.sprite = m_message.img;
+      m_image.enabled = m_image.sprite != null;
 
       m_description.text = m_message.description;
 

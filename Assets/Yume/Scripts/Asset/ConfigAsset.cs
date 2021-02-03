@@ -1,10 +1,9 @@
-﻿using Yume.String;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
-using Yume.Resource;
 using System.Collections.Generic;
+using System;
 
-namespace Yume.Setting {
+namespace Yume.Asset {
   public class ConfigAsset : YScriptableObject {
     private enum ServerUrlType {
       REMOTE, LOCAL
@@ -35,11 +34,10 @@ namespace Yume.Setting {
       }
     }
 
-    public override Dictionary<string, object> GetAssets() {
-      Dictionary<string, object> assets = new Dictionary<string, object>();
-      assets.Add(nameof(userServerUrl), userServerUrl);
-
-      return assets;
+    public override Dictionary<(string, Type), object> GetActualData() {
+      Dictionary<(string, Type), object> data = new Dictionary<(string, Type), object>();
+      data.Add((nameof(userServerUrl), typeof(string)), userServerUrl);
+      return data;
     }
   }
 }

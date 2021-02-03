@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Yume.Battle {
   [Serializable]
-  public class Blackboard : Dictionary<string, float> {
+  public class Blackboard : Dictionary<string, object> {
     #region Const
     public const string ATK = "atk";
     public const string DEF = "def";
@@ -11,9 +11,9 @@ namespace Yume.Battle {
     public const string MAX_STACK_CNT = "max_stack_cnt";
     #endregion
 
-    public float GetValueOrDefault(string key, float defaultValue) {
+    public T GetValue<T>(string key, T defaultValue = default) {
       if (ContainsKey(key)) {
-        return this[key];
+        return (T)this[key];
       } else {
         return defaultValue;
       }

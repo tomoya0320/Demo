@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.DB;
-using Yume.Math;
+using Yume.Data;
 using Yume.RedPointSystem;
-using Yume.String;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
@@ -16,6 +14,7 @@ namespace Yume.UI {
     private Button m_mail; 
     private Button m_team; 
     private Button m_setting;
+    private Button m_battle;
 
     private Text m_apText;
     private Text m_lvText;
@@ -28,8 +27,8 @@ namespace Yume.UI {
     private UIRedPoint m_taskRedPoint;
     private UIRedPoint m_mailRedPoint;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_apText = GetComponent<Text>("ApText");
       m_lvText = GetComponent<Text>("LvText");
@@ -45,6 +44,7 @@ namespace Yume.UI {
       m_mail = GetComponent<Button>("Mail");
       m_team = GetComponent<Button>("Team");
       m_setting = GetComponent<Button>("Setting");
+      m_battle = GetComponent<Button>("Battle");
 
       var bagRedPointRoot = m_bag.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_bagRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, MainItemRedPointTree.MAIN_ITEM, null, bagRedPointRoot);
@@ -60,25 +60,26 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      m_bag.onClick.AddListener(() => UIManager.instance.OpenOne("bag"));
-      m_task.onClick.AddListener(() => UIManager.instance.OpenOne("task"));
-      m_card.onClick.AddListener(() => UIManager.instance.OpenOne("card"));
-      m_char.onClick.AddListener(() => UIManager.instance.OpenOne("char"));
-      m_mail.onClick.AddListener(() => UIManager.instance.OpenOne("mail"));
-      m_team.onClick.AddListener(() => UIManager.instance.OpenOne("team"));
-      m_setting.onClick.AddListener(() => UIManager.instance.OpenOne("setting"));
+      m_bag.onClick.AddListener(() => UIManager.OpenOne("bag"));
+      m_task.onClick.AddListener(() => UIManager.OpenOne("task"));
+      m_card.onClick.AddListener(() => UIManager.OpenOne("card"));
+      m_char.onClick.AddListener(() => UIManager.OpenOne("char"));
+      m_mail.onClick.AddListener(() => UIManager.OpenOne("mail"));
+      m_team.onClick.AddListener(() => UIManager.OpenOne("team"));
+      m_setting.onClick.AddListener(() => UIManager.OpenOne("setting"));
+      m_battle.onClick.AddListener(() => UIManager.OpenOne("battle"));
     }
 
     private void _UpdateUserInfo() {
-      m_goldNumText.text = DBManager.instance.GetItemDBNum(StringMap.GOLD_ID).ToString();
-      m_diamondNumText.text = DBManager.instance.GetItemDBNum(StringMap.DIAMOND_ID).ToString();
+      m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ID).ToString();
+      m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ID).ToString();
 
-      m_apText.text = DBManager.instance.userAp + "/" + DBManager.instance.userMaxAp;
-      m_lvText.text = DBManager.instance.userLv.ToString();
-      m_nameText.text = DBManager.instance.userName;
+      m_apText.text = DataManager.userAp + "/" + DataManager.userMaxAp;
+      m_lvText.text = DataManager.userLv.ToString();
+      m_nameText.text = DataManager.userName;
 
-      float needEXP = MathUtil.CalNeededExp(DBManager.instance.userLv);
-      m_expImg.fillAmount = DBManager.instance.userExp / needEXP;
+      float needEXP = MathUtil.CalNeededExp(DataManager.userLv);
+      m_expImg.fillAmount = DataManager.userExp / needEXP;
     }
 
     public override void Destroy() {

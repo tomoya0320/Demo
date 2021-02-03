@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
 using Yume.Broadcast;
-using Yume.DB;
+using Yume.Data;
 using Yume.RedPointSystem;
 using Yume.Resource;
-using Yume.String;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UIBag : UIBase {
-    private class UIItemTerm : UIChildBase, IScrollTerm<ItemDB> {
-      private ItemDB m_item;
+    private class UIItemTerm : UIChildBase, IScrollTerm<ItemData> {
+      private ItemData m_item;
       private Text m_numText;
       private Image m_iconImg;
       private Button m_clickButton;
-      private GameObject m_selected;
       private UIItemGroup m_itemGroup;
       private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
 
       public UIItemTerm(GameObject root, UIItemGroup itemGroup) : base(root) {
-        m_selected = GetGameObject("Selected");
         m_numText = GetComponent<Text>("NumText");
         m_iconImg = GetComponent<Image>("IconImg");
         m_clickButton = GetComponent<Button>("ClickButton");
@@ -38,27 +33,23 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => {
-          m_itemGroup.SwitchMail(m_item);
           if (!m_item.isViewed) {
-            m_item.isViewed = true;
-
-            RedPointManager.instance.SetRedPointNum(RedPointTreeType.MAIN_ITEM, m_item.id, MainItemRedPointTree.MAIN_ITEM, 0);
+            DataManager.SetItemViewed(m_item);
           }
+          UIManager.OpenOne("item_detail", null, m_item);
         });
       }
 
-      public async void UpdateScrollTerm(ItemDB data) {
-        m_item = data;
+      public void UpdateScrollTerm(ItemData item) {
+        m_item = item;
 
         m_itemRedPoint.Update(m_item?.id);
         gameObject.SetActiveEx(m_item != null);
-        m_selected.SetActiveEx(m_item == m_itemGroup.selectedItem);
 
         if (m_item != null) {
-          m_numText.text = StringUtil.IntegerToString(m_item.num);
+          m_numText.text = StringUtil.IntegerToString(m_item.count);
           m_iconImg.gameObject.SetActiveEx(true);
-          m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(
-                                   DBManager.instance.GetItemInfo(m_item.id).iconFileName);
+          m_iconImg.sprite = ResourceManager.Load<Sprite>(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
       }
 
@@ -68,34 +59,23 @@ namespace Yume.UI {
     }
 
     private class UIItemGroup : UIChildBase {
-      private Text m_nameNum;
-      private Image m_iconImg;
-      private Text m_description;
-      private Sprite m_noItemSprite;
-      private ItemDB m_selectedItem;
-      private List<ItemDB> m_itemList;
+      private List<ItemData> m_itemList;
       private ScrollRect m_itemScrollRect;
-      public ItemDB selectedItem => m_selectedItem;
-      private UIScrollView<ItemDB, UIItemTerm> m_itemScrollView;
-      public UIScrollView<ItemDB, UIItemTerm> itemScrollView => m_itemScrollView;
+      private UIScrollView<ItemData, UIItemTerm> m_itemScrollView;
+      public UIScrollView<ItemData, UIItemTerm> itemScrollView => m_itemScrollView;
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
 
       public UIItemGroup(GameObject root) : base(root) {
-        m_iconImg = GetComponent<Image>("IconImage");
-        m_nameNum = GetComponent<Text>("NameNumText");
-        m_description = GetComponent<Text>("DescriptionText");
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
 
-        m_itemList = DBManager.instance.userItems;
-        m_noItemSprite = AssetLoader.instance.GetValue<Sprite>("noItemSprite");
+        m_itemList = DataManager.userItems;
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_itemScrollView = new UIScrollView<ItemDB, UIItemTerm>(m_itemScrollRect, m_itemList, m_itemTermList);
+        m_itemScrollView = new UIScrollView<ItemData, UIItemTerm>(m_itemScrollRect, m_itemList, m_itemTermList);
 
-        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
         EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
       }
 
@@ -104,37 +84,11 @@ namespace Yume.UI {
           itemTerm.Destroy();
         }
 
-        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateInfoBoard);
         EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
       }
 
       private void _UpdateScrollView() {
         m_itemScrollView.UpdateView();
-      }
-
-      private async void _UpdateInfoBoard() {
-        if (m_selectedItem != null) {
-          if (m_selectedItem.num > 0) {
-            var info = DBManager.instance.GetItemInfo(m_selectedItem.id);
-            m_nameNum.text = info.name + "*" + m_selectedItem.num;
-            m_description.text = info.description;
-            m_iconImg.sprite = await ResourceManager.LoadAssetAsync<Sprite>(info.iconFileName);
-          } else {
-            m_selectedItem = null;
-            m_nameNum.text = StringMap.EMPTY;
-            m_description.text = StringMap.EMPTY;
-            m_iconImg.sprite = m_noItemSprite;
-          }
-        }
-      }
-
-      public void SwitchMail(ItemDB m_item) {
-        if(m_selectedItem != m_item) {
-          m_selectedItem = m_item;
-          _UpdateInfoBoard();
-
-          m_itemScrollView.UpdateView(false);
-        }
       }
 
       public override void OnUpdate() {
@@ -144,18 +98,12 @@ namespace Yume.UI {
 
     private UIItemGroup m_itemGroup;
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
 
       _AddListener();
-    }
-
-    public override void Close(Action callback = null, params object[] args) {
-      DBManager.instance.UpdateUserData();
-      
-      base.Close(callback, args);
     }
 
     public override void OnUpdate() {
@@ -163,7 +111,7 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
     }
 
     public override void Destroy() {

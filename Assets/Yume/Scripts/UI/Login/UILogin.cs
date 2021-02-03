@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.DB;
+using Yume.Data;
+using Yume.RedPointSystem;
 using Yume.Server;
-using Yume.String;
 
 namespace Yume.UI {
   public class UILogin : UIBase {
@@ -11,6 +12,7 @@ namespace Yume.UI {
     private GameObject m_main;
     private GameObject m_second;
     private InputField m_nameInput;
+    private CanvasGroup m_canvasGroup;
     private InputField m_accountInput;
     private InputField m_passwordInput;
     private InputField m_newPasswordInput;
@@ -18,7 +20,7 @@ namespace Yume.UI {
     private void _OnLogin() {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text)) {
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.Login(m_accountInput.text, m_passwordInput.text, request => {
+        ServerManager.Login(m_accountInput.text, m_passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             m_result.text = "连接出错！" + request.error;
           } else {
@@ -50,7 +52,7 @@ namespace Yume.UI {
           !string.IsNullOrEmpty(m_accountInput.text)) {
 
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.Register(m_nameInput.text, m_accountInput.text, m_passwordInput.text, request => {
+        ServerManager.Register(m_nameInput.text, m_accountInput.text, m_passwordInput.text, request => {
           if (!string.IsNullOrEmpty(request.error)) {
             m_result.text = "连接出错！" + request.error;
           } else {
@@ -77,7 +79,7 @@ namespace Yume.UI {
       if (!string.IsNullOrEmpty(m_accountInput.text) && !string.IsNullOrEmpty(m_passwordInput.text) &&
           !string.IsNullOrEmpty(m_newPasswordInput.text)) {
         m_result.text = StringMap.EMPTY;
-        ServerManager.instance.AlterPassword(m_accountInput.text, m_passwordInput.text, m_newPasswordInput.text,
+        ServerManager.AlterPassword(m_accountInput.text, m_passwordInput.text, m_newPasswordInput.text,
           request => {
             if (!string.IsNullOrEmpty(request.error)) {
               m_result.text = "连接出错！" + request.error;
@@ -110,11 +112,11 @@ namespace Yume.UI {
     }
 
     private void _GoToMain(JObject json = null) {
-      DBManager.instance.LoadUserDB(json);
-      UIManager.instance.OpenOne("blackMask", () => {
-        UIManager.instance.CloseOne("blackMask");
-        UIManager.instance.CloseAllAndOpenOne("main");
-      });
+      DataManager.LoadUserDB(json);
+      RedPointManager.InitData();
+      UIManager.OpenOne("globalCircleBlackFade", () => {
+        UIManager.CloseAllAndOpenOne("main");
+      }, MathUtil.mousePosNormalized);
     }
 
     private void _ClearInput() {
@@ -141,17 +143,28 @@ namespace Yume.UI {
       });
     }
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
       m_main = GetGameObject("Main");
       m_second = GetGameObject("Second");
       m_result = GetComponent<Text>("Result");
+      m_canvasGroup = root.GetComponent<CanvasGroup>();
       m_nameInput = GetComponent<InputField>("NameInput");
       m_passwordInput = GetComponent<InputField>("PsdInput");
       m_accountInput = GetComponent<InputField>("AccountInput");
       m_newPasswordInput = GetComponent<InputField>("NewPsdInput");
 
       _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_canvasGroup.interactable = false;
+      Action action = () => {
+        m_canvasGroup.interactable = true;
+      };
+      callback = action + callback;
+
+      base.Open(callback, args);
     }
 
     public override UIBase Recycle() {

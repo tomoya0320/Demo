@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.RedPointSystem;
-using Yume.String;
 
 namespace Yume.UI {
   public class UIRedPoint : UIChildBase {
@@ -22,7 +21,7 @@ namespace Yume.UI {
       m_redPointTreeType = redPointTreeType;
       m_redPointNumText = GetComponent<Text>("RedPointNumText");
 
-      RedPointManager.instance.AddUIRedPoint(this);
+      RedPointManager.AddUIRedPoint(this);
     }
 
     /// <summary>
@@ -36,7 +35,7 @@ namespace Yume.UI {
     }
 
     public void OnChanged() {
-      m_redPointNum = RedPointManager.instance.GetRedPointNum(m_redPointTreeType, m_name, m_parent);
+      m_redPointNum = RedPointManager.GetRedPointNum(m_redPointTreeType, m_name, m_parent);
       if (m_redPointNum > 0) {
         gameObject.SetActiveEx(true);
         m_redPointNumText.text = m_showNum ? m_redPointNum.ToString() : StringMap.EMPTY;
@@ -46,7 +45,7 @@ namespace Yume.UI {
     }
 
     public override void Destroy() {
-      RedPointManager.instance.RemoveUIRedPoint(this);
+      RedPointManager.RemoveUIRedPoint(this);
     }
   }
 }

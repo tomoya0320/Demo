@@ -18,48 +18,40 @@ namespace Yume.UI {
     public string description;
     public Sprite img;
     public float duration;
-    public bool isShowImg;
 
-    public Message(Style style, string description, Sprite img, float duration = 2.0f) {
+    public Message(Style style, string description, Sprite img = null, float duration = 2.0f) {
       this.style = style;
       this.description = description;
       this.duration = duration;
       this.img = img;
-      isShowImg = true;
-    }
-    public Message(Style style, string description, float duration = 2.0f) {
-      this.style = style;
-      this.description = description;
-      this.duration = duration;
-      isShowImg = false;
     }
   }
-  public class MessageManager : Singleton<MessageManager> {
-    private bool m_isMessageShowing;
-    private Queue<Message> m_messageQueue = new Queue<Message>();
+  public static class MessageManager {
+    private static bool s_isMessageShowing;
+    private static Queue<Message> s_messageQueue = new Queue<Message>();
 
-    public void AddMessage(Message message) {
-      m_messageQueue.Enqueue(message);
-      if (!m_isMessageShowing) {
-        m_isMessageShowing = true;
+    public static void AddMessage(Message message) {
+      s_messageQueue.Enqueue(message);
+      if (!s_isMessageShowing) {
+        s_isMessageShowing = true;
         ShowMessage();
       }
     }
 
-    public void ShowMessage() {
-      if (m_messageQueue.Count > 0) {
-        var message = m_messageQueue.Dequeue();
+    public static void ShowMessage() {
+      if (s_messageQueue.Count > 0) {
+        var message = s_messageQueue.Dequeue();
         var uiName = $"message_{message.style.GetDescription()}";
         void action() => CoroutineHelper.instance.RunCoroutine(
-          _DelayInvoke(message.duration, () => UIManager.instance.CloseOne(uiName, ShowMessage)));
+          _DelayInvoke(message.duration, () => UIManager.CloseOne(uiName, ShowMessage)));
 
-        UIManager.instance.OpenOne(uiName, action, message);
+        UIManager.OpenOne(uiName, action, message);
       } else {
-        m_isMessageShowing = false;
+        s_isMessageShowing = false;
       }
     }
 
-    private IEnumerator _DelayInvoke(float time, Action callback) {
+    private static IEnumerator _DelayInvoke(float time, Action callback) {
       yield return new WaitForSeconds(time);
       callback?.Invoke();
     }

@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Yume.Audio;
-using Yume.String;
+using System;
+using System.Collections;
 
 namespace Yume.UI {
   [ExecuteInEditMode]
@@ -14,6 +15,8 @@ namespace Yume.UI {
     private string _overrideSoundName;
     [SerializeField]
     private bool _soundEvenDisabled;
+    public event Action onLongPress;
+    private float m_longPressMinTime = 1.0f;
 
     protected override void Awake() {
       base.Awake();
@@ -31,10 +34,31 @@ namespace Yume.UI {
     public override void OnPointerClick(PointerEventData eventData) {
       if (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled) {
         string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
-        AudioManager.instance.PlaySound(clipName);
+        AudioManager.PlaySound(clipName);
       }
 
       base.OnPointerClick(eventData);
+    }
+
+    public override void OnPointerDown(PointerEventData eventData) {
+      StartCoroutine(_LongPress());
+
+      base.OnPointerDown(eventData);
+    }
+
+    private IEnumerator _LongPress() {
+      yield return null;
+
+      float startTime = Time.time;
+      while(Time.time < startTime + m_longPressMinTime) {
+        if (currentSelectionState == SelectionState.Pressed) {
+          yield return null;
+        } else {
+          yield break;
+        }
+      }
+
+      onLongPress?.Invoke();
     }
   }
 }

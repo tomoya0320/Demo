@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Yume.String;
 using Yume.Audio;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System;
+using Yume.Data;
 
 namespace Yume.UI {
   public enum UISettingType {
@@ -60,19 +60,19 @@ namespace Yume.UI {
       }
 
       private void _ChangeSwitch() {
-        PlayerPrefs.SetInt(switchKey, (PlayerPrefs.GetInt(switchKey) + 1) % 2);
-        Color tempColor = m_closeText.color;
-        m_closeText.color = m_openText.color;
-        m_openText.color = tempColor;
-        m_switchSliderMoveDist *= -1.0f;
+        if (m_tween == null) {
+          PlayerPrefs.SetInt(switchKey, (PlayerPrefs.GetInt(switchKey) + 1) % 2);
+          Color tempColor = m_closeText.color;
+          m_closeText.color = m_openText.color;
+          m_openText.color = tempColor;
+          m_switchSliderMoveDist *= -1.0f;
+          m_tween = m_switchRectTransform
+                      .DOAnchorPosX(m_switchSliderMoveDist, 0.15f)
+                      .SetRelative()
+                      .OnComplete(() => m_tween = null);
 
-        if (m_tween != null) {
-          m_tween.Complete();
+          _UpdateState();
         }
-        m_tween = m_switchRectTransform.DOAnchorPosX(m_switchSliderMoveDist, 0.15f).SetRelative().OnComplete(() => {
-          m_tween = null;
-        });
-        _UpdateState();
       }
 
       private void _ChangeValue(float _) {
@@ -83,11 +83,11 @@ namespace Yume.UI {
       private void _UpdateState() {
         switch (m_type) {
           case UISettingType.BGM: {
-              AudioManager.instance.UpdateBgmVolume();
+              AudioManager.UpdateBgmVolume();
               break;
             }
           case UISettingType.SOUND: {
-              AudioManager.instance.UpdateSoundVolume();
+              AudioManager.UpdateSoundVolume();
               break;
             }
         }
@@ -97,8 +97,8 @@ namespace Yume.UI {
     private UIGroupSwitch m_settingGroupSwitch;
     private List<UISettingSV> m_settings = new List<UISettingSV>();
 
-    public override void OnInit(UIData uiData, GameObject root) {
-      base.OnInit(uiData, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject root) {
+      base.OnInit(uiTemplate, root);
 
       m_settingGroupSwitch = GetComponent<UIGroupSwitch>("setting group");
 
@@ -110,7 +110,12 @@ namespace Yume.UI {
     }
 
     private void _AddListener() {
-      GetComponent<Button>("close").onClick.AddListener(() => UIManager.instance.CloseOne(name));
+      GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
+      GetComponent<Button>("go to login").onClick.AddListener(() => {
+        UIManager.OpenOne("globalBlackFade", () => {
+          UIManager.CloseAllAndOpenOne("login");
+        });
+      });
     }
 
     public override void Open(Action callback = null, params object[] args) {

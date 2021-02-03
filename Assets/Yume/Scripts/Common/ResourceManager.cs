@@ -1,27 +1,79 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Yume.Main;
+using Yume.Asset;
 
 namespace Yume.Resource {
-  public class ResourceManager { 
-    /// <summary>
-    /// 通过Resources加载
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="url"></param>
-    /// <returns></returns>
-    public static T LoadAsset<T>(string url) where T : Object {
-      return Resources.Load<T>(url);
+  public class ResourceManager {
+    private static Dictionary<(string key, Type type), object> s_resourceDict = new Dictionary<(string, Type), object>();
+
+    public static IEnumerator Init() {
+      yield return Addressables.InitializeAsync();
+
+      var locationList = Addressables.LoadResourceLocationsAsync("Preload");
+      yield return locationList;
+
+      float process = 0;
+      foreach (var location in locationList.Result) {
+        // 冗余的类型
+        if (typeof(Texture2D).IsAssignableFrom(location.ResourceType)) {
+          Debug.LogWarning($"冗余的类型:{location.ResourceType.FullName}");
+        }
+        // 特殊处理
+        else if (typeof(Sprite).IsAssignableFrom(location.ResourceType)) {
+          var sprite = Addressables.LoadAssetAsync<Sprite>(location);
+          yield return sprite;
+
+          s_resourceDict.Add((location.PrimaryKey, location.ResourceType), sprite.Result);
+        } else if (typeof(YScriptableObject).IsAssignableFrom(location.ResourceType)) {
+          var asset = Addressables.LoadAssetAsync<YScriptableObject>(location);
+          yield return asset;
+
+          foreach (var kv in asset.Result.GetActualData()) {
+            s_resourceDict.Add(kv.Key, kv.Value);
+          }
+        }
+        // 一般处理
+        else {
+          var res = Addressables.LoadAssetAsync<object>(location);
+          yield return res;
+
+          s_resourceDict.Add((location.PrimaryKey, location.ResourceType), res.Result);
+        }
+
+        Game.instance.initProcess = process++ / locationList.Result.Count;
+      }
+
+      #region 回收内存
+      yield return Resources.UnloadUnusedAssets();
+
+      GC.Collect();
+      #endregion
     }
 
-    /// <summary>
-    /// 通过Addressables加载(目前只能异步)
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="url"></param>
-    /// <param name="onComplete"></param>
-    public static Task<T> LoadAssetAsync<T>(string url) {
-      return Addressables.LoadAssetAsync<T>(url).Task;
+    // 加载图片、音频、预制体等通用方法
+    public static T Load<T>(string key) {
+      if (s_resourceDict.ContainsKey((key, typeof(T)))) {
+        return (T)s_resourceDict[(key, typeof(T))];
+      }
+      return default;
+    }
+
+    public static T[] LoadAll<T>() {
+      List<T> resList = new List<T>();
+      foreach (var key in s_resourceDict.Keys) {
+        if (key.type.IsAssignableFrom(typeof(T))) {
+          resList.Add((T)s_resourceDict[key]);
+        }
+      }
+      return resList.ToArray();
+    }
+
+    public static bool Contains<T>(string key) {
+      return s_resourceDict.ContainsKey((key, typeof(T)));
     }
   }
 }

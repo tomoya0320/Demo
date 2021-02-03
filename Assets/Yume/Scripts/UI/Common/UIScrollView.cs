@@ -86,7 +86,7 @@ namespace Yume.UI {
 
     private void _UpdateInitDataIndex() {
       if (m_scrollRect.vertical) {
-        int row = (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y);
+        int row = Mathf.Max(0, (int)((m_scrollRect.content.anchoredPosition.y - m_originPos.y) / m_cellSize.y));
         int newInitDataIndex = row * m_maxCellNum.x;
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
@@ -97,7 +97,7 @@ namespace Yume.UI {
         }
       } else if (m_scrollRect.horizontal) {
         //注意，左右的方向是和上下的相反的
-        int column = (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x);
+        int column = Mathf.Max(0, (int)((m_originPos.x - m_scrollRect.content.anchoredPosition.x) / m_cellSize.x));
         int newInitDataIndex = column * m_maxCellNum.y;
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;

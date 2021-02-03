@@ -12,14 +12,17 @@ namespace Yume.UI {
     private RectTransform m_textRectTransform;
 
     public YTextAutoScroll(GameObject root) {
-      UIObject uiObject = root.GetComponent<UIObject>();
+      ObjectContainer uiObject = root.GetComponent<ObjectContainer>();
       m_rectTransform = root.GetComponent<RectTransform>();
       m_textComponent = uiObject.GetComponent<Text>("Text");
       m_textRectTransform = m_textComponent.rectTransform;
     }
 
     public void SetTextContent(string content) {
-      m_tween?.Kill();
+      if (m_tween != null) {
+        m_tween.Kill();
+        m_tween = null;
+      }
       m_textComponent.text = content;
       LayoutRebuilder.ForceRebuildLayoutImmediate(m_textRectTransform);
       float endValue = m_textRectTransform.rect.height - m_rectTransform.rect.height;

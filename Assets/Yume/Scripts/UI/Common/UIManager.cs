@@ -1,77 +1,61 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Yume.Data;
 using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public enum UIType {
-    NORMAL, TOP, TIP
-  }
+  public static class UIManager {
+    private static GameObject s_interactionMask;
+    public static Transform topCanvas { private set; get; }
+    public static Transform tipCanvas { private set; get; }
+    public static Transform cacheCanvas { private set; get; }
+    public static Transform normalCanvas { private set; get; }
+    private static Dictionary<object, object> s_sharedArgsDict = new Dictionary<object, object>();
+    private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
+    private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
+    private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
+    public static Stack<Action> onBackStack = new Stack<Action>();
 
-  [Serializable]
-  public struct UIData {
-    public string name;
-    public UIType uiType;
-    public string typeName;
-    public string prefabUrl;
-    public float cacheTime;
-    public bool isAsyncLoad;
-    public bool isCloseLast;
-  }
-
-  public class UIManager : Singleton<UIManager> {
-    private GameObject m_interactionMask;
-    public Transform topCanvas { private set; get; }
-    public Transform tipCanvas { private set; get; }
-    public Transform cacheCanvas { private set; get; }
-    public Transform normalCanvas { private set; get; }
-    private Dictionary<string, UIData> m_uiDataDict = new Dictionary<string, UIData>();
-    private Dictionary<object, object> m_sharedArgsDict = new Dictionary<object, object>();
-    private Dictionary<UIType, Stack<UIBase>> m_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
-    private Dictionary<UIType, List<(float, UIBase)>> m_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
-
-    private Action m_quitGame = Application.Quit;
-
-    public bool activeBack { set; get; }
-
-    protected override void OnInit() {
-      UIObject uiRootObject = Game.instance.uiRootObject;
+    public static void Init() {
+      ObjectContainer uiRootObject = Game.instance.uiRootObject;
+      s_interactionMask = uiRootObject.GetGameObject("InteractMask");
       topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
       tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
       cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
       normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
 
-      m_interactionMask = uiRootObject.GetGameObject("InteractionMask");
-      m_interactionMask.SetActiveEx(false);
-
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
-        m_uiStackDict.Add(type, new Stack<UIBase>());
-        m_cacheUIListDict.Add(type, new List<(float, UIBase)>());
+        s_blockDict.Add(type, 0);
+        s_uiStackDict.Add(type, new Stack<UIBase>());
+        s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      foreach (var kv in AssetLoader.instance.GetValue<JObject>("uiJson")) {
-        Register(kv.Value.ToObject<UIData>());
-      }
+      onBackStack.Push(() => {
+        if (s_uiStackDict[UIType.NORMAL].Count > 1) {
+          CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
+        } else {
+          OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
+        }
+      });
     }
 
-    public void OnUpdate() {
+    public static void OnUpdate() {
       _UpdateUI();
       _UpdateCache();
     }
 
-    private void _UpdateUI() {
-      foreach (var uiStack in m_uiStackDict.Values) {
+    private static void _UpdateUI() {
+      foreach (var uiStack in s_uiStackDict.Values) {
         foreach (var ui in uiStack) {
           ui.OnUpdate();
         }
       }
     }
 
-    private void _UpdateCache() {
-      foreach (var list in m_cacheUIListDict.Values) {
+    private static void _UpdateCache() {
+      foreach (var list in s_cacheUIListDict.Values) {
         for (int i = list.Count - 1; i >= 0; i--) {
           if (list[i].Item2.cacheTime > 0 && list[i].Item1 +
               list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
@@ -83,29 +67,24 @@ namespace Yume.UI {
       }
     }
 
-    public bool Register(UIData uIData) {
-      if (m_uiDataDict.ContainsKey(uIData.name)) {
-        Debug.LogWarning($"UI已注册！name：{uIData.name}");
-        return false;
-      }
-      m_uiDataDict.Add(uIData.name, uIData);
-      return true;
-    }
-
-    public void SetSharedArgs(object key, object value) {
-      if (m_sharedArgsDict.ContainsKey(key)) {
-        m_sharedArgsDict[key] = value;
+    public static void SetSharedArgs(object key, object value) {
+      if (s_sharedArgsDict.ContainsKey(key)) {
+        s_sharedArgsDict[key] = value;
       } else {
-        m_sharedArgsDict.Add(key, value);
+        s_sharedArgsDict.Add(key, value);
       }
     }
 
-    public T GetSharedArgs<T>(object key) {
-      if (m_sharedArgsDict.ContainsKey(key)) {
-        return (T)m_sharedArgsDict[key];
+    public static T GetSharedArgs<T>(object key) {
+      if (s_sharedArgsDict.ContainsKey(key)) {
+        return (T)s_sharedArgsDict[key];
       } else {
         return default;
       }
+    }
+
+    public static UIBase GetTopUI(UIType uiType) {
+      return s_uiStackDict[uiType].Peek();
     }
 
     /// <summary>
@@ -113,36 +92,28 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void OpenOne(string name, Action callback = null, params object[] args) {
-      if (m_uiDataDict.ContainsKey(name)) {
-        var data = m_uiDataDict[name];
-        var stack = m_uiStackDict[data.uiType];
+    public static void OpenOne(string name, Action callback = null, params object[] args) {
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
 
-        if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Close(() => {
-            _OpenInternal(data, stack, callback, args);
-          });
-        } else {
-          _OpenInternal(data, stack, callback, args);
+        if (s_blockDict[data.uiType] > 0) {
+          return;
         }
+
+        var stack = s_uiStackDict[data.uiType];
+        _OpenInternal(data, stack, callback, args);
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
-    private async void _OpenInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _OpenInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       UIBase ui = null;
       if (!_TryGetCache(data, ref ui)) {
         ui = AssemblyTool.CreateInstance(data.typeName) as UIBase;
-        GameObject prefab;
-        if (data.isAsyncLoad) {
-          //TODO:优化
-          prefab = await ResourceManager.LoadAssetAsync<GameObject>(data.prefabUrl);
-        } else {
-          prefab = ResourceManager.LoadAsset<GameObject>(data.prefabUrl);
-        }
+        GameObject prefab = ResourceManager.Load<GameObject>(data.prefabName);
         if (prefab == null) {
-          Debug.LogError($"Prefab为空！url:{data.prefabUrl}");
+          Debug.LogError($"Prefab为空！url:{data.prefabName}");
           return;
         }
         ui.OnInit(data, UnityEngine.Object.Instantiate(prefab, _GetRootByType(data.uiType)));
@@ -154,14 +125,14 @@ namespace Yume.UI {
     /// <summary>
     /// 尝试从缓存中获取UI
     /// </summary>
-    /// <param name="uiData"></param>
+    /// <param name="uiTemplate"></param>
     /// <returns></returns>
-    private bool _TryGetCache(UIData uiData, ref UIBase ui) {
-      var index = m_cacheUIListDict[uiData.uiType].FindIndex(i => i.Item2.name == uiData.name);
+    private static bool _TryGetCache(UITemplate uiTemplate, ref UIBase ui) {
+      var index = s_cacheUIListDict[uiTemplate.uiType].FindIndex(i => i.Item2.name == uiTemplate.name);
       if (index >= 0) {
-        ui = m_cacheUIListDict[uiData.uiType][index].Item2;
-        m_cacheUIListDict[uiData.uiType].RemoveAt(index);
-        ui.root.transform.SetParent(_GetRootByType(uiData.uiType));
+        ui = s_cacheUIListDict[uiTemplate.uiType][index].Item2;
+        s_cacheUIListDict[uiTemplate.uiType].RemoveAt(index);
+        ui.root.transform.SetParent(_GetRootByType(uiTemplate.uiType));
         return true;
       }
       return false;
@@ -172,17 +143,22 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
-      if (m_uiDataDict.ContainsKey(name)) {
-        var data = m_uiDataDict[name];
-        var stack = m_uiStackDict[data.uiType];
+    public static void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
+        var stack = s_uiStackDict[data.uiType];
 
         while (stack.Count > 0) {
           stack.Pop().Destroy();
         }
         OpenOne(name, callback, args);
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
@@ -191,10 +167,15 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="args"></param>
-    public void CloseOne(string name, Action callback = null, params object[] args) {
-      if (m_uiDataDict.ContainsKey(name)) {
-        var data = m_uiDataDict[name];
-        var stack = m_uiStackDict[m_uiDataDict[name].uiType];
+    public static void CloseOne(string name, Action callback = null, params object[] args) {
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
+        var stack = s_uiStackDict[data.uiType];
 
         if (stack.Count == 0) {
           Debug.LogError("UI栈为空！");
@@ -206,7 +187,7 @@ namespace Yume.UI {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
       } else {
-        Debug.LogError($"UI未注册！name：{name}");
+        Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
@@ -215,9 +196,9 @@ namespace Yume.UI {
     /// 同步用户数据时使用
     /// </summary>
     /// <param name="active"></param>
-    public void SetInteractionMask(bool active) {
-      if (m_interactionMask) {
-        m_interactionMask.SetActiveEx(active);
+    public static void SetInteractionMask(bool active) {
+      if (s_interactionMask) {
+        s_interactionMask.SetActiveEx(active);
       } else {
         Debug.LogError("交互遮罩未正确设置！");
       }
@@ -226,56 +207,25 @@ namespace Yume.UI {
     /// <summary>
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
-    public void Back() {
-      if (activeBack) {
-        if (isShowing("confirmation")) {
-          CloseOne("confirmation");
-        } else {
-          if (m_uiStackDict[UIType.NORMAL].Count > 1) {
-            CloseOne(m_uiStackDict[UIType.NORMAL].Peek().name);
-          } else {
-            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", m_quitGame, null);
-          }
-        }
-      }
+    public static void Back() {
+      onBackStack.Peek()?.Invoke();
     }
 
-    /// <summary>
-    /// 判断一个UI是否正在显示
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public bool isShowing(string name) {
-      foreach (var stack in m_uiStackDict.Values) {
-        foreach (var ui in stack) {
-          if (ui.name == name) {
-            return ui.isShowing;
-          }
-        }
-      }
-
-      return false;
-    }
-
-    private void _CloseInternal(UIData data, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _CloseInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
       //NOTICE
       //Action的执行顺序要特别当心
       //先执行下面的再执行其他的回调
       //因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
         //回收
-        m_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
-        //选择性打开上一个UI
-        if (stack.Count > 0 && data.isCloseLast) {
-          stack.Peek().Open();
-        }
+        s_cacheUIListDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
       };
       callback = action + callback;
 
       stack.Peek().Close(callback, args);
     }
 
-    private Transform _GetRootByType(UIType uiType) {
+    private static Transform _GetRootByType(UIType uiType) {
       switch (uiType) {
         case UIType.NORMAL: {
             return normalCanvas;
@@ -290,6 +240,14 @@ namespace Yume.UI {
             return null;
           }
       }
+    }
+
+    public static void Block(UIBase ui) {
+      s_blockDict[ui.uiType]++;
+    }
+
+    public static void Unblock(UIBase ui) {
+      s_blockDict[ui.uiType]--;
     }
   }
 }
