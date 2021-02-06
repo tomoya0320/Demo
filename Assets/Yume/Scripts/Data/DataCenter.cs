@@ -53,6 +53,8 @@ namespace Yume.Data {
     public string name;
     public int maxLevel;
     public string prefabName;
+    [TextArea]
+    public string description;
     public string portraitFileName;
     public string illustrationFileName;
     public PassiveSkillPhase[] passiveSkillPhases;

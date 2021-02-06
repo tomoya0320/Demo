@@ -50,7 +50,7 @@ MonoBehaviour:
       Data: "\u6253\u51FB"
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
     - Name: iconFileName
       Entry: 1
       Data: card_001
@@ -75,13 +75,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atk
+      Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 4|System.Int32, mscorlib
+      Data: 4|System.Single, mscorlib
     - Name: 
-      Entry: 3
-      Data: 10
+      Entry: 4
+      Data: 1.2
     - Name: 
       Entry: 8
       Data: 
@@ -102,10 +102,10 @@ MonoBehaviour:
       Data: Yume.Data.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6253\u51FB+"
+      Data: "\u6253\u51FBplus"
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5927\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3,\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atk}\u70B9\u5C11\u91CF\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3"
     - Name: iconFileName
       Entry: 1
       Data: card_001
@@ -126,13 +126,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atk
+      Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 6|System.Int32, mscorlib
+      Data: 6|System.Single, mscorlib
     - Name: 
-      Entry: 3
-      Data: 18
+      Entry: 4
+      Data: 2.5
     - Name: 
       Entry: 8
       Data: 
