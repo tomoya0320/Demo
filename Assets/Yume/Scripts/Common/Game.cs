@@ -5,7 +5,6 @@ using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
-using System;
 using Yume.Audio;
 
 namespace Yume.Main {
@@ -34,6 +33,9 @@ namespace Yume.Main {
     }
 
     protected override void OnInit() {
+      // 设置屏幕休眠模式
+      Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
       _goToLoginBtn.onClick.AddListener(() => {
         UIManager.OpenOne("globalBlackFade", () => {
           Destroy(_initPanel);
