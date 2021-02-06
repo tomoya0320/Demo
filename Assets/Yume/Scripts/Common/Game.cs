@@ -104,12 +104,6 @@ namespace Yume.Main {
         DataManager.AddMail(new MailData("Test Title3", "I love {0}", "wzb", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
       }
 
-      if (GUILayout.Button("进入测试avg", GUILayout.Width(300), GUILayout.Height(100))) {
-        UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.OpenOne("avg", null, "avg_test1", new Action(() => Debug.Log("test1结束")));
-        });
-      }
-
       if (GUILayout.Button("增加角色和卡牌", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddCharacter(new UnitData("char_001_brave", 0, 0));
         DataManager.AddCharacter(new UnitData("char_002_wzb", 0, 0));
