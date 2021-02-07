@@ -5,7 +5,6 @@ using Yume.RedPointSystem;
 using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
-using System;
 using Yume.Audio;
 
 namespace Yume.Main {
@@ -34,6 +33,9 @@ namespace Yume.Main {
     }
 
     protected override void OnInit() {
+      // 设置屏幕休眠模式
+      Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
       _goToLoginBtn.onClick.AddListener(() => {
         UIManager.OpenOne("globalBlackFade", () => {
           Destroy(_initPanel);
@@ -95,19 +97,13 @@ namespace Yume.Main {
       }
 
       if (GUILayout.Button("增加经验", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddExp(300);
+        DataManager.AddItem(new ItemData(StringMap.EXP_ID, 300));
       }
 
       if (GUILayout.Button("增加邮件", GUILayout.Width(300), GUILayout.Height(100))) {
         DataManager.AddMail(new MailData("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemData("item_1_diamond", 1000)));
         DataManager.AddMail(new MailData("Test Title2", "You are alone", "admin", new ItemData("item_1_diamond", 2000), new ItemData("item_2_gold", 30000)));
         DataManager.AddMail(new MailData("Test Title3", "I love {0}", "wzb", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
-      }
-
-      if (GUILayout.Button("进入测试avg", GUILayout.Width(300), GUILayout.Height(100))) {
-        UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.OpenOne("avg", null, "avg_test1", new Action(() => Debug.Log("test1结束")));
-        });
       }
 
       if (GUILayout.Button("增加角色和卡牌", GUILayout.Width(300), GUILayout.Height(100))) {

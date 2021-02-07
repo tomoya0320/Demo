@@ -26,7 +26,28 @@ MonoBehaviour:
       Data: 0|Yume.Data.ItemTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.ItemTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_0_exp
+    - Name: name
+      Entry: 1
+      Data: "\u7ECF\u9A8C"
+    - Name: hideDisplay
+      Entry: 5
+      Data: true
+    - Name: iconFileName
+      Entry: 1
+      Data: "\u7ECF\u9A8C"
+    - Name: description
+      Entry: 1
+      Data: "\u73A9\u5BB6\u7ECF\u9A8C\uFF0C\u901A\u5173\u548C\u5B8C\u6210\u4EFB\u52A1\u83B7\u5F97"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: Yume.Data.ItemTemplate, Assembly-CSharp
@@ -36,6 +57,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u94BB\u77F3"
+    - Name: hideDisplay
+      Entry: 5
+      Data: false
     - Name: iconFileName
       Entry: 1
       Data: "\u94BB\u77F3"
@@ -54,6 +78,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u91D1\u5E01"
+    - Name: hideDisplay
+      Entry: 5
+      Data: false
     - Name: iconFileName
       Entry: 1
       Data: "\u91D1\u5E01"
@@ -72,6 +99,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u6155\u65AF\u86CB\u7CD5"
+    - Name: hideDisplay
+      Entry: 5
+      Data: false
     - Name: iconFileName
       Entry: 1
       Data: "\u6155\u65AF\u86CB\u7CD5"
@@ -90,6 +120,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u6A31\u6843\u751C\u9152"
+    - Name: hideDisplay
+      Entry: 5
+      Data: false
     - Name: iconFileName
       Entry: 1
       Data: "\u6A31\u6843\u751C\u9152"
@@ -108,6 +141,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u4E07\u80FD\u94A5\u5319"
+    - Name: hideDisplay
+      Entry: 5
+      Data: false
     - Name: iconFileName
       Entry: 1
       Data: "\u4E07\u80FD\u94A5\u5319"

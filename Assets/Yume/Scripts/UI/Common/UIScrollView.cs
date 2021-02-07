@@ -12,22 +12,25 @@ namespace Yume.UI {
     void UpdateScrollTerm(TData data);
   }
 
+  public interface IScrollGroup<TData, TView> where TData : class where TView : IScrollTerm<TData> {
+    List<TData> dataList { get; }
+    List<TView> viewList { get; }
+  }
+
   public class UIScrollView<TData, TView> where TData : class where TView : IScrollTerm<TData> {
     private Vector2 m_cellSize;
     private Vector2 m_originPos;
     private int m_initDataIndex;
     private Rect m_scrollRectRect;
-    private List<TData> m_dataList;
-    private List<TView> m_viewList;
     private ScrollRect m_scrollRect;
     private Vector2Int m_maxCellNum;
     private GridLayoutGroup m_gridLayoutGroup;
     private RectTransform m_scrollRectTransform;
+    private IScrollGroup<TData, TView> m_scrollGroup;
 
-    public UIScrollView(ScrollRect scrollRect, List<TData> dataList, List<TView> viewList) {
-      m_dataList = dataList;
-      m_viewList = viewList;
+    public UIScrollView(ScrollRect scrollRect, IScrollGroup<TData,TView> scrollGroup) {
       m_scrollRect = scrollRect;
+      m_scrollGroup = scrollGroup;
       m_scrollRectTransform = scrollRect.GetComponent<RectTransform>();
       m_gridLayoutGroup = scrollRect.content.GetComponent<GridLayoutGroup>();
 
@@ -49,14 +52,14 @@ namespace Yume.UI {
     public void UpdateView(bool recalLen = true) {
       if (recalLen) {
         if (m_scrollRect.vertical) {
-          int temp = m_dataList.Count / m_maxCellNum.x;
-          if (m_dataList.Count % m_maxCellNum.x > 0) {
+          int temp = m_scrollGroup.dataList.Count / m_maxCellNum.x;
+          if (m_scrollGroup.dataList.Count % m_maxCellNum.x > 0) {
             temp++;
           }
           m_scrollRect.content.SetSizeDeltaY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
         } else if (m_scrollRect.horizontal) {
-          int temp = m_dataList.Count / m_maxCellNum.y;
-          if (m_dataList.Count % m_maxCellNum.y > 0) {
+          int temp = m_scrollGroup.dataList.Count / m_maxCellNum.y;
+          if (m_scrollGroup.dataList.Count % m_maxCellNum.y > 0) {
             temp++;
           }
           m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
@@ -71,11 +74,11 @@ namespace Yume.UI {
         }
       }
 
-      for (int i = 0; i < m_viewList.Count; i++) {
-        if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_dataList.Count) {
-          m_viewList[i].UpdateScrollTerm(m_dataList[m_initDataIndex + i]);
+      for (int i = 0; i < m_scrollGroup.viewList.Count; i++) {
+        if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_scrollGroup.dataList.Count) {
+          m_scrollGroup.viewList[i].UpdateScrollTerm(m_scrollGroup.dataList[m_initDataIndex + i]);
         } else {
-          m_viewList[i].UpdateScrollTerm(null);
+          m_scrollGroup.viewList[i].UpdateScrollTerm(null);
         }
       }
     }

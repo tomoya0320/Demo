@@ -185,6 +185,7 @@ public static class StringMap {
   public const string HOME = "home";
   public const string DEFAULT_BGM = "SOTE_Shrine_v2";
   public const string DEFAULT_CLICK_SOUND = "点击2";
+  public const string EXP_ID = "item_0_exp";
   public const string DIAMOND_ID = "item_1_diamond";
   public const string GOLD_ID = "item_2_gold";
   public const string GET_EXP = "获得经验值{0}";
@@ -226,7 +227,7 @@ public static class StringUtil {
   }
 
   /// <summary>
-  /// 将描述里类似{atk}的字符串替换成blackboard里的实际数值
+  /// 将描述里类似{xxx}的字符串替换成blackboard里的实际数值
   /// </summary>
   public static string GetActualDescription(string description, Blackboard blackboard) {
     StringBuilder result = new StringBuilder();
@@ -236,7 +237,19 @@ public static class StringUtil {
         result.Append(description.Substring(start, i - start));
         start = i + 1;
       } else if (description[i] == '}') {
-        result.Append(blackboard.GetValue<object>(description.Substring(start, i - start)));
+        string key = description.Substring(start, i - start);
+        if (key[key.Length - 1] == '%') {
+          key = key.Substring(0, key.Length - 1);
+          object value = blackboard.GetValue<object>(key);
+          if (value.GetType() == typeof(float)) {
+            result.Append($"{(float)value * 100.0f}%");
+          } else {
+            Debug.LogWarning($"非float类型！type:{value.GetType()}");
+            result.Append(value);
+          }
+        } else {
+          result.Append(blackboard.GetValue<object>(key));
+        }
         start = i + 1;
       }
     }

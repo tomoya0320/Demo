@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
 using Yume.RedPointSystem;
+using Yume.Resource;
 
 namespace Yume.UI {
   public class UIMail : UIBase {
@@ -58,7 +59,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIMailGroup : UIChildBase {
+    private class UIMailGroup : UIChildBase, IScrollGroup<MailData, UIMailTerm> {
       private Text m_dateText;
       private Text m_contentText;
       private YButton m_getButton;
@@ -71,13 +72,12 @@ namespace Yume.UI {
       private List<MailData> m_mails;
       private MailData m_selectedMail;
       private ScrollRect m_mailScrollRect;
-      private ScrollRect m_attachmentScrollRect;
+      public List<MailData> dataList => m_mails;
+      private ObjectContainer[] m_attachmentObjects;
       public MailData selectedMail => m_selectedMail;
+      public List<UIMailTerm> viewList => m_mailTermList;
       private UIScrollView<MailData, UIMailTerm> m_mailScrollView;
       private List<UIMailTerm> m_mailTermList = new List<UIMailTerm>();
-      private List<ItemData> m_selectedAttachment = new List<ItemData>();
-      private UIScrollView<ItemData, UIShortItemInfo> m_attachmentScrollView;
-      private List<UIShortItemInfo> m_attachmentTermList = new List<UIShortItemInfo>();
 
       public UIMailGroup(GameObject root) : base(root) {
         m_dateText = GetComponent<Text>("DateText");
@@ -89,7 +89,7 @@ namespace Yume.UI {
         m_mailContentPanel = GetGameObject("MailContentPanel");
         m_deleteAllButton = GetComponent<Button>("DeleteAllButton");
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
-        m_attachmentScrollRect = GetComponent<ScrollRect>("AttachmentScrollRect");
+        m_attachmentObjects = GetGameObject("Attachments").GetComponentsInChildren<ObjectContainer>(true);
 
         m_mails = DataManager.userMails;
 
@@ -97,20 +97,17 @@ namespace Yume.UI {
           m_mailTermList.Add(new UIMailTerm(this, m_mailScrollRect.content.GetChild(i).gameObject));
         }
 
-        for (int i = 0; i < m_attachmentScrollRect.content.childCount; i++) {
-          m_attachmentTermList.Add(new UIShortItemInfo(m_attachmentScrollRect.content.GetChild(i).gameObject));
-        }
-
-        m_mailScrollView = new UIScrollView<MailData, UIMailTerm>(m_mailScrollRect, m_mails, m_mailTermList);
-        m_attachmentScrollView = new UIScrollView<ItemData, UIShortItemInfo>(m_attachmentScrollRect, m_selectedAttachment, m_attachmentTermList);
-
-        SwitchMail(m_mails.First());
+        m_mailScrollView = new UIScrollView<MailData, UIMailTerm>(m_mailScrollRect, this);
 
         _AddListener();
+      }
+
+      public override void OnOpen(params object[] args) {
+        SwitchMail(m_mails.First());
         _CheckGetAllButton();
         _CheckContentPanel();
 
-        EventCenter.AddListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
+        base.OnOpen(args);
       }
 
       private void _AddListener() {
@@ -124,9 +121,20 @@ namespace Yume.UI {
           m_selectedMail = mail;
           _UpdateMailContent();
           m_mailScrollView.UpdateView(false);
-          m_selectedAttachment.Clear();
-          m_selectedAttachment.AddRange(m_selectedMail.attachment);
-          m_attachmentScrollView.UpdateView();
+
+          // 更新附件
+          List<ItemData> attachments = new List<ItemData>(m_selectedMail?.attachment);
+          for (int i = 0; i < m_attachmentObjects.Length; i++) {
+            var attachmentObject = m_attachmentObjects[i];
+            if (i < attachments.Count) {
+              attachmentObject.gameObject.SetActiveEx(true);
+              attachmentObject.GetComponent<Image>("icon").sprite = ResourceManager.Load<Sprite>
+                     (ResourceManager.Load<ItemTemplate>(attachments[i].id).iconFileName);
+              attachmentObject.GetComponent<Text>("num").text = attachments[i].count.ToString();
+            } else {
+              attachmentObject.gameObject.SetActiveEx(false);
+            }
+          }
         }
       }
 
@@ -141,14 +149,12 @@ namespace Yume.UI {
 
       public override void OnUpdate() {
         m_mailScrollView.OnUpdate();
-        m_attachmentScrollView.OnUpdate();
       }
 
       public override void Destroy() {
         foreach (var mailTerm in m_mailTermList) {
           mailTerm.Destroy();
         }
-        EventCenter.RemoveListener(Broadcast.EventType.REFRESH_MAIL_VIEW, _RefreshMailView);
       }
 
       private void _CheckGetButton() {
@@ -195,9 +201,6 @@ namespace Yume.UI {
         foreach (var mail in m_mails.FindAll(mail => mail.isReceived)) {
           DataManager.DeleteMail(mail);
         }
-      }
-
-      private void _RefreshMailView() {
         _CheckGetAllButton();
         _CheckContentPanel();
         m_mailScrollView.UpdateView();
@@ -217,6 +220,12 @@ namespace Yume.UI {
       m_mailGroup = new UIMailGroup(GetGameObject("MailGroup"));
 
       _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_mailGroup.OnOpen();
+
+      base.Open(callback, args);
     }
 
     public override void OnUpdate() {

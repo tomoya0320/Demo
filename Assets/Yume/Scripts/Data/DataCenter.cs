@@ -10,6 +10,7 @@ namespace Yume.Data {
   public struct ItemTemplate {
     public string id;
     public string name;
+    public bool hideDisplay;
     public string iconFileName;
     [TextArea]
     public string description;
@@ -53,6 +54,8 @@ namespace Yume.Data {
     public string name;
     public int maxLevel;
     public string prefabName;
+    [TextArea]
+    public string description;
     public string portraitFileName;
     public string illustrationFileName;
     public PassiveSkillPhase[] passiveSkillPhases;

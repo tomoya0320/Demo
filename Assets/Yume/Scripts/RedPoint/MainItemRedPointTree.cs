@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yume.Data;
+using Yume.Resource;
 
 namespace Yume.RedPointSystem {
   public class MainItemRedPointTree : RedPointTree {
@@ -10,7 +11,7 @@ namespace Yume.RedPointSystem {
       redPointDict = new Dictionary<string, RedPointNode>();
       redPointDict.Add(MAIN_ITEM, new RedPointNode(redPointTreeType, MAIN_ITEM, null));
       foreach (var item in DataManager.userItems) {
-        if (!item.isViewed) {
+        if (!ResourceManager.Load<ItemTemplate>(item.id).hideDisplay && !item.isViewed) {
           AddLeafNode(item.id, MAIN_ITEM);
         }
       }

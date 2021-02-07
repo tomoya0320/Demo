@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
@@ -14,19 +15,16 @@ namespace Yume.UI {
       private Text m_numText;
       private Image m_iconImg;
       private Button m_clickButton;
-      private UIItemGroup m_itemGroup;
       private UIRedPoint m_itemRedPoint;
       public bool isValid => m_item != null;
 
-      public UIItemTerm(GameObject root, UIItemGroup itemGroup) : base(root) {
+      public UIItemTerm(GameObject root) : base(root) {
         m_numText = GetComponent<Text>("NumText");
         m_iconImg = GetComponent<Image>("IconImg");
         m_clickButton = GetComponent<Button>("ClickButton");
 
         var itemRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
         m_itemRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, m_item?.id, MainItemRedPointTree.MAIN_ITEM, itemRedPointRoot);
-
-        m_itemGroup = itemGroup;
 
         _AddListener();
       }
@@ -48,7 +46,6 @@ namespace Yume.UI {
 
         if (m_item != null) {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
-          m_iconImg.gameObject.SetActiveEx(true);
           m_iconImg.sprite = ResourceManager.Load<Sprite>(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
       }
@@ -58,23 +55,28 @@ namespace Yume.UI {
       }
     }
 
-    private class UIItemGroup : UIChildBase {
+    private class UIItemGroup : UIChildBase, IScrollGroup<ItemData, UIItemTerm> {
       private List<ItemData> m_itemList;
       private ScrollRect m_itemScrollRect;
+      public List<ItemData> dataList => m_itemList;
+      public List<UIItemTerm> viewList => m_itemTermList;
       private UIScrollView<ItemData, UIItemTerm> m_itemScrollView;
-      public UIScrollView<ItemData, UIItemTerm> itemScrollView => m_itemScrollView;
+      private Predicate<ItemData> m_findDisplayItem = (item) => {
+        return !ResourceManager.Load<ItemTemplate>(item.id).hideDisplay;
+      };
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
+      public UIScrollView<ItemData, UIItemTerm> itemScrollView => m_itemScrollView;
 
       public UIItemGroup(GameObject root) : base(root) {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
 
-        m_itemList = DataManager.userItems;
+        m_itemList = DataManager.userItems.FindAll(m_findDisplayItem);
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
-          m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
+          m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_itemScrollView = new UIScrollView<ItemData, UIItemTerm>(m_itemScrollRect, m_itemList, m_itemTermList);
+        m_itemScrollView = new UIScrollView<ItemData, UIItemTerm>(m_itemScrollRect, this);
 
         EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
       }
@@ -88,6 +90,7 @@ namespace Yume.UI {
       }
 
       private void _UpdateScrollView() {
+        m_itemList = DataManager.userItems.FindAll(m_findDisplayItem);
         m_itemScrollView.UpdateView();
       }
 

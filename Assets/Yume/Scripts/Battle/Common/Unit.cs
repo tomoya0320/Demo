@@ -13,12 +13,6 @@ namespace Yume.Battle {
     HP,
     [Description("攻击")]
     ATK,
-    [Description("防御")]
-    DEF,
-    [Description("命中")]
-    HIT_PROB,
-    [Description("回避")]
-    EVADE_PROB,
     [Description("能量")]
     ENERGY,
   }

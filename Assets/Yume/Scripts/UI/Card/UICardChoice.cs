@@ -65,10 +65,12 @@ namespace Yume.UI {
       }
     }
 
-    private class UICardChoiceGroup : UIChildBase {
+    private class UICardChoiceGroup : UIChildBase, IScrollGroup<CardData, UICardChoiceTerm> {
       public List<CardData> cardChoiceList;
       private ScrollRect m_cardChoiceScrollRect;
+      public List<CardData> dataList => cardChoiceList;
       public List<CardData> selectedCards = new List<CardData>();
+      public List<UICardChoiceTerm> viewList => m_cardChoiceTermList;
       private UIScrollView<CardData, UICardChoiceTerm> m_cardChoiceScrollView;
       private List<UICardChoiceTerm> m_cardChoiceTermList = new List<UICardChoiceTerm>();
 
@@ -81,7 +83,7 @@ namespace Yume.UI {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_cardChoiceScrollView = new UIScrollView<CardData, UICardChoiceTerm>(m_cardChoiceScrollRect, cardChoiceList, m_cardChoiceTermList);
+        m_cardChoiceScrollView = new UIScrollView<CardData, UICardChoiceTerm>(m_cardChoiceScrollRect, this);
       }
 
       public override void OnUpdate() {
