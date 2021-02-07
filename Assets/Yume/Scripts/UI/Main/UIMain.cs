@@ -23,7 +23,6 @@ namespace Yume.UI {
     private Text m_goldNumText;
     private Text m_diamondNumText;
 
-    private UIRedPoint m_bagRedPoint;
     private UIRedPoint m_taskRedPoint;
     private UIRedPoint m_mailRedPoint;
 
@@ -46,8 +45,6 @@ namespace Yume.UI {
       m_setting = GetComponent<Button>("Setting");
       m_battle = GetComponent<Button>("Battle");
 
-      var bagRedPointRoot = m_bag.gameObject.FindGo(StringMap.UI_RED_POINT);
-      m_bagRedPoint = new UIRedPoint(RedPointTreeType.MAIN_ITEM, MainItemRedPointTree.MAIN_ITEM, null, bagRedPointRoot);
       var taskRedPointRoot = m_task.gameObject.FindGo(StringMap.UI_RED_POINT);
       m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK, null, taskRedPointRoot);
       var mailRedPointRoot = m_mail.gameObject.FindGo(StringMap.UI_RED_POINT);
@@ -83,7 +80,6 @@ namespace Yume.UI {
     }
 
     public override void Destroy() {
-      m_bagRedPoint.Destroy();
       m_taskRedPoint.Destroy();
       m_mailRedPoint.Destroy();
 
