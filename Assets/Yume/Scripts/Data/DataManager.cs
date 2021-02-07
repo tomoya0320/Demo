@@ -308,7 +308,9 @@ namespace Yume.Data {
       // 经验值特殊处理
       if (item.id == StringMap.EXP_ID) {
         _AddExpInternal(item.count);
-      } else {
+      }
+
+      if (!ResourceManager.Load<ItemTemplate>(item.id).hideDisplay) {
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
       }
 
