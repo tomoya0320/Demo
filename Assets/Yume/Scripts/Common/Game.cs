@@ -97,7 +97,7 @@ namespace Yume.Main {
       }
 
       if (GUILayout.Button("增加经验", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddExp(300);
+        DataManager.AddItem(new ItemData(StringMap.EXP_ID, 300));
       }
 
       if (GUILayout.Button("增加邮件", GUILayout.Width(300), GUILayout.Height(100))) {

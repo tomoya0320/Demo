@@ -45,9 +45,11 @@ namespace Yume.UI {
       }
     }
 
-    private class UICardGroup : UIChildBase {
+    private class UICardGroup : UIChildBase, IScrollGroup<CardData, UICardTerm> {
       private List<CardData> m_cardList;
       private ScrollRect m_cardScrollRect;
+      public List<CardData> dataList => m_cardList;
+      public List<UICardTerm> viewList => m_cardTermList;
       private UIScrollView<CardData, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
@@ -60,7 +62,7 @@ namespace Yume.UI {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, m_cardList, m_cardTermList);
+        m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, this);
       }
 
       public override void OnOpen(params object[] args) {

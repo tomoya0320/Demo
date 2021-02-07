@@ -17,7 +17,7 @@ namespace Yume.UI {
       private YButton m_getReward;
       private UIRedPoint m_taskRedPoint;
       public bool isValid => m_task != null;
-      private RectTransform m_rewardContent;
+      private ObjectContainer[] m_rewardObjects;
       public Transform transform => gameObject.transform;
 
       public UITaskTerm(TaskType type, GameObject root) : base(root) {
@@ -25,7 +25,7 @@ namespace Yume.UI {
         m_process = GetComponent<Text>("process");
         m_getReward = GetComponent<YButton>("getReward");
         m_description = GetComponent<Text>("description");
-        m_rewardContent = GetComponent<RectTransform>("rewardContent");
+        m_rewardObjects = GetGameObject("rewardContent").GetComponentsInChildren<ObjectContainer>(true);
 
         var taskRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, type.GetDescription(), taskRedPointRoot);
@@ -74,15 +74,15 @@ namespace Yume.UI {
           m_description.text = taskTemplate.description;
 
           //初始化任务奖励
-          for (int i = 0; i < m_rewardContent.childCount; i++) {
-            var tempGo = m_rewardContent.GetChild(i).gameObject;
+          for (int i = 0; i < m_rewardObjects.Length; i++) {
+            var rewardObject = m_rewardObjects[i];
             if (i < taskTemplate.taskRewards.items.Length) {
-              tempGo.SetActiveEx(true);
-              tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
+              rewardObject.gameObject.SetActiveEx(true);
+              rewardObject.GetComponent<Image>("icon").sprite = ResourceManager.Load<Sprite>
                      (ResourceManager.Load<ItemTemplate>(taskTemplate.taskRewards.items[i].id).iconFileName);
-              tempGo.GetComponentInChildren<Text>().text = taskTemplate.taskRewards.items[i].count.ToString();
+              rewardObject.GetComponent<Text>("num").text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
-              tempGo.SetActiveEx(false);
+              rewardObject.gameObject.SetActiveEx(false);
             }
           }
 
@@ -97,12 +97,14 @@ namespace Yume.UI {
       }
     }
 
-    private class UITaskGroup : UIChildBase {
+    private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
       private List<TaskData> m_tasks;
       private UIRedPoint m_taskRedPoint;
       private ScrollRect m_taskScrollRect;
-      private List<TaskData> m_taskShowList = new List<TaskData>();
+      public List<TaskData> dataList => m_taskShowList;
+      public List<UITaskTerm> viewList => m_taskTermList;
       private UIScrollView<TaskData, UITaskTerm> m_taskScrollView;
+      private List<TaskData> m_taskShowList = new List<TaskData>();
       private List<UITaskTerm> m_taskTermList = new List<UITaskTerm>();
 
       public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
@@ -122,7 +124,7 @@ namespace Yume.UI {
           m_taskTermList.Add(new UITaskTerm(taskType, m_taskScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, m_taskShowList, m_taskTermList);
+        m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, this);
 
         var taskRedPointRoot = GetGameObject("Button").FindGo(StringMap.UI_RED_POINT);
         m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointRoot);

@@ -105,22 +105,6 @@ namespace Yume.Data {
         return s_user.lv;
       }
     }
-    public static int userExp {
-      private set {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        s_user.exp = value;
-      }
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.exp;
-      }
-    }
     public static int userTeamIndex {
       private set {
         if (s_user == null) {
@@ -251,7 +235,6 @@ namespace Yume.Data {
     public static void DeleteMail(MailData mail) {
       if (mail.isReceived) {
         userMails.Remove(mail);
-        EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
 
         s_saveDataTypes.Add("mails");
       }
@@ -273,7 +256,6 @@ namespace Yume.Data {
       if (!mail.isReceived) {
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 1);
       }
-      EventCenter.Broadcast(EventType.REFRESH_MAIL_VIEW);
       s_saveDataTypes.Add("mails");
     }
     #endregion
@@ -323,7 +305,12 @@ namespace Yume.Data {
         tempItem.count += item.count;
       }
 
-      RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
+      // 经验值特殊处理
+      if (item.id == StringMap.EXP_ID) {
+        _AddExpInternal(item.count);
+      } else {
+        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
+      }
 
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -478,12 +465,12 @@ namespace Yume.Data {
     #endregion
 
     #region Exp&Lv
-    public static void AddExp(int exp) {
-      userExp += exp;
+    private static void _AddExpInternal(int exp) {
       MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
       int oLevel = userLv;
-      while (userExp >= MathUtil.CalNeededExp(userLv)) {
-        userExp -= MathUtil.CalNeededExp(userLv);
+      ItemData expItem = GetItem(StringMap.EXP_ID);
+      while (expItem.count >= MathUtil.CalNeededExp(userLv)) {
+        expItem.count -= MathUtil.CalNeededExp(userLv);
         userLv++;
       }
       //更新任务状态

@@ -10,6 +10,7 @@ namespace Yume.Data {
   public struct ItemTemplate {
     public string id;
     public string name;
+    public bool hideDisplay;
     public string iconFileName;
     [TextArea]
     public string description;

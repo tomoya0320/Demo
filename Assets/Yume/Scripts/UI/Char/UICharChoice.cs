@@ -54,10 +54,12 @@ namespace Yume.UI {
       }
     }
 
-    private class UICharChoiceGroup : UIChildBase {
+    private class UICharChoiceGroup : UIChildBase, IScrollGroup<UnitData, UICharChoiceTerm> {
       public UnitData selectedChar;
       private List<UnitData> m_charChoiceList;
       private ScrollRect m_charChoiceScrollRect;
+      public List<UnitData> dataList => m_charChoiceList;
+      public List<UICharChoiceTerm> viewList => m_charChoiceTermList;
       private UIScrollView<UnitData, UICharChoiceTerm> m_charChoiceScrollView;
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
 
@@ -70,7 +72,7 @@ namespace Yume.UI {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_charChoiceScrollView = new UIScrollView<UnitData, UICharChoiceTerm>(m_charChoiceScrollRect, m_charChoiceList, m_charChoiceTermList);
+        m_charChoiceScrollView = new UIScrollView<UnitData, UICharChoiceTerm>(m_charChoiceScrollRect, this);
       }
 
       public override void OnUpdate() {

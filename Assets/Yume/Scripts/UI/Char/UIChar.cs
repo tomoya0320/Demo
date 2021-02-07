@@ -35,9 +35,11 @@ namespace Yume.UI {
       }
     }
 
-    private class UICharGroup : UIChildBase {
+    private class UICharGroup : UIChildBase, IScrollGroup<UnitData, UICharTerm> {
       private List<UnitData> m_charList;
       private ScrollRect m_charScrollRect;
+      public List<UnitData> dataList => m_charList;
+      public List<UICharTerm> viewList => m_charTermList;
       private UIScrollView<UnitData, UICharTerm> m_charScrollView;
       private List<UICharTerm> m_charTermList = new List<UICharTerm>();
 
@@ -50,7 +52,7 @@ namespace Yume.UI {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_charScrollView = new UIScrollView<UnitData, UICharTerm>(m_charScrollRect, m_charList, m_charTermList);
+        m_charScrollView = new UIScrollView<UnitData, UICharTerm>(m_charScrollRect, this);
       }
 
       public override void OnOpen(params object[] args) {

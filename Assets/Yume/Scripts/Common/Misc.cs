@@ -185,6 +185,7 @@ public static class StringMap {
   public const string HOME = "home";
   public const string DEFAULT_BGM = "SOTE_Shrine_v2";
   public const string DEFAULT_CLICK_SOUND = "点击2";
+  public const string EXP_ID = "item_0_exp";
   public const string DIAMOND_ID = "item_1_diamond";
   public const string GOLD_ID = "item_2_gold";
   public const string GET_EXP = "获得经验值{0}";
