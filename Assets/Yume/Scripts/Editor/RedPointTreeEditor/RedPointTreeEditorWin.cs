@@ -7,7 +7,6 @@ namespace Yume.Editor {
   public class RedPointTreeEditorWin : EditorWindow {
     private bool m_showMailRedPointTree;
     private bool m_showTaskRedPointTree;
-    private bool m_showItemRedPointTree;
 
     [MenuItem("Tools/红点树逻辑查看")]
     public static void ShowWin() {
@@ -33,11 +32,6 @@ namespace Yume.Editor {
       m_showTaskRedPointTree = EditorGUILayout.Foldout(m_showTaskRedPointTree, "任务红点树逻辑");
       if (m_showTaskRedPointTree) {
         _DrawTree(RedPointTreeType.MAIN_TASK);
-      }
-
-      m_showItemRedPointTree = EditorGUILayout.Foldout(m_showItemRedPointTree, "道具红点树逻辑");
-      if (m_showItemRedPointTree) {
-        _DrawTree(RedPointTreeType.MAIN_ITEM);
       }
     }
 

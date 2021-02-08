@@ -178,11 +178,6 @@ namespace Yume.Data {
   public class ItemData {
     public string id;
     public int count;
-    /// <summary>
-    /// RedPoint”√
-    /// </summary>
-    [HideInInspector]
-    public bool isViewed;
 
     public ItemData(string id, int count) {
       this.id = id;

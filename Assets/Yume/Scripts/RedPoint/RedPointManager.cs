@@ -16,8 +16,6 @@ namespace Yume.RedPointSystem {
     MAIN_TASK,//主界面的任务
     [Description("Yume.RedPointSystem.MainMailRedPointTree")]
     MAIN_MAIL,//主界面的邮件
-    [Description("Yume.RedPointSystem.MainItemRedPointTree")]
-    MAIN_ITEM,//主界面的道具
   }
 
   public class RedPointNode {

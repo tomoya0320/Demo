@@ -99,13 +99,13 @@ namespace Yume.UI {
 
         m_mailScrollView = new UIScrollView<MailData, UIMailTerm>(m_mailScrollRect, this);
 
+        SwitchMail(m_mails.First());
+
         _AddListener();
       }
 
       public override void OnOpen(params object[] args) {
-        SwitchMail(m_mails.First());
-        _CheckGetAllButton();
-        _CheckContentPanel();
+        _RefreshMailView();
 
         base.OnOpen(args);
       }
@@ -201,14 +201,19 @@ namespace Yume.UI {
         foreach (var mail in m_mails.FindAll(mail => mail.isReceived)) {
           DataManager.DeleteMail(mail);
         }
-        _CheckGetAllButton();
-        _CheckContentPanel();
-        m_mailScrollView.UpdateView();
+
+        _RefreshMailView();
       }
 
       private void _CheckContentPanel() {
         m_noMailPanel.SetActiveEx(m_mails.Count == 0);
         m_mailContentPanel.SetActiveEx(m_selectedMail != null);
+      }
+
+      private void _RefreshMailView() {
+        _CheckGetAllButton();
+        _CheckContentPanel();
+        m_mailScrollView.UpdateView();
       }
     }
 

@@ -285,8 +285,6 @@ namespace Yume.Data {
         }
         _UpdateTaskState(RequestType.ITEM_NUM, item.id, isUsed ? -item.count : 0);
 
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 0);
-
         //更新UI显示
         EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
         EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
@@ -301,17 +299,12 @@ namespace Yume.Data {
         tempItem = item;
         userItems.Add(tempItem);
       } else {
-        tempItem.isViewed = false;
         tempItem.count += item.count;
       }
 
       // 经验值特殊处理
       if (item.id == StringMap.EXP_ID) {
         _AddExpInternal(item.count);
-      }
-
-      if (!ResourceManager.Load<ItemTemplate>(item.id).hideDisplay) {
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, tempItem.id, MainItemRedPointTree.MAIN_ITEM, 1);
       }
 
       //更新UI显示
@@ -321,12 +314,6 @@ namespace Yume.Data {
       //更新任务进度
       _UpdateTaskState(RequestType.ITEM_NUM, item.id, item.count);
 
-      s_saveDataTypes.Add("items");
-    }
-
-    public static void SetItemViewed(ItemData item) {
-      item.isViewed = true;
-      RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_ITEM, item.id, MainItemRedPointTree.MAIN_ITEM, 0);
       s_saveDataTypes.Add("items");
     }
     #endregion
