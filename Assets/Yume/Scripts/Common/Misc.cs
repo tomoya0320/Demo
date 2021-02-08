@@ -8,6 +8,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Resource;
+using XLua;
+
+public static class XLuaUtil {
+  private static LuaEnv s_luaEnv = new LuaEnv();
+
+  public static object[] DoString(string luaText) {
+    return s_luaEnv.DoString(luaText);
+  }
+}
 
 public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
