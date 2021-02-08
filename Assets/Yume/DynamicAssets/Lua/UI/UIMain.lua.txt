@@ -1,0 +1,6 @@
+DataManager = CS.Yume.Data.DataManager
+StringMap = CS.StringMap
+
+xlua.hotfix(CS.Yume.UI.UIMain, '_UpdateUserInfo', function(self)
+    self.m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ID)
+end)

@@ -62,9 +62,9 @@ public static class ExampleGenConfig
                 typeof(System.Collections.IEnumerator)
             };
 
-    //黑名单
-    [BlackList]
-    public static List<List<string>> BlackList = new List<List<string>>()  {
+  //黑名单
+  [BlackList]
+  public static List<List<string>> BlackList = new List<List<string>>()  {
                 new List<string>(){"System.Xml.XmlNodeList", "ItemOf"},
                 new List<string>(){"UnityEngine.WWW", "movie"},
     #if UNITY_WEBGL
@@ -90,5 +90,8 @@ public static class ExampleGenConfig
                 new List<string>(){"System.IO.DirectoryInfo", "CreateSubdirectory", "System.String", "System.Security.AccessControl.DirectorySecurity"},
                 new List<string>(){"System.IO.DirectoryInfo", "Create", "System.Security.AccessControl.DirectorySecurity"},
                 new List<string>(){"UnityEngine.MonoBehaviour", "runInEditMode"},
+                new List<string>(){"UnityEngine.Light", "SetLightDirty"},
+                new List<string>(){"UnityEngine.Light", "shadowRadius"},
+                new List<string>(){"UnityEngine.Light", "shadowAngle"},
             };
 }
