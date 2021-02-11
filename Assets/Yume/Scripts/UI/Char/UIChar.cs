@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIChar : UIBase {
@@ -32,6 +33,11 @@ namespace Yume.UI {
 
           m_detailButton.image.sprite = ResourceManager.Load<Sprite>(charTemplate.portraitFileName);
         }
+      }
+
+      public IScrollTerm<UnitData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UICharTerm(clone);
       }
     }
 

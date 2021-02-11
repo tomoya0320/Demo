@@ -6,6 +6,7 @@ using Yume.Broadcast;
 using Yume.Data;
 using Yume.RedPointSystem;
 using Yume.Resource;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UITask : UIBase {
@@ -14,21 +15,23 @@ namespace Yume.UI {
       private Text m_process;
       private TaskData m_task;
       private Text m_description;
+      private TaskType m_taskType;
       private YButton m_getReward;
       private UIRedPoint m_taskRedPoint;
       public bool isValid => m_task != null;
       private ObjectContainer[] m_rewardObjects;
       public Transform transform => gameObject.transform;
 
-      public UITaskTerm(TaskType type, GameObject root) : base(root) {
+      public UITaskTerm(GameObject root, TaskType type) : base(root) {
         m_title = GetComponent<Text>("title");
         m_process = GetComponent<Text>("process");
         m_getReward = GetComponent<YButton>("getReward");
         m_description = GetComponent<Text>("description");
         m_rewardObjects = GetGameObject("rewardContent").GetComponentsInChildren<ObjectContainer>(true);
 
-        var taskRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
-        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, type.GetDescription(), taskRedPointRoot);
+        m_taskType = type;
+        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, 
+          m_taskType.GetDescription(), gameObject.FindGo(StringMap.UI_RED_POINT));
 
         _AddListener();
 
@@ -95,6 +98,11 @@ namespace Yume.UI {
         m_taskRedPoint.Destroy();
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _UpdateTaskProcess);
       }
+
+      public IScrollTerm<TaskData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UITaskTerm(clone, m_taskType);
+      }
     }
 
     private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
@@ -121,13 +129,13 @@ namespace Yume.UI {
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
 
         for (int i = 0; i < m_taskScrollRect.content.childCount; i++) {
-          m_taskTermList.Add(new UITaskTerm(taskType, m_taskScrollRect.content.GetChild(i).gameObject));
+          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject, taskType));
         }
 
         m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, this);
 
-        var taskRedPointRoot = GetGameObject("Button").FindGo(StringMap.UI_RED_POINT);
-        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK, taskRedPointRoot);
+        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK,
+          GetGameObject("Button").FindGo(StringMap.UI_RED_POINT));
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);

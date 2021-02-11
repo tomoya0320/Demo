@@ -9,6 +9,8 @@ namespace Yume.UI {
   /// <typeparam name="TData">数据类型</typeparam>
   public interface IScrollTerm<TData> where TData : class {
     bool isValid { get; }
+    IScrollTerm<TData> Clone();
+    GameObject gameObject { get; }
     void UpdateScrollTerm(TData data);
   }
 
@@ -17,7 +19,7 @@ namespace Yume.UI {
     List<TView> viewList { get; }
   }
 
-  public class UIScrollView<TData, TView> where TData : class where TView : IScrollTerm<TData> {
+  public class UIScrollView<TData, TView> where TData : class where TView : class, IScrollTerm<TData> {
     private Vector2 m_cellSize;
     private Vector2 m_originPos;
     private int m_initDataIndex;
@@ -28,7 +30,7 @@ namespace Yume.UI {
     private RectTransform m_scrollRectTransform;
     private IScrollGroup<TData, TView> m_scrollGroup;
 
-    public UIScrollView(ScrollRect scrollRect, IScrollGroup<TData,TView> scrollGroup) {
+    public UIScrollView(ScrollRect scrollRect, IScrollGroup<TData, TView> scrollGroup) {
       m_scrollRect = scrollRect;
       m_scrollGroup = scrollGroup;
       m_scrollRectTransform = scrollRect.GetComponent<RectTransform>();
@@ -41,6 +43,29 @@ namespace Yume.UI {
         y = (int)(m_scrollRectRect.size.y / m_cellSize.y)
       };
       m_originPos = m_scrollRect.content.anchoredPosition;
+
+      // ScrollView原型复制
+      if (m_scrollGroup.viewList.Count > 1) {
+        for (int i = m_scrollGroup.viewList.Count - 1; i > 0; i--) {
+          Object.DestroyImmediate(m_scrollGroup.viewList[i].gameObject);
+          m_scrollGroup.viewList.RemoveAt(i);
+        }
+        Debug.LogWarning("冗余的ScrollView原型");
+      }
+      var prototype = m_scrollGroup.viewList.First();
+      if (prototype == null) {
+        throw new System.Exception("ScrollView原型为空！");
+      }
+
+      int extra = 0;
+      if (m_scrollRect.vertical) {
+        extra = m_maxCellNum.x;
+      } else if (m_scrollRect.horizontal) {
+        extra = m_maxCellNum.y;
+      }
+      for (int i = 1; i < m_maxCellNum.x * m_maxCellNum.y + extra; i++) {
+        m_scrollGroup.viewList.Add(prototype.Clone() as TView);
+      }
 
       UpdateView();
     }

@@ -45,10 +45,11 @@ namespace Yume.UI {
       m_setting = GetComponent<Button>("Setting");
       m_battle = GetComponent<Button>("Battle");
 
-      var taskRedPointRoot = m_task.gameObject.FindGo(StringMap.UI_RED_POINT);
-      m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK, null, taskRedPointRoot);
-      var mailRedPointRoot = m_mail.gameObject.FindGo(StringMap.UI_RED_POINT);
-      m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, MainMailRedPointTree.MAIN_MAIL, null, mailRedPointRoot);
+      m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK,
+        null, m_task.gameObject.FindGo(StringMap.UI_RED_POINT));
+
+      m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, MainMailRedPointTree.MAIN_MAIL,
+        null, m_mail.gameObject.FindGo(StringMap.UI_RED_POINT));
 
       _AddListener();
       _UpdateUserInfo();

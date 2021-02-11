@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICard : UIBase {
@@ -42,6 +43,11 @@ namespace Yume.UI {
           m_iconImg.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
         }
+      }
+
+      public IScrollTerm<CardData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UICardTerm(clone);
       }
     }
 
