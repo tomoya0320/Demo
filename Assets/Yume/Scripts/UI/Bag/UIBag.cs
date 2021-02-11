@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
-using Yume.RedPointSystem;
 using Yume.Resource;
 using EventType = Yume.Broadcast.EventType;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIBag : UIBase {
@@ -40,6 +40,11 @@ namespace Yume.UI {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
           m_iconImg.sprite = ResourceManager.Load<Sprite>(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
+      }
+
+      public IScrollTerm<ItemData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UIItemTerm(clone);
       }
     }
 

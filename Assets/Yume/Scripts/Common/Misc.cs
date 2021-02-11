@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Resource;
 using XLua;
+using Axis = UnityEngine.RectTransform.Axis;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
@@ -49,37 +50,23 @@ public static class TypeTools {
   }
 }
 
-public static class TransformTools {
-  /// <summary>
-  /// 深度优先遍历查找所有的子物体
-  /// </summary>
-  /// <param name="transform"></param>
-  /// <param name="name"></param>
-  /// <returns></returns>
-  public static GameObject FindGo(this GameObject gameObject, string name) {
-    Stack<Transform> stack = new Stack<Transform>();
-    stack.Push(gameObject.transform);
-    while (stack.Count > 0) {
-      var tempTransform = stack.Pop();
-      if (tempTransform.name == name) {
-        return tempTransform.gameObject;
-      }
-      for (int i = 0; i < tempTransform.childCount; i++) {
-        stack.Push(tempTransform.GetChild(i));
-      }
-    }
-
-    return null;
-  }
-}
-
 public static class RectTransformTools {
-  public static void SetSizeDeltaX(this RectTransform rt, float x) {
-    rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
+  /// <summary>
+  /// Set SizeX With CurrentAnchors
+  /// </summary>
+  /// <param name="rectTransform"></param>
+  /// <param name="x"></param>
+  public static void SetSizeX(this RectTransform rectTransform, float x) {
+    rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, x);
   }
 
-  public static void SetSizeDeltaY(this RectTransform rt, float y) {
-    rt.sizeDelta = new Vector2(rt.sizeDelta.x, y);
+  /// <summary>
+  /// Set SizeY With CurrentAnchors
+  /// </summary>
+  /// <param name="rectTransform"></param>
+  /// <param name="y"></param>
+  public static void SetSizeY(this RectTransform rectTransform, float y) {
+    rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, y);
   }
 }
 
@@ -125,6 +112,30 @@ public static class GameObjectTools {
     }
     return false;
   }
+
+  /// <summary>
+  /// 深度优先遍历查找所有的子物体
+  /// </summary>
+  /// <param name="transform"></param>
+  /// <param name="name"></param>
+  /// <returns></returns>
+  public static GameObject FindGo(this GameObject gameObject, string name) {
+    Stack<Transform> stack = new Stack<Transform>();
+    stack.Push(gameObject.transform);
+    while (stack.Count > 0) {
+      var tempTransform = stack.Pop();
+      if (tempTransform.name == name) {
+        return tempTransform.gameObject;
+      }
+      for (int i = 0; i < tempTransform.childCount; i++) {
+        stack.Push(tempTransform.GetChild(i));
+      }
+    }
+
+    return null;
+  }
+
+  public static Transform GetParent(this GameObject gameObject) => gameObject.transform.parent;
 }
 
 public static class ImageTools {

@@ -6,7 +6,7 @@ using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
 using Yume.Audio;
-using UnityEngine.AddressableAssets;
+using Yume.Hotfix;
 
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
@@ -49,25 +49,22 @@ namespace Yume.Main {
     }
 
     private IEnumerator _InitAll() {
-      // first
-      yield return ResourceManager.Init(0, 0.9f);
+      #region 异步
+      // Hotfix
+      yield return HotfixManager.Init(0, 0.1f);
 
+      // Resource
+      yield return ResourceManager.Init(0.1f, 0.9f);
+      #endregion
+
+      #region 同步
       UIManager.Init();
       AudioManager.Init();
       RedPointManager.Init();
 
-      // hotfix
-      var locationList = Addressables.LoadResourceLocationsAsync("Hotfix");
-      yield return locationList;
-      foreach (var location in locationList.Result) {
-        var luaRes = Addressables.LoadAssetAsync<TextAsset>(location);
-        yield return luaRes;
-
-        XLuaUtil.DoString(luaRes.Result.text);
-      }
-
-      // final
+      // Final
       initProcess = 1.0f;
+      #endregion
     }
 
     private void Update() {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICharChoice : UIBase {
@@ -25,7 +26,7 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_selectButton.onClick.AddListener(() => {
-          if(m_charChoiceGroup.selectedChar == m_character) {
+          if (m_charChoiceGroup.selectedChar == m_character) {
             m_charChoiceGroup.selectedChar = null;
           } else {
             m_charChoiceGroup.selectedChar = m_character;
@@ -51,6 +52,11 @@ namespace Yume.UI {
 
           m_selectButton.image.sprite = ResourceManager.Load<Sprite>(charTemplate.portraitFileName);
         }
+      }
+
+      public IScrollTerm<UnitData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UICharChoiceTerm(clone, m_charChoiceGroup);
       }
     }
 

@@ -6,6 +6,7 @@ using Yume.Broadcast;
 using Yume.Data;
 using Yume.RedPointSystem;
 using Yume.Resource;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIMail : UIBase {
@@ -20,7 +21,7 @@ namespace Yume.UI {
       private UIRedPoint m_mailRedPoint;
       public bool isValid => m_mail != null;
 
-      public UIMailTerm(UIMailGroup mailGroup, GameObject root) : base(root) {
+      public UIMailTerm(GameObject root, UIMailGroup mailGroup) : base(root) {
         m_selected = GetGameObject("Selected");
         m_titleText = GetComponent<Text>("TitleText");
         m_clickButton = GetComponent<Button>("ClickButton");
@@ -28,8 +29,8 @@ namespace Yume.UI {
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
         m_mailGroup = mailGroup;
-        var mailRedPointRoot = root.FindGo(StringMap.UI_RED_POINT);
-        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.title, MainMailRedPointTree.MAIN_MAIL, mailRedPointRoot);
+        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.title, 
+          MainMailRedPointTree.MAIN_MAIL, root.FindGo(StringMap.UI_RED_POINT));
 
         _AddListener();
       }
@@ -56,6 +57,11 @@ namespace Yume.UI {
 
       public override void Destroy() {
         m_mailRedPoint.Destroy();
+      }
+
+      public IScrollTerm<MailData> Clone() {
+        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        return new UIMailTerm(clone, m_mailGroup);
       }
     }
 
@@ -94,7 +100,7 @@ namespace Yume.UI {
         m_mails = DataManager.userMails;
 
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
-          m_mailTermList.Add(new UIMailTerm(this, m_mailScrollRect.content.GetChild(i).gameObject));
+          m_mailTermList.Add(new UIMailTerm(m_mailScrollRect.content.GetChild(i).gameObject, this));
         }
 
         m_mailScrollView = new UIScrollView<MailData, UIMailTerm>(m_mailScrollRect, this);

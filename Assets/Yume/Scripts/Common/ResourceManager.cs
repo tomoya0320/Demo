@@ -10,13 +10,7 @@ namespace Yume.Resource {
   public class ResourceManager {
     private static Dictionary<(string key, Type type), object> s_resourceDict = new Dictionary<(string, Type), object>();
 
-    /// <summary>
-    /// 初始化
-    /// </summary>
-    /// <param name="min">进度显示区间的最小值</param>
-    /// <param name="max">进度显示区间的最大值</param>
-    /// <returns></returns>
-    public static IEnumerator Init(float min, float max) {
+    public static IEnumerator Init(float min = 0, float max = 1.0f) {
       yield return Addressables.InitializeAsync();
 
       var locationList = Addressables.LoadResourceLocationsAsync("Preload");
