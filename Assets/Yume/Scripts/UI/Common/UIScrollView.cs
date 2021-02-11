@@ -81,13 +81,13 @@ namespace Yume.UI {
           if (m_scrollGroup.dataList.Count % m_maxCellNum.x > 0) {
             temp++;
           }
-          m_scrollRect.content.SetSizeDeltaY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
+          m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
         } else if (m_scrollRect.horizontal) {
           int temp = m_scrollGroup.dataList.Count / m_maxCellNum.y;
           if (m_scrollGroup.dataList.Count % m_maxCellNum.y > 0) {
             temp++;
           }
-          m_scrollRect.content.SetSizeDeltaX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
+          m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
         //强制刷新ScrollBar

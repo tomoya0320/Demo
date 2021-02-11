@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Resource;
 using XLua;
+using Axis = UnityEngine.RectTransform.Axis;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
@@ -50,12 +51,22 @@ public static class TypeTools {
 }
 
 public static class RectTransformTools {
-  public static void SetSizeDeltaX(this RectTransform rt, float x) {
-    rt.sizeDelta = new Vector2(x, rt.sizeDelta.y);
+  /// <summary>
+  /// Set SizeX With CurrentAnchors
+  /// </summary>
+  /// <param name="rectTransform"></param>
+  /// <param name="x"></param>
+  public static void SetSizeX(this RectTransform rectTransform, float x) {
+    rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, x);
   }
 
-  public static void SetSizeDeltaY(this RectTransform rt, float y) {
-    rt.sizeDelta = new Vector2(rt.sizeDelta.x, y);
+  /// <summary>
+  /// Set SizeY With CurrentAnchors
+  /// </summary>
+  /// <param name="rectTransform"></param>
+  /// <param name="y"></param>
+  public static void SetSizeY(this RectTransform rectTransform, float y) {
+    rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, y);
   }
 }
 
