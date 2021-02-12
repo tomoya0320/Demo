@@ -10,6 +10,7 @@ using Yume.Battle;
 using Yume.Resource;
 using XLua;
 using Axis = UnityEngine.RectTransform.Axis;
+using Yume.Data;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
@@ -23,6 +24,7 @@ public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
   public const int MAX_CARD_COUNT = 12;
   public const int MAX_SOUND_COUNT = 5;
+  public const int DEAL_CARD_THRESHOLD = 6;
   public static int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
   public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
 }
@@ -218,6 +220,7 @@ public static class StringMap {
   public const string UI_CLOSE_ANIM = "ui_close";
   public const string UI_RED_POINT = "red point";
   public const string SAVE_DATA_SUCCEED = "同步数据成功！";
+  public const string CARD_PREFAB = "card_prefab";
 }
 
 public static class StringUtil {
@@ -336,13 +339,16 @@ public static class MathUtil {
     return 50 + lv * 50;
   }
 
-  public static Attrib[] CalculateAttribs(string id, int level, int maxLevel, Attrib[] minAttribs, Attrib[] maxAttribs) {
+  public static Attrib[] CalculateAttribs(string id, int level) {
+    UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(id);
+    Attrib[] minAttribs = unitTemplate.GetMinAttribs();
+    Attrib[] maxAttribs = unitTemplate.GetMaxAttribs();
 
     if (minAttribs.Length != maxAttribs.Length) {
       throw new Exception("最小属性数组和最大属性数组长度不一致！");
     }
 
-    float p = (float)level / maxLevel;
+    float p = (float)level / unitTemplate.maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
     var curve = ResourceManager.Load<AnimationCurve>(id);
     for (int i = 0; i < attribs.Length; i++) {

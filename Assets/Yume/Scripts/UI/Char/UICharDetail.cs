@@ -39,8 +39,7 @@ namespace Yume.UI {
       UnitData unit = args[0] as UnitData;
       UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
       PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevels];
-      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level, unitTemplate.maxLevel,
-                                                   unitTemplate.GetMinAttribs(), unitTemplate.GetMaxAttribs());
+      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level);
 
       m_description.text = unitTemplate.description;
       m_passiveSkillName.text = passiveSkillPhase.name;

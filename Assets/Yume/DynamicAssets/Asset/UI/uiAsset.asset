@@ -97,15 +97,20 @@ MonoBehaviour:
     typeName: Yume.UI.UIConfirmation
     prefabName: confirmation
     cacheTime: 10
-  - name: team
-    uiType: 0
-    typeName: Yume.UI.UITeam
-    prefabName: team
+  - name: message_center
+    uiType: 2
+    typeName: Yume.UI.UIMessageTip
+    prefabName: message_center
     cacheTime: 10
   - name: text_editor
     uiType: 0
     typeName: Yume.UI.UITextEditor
     prefabName: text_editor
+    cacheTime: 10
+  - name: team
+    uiType: 0
+    typeName: Yume.UI.UITeam
+    prefabName: team
     cacheTime: 10
   - name: char_choice
     uiType: 0
@@ -136,4 +141,9 @@ MonoBehaviour:
     uiType: 0
     typeName: Yume.UI.UILevelPanel
     prefabName: level_panel
+    cacheTime: 10
+  - name: single_battle
+    uiType: 0
+    typeName: Yume.UI.UISingleBattle
+    prefabName: single_battle
     cacheTime: 10

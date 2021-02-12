@@ -231,12 +231,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 100
-    - Name: maxValue
+      Data: 80
+    - Name: m_maxValue
       Entry: 4
-      Data: 100
+      Data: 80
     - Name: 
       Entry: 8
       Data: 
@@ -252,10 +252,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 10
-    - Name: maxValue
+      Data: 120
+    - Name: m_maxValue
       Entry: 4
       Data: 999999
     - Name: 
@@ -273,10 +273,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 3
-    - Name: maxValue
+      Data: 4
+    - Name: m_maxValue
       Entry: 4
       Data: 99
     - Name: 
@@ -310,12 +310,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 10000
-    - Name: maxValue
+      Data: 200
+    - Name: m_maxValue
       Entry: 4
-      Data: 10000
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -331,10 +331,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 1000
-    - Name: maxValue
+      Data: 500
+    - Name: m_maxValue
       Entry: 4
       Data: 999999
     - Name: 
@@ -352,10 +352,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 3
-    - Name: maxValue
+      Data: 4
+    - Name: m_maxValue
       Entry: 4
       Data: 99
     - Name: 
@@ -573,12 +573,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 200
-    - Name: maxValue
+      Data: 100
+    - Name: m_maxValue
       Entry: 4
-      Data: 200
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
@@ -594,10 +594,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 20
-    - Name: maxValue
+      Data: 100
+    - Name: m_maxValue
       Entry: 4
       Data: 999999
     - Name: 
@@ -615,10 +615,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 4
-    - Name: maxValue
+      Data: 3
+    - Name: m_maxValue
       Entry: 4
       Data: 99
     - Name: 
@@ -652,10 +652,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
       Data: 300
-    - Name: maxValue
+    - Name: m_maxValue
       Entry: 4
       Data: 300
     - Name: 
@@ -673,10 +673,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 30
-    - Name: maxValue
+      Data: 200
+    - Name: m_maxValue
       Entry: 4
       Data: 999999
     - Name: 
@@ -694,10 +694,10 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
-    - Name: value
+    - Name: m_value
       Entry: 4
-      Data: 4
-    - Name: maxValue
+      Data: 3
+    - Name: m_maxValue
       Entry: 4
       Data: 99
     - Name: 

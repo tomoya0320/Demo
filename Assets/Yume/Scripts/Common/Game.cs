@@ -10,40 +10,34 @@ using Yume.Hotfix;
 
 namespace Yume.Main {
   public class Game : SingletonMono<Game> {
-    /// <summary>
-    /// UIRoot的对象引用
-    /// </summary>
-    [SerializeField]
-    private ObjectContainer _uiRootObject;
-    public ObjectContainer uiRootObject => _uiRootObject;
-    [SerializeField]
-    private Button _goToLoginBtn;
-    [SerializeField]
-    private Image _initProcessImg;
-    [SerializeField]
-    private GameObject _initPanel;
-    [SerializeField]
-    private Transform _audioRoot;
-    public Transform audioRoot => _audioRoot;
+    private Button m_goToLoginBtn;
+    private Image m_initProcessImg;
+    private GameObject m_initPanel;
     public float initProcess {
       set {
-        _initProcessImg.fillAmount = value;
-        _goToLoginBtn.gameObject.SetActiveEx(value == 1.0f);
-        _initProcessImg.gameObject.SetActiveEx(value < 1.0f);
+        m_initProcessImg.fillAmount = value;
+        m_goToLoginBtn.gameObject.SetActiveEx(value == 1.0f);
+        m_initProcessImg.gameObject.SetActiveEx(value < 1.0f);
       }
     }
 
     protected override void OnInit() {
+      // 实例化初始化UI
+      m_initPanel = Instantiate(Resources.Load<GameObject>("Prefab/init"), GameObject.Find("NormalCanvas").transform);
+      ObjectContainer objectContainer = m_initPanel.GetComponent<ObjectContainer>();
+      m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
+      m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
+
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-      _goToLoginBtn.onClick.AddListener(() => {
+      m_goToLoginBtn.onClick.AddListener(() => {
         UIManager.OpenOne("globalBlackFade", () => {
-          Destroy(_initPanel);
+          Destroy(m_initPanel);
           UIManager.OpenOne("login");
         });
       });
-      _initProcessImg.fillAmount = 0;
+      m_initProcessImg.fillAmount = 0;
 
       StartCoroutine(_InitAll());
     }

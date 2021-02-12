@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
@@ -47,7 +46,7 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       _InitAVG((string)args[0], args[1] as Action);
-      UIManager.onBackStack.Push(_SkipAVG);
+      UIManager.onBackList.Add(_SkipAVG);
       m_avgGraph.Enter(this);
     }
 
@@ -55,7 +54,7 @@ namespace Yume.UI {
       callback += () => {
         _CleanUp();
         m_onQuitAVG?.Invoke();
-        UIManager.onBackStack.Pop();
+        UIManager.onBackList.Remove(_SkipAVG);
         AudioManager.PlayBgm(m_beforeBgmName);
       };
 

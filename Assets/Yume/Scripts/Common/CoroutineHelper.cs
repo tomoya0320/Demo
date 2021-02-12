@@ -4,8 +4,21 @@ using UnityEngine;
 
 namespace Yume.Tool {
   public class CoroutineHelper : SingletonMono<CoroutineHelper> {
-    public void RunCoroutine(IEnumerator enumerator) {
-      StartCoroutine(enumerator);
+    public Coroutine Run(IEnumerator enumerator) {
+      return StartCoroutine(enumerator);
+    }
+
+    public Coroutine DelayInvoke(float time, Action callback) {
+      return StartCoroutine(_DelayInvokeInternal(time, callback));
+    }
+
+    public void Stop(Coroutine routine) {
+      StopCoroutine(routine);
+    }
+
+    private IEnumerator _DelayInvokeInternal(float time, Action callback) {
+      yield return new WaitForSeconds(time);
+      callback?.Invoke();
     }
 
     /// <summary>
@@ -20,7 +33,7 @@ namespace Yume.Tool {
       animation.clip = clip;
       animation.Play();
 
-      RunCoroutine(_AnimCallback(clip.name, animation, callback));
+      Run(_AnimCallback(clip.name, animation, callback));
     }
 
     private IEnumerator _AnimCallback(string clipName, Animation animation, Action callback) {

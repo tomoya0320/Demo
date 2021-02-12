@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
@@ -11,7 +10,9 @@ namespace Yume.UI {
       [Description("slide")]
       SLIDE,
       [Description("fade")]
-      FADE
+      FADE,
+      [Description("center")]
+      CENTER,
     }
 
     public Style style;
@@ -42,18 +43,13 @@ namespace Yume.UI {
       if (s_messageQueue.Count > 0) {
         var message = s_messageQueue.Dequeue();
         var uiName = $"message_{message.style.GetDescription()}";
-        void action() => CoroutineHelper.instance.RunCoroutine(
-          _DelayInvoke(message.duration, () => UIManager.CloseOne(uiName, ShowMessage)));
+        Action action = () => CoroutineHelper.instance.DelayInvoke(message.duration,
+         () => UIManager.CloseOne(uiName, ShowMessage));
 
         UIManager.OpenOne(uiName, action, message);
       } else {
         s_isMessageShowing = false;
       }
-    }
-
-    private static IEnumerator _DelayInvoke(float time, Action callback) {
-      yield return new WaitForSeconds(time);
-      callback?.Invoke();
     }
   }
 }

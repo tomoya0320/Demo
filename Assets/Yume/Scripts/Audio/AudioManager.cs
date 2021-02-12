@@ -124,8 +124,9 @@ namespace Yume.Audio {
     private static SoundManager s_soundManager;
 
     public static void Init() {
-      s_bgmManager = new BGMManager(Game.instance.audioRoot);
-      s_soundManager = new SoundManager(Game.instance.audioRoot);
+      var audioRoot = GameObject.Find("AudioRoot").transform;
+      s_bgmManager = new BGMManager(audioRoot);
+      s_soundManager = new SoundManager(audioRoot);
 
       // 播放默认的bgm
       PlayBgm(StringMap.DEFAULT_BGM, true);

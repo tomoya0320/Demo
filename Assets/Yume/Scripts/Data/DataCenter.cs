@@ -158,9 +158,17 @@ namespace Yume.Data {
   }
 
   [Serializable]
+  public struct EnemyTemplate {
+    public UnitData enemy;
+    public List<CardData> cards;
+  }
+
+  [Serializable]
   public struct LevelTemplate {
     public string id;
+    public string bgm;
     public string title;
+    public string background;
     [TextArea]
     public string description;
     public string iconFileName;
@@ -169,7 +177,7 @@ namespace Yume.Data {
     public string preLevelId;
     public Rewards regularRewards;
     public Rewards firstCompletedRewards;
-    // TODO:µÐÈËÊý¾Ý
+    public EnemyTemplate[] enemyTemplates;
   }
   #endregion
 
@@ -212,15 +220,18 @@ namespace Yume.Data {
 
   [Serializable]
   public class CardData {
+    [HideInInspector]
     public int guid;
     public string id;
     public int phase;
-    public long ticks;
 
     public CardData(string id, int phase) {
       this.id = id;
       this.phase = phase;
-      ticks = DateTime.Now.Ticks;
+    }
+
+    public CardData Clone() {
+      return new CardData(id, phase);
     }
   }
 
@@ -228,20 +239,19 @@ namespace Yume.Data {
   public class UnitData {
     public string id;
     public int level;
-    public long ticks;
     public int passiveSkillLevels;
 
     public UnitData(string id, int level, int passiveSkillLevels) {
       this.id = id;
       this.level = level;
       this.passiveSkillLevels = passiveSkillLevels;
-      ticks = DateTime.Now.Ticks;
     }
   }
 
   [Serializable]
   public class TaskData {
     public string id;
+    [HideInInspector]
     public int process;
     public TaskState state;
   }
@@ -297,6 +307,7 @@ namespace Yume.Data {
   [Serializable]
   public class LevelData {
     public string id;
+    [HideInInspector]
     public bool completed;
   }
   #endregion

@@ -29,15 +29,23 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
+        if (string.IsNullOrEmpty(DataManager.userTeams[DataManager.userTeamIndex].charId)) {
+          MessageManager.AddMessage(new Message(Message.Style.FADE, "未携带角色！"));
+          return;
+        }
+
         LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
 
         Action action = () => {
-          // TODO:进入战斗
-          Debug.Log("进入战斗");
+          if (levelTemplate.enemyTemplates.Length > 0) {
+            UIManager.OpenOne("single_battle", null, levelTemplate);
+          } else {
+            // TODO:直接打开结算界面
+          }
         };
 
         if (string.IsNullOrEmpty(levelTemplate.beforeAVGId)) {
-          action();
+          UIManager.OpenOne("globalBlackFade", action);
         } else {
           UIManager.OpenOne("globalBlackFade", () => {
             UIManager.OpenOne("avg", null, levelTemplate.beforeAVGId, action);
