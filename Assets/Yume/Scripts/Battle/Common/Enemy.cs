@@ -4,7 +4,7 @@ using Yume.Data;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
-    public Enemy(UnitData enemy, List<CardData> cardList) : base(enemy, cardList, BattleManager.enemyFolder) {
+    public Enemy(UnitData enemy, List<CardData> cardList) : base(enemy, BattleManager.enemyFolder) {
       foreach (var card in cardList) {
         cardHeapDict[CardHeapType.DRAW].Add(new Card(card));
       }

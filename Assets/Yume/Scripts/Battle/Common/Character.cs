@@ -6,7 +6,7 @@ using Yume.Resource;
 
 namespace Yume.Battle {
   public class Character : Unit {
-    public Character(UnitData character, List<CardData> cardList) : base(character, cardList, BattleManager.charFolder) {
+    public Character(UnitData character, List<CardData> cardList) : base(character, BattleManager.charFolder) {
       var prefab = ResourceManager.Load<GameObject>(StringMap.CARD_PREFAB);
       foreach (var card in cardList) {
         var go = Object.Instantiate(prefab, BattleManager.drawCardFolder);

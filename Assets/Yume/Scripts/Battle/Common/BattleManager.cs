@@ -18,27 +18,27 @@ namespace Yume.Battle {
     private static List<Unit> s_units = new List<Unit>();
     public static Action abort = () => Finish(BattleResult.ABORT);
     public static Unit character => s_units.Count > 0 ? s_units[0] : null;
-    private static Dictionary<string, Transform> m_folderDict = new Dictionary<string, Transform>();
-    public static Transform charFolder => m_folderDict["charFolder"];
-    public static Transform enemyFolder => m_folderDict["enemyFolder"];
-    public static Transform drawCardFolder => m_folderDict["drawCardFolder"];
-    public static Transform discardCardFolder => m_folderDict["discardCardFolder"];
-    public static Transform consumeCardFolder => m_folderDict["consumeCardFolder"];
+    private static Dictionary<string, Transform> s_folderDict = new Dictionary<string, Transform>();
+    public static Transform charFolder => s_folderDict["charFolder"];
+    public static Transform enemyFolder => s_folderDict["enemyFolder"];
+    public static Transform drawCardFolder => s_folderDict["drawCardFolder"];
+    public static Transform discardCardFolder => s_folderDict["discardCardFolder"];
+    public static Transform consumeCardFolder => s_folderDict["consumeCardFolder"];
 
     public static void Init(LevelTemplate levelTemplate, Dictionary<string, Transform> folderDict) {
       s_levelTemplate = levelTemplate;
       // 初始化folder
       foreach (var kv in folderDict) {
-        m_folderDict.Add(kv.Key, kv.Value);
+        s_folderDict.Add(kv.Key, kv.Value);
       }
       // 初始化角色
-      TeamData team = DataManager.userTeams[DataManager.userTeamIndex];
-      UnitData character = DataManager.GetCharacter(team.charId);
-      List<CardData> cardList = new List<CardData>();
+      var team = DataManager.userTeams[DataManager.userTeamIndex];
+      var tempChar = DataManager.GetCharacter(team.charId);
+      var cardList = new List<CardData>();
       foreach (var cardGuid in team.cardGuidList) {
         cardList.Add(DataManager.GetCard(cardGuid).Clone()/*因为是引用类型会影响到原来的数据所以需要复制一份*/);
       }
-      s_units.Add(new Character(character, cardList));
+      s_units.Add(new Character(tempChar, cardList));
       // 初始化敌人
       foreach (var enemyTemplate in s_levelTemplate.enemyTemplates) {
         s_units.Add(new Enemy(enemyTemplate.enemy, enemyTemplate.cards));
@@ -61,7 +61,7 @@ namespace Yume.Battle {
       s_runCoroutine = null;
 
       s_units.Clear();
-      m_folderDict.Clear();
+      s_folderDict.Clear();
       s_currentUnitIndex = 0;
       s_levelTemplate = default;
 

@@ -35,7 +35,7 @@ namespace Yume.Battle {
 
     public bool isAlive => attribs[(int)AttribType.HP].value > 0;
 
-    public Unit(UnitData unit, List<CardData> cardList, Transform unitFolder) {
+    protected Unit(UnitData unit, Transform unitFolder) {
       var unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
       id = unit.id;
       level = unit.level;
