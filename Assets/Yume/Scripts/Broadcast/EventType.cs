@@ -10,5 +10,14 @@
     REFRESH_TASK_VIEW,
     UPDATE_ITEM_INFO,
     UPDATE_USER_INFO,
+    UPDATE_MAIN_STORY_LEVEL,
+    /// <summary>
+    /// 当进入玩家的回合时
+    /// </summary>
+    ON_ENTER_PLAYER_TURN,    
+    /// <summary>
+    /// 当进入第一个敌人的回合时
+    /// </summary>
+    ON_ENTER_FIRST_ENEMY_TURN,
   }
 }

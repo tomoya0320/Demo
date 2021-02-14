@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Yume.Data;
 using Yume.Resource;
-using Yume.Tool;
 using Yume.UI;
 
 namespace Yume.Server {

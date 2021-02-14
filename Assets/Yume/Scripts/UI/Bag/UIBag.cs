@@ -54,11 +54,8 @@ namespace Yume.UI {
       public List<ItemData> dataList => m_itemList;
       public List<UIItemTerm> viewList => m_itemTermList;
       private UIScrollView<ItemData, UIItemTerm> m_itemScrollView;
-      private Predicate<ItemData> m_findDisplayItem = (item) => {
-        return !ResourceManager.Load<ItemTemplate>(item.id).hideDisplay;
-      };
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
-      public UIScrollView<ItemData, UIItemTerm> itemScrollView => m_itemScrollView;
+      private Predicate<ItemData> m_findDisplayItem = item => !ResourceManager.Load<ItemTemplate>(item.id).hideDisplay;
 
       public UIItemGroup(GameObject root) : base(root) {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
@@ -94,8 +91,8 @@ namespace Yume.UI {
 
     private UIItemGroup m_itemGroup;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
 

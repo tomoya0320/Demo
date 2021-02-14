@@ -13,8 +13,8 @@ namespace Yume.UI {
     private RectTransform m_regularRewards;
     private RectTransform m_firstCompletedRewards;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_icon = GetComponent<Image>("icon");
       m_title = GetComponent<Text>("title");
@@ -30,7 +30,7 @@ namespace Yume.UI {
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
         if (string.IsNullOrEmpty(DataManager.userTeams[DataManager.userTeamIndex].charId)) {
-          MessageManager.AddMessage(new Message(Message.Style.FADE, "Î´Ğ¯´ø½ÇÉ«£¡"));
+          MessageManager.AddMessage(new Message(Message.Style.FADE, "æœªæºå¸¦è§’è‰²ï¼"));
           return;
         }
 
@@ -40,7 +40,8 @@ namespace Yume.UI {
           if (levelTemplate.enemyTemplates.Length > 0) {
             UIManager.OpenOne("single_battle", null, levelTemplate);
           } else {
-            // TODO:Ö±½Ó´ò¿ª½áËã½çÃæ
+            // TODO:ç›´æ¥æ‰“å¼€ç»“ç®—ç•Œé¢ æµ‹è¯•ç”¨
+            DataManager.CompleteLevel(levelTemplate.id);
           }
         };
 
@@ -59,7 +60,7 @@ namespace Yume.UI {
       m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.iconFileName);
       m_title.text = levelTemplate.title;
       m_description.text = levelTemplate.description;
-      // ³£¹æ½±Àø
+      // å¸¸è§„å¥–åŠ±
       for (int i = 0; i < m_regularRewards.childCount; i++) {
         var tempGo = m_regularRewards.GetChild(i).gameObject;
         if (i < levelTemplate.regularRewards.items.Length) {
@@ -71,7 +72,7 @@ namespace Yume.UI {
           tempGo.SetActiveEx(false);
         }
       }
-      // Ê×Í¨½±Àø
+      // é¦–é€šå¥–åŠ±
       for (int i = 0; i < m_firstCompletedRewards.childCount; i++) {
         var tempGo = m_firstCompletedRewards.GetChild(i).gameObject;
         if (i < levelTemplate.firstCompletedRewards.items.Length) {

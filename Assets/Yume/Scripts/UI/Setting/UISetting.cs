@@ -97,8 +97,8 @@ namespace Yume.UI {
     private UIGroupSwitch m_settingGroupSwitch;
     private List<UISettingSV> m_settings = new List<UISettingSV>();
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_settingGroupSwitch = GetComponent<UIGroupSwitch>("setting group");
 

@@ -4,8 +4,8 @@ using Yume.Data;
 
 namespace Yume.UI {
   public class UIBattle : UIBase {
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       _AddListener();
     }
@@ -14,7 +14,6 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
       GetComponent<Button>("main_story").onClick.AddListener(() => UIManager.OpenOne("main_story"));
       GetComponent<Button>("roguelike").onClick.AddListener(() => UIManager.OpenOne("roguelike"));
-      GetComponent<Button>("pvp").onClick.AddListener(() => UIManager.OpenOne("pvp"));
     }
   }
 }

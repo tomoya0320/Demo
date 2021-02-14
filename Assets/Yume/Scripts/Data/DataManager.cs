@@ -15,18 +15,18 @@ using EventType = Yume.Broadcast.EventType;
 namespace Yume.Data {
   public static class DataManager {
     private enum PlayMode {
-      LOCAL, REMOTE
+      LOCAL,
+      REMOTE
     }
 
     private static PlayMode s_playMode;
     private static string localUserDataPath {
-      get {
-        return Path.Combine(Application.persistentDataPath, "savedata");
-      }
+      get { return Path.Combine(Application.persistentDataPath, "savedata"); }
     }
     private static HashSet<string> s_saveDataTypes = new HashSet<string>();
 
     #region User
+
     private static UserData s_user;
     public static bool isLogged => s_user != null;
     public static string userToken { private set; get; }
@@ -174,7 +174,7 @@ namespace Yume.Data {
         }
         return s_user.tasks;
       }
-    }  
+    }
     public static List<LevelData> userLevels {
       get {
         if (s_user == null) {
@@ -184,9 +184,11 @@ namespace Yume.Data {
         return s_user.levels;
       }
     }
+
     #endregion
 
     #region Data
+
     public static ItemData GetItem(string id) {
       return userItems.Find(obj => obj.id == id);
     }
@@ -199,7 +201,7 @@ namespace Yume.Data {
     public static List<TaskData> GetTaskList(TaskType taskType) {
       return userTasks.FindAll(obj => ResourceManager.Load<TaskTemplate>(obj.id).type == taskType);
     }
-    
+
     public static TaskData GetTask(string taskId) {
       return userTasks.Find(obj => obj.id == taskId);
     }
@@ -211,9 +213,11 @@ namespace Yume.Data {
     public static UnitData GetCharacter(string charId) {
       return userChars.Find(obj => obj.id == charId);
     }
+
     #endregion
 
     #region Operate
+
     public static void OnLateUpdate() {
       if (s_saveDataTypes.Count > 0) {
         JObject data = new JObject();
@@ -231,6 +235,7 @@ namespace Yume.Data {
     }
 
     #region Mail
+
     //邮件比较特殊，需要是同一个对象
     public static void DeleteMail(MailData mail) {
       if (mail.isReceived) {
@@ -258,24 +263,30 @@ namespace Yume.Data {
       }
       s_saveDataTypes.Add("mails");
     }
+
     #endregion
 
     #region Card
+
     public static void AddCard(CardData card) {
       userCards.Add(card);
       card.guid = s_user.validGuid++;
       s_saveDataTypes.Add("cards");
     }
+
     #endregion
 
     #region Character
+
     public static void AddCharacter(UnitData character) {
       userChars.Add(character);
       s_saveDataTypes.Add("chars");
     }
+
     #endregion
 
     #region Item
+
     public static void ConsumeItem(ItemData item, bool isUsed = true) {
       ItemData tempItem = GetItem(item.id);
       if (tempItem != null && tempItem.count >= item.count) {
@@ -306,6 +317,16 @@ namespace Yume.Data {
       if (item.id == StringMap.EXP_ID) {
         _AddExpInternal(item.count);
       }
+      
+      // 提示
+      ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
+      Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
+      MessageManager.AddMessage(
+        new Message(
+          Message.Style.FADE,
+          string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon
+        )
+      );
 
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -316,9 +337,11 @@ namespace Yume.Data {
 
       s_saveDataTypes.Add("items");
     }
+
     #endregion
 
     #region Task
+
     private static void _UpdateTaskState(RequestType type, string reqId, int reqCount) {
       foreach (var task in userTasks) {
         if (task.state == TaskState.INPROCESS || task.state == TaskState.COMPLETED) {
@@ -326,17 +349,17 @@ namespace Yume.Data {
           if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
             switch (taskRequest.method) {
               case Method.ADD: {
-                  task.process += reqCount > 0 ? reqCount : 0;
-                  break;
-                }
+                task.process += reqCount > 0 ? reqCount : 0;
+                break;
+              }
               case Method.CONSUME: {
-                  task.process += reqCount < 0 ? -reqCount : 0;
-                  break;
-                }
+                task.process += reqCount < 0 ? -reqCount : 0;
+                break;
+              }
               case Method.HAD: {
-                  _SyncTaskHadCount(task);
-                  break;
-                }
+                _SyncTaskHadCount(task);
+                break;
+              }
             }
 
           }
@@ -385,13 +408,13 @@ namespace Yume.Data {
       if (taskRequest.method == Method.HAD) {
         switch (taskRequest.type) {
           case RequestType.ITEM_NUM: {
-              task.process = GetItemCount(taskRequest.requirementId);
-              break;
-            }
+            task.process = GetItemCount(taskRequest.requirementId);
+            break;
+          }
           case RequestType.LV_UP_TO: {
-              task.process = userLv;
-              break;
-            }
+            task.process = userLv;
+            break;
+          }
         }
         s_saveDataTypes.Add("tasks");
       }
@@ -402,12 +425,8 @@ namespace Yume.Data {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
         foreach (ItemData item in taskTemplate.taskRewards.items) {
-          // 注意任务的道具奖励是引用类型得深度克隆一个
+          // 因为是ItemData是引用类型所以需要克隆一个
           AddItem(item.Clone());
-          ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
-          Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
-          MessageManager.AddMessage(new Message(Message.Style.FADE,
-          string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon));
         }
 
         if (taskTemplate.taskRequest.consumable && taskTemplate.taskRequest.type == RequestType.ITEM_NUM) {
@@ -429,9 +448,11 @@ namespace Yume.Data {
         s_saveDataTypes.Add("tasks");
       }
     }
+
     #endregion
 
     #region Team
+
     public static void ChangeTeamIndex(int newTeamIndex) {
       userTeamIndex = newTeamIndex;
       s_saveDataTypes.Add("teams");
@@ -451,9 +472,11 @@ namespace Yume.Data {
       team.cardGuidList = newCardGuidList;
       s_saveDataTypes.Add("teams");
     }
+
     #endregion
 
     #region Exp&Lv
+
     private static void _AddExpInternal(int exp) {
       MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
       int oLevel = userLv;
@@ -465,7 +488,7 @@ namespace Yume.Data {
       //更新任务状态
       if (userLv > oLevel) {
         string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
-        MessageManager.AddMessage(new Message(Message.Style.FADE, tip));
+        MessageManager.AddMessage(new Message(Message.Style.SLIDE, tip));
         _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
         int maxAp = ResourceManager.Load<int>($"{userLv}");
         if (maxAp > userMaxAp) {
@@ -480,9 +503,30 @@ namespace Yume.Data {
       EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
       s_saveDataTypes.Add("exp");
     }
+
     #endregion
 
     #region Level
+
+    public static void CompleteLevel(string id) {
+      var level = userLevels.Find(l => l.id == id);
+      if (level != null) {
+        LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(id);
+        if (!level.completed) {
+          level.completed = true;
+          foreach (var item in levelTemplate.firstCompletedRewards.items) {
+            AddItem(item);
+          }
+          s_saveDataTypes.Add("levels");
+          // 更新UI
+          EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
+        }
+        foreach (var item in levelTemplate.regularRewards.items) {
+          AddItem(item);
+        }
+      }
+    }
+
 #if TEST
     public static void CompleteAllLevelsTestOnly() {
       foreach (var level in userLevels) {
@@ -491,9 +535,11 @@ namespace Yume.Data {
       s_saveDataTypes.Add("levels");
     }
 #endif
-#endregion
+
+    #endregion
 
     #region Load&Save
+
     public static void LoadUserDB(JObject json = null) {
       if (json == null) {
         s_playMode = PlayMode.LOCAL;
@@ -517,36 +563,47 @@ namespace Yume.Data {
     }
 
     private static void _SaveData(string data) {
-      if (s_playMode == PlayMode.REMOTE) {
-        ServerManager.UpdateUserData(data,
-          request => {
-            string error = StringMap.EMPTY;
-            if (!string.IsNullOrEmpty(request.error)) {
-              error = "连接出错！" + request.error;
-            } else {
-              var json = JObject.Parse(request.downloadHandler.text);
-              int resultCode = json["resultCode"].Value<int>();
-              //这里的错误就不分类了
-              if (resultCode != 1) {
-                error = "更新用户数据失败！";
+      switch (s_playMode) {
+        case PlayMode.REMOTE: {
+          ServerManager.UpdateUserData(
+            data,
+            request => {
+              string error = StringMap.EMPTY;
+              if (!string.IsNullOrEmpty(request.error)) {
+                error = "连接出错！" + request.error;
+              } else {
+                var json = JObject.Parse(request.downloadHandler.text);
+                int resultCode = json["resultCode"].Value<int>();
+                //这里的错误就不分类了
+                if (resultCode != 1) {
+                  error = "更新用户数据失败！";
+                }
+              }
+              if (!string.IsNullOrEmpty(error)) {
+                Action ok = () => _SaveData(data);
+                Action cancel = () => UIManager.CloseAllAndOpenOne("login");
+                UIManager.OpenOne(
+                  "confirmation", null, error, StringMap.RETRY,
+                  StringMap.RETURN_TO_LOGIN, ok, cancel
+                );
               }
             }
-            if (!string.IsNullOrEmpty(error)) {
-              Action ok = () => _SaveData(data);
-              Action cancel = () => UIManager.CloseAllAndOpenOne("login");
-              UIManager.OpenOne("confirmation", null, error, StringMap.RETRY,
-                                StringMap.RETURN_TO_LOGIN, ok, cancel);
-            }
-          });
-      } else if (s_playMode == PlayMode.LOCAL) {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(localUserDataPath, FileMode.Create);
-        //序列化     
-        bf.Serialize(fs, s_user);
-        fs.Close();
+          );
+          break;
+        }
+        case PlayMode.LOCAL: {
+          BinaryFormatter bf = new BinaryFormatter();
+          FileStream fs = File.Open(localUserDataPath, FileMode.Create);
+          //序列化     
+          bf.Serialize(fs, s_user);
+          fs.Close();
+          break;
+        }
       }
     }
+
     #endregion
+
     #endregion
   }
 }

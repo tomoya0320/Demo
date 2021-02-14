@@ -8,8 +8,8 @@ namespace Yume.UI {
     private InputField m_textInputField;
     private Action<string> m_onCompleted;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_textInputField = GetComponent<InputField>("TextInputField");
 

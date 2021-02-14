@@ -225,8 +225,8 @@ namespace Yume.UI {
 
     private UIMailGroup m_mailGroup;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
       
       m_mailGroup = new UIMailGroup(GetGameObject("MailGroup"));
 

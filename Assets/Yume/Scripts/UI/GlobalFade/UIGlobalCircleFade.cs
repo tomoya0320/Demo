@@ -7,8 +7,8 @@ namespace Yume.UI {
   public class UIGlobalCircleFade : UIGlobalFade {
     private Image m_image;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_image = GetComponent<Image>("image");
     }

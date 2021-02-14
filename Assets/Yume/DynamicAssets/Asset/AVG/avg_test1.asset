@@ -80,6 +80,9 @@ MonoBehaviour:
       - fieldName: option2
         node: {fileID: -110156496062415711}
         reroutePoints: []
+      - fieldName: option2
+        node: {fileID: -110156496062415711}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -93,7 +96,7 @@ MonoBehaviour:
         node: {fileID: -8704398818708030139}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -205,6 +208,9 @@ MonoBehaviour:
       - fieldName: option3
         node: {fileID: -110156496062415711}
         reroutePoints: []
+      - fieldName: option3
+        node: {fileID: -110156496062415711}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -218,7 +224,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -574,10 +580,10 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: next
-        node: {fileID: 6017689547753387790}
+        node: {fileID: -6979103497041646916}
         reroutePoints: []
       - fieldName: next
-        node: {fileID: -6979103497041646916}
+        node: {fileID: 6017689547753387790}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -592,7 +598,7 @@ MonoBehaviour:
         node: {fileID: 1709785611973916465}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -645,9 +651,9 @@ MonoBehaviour:
   ports:
     keys:
     - last
-    - option1
-    - option2
     - option3
+    - option2
+    - option1
     values:
     - _fieldName: last
       _node: {fileID: -110156496062415711}
@@ -661,16 +667,16 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: option1
+    - _fieldName: option3
       _node: {fileID: -110156496062415711}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: last
-        node: {fileID: 4594748182505088050}
+        node: {fileID: -6979103497041646916}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: option2
@@ -682,19 +688,19 @@ MonoBehaviour:
         node: {fileID: -8355902264286410136}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: option3
+    - _fieldName: option1
       _node: {fileID: -110156496062415711}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: last
-        node: {fileID: -6979103497041646916}
+        node: {fileID: 4594748182505088050}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   last: 0
@@ -799,7 +805,7 @@ MonoBehaviour:
         node: {fileID: -110156496062415711}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -925,7 +931,7 @@ MonoBehaviour:
         node: {fileID: 232040082186662662}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -1191,6 +1197,9 @@ MonoBehaviour:
       - fieldName: option1
         node: {fileID: -110156496062415711}
         reroutePoints: []
+      - fieldName: option1
+        node: {fileID: -110156496062415711}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -1204,7 +1213,7 @@ MonoBehaviour:
         node: {fileID: -8704398818708030139}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: nodes
@@ -1416,7 +1425,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 1
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   next: 0

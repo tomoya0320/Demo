@@ -22,8 +22,8 @@ namespace Yume.UI {
     private AVGGraph m_avgGraph;
     private string m_beforeBgmName;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       bgImage = GetComponent<Image>("bg");
       nameText = GetComponent<Text>("name");

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Yume.Tool {
+namespace Yume {
   public class CoroutineHelper : SingletonMono<CoroutineHelper> {
     public Coroutine Run(IEnumerator enumerator) {
       return StartCoroutine(enumerator);

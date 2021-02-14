@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Yume.UI {
+namespace Yume {
   public class ObjectContainer : SerializedMonoBehaviour {
     [SerializeField, DictionaryDrawerSettings(KeyLabel = "名称", ValueLabel = "对象引用")]
     private Dictionary<string, GameObject> _objectDict;
@@ -13,14 +13,11 @@ namespace Yume.UI {
         return null;
       }
       var component = obj.GetComponent<T>();
-      return component ?? obj.AddComponent<T>();
+      return component ? component : obj.AddComponent<T>();
     }
 
     public GameObject GetGameObject(string objName) {
-      if (_objectDict.ContainsKey(objName)) {
-        return _objectDict[objName];
-      }
-      return null;
+      return _objectDict.ContainsKey(objName) ? _objectDict[objName] : null;
     }
   }
 }

@@ -3,37 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
+using Yume.Broadcast;
 using Yume.Data;
 using Yume.Resource;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UISingleBattle : UIBase {
     private Image m_bg;
+    private YButton m_finishTurnBtn;
     private Dictionary<string, Transform> m_folderDict = new Dictionary<string, Transform>();
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_bg = GetComponent<Image>("bg");
+      m_finishTurnBtn = GetComponent<YButton>("finish turn");
+      m_folderDict.Add("cardFolder", GetGameObject("cardFolder").transform);
       m_folderDict.Add("charFolder", GetGameObject("charFolder").transform);
       m_folderDict.Add("enemyFolder", GetGameObject("enemyFolder").transform);
-      m_folderDict.Add("drawCardFolder", GetGameObject("drawCardFolder").transform);
-      m_folderDict.Add("discardCardFolder", GetGameObject("discardCardFolder").transform);
-      m_folderDict.Add("consumeCardFolder", GetGameObject("consumeCardFolder").transform);
-
+      
       _AddListener();
+      
+      EventCenter.AddListener(EventType.ON_ENTER_PLAYER_TURN, _EnterPlayerTurn);
+      EventCenter.AddListener(EventType.ON_ENTER_FIRST_ENEMY_TURN, _EnterFirstEnemyTurn);
     }
 
     private void _AddListener() {
+      m_finishTurnBtn.onClick.AddListener(_FinishPlayerTurn);
       GetComponent<Button>("abort").onClick.AddListener(_Abort);
     }
 
     private void _Abort() {
       if (UIManager.GetTopUI(uiType).name == name) {
-        UIManager.OpenOne("confirmation", null, "ȷ�Ϸ�����ս��", "ȷ��", "ȡ��", BattleManager.abort, null);
+        UIManager.OpenOne("confirmation", null, "确认放弃作战？", "确认", "取消", BattleManager.abort, null);
       } else {
         UIManager.CloseOne("confirmation");
       }
+    }
+
+    private void _FinishPlayerTurn() {
+      m_finishTurnBtn.interactable = false;
+      m_finishTurnBtn.image.color = Color.gray;
+
+      BattleManager.character.EnqueueCard(default);
+    }
+
+    private void _EnterFirstEnemyTurn() {
+      m_finishTurnBtn.textComponent.text = "敌方回合";
+      
+      MessageManager.AddMessage(new Message(Message.Style.CENTER, "敌方回合", null, 0.5f));
+    }
+
+    private void _EnterPlayerTurn() {
+      m_finishTurnBtn.interactable = true;
+      m_finishTurnBtn.image.color = Color.white;
+      m_finishTurnBtn.textComponent.text = "结束回合";
+      
+      MessageManager.AddMessage(new Message(Message.Style.CENTER, "玩家回合", null, 0.5f));
     }
 
     public override void Open(Action callback = null, params object[] args) {
@@ -51,6 +78,12 @@ namespace Yume.UI {
     public override void Close(Action callback = null, params object[] args) {
       callback += () => UIManager.onBackList.Remove(_Abort);
       base.Close(callback, args);
+    }
+
+    public override void Destroy() {
+      base.Destroy();
+      EventCenter.RemoveListener(EventType.ON_ENTER_PLAYER_TURN, _EnterPlayerTurn);
+      EventCenter.RemoveListener(EventType.ON_ENTER_FIRST_ENEMY_TURN, _EnterFirstEnemyTurn);
     }
   }
 }

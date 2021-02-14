@@ -2,30 +2,48 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Broadcast;
 using Yume.Data;
 using Yume.Resource;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UIMainStory : UIBase {
     private Button[] m_levelBtns;
     private List<LevelData> m_levels;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_levelBtns = GetGameObject("levels").GetComponentsInChildren<Button>(true);
 
       m_levels = DataManager.userLevels;
 
       _AddListener();
+
+      EventCenter.AddListener(EventType.UPDATE_MAIN_STORY_LEVEL, _UpdateLevels);
+    }
+
+    public override void Destroy() {
+      base.Destroy();
+      
+      EventCenter.RemoveListener(EventType.UPDATE_MAIN_STORY_LEVEL, _UpdateLevels);
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      for (int i = 0; i < m_levelBtns.Length && i < m_levels.Count; i++) {
-        m_levelBtns[i].gameObject.SetActiveEx(_CheckLevelActive(m_levels[i].id));
-      }
+      _UpdateLevels();
 
       base.Open(callback, args);
+    }
+
+    private void _UpdateLevels() {
+      for (int i = 0; i < m_levelBtns.Length && i < m_levels.Count; i++) {
+        bool active = _CheckLevelActive(m_levels[i].id);
+        m_levelBtns[i].gameObject.SetActiveEx(active);
+        var objectContainer = m_levelBtns[i].gameObject.GetComponent<ObjectContainer>();
+        objectContainer?.GetGameObject("line")?.SetActiveEx(active);
+        m_levelBtns[i].gameObject.FindGo("completed")?.SetActiveEx(m_levels[i].completed);
+      }
     }
 
     private void _AddListener() {

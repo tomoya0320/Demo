@@ -10,8 +10,8 @@ namespace Yume.UI {
     private Text m_descText;
     private Text m_nameNumText;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_iconImg = GetComponent<Image>("Icon");
       m_descText = GetComponent<Text>("Description");

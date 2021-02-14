@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using XLua;
+using Yume.Battle;
+using Yume.UI;
 
 namespace Yume.Editor {
-  //Èç¹ûÉæ¼°µ½Assembly-CSharp.dllÖ®ÍâµÄÆäËüdll£¬ÈçÏÂ´úÂëĞèÒª·Åµ½EditorÄ¿Â¼
+  //å¦‚æœæ¶‰åŠåˆ°Assembly-CSharp.dllä¹‹å¤–çš„å…¶å®ƒdllï¼Œå¦‚ä¸‹ä»£ç éœ€è¦æ”¾åˆ°Editorç›®å½•
   public static class HotfixCfg {
-    [Hotfix] // UI²¿·ÖµÄ´úÂëÈİÒ×·¢Éú¸Ä¶¯
-    public static List<Type> UI_TYPES => 
+    [Hotfix] // UIçš„ä»£ç 
+    public static List<Type> ui =>
       (from type in Assembly.Load("Assembly-CSharp").GetTypes()
-       where type.Namespace == "Yume.UI" select type).ToList();
+        where typeof(UIBase).IsAssignableFrom(type) || typeof(UIChildBase).IsAssignableFrom(type) 
+        select type).ToList();
+    
+    [Hotfix] // è¡Œä¸ºæ ‘èŠ‚ç‚¹çš„ä»£ç 
+    public static List<Type> behaviorNode =>
+      (from type in Assembly.Load("Assembly-CSharp").GetTypes()
+        where typeof(BehaviorNodeBase).IsAssignableFrom(type)
+        select type).ToList();
   }
 }
