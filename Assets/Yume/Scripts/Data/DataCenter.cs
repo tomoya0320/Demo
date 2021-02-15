@@ -221,10 +221,6 @@ namespace Yume.Data {
     /// 在被造成伤害后
     /// </summary> 
     ON_LATE_DAMAGED,
-    /// <summary>
-    /// 当单位死亡时
-    /// </summary>
-    ON_UNIT_DIE
   }
 
   [Serializable]
