@@ -1,9 +1,7 @@
 using UnityEngine;
 
 namespace Yume.Battle {
-  public class BehaviorDebug : BehaviorNodeBase {
-    [Input(ShowBackingValue.Never, ConnectionType.Override)]
-    public int last;
+  public class BehaviorDebug : LeafNodeBase {
     public string debugKey;
     
     public override bool Run() {

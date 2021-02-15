@@ -256,6 +256,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &2277785536434058151
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +640,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &2277785536876617105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1348,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &2277785537135399772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2277785537521088088
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1994,7 +1997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 404}
+  m_AnchoredPosition: {x: 0, y: 315}
   m_SizeDelta: {x: 600, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2277785537564124177
@@ -2236,6 +2239,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &2277785537815993821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2248,6 +2252,7 @@ GameObject:
   - component: {fileID: 2277785537815993817}
   - component: {fileID: 2277785537815993816}
   - component: {fileID: 2277785537815993823}
+  - component: {fileID: 323556382597687799}
   m_Layer: 5
   m_Name: switch alter password
   m_TagString: Untagged
@@ -2272,7 +2277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -128, y: -189}
+  m_AnchoredPosition: {x: -126, y: -189}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2277785537815993817
@@ -2360,6 +2365,18 @@ MonoBehaviour:
   _textComponent: {fileID: 2277785537135399774}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+--- !u!225 &323556382597687799
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277785537815993821}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2277785537867108042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2792,7 +2809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 503}
+  m_AnchoredPosition: {x: 0, y: 414}
   m_SizeDelta: {x: 600, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2277785538200557671

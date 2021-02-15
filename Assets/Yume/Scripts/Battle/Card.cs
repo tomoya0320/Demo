@@ -30,7 +30,7 @@ namespace Yume.Battle {
         objectContainer.GetComponent<YButton>("Button").onClick.AddListener(() => onClickCard(this));
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
-      descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
+      descTextAutoScroll.SetTextContent(cardPhase.description);
 
       gameObject.SetActiveEx(false);
     }
@@ -43,7 +43,12 @@ namespace Yume.Battle {
         Debug.LogError($"目标未正确初始化！name:{target.name}");
         return false;
       }
-      // 因为blackboard属于asset且是引用类型所以需要新建一个
+      if (string.IsNullOrEmpty(cardPhase.buffTemplateId)) {
+        Debug.LogError("buffId为空！");
+        return false;
+      }
+      
+      // 因为blackboard是引用类型所以需要新建一个
       Blackboard blackboard = new Blackboard { { "caster", caster } };
       blackboard = blackboard.Merge(cardPhase.blackboard);
       BattleManager.buffManagers[target].AddBuff(cardPhase.buffTemplateId, blackboard);

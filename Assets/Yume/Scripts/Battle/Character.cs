@@ -62,18 +62,11 @@ namespace Yume.Battle {
       m_hpText = objectContainer.GetComponent<Text>("hp");
       m_energyText = objectContainer.GetComponent<Text>("energy");
 
-      m_hpText.text = $"生命:{GetAttribValue(AttribType.HP)}/{GetAttribMaxValue(AttribType.HP)}";
-      m_energyText.text = $"能量:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
+      m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
+      m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
     }
 
     public override IEnumerator OnTrick() {
-      // 补充能量
-      float energy = GetAttribValue(AttribType.ENERGY);
-      float maxEnergy = GetAttribMaxValue(AttribType.ENERGY);
-      if (energy < maxEnergy) {
-        AddAttribValue(AttribType.ENERGY, maxEnergy - energy);
-      }
-
       // 抽牌逻辑层
       int deltaCardCount = Constant.HAND_CARD_THRESHOLD - cardHeapDict[CardHeapType.HAND].Count;
       if (deltaCardCount > 0) {
@@ -148,14 +141,14 @@ namespace Yume.Battle {
       switch (type) {
         case AttribType.HP: {
           // 更新UI
-          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP)}";
+          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
           break;
         }
         case AttribType.ATK:
           break;
         case AttribType.ENERGY:
           // 更新UI
-          m_energyText.text = $"能量:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
+          m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
           break;
         case AttribType.DEF:
           break;
@@ -173,7 +166,7 @@ namespace Yume.Battle {
           break;
         case AttribType.ENERGY:
           // 更新UI
-          m_energyText.text = $"能量:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
+          m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
           break;
         case AttribType.DEF:
           break;

@@ -32,12 +32,16 @@ namespace Yume.Main {
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-      m_goToLoginBtn.onClick.AddListener(() => {
-        UIManager.OpenOne("globalBlackFade", () => {
-          Destroy(m_initPanel);
-          UIManager.OpenOne("login");
-        });
-      });
+      m_goToLoginBtn.onClick.AddListener(
+        () => {
+          UIManager.OpenOne(
+            "globalBlackFade", () => {
+              Destroy(m_initPanel);
+              UIManager.OpenOne("login");
+            }
+          );
+        }
+      );
       m_initProcessImg.fillAmount = 0;
 
       StartCoroutine(_InitAll());
@@ -45,20 +49,24 @@ namespace Yume.Main {
 
     private IEnumerator _InitAll() {
       #region 异步
+
       // Hotfix
       yield return HotfixManager.Init(0, 0.1f);
 
       // Resource
       yield return ResourceManager.Init(0.1f, 0.9f);
+
       #endregion
 
       #region 同步
+
       UIManager.Init();
       AudioManager.Init();
       RedPointManager.Init();
 
       // Final
       initProcess = 1.0f;
+
       #endregion
     }
 
@@ -74,7 +82,7 @@ namespace Yume.Main {
       // 同步数据用
       DataManager.OnLateUpdate();
     }
-
+    
 #if TEST
     private bool m_isShowCheat = true;
 

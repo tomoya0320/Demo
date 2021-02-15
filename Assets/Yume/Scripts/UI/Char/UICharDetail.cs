@@ -46,19 +46,15 @@ namespace Yume.UI {
       
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{attribs[i].value}";
+          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{attribs[i].value:0}";
         }
       }
-      for (int i = 0; i < m_attribs.Length; i++) {
-        if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{attribs[i].value}";
-        }
-      }
+
       if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unitTemplate.passiveSkillPhases.Length) {
         PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevel];
         m_passiveSkillName.text = passiveSkillPhase.name;
         m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
-        m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.blackboard);
+        m_passiveSkillDesc.text = passiveSkillPhase.description;
       } else {
         m_passiveSkillName.text = String.Empty;
         m_passiveSkillDesc.text = String.Empty;

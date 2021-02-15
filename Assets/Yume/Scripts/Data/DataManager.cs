@@ -315,7 +315,7 @@ namespace Yume.Data {
 
       // 经验值特殊处理
       if (item.id == StringMap.EXP_ID) {
-        _AddExpInternal(item.count);
+        _AddExpInternal();
       }
       
       // 提示
@@ -477,8 +477,7 @@ namespace Yume.Data {
 
     #region Exp&Lv
 
-    private static void _AddExpInternal(int exp) {
-      MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.GET_EXP, exp)));
+    private static void _AddExpInternal() {
       int oLevel = userLv;
       ItemData expItem = GetItem(StringMap.EXP_ID);
       while (expItem.count >= MathUtil.CalNeededExp(userLv)) {
@@ -501,7 +500,6 @@ namespace Yume.Data {
       }
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
-      s_saveDataTypes.Add("exp");
     }
 
     #endregion
@@ -515,14 +513,14 @@ namespace Yume.Data {
         if (!level.completed) {
           level.completed = true;
           foreach (var item in levelTemplate.firstCompletedRewards.items) {
-            AddItem(item);
+            AddItem(item.Clone());
           }
           s_saveDataTypes.Add("levels");
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
         }
         foreach (var item in levelTemplate.regularRewards.items) {
-          AddItem(item);
+          AddItem(item.Clone());
         }
       }
     }

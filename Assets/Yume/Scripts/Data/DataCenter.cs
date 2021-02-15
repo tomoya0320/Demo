@@ -331,7 +331,6 @@ namespace Yume.Data {
   public class UserData {
     public int lv;
     public int ap;
-    public int exp;
     public int maxAp;
     public string name;
     public int validGuid;

@@ -22,8 +22,20 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _buffs:
-  - id: buff_common_damage
+  - id: buff_encore
     stackable: 0
     behaviors:
-    - behaviorTreeId: behavior_common_damage
+    - behaviorTreeId: attach_attrib_with_prob
+      behaviorTime: 0
+  - id: buff_attach_attrib
+    stackable: 1
+    behaviors:
+    - behaviorTreeId: attach_attrib
+      behaviorTime: 2
+    - behaviorTreeId: detach_attrib
+      behaviorTime: 3
+  - id: buff_normal_damage
+    stackable: 0
+    behaviors:
+    - behaviorTreeId: normal_damage
       behaviorTime: 2

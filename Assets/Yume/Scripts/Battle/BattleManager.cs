@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sirenix.Utilities;
 using UnityEngine;
+using Yume.Audio;
 using Yume.Broadcast;
 using Yume.Data;
 using Yume.UI;
@@ -10,7 +10,10 @@ using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
   public enum BattleResult {
-    NONE, WIN, LOSE, ABORT
+    NONE,
+    WIN,
+    LOSE,
+    ABORT
   }
 
   public static class BattleManager {
@@ -55,17 +58,19 @@ namespace Yume.Battle {
       }
       // 初始化AttribCaches BuffManagers BehaviorManagers
       foreach (var unit in s_units) {
-        var buffManager = new BuffManager(unit);
-        if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
-          // 被动技能buff
-          var passiveSkill = unit.passiveSkillPhases[unit.passiveSkillLevel];
-          buffManager.AddBuff(passiveSkill.buffTemplateId, passiveSkill.blackboard);
-        }
-        buffManagers.Add(unit, buffManager);
-        
+        buffManagers.Add(unit, new BuffManager(unit));
         behaviorManagers.Add(unit, new BehaviorManager(unit));
       }
-      // TODO:初始化单位的被动Buff
+      // TODO:初始化单位的被动Buff 有待调整
+      foreach (var unit in s_units) {
+        if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
+          var passiveSkill = unit.passiveSkillPhases[unit.passiveSkillLevel];
+          // 因为blackboard是引用类型所以需要新建一个
+          Blackboard blackboard = new Blackboard { { "caster", null } };
+          blackboard = blackboard.Merge(passiveSkill.blackboard);
+          buffManagers[unit].AddBuff(passiveSkill.buffTemplateId, blackboard);
+        }
+      }
     }
 
     public static void StartBattle() {
@@ -78,12 +83,20 @@ namespace Yume.Battle {
         Debug.LogError("战斗尚未开始！");
         return;
       }
-      
+
       // TODO:战斗结算 测试用
+      Action onExitBattle = () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
       switch (battleResult) {
         case BattleResult.WIN:
-          MessageManager.AddMessage(new Message(Message.Style.FADE, "作战胜利"));
-          DataManager.CompleteLevel(s_levelTemplate.id);
+          // 避免引用到BattleManager的变量 因为这个变量后面马上就置空了
+          LevelTemplate levelTemplate = s_levelTemplate;
+          if (!string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
+            Action action = () => {
+              MessageManager.AddMessage(new Message(Message.Style.FADE, "作战胜利"));
+              DataManager.CompleteLevel(levelTemplate.id);
+            };
+            onExitBattle += () => UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action);
+          }
           break;
         case BattleResult.LOSE:
           MessageManager.AddMessage(new Message(Message.Style.FADE, "作战失败"));
@@ -110,38 +123,54 @@ namespace Yume.Battle {
       behaviorManagers.Clear();
 
       battleResult = BattleResult.NONE;
-      
+
       // 退出战斗界面
-      UIManager.OpenOne("globalBlackFade",()=>UIManager.CloseOne("single_battle"));
+      UIManager.OpenOne(
+        "globalBlackFade", () => {
+          UIManager.CloseOne("single_battle", onExitBattle);
+        }
+      );
     }
 
     private static IEnumerator _Run() {
+      // 播放战斗中的bgm
+      AudioManager.PlayBgm(s_levelTemplate.bgm);
+
       while (true) {
-        // 回合开始前
-        behaviorManagers.Values.ForEach(buffManager => buffManager.Run(BehaviorTime.ON_BEFORE_TURN));
+        Unit currentUnit = s_units[s_currentUnitIndex];
+        // 进入一个回合
         switch (s_currentUnitIndex) {
           // 默认玩家是第一个位置
           case 0:
             // 进入玩家的回合
             EventCenter.Broadcast(EventType.ON_ENTER_PLAYER_TURN);
+            // 补充玩家的能量
+            float energy = character.GetAttribValue(AttribType.ENERGY);
+            float maxEnergy = character.GetAttribMaxValue(AttribType.ENERGY);
+            if (energy < maxEnergy) {
+              character.AddAttribValue(AttribType.ENERGY, maxEnergy - energy);
+            }
             break;
           case 1:
             // 进入第一个敌人的回合
             EventCenter.Broadcast(EventType.ON_ENTER_FIRST_ENEMY_TURN);
             break;
         }
-        yield return s_units[s_currentUnitIndex].OnTrick();
-        // 下一个单位
-        s_currentUnitIndex = (s_currentUnitIndex + 1) % s_units.Count;
+        // 回合开始前
+        behaviorManagers[currentUnit].Run(BehaviorTime.ON_BEFORE_TURN);
+        // 回合中
+        yield return currentUnit.OnTrick();
         // 更新buff
-        buffManagers.Values.ForEach(buffManager => buffManager.OnLateUpdate());
+        buffManagers[currentUnit].OnLateUpdate();
         // 回合结束后
-        behaviorManagers.Values.ForEach(buffManager => buffManager.Run(BehaviorTime.ON_LATE_TURN));
+        behaviorManagers[currentUnit].Run(BehaviorTime.ON_LATE_TURN);
         // TODO:测试用 检测战斗是否完成
         if (battleResult != BattleResult.NONE) {
           _Finish();
           yield break;
         }
+        // 下一个单位
+        s_currentUnitIndex = (s_currentUnitIndex + 1) % s_units.Count;
       }
     }
   }

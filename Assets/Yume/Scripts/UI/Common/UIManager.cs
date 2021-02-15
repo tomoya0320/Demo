@@ -31,13 +31,15 @@ namespace Yume.UI {
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      onBackList.Add(() => {
-        if (s_uiStackDict[UIType.NORMAL].Count > 1) {
-          CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
-        } else {
-          OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
+      onBackList.Add(
+        () => {
+          if (s_uiStackDict[UIType.NORMAL].Count > 1) {
+            CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
+          } else {
+            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
+          }
         }
-      });
+      );
     }
 
     public static void OnUpdate() {
@@ -57,7 +59,7 @@ namespace Yume.UI {
       foreach (var list in s_cacheUIListDict.Values) {
         for (int i = list.Count - 1; i >= 0; i--) {
           if (list[i].Item2.cacheTime > 0 && list[i].Item1 +
-              list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
+            list[i].Item2.cacheTime <= Time.realtimeSinceStartup) {
 
             list[i].Item2.Destroy();
             list.RemoveAt(i);
@@ -162,9 +164,10 @@ namespace Yume.UI {
     }
 
     /// <summary>
-    /// 关闭栈顶UI并选择性打开上一个UI
+    /// 关闭栈顶UI
     /// </summary>
     /// <param name="name"></param>
+    /// <param name="callback"></param>
     /// <param name="args"></param>
     public static void CloseOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
@@ -195,9 +198,9 @@ namespace Yume.UI {
     /// 同步用户数据时使用
     /// </summary>
     /// <param name="active"></param>
-    public static void SetInteractionMask(bool active) {
+    public static void SetGlobalInteractable(bool active) {
       if (s_globalIneraction) {
-        s_globalIneraction.blocksRaycasts = active;
+        s_globalIneraction.interactable = active;
       } else {
         Debug.LogError("全局交互遮罩未正确设置！");
       }
@@ -229,17 +232,17 @@ namespace Yume.UI {
     private static Transform _GetRootByType(UIType uiType) {
       switch (uiType) {
         case UIType.NORMAL: {
-            return normalCanvas;
-          }
+          return normalCanvas;
+        }
         case UIType.TOP: {
-            return topCanvas;
-          }
+          return topCanvas;
+        }
         case UIType.TIP: {
-            return tipCanvas;
-          }
+          return tipCanvas;
+        }
         default: {
-            return null;
-          }
+          return null;
+        }
       }
     }
 

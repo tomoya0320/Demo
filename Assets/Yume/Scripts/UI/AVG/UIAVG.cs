@@ -20,7 +20,6 @@ namespace Yume.UI {
 
     private Action m_onQuitAVG;
     private AVGGraph m_avgGraph;
-    private string m_beforeBgmName;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -55,7 +54,7 @@ namespace Yume.UI {
         _CleanUp();
         m_onQuitAVG?.Invoke();
         UIManager.onBackList.Remove(_SkipAVG);
-        AudioManager.PlayBgm(m_beforeBgmName);
+        AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
       };
 
       base.Close(callback, args);
@@ -79,7 +78,6 @@ namespace Yume.UI {
 
     private void _InitAVG(string avgName, Action onQuitAVG) {
       m_onQuitAVG = onQuitAVG;
-      m_beforeBgmName = AudioManager.GetCurrentBgmName();
       m_avgGraph = ResourceManager.Load<AVGGraph>(avgName);
     }
 

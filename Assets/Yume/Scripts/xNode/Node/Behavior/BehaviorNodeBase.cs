@@ -13,10 +13,19 @@ namespace Yume.Battle {
     public abstract bool Run();
   }
 
-  public abstract class DamageBase : BehaviorNodeBase {
-    [Input(ShowBackingValue.Never)]
+  public abstract class LeafNodeBase : BehaviorNodeBase {
+    [Input(ShowBackingValue.Never, ConnectionType.Override)]
     public int last;
+  }
 
+  public abstract class IntermediateNodeBase : BehaviorNodeBase {
+    [Input(ShowBackingValue.Never, ConnectionType.Override)]
+    public int last;
+    [Output(ShowBackingValue.Never)]
+    public int next;
+  }
+
+  public abstract class DamageBase : LeafNodeBase {
     public override bool Run() {
       // 小心不要套娃了
       // 被造成伤害前的行为树

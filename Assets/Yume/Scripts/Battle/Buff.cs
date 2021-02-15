@@ -60,7 +60,7 @@ namespace Yume.Battle {
 
     public bool OnUpdate() {
       // 持续时间小于0表示无限 直接返回true
-      if (turn < 0) {
+      if (duration < 0) {
         return true;
       }
       

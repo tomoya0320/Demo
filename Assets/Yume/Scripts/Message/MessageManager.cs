@@ -49,8 +49,10 @@ namespace Yume.UI {
         var message = s_messageQueue.Dequeue();
         s_showingMessage = message.description;
         var uiName = $"message_{message.style.GetDescription()}";
-        Action action = () => CoroutineHelper.instance.DelayInvoke(message.duration,
-         () => UIManager.CloseOne(uiName, ShowMessage));
+        Action action = () => CoroutineHelper.instance.DelayInvoke(
+          message.duration,
+          () => UIManager.CloseOne(uiName, ShowMessage)
+        );
 
         UIManager.OpenOne(uiName, action, message);
       } else {
