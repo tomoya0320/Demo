@@ -321,12 +321,9 @@ namespace Yume.Data {
       // 提示
       ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
       Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
-      MessageManager.AddMessage(
-        new Message(
-          Message.Style.FADE,
-          string.Format(StringMap.GET + "{0}*{1}", itemTemplate.name, item.count), itemIcon
-        )
-      );
+      // 小 心 引 用 类 型
+      string content = $"{StringMap.GET}{itemTemplate.name}*{item.count}";
+      MessageManager.AddMessage(new Message(Message.Style.FADE, content, itemIcon));
 
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -392,7 +389,8 @@ namespace Yume.Data {
           task.state = TaskState.COMPLETED;
           TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
           RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 1);
-          MessageManager.AddMessage(new Message(Message.Style.FADE, string.Format(StringMap.TASK_COMPLETED, taskTemplate.title)));
+          string content = string.Format(StringMap.TASK_COMPLETED, taskTemplate.title);
+          MessageManager.AddMessage(new Message(Message.Style.FADE, content));
           s_saveDataTypes.Add("tasks");
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
@@ -486,8 +484,8 @@ namespace Yume.Data {
       }
       //更新任务状态
       if (userLv > oLevel) {
-        string tip = string.Format(StringMap.LEVEL_UP_TO, userLv);
-        MessageManager.AddMessage(new Message(Message.Style.SLIDE, tip));
+        string content = string.Format(StringMap.LEVEL_UP_TO, userLv);
+        MessageManager.AddMessage(new Message(Message.Style.SLIDE, content));
         _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
         int maxAp = ResourceManager.Load<int>($"{userLv}");
         if (maxAp > userMaxAp) {

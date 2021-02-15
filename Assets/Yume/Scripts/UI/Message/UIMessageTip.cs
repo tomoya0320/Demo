@@ -23,7 +23,7 @@ namespace Yume.UI {
       m_image.sprite = m_message.img;
       m_image.enabled = m_image.sprite != null;
 
-      m_description.text = m_message.description;
+      m_description.text = m_message.content;
 
       Vector2 size = m_textRect.rect.size;
       // height保持不变
