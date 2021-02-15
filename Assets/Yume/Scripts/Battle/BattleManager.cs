@@ -18,12 +18,11 @@ namespace Yume.Battle {
 
   public static class BattleManager {
     private static int s_currentUnitIndex;
-    private static Coroutine s_runCoroutine;
     private static LevelTemplate s_levelTemplate;
     private static List<Unit> s_units = new List<Unit>();
     public static Blackboard blackboard = new Blackboard();
     // TODO:测试用
-    public static bool isRunning => s_runCoroutine != null;
+    public static bool isRunning => battleResult == BattleResult.NONE;
     // TODO:测试用
     public static BattleResult battleResult = BattleResult.NONE;
     public static Dictionary<Unit, BuffManager> buffManagers = new Dictionary<Unit, BuffManager>();
@@ -75,15 +74,10 @@ namespace Yume.Battle {
 
     public static void StartBattle() {
       // 开始作战
-      s_runCoroutine = CoroutineHelper.instance.Run(_Run());
+      CoroutineHelper.instance.Run(_Run());
     }
 
     private static void _Finish() {
-      if (s_runCoroutine == null) {
-        Debug.LogError("战斗尚未开始！");
-        return;
-      }
-
       // TODO:战斗结算 测试用
       Action onExitBattle = () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
       switch (battleResult) {
@@ -110,7 +104,6 @@ namespace Yume.Battle {
       }
 
       // 清理
-      s_runCoroutine = null;
       s_units.ForEach(unit => unit.CleanUp());
       s_units.Clear();
       s_folderDict.Clear();
