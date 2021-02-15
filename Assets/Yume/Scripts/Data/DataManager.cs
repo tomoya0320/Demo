@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using Yume.Battle;
 using Yume.Broadcast;
 using Yume.RedPointSystem;
 using Yume.Resource;
@@ -195,7 +196,7 @@ namespace Yume.Data {
 
     public static int GetItemCount(string id) {
       ItemData itemDB = userItems.Find(obj => obj.id == id);
-      return itemDB == null ? 0 : itemDB.count;
+      return itemDB?.count ?? 0;
     }
 
     public static List<TaskData> GetTaskList(TaskType taskType) {
@@ -249,7 +250,7 @@ namespace Yume.Data {
       if (!mail.isReceived) {
         mail.isReceived = true;
         foreach (var item in mail.attachment) {
-          AddItem(item);
+          AddItem(item.id, item.count);
         }
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 0);
         s_saveDataTypes.Add("mails");
@@ -268,7 +269,8 @@ namespace Yume.Data {
 
     #region Card
 
-    public static void AddCard(CardData card) {
+    public static void AddCard(string id, int phase) {
+      CardData card = new CardData(id, phase);
       userCards.Add(card);
       card.guid = s_user.validGuid++;
       s_saveDataTypes.Add("cards");
@@ -278,7 +280,8 @@ namespace Yume.Data {
 
     #region Character
 
-    public static void AddCharacter(UnitData character) {
+    public static void AddCharacter(string id, int level, int passiveSkillLevel) {
+      UnitData character = new UnitData(id, level, passiveSkillLevel);
       userChars.Add(character);
       s_saveDataTypes.Add("chars");
     }
@@ -287,14 +290,14 @@ namespace Yume.Data {
 
     #region Item
 
-    public static void ConsumeItem(ItemData item, bool isUsed = true) {
-      ItemData tempItem = GetItem(item.id);
-      if (tempItem != null && tempItem.count >= item.count) {
-        tempItem.count -= item.count;
+    public static void ConsumeItem(string id, int count, bool isUsed = true) {
+      ItemData tempItem = GetItem(id);
+      if (tempItem != null && tempItem.count >= count) {
+        tempItem.count -= count;
         if (tempItem.count == 0) {
           userItems.Remove(tempItem);
         }
-        _UpdateTaskState(RequestType.ITEM_NUM, item.id, isUsed ? -item.count : 0);
+        _UpdateTaskState(RequestType.ITEM_NUM, id, isUsed ? -count : 0);
 
         //更新UI显示
         EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
@@ -304,33 +307,33 @@ namespace Yume.Data {
       }
     }
 
-    public static void AddItem(ItemData item) {
-      ItemData tempItem = GetItem(item.id);
+    public static void AddItem(string id, int count) {
+      ItemData tempItem = GetItem(id);
       if (tempItem == null) {
-        tempItem = item;
+        tempItem = new ItemData(id, count);
         userItems.Add(tempItem);
       } else {
-        tempItem.count += item.count;
-      }
-
-      // 经验值特殊处理
-      if (item.id == StringMap.EXP_ID) {
-        _AddExpInternal();
+        tempItem.count += count;
       }
       
       // 提示
-      ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
+      ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(id);
       Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
-      // 小 心 引 用 类 型
-      string content = $"{StringMap.GET}{itemTemplate.name}*{item.count}";
+      // 小 心 引 用 类 型 (改了后没这个问题了)
+      string content = $"{StringMap.GET}{itemTemplate.name}*{count}";
       MessageManager.AddMessage(new Message(Message.Style.FADE, content, itemIcon));
+      
+      // 经验值额外再处理一次
+      if (id == StringMap.EXP_ID) {
+        _AddExpInternal();
+      }
 
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_ITEM_INFO);
       EventCenter.Broadcast(EventType.UPDATE_USER_INFO);
 
       //更新任务进度
-      _UpdateTaskState(RequestType.ITEM_NUM, item.id, item.count);
+      _UpdateTaskState(RequestType.ITEM_NUM, id, count);
 
       s_saveDataTypes.Add("items");
     }
@@ -423,12 +426,11 @@ namespace Yume.Data {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
         foreach (ItemData item in taskTemplate.taskRewards.items) {
-          // 因为是ItemData是引用类型所以需要克隆一个
-          AddItem(item.Clone());
+          AddItem(item.id, item.count);
         }
 
         if (taskTemplate.taskRequest.consumable && taskTemplate.taskRequest.type == RequestType.ITEM_NUM) {
-          ConsumeItem(new ItemData(taskTemplate.taskRequest.requirementId, taskTemplate.taskRequest.requiredCount), false);
+          ConsumeItem(taskTemplate.taskRequest.requirementId, taskTemplate.taskRequest.requiredCount, false);
         }
 
         RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
@@ -511,14 +513,14 @@ namespace Yume.Data {
         if (!level.completed) {
           level.completed = true;
           foreach (var item in levelTemplate.firstCompletedRewards.items) {
-            AddItem(item.Clone());
+            AddItem(item.id, item.count);
           }
           s_saveDataTypes.Add("levels");
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
         }
         foreach (var item in levelTemplate.regularRewards.items) {
-          AddItem(item.Clone());
+          AddItem(item.id, item.count);
         }
       }
     }

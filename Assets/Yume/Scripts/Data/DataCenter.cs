@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;

@@ -51,10 +51,7 @@ namespace Yume.Battle {
           cardTuple.card.gameObject.SetActiveEx(true);
           cardTuple.card.Cast(this, cardTuple.target);
           // TODO:测试用
-          if (BattleManager.battleResult == BattleResult.NONE) {
-            yield return new WaitForSeconds(2);
-          }
-          // TODO:测试用
+          yield return new WaitForSeconds(2);
           cardTuple.card.gameObject.SetActiveEx(false);
           cardTuple.card.active = true;
         }

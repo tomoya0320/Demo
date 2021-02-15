@@ -7,21 +7,19 @@ using Yume.UI;
 
 namespace Yume.Battle {
   public class Card {
-    private CardData m_card;
     public bool active = true;
+    public GameObject gameObject { get; }
     public CardPhase cardPhase { private set; get; }
-    public GameObject gameObject { private set; get; }
 
     public Card(CardData card, GameObject root, Action<Card> onClickCard = null) {
-      m_card = card;
       gameObject = root;
 
       // 表现层
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
-      cardPhase = cardTemplate.cardPhases[m_card.phase];
+      CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
+      cardPhase = cardTemplate.cardPhases[card.phase];
 
-      objectContainer.GetComponent<Text>("PhaseText").text = m_card.phase.ToString();
+      objectContainer.GetComponent<Text>("PhaseText").text = card.phase.ToString();
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
       objectContainer.GetComponent<Text>("EnergyText").text = cardPhase.energyConsumption.ToString();
