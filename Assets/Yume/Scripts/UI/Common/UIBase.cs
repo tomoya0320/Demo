@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using Yume.Data;
-using Yume.Tool;
 
 namespace Yume.UI {
   public abstract class UIBase {
@@ -14,12 +13,12 @@ namespace Yume.UI {
     public UIType uiType => m_uiData.uiType;
     public float cacheTime => m_uiData.cacheTime;
 
-    public virtual void OnInit(UITemplate uiTemplate, GameObject root) {
-      m_root = root;
+    public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      m_root = gameObject;
       m_uiData = uiTemplate;
       m_root.name = uiTemplate.name;
-      m_animation = root.GetComponent<Animation>();
-      m_uiObject = root.GetComponent<ObjectContainer>();
+      m_animation = gameObject.GetComponent<Animation>();
+      m_uiObject = gameObject.GetComponent<ObjectContainer>();
     }
 
     protected T GetComponent<T>(string objName) where T : Component {

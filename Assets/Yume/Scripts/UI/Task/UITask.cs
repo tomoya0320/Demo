@@ -174,8 +174,8 @@ namespace Yume.UI {
     private UIGroupSwitch m_taskGroupSwitch;
     private List<UITaskGroup> m_taskGroupList = new List<UITaskGroup>();
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_taskGroupSwitch = GetComponent<UIGroupSwitch>("task group");
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Main;
 using Yume.Resource;
 using Yume.UI;
 
@@ -12,16 +11,14 @@ namespace Yume.Audio {
       private float m_value;
       private float m_switch;
       private List<AudioSource> m_audioSourceList = new List<AudioSource>();
-      private readonly string valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
-      private readonly string switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
+      public string valueKey => UISettingType.SOUND.GetDescription() + StringMap.VALUE;
+      public string switchKey => UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
       public SoundManager(Transform root) {
-        GameObject gameObject;
-        AudioSource audioSource;
         for (int i = 1; i <= Constant.MAX_SOUND_COUNT; i++) {
-          gameObject = new GameObject($"Sound_{i}");
+          var gameObject = new GameObject($"Sound_{i}");
           gameObject.transform.parent = root;
-          audioSource = gameObject.AddComponent<AudioSource>();
+          var audioSource = gameObject.AddComponent<AudioSource>();
           audioSource.playOnAwake = false;
 
           m_audioSourceList.Add(audioSource);
@@ -39,8 +36,8 @@ namespace Yume.Audio {
       public void UpdateVolume() {
         m_switch = PlayerPrefs.GetInt(switchKey);
         m_value = 0.01f * PlayerPrefs.GetInt(valueKey);
-        for (int i = 0; i < m_audioSourceList.Count; i++) {
-          m_audioSourceList[i].volume = m_switch * m_value;
+        foreach (AudioSource audioSource in m_audioSourceList) {
+          audioSource.volume = m_switch * m_value;
         }
       }
 
@@ -85,16 +82,14 @@ namespace Yume.Audio {
       }
 
       public void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
-        if (m_tween != null) {
-          m_tween.Complete();
-        }
+        m_tween?.Complete();
         m_tween = m_audioSource
-                    .DOFade(0, fadeTime)
-                    .OnComplete(() => {
-                      m_tween = null;
-                      m_audioSource.Stop();
-                      onCompleted?.Invoke();
-                    });
+                  .DOFade(0, fadeTime)
+                  .OnComplete(() => {
+                    m_tween = null;
+                    m_audioSource.Stop();
+                    onCompleted?.Invoke();
+                  });
       }
 
       public void PlayBgm(AudioClip audioClip, bool immediate = false, float fadeTime = 1.0f) {
@@ -124,8 +119,9 @@ namespace Yume.Audio {
     private static SoundManager s_soundManager;
 
     public static void Init() {
-      s_bgmManager = new BGMManager(Game.instance.audioRoot);
-      s_soundManager = new SoundManager(Game.instance.audioRoot);
+      var audioRoot = GameObject.Find("AudioRoot").transform;
+      s_bgmManager = new BGMManager(audioRoot);
+      s_soundManager = new SoundManager(audioRoot);
 
       // 播放默认的bgm
       PlayBgm(StringMap.DEFAULT_BGM, true);

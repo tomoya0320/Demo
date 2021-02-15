@@ -2,7 +2,7 @@ using Yume.UI;
 
 namespace Yume.AVG {
   public class Enter : AVGNodeBase {
-    [Output(ShowBackingValue.Never)]
+    [Output(ShowBackingValue.Never, ConnectionType.Override)]
     public int next;
 
     public override void Run(UIAVG avg) {

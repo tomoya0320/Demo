@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Audio;
@@ -23,8 +22,8 @@ namespace Yume.UI {
     private AVGGraph m_avgGraph;
     private string m_beforeBgmName;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       bgImage = GetComponent<Image>("bg");
       nameText = GetComponent<Text>("name");
@@ -47,7 +46,7 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       _InitAVG((string)args[0], args[1] as Action);
-      UIManager.onBackStack.Push(_SkipAVG);
+      UIManager.onBackList.Add(_SkipAVG);
       m_avgGraph.Enter(this);
     }
 
@@ -55,7 +54,7 @@ namespace Yume.UI {
       callback += () => {
         _CleanUp();
         m_onQuitAVG?.Invoke();
-        UIManager.onBackStack.Pop();
+        UIManager.onBackList.Remove(_SkipAVG);
         AudioManager.PlayBgm(m_beforeBgmName);
       };
 

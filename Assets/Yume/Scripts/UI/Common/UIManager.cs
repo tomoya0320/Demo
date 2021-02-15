@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Yume.Data;
-using Yume.Main;
 using Yume.Resource;
 
 namespace Yume.UI {
   public static class UIManager {
-    private static GameObject s_interactionMask;
+    private static CanvasGroup s_globalIneraction;
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
@@ -16,15 +15,15 @@ namespace Yume.UI {
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float, UIBase)>> s_cacheUIListDict = new Dictionary<UIType, List<(float, UIBase)>>();
     private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
-    public static Stack<Action> onBackStack = new Stack<Action>();
+    public static List<Action> onBackList = new List<Action>();
+    public static bool activeBack = true;
 
     public static void Init() {
-      ObjectContainer uiRootObject = Game.instance.uiRootObject;
-      s_interactionMask = uiRootObject.GetGameObject("InteractMask");
-      topCanvas = uiRootObject.GetGameObject("TopCanvas")?.transform;
-      tipCanvas = uiRootObject.GetGameObject("TipCanvas")?.transform;
-      cacheCanvas = uiRootObject.GetGameObject("CacheCanvas")?.transform;
-      normalCanvas = uiRootObject.GetGameObject("NormalCanvas")?.transform;
+      topCanvas = GameObject.Find("TopCanvas").transform;
+      tipCanvas = GameObject.Find("TipCanvas").transform;
+      cacheCanvas = GameObject.Find("CacheCanvas").transform;
+      normalCanvas = GameObject.Find("NormalCanvas").transform;
+      s_globalIneraction = GameObject.Find("UIRoot").GetComponent<CanvasGroup>();
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_blockDict.Add(type, 0);
@@ -32,7 +31,7 @@ namespace Yume.UI {
         s_cacheUIListDict.Add(type, new List<(float, UIBase)>());
       }
 
-      onBackStack.Push(() => {
+      onBackList.Add(() => {
         if (s_uiStackDict[UIType.NORMAL].Count > 1) {
           CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
         } else {
@@ -197,10 +196,10 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="active"></param>
     public static void SetInteractionMask(bool active) {
-      if (s_interactionMask) {
-        s_interactionMask.SetActiveEx(active);
+      if (s_globalIneraction) {
+        s_globalIneraction.blocksRaycasts = active;
       } else {
-        Debug.LogError("交互遮罩未正确设置！");
+        Debug.LogError("全局交互遮罩未正确设置！");
       }
     }
 
@@ -208,7 +207,9 @@ namespace Yume.UI {
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
     public static void Back() {
-      onBackStack.Peek()?.Invoke();
+      if (activeBack) {
+        onBackList.Last()?.Invoke();
+      }
     }
 
     private static void _CloseInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {

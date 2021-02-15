@@ -10,6 +10,8 @@ using Yume.Battle;
 using Yume.Resource;
 using XLua;
 using Axis = UnityEngine.RectTransform.Axis;
+using Yume.Data;
+using Random = System.Random;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
@@ -23,11 +25,15 @@ public static class Constant {
   public const int MAX_TEAN_COUNT = 5;
   public const int MAX_CARD_COUNT = 12;
   public const int MAX_SOUND_COUNT = 5;
-  public static int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
+  public const int HAND_CARD_THRESHOLD = 6;
+  // ReSharper disable once InconsistentNaming
+  public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
+  // ReSharper disable once InconsistentNaming
   public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
 }
 
 public static class Colors {
+  // ReSharper disable once InconsistentNaming
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }
 
@@ -80,7 +86,7 @@ public static class ListTools {
 
   public static T Last<T>(this List<T> list) {
     if (list.Count == 0) {
-      return default(T);
+      return default;
     }
     return list[list.Count - 1];
   }
@@ -116,7 +122,7 @@ public static class GameObjectTools {
   /// <summary>
   /// 深度优先遍历查找所有的子物体
   /// </summary>
-  /// <param name="transform"></param>
+  /// <param name="gameObject"></param>
   /// <param name="name"></param>
   /// <returns></returns>
   public static GameObject FindGo(this GameObject gameObject, string name) {
@@ -135,7 +141,9 @@ public static class GameObjectTools {
     return null;
   }
 
-  public static Transform GetParent(this GameObject gameObject) => gameObject.transform.parent;
+  public static Transform GetParent(this GameObject gameObject) {
+    return gameObject.transform.parent;
+  }
 }
 
 public static class ImageTools {
@@ -155,23 +163,20 @@ public static class EnumTools {
   public static string GetDescription(this Enum enumValue) {
     Type type = enumValue.GetType();
     MemberInfo[] memInfo = type.GetMember(enumValue.ToString());
-    if (null != memInfo && memInfo.Length > 0) {
+    if (memInfo != null && memInfo.Length > 0) {
       object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-      if (null != attrs && attrs.Length > 0)
+      if (attrs != null && attrs.Length > 0)
         return ((DescriptionAttribute)attrs[0]).Description;
     }
     return enumValue.ToString();
   }
 }
 
-public class AssemblyTool {
-  private static Assembly assembly;
+public static class AssemblyTool {
+  private static Assembly s_assembly = Assembly.GetExecutingAssembly();
 
   public static object CreateInstance(string typeName) {
-    if (assembly == null) {
-      assembly = Assembly.GetExecutingAssembly();
-    }
-    return assembly.CreateInstance(typeName);
+    return s_assembly.CreateInstance(typeName);
   }
 }
 
@@ -218,6 +223,7 @@ public static class StringMap {
   public const string UI_CLOSE_ANIM = "ui_close";
   public const string UI_RED_POINT = "red point";
   public const string SAVE_DATA_SUCCEED = "同步数据成功！";
+  public const string CARD_PREFAB = "card_prefab";
 }
 
 public static class StringUtil {
@@ -253,24 +259,29 @@ public static class StringUtil {
     StringBuilder result = new StringBuilder();
     int start = 0;
     for (int i = 0; i < description.Length; i++) {
-      if (description[i] == '{') {
-        result.Append(description.Substring(start, i - start));
-        start = i + 1;
-      } else if (description[i] == '}') {
-        string key = description.Substring(start, i - start);
-        if (key[key.Length - 1] == '%') {
-          key = key.Substring(0, key.Length - 1);
-          object value = blackboard.GetValue<object>(key);
-          if (value.GetType() == typeof(float)) {
-            result.Append($"{(float)value * 100.0f}%");
-          } else {
-            Debug.LogWarning($"非float类型！type:{value.GetType()}");
-            result.Append(value);
-          }
-        } else {
-          result.Append(blackboard.GetValue<object>(key));
+      switch (description[i]) {
+        case '{': {
+          result.Append(description.Substring(start, i - start));
+          start = i + 1;
+          break;
         }
-        start = i + 1;
+        case '}': {
+          string key = description.Substring(start, i - start);
+          if (key[key.Length - 1] == '%') {
+            key = key.Substring(0, key.Length - 1);
+            object value = blackboard.GetValue<object>(key);
+            if (value is float f) {
+              result.Append($"{f * 100.0f}%");
+            } else {
+              Debug.LogWarning($"非float类型！type:{value.GetType()}");
+              result.Append(value);
+            }
+          } else {
+            result.Append(blackboard.GetValue<object>(key));
+          }
+          start = i + 1;
+          break;
+        }
       }
     }
     if (start < description.Length) {
@@ -281,6 +292,7 @@ public static class StringUtil {
 }
 
 public static class MathUtil {
+  public static readonly Random random = new Random();
   public static Vector2 mousePos => Input.mousePosition;
   public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
 
@@ -336,13 +348,16 @@ public static class MathUtil {
     return 50 + lv * 50;
   }
 
-  public static Attrib[] CalculateAttribs(string id, int level, int maxLevel, Attrib[] minAttribs, Attrib[] maxAttribs) {
+  public static Attrib[] CalculateAttribs(string id, int level) {
+    UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(id);
+    Attrib[] minAttribs = unitTemplate.GetMinAttribs();
+    Attrib[] maxAttribs = unitTemplate.GetMaxAttribs();
 
     if (minAttribs.Length != maxAttribs.Length) {
       throw new Exception("最小属性数组和最大属性数组长度不一致！");
     }
 
-    float p = (float)level / maxLevel;
+    float p = (float)level / unitTemplate.maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
     var curve = ResourceManager.Load<AnimationCurve>(id);
     for (int i = 0; i < attribs.Length; i++) {
@@ -350,6 +365,22 @@ public static class MathUtil {
     }
 
     return attribs;
+  }
+
+  /// <summary>
+  /// 洗牌算法
+  /// </summary>
+  /// <param name="array"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
+  public static T[] FisherYatesShuffle<T>(T[] array) {
+    for (int i = array.Length - 1; i > 0; i--) {
+      int index = random.Next(0, i);
+      T temp = array[i];
+      array[i] = array[index];
+      array[index] = temp;
+    }
+    return array;
   }
 }
 
@@ -365,18 +396,14 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
       return s_instance;
     }
   }
-  public static bool hasInstance {
-    get {
-      return s_instance != null;
-    }
-  }
+  public static bool hasInstance => s_instance != null;
 
   private void Awake() {
     if (!hasInstance) {
       s_instance = this as T;
       OnInit();
     } else {
-      Debug.LogWarning("Duplicate Instacne:" + nameof(T));
+      Debug.LogWarning("Duplicate Instance:" + nameof(T));
       Destroy(gameObject);
     }
   }

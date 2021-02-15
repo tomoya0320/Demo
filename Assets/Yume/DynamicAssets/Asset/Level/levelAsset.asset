@@ -27,7 +27,9 @@ MonoBehaviour:
       completed: 0
     template:
       id: level_main_1
+      bgm: 
       title: "\u7B2C\u4E00\u5173\u6D4B\u8BD5"
+      background: scene
       description: "\u8FD9\u662F\u5173\u5361\u63CF\u8FF0\u8FD9\u662F\u5173\u5361\u63CF\u8FF0\u8FD9\u662F\u5173\u5361\u63CF\u8FF0\u8FD9\u662F\u5173\u5361\u63CF\u8FF0\u8FD9\u662F\u5173\u5361\u63CF\u8FF0\u8FD9\u662F\u5173\u5361\u63CF\u8FF0"
       iconFileName: tr_18
       beforeAVGId: avg_test1
@@ -37,30 +39,36 @@ MonoBehaviour:
         items:
         - id: item_2_gold
           count: 1000
-          isViewed: 0
       firstCompletedRewards:
         items:
         - id: item_1_diamond
           count: 100
-          isViewed: 0
+      enemyTemplates:
+      - enemy:
+          id: char_001_brave
+          level: 10
+          passiveSkillLevel: 0
+        cards:
+        - guid: 0
+          id: card_001_atk
+          phase: 0
   - data:
       id: level_main_2
       completed: 0
     template:
       id: level_main_2
+      bgm: 
       title: "\u7B2C\u4E8C\u5173\u6D4B\u8BD5"
+      background: 
       description: "\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A\u554A"
       iconFileName: tr_level_rune_05-01
-      beforeAVGId: 
-      afterAVGId: 
+      beforeAVGId: avg_test1
+      afterAVGId: avg_test1
       preLevelId: level_main_1
       regularRewards:
-        items:
-        - id: item_2_gold
-          count: 2500
-          isViewed: 0
+        items: []
       firstCompletedRewards:
         items:
         - id: item_1_diamond
           count: 150
-          isViewed: 0
+      enemyTemplates: []

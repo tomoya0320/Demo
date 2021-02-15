@@ -10,15 +10,15 @@ namespace Yume.UI {
     private Text m_description;
     private RectTransform m_textRect;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
       m_image = GetComponent<Image>("image");
       m_description = GetComponent<Text>("description");
       m_textRect = m_description.GetComponent<RectTransform>();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_message = args[0] as Message;
+      m_message = (Message)args[0];
 
       m_image.sprite = m_message.img;
       m_image.enabled = m_image.sprite != null;

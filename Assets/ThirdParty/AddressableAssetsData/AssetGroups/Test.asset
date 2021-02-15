@@ -50,8 +50,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2800000, guid: 345410fa06061fa41becfe6704e3c60f, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 345410fa06061fa41becfe6704e3c60f, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4cb55befc9ec4be4a9b5230211cc9062
     m_Address: avg_bg2
     m_ReadOnly: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2800000, guid: 9e24862cdcaa810459f0753fdf940d80, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 9e24862cdcaa810459f0753fdf940d80, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: afe57fd6905b671479cde0061409c551
     m_Address: "\u65E5\u5E38\u4F34\u624B\u793C"
     m_ReadOnly: 0
@@ -148,8 +148,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2800000, guid: 370dd869ba05f1c4ba0f0f8d41184636, type: 3}
-    m_TargetAsset: {fileID: 2800000, guid: 370dd869ba05f1c4ba0f0f8d41184636, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 1ca0a27f68799d248920f41b32934680
     m_Address: char_164_nightm_portrait
     m_ReadOnly: 0
@@ -234,6 +234,13 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 2800000, guid: c7686273bf5eddd499e000a9c688dacc, type: 3}
     m_TargetAsset: {fileID: 2800000, guid: c7686273bf5eddd499e000a9c688dacc, type: 3}
+  - m_GUID: f0d62050876ce0249a9a160f51bddf88
+    m_Address: scene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 2800000, guid: f0d62050876ce0249a9a160f51bddf88, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: f0d62050876ce0249a9a160f51bddf88, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

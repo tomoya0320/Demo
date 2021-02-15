@@ -13,8 +13,8 @@ namespace Yume.UI {
     private RectTransform m_regularRewards;
     private RectTransform m_firstCompletedRewards;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_icon = GetComponent<Image>("icon");
       m_title = GetComponent<Text>("title");
@@ -29,15 +29,24 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
+        if (string.IsNullOrEmpty(DataManager.userTeams[DataManager.userTeamIndex].charId)) {
+          MessageManager.AddMessage(new Message(Message.Style.FADE, "Êú™Êê∫Â∏¶ËßíËâ≤ÔºÅ"));
+          return;
+        }
+
         LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
 
         Action action = () => {
-          // TODO:Ω¯»Î’Ω∂∑
-          Debug.Log("Ω¯»Î’Ω∂∑");
+          if (levelTemplate.enemyTemplates.Length > 0) {
+            UIManager.OpenOne("single_battle", null, levelTemplate);
+          } else {
+            // TODO:Áõ¥Êé•ÊâìÂºÄÁªìÁÆóÁïåÈù¢ ÊµãËØïÁî®
+            DataManager.CompleteLevel(levelTemplate.id);
+          }
         };
 
         if (string.IsNullOrEmpty(levelTemplate.beforeAVGId)) {
-          action();
+          UIManager.OpenOne("globalBlackFade", action);
         } else {
           UIManager.OpenOne("globalBlackFade", () => {
             UIManager.OpenOne("avg", null, levelTemplate.beforeAVGId, action);
@@ -51,7 +60,7 @@ namespace Yume.UI {
       m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.iconFileName);
       m_title.text = levelTemplate.title;
       m_description.text = levelTemplate.description;
-      // ≥£πÊΩ±¿¯
+      // Â∏∏ËßÑÂ•ñÂä±
       for (int i = 0; i < m_regularRewards.childCount; i++) {
         var tempGo = m_regularRewards.GetChild(i).gameObject;
         if (i < levelTemplate.regularRewards.items.Length) {
@@ -63,7 +72,7 @@ namespace Yume.UI {
           tempGo.SetActiveEx(false);
         }
       }
-      //  ◊Õ®Ω±¿¯
+      // È¶ñÈÄöÂ•ñÂä±
       for (int i = 0; i < m_firstCompletedRewards.childCount; i++) {
         var tempGo = m_firstCompletedRewards.GetChild(i).gameObject;
         if (i < levelTemplate.firstCompletedRewards.items.Length) {

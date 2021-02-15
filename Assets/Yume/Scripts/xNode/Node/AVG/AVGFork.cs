@@ -5,11 +5,11 @@ namespace Yume.AVG {
   public class AVGFork : AVGNodeBase {
     [Input(ShowBackingValue.Never)]
     public int last;
-    [TextArea, Output(ShowBackingValue.Always)]
+    [TextArea, Output(ShowBackingValue.Always, ConnectionType.Override)]
     public string option1;
-    [TextArea, Output(ShowBackingValue.Always)]
+    [TextArea, Output(ShowBackingValue.Always, ConnectionType.Override)]
     public string option2;
-    [TextArea, Output(ShowBackingValue.Always)]
+    [TextArea, Output(ShowBackingValue.Always, ConnectionType.Override)]
     public string option3;
 
     public override void Run(UIAVG avg) {

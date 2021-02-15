@@ -50,13 +50,16 @@ MonoBehaviour:
       Data: "\u6253\u51FB"
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
     - Name: iconFileName
       Entry: 1
       Data: card_001
     - Name: energyConsumption
       Entry: 3
       Data: 1
+    - Name: buffTemplateId
+      Entry: 1
+      Data: buff_common_damage
     - Name: blackboard
       Entry: 7
       Data: 2|Yume.Battle.Blackboard, Assembly-CSharp
@@ -105,13 +108,16 @@ MonoBehaviour:
       Data: "\u6253\u51FBplus"
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u654C\u4EBA\u9020\u6210{atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3"
     - Name: iconFileName
       Entry: 1
       Data: card_001
     - Name: energyConsumption
       Entry: 3
       Data: 1
+    - Name: buffTemplateId
+      Entry: 1
+      Data: buff_common_damage
     - Name: blackboard
       Entry: 7
       Data: 5|Yume.Battle.Blackboard, Assembly-CSharp

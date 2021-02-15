@@ -114,9 +114,7 @@ namespace Yume.UI {
     private void _GoToMain(JObject json = null) {
       DataManager.LoadUserDB(json);
       RedPointManager.InitData();
-      UIManager.OpenOne("globalCircleBlackFade", () => {
-        UIManager.CloseAllAndOpenOne("main");
-      }, MathUtil.mousePosNormalized);
+      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseAllAndOpenOne("main"));
     }
 
     private void _ClearInput() {
@@ -143,12 +141,12 @@ namespace Yume.UI {
       });
     }
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
       m_main = GetGameObject("Main");
       m_second = GetGameObject("Second");
       m_result = GetComponent<Text>("Result");
-      m_canvasGroup = root.GetComponent<CanvasGroup>();
+      m_canvasGroup = gameObject.GetComponent<CanvasGroup>();
       m_nameInput = GetComponent<InputField>("NameInput");
       m_passwordInput = GetComponent<InputField>("PsdInput");
       m_accountInput = GetComponent<InputField>("AccountInput");

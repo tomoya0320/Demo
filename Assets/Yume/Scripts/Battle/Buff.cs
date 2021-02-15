@@ -1,0 +1,71 @@
+using System.Collections.Generic;
+using UnityEngine;
+using Yume.Data;
+using Yume.Resource;
+
+namespace Yume.Battle {
+  public class Buff {
+    public Unit unit { get; }
+    public string id { get; }
+    public int duration { get; }
+    // buff下的行为树共用
+    // 因为是引用类型所以很方便
+    public Blackboard blackboard { get; }
+    public int turn { private set; get; }
+    // 这个buff所属的行为树
+    private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorTreeDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
+
+    public Buff(Unit unit, string id, Blackboard blackboard, Behavior[] behaviors) {
+      this.unit = unit;
+      this.id = id;
+      this.blackboard = blackboard;
+      // 这些属性从blackboard中取
+      duration = blackboard.GetValue<int>("duration");
+
+      foreach (var behavior in behaviors) {
+        // 只初始化buff的行为树
+        if (!m_behaviorTreeDict.TryGetValue(behavior.behaviorTime, out var behaviorTrees)) {
+          behaviorTrees = new List<BehaviorTree>();
+          m_behaviorTreeDict.Add(behavior.behaviorTime, behaviorTrees);
+        }
+        // 初始化行为树
+        BehaviorTree behaviorTree = ResourceManager.Load<BehaviorTree>(behavior.behaviorTreeId).Copy() as BehaviorTree;
+        behaviorTree.unit = unit;
+        behaviorTree.blackboard = blackboard;
+        behaviorTrees.Add(behaviorTree);
+      }
+    }
+
+    public void OnAdd() {
+      // 这时候行为树才正式添加
+      if (!BattleManager.behaviorManagers.ContainsKey(unit)) {
+        Debug.LogError($"单位:{unit.name}的BehaviorManager未正确初始化！");
+        return;
+      }
+      foreach (var kv in m_behaviorTreeDict) {
+        BattleManager.behaviorManagers[unit].AddBehaviorTrees(kv.Key, kv.Value.ToArray());
+      }
+    }
+
+    public void OnRemove() {
+      // 同时移除行为树
+      if (!BattleManager.behaviorManagers.ContainsKey(unit)) {
+        Debug.LogError($"单位:{unit.name}的BehaviorManager未正确初始化！");
+        return;
+      }
+      foreach (var kv in m_behaviorTreeDict) {
+        BattleManager.behaviorManagers[unit].RemoveBehaviorTrees(kv.Key, kv.Value.ToArray());
+      }
+    }
+
+    public bool OnUpdate() {
+      // 持续时间小于0表示无限 直接返回true
+      if (turn < 0) {
+        return true;
+      }
+      
+      turn++;
+      return turn < duration;
+    }
+  }
+}

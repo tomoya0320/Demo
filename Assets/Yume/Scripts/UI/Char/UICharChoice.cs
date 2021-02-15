@@ -26,11 +26,7 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_selectButton.onClick.AddListener(() => {
-          if (m_charChoiceGroup.selectedChar == m_character) {
-            m_charChoiceGroup.selectedChar = null;
-          } else {
-            m_charChoiceGroup.selectedChar = m_character;
-          }
+          m_charChoiceGroup.selectedChar = m_charChoiceGroup.selectedChar == m_character ? null : m_character;
           m_charChoiceGroup.UpdateView(false);
         });
 
@@ -93,8 +89,8 @@ namespace Yume.UI {
     private Action<string> m_onSelected;
     private UICharChoiceGroup m_charChoiceGroup;
 
-    public override void OnInit(UITemplate uiTemplate, GameObject root) {
-      base.OnInit(uiTemplate, root);
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
 
       m_charChoiceGroup = new UICharChoiceGroup(GetGameObject("CharChoiceGroup"));
 

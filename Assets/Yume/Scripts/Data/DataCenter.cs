@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;
 
 namespace Yume.Data {
   #region Template
+
   public struct ItemTemplate {
     public string id;
     public string name;
@@ -17,11 +19,11 @@ namespace Yume.Data {
   }
 
   public enum CardType {
-    [Description("¹¥»÷")]
+    [Description("æ”»å‡»")]
     ATTACK,
-    [Description("¼¼ÄÜ")]
+    [Description("æŠ€èƒ½")]
     SKILL,
-    [Description("×çÖä")]
+    [Description("è¯…å’’")]
     CURSE
   }
 
@@ -31,6 +33,7 @@ namespace Yume.Data {
     public string description;
     public string iconFileName;
     public int energyConsumption;
+    public string buffTemplateId;
     public Blackboard blackboard;
   }
 
@@ -45,6 +48,7 @@ namespace Yume.Data {
     [TextArea]
     public string description;
     public string iconFileName;
+    public string buffTemplateId;
     public Blackboard blackboard;
   }
 
@@ -80,14 +84,14 @@ namespace Yume.Data {
   }
 
   /// <summary>
-  /// ÊıÖµ´ú±íÅÅĞòµÄÓÅÏÈ¼¶£¬ÖµÔ½Ğ¡Ô½¿¿Ç°
+  /// æ•°å€¼ä»£è¡¨æ’åºçš„ä¼˜å…ˆçº§ï¼Œå€¼è¶Šå°è¶Šé å‰
   /// </summary>
   public enum TaskState {
     COMPLETED = 0,
     INPROCESS = 1,
     FINAL = 2,
     /// <summary>
-    /// ²¢²»»áÏÔÊ¾
+    /// å¹¶ä¸ä¼šæ˜¾ç¤º
     /// </summary>
     INACTIVE = 3
   }
@@ -106,7 +110,9 @@ namespace Yume.Data {
   }
 
   public enum Method {
-    HAD, CONSUME, ADD
+    HAD,
+    CONSUME,
+    ADD
   }
 
   [Serializable]
@@ -120,11 +126,11 @@ namespace Yume.Data {
     public struct RequestTemplate {
       public Method method;
       /// <summary>
-      /// Íê³ÉÈÎÎñºóÊÇ·ñÏûºÄËùĞèÎïÆ·
+      /// å®Œæˆä»»åŠ¡åæ˜¯å¦æ¶ˆè€—æ‰€éœ€ç‰©å“
       /// </summary>
       public bool consumable;
       /// <summary>
-      /// ÊÇ·ñºöÂÔĞèÇóµÄID
+      /// æ˜¯å¦å¿½ç•¥éœ€æ±‚çš„ID
       /// </summary>
       public bool ignoreId;
       public RequestType type;
@@ -145,7 +151,9 @@ namespace Yume.Data {
   }
 
   public enum UIType {
-    NORMAL, TOP, TIP
+    NORMAL,
+    TOP,
+    TIP
   }
 
   [Serializable]
@@ -158,9 +166,17 @@ namespace Yume.Data {
   }
 
   [Serializable]
+  public struct EnemyTemplate {
+    public UnitData enemy;
+    public CardData[] cards;
+  }
+
+  [Serializable]
   public struct LevelTemplate {
     public string id;
+    public string bgm;
     public string title;
+    public string background;
     [TextArea]
     public string description;
     public string iconFileName;
@@ -169,11 +185,65 @@ namespace Yume.Data {
     public string preLevelId;
     public Rewards regularRewards;
     public Rewards firstCompletedRewards;
-    // TODO:µĞÈËÊı¾İ
+    public EnemyTemplate[] enemyTemplates;
   }
+
+  public enum BehaviorTime {
+    /// <summary>
+    /// æ¯å›åˆå¼€å§‹å‰
+    /// </summary>
+    ON_BEFORE_TURN,
+    /// <summary>
+    /// æ¯å›åˆç»“æŸå
+    /// </summary>
+    ON_LATE_TURN,
+    /// <summary>
+    /// å½“è¡Œä¸ºè¢«æ·»åŠ æ—¶
+    /// </summary>
+    ON_ADD,
+    /// <summary>
+    /// å½“è¡Œä¸ºè¢«ç§»é™¤æ—¶
+    /// </summary>
+    ON_REMOVE,
+    /// <summary>
+    /// åœ¨é€ æˆä¼¤å®³å‰
+    /// </summary>
+    ON_BEFORE_DAMAGE,
+    /// <summary>
+    /// åœ¨é€ æˆä¼¤å®³å
+    /// </summary> 
+    ON_LATE_DAMAGE,  
+    /// <summary>
+    /// åœ¨è¢«é€ æˆä¼¤å®³å‰
+    /// </summary>
+    ON_BEFORE_DAMAGED,
+    /// <summary>
+    /// åœ¨è¢«é€ æˆä¼¤å®³å
+    /// </summary> 
+    ON_LATE_DAMAGED,
+    /// <summary>
+    /// å½“å•ä½æ­»äº¡æ—¶
+    /// </summary>
+    ON_UNIT_DIE
+  }
+
+  [Serializable]
+  public struct Behavior {
+    public string behaviorTreeId;
+    public BehaviorTime behaviorTime;
+  }
+
+  [Serializable]
+  public struct BuffTemplate {
+    public string id;
+    public bool stackable;
+    public Behavior[] behaviors;
+  }
+
   #endregion
 
   #region Data
+
   [Serializable]
   public class ItemData {
     public string id;
@@ -212,15 +282,24 @@ namespace Yume.Data {
 
   [Serializable]
   public class CardData {
+    [HideInInspector]
     public int guid;
     public string id;
     public int phase;
-    public long ticks;
 
     public CardData(string id, int phase) {
       this.id = id;
       this.phase = phase;
-      ticks = DateTime.Now.Ticks;
+    }
+
+    private CardData(int guid, string id, int phase) {
+      this.guid = guid;
+      this.id = id;
+      this.phase = phase;
+    }
+
+    public CardData Clone() {
+      return new CardData(guid, id, phase);
     }
   }
 
@@ -228,20 +307,19 @@ namespace Yume.Data {
   public class UnitData {
     public string id;
     public int level;
-    public long ticks;
-    public int passiveSkillLevels;
+    public int passiveSkillLevel;
 
-    public UnitData(string id, int level, int passiveSkillLevels) {
+    public UnitData(string id, int level, int passiveSkillLevel) {
       this.id = id;
       this.level = level;
-      this.passiveSkillLevels = passiveSkillLevels;
-      ticks = DateTime.Now.Ticks;
+      this.passiveSkillLevel = passiveSkillLevel;
     }
   }
 
   [Serializable]
   public class TaskData {
     public string id;
+    [HideInInspector]
     public int process;
     public TaskState state;
   }
@@ -249,7 +327,7 @@ namespace Yume.Data {
   [Serializable]
   public class TeamData {
     public string charId;
-    public string name = "Ä¬ÈÏ¶ÓÎéÃû";
+    public string name = "é»˜è®¤é˜Ÿä¼å";
     public List<int> cardGuidList = new List<int>();
   }
 
@@ -288,7 +366,7 @@ namespace Yume.Data {
 
 #if TEST
       if (string.IsNullOrEmpty(name)) {
-        this.name = "ÓÎ¿Í";
+        this.name = "æ¸¸å®¢";
       }
 #endif
     }
@@ -297,7 +375,9 @@ namespace Yume.Data {
   [Serializable]
   public class LevelData {
     public string id;
+    [HideInInspector]
     public bool completed;
   }
+
   #endregion
 }
