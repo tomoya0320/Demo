@@ -8,7 +8,17 @@ namespace Yume.Battle {
       } else {
         return defaultValue;
       }
-    }   
+    }
+    
+    public bool TryGetValue<T>(string key, out T value) {
+      if (ContainsKey(key) && this[key] is T) {
+        value = (T)this[key];
+        return true;
+      } else {
+        value = default;
+        return false;
+      }
+    }
     
     /// <summary>
     /// 有些值取一次后就需要移除

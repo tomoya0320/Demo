@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;
@@ -33,8 +32,7 @@ namespace Yume.Data {
     public string description;
     public string iconFileName;
     public int energyConsumption;
-    public string buffTemplateId;
-    public Blackboard blackboard;
+    public BuffTemplate[] buffTemplates;
   }
 
   public struct CardTemplate {
@@ -48,8 +46,7 @@ namespace Yume.Data {
     [TextArea]
     public string description;
     public string iconFileName;
-    public string buffTemplateId;
-    public Blackboard blackboard;
+    public BuffTemplate[] buffTemplates;
   }
 
   public struct UnitTemplate {
@@ -60,7 +57,11 @@ namespace Yume.Data {
     public string prefabName;
     [TextArea]
     public string description;
+    // 头像
+    public string headFileName;
+    // 半身像
     public string portraitFileName;
+    // 立绘
     public string illustrationFileName;
     public PassiveSkillPhase[] passiveSkillPhases;
     public Dictionary<AttribType, Attrib> minAttribDict;
@@ -221,10 +222,6 @@ namespace Yume.Data {
     /// 在被造成伤害后
     /// </summary> 
     ON_LATE_DAMAGED,
-    /// <summary>
-    /// 当单位死亡时
-    /// </summary>
-    ON_UNIT_DIE
   }
 
   [Serializable]
@@ -233,11 +230,25 @@ namespace Yume.Data {
     public BehaviorTime behaviorTime;
   }
 
+  public enum StackType {
+    /// <summary>
+    /// 不叠加即后面加的相同buff都无效
+    /// </summary>
+    NONE,
+    /// <summary>
+    /// 默认叠加方式相同的buff都有独立的生命周期
+    /// </summary>
+    DEFAULT,
+  }
+
   [Serializable]
   public struct BuffTemplate {
     public string id;
-    public bool stackable;
+    // 是否直接加在自己身上
+    public bool onOnwer;
+    public StackType stackType;
     public Behavior[] behaviors;
+    public Blackboard blackboard;
   }
 
   #endregion
@@ -335,7 +346,6 @@ namespace Yume.Data {
   public class UserData {
     public int lv;
     public int ap;
-    public int exp;
     public int maxAp;
     public string name;
     public int validGuid;

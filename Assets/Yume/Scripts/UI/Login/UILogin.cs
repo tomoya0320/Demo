@@ -60,13 +60,13 @@ namespace Yume.UI {
             int resultCode = json["resultCode"].Value<int>();
             switch (resultCode) {
               case -1: {
-                  m_result.text = "用户已存在！";
-                  break;
-                }
+                m_result.text = "用户已存在！";
+                break;
+              }
               case 1: {
-                  m_result.text = "注册成功！";
-                  break;
-                }
+                m_result.text = "注册成功！";
+                break;
+              }
             }
           }
         });
@@ -107,9 +107,11 @@ namespace Yume.UI {
       }
     }
 
+#if TEST
     private void _OnPlayInLocal() {
       _GoToMain();
     }
+#endif
 
     private void _GoToMain(JObject json = null) {
       DataManager.LoadUserDB(json);
@@ -127,7 +129,9 @@ namespace Yume.UI {
     private void _AddListener() {
       GetComponent<Button>("Login").onClick.AddListener(_OnLogin);
       GetComponent<Button>("Register").onClick.AddListener(_OnRegister);
-      GetComponent<Button>("Local").onClick.AddListener(_OnPlayInLocal);
+#if TEST
+       GetComponent<Button>("Local").onClick.AddListener(_OnPlayInLocal);
+#endif
       GetComponent<Button>("AlterPsd").onClick.AddListener(_OnAlterPassword);
       GetComponent<Button>("SwitchAlterPsd").onClick.AddListener(() => {
         _ClearInput();

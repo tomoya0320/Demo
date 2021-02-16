@@ -39,7 +39,9 @@ namespace Yume.Battle {
     public static Attrib operator +(Attrib a1, Attrib a2) {
       Attrib attrib = new Attrib {
         _value = a1._value + a2._value,
-        _maxValue = a1._maxValue + a2._maxValue
+        _maxValue = a1._maxValue + a2._maxValue,
+        _allowNegative = a1._allowNegative || a2._allowNegative,
+        _allowExceedMax = a1._allowExceedMax || a2._allowExceedMax
       };
       return attrib;
     }
@@ -47,7 +49,9 @@ namespace Yume.Battle {
     public static Attrib operator -(Attrib a1, Attrib a2) {
       Attrib attrib = new Attrib {
         _value = a1._value - a2._value,
-        _maxValue = a1._maxValue - a2._maxValue
+        _maxValue = a1._maxValue - a2._maxValue,
+        _allowNegative = a1._allowNegative || a2._allowNegative,
+        _allowExceedMax = a1._allowExceedMax || a2._allowExceedMax
       };
       return attrib;
     }
@@ -55,7 +59,9 @@ namespace Yume.Battle {
     public static Attrib operator *(Attrib a, float value) {
       Attrib attrib = new Attrib {
         _value = value * a._value,
-        _maxValue = value * a._maxValue
+        _maxValue = value * a._maxValue,
+        _allowNegative = a._allowNegative,
+        _allowExceedMax = a._allowExceedMax
       };
       return attrib;
     }
@@ -63,7 +69,9 @@ namespace Yume.Battle {
     public static Attrib operator *(float value, Attrib a) {
       Attrib attrib = new Attrib {
         _value = value * a._value,
-        _maxValue = value * a._maxValue
+        _maxValue = value * a._maxValue,
+        _allowNegative = a._allowNegative,
+        _allowExceedMax = a._allowExceedMax
       };
       return attrib;
     }

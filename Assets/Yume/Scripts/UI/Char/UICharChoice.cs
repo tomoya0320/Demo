@@ -32,7 +32,7 @@ namespace Yume.UI {
 
         m_selectButton.onLongPress += () => {
           if (m_character != null) {
-            UIManager.OpenOne("char_detail", null, m_character);
+            UIManager.OpenOne("unit_detail", null, m_character);
           }
         };
       }

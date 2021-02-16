@@ -35,8 +35,13 @@ namespace Yume.UI {
     }
 
     private void _Abort() {
+      if (!BattleManager.isRunning) {
+        return;
+      }
+
       if (UIManager.GetTopUI(uiType).name == name) {
-        UIManager.OpenOne("confirmation", null, "确认放弃作战？", "确认", "取消", BattleManager.abort, null);
+        UIManager.OpenOne("confirmation", null, 
+          "确认放弃作战？", "确认", "取消", BattleManager.abort, null);
       } else {
         UIManager.CloseOne("confirmation");
       }

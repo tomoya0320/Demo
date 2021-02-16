@@ -15,14 +15,14 @@ namespace Yume.UI {
     }
 
     public Style style;
-    public string description;
+    public string content;
     public Sprite img;
     public float duration;
     public bool allowDuplicate;
 
-    public Message(Style style, string description, Sprite img = null, float duration = 2.0f, bool allowDuplicate = true) {
+    public Message(Style style, string content, Sprite img = null, float duration = 2.0f, bool allowDuplicate = true) {
       this.style = style;
-      this.description = description;
+      this.content = content;
       this.duration = duration;
       this.img = img;
       this.allowDuplicate = allowDuplicate;
@@ -34,7 +34,7 @@ namespace Yume.UI {
     private static Queue<Message> s_messageQueue = new Queue<Message>();
 
     public static void AddMessage(Message message) {
-      if (!message.allowDuplicate && message.description == s_showingMessage) {
+      if (!message.allowDuplicate && message.content == s_showingMessage) {
         return;
       }
 
@@ -47,10 +47,12 @@ namespace Yume.UI {
     public static void ShowMessage() {
       if (s_messageQueue.Count > 0) {
         var message = s_messageQueue.Dequeue();
-        s_showingMessage = message.description;
+        s_showingMessage = message.content;
         var uiName = $"message_{message.style.GetDescription()}";
-        Action action = () => CoroutineHelper.instance.DelayInvoke(message.duration,
-         () => UIManager.CloseOne(uiName, ShowMessage));
+        Action action = () => CoroutineHelper.instance.DelayInvoke(
+          message.duration,
+          () => UIManager.CloseOne(uiName, ShowMessage)
+        );
 
         UIManager.OpenOne(uiName, action, message);
       } else {

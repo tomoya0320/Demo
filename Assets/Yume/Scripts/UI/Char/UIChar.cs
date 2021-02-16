@@ -20,7 +20,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        m_detailButton.onClick.AddListener(() => UIManager.OpenOne("char_detail", null, m_character));
+        m_detailButton.onClick.AddListener(() => UIManager.OpenOne("unit_detail", null, m_character));
       }
 
       public void UpdateScrollTerm(UnitData character) {

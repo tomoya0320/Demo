@@ -43,7 +43,10 @@ namespace Yume.Battle {
         return;
       }
       foreach (var kv in m_behaviorTreeDict) {
-        BattleManager.behaviorManagers[unit].AddBehaviorTrees(kv.Key, kv.Value.ToArray());
+        BehaviorTime behaviorTime = kv.Key;
+        foreach (var behavior in kv.Value) {
+          BattleManager.behaviorManagers[unit].AddBehaviorTree(behaviorTime, behavior);       
+        }
       }
     }
 
@@ -54,13 +57,16 @@ namespace Yume.Battle {
         return;
       }
       foreach (var kv in m_behaviorTreeDict) {
-        BattleManager.behaviorManagers[unit].RemoveBehaviorTrees(kv.Key, kv.Value.ToArray());
+        BehaviorTime behaviorTime = kv.Key;
+        foreach (var behavior in kv.Value) {
+          BattleManager.behaviorManagers[unit].RemoveBehaviorTree(behaviorTime, behavior);       
+        }
       }
     }
 
     public bool OnUpdate() {
       // 持续时间小于0表示无限 直接返回true
-      if (turn < 0) {
+      if (duration < 0) {
         return true;
       }
       

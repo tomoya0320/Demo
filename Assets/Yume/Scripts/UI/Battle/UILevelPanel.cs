@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Battle;
 using Yume.Data;
 using Yume.Resource;
 
@@ -10,6 +11,7 @@ namespace Yume.UI {
     private Text m_title;
     private LevelData m_level;
     private Text m_description;
+    private RectTransform m_enemies;
     private RectTransform m_regularRewards;
     private RectTransform m_firstCompletedRewards;
 
@@ -19,6 +21,7 @@ namespace Yume.UI {
       m_icon = GetComponent<Image>("icon");
       m_title = GetComponent<Text>("title");
       m_description = GetComponent<Text>("description");
+      m_enemies = GetComponent<RectTransform>("enemies");
       m_regularRewards = GetComponent<RectTransform>("regularRewards");
       m_firstCompletedRewards = GetComponent<RectTransform>("firstCompletedRewards");
 
@@ -64,10 +67,11 @@ namespace Yume.UI {
       for (int i = 0; i < m_regularRewards.childCount; i++) {
         var tempGo = m_regularRewards.GetChild(i).gameObject;
         if (i < levelTemplate.regularRewards.items.Length) {
+          ItemData itemData = levelTemplate.regularRewards.items[i];
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-                 (ResourceManager.Load<ItemTemplate>(levelTemplate.regularRewards.items[i].id).iconFileName);
-          tempGo.GetComponentInChildren<Text>().text = levelTemplate.regularRewards.items[i].count.ToString();
+            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
         }
@@ -76,10 +80,25 @@ namespace Yume.UI {
       for (int i = 0; i < m_firstCompletedRewards.childCount; i++) {
         var tempGo = m_firstCompletedRewards.GetChild(i).gameObject;
         if (i < levelTemplate.firstCompletedRewards.items.Length) {
+          ItemData itemData = levelTemplate.firstCompletedRewards.items[i];
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-                 (ResourceManager.Load<ItemTemplate>(levelTemplate.firstCompletedRewards.items[i].id).iconFileName);
-          tempGo.GetComponentInChildren<Text>().text = levelTemplate.firstCompletedRewards.items[i].count.ToString();
+            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
+        } else {
+          tempGo.SetActiveEx(false);
+        }
+      }
+      // 敌方情报
+      for (int i = 0; i < m_enemies.childCount; i++) {
+        var tempGo = m_enemies.GetChild(i).gameObject;
+        if (i < levelTemplate.enemyTemplates.Length) {
+          // 小 心 闭 包
+          UnitData enemyData = levelTemplate.enemyTemplates[i].enemy;
+          tempGo.SetActiveEx(true);
+          tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
+            (ResourceManager.Load<UnitTemplate>(enemyData.id).headFileName);
+          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("unit_detail", null, enemyData));
         } else {
           tempGo.SetActiveEx(false);
         }

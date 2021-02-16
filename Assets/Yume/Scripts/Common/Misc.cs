@@ -213,7 +213,6 @@ public static class StringMap {
   public const string EXP_ID = "item_0_exp";
   public const string DIAMOND_ID = "item_1_diamond";
   public const string GOLD_ID = "item_2_gold";
-  public const string GET_EXP = "获得经验值{0}";
   public const string LEVEL_UP_TO = "等级提升至Lv{0}";
   public const string AVG = "avg";
   public const string BG = "bg";
@@ -251,7 +250,7 @@ public static class StringUtil {
     byte[] bytes = Convert.FromBase64String(str);
     return Encoding.UTF8.GetString(bytes);
   }
-
+/*
   /// <summary>
   /// 将描述里类似{xxx}的字符串替换成blackboard里的实际数值
   /// </summary>
@@ -289,6 +288,7 @@ public static class StringUtil {
     }
     return result.ToString();
   }
+*/
 }
 
 public static class MathUtil {
@@ -382,6 +382,10 @@ public static class MathUtil {
     }
     return array;
   }
+
+  public static bool Prob(float prob) {
+    return random.NextDouble() < prob;
+  }
 }
 
 public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : SingletonMono<T> {
@@ -410,3 +414,29 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
 
   protected virtual void OnInit() { }
 }
+
+[Serializable]
+public struct AttribAdditive {
+  // 属性类型
+  public AttribType type;
+  // 目标是否是最大值
+  public bool onMaxValue;
+  // 基础值
+  public float value;
+  // 基于当前值的比率
+  public float rateOnValue;
+  // 基于当前最大值的比率
+  public float rateOnMaxValue;
+}
+
+[Serializable]
+public struct AttribArgs {
+  // 属性类型
+  public AttribType type;
+  // 目标是否是最大值
+  public bool onMaxValue;
+  // 移除的值
+  public float value;
+}
+
+public class AttribAdditives : List<AttribAdditive> { }

@@ -36,8 +36,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 11400000, guid: 259cadba724d6a547a6f6942b355632e, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 259cadba724d6a547a6f6942b355632e, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5280bb3c3b0948347a533db50820d0d2
     m_Address: itemAsset
     m_ReadOnly: 0
@@ -64,8 +64,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 11400000, guid: 317797890f3f05b44aaf0ae170c511eb, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 317797890f3f05b44aaf0ae170c511eb, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 404cdc77c0ab0194d920ea400090b2ba
     m_Address: unitAsset
     m_ReadOnly: 0
@@ -87,20 +87,55 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: fac6d274ef6eeb84c90b7bbb495d1420
-    m_Address: buffAsset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 11400000, guid: fac6d274ef6eeb84c90b7bbb495d1420, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: fac6d274ef6eeb84c90b7bbb495d1420, type: 2}
   - m_GUID: 692f6cc47ff4bd84a9aeb22cee6e4585
-    m_Address: behavior_common_damage
+    m_Address: attach_attrib_with_prob
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 11400000, guid: 692f6cc47ff4bd84a9aeb22cee6e4585, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 692f6cc47ff4bd84a9aeb22cee6e4585, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: be63b2c951c1f604ba896941e3e85866
+    m_Address: attach_attrib
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 99334de4771c38946898c1ad867935ea
+    m_Address: normal_damage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 03f000ce11f7be24d87b7833f21c924b
+    m_Address: avg_test2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ddf5c47724c070949965b3812fe49dd7
+    m_Address: avg_test3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8c5b1508c4701d54f857a5f39715c9d2
+    m_Address: detach_attrib
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cc31857a9515dee408c7d70f302a29cf
+    m_Address: heal_on_damage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 11400000, guid: cc31857a9515dee408c7d70f302a29cf, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: cc31857a9515dee408c7d70f302a29cf, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

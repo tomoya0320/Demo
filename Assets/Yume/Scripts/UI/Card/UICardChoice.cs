@@ -61,7 +61,7 @@ namespace Yume.UI {
           m_nameText.text = cardPhase.name;
           m_energyText.text = cardPhase.energyConsumption.ToString();
           m_iconImg.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
-          m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.blackboard));
+          m_descTextAutoScroll.SetTextContent(cardPhase.description);
         }
       }
 
