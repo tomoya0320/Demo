@@ -10,16 +10,17 @@ namespace Yume.Battle {
   public class Card {
     public bool active = true;
     public GameObject gameObject { get; }
-    public CardPhase cardPhase { private set; get; }
+    public int phase { private set; get; }
+    public CardTemplate cardTemplate { get; }
+    public CardPhase cardPhase => cardTemplate.cardPhases[phase];
 
     public Card(CardData card, GameObject root, Action<Card> onClickCard = null) {
       gameObject = root;
-
+      phase = card.phase;
+      cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
+      
       // 表现层
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
-      cardPhase = cardTemplate.cardPhases[card.phase];
-
       objectContainer.GetComponent<Text>("PhaseText").text = card.phase.ToString();
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
@@ -40,8 +41,13 @@ namespace Yume.Battle {
       
       foreach (var buffTemplate in cardPhase.buffTemplates) {
         // TODO:以caster和candidate为基准筛选出目标 测试用
-        List<Unit> targets = new List<Unit> { candidate };
-
+        List<Unit> targets = new List<Unit>();
+        if (buffTemplate.onOnwer) {
+          targets.Add(caster);
+        } else {
+          // 测试用
+          targets.Add(candidate);
+        }
         foreach (var target in targets) {
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard { { "caster", caster } };

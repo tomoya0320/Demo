@@ -1,4 +1,6 @@
-﻿namespace Yume.Battle {
+﻿using UnityEngine;
+
+namespace Yume.Battle {
   public class NormalDamage : DamageBase {
     protected override float OnDamage(Unit caster) {
       // blackboard中的攻击比率
@@ -16,7 +18,8 @@
       finalAtk -= (1.0f + behaviorTree.unit.blackboard.GetValueAndRemove<float>("extraDefRate")) * behaviorTree.unit.GetAttrib(AttribType.DEF);
       // 计算自己被攻击前的防御值
       finalAtk -= behaviorTree.unit.blackboard.GetValueAndRemove<float>("extraDef");
-      return behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk);
+      // 伤害本身值应该是非负数
+      return Mathf.Abs(behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk));
     }
   }
 }

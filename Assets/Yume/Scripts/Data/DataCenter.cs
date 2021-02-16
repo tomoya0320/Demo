@@ -244,6 +244,8 @@ namespace Yume.Data {
   [Serializable]
   public struct BuffTemplate {
     public string id;
+    // 是否直接加在自己身上
+    public bool onOnwer;
     public StackType stackType;
     public Behavior[] behaviors;
     public Blackboard blackboard;

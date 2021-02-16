@@ -69,6 +69,9 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: false
     - Name: stackType
       Entry: 3
       Data: 1
@@ -172,6 +175,9 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: false
     - Name: stackType
       Entry: 3
       Data: 1
@@ -288,13 +294,16 @@ MonoBehaviour:
       Data: 12|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.Data.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: false
     - Name: stackType
       Entry: 3
       Data: 1
@@ -359,6 +368,78 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_heal_on_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: true
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 16|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: heal_on_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 17|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: healRate
+    - Name: $v
+      Entry: 7
+      Data: 18|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -384,22 +465,25 @@ MonoBehaviour:
       Data: 2
     - Name: buffTemplates
       Entry: 7
-      Data: 16|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 19|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.Data.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: false
     - Name: stackType
       Entry: 3
       Data: 1
     - Name: behaviors
       Entry: 7
-      Data: 17|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 20|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -423,7 +507,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 18|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 21|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 5
@@ -438,10 +522,82 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 19|System.Single, mscorlib
+      Data: 22|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 1.6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_heal_on_damage
+    - Name: onOnwer
+      Entry: 5
+      Data: true
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 23|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: heal_on_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 24|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: healRate
+    - Name: $v
+      Entry: 7
+      Data: 25|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0.8
     - Name: 
       Entry: 8
       Data: 
@@ -486,7 +642,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 20|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 26|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -552,7 +708,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 21|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 27|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
