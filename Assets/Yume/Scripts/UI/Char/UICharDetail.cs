@@ -6,7 +6,7 @@ using Yume.Data;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public class UICharDetail : UIBase {
+  public class UIUnitDetail : UIBase {
     private Text m_lv;
     private Text m_description;
     private Image m_illustration;

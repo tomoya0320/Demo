@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
@@ -33,23 +34,22 @@ namespace Yume.Battle {
       gameObject.SetActiveEx(false);
     }
 
-    public bool Cast(Unit caster, Unit target) {
+    public bool Cast(Unit caster, Unit candidate) {
       // TODO:前置条件检测(比如能量消耗、其他特殊条件等)
-      caster.AddAttribValue(AttribType.ENERGY, -cardPhase.energyConsumption);
+      caster.AddAttrib(AttribType.ENERGY, -cardPhase.energyConsumption);
       
-      if (!BattleManager.buffManagers.ContainsKey(target)) {
-        Debug.LogError($"目标未正确初始化！name:{target.name}");
-        return false;
-      }
-      if (string.IsNullOrEmpty(cardPhase.buffTemplateId)) {
-        Debug.LogError("buffId为空！");
-        return false;
+      foreach (var buffTemplate in cardPhase.buffTemplates) {
+        // TODO:以caster和candidate为基准筛选出目标 测试用
+        List<Unit> targets = new List<Unit> { candidate };
+
+        foreach (var target in targets) {
+          // 因为blackboard是引用类型所以需要新建一个
+          Blackboard blackboard = new Blackboard { { "caster", caster } };
+          blackboard = blackboard.Merge(buffTemplate.blackboard);
+          BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);  
+        }
       }
       
-      // 因为blackboard是引用类型所以需要新建一个
-      Blackboard blackboard = new Blackboard { { "caster", caster } };
-      blackboard = blackboard.Merge(cardPhase.blackboard);
-      BattleManager.buffManagers[target].AddBuff(cardPhase.buffTemplateId, blackboard);
       return true;
     }
   }

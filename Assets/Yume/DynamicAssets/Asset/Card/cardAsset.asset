@@ -57,15 +57,51 @@ MonoBehaviour:
     - Name: energyConsumption
       Entry: 3
       Data: 1
-    - Name: buffTemplateId
+    - Name: buffTemplates
+      Entry: 7
+      Data: 2|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 3|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: normal_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: blackboard
       Entry: 7
-      Data: 2|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 4|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -81,10 +117,19 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 4|System.Single, mscorlib
+      Data: 6|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 1.2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -105,25 +150,61 @@ MonoBehaviour:
       Data: Yume.Data.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6253\u51FB"
+      Data: "\u6253\u51FBPlus"
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u76EE\u6807\u9020\u6210360%\u7684\u5927\u91CF\u4F24\u5BB3"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210200%\u7684\u5927\u91CF\u4F24\u5BB3"
     - Name: iconFileName
       Entry: 1
       Data: "\u6253\u51FB"
     - Name: energyConsumption
       Entry: 3
-      Data: 2
-    - Name: buffTemplateId
+      Data: 1
+    - Name: buffTemplates
+      Entry: 7
+      Data: 7|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
       Entry: 1
       Data: buff_normal_damage
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 8|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: normal_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: blackboard
       Entry: 7
-      Data: 5|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 9|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 12
       Data: 1
@@ -135,10 +216,19 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 6|System.Single, mscorlib
+      Data: 10|System.Single, mscorlib
     - Name: 
       Entry: 4
-      Data: 3.6
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -174,7 +264,7 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 7|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 11|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -183,28 +273,91 @@ MonoBehaviour:
       Data: Yume.Data.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
+      Data: "\u55DC\u8840"
     - Name: description
       Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210100%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB350%\u7684\u751F\u547D"
     - Name: iconFileName
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "\u55DC\u8840"
     - Name: energyConsumption
       Entry: 3
-      Data: 0
-    - Name: buffTemplateId
-      Entry: 6
+      Data: 2
+    - Name: buffTemplates
+      Entry: 7
+      Data: 12|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_normal_damage
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 13|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: normal_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 8|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 14|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: atkRate
+    - Name: $v
+      Entry: 7
+      Data: 15|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -219,28 +372,91 @@ MonoBehaviour:
       Data: Yume.Data.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
+      Data: "\u55DC\u8840Plus"
     - Name: description
       Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210160%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB380%\u7684\u751F\u547D"
     - Name: iconFileName
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "\u55DC\u8840"
     - Name: energyConsumption
       Entry: 3
-      Data: 0
-    - Name: buffTemplateId
-      Entry: 6
+      Data: 2
+    - Name: buffTemplates
+      Entry: 7
+      Data: 16|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_normal_damage
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: behaviors
+      Entry: 7
+      Data: 17|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: normal_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 9|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 18|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: atkRate
+    - Name: $v
+      Entry: 7
+      Data: 19|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 1.6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -267,10 +483,10 @@ MonoBehaviour:
       Data: card_003
     - Name: cardType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 10|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 20|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -289,23 +505,8 @@ MonoBehaviour:
     - Name: energyConsumption
       Entry: 3
       Data: 0
-    - Name: buffTemplateId
+    - Name: buffTemplates
       Entry: 6
-      Data: 
-    - Name: blackboard
-      Entry: 7
-      Data: 11|Yume.Battle.Blackboard, Assembly-CSharp
-    - Name: comparer
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -325,23 +526,8 @@ MonoBehaviour:
     - Name: energyConsumption
       Entry: 3
       Data: 0
-    - Name: buffTemplateId
+    - Name: buffTemplates
       Entry: 6
-      Data: 
-    - Name: blackboard
-      Entry: 7
-      Data: 12|Yume.Battle.Blackboard, Assembly-CSharp
-    - Name: comparer
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -363,10 +549,10 @@ MonoBehaviour:
       Data: card_004
     - Name: cardType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 13|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 21|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -385,23 +571,8 @@ MonoBehaviour:
     - Name: energyConsumption
       Entry: 3
       Data: 0
-    - Name: buffTemplateId
+    - Name: buffTemplates
       Entry: 6
-      Data: 
-    - Name: blackboard
-      Entry: 7
-      Data: 14|Yume.Battle.Blackboard, Assembly-CSharp
-    - Name: comparer
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -421,23 +592,8 @@ MonoBehaviour:
     - Name: energyConsumption
       Entry: 3
       Data: 0
-    - Name: buffTemplateId
+    - Name: buffTemplates
       Entry: 6
-      Data: 
-    - Name: blackboard
-      Entry: 7
-      Data: 15|Yume.Battle.Blackboard, Assembly-CSharp
-    - Name: comparer
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 8

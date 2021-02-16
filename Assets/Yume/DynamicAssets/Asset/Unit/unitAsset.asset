@@ -48,6 +48,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u3010\u4EE3\u53F7\u3011\u7A7A\r\n\u3010\u6027\u522B\u3011\u5973\r\n\u3010\u6218\u6597\u7ECF\u9A8C\u3011\u6CA1\u6709\u6218\u6597\u7ECF\u9A8C\r\n\u3010\u51FA\u8EAB\u5730\u3011\u56E0\u7ECF\u7EAA\u516C\u53F8\u8981\u6C42\u4E0D\u516C\u5F00\r\n\u3010\u751F\u65E5\u30119\u670812\u65E5\r\n\u3010\u79CD\u65CF\u3011\u56E0\u7ECF\u7EAA\u516C\u53F8\u8981\u6C42\u4E0D\u516C\u5F00\r\n\u3010\u8EAB\u9AD8\u3011155cm\r\n\u3010\u77FF\u77F3\u75C5\u611F\u67D3\u60C5\u51B5\u3011\r\n\u53C2\u7167\u533B\u5B66\u68C0\u6D4B\u62A5\u544A\uFF0C\u786E\u8BA4\u4E3A\u975E\u611F\u67D3\u8005\u3002"
+    - Name: headFileName
+      Entry: 1
+      Data: char_101_sora_head
     - Name: portraitFileName
       Entry: 1
       Data: char_101_sora_portrait
@@ -72,22 +75,61 @@ MonoBehaviour:
     - Name: iconFileName
       Entry: 1
       Data: "\u5B89\u53EF"
-    - Name: buffTemplateId
+    - Name: buffTemplates
+      Entry: 7
+      Data: 2|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
       Entry: 1
       Data: buff_encore
+    - Name: onOnwer
+      Entry: 5
+      Data: true
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: behaviors
+      Entry: 7
+      Data: 3|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: attach_attrib_with_prob
+    - Name: behaviorTime
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: blackboard
       Entry: 7
-      Data: 2|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 4|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -96,7 +138,7 @@ MonoBehaviour:
       Data: prob
     - Name: $v
       Entry: 7
-      Data: 4|System.Single, mscorlib
+      Data: 6|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.3
@@ -111,28 +153,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: duration
-    - Name: $v
-      Entry: 7
-      Data: 5|System.Int32, mscorlib
-    - Name: 
-      Entry: 3
-      Data: -1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 6|AttribAdditives, Assembly-CSharp
+      Data: 7|AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -171,220 +195,16 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: attribDetachments
+      Data: duration
     - Name: $v
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[AttribArgs, Assembly-CSharp]], mscorlib
+      Data: 8|System.Int32, mscorlib
     - Name: 
-      Entry: 12
-      Data: 14
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
       Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
+      Data: -1
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: AttribArgs, Assembly-CSharp
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: onMaxValue
-      Entry: 5
-      Data: false
-    - Name: value
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -414,11 +234,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 8|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 9|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 9|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 10|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -548,11 +368,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 11|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 9
+      Data: 10
     - Name: 
       Entry: 12
       Data: 4
@@ -694,6 +514,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u3010\u4EE3\u53F7\u3011\u591C\u9B54\r\n\u3010\u6027\u522B\u3011\u5973\r\n\u3010\u6218\u6597\u7ECF\u9A8C\u3011\u534A\u5E74\r\n\u3010\u51FA\u8EAB\u5730\u3011\u7EF4\u591A\u5229\u4E9A\r\n\u3010\u751F\u65E5\u30116\u67081\u65E5\r\n\u3010\u79CD\u65CF\u3011\u83F2\u6797\r\n\u3010\u8EAB\u9AD8\u3011156cm\r\n\u3010\u77FF\u77F3\u75C5\u611F\u67D3\u60C5\u51B5\u3011\r\n\u4F53\u5185\u810F\u5668\u6709\u53EF\u89C1\u6E90\u77F3\u7ED3\u6676\u9634\u5F71\uFF0C\u786E\u8BA4\u4E3A\u611F\u67D3\u8005\u3002"
+    - Name: headFileName
+      Entry: 1
+      Data: "\u5934\u50CF_\u591C\u9B54_2"
     - Name: portraitFileName
       Entry: 1
       Data: "\u534A\u8EAB\u50CF_\u591C\u9B54_2"
@@ -702,7 +525,7 @@ MonoBehaviour:
       Data: "\u7ACB\u7ED8_\u591C\u9B54_2"
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 11|Yume.Data.PassiveSkillPhase[], Assembly-CSharp
+      Data: 12|Yume.Data.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -714,19 +537,70 @@ MonoBehaviour:
       Data: "\u529B\u91CF\u5F3A\u5316"
     - Name: description
       Entry: 1
-      Data: "\u589E\u52A010\u70B9\u653B\u51FB\uFF0C\u6301\u7EED3\u56DE\u5408"
+      Data: "\u6218\u6597\u5F00\u59CB\u65F6\u589E\u52A050%\u653B\u51FB\u548C50%\u7684\u6700\u5927\u751F\u547D\uFF0C\u6301\u7EED3\u56DE\u5408"
     - Name: iconFileName
       Entry: 1
       Data: "\u529B\u91CF\u5F3A\u5316"
-    - Name: buffTemplateId
+    - Name: buffTemplates
+      Entry: 7
+      Data: 13|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
       Entry: 1
       Data: buff_attach_attrib
+    - Name: onOnwer
+      Entry: 5
+      Data: true
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: behaviors
+      Entry: 7
+      Data: 14|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: attach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: detach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: blackboard
       Entry: 7
-      Data: 12|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 15|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 12
       Data: 2
@@ -738,10 +612,31 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 13|AttribAdditives, Assembly-CSharp
+      Data: 16|AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: AttribAdditive, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: onMaxValue
+      Entry: 5
+      Data: true
+    - Name: value
+      Entry: 4
+      Data: 0
+    - Name: rateOnValue
+      Entry: 4
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: AttribAdditive, Assembly-CSharp
@@ -753,10 +648,10 @@ MonoBehaviour:
       Data: false
     - Name: value
       Entry: 4
-      Data: 10
+      Data: 0
     - Name: rateOnValue
       Entry: 4
-      Data: 0
+      Data: 0.5
     - Name: rateOnMaxValue
       Entry: 4
       Data: 0
@@ -780,7 +675,7 @@ MonoBehaviour:
       Data: duration
     - Name: $v
       Entry: 7
-      Data: 14|System.Int32, mscorlib
+      Data: 17|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 3
@@ -805,13 +700,22 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 15|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 18|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 16|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 19|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -917,10 +821,10 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: _maxValue
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -941,11 +845,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 17|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 20|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 16
+      Data: 19
     - Name: 
       Entry: 12
       Data: 4
@@ -1041,10 +945,10 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: _maxValue
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: _allowNegative
       Entry: 5
       Data: false

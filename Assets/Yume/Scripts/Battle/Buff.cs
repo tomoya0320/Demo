@@ -43,7 +43,10 @@ namespace Yume.Battle {
         return;
       }
       foreach (var kv in m_behaviorTreeDict) {
-        BattleManager.behaviorManagers[unit].AddBehaviorTrees(kv.Key, kv.Value.ToArray());
+        BehaviorTime behaviorTime = kv.Key;
+        foreach (var behavior in kv.Value) {
+          BattleManager.behaviorManagers[unit].AddBehaviorTree(behaviorTime, behavior);       
+        }
       }
     }
 
@@ -54,7 +57,10 @@ namespace Yume.Battle {
         return;
       }
       foreach (var kv in m_behaviorTreeDict) {
-        BattleManager.behaviorManagers[unit].RemoveBehaviorTrees(kv.Key, kv.Value.ToArray());
+        BehaviorTime behaviorTime = kv.Key;
+        foreach (var behavior in kv.Value) {
+          BattleManager.behaviorManagers[unit].RemoveBehaviorTree(behaviorTime, behavior);       
+        }
       }
     }
 

@@ -87,10 +87,10 @@ MonoBehaviour:
     typeName: Yume.UI.UIChar
     prefabName: char
     cacheTime: 10
-  - name: char_detail
+  - name: unit_detail
     uiType: 0
-    typeName: Yume.UI.UICharDetail
-    prefabName: char_detail
+    typeName: Yume.UI.UIUnitDetail
+    prefabName: unit_detail
     cacheTime: 10
   - name: confirmation
     uiType: 0

@@ -1,4 +1,5 @@
-﻿using XNode;
+﻿using UnityEngine;
+using XNode;
 using Yume.Data;
 
 namespace Yume.Battle {
@@ -26,32 +27,41 @@ namespace Yume.Battle {
   }
 
   public abstract class DamageBase : LeafNodeBase {
-    public override bool Run() {
+    public sealed override bool Run() {
       // 小心不要套娃了
+      // 检测发起者是否为空
+      Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
+      if (caster == null) {
+        Debug.LogError("攻击发起者为空！");
+        return false;
+      }
       // 被造成伤害前的行为树
-      BattleManager.behaviorManagers.TryGetValue(behaviorTree.unit, out var ownerBehaviorManager);
+      Unit owner = behaviorTree.unit;
+      BattleManager.behaviorManagers.TryGetValue(owner, out var ownerBehaviorManager);
       ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGED);
       // 造成伤害前的行为树 
-      BehaviorManager castBehaviorManager = null;
-      Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
-      if (caster != null) {
-        BattleManager.behaviorManagers.TryGetValue(caster, out castBehaviorManager);
-      }
+      BattleManager.behaviorManagers.TryGetValue(caster, out BehaviorManager castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
       
-      bool result = OnDamage();
+      float realDamage = OnDamage(caster);
+      // 保存最后一次造成的伤害值
+      if (caster != null) {
+        caster.blackboard["lastDamageValue"] = realDamage;
+      }
+      // 保存最后一次被造成的伤害值
+      owner.blackboard["lastDamagedValue"] = realDamage;
       
       // 被造成伤害后的行为树
       ownerBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGED);
       // 造成伤害后的行为树 
       castBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGE);
       // 单位死亡
-      if (!behaviorTree.unit.isAlive) {
-        behaviorTree.unit.OnDie();
+      if (!owner.isAlive) {
+        owner.OnDie();
       }
-      return result;
+      return true;
     }
 
-    protected abstract bool OnDamage();
+    protected abstract float OnDamage(Unit caster);
   }
 }

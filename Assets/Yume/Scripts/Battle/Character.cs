@@ -30,8 +30,6 @@ namespace Yume.Battle {
   }
   
   public class Character : Unit {
-    private Text m_hpText;
-    private Text m_energyText;
     private List<Card> m_tempCardList = new List<Card>();
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
@@ -47,7 +45,7 @@ namespace Yume.Battle {
           if (!card.active || !BattleManager.isRunning) {
             return;
           }
-          if (card.cardPhase.energyConsumption > GetAttribValue(AttribType.ENERGY)) {
+          if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
             MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
             return;
           }
@@ -56,14 +54,6 @@ namespace Yume.Battle {
           card.active = false;
         }));
       }
-
-      // 初始化UI
-      var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      m_hpText = objectContainer.GetComponent<Text>("hp");
-      m_energyText = objectContainer.GetComponent<Text>("energy");
-
-      m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
-      m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
     }
 
     public override IEnumerator OnTrick() {
@@ -135,42 +125,6 @@ namespace Yume.Battle {
           cards.ForEach(card => Object.Destroy(card.gameObject))
       );
       Object.Destroy(gameObject);
-    }
-
-    protected override void OnAttribValueChanged(AttribType type, float delta) {
-      switch (type) {
-        case AttribType.HP: {
-          // 更新UI
-          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
-          break;
-        }
-        case AttribType.ATK:
-          break;
-        case AttribType.ENERGY:
-          // 更新UI
-          m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
-          break;
-        case AttribType.DEF:
-          break;
-      }
-    }
-
-    protected override void OnAttribMaxValueChanged(AttribType type, float delta) {
-      switch (type) {
-        case AttribType.HP: {
-          // 更新UI
-          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP)}";
-          break;
-        }
-        case AttribType.ATK:
-          break;
-        case AttribType.ENERGY:
-          // 更新UI
-          m_energyText.text = $"E:{GetAttribValue(AttribType.ENERGY)}/{GetAttribMaxValue(AttribType.ENERGY)}";
-          break;
-        case AttribType.DEF:
-          break;
-      }
     }
   }
 }

@@ -22,18 +22,21 @@ namespace Yume.Battle {
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       m_hpText = objectContainer.GetComponent<Text>("hp");
 
-      m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
+      m_hpText.text = $"HP:{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
     }
 
     public override IEnumerator OnTrick() {
-#if BETA
-      if (cards.Count == 0) {
+      // TODO:测试用
+      yield return new WaitForSeconds(2);
+      // 筛选出符合出牌条件的牌
+      List<Card> candidateCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
+      // 没有就直接结束回合
+      if (candidateCards.Count == 0) {
         yield break;
       }
-#endif
       // 随机选一张牌出
-      int index = MathUtil.random.Next(0, cards.Count);
-      playCardQueue.Enqueue((cards[index], BattleManager.character));
+      int index = MathUtil.random.Next(0, candidateCards.Count);
+      playCardQueue.Enqueue((candidateCards[index], BattleManager.character));
       // 结束出牌的标记
       playCardQueue.Enqueue(default);
       // 出牌中
@@ -67,38 +70,6 @@ namespace Yume.Battle {
     public override void CleanUp() {
       cards.ForEach(card => Object.Destroy(card.gameObject));
       Object.Destroy(gameObject);
-    }
-
-    protected override void OnAttribValueChanged(AttribType type, float delta) {
-      switch (type) {
-        case AttribType.HP: {
-          // 更新UI
-          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP):0}";
-          break;
-        }
-        case AttribType.ATK:
-          break;
-        case AttribType.ENERGY:
-          break;
-        case AttribType.DEF:
-          break;
-      }
-    }
-
-    protected override void OnAttribMaxValueChanged(AttribType type, float delta) {
-      switch (type) {
-        case AttribType.HP: {
-          // 更新UI
-          m_hpText.text = $"HP:{GetAttribValue(AttribType.HP):0}/{GetAttribMaxValue(AttribType.HP)}";
-          break;
-        }
-        case AttribType.ATK:
-          break;
-        case AttribType.ENERGY:
-          break;
-        case AttribType.DEF:
-          break;
-      }
     }
   }
 }

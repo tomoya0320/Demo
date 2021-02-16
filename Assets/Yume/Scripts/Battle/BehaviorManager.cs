@@ -11,29 +11,25 @@ namespace Yume.Battle {
       this.unit = unit;
     }
 
-    public void AddBehaviorTrees(BehaviorTime behaviorTime, params BehaviorTree[] behaviorTrees) {
-      if (!m_behaviorDict.TryGetValue(behaviorTime, out var behaviorTreeList)) {
-        behaviorTreeList = new List<BehaviorTree>();
-        m_behaviorDict.Add(behaviorTime, behaviorTreeList);
+    public void AddBehaviorTree(BehaviorTime behaviorTime, BehaviorTree behaviorTree) {
+      if (!m_behaviorDict.TryGetValue(behaviorTime, out var behaviorTrees)) {
+        behaviorTrees = new List<BehaviorTree>();
+        m_behaviorDict.Add(behaviorTime, behaviorTrees);
       }
-      behaviorTreeList.AddRange(behaviorTrees);
+      behaviorTrees.Add(behaviorTree);
       if (behaviorTime == BehaviorTime.ON_ADD) {
-        foreach (var behaviorTree in behaviorTrees) {
-          behaviorTree.Run();
-        }
+        behaviorTree.Run();
       }
     }
 
-    public void RemoveBehaviorTrees(BehaviorTime behaviorTime, params BehaviorTree[] behaviorTrees) {
+    public void RemoveBehaviorTree(BehaviorTime behaviorTime, BehaviorTree behaviorTree) {
       if (!m_behaviorDict.ContainsKey(behaviorTime)) {
         Debug.LogError($"未加载的BehaviorTime:{behaviorTime}！");
         return;
       }
-      foreach (var behaviorTree in behaviorTrees) {
-        m_behaviorDict[behaviorTime].Remove(behaviorTree);
-        if (behaviorTime == BehaviorTime.ON_REMOVE) {
-          behaviorTree.Run();
-        }
+      m_behaviorDict[behaviorTime].Remove(behaviorTree);
+      if (behaviorTime == BehaviorTime.ON_REMOVE) {
+        behaviorTree.Run();
       }
     }
 

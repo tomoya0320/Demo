@@ -10,11 +10,7 @@ namespace Yume.Battle {
       }
 
       foreach (var attribDetachment in attribDetachments) {
-        if (attribDetachment.onMaxValue) {
-          owner.AddAttribMaxValue(attribDetachment.type, -attribDetachment.value);
-        } else {
-          owner.AddAttribValue(attribDetachment.type, -attribDetachment.value);
-        }
+        owner.AddAttrib(attribDetachment.type, -attribDetachment.value, attribDetachment.onMaxValue);
       }
 
       return true;

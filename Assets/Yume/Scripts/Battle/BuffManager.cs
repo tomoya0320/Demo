@@ -11,15 +11,14 @@ namespace Yume.Battle {
       this.unit = unit;
     }
 
-    public void AddBuff(string buffId, Blackboard blackboard) {
-      BuffTemplate buffTemplate = ResourceManager.Load<BuffTemplate>(buffId);
+    public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors) {
       if (m_buffDict.ContainsKey(buffId)) {
-        if (m_buffDict[buffId].Count == 0 || buffTemplate.stackable) {
-          _AddBuffInternal(buffId, blackboard, buffTemplate.behaviors);
+        if (m_buffDict[buffId].Count == 0 || stackType == StackType.DEFAULT) {
+          _AddBuffInternal(buffId, blackboard, behaviors);
         }
       } else {
         m_buffDict.Add(buffId, new List<Buff>());
-        _AddBuffInternal(buffId, blackboard, buffTemplate.behaviors);
+        _AddBuffInternal(buffId, blackboard, behaviors);
       }
     }
 
