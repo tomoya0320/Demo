@@ -5,7 +5,7 @@ namespace Yume.Battle {
     protected override float OnDamage(Unit caster) {
       // blackboard中的攻击比率
       float finalAtk = behaviorTree.blackboard.GetValue<float>("atk");
-      float atkRate = behaviorTree.blackboard.GetValue("atkRate", 1.0f);
+      float atkRate = behaviorTree.blackboard.GetValue<float>("atkRate");
       if (caster != null) {
         // 计算攻击发起者的基础攻击力
         finalAtk += caster.GetAttrib(AttribType.ATK) * atkRate;

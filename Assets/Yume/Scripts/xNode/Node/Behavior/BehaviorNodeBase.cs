@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using XNode;
 using Yume.Data;
 
 namespace Yume.Battle {
   public abstract class BehaviorNodeBase : Node {
     protected BehaviorTree behaviorTree;
-    
+
     protected override void Init() {
       base.Init();
       behaviorTree = graph as BehaviorTree;
@@ -42,15 +43,20 @@ namespace Yume.Battle {
       // 造成伤害前的行为树 
       BattleManager.behaviorManagers.TryGetValue(caster, out BehaviorManager castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
-      
+
       float realDamage = OnDamage(caster);
+#if BETA
+      string content = $"[{caster.name}]对[{owner.name}]造成了[{realDamage:0}]点伤害";
+      BattleManager.Log(content);
+#endif
+
       // 保存最后一次造成的伤害值
       if (caster != null) {
         caster.blackboard["lastDamageValue"] = realDamage;
       }
       // 保存最后一次被造成的伤害值
       owner.blackboard["lastDamagedValue"] = realDamage;
-      
+
       // 被造成伤害后的行为树
       ownerBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGED);
       // 造成伤害后的行为树 

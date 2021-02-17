@@ -7,6 +7,7 @@ using Yume.Resource;
 using Yume.UI;
 
 namespace Yume.Battle {
+  // TODO:优化=>表现层分离
   public class Card {
     public bool active = true;
     public GameObject gameObject { get; }
@@ -41,18 +42,16 @@ namespace Yume.Battle {
       
       foreach (var buffTemplate in cardPhase.buffTemplates) {
         // TODO:以caster和candidate为基准筛选出目标 测试用
-        List<Unit> targets = new List<Unit>();
-        if (buffTemplate.onOnwer) {
-          targets.Add(caster);
-        } else {
-          // 测试用
-          targets.Add(candidate);
-        }
+        List<Unit> targets = buffTemplate.selector.Select(caster, candidate);
         foreach (var target in targets) {
+#if BETA
+          string content = $"[{caster.name}]对[{target.name}]使用了卡牌[{cardPhase.name}]";
+          BattleManager.Log(content);
+#endif
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard { { "caster", caster } };
           blackboard = blackboard.Merge(buffTemplate.blackboard);
-          BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);  
+          BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
         }
       }
       
