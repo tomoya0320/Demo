@@ -49,8 +49,14 @@ namespace Yume.Data {
     public BuffTemplate[] buffTemplates;
   }
 
+  public enum Camp {
+    ALLY,
+    ENEMY,
+  }
+
   public struct UnitTemplate {
     public string id;
+    public Camp camp;
     public string tag;
     public string name;
     public int maxLevel;
@@ -244,9 +250,8 @@ namespace Yume.Data {
   [Serializable]
   public struct BuffTemplate {
     public string id;
-    // 是否直接加在自己身上
-    public bool onOnwer;
     public StackType stackType;
+    public TargetSelector selector;
     public Behavior[] behaviors;
     public Blackboard blackboard;
   }

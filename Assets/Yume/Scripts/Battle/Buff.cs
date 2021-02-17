@@ -31,6 +31,7 @@ namespace Yume.Battle {
         // 初始化行为树
         BehaviorTree behaviorTree = ResourceManager.Load<BehaviorTree>(behavior.behaviorTreeId).Copy() as BehaviorTree;
         behaviorTree.unit = unit;
+        behaviorTree.buff = this;
         behaviorTree.blackboard = blackboard;
         behaviorTrees.Add(behaviorTree);
       }

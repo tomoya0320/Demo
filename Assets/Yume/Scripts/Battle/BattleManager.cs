@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Yume.Audio;
 using Yume.Broadcast;
 using Yume.Data;
@@ -19,8 +20,8 @@ namespace Yume.Battle {
   public static class BattleManager {
     private static int s_currentUnitIndex;
     private static LevelTemplate s_levelTemplate;
-    private static List<Unit> s_units = new List<Unit>();
     public static Blackboard blackboard = new Blackboard();
+    public static List<Unit> units { get; } = new List<Unit>();
     // TODO:测试用
     public static bool isRunning => battleResult == BattleResult.NONE;
     // TODO:测试用
@@ -29,13 +30,19 @@ namespace Yume.Battle {
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
     // TODO:测试用
     public static Action abort = () => battleResult = BattleResult.ABORT;
-    // TODO:测试用
-    public static Unit enemy => s_units.Count > 1 ? s_units[1] : null;
-    public static Unit character => s_units.Count > 0 ? s_units[0] : null;
+    // TODO:测试用 一场战斗暂时只有一个敌人
+    public static Unit enemy => units.Count > 1 ? units[1] : null;
+    public static Unit character => units.Count > 0 ? units[0] : null;
     private static Dictionary<string, Transform> s_folderDict = new Dictionary<string, Transform>();
     public static Transform cardFolder => s_folderDict.ContainsKey("cardFolder") ? s_folderDict["cardFolder"] : null;
     public static Transform charFolder => s_folderDict.ContainsKey("charFolder") ? s_folderDict["charFolder"] : null;
     public static Transform enemyFolder => s_folderDict.ContainsKey("enemyFolder") ? s_folderDict["enemyFolder"] : null;
+#if BETA
+    private static Text s_log;
+    public static void Log(string content) {
+      s_log.text += $"\n[{DateTime.Now.ToLongTimeString()}]:{content}";
+    }
+#endif
 
     public static void Init(LevelTemplate levelTemplate, Dictionary<string, Transform> folderDict) {
       s_levelTemplate = levelTemplate;
@@ -50,29 +57,22 @@ namespace Yume.Battle {
       foreach (var cardGuid in team.cardGuidList) {
         cardList.Add(DataManager.GetCard(cardGuid).Clone() /*因为是引用类型会影响到原来的数据所以需要复制一份*/);
       }
-      s_units.Add(new Character(tempChar, cardList.ToArray()));
+      units.Add(new Character(tempChar, cardList.ToArray()));
       // 初始化敌人
       foreach (var enemyTemplate in s_levelTemplate.enemyTemplates) {
-        s_units.Add(new Enemy(enemyTemplate.enemy, enemyTemplate.cards));
+        units.Add(new Enemy(enemyTemplate.enemy, enemyTemplate.cards));
       }
       // 初始化AttribCaches BuffManagers BehaviorManagers
-      foreach (var unit in s_units) {
+      foreach (var unit in units) {
         buffManagers.Add(unit, new BuffManager(unit));
         behaviorManagers.Add(unit, new BehaviorManager(unit));
       }
       // TODO:初始化单位的被动Buff 有待调整
-      foreach (var unit in s_units) {
+      foreach (var unit in units) {
         if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
           foreach (var buffTemplate in unit.passiveSkillPhases[unit.passiveSkillLevel].buffTemplates) {
             // TODO:筛选出目标 测试用
-            List<Unit> targets = new List<Unit>();
-            if (buffTemplate.onOnwer) {
-              targets.Add(unit);
-            } else {
-              // 测试用直接加在所有其他单位上
-              targets.AddRange(s_units);
-              targets.Remove(unit);
-            }
+            List<Unit> targets = buffTemplate.selector.Select(unit, null);
             foreach (var target in targets) {
               // 因为blackboard是引用类型所以需要新建一个
               Blackboard blackboard = new Blackboard { { "caster", unit } };
@@ -82,6 +82,11 @@ namespace Yume.Battle {
           }
         }
       }
+      
+#if BETA
+      s_log = GameObject.Find("log").GetComponent<Text>();
+      s_log.text = "行动日志=============================";
+#endif
     }
 
     public static void StartBattle() {
@@ -116,8 +121,8 @@ namespace Yume.Battle {
       }
 
       // 清理
-      s_units.ForEach(unit => unit.CleanUp());
-      s_units.Clear();
+      units.ForEach(unit => unit.CleanUp());
+      units.Clear();
       s_folderDict.Clear();
 
       s_currentUnitIndex = 0;
@@ -142,7 +147,7 @@ namespace Yume.Battle {
       AudioManager.PlayBgm(s_levelTemplate.bgm);
 
       while (true) {
-        Unit currentUnit = s_units[s_currentUnitIndex];
+        Unit currentUnit = units[s_currentUnitIndex];
         // 更新UI
         switch (s_currentUnitIndex) {
           // 默认玩家是第一个位置
@@ -164,18 +169,18 @@ namespace Yume.Battle {
         // 回合开始前
         behaviorManagers[currentUnit].Run(BehaviorTime.ON_BEFORE_TURN);
         // 回合中
-        yield return currentUnit.OnTrick();
-        // 更新buff
-        buffManagers[currentUnit].OnLateUpdate();
+        yield return currentUnit.OnTick();
         // 回合结束后
         behaviorManagers[currentUnit].Run(BehaviorTime.ON_LATE_TURN);
+        // 更新buff
+        buffManagers[currentUnit].OnLateUpdate();
         // TODO:测试用 检测战斗是否完成
         if (battleResult != BattleResult.NONE) {
           _Finish();
           yield break;
         }
         // 下一个单位
-        s_currentUnitIndex = (s_currentUnitIndex + 1) % s_units.Count;
+        s_currentUnitIndex = (s_currentUnitIndex + 1) % units.Count;
       }
     }
   }

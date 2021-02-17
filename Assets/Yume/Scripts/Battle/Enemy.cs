@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
-    private Text m_hpText;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
     public Enemy(UnitData enemy, CardData[] cards) : base(enemy, BattleManager.enemyFolder) {
@@ -17,15 +15,9 @@ namespace Yume.Battle {
         var go = Object.Instantiate(prefab, gameObject.transform); // 敌人的牌就放自己的下面
         this.cards.Add(new Card(card, go));
       }
-
-      // 初始化UI
-      var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      m_hpText = objectContainer.GetComponent<Text>("hp");
-
-      m_hpText.text = $"HP:{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
     }
 
-    public override IEnumerator OnTrick() {
+    public override IEnumerator OnTick() {
       // TODO:测试用
       yield return new WaitForSeconds(2);
       // 筛选出符合出牌条件的牌

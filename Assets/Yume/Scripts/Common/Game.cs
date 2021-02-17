@@ -16,8 +16,7 @@ namespace Yume.Main {
     public float initProcess {
       set {
         m_initProcessImg.fillAmount = value;
-        // ReSharper disable once CompareOfFloatsByEqualityOperator
-        m_goToLoginBtn.gameObject.SetActiveEx(value == 1.0f);
+        m_goToLoginBtn.gameObject.SetActiveEx(value >= 1.0f);
         m_initProcessImg.gameObject.SetActiveEx(value < 1.0f);
       }
     }

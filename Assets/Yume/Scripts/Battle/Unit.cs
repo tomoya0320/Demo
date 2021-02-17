@@ -12,6 +12,7 @@ namespace Yume.Battle {
     protected Text energyText;
     public int level { get; }
     public string id { get; }
+    public Camp camp { get; }
     public string tag { get; }
     public string name { get; }
     private Attrib[] attribs { get; }
@@ -28,6 +29,7 @@ namespace Yume.Battle {
       id = unit.id;
       level = unit.level;
       tag = unitTemplate.tag;
+      camp = unitTemplate.camp;
       name = unitTemplate.name;
       passiveSkillLevel = unit.passiveSkillLevel;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
@@ -45,7 +47,7 @@ namespace Yume.Battle {
       energyText.text = $"E:{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
     }
 
-    public abstract IEnumerator OnTrick();
+    public abstract IEnumerator OnTick();
 
     public abstract void OnDie();
 

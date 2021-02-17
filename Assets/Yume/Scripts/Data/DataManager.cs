@@ -557,6 +557,10 @@ namespace Yume.Data {
         s_playMode = PlayMode.REMOTE;
         s_user = JsonConvert.DeserializeObject<UserData>(json["user"].ToString());
         userToken = json["token"].Value<string>();
+
+        // 保存账密
+        PlayerPrefs.SetString("account", userAccount);
+        PlayerPrefs.SetString("password", userPassword);
       }
     }
 

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
 using Yume.UI;
@@ -49,14 +48,14 @@ namespace Yume.Battle {
             MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
             return;
           }
-          
+          // TODO:一场战斗的敌人暂时只有一个
           EnqueueCard((card, BattleManager.enemy));
           card.active = false;
         }));
       }
     }
 
-    public override IEnumerator OnTrick() {
+    public override IEnumerator OnTick() {
       // 抽牌逻辑层
       int deltaCardCount = Constant.HAND_CARD_THRESHOLD - cardHeapDict[CardHeapType.HAND].Count;
       if (deltaCardCount > 0) {
@@ -80,7 +79,7 @@ namespace Yume.Battle {
       }
       // 抽牌表现层
       // TODO:抽牌动效,现在这个暂时测试用
-      m_tempCardList.ForEach(card=>card.gameObject.SetActiveEx(true));
+      m_tempCardList.ForEach(card => card.gameObject.SetActiveEx(true));
       m_tempCardList.Clear();
       
       // 出牌中
