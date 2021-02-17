@@ -134,15 +134,18 @@ namespace Yume.UI {
 #endif
       GetComponent<Button>("AlterPsd").onClick.AddListener(_OnAlterPassword);
       GetComponent<Button>("SwitchAlterPsd").onClick.AddListener(() => {
-        _ClearInput();
         m_main.SetActiveEx(false);
         m_second.SetActiveEx(true);
       });
       GetComponent<Button>("Back").onClick.AddListener(() => {
-        _ClearInput();
         m_main.SetActiveEx(true);
         m_second.SetActiveEx(false);
       });
+    }
+
+    private void _LoadAccountAndPsd() {
+      m_accountInput.text = PlayerPrefs.GetString("account");
+      m_passwordInput.text = PlayerPrefs.GetString("password");
     }
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
@@ -160,6 +163,8 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
+      _LoadAccountAndPsd();
+      
       m_canvasGroup.interactable = false;
       Action action = () => {
         m_canvasGroup.interactable = true;
