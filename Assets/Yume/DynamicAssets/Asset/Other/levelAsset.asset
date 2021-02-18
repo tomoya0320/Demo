@@ -21,56 +21,48 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _levels:
-  - data:
-      id: level_main_1
-      completed: 0
-    template:
-      id: level_main_1
-      bgm: STS_Boss1MindBloom_v1
-      title: "\u9ED1\u6697\u65F6\u4EE3"
-      background: avg_7_1
-      description: "\u5728\u9065\u8FDC\u7684\u51BB\u539F\u4E0A\uFF0C\u8FFD\u67E5\u611F\u67D3\u8005\u3001\u7EA0\u7F20\u7740\u504F\u8FDC\u6751\u5E84\u7684\u7EA0\u5BDF\u961F\uFF0C\u7A7F\u7740\u9ED1\u8272\u7532\u866B\u822C\u7684\u5236\u670D\u3002\r\n<\u9053\u8DEF\u969C\u788D\u7269>\u53EF\u4EE5\u963B\u6321\u4E4C\u8428\u65AF\u5E73\u6C11\u4E0E\u6597\u58EB\u5854\u9732\u62C9\u524D\u8FDB\uFF0C\u53EF\u88AB\u6211\u65B9\u5355\u4F4D\u51FB\u6BC1"
-      iconFileName: tr_18
-      beforeAVGId: avg_test1
-      afterAVGId: avg_test2
-      preLevelId: 
-      regularRewards:
-        items:
-        - id: item_0_exp
-          count: 100
-        - id: item_2_gold
-          count: 1000
-      firstCompletedRewards:
-        items:
-        - id: item_1_diamond
-          count: 200
-      enemyTemplates:
-      - enemy:
-          id: enemy_001
-          level: 0
-          passiveSkillLevel: 0
-        cards:
-        - guid: 0
-          id: card_001
-          phase: 0
-  - data:
-      id: level_main_2
-      completed: 0
-    template:
-      id: level_main_2
-      bgm: STS_Boss1MindBloom_v1
-      title: "\u5F02\u5375\u540C\u751F"
-      background: 
-      description: "10:32:09 \u6218\u4E89\u4ECD\u5728\u7EE7\u7EED\uFF0C\u5C40\u52BF\u5374\u53D1\u751F\u4E86\u53D8\u5316\u3002"
-      iconFileName: tr_level_rune_05-01
-      beforeAVGId: avg_test3
-      afterAVGId: 
-      preLevelId: level_main_1
-      regularRewards:
-        items: []
-      firstCompletedRewards:
-        items:
-        - id: item_1_diamond
-          count: 100
-      enemyTemplates: []
+  _levelTemplates:
+  - id: level_main_1
+    bgm: STS_Boss1MindBloom_v1
+    title: "\u9ED1\u6697\u65F6\u4EE3"
+    background: avg_7_1
+    description: "\u5728\u9065\u8FDC\u7684\u51BB\u539F\u4E0A\uFF0C\u8FFD\u67E5\u611F\u67D3\u8005\u3001\u7EA0\u7F20\u7740\u504F\u8FDC\u6751\u5E84\u7684\u7EA0\u5BDF\u961F\uFF0C\u7A7F\u7740\u9ED1\u8272\u7532\u866B\u822C\u7684\u5236\u670D\u3002\n<\u9053\u8DEF\u969C\u788D\u7269>\u53EF\u4EE5\u963B\u6321\u4E4C\u8428\u65AF\u5E73\u6C11\u4E0E\u6597\u58EB\u5854\u9732\u62C9\u524D\u8FDB\uFF0C\u53EF\u88AB\u6211\u65B9\u5355\u4F4D\u51FB\u6BC1"
+    iconFileName: tr_18
+    beforeAVGId: avg_test1
+    afterAVGId: avg_test2
+    preLevelId: 
+    regularRewards:
+      items:
+      - id: item_0_exp
+        count: 100
+      - id: item_2_gold
+        count: 1000
+    firstCompletedRewards:
+      items:
+      - id: item_1_diamond
+        count: 200
+    enemyTemplates:
+    - enemy:
+        id: enemy_001
+        level: 0
+        passiveSkillLevel: 0
+      cards:
+      - guid: 0
+        id: card_001
+        phase: 0
+  - id: level_main_2
+    bgm: STS_Boss1MindBloom_v1
+    title: "\u5F02\u5375\u540C\u751F"
+    background: 
+    description: "10:32:09 \u6218\u4E89\u4ECD\u5728\u7EE7\u7EED\uFF0C\u5C40\u52BF\u5374\u53D1\u751F\u4E86\u53D8\u5316\u3002"
+    iconFileName: tr_level_rune_05-01
+    beforeAVGId: avg_test3
+    afterAVGId: 
+    preLevelId: level_main_1
+    regularRewards:
+      items: []
+    firstCompletedRewards:
+      items:
+      - id: item_1_diamond
+        count: 100
+    enemyTemplates: []
