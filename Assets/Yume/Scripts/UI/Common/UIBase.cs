@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Yume.Data;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public abstract class UIBase {
@@ -47,7 +48,7 @@ namespace Yume.UI {
       if (closeClip != null) {
         CoroutineHelper.instance.PlayAnimCallback(closeClip, m_animation, callback);
       } else {
-        callback?.Invoke();
+        callback();
       }
     }
 
@@ -69,7 +70,7 @@ namespace Yume.UI {
       if (opneClip != null) {
         CoroutineHelper.instance.PlayAnimCallback(opneClip, m_animation, callback);
       } else {
-        callback?.Invoke();
+        callback();
       }
     }
 
@@ -87,7 +88,7 @@ namespace Yume.UI {
     /// 回收内存
     /// </summary>
     public virtual void Destroy() {
-      UnityEngine.Object.Destroy(root);
+      Object.Destroy(root);
     }
   }
 

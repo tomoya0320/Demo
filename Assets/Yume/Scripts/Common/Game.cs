@@ -22,15 +22,18 @@ namespace Yume.Main {
     }
 
     protected override void OnInit() {
-      // 实例化初始化UI
-      m_initPanel = Instantiate(Resources.Load<GameObject>("Prefab/init"), GameObject.Find("NormalCanvas").transform);
-      ObjectContainer objectContainer = m_initPanel.GetComponent<ObjectContainer>();
-      m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
-      m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
-
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
+      
+      // 实例化初始化UI
+      var parent = GameObject.Find("NormalCanvas").transform;
+      var initPanelPrefab = Resources.Load<GameObject>("Prefab/init");
+      m_initPanel = Instantiate(initPanelPrefab, parent);
+      var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
+      m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
+      m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
+      
+      // 进入登录界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
           UIManager.OpenOne(
@@ -41,8 +44,7 @@ namespace Yume.Main {
           );
         }
       );
-      m_initProcessImg.fillAmount = 0;
-
+      
       StartCoroutine(_InitAll());
     }
 
@@ -62,11 +64,11 @@ namespace Yume.Main {
       UIManager.Init();
       AudioManager.Init();
       RedPointManager.Init();
-
+      
+      #endregion
+      
       // Final
       initProcess = 1.0f;
-
-      #endregion
     }
 
     private void Update() {
@@ -78,70 +80,8 @@ namespace Yume.Main {
     }
 
     private void LateUpdate() {
-      // 同步数据用
+      // TODO:同步数据用 待优化
       DataManager.OnLateUpdate();
     }
-    
-#if TEST
-    private bool m_isShowCheat = true;
-
-    private void OnGUI() {
-      if (!DataManager.isLogged) {
-        return;
-      }
-
-      if (GUILayout.Button("作弊指令", GUILayout.Width(300), GUILayout.Height(100))) {
-        m_isShowCheat = !m_isShowCheat;
-      }
-
-      if (!m_isShowCheat) {
-        return;
-      }
-
-      if (GUILayout.Button("增加金币", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddItem(new ItemData("item_2_gold", 1000));
-      }
-
-      if (GUILayout.Button("消耗金币", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.ConsumeItem(new ItemData("item_2_gold", 10000));
-      }
-
-      if (GUILayout.Button("增加经验", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddItem(new ItemData(StringMap.EXP_ID, 300));
-      }
-
-      if (GUILayout.Button("增加邮件", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddMail(new MailData("Test Title", "Welcome to FangYuanQiWu!", "admin", new ItemData("item_1_diamond", 1000)));
-        DataManager.AddMail(new MailData("Test Title2", "You are alone", "admin", new ItemData("item_1_diamond", 2000), new ItemData("item_2_gold", 30000)));
-        DataManager.AddMail(new MailData("Test Title3", "I love {0}", "wzb", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
-      }
-
-      if (GUILayout.Button("增加角色和卡牌", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.AddCharacter(new UnitData("char_001_brave", 0, 0));
-        DataManager.AddCharacter(new UnitData("char_002_wzb", 0, 0));
-
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-        DataManager.AddCard(new CardData("card_001_atk", 0));
-        DataManager.AddCard(new CardData("card_001_atk", 1));
-      }
-
-      if (GUILayout.Button("通关全部关卡", GUILayout.Width(300), GUILayout.Height(100))) {
-        DataManager.CompleteAllLevelsTestOnly();
-      }
-    }
-#endif
   }
 }

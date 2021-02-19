@@ -9,15 +9,15 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Resource;
 using XLua;
-using Axis = UnityEngine.RectTransform.Axis;
 using Yume.Data;
 using Random = System.Random;
+using Axis = UnityEngine.RectTransform.Axis;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
 
-  public static object[] DoString(string luaText) {
-    return s_luaEnv.DoString(luaText);
+  public static object[] DoString(string luaString) {
+    return s_luaEnv.DoString(luaString);
   }
 }
 
@@ -37,14 +37,14 @@ public static class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }
 
-public static class TypeTools {
+public static class TypeExtensions {
   public static List<string> GetFieldNames(this Type type) {
     FieldInfo[] fieldInfos = type.GetFields();
-    List<string> fieldNameList = new List<string>(fieldInfos.Length);
+    List<string> fieldNames = new List<string>(fieldInfos.Length);
     foreach (var fieldInfo in fieldInfos) {
-      fieldNameList.Add(fieldInfo.Name);
+      fieldNames.Add(fieldInfo.Name);
     }
-    return fieldNameList;
+    return fieldNames;
   }
 
   public static List<string> GetDescriptions(this Type type) {
@@ -56,7 +56,7 @@ public static class TypeTools {
   }
 }
 
-public static class RectTransformTools {
+public static class RectTransformExtensions {
   /// <summary>
   /// Set SizeX With CurrentAnchors
   /// </summary>
@@ -76,31 +76,25 @@ public static class RectTransformTools {
   }
 }
 
-public static class ListTools {
+public static class ListExtensions {
   public static T First<T>(this List<T> list) {
-    if (list.Count == 0) {
-      return default;
-    }
-    return list[0];
+    return list.Count == 0 ? default : list[0];
   }
 
   public static T Last<T>(this List<T> list) {
-    if (list.Count == 0) {
-      return default;
-    }
-    return list[list.Count - 1];
+    return list.Count == 0 ? default : list[list.Count - 1];
   }
 }
 
-public static class TextTools {
-  public static void SetAlpha(this Text text, float alpha) {
-    Color color = text.color;
+public static class GraphicExtensions {
+  public static void SetAlpha(this Graphic graphic, float alpha) {
+    Color color = graphic.color;
     color.a = alpha;
-    text.color = color;
+    graphic.color = color;
   }
 }
 
-public static class GameObjectTools {
+public static class GameObjectExtensions {
   public static void SetParent(this GameObject gameObject, Transform parent) {
     gameObject.transform.SetParent(parent);
   }
@@ -146,15 +140,7 @@ public static class GameObjectTools {
   }
 }
 
-public static class ImageTools {
-  public static void SetAlpha(this Image image, float a) {
-    Color color = image.color;
-    color.a = a;
-    image.color = color;
-  }
-}
-
-public static class EnumTools {
+public static class EnumExtensions {
   /// <summary>
   /// 获取当前枚举描述
   /// </summary>
@@ -172,7 +158,7 @@ public static class EnumTools {
   }
 }
 
-public static class AssemblyTool {
+public static class AssemblyUtil {
   private static Assembly s_assembly = Assembly.GetExecutingAssembly();
 
   public static object CreateInstance(string typeName) {
@@ -182,24 +168,22 @@ public static class AssemblyTool {
 
 public static class StringMap {
   #region datetime
+  
   public const string TODAY = "今天";
   public const string SOME_DAY_BEFORE = "{0}天前";
   public const string SOME_WEEK_BEFORE = "{0}周前";
   public const string SOME_MONTH_BEFORE = "{0}月前";
   public const string SOME_YEAR_BEFORE = "{0}年前";
+  
   #endregion
+  
   public const string EMPTY = "";
-  public const string NONE = "无";
   public const string SWITCH = "Switch";
   public const string VALUE = "Value";
-  public const string ID = "id";
-  public const string PRELOAD = "Preload";
-  public const string ASSETS_DOWNLOADING = "下载资源中...{0}%(总大小:{1}MB)";
   public const string TASK_COMPLETED = "任务[{0}]已完成！";
   public const string QUIT_GAME_TIP = "确认退出游戏？";
   public const string QUIT = "退出";
   public const string CANCEL = "取消";
-  public const string DOWNLOAD_ERROR_TIP = "下载出错，是否重试？";
   public const string RETRY = "重试";
   public const string RETURN_TO_LOGIN = "返回登录界面";
   public const string COMPLETED = "已完成";
@@ -218,11 +202,7 @@ public static class StringMap {
   public const string BG = "bg";
   public const string NAME = "name";
   public const string DIALOGUE = "dialogue";
-  public const string UI_OPEN_ANIM = "ui_open";
-  public const string UI_CLOSE_ANIM = "ui_close";
   public const string UI_RED_POINT = "red point";
-  public const string SAVE_DATA_SUCCEED = "同步数据成功！";
-  public const string CARD_PREFAB = "card_prefab";
 }
 
 public static class StringUtil {
@@ -291,11 +271,15 @@ public static class StringUtil {
 */
 }
 
-public static class MathUtil {
-  public static readonly Random random = new Random();
+public static class ScreenUtil {
   public static Vector2 mousePos => Input.mousePosition;
   public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
+}
 
+public static class MathUtil {
+  public static readonly Random random = new Random(); 
+  
+  /*
   /// <summary>
   /// 在XOZ平面上旋转一个Vector3
   /// </summary>
@@ -314,7 +298,8 @@ public static class MathUtil {
         Vector3.Dot(n, Vector3.Cross(v1, v2)),
         Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
   }
-
+  */
+  
   /// <summary>
   /// 计算给定的时期（不超过现在的时间）到现在过去了多久
   /// </summary>
@@ -408,35 +393,9 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
       OnInit();
     } else {
       Debug.LogWarning("Duplicate Instance:" + nameof(T));
-      Destroy(gameObject);
+      DestroyImmediate(gameObject);
     }
   }
 
   protected virtual void OnInit() { }
 }
-
-[Serializable]
-public struct AttribAdditive {
-  // 属性类型
-  public AttribType type;
-  // 目标是否是最大值
-  public bool onMaxValue;
-  // 基础值
-  public float value;
-  // 基于当前值的比率
-  public float rateOnValue;
-  // 基于当前最大值的比率
-  public float rateOnMaxValue;
-}
-
-[Serializable]
-public struct AttribArgs {
-  // 属性类型
-  public AttribType type;
-  // 目标是否是最大值
-  public bool onMaxValue;
-  // 移除的值
-  public float value;
-}
-
-public class AttribAdditives : List<AttribAdditive> { }

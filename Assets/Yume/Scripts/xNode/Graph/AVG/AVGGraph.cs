@@ -13,7 +13,7 @@ namespace Yume.AVG {
     [NonSerialized]
     public AVGNodeBase avgNode;
     [NonSerialized]
-    public List<Tween> tweenList = new List<Tween>();
+    public List<Tween> tweens = new List<Tween>();
 
     public void Enter(UIAVG avg) {
       var node = nodes.Find(n => n is Enter);
@@ -25,9 +25,9 @@ namespace Yume.AVG {
         return;
       }
 
-      if (tweenList.Count > 0) {
-        while (tweenList.Count > 0) {
-          tweenList.First().Complete();
+      if (tweens.Count > 0) {
+        while (tweens.Count > 0) {
+          tweens.First().Complete();
         }
         return;
       }
@@ -36,11 +36,11 @@ namespace Yume.AVG {
     }
 
     public void CleanUp() {
-      if (tweenList.Count > 0) {
-        foreach (var tween in tweenList) {
+      if (tweens.Count > 0) {
+        foreach (var tween in tweens) {
           tween?.Kill();
         }
-        tweenList.Clear();
+        tweens.Clear();
       }
       avgNode = null;
       block = 0;

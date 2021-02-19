@@ -390,12 +390,6 @@ namespace Yume.Data {
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());
       }
-
-#if TEST
-      if (string.IsNullOrEmpty(name)) {
-        this.name = "游客";
-      }
-#endif
     }
   }
 

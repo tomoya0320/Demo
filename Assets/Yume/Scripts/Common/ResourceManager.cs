@@ -48,9 +48,11 @@ namespace Yume.Resource {
       }
 
       #region 回收内存
+      
       yield return Resources.UnloadUnusedAssets();
 
       GC.Collect();
+      
       #endregion
     }
 
@@ -63,13 +65,13 @@ namespace Yume.Resource {
     }
 
     public static T[] LoadAll<T>() {
-      List<T> resList = new List<T>();
+      List<T> resources = new List<T>();
       foreach (var key in s_resourceDict.Keys) {
         if (key.type.IsAssignableFrom(typeof(T))) {
-          resList.Add((T)s_resourceDict[key]);
+          resources.Add((T)s_resourceDict[key]);
         }
       }
-      return resList.ToArray();
+      return resources.ToArray();
     }
 
     public static bool Contains<T>(string key) {

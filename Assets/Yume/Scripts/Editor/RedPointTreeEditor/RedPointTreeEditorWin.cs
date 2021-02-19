@@ -37,7 +37,7 @@ namespace Yume.Editor {
 
     private void _DrawTree(RedPointTreeType redPointTreeType) {
       var tree = RedPointManager.GetRedPointTree(redPointTreeType);
-      foreach (var node in tree.RedPointDict.Values) {
+      foreach (var node in tree.redPointDict.Values) {
         EditorGUILayout.LabelField($"name:{node.name},parent:{node.parentName},redPointNum:{node.redPointNum}");
       }
     }

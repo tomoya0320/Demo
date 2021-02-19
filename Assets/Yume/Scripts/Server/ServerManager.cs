@@ -4,7 +4,6 @@ using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using Yume.Battle;
 using Yume.Data;
 using Yume.Resource;
 using Yume.UI;
@@ -15,11 +14,7 @@ namespace Yume.Server {
       LOGIN, REGISTER, ALTERPSD, UPDATE
     }
 
-    private static string userServerUrl {
-      get {
-        return ResourceManager.Load<string>("userServerUrl");
-      }
-    }
+    private static readonly string userServerUrl = ResourceManager.Load<string>("userServerUrl");
 
     public static void Login(string account, string password, Action<UnityWebRequest> onCompleted) {
       JObject json = JObject.FromObject(new { account, password });
@@ -34,7 +29,7 @@ namespace Yume.Server {
       //否则会出现类似"[null]"这样的结果，导致反序列化得到的List会变成Count为1且第一个元素为null
       //update：换了一种方式初始化(直接new UserDB())
 #if BETA
-      UserData user = new UserData(name /*暂时测试用*/, account, password);
+      UserData user = new UserData(name/*暂时测试用*/, account, password);
       user.chars.Add(new UnitData("char_001", 20, 0));
       user.cards.Add(new CardData("card_001", 0));
       user.cards.Add(new CardData("card_001", 0));

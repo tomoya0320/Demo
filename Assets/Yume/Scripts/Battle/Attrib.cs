@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -19,6 +20,32 @@ namespace Yume.Battle {
     [Description("能量")]
     ENERGY,
   }
+  
+  [Serializable]
+  public struct AttribAdditive {
+    // 属性类型
+    public AttribType type;
+    // 目标是否是最大值
+    public bool onMaxValue;
+    // 基础值
+    public float value;
+    // 基于当前值的比率
+    public float rateOnValue;
+    // 基于当前最大值的比率
+    public float rateOnMaxValue;
+  }
+
+  [Serializable]
+  public struct AttribArgs {
+    // 属性类型
+    public AttribType type;
+    // 目标是否是最大值
+    public bool onMaxValue;
+    // 移除的值
+    public float value;
+  }
+
+  public class AttribAdditives : List<AttribAdditive> { }
 
   [Serializable]
   public struct Attrib {

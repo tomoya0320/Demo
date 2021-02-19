@@ -5,7 +5,6 @@ using Sirenix.Utilities;
 using UnityEngine;
 using Yume.Data;
 using Yume.Resource;
-using Yume.UI;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -37,7 +36,7 @@ namespace Yume.Battle {
         cardHeapDict.Add(cardHeapType, new List<Card>());
       }
 
-      var prefab = ResourceManager.Load<GameObject>(StringMap.CARD_PREFAB);
+      var prefab = ResourceManager.Load<GameObject>("card_prefab");
       foreach (var cardData in cards) {
         var go = Object.Instantiate(prefab, BattleManager.cardFolder);
         cardHeapDict[CardHeapType.DRAW].Add(new Card(cardData, go, /*测试用*/card => {

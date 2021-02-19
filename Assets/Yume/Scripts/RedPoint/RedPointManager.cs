@@ -51,9 +51,7 @@ namespace Yume.RedPointSystem {
           m_redPointNum = num;
           RedPointManager.GetUIOnChanged(m_redPointTreeType, m_name, parentName)?.Invoke();
           //更新父节点
-          if (m_parentNode != null) {
-            m_parentNode.SetRedPointNum(m_parentNode.m_redPointNum + delta);
-          }
+          m_parentNode?.SetRedPointNum(m_parentNode.m_redPointNum + delta);
         }
       }
     }
@@ -64,12 +62,15 @@ namespace Yume.RedPointSystem {
   }
 
   public abstract class RedPointTree {
+#if UNITY_EDITOR
+    public Dictionary<string, RedPointNode> redPointDict;
+#else
     protected Dictionary<string, RedPointNode> redPointDict;
+#endif
     protected abstract RedPointTreeType redPointTreeType { get; }
 
     /// <summary>
     /// 每次被实例化时初始化具体的红点业务逻辑
-    /// 由子类负责这部分
     /// </summary>
     public abstract void InitData();
 
@@ -83,7 +84,6 @@ namespace Yume.RedPointSystem {
       if (redPointDict.ContainsKey(name) && redPointDict[name].parentName == parent) {
         return redPointDict[name].redPointNum;
       }
-      Debug.Log($"父子节点不存在 name:{name},parent:{parent}");
       return 0;
     }
 
@@ -125,10 +125,6 @@ namespace Yume.RedPointSystem {
         AddLeafNode(name, parent, redPointNum);
       }
     }
-
-#if UNITY_EDITOR
-    public Dictionary<string, RedPointNode> RedPointDict => redPointDict;
-#endif
   }
 
   /// <summary>
@@ -141,7 +137,7 @@ namespace Yume.RedPointSystem {
     public static void Init() {
       foreach (RedPointTreeType redPointTreeType in Enum.GetValues(typeof(RedPointTreeType))) {
         if (redPointTreeType != RedPointTreeType.NONE) {
-          var redPointTree = AssemblyTool.CreateInstance(redPointTreeType.GetDescription()) as RedPointTree;
+          var redPointTree = AssemblyUtil.CreateInstance(redPointTreeType.GetDescription()) as RedPointTree;
           s_redPointTreeDict.Add(redPointTreeType, redPointTree);
         }
       }
@@ -208,10 +204,7 @@ namespace Yume.RedPointSystem {
 
 #if UNITY_EDITOR
     public static RedPointTree GetRedPointTree(RedPointTreeType redPointTreeType) {
-      if (s_redPointTreeDict.ContainsKey(redPointTreeType)) {
-        return s_redPointTreeDict[redPointTreeType];
-      }
-      return null;
+      return s_redPointTreeDict.ContainsKey(redPointTreeType) ? s_redPointTreeDict[redPointTreeType] : null;
     }
 #endif
   }

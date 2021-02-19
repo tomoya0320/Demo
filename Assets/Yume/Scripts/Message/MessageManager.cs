@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using Yume.UI;
 
-namespace Yume.UI {
+namespace Yume {
   public struct Message {
     public enum Style {
       [Description("slide")]
@@ -29,6 +30,7 @@ namespace Yume.UI {
     }
   }
 
+  // TODO:改进消息提示
   public static class MessageManager {
     private static string s_showingMessage;
     private static Queue<Message> s_messageQueue = new Queue<Message>();
@@ -50,10 +52,8 @@ namespace Yume.UI {
         s_showingMessage = message.content;
         var uiName = $"message_{message.style.GetDescription()}";
         Action action = () => CoroutineHelper.instance.DelayInvoke(
-          message.duration,
-          () => UIManager.CloseOne(uiName, ShowMessage)
+          message.duration, () => UIManager.CloseOne(uiName, ShowMessage)
         );
-
         UIManager.OpenOne(uiName, action, message);
       } else {
         s_showingMessage = null;

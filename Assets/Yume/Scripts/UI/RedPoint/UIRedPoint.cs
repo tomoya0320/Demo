@@ -34,6 +34,9 @@ namespace Yume.UI {
       OnChanged();
     }
 
+    /// <summary>
+    /// 红点UI监听
+    /// </summary>
     public void OnChanged() {
       m_redPointNum = RedPointManager.GetRedPointNum(m_redPointTreeType, m_name, m_parent);
       if (m_redPointNum > 0) {

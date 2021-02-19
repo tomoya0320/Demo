@@ -10,7 +10,7 @@ namespace Yume.Battle {
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
     public Enemy(UnitData enemy, CardData[] cards) : base(enemy, BattleManager.enemyFolder) {
-      var prefab = ResourceManager.Load<GameObject>(StringMap.CARD_PREFAB);
+      var prefab = ResourceManager.Load<GameObject>("card_prefab");
       foreach (var card in cards) {
         var go = Object.Instantiate(prefab, gameObject.transform); // 敌人的牌就放自己的下面
         this.cards.Add(new Card(card, go));

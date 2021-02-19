@@ -26,7 +26,7 @@ namespace Yume {
     /// 动画播放完毕执行回调
     /// 中途被打断的话无法执行
     /// </summary>
-    /// <param name="animName"></param>
+    /// <param name="clip"></param>
     /// <param name="animation"></param>
     /// <param name="callback"></param>
     public void PlayAnimCallback(AnimationClip clip, Animation animation, Action callback) {

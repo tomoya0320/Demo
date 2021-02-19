@@ -9,7 +9,7 @@ namespace Yume.AVG {
 		[SerializeField]
 		private Color _color;
 
-		protected override Tween DOTween(UIAVG avg, float fadeTime) {
+		protected override Tween DoTween(UIAVG avg, float fadeTime) {
 			return avg.bgImage.DOColor(_color, fadeTime);
 		}
 	}
