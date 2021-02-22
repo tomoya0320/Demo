@@ -9,24 +9,25 @@ using Object = UnityEngine.Object;
 namespace Yume.UI {
   // TODO:增加非栈UI的支持
   public static class UIManager {
-    private static CanvasGroup s_globalIneraction;
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
+    public static CanvasGroup globalIneraction{ private set; get; }
+    public static bool activeBack = true;
+    // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
+    public static List<Action> onBackList = new List<Action>();
+    private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float createTime, UIBase ui)>> s_uiCacheDict = new Dictionary<UIType, List<(float, UIBase)>>();
-    private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
-    public static List<Action> onBackList = new List<Action>();
-    public static bool activeBack = true;
-
+    
     public static void Init() {
       var root = GameObject.Find("UIRoot");
       topCanvas = root.FindGo("TopCanvas").transform;
       tipCanvas = root.FindGo("TipCanvas").transform;
       cacheCanvas = root.FindGo("CacheCanvas").transform;
       normalCanvas = root.FindGo("NormalCanvas").transform;
-      s_globalIneraction = root.GetComponent<CanvasGroup>();
+      globalIneraction = root.GetComponent<CanvasGroup>();
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_blockDict.Add(type, 0);
@@ -94,17 +95,17 @@ namespace Yume.UI {
       }
     }
 
-    private static void _OpenInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
-      UIBase ui = null;
-      if (!_TryGetCache(data, ref ui)) {
-        ui = AssemblyUtil.CreateInstance(data.typeName) as UIBase;
-        GameObject prefab = ResourceManager.Load<GameObject>(data.prefabName);
+    private static void _OpenInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null, params object[] args) {
+      if (!_TryGetCache(uiTemplate, out UIBase ui)) {
+        ui = AssemblyUtil.CreateInstance(uiTemplate.typeName) as UIBase;
+        GameObject prefab = ResourceManager.Load<GameObject>(uiTemplate.prefabName);
         if (prefab == null) {
-          Debug.LogError($"Prefab为空！url:{data.prefabName}");
+          Debug.LogError($"Prefab为空！url:{uiTemplate.prefabName}");
           return;
         }
-        ui.OnInit(data, Object.Instantiate(prefab, _GetRootByType(data.uiType)));
+        ui.OnInit(uiTemplate, Object.Instantiate(prefab, _GetRootByType(uiTemplate.uiType)));
       }
+      
       stack.Push(ui);
       ui.Open(callback, args);
     }
@@ -115,19 +116,25 @@ namespace Yume.UI {
     /// <param name="uiTemplate"></param>
     /// <param name="ui"></param>
     /// <returns></returns>
-    private static bool _TryGetCache(UITemplate uiTemplate, ref UIBase ui) {
-      var index = s_uiCacheDict[uiTemplate.uiType].FindIndex(i => i.Item2.name == uiTemplate.name);
+    private static bool _TryGetCache(UITemplate uiTemplate, out UIBase ui) {
+      ui = null;
+      
+      int index = s_uiCacheDict[uiTemplate.uiType].
+        FindIndex(tuple => tuple.ui.name == uiTemplate.name);
+      
       if (index >= 0) {
-        ui = s_uiCacheDict[uiTemplate.uiType][index].Item2;
+        ui = s_uiCacheDict[uiTemplate.uiType][index].ui;
+        ui.root.SetParent(_GetRootByType(uiTemplate.uiType));
         s_uiCacheDict[uiTemplate.uiType].RemoveAt(index);
-        ui.root.transform.SetParent(_GetRootByType(uiTemplate.uiType));
         return true;
       }
+      
       return false;
     }
 
     /// <summary>
-    /// 销毁栈中的所有UI并打开新的UI，相当于场景跳转
+    /// 销毁栈中的所有UI并打开新的UI
+    /// 相当于场景跳转
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
@@ -187,8 +194,8 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="active"></param>
     public static void SetGlobalInteractable(bool active) {
-      if (s_globalIneraction) {
-        s_globalIneraction.interactable = active;
+      if (globalIneraction) {
+        globalIneraction.interactable = active;
       } else {
         Debug.LogError("全局交互遮罩未正确设置！");
       }
@@ -203,14 +210,13 @@ namespace Yume.UI {
       }
     }
 
-    private static void _CloseInternal(UITemplate data, Stack<UIBase> stack, Action callback = null, params object[] args) {
-      //NOTICE
-      //Action的执行顺序要特别当心
-      //先执行下面的再执行其他的回调
-      //因为其他的回调里可能会执行打开UI的操作
+    private static void _CloseInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null, params object[] args) {
+      // Action的执行顺序要特别当心
+      // 先执行下面的再执行其他的回调
+      // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
-        //回收
-        s_uiCacheDict[data.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
+        // 回收
+        s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
       };
       callback = action + callback;
 
@@ -219,18 +225,14 @@ namespace Yume.UI {
 
     private static Transform _GetRootByType(UIType uiType) {
       switch (uiType) {
-        case UIType.NORMAL: {
+        case UIType.NORMAL:
           return normalCanvas;
-        }
-        case UIType.TOP: {
+        case UIType.TOP:
           return topCanvas;
-        }
-        case UIType.TIP: {
+        case UIType.TIP:
           return tipCanvas;
-        }
-        default: {
+        default:
           return null;
-        }
       }
     }
 

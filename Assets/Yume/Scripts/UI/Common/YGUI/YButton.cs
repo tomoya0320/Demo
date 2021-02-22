@@ -16,19 +16,13 @@ namespace Yume.UI {
     [SerializeField]
     private bool _soundEvenDisabled;
     public event Action onLongPress;
-    private float m_longPressMinTime = 1.0f;
+    private const float LONG_PRESS_MIN_TIME = 1.0f;
 
     protected override void Awake() {
       base.Awake();
+      
+      this.SetDefaultState();
       _textComponent = GetComponentInChildren<Text>(true);
-
-      ColorBlock newColors = colors;
-      newColors.disabledColor = Color.white;
-      colors = newColors;
-
-      Navigation newNavigation = navigation;
-      newNavigation.mode = Navigation.Mode.None;
-      navigation = newNavigation;
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
@@ -47,10 +41,11 @@ namespace Yume.UI {
     }
 
     private IEnumerator _LongPress() {
+      // 下一帧按钮的状态才会变成Pressed
       yield return null;
 
       float startTime = Time.time;
-      while(Time.time < startTime + m_longPressMinTime) {
+      while(Time.time < startTime + LONG_PRESS_MIN_TIME) {
         if (currentSelectionState == SelectionState.Pressed) {
           yield return null;
         } else {

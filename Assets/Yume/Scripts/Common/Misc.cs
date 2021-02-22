@@ -37,6 +37,21 @@ public static class Colors {
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 }
 
+public static class SelectableExtensions {
+  /// <summary>
+  /// 自定义colors navigation的默认状态 
+  /// </summary>
+  public static void SetDefaultState(this Selectable selectable) {
+    ColorBlock newColors = selectable.colors;
+    newColors.disabledColor = Color.white;
+    selectable.colors = newColors;
+
+    Navigation newNavigation = selectable.navigation;
+    newNavigation.mode = Navigation.Mode.None;
+    selectable.navigation = newNavigation;
+  }
+}
+
 public static class TypeExtensions {
   public static List<string> GetFieldNames(this Type type) {
     FieldInfo[] fieldInfos = type.GetFields();

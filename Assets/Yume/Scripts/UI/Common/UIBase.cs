@@ -77,7 +77,7 @@ namespace Yume.UI {
     public virtual void OnUpdate() { }
 
     /// <summary>
-    /// 回收UI对象，返回UI实例
+    /// 回收UI对象 返回UI实例
     /// </summary>
     public virtual UIBase Recycle() {
       root.SetParent(UIManager.cacheCanvas);
@@ -93,7 +93,7 @@ namespace Yume.UI {
   }
 
   /// <summary>
-  /// 不受UIManager管理，由父UI管理
+  /// 不受UIManager管理 由父UI管理
   /// </summary>
   public abstract class UIChildBase {
     private GameObject m_root;

@@ -6,13 +6,14 @@ namespace Yume.UI {
   public class YTextAutoScroll {
     private Tween m_tween;
     private Text m_textComponent;
-    private float m_delayTime = 3.0f;
-    private float m_scrollSpeed = 10.0f;
     private RectTransform m_rectTransform;
     private RectTransform m_textRectTransform;
+    private const float DELAY_TIME = 3.0f;
+    private const float SCROLL_SPEED = 10.0f;
+    private const float ALPHA_FADE_TIME = 0.5f;
 
     public YTextAutoScroll(GameObject root) {
-      ObjectContainer uiObject = root.GetComponent<ObjectContainer>();
+      var uiObject = root.GetComponent<ObjectContainer>();
       m_rectTransform = root.GetComponent<RectTransform>();
       m_textComponent = uiObject.GetComponent<Text>("Text");
       m_textRectTransform = m_textComponent.rectTransform;
@@ -35,15 +36,15 @@ namespace Yume.UI {
       m_textComponent.SetAlpha(1.0f);
       m_textRectTransform.anchoredPosition = Vector2.zero;
       m_tween = m_textRectTransform
-        .DOAnchorPosY(endValue, m_scrollSpeed)
+        .DOAnchorPosY(endValue, SCROLL_SPEED)
         .SetSpeedBased()
-        .SetDelay(m_delayTime)
+        .SetDelay(DELAY_TIME)
         .OnComplete(() => {
-          m_tween = m_textComponent.DOFade(0, 0.5f)
-          .SetDelay(m_delayTime)
+          m_tween = m_textComponent.DOFade(0, ALPHA_FADE_TIME)
+          .SetDelay(DELAY_TIME)
           .OnComplete(() => {
             m_textRectTransform.anchoredPosition = Vector2.zero;
-            m_tween = m_textComponent.DOFade(1.0f, 0.5f)
+            m_tween = m_textComponent.DOFade(1.0f, ALPHA_FADE_TIME)
             .OnComplete(() => _ScrollTextInternal(endValue));
           });
         });

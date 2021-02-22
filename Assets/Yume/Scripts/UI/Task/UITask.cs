@@ -20,7 +20,6 @@ namespace Yume.UI {
       private UIRedPoint m_taskRedPoint;
       public bool isValid => m_task != null;
       private ObjectContainer[] m_rewardObjects;
-      public Transform transform => gameObject.transform;
 
       public UITaskTerm(GameObject root, TaskType type) : base(root) {
         m_title = GetComponent<Text>("title");

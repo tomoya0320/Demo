@@ -1,10 +1,10 @@
 using UnityEngine;
 
 namespace Yume.UI {
-  [ExecuteInEditMode]
+  [ExecuteInEditMode, RequireComponent(typeof(RectTransform))]
   public class UIFullScrenn : MonoBehaviour {
     private RectTransform m_rectTransform;
-    public static readonly Vector2 referenceResolution = new Vector2(1920, 1080);
+    private static readonly Vector2 referenceResolution = new Vector2(1920, 1080);
 
     private void Awake() {
       m_rectTransform = GetComponent<RectTransform>();

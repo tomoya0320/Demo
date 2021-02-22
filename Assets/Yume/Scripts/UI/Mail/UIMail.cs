@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Broadcast;
 using Yume.Data;
 using Yume.RedPointSystem;
 using Yume.Resource;

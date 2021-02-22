@@ -106,15 +106,9 @@ namespace Yume.UI {
         m_result.text = "请输入完整的账号和新旧密码";
       }
     }
-
-#if TEST
-    private void _OnPlayInLocal() {
-      _GoToMain();
-    }
-#endif
-
+    
     private void _GoToMain(JObject json = null) {
-      DataManager.LoadUserDB(json);
+      DataManager.LoadUserData(json);
       RedPointManager.InitData();
       UIManager.OpenOne("globalBlackFade", () => UIManager.CloseAllAndOpenOne("main"));
     }
@@ -129,9 +123,6 @@ namespace Yume.UI {
     private void _AddListener() {
       GetComponent<Button>("Login").onClick.AddListener(_OnLogin);
       GetComponent<Button>("Register").onClick.AddListener(_OnRegister);
-#if TEST
-       GetComponent<Button>("Local").onClick.AddListener(_OnPlayInLocal);
-#endif
       GetComponent<Button>("AlterPsd").onClick.AddListener(_OnAlterPassword);
       GetComponent<Button>("SwitchAlterPsd").onClick.AddListener(() => {
         m_main.SetActiveEx(false);

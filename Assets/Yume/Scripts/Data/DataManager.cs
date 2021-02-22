@@ -531,7 +531,7 @@ namespace Yume.Data {
 
     #region Load&Save
 
-    public static void LoadUserDB(JObject json = null) {
+    public static void LoadUserData(JObject json = null) {
       if (json == null) {
         s_playMode = PlayMode.LOCAL;
         FileStream fs;

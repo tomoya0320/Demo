@@ -43,10 +43,12 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
-
-      _InitAVG((string)args[0], args[1] as Action);
-      UIManager.onBackList.Add(_SkipAVG);
+      
+      m_avgGraph = ResourceManager.Load<AVGGraph>((string)args[0]);
+      m_onQuitAVG = args[1] as Action;
       m_avgGraph.Enter(this);
+      
+      UIManager.onBackList.Add(_SkipAVG);
     }
 
     public override void Close(Action callback = null, params object[] args) {
@@ -54,6 +56,7 @@ namespace Yume.UI {
         _CleanUp();
         m_onQuitAVG?.Invoke();
         UIManager.onBackList.Remove(_SkipAVG);
+        // TODO:临时用
         AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
       };
 
@@ -74,11 +77,6 @@ namespace Yume.UI {
 
     public void QuitAVG() {
       UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
-    }
-
-    private void _InitAVG(string avgName, Action onQuitAVG) {
-      m_onQuitAVG = onQuitAVG;
-      m_avgGraph = ResourceManager.Load<AVGGraph>(avgName);
     }
 
     private void _CleanUp() {
