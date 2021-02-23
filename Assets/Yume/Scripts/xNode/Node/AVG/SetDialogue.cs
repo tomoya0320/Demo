@@ -4,9 +4,7 @@ using Yume.UI;
 
 namespace Yume.AVG {
 	public class SetDialogue : FadeNodeBase {
-		[Input(ShowBackingValue.Never)]
-		public int node;
-		[SerializeField]
+    [SerializeField]
 		private string _name;
 		[SerializeField, TextArea]
 		private string _dialogue;

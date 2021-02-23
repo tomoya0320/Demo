@@ -7,7 +7,6 @@ using Yume.Resource;
 using Yume.UI;
 
 namespace Yume.Battle {
-  // TODO:优化=>表现层分离
   public class Card {
     public bool active = true;
     public GameObject gameObject { get; }
@@ -22,9 +21,9 @@ namespace Yume.Battle {
       
       // 表现层
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      objectContainer.GetComponent<Text>("PhaseText").text = card.phase.ToString();
-      objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
+      objectContainer.GetComponent<Text>("PhaseText").text = phase.ToString();
+      objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("EnergyText").text = cardPhase.energyConsumption.ToString();
       objectContainer.GetComponent<Image>("IconImage").sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
       if (onClickCard != null) {

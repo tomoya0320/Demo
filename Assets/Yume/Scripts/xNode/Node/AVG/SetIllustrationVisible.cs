@@ -4,9 +4,7 @@ using Yume.UI;
 
 namespace Yume.AVG {
 	public class SetIllustrationVisible : FadeNodeBase {
-		[Input(ShowBackingValue.Never)]
-		public int node;
-		[SerializeField]
+    [SerializeField]
 		private bool _visible;
 
 		protected override Tween DoTween(UIAVG avg, float fadeTime) {

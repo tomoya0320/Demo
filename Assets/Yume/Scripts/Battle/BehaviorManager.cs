@@ -27,9 +27,12 @@ namespace Yume.Battle {
         Debug.LogError($"未加载的BehaviorTime:{behaviorTime}！");
         return;
       }
-      m_behaviorDict[behaviorTime].Remove(behaviorTree);
-      if (behaviorTime == BehaviorTime.ON_REMOVE) {
-        behaviorTree.Run();
+      if (m_behaviorDict[behaviorTime].Remove(behaviorTree)) {
+        if (behaviorTime == BehaviorTime.ON_REMOVE) {
+          behaviorTree.Run();
+        }
+      } else {
+        Debug.LogError($"remove behaviorTree error.behaviorTree not exist");
       }
     }
 

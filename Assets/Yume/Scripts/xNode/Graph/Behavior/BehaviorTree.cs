@@ -9,7 +9,7 @@ namespace Yume.Battle {
     public Unit unit;
     [NonSerialized]
     public Buff buff;
-    // 这棵树自己的Blackboard 比如buff里的Blackboard
+    // 同一个buff下的所有行为树共用的Blackboard
     [NonSerialized]
     public Blackboard blackboard;
     

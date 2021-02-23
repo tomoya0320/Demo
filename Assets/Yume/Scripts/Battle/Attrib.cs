@@ -12,9 +12,6 @@ namespace Yume.Battle {
     HP,
     [Description("攻击")]
     ATK,
-    /// <summary>
-    /// 不显示
-    /// </summary>
     [Description("防御")]
     DEF,
     [Description("能量")]
@@ -25,7 +22,7 @@ namespace Yume.Battle {
   public struct AttribAdditive {
     // 属性类型
     public AttribType type;
-    // 目标是否是最大值
+    // 是否作用在最大值上
     public bool onMaxValue;
     // 基础值
     public float value;
@@ -39,9 +36,9 @@ namespace Yume.Battle {
   public struct AttribArgs {
     // 属性类型
     public AttribType type;
-    // 目标是否是最大值
+    // 是否作用在最大值上
     public bool onMaxValue;
-    // 移除的值
+    // 属性值
     public float value;
   }
 

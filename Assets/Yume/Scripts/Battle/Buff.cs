@@ -16,14 +16,13 @@ namespace Yume.Battle {
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorTreeDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
 
     public Buff(Unit unit, string id, Blackboard blackboard, Behavior[] behaviors) {
-      this.unit = unit;
       this.id = id;
+      this.unit = unit;
       this.blackboard = blackboard;
       // 这些属性从blackboard中取
       duration = blackboard.GetValue<int>("duration");
 
       foreach (var behavior in behaviors) {
-        // 只初始化buff的行为树
         if (!m_behaviorTreeDict.TryGetValue(behavior.behaviorTime, out var behaviorTrees)) {
           behaviorTrees = new List<BehaviorTree>();
           m_behaviorTreeDict.Add(behavior.behaviorTime, behaviorTrees);
@@ -40,7 +39,7 @@ namespace Yume.Battle {
     public void OnAdd() {
       // 这时候行为树才正式添加
       if (!BattleManager.behaviorManagers.ContainsKey(unit)) {
-        Debug.LogError($"单位:{unit.name}的BehaviorManager未正确初始化！");
+        Debug.LogError($"单位[{unit.id}]的BehaviorManager未正确初始化！");
         return;
       }
       foreach (var kv in m_behaviorTreeDict) {
@@ -66,7 +65,7 @@ namespace Yume.Battle {
     }
 
     public bool OnUpdate() {
-      // 持续时间小于0表示无限 直接返回true
+      // 持续时间小于0表示无限直接返回true
       if (duration < 0) {
         return true;
       }

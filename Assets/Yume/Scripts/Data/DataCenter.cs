@@ -49,6 +49,9 @@ namespace Yume.Data {
     public BuffTemplate[] buffTemplates;
   }
 
+  /// <summary>
+  /// 绝对阵营
+  /// </summary>
   public enum Camp {
     ALLY,
     ENEMY,
