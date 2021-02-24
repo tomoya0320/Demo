@@ -51,6 +51,7 @@ namespace Yume.Battle {
     }
 
     public override void OnDie() {
+      CleanUp();
       BattleManager.units.Remove(this);
       if (BattleManager.units.Count == 1) {
         BattleManager.battleState = BattleState.WIN;
