@@ -8,13 +8,16 @@ using Yume.UI;
 
 namespace Yume.Battle {
   public class Card {
-    public bool active = true;
+    public Unit owner;
+    public bool active;
+    public Rect rect { get; }
     public GameObject gameObject { get; }
     public int phase { private set; get; }
     public CardTemplate cardTemplate { get; }
     public CardPhase cardPhase => cardTemplate.cardPhases[phase];
 
-    public Card(CardData card, GameObject root, Action<Card> onClickCard = null) {
+    public Card(Unit unit, CardData card, GameObject root, Action<Card> onUseCard = null) {
+      owner = unit;
       gameObject = root;
       phase = card.phase;
       cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
@@ -26,12 +29,25 @@ namespace Yume.Battle {
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("EnergyText").text = cardPhase.energyConsumption.ToString();
       objectContainer.GetComponent<Image>("IconImage").sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
-      if (onClickCard != null) {
-        objectContainer.GetComponent<YButton>("Button").onClick.AddListener(() => onClickCard(this));
+      if (onUseCard != null) {
+        gameObject.AddComponent<UICardDrag>().Init(() => onUseCard(this), () => {
+          if (gameObject.transform.position.y > 0) {
+            if (cardPhase.energyConsumption > owner.GetAttrib(AttribType.ENERGY)) {
+              MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
+              return false;
+            } else {
+              return true;
+            }
+          } else {
+            return false;
+          }
+        });
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(cardPhase.description);
-
+      // TODO:测试用
+      rect = gameObject.GetComponent<RectTransform>().rect;
+      
       gameObject.SetActiveEx(false);
     }
 

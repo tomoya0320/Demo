@@ -42,7 +42,7 @@ namespace Yume.Battle {
   }
 
   /// <summary>
-  /// 通过阵营选择
+  /// 通过绝对阵营选择
   /// </summary>
   public class CampSelector : TargetSelector {
     [SerializeField]

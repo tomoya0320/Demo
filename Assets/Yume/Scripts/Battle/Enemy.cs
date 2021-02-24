@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Yume.Data;
-using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
-    public Enemy(UnitData enemy, CardData[] cards) : base(enemy, BattleManager.enemyFolder) {
-      var prefab = ResourceManager.Load<GameObject>("card_prefab");
-      foreach (var card in cards) {
-        var go = Object.Instantiate(prefab, gameObject.transform); // 敌人的牌就放自己的下面
-        this.cards.Add(new Card(card, go));
+    public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
+      foreach (var cardData in cardDatas) {
+        cards.Add(CardFactory.CreateCard(this, cardData, null, gameObject.transform));
       }
     }
 
@@ -23,7 +20,7 @@ namespace Yume.Battle {
       // 筛选出符合出牌条件的牌
       List<Card> candidateCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
       // 没有就直接结束回合
-      if (candidateCards.Count == 0) {
+      if (candidateCards == null || candidateCards.Count == 0) {
         yield break;
       }
       // 随机选一张牌出
@@ -34,7 +31,7 @@ namespace Yume.Battle {
       // 出牌中
       while (true) {
         // TODO:测试用
-        if (BattleManager.battleResult != BattleResult.NONE) {
+        if (BattleManager.battleState != BattleState.RUNNING) {
           yield break;
         }
         if (playCardQueue.Count > 0) {
@@ -48,15 +45,16 @@ namespace Yume.Battle {
           // TODO:测试用
           yield return new WaitForSeconds(2);
           cardTuple.card.gameObject.SetActiveEx(false);
-          cardTuple.card.active = true;
         }
         yield return null;
       }
     }
 
     public override void OnDie() {
-      // TODO:测试用
-      BattleManager.battleResult = BattleResult.WIN;
+      BattleManager.units.Remove(this);
+      if (BattleManager.units.Count == 1) {
+        BattleManager.battleState = BattleState.WIN;
+      }
     }
 
     public override void CleanUp() {

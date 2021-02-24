@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
-using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public abstract class Unit {
@@ -24,7 +23,7 @@ namespace Yume.Battle {
     protected Queue<(Card card, Unit target)> playCardQueue = new Queue<(Card, Unit)>(); // 出牌队列
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
 
-    protected Unit(UnitData unit, Transform unitFolder) {
+    protected Unit(UnitData unit) {
       var unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
       id = unit.id;
       level = unit.level;
@@ -34,8 +33,7 @@ namespace Yume.Battle {
       passiveSkillLevel = unit.passiveSkillLevel;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
       attribs = MathUtil.CalculateAttribs(unit.id, unit.level);
-      var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);
-      gameObject = Object.Instantiate(prefab, unitFolder);
+      gameObject = UnitFactory.CreateUnitGameObject(unitTemplate.prefabName, camp);
       animator = gameObject.GetComponent<Animator>();
       
       // 初始化UI

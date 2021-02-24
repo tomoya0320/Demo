@@ -110,6 +110,10 @@ public static class GraphicExtensions {
 }
 
 public static class GameObjectExtensions {
+  public static RectTransform GetRectTransform(this GameObject gameObject) {
+    return gameObject.GetComponent<RectTransform>();
+  }
+  
   public static void SetParent(this GameObject gameObject, Transform parent) {
     gameObject.transform.SetParent(parent);
   }
@@ -413,4 +417,8 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
   }
 
   protected virtual void OnInit() { }
+}
+
+public class YTween {
+  public int count;
 }

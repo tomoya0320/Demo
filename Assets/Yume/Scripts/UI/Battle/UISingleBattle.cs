@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
@@ -12,16 +11,12 @@ namespace Yume.UI {
   public class UISingleBattle : UIBase {
     private Image m_bg;
     private YButton m_finishTurnBtn;
-    private Dictionary<string, Transform> m_folderDict = new Dictionary<string, Transform>();
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
       m_bg = GetComponent<Image>("bg");
       m_finishTurnBtn = GetComponent<YButton>("finish turn");
-      m_folderDict.Add("cardFolder", GetGameObject("cardFolder").transform);
-      m_folderDict.Add("charFolder", GetGameObject("charFolder").transform);
-      m_folderDict.Add("enemyFolder", GetGameObject("enemyFolder").transform);
       
       _AddListener();
       
@@ -74,7 +69,10 @@ namespace Yume.UI {
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
 
-      BattleManager.Init(levelTemplate, m_folderDict);
+      // 注意初始化顺序
+      UnitFactory.Init();
+      CardFactory.Init();
+      BattleManager.Init(levelTemplate);
 
       callback += BattleManager.StartBattle;
       base.Open(callback, args);
