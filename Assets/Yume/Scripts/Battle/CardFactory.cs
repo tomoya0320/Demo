@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yume.Data;
 using Yume.Resource;
-using DG.Tweening;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -22,7 +21,7 @@ namespace Yume.Battle {
       s_consumeCardFolder = GameObject.Find("consumeCardFolder").transform;
     }
 
-    public static Card CreateCard(Unit unit, CardData cardData, Action<Card> onUseCard = null, Transform parent = null) {
+    public static Card CreateCard(Unit unit, CardData cardData, Func<Card, bool> onUseCard = null, Transform parent = null) {
       var prefab = ResourceManager.Load<GameObject>("card_prefab");
       if (parent == null) {
         parent = s_drawCardFolder;
@@ -33,6 +32,7 @@ namespace Yume.Battle {
 
     /// <summary>
     /// 抽牌动效=>从抽牌堆到手牌堆
+    /// 仅限玩家
     /// </summary>
     /// <returns></returns>
     public static IEnumerator DrawCard(params Card[] cards) {
@@ -42,11 +42,9 @@ namespace Yume.Battle {
         Card card = s_handCards[i];
         card.gameObject.SetActiveEx(true);
         card.gameObject.SetParent(s_handCardFolder);
-        tween.count++;
-        card.gameObject.transform.DOScale(Vector2.one, 0.5f).OnComplete(() => tween.count--);
-        tween.count++;
+        tween.DOScale(card.gameObject, Vector3.one, 0.5f);
         Vector2 dest = new Vector2((i - 0.5f * s_handCards.Count + 0.5f) * card.rect.width, 0);
-        card.gameObject.GetRectTransform().DOAnchorPos(dest, 0.5f).OnComplete(() => tween.count--);
+        tween.DOAnchorPos(card.gameObject, dest, 0.5f);
         if (i < s_handCards.Count - 1) {
           yield return new WaitForSeconds(0.1f);
         }
@@ -57,6 +55,7 @@ namespace Yume.Battle {
 
     /// <summary>
     /// 弃牌动效=>从手牌堆到弃牌堆
+    /// 仅限玩家
     /// </summary>
     /// <returns></returns>
     public static IEnumerator DiscardCard(params Card[] cards) {
@@ -65,15 +64,8 @@ namespace Yume.Battle {
         s_handCards.Remove(cards[i]);
         cards[i].gameObject.SetParent(s_discardCardFolder);
         Transform transform = cards[i].gameObject.transform;
-        tween.count++;
-        transform.DOScale(0.3f * Vector2.one, 0.5f).OnComplete(() => tween.count--);
-        tween.count++;
-        transform.DOLocalMove(Vector2.zero, 0.5f).OnComplete(
-          () => {
-            transform.gameObject.SetActiveEx(false);
-            tween.count--;
-          }
-        );
+        tween.DOScale(transform,0.3f * Vector3.one, 0.5f);
+        tween.DOLocalMove(transform, Vector3.zero, 0.5f, () => transform.gameObject.SetActiveEx(false));
         if (i > 0) {
           yield return new WaitForSeconds(0.1f);
         }

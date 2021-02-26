@@ -44,6 +44,10 @@ namespace Yume.Battle {
 #endif
 
     public static void Init(LevelTemplate levelTemplate) {
+      // 初始化工厂
+      UnitFactory.Init();
+      CardFactory.Init();
+      
       s_levelTemplate = levelTemplate;
       // 初始化角色
       var team = DataManager.userTeams[DataManager.userTeamIndex];

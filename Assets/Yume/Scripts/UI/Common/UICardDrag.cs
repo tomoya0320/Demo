@@ -1,38 +1,67 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Yume.UI {
-  public class UICardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
+  public class UICardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+    private Tween m_tween;
+    private bool m_dragging;
     private Vector3 m_originPos;
     private Vector3 m_clickDownPos;
-    private Action m_onClickUp;
     private Func<bool> m_condition;
+    private Func<bool> m_onUseCard;
+    private Action m_onDraggingCard;
     private int m_originSiblingIndex;
+    public bool enable { private set; get; }
+    public bool interactable => enable && m_tween == null;
 
-    public void Init(Action onClickUp, Func<bool> condition) {
-      m_onClickUp = onClickUp;
+    public UICardDrag Init(Action onDraggingCard, Func<bool> onUseCard, Func<bool> condition) {
+      m_onUseCard = onUseCard;
       m_condition = condition;
+      m_onDraggingCard = onDraggingCard;
+      return this;
     }
-    
+
+    public void SetEnable(bool enable) {
+      this.enable = enable;
+    }
+
     public void OnPointerDown(PointerEventData eventData) {
+      if (!interactable || m_condition == null || !m_condition()) {
+        return;
+      }
+
+      m_dragging = true;
+      m_originPos = transform.position;
       m_originSiblingIndex = transform.GetSiblingIndex();
       transform.SetAsLastSibling();
-      m_originPos = transform.position;
-      m_clickDownPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      m_clickDownPos = mousePosition;
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-      if (m_condition?.Invoke() ?? false) {
-        m_onClickUp?.Invoke();
-      } else {
-        transform.SetSiblingIndex(m_originSiblingIndex);
-        transform.position = m_originPos;
+      if (!m_dragging) {
+        return;
+      }
+
+      m_dragging = false;
+      if (m_onUseCard == null || !m_onUseCard()) {
+        m_tween = transform.DOMove(m_originPos, 0.5f).OnComplete(
+          () => {
+            transform.SetSiblingIndex(m_originSiblingIndex);
+            m_tween = null;
+          }
+        );
       }
     }
 
-    public void OnDrag(PointerEventData eventData) {
-      transform.position = m_originPos + (Camera.main.ScreenToWorldPoint(Input.mousePosition) - m_clickDownPos);
+    private void Update() {
+      if (m_dragging) {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = m_originPos + (mousePosition - m_clickDownPos);
+        m_onDraggingCard?.Invoke();
+      }
     }
   }
 }

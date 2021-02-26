@@ -16,11 +16,12 @@ namespace Yume.Battle {
     public string name { get; }
     private Attrib[] attribs { get; }
     public Animator animator { get; }
+    public GameObject selected { get; }
     public GameObject gameObject { get; }
     public int passiveSkillLevel { get; }
     public PassiveSkillPhase[] passiveSkillPhases { get; }
     public Blackboard blackboard { get; } = new Blackboard();
-    protected Queue<(Card card, Unit target)> playCardQueue = new Queue<(Card, Unit)>(); // 出牌队列
+    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
 
     protected Unit(UnitData unit) {
@@ -35,6 +36,8 @@ namespace Yume.Battle {
       attribs = MathUtil.CalculateAttribs(unit.id, unit.level);
       gameObject = UnitFactory.CreateUnitGameObject(unitTemplate.prefabName, camp);
       animator = gameObject.GetComponent<Animator>();
+      selected = gameObject.FindGo("selected");
+      selected?.SetActiveEx(false);
       
       // 初始化UI
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
@@ -84,6 +87,6 @@ namespace Yume.Battle {
       }
     }
 
-    public void EnqueueCard((Card card, Unit target) cardTuple) => playCardQueue.Enqueue(cardTuple);
+    public void EnqueueCard(Card card) => playCardQueue.Enqueue(card);
   }
 }

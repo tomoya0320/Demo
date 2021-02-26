@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
@@ -420,5 +421,43 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
 }
 
 public class YTween {
-  public int count;
+  public int count { private set; get; }
+
+  public void DOLocalMove(Transform transform, Vector3 pos, float duration, Action onCompleted = null) {
+    count++;
+    transform.DOLocalMove(pos, duration).OnComplete(
+      () => {
+        count--;
+        onCompleted?.Invoke();
+      }
+    );
+  }
+
+  public void DOScale(Transform transform, Vector3 scale, float duration, Action onCompleted = null) {
+    count++;
+    transform.DOScale(scale, duration).OnComplete(
+      () => {
+        count--;
+        onCompleted?.Invoke();
+      }
+    );
+  }
+
+  public void DOScale(GameObject gameObject, Vector3 scale, float duration, Action onCompleted = null) {
+    DOScale(gameObject.transform, scale, duration, onCompleted);
+  }
+
+  public void DOAnchorPos(RectTransform rectTransform, Vector2 pos, float duration, Action onCompleted = null) {
+    count++;
+    rectTransform.DOAnchorPos(pos, duration).OnComplete(
+      () => {
+        count--;
+        onCompleted?.Invoke();
+      }
+    );
+  }
+
+  public void DOAnchorPos(GameObject gameObject, Vector2 pos, float duration, Action onCompleted = null) {
+    DOAnchorPos(gameObject.GetRectTransform(), pos, duration, onCompleted);
+  }
 }

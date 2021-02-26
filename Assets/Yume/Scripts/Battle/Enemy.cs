@@ -10,7 +10,10 @@ namespace Yume.Battle {
 
     public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
       foreach (var cardData in cardDatas) {
-        cards.Add(CardFactory.CreateCard(this, cardData, null, gameObject.transform));
+        var card = CardFactory.CreateCard(this, cardData, null, gameObject.transform);
+        // 敌人默认的目标是玩家
+        card.candidate = BattleManager.character;
+        cards.Add(card);
       }
     }
 
@@ -25,9 +28,9 @@ namespace Yume.Battle {
       }
       // 随机选一张牌出
       int index = MathUtil.random.Next(0, candidateCards.Count);
-      playCardQueue.Enqueue((candidateCards[index], BattleManager.character));
+      playCardQueue.Enqueue(candidateCards[index]);
       // 结束出牌的标记
-      playCardQueue.Enqueue(default);
+      playCardQueue.Enqueue(null);
       // 出牌中
       while (true) {
         // TODO:测试用
@@ -35,16 +38,16 @@ namespace Yume.Battle {
           yield break;
         }
         if (playCardQueue.Count > 0) {
-          var cardTuple = playCardQueue.Dequeue();
-          if (cardTuple == default) {
+          var card = playCardQueue.Dequeue();
+          if (card == null) {
             break;
           }
           // TODO:测试用
-          cardTuple.card.gameObject.SetActiveEx(true);
-          cardTuple.card.Cast(this, cardTuple.target);
+          card.gameObject.SetActiveEx(true);
+          card.Cast();
           // TODO:测试用
           yield return new WaitForSeconds(2);
-          cardTuple.card.gameObject.SetActiveEx(false);
+          card.gameObject.SetActiveEx(false);
         }
         yield return null;
       }

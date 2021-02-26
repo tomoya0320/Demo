@@ -46,7 +46,7 @@ namespace Yume.UI {
       m_finishTurnBtn.interactable = false;
       m_finishTurnBtn.image.color = Color.gray;
 
-      BattleManager.character.EnqueueCard(default);
+      BattleManager.character.EnqueueCard(null);
     }
 
     private void _EnterFirstEnemyTurn() {
@@ -68,10 +68,7 @@ namespace Yume.UI {
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
-
-      // 注意初始化顺序
-      UnitFactory.Init();
-      CardFactory.Init();
+      
       BattleManager.Init(levelTemplate);
 
       callback += BattleManager.StartBattle;
