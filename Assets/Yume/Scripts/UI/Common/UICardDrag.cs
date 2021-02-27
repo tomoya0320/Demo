@@ -47,7 +47,7 @@ namespace Yume.UI {
 
       m_dragging = false;
       if (m_onUseCard == null || !m_onUseCard()) {
-        m_tween = transform.DOMove(m_originPos, 0.5f).OnComplete(
+        m_tween = transform.DOMove(m_originPos, 0.2f).OnComplete(
           () => {
             transform.SetSiblingIndex(m_originSiblingIndex);
             m_tween = null;

@@ -43,10 +43,10 @@ namespace Yume.Battle {
     }
 #endif
 
-    public static void Init(LevelTemplate levelTemplate) {
+    public static void Init(LevelTemplate levelTemplate, ObjectContainer objectContainer) {
       // 初始化工厂
-      UnitFactory.Init();
-      CardFactory.Init();
+      UnitFactory.Init(objectContainer);
+      CardFactory.Init(objectContainer);
       
       s_levelTemplate = levelTemplate;
       // 初始化角色
@@ -56,10 +56,10 @@ namespace Yume.Battle {
       foreach (var cardGuid in team.cardGuidList) {
         cardList.Add(DataManager.GetCard(cardGuid).Clone() /*因为是引用类型会影响到原来的数据所以需要复制一份*/);
       }
-      units.Add(new Character(tempChar, cardList.ToArray()));
+      units.Add(UnitFactory.CreateUnit<Character>(tempChar, cardList.ToArray()));
       // 初始化敌人
       foreach (var enemyTemplate in s_levelTemplate.enemyTemplates) {
-        units.Add(new Enemy(enemyTemplate.enemy, enemyTemplate.cards));
+        units.Add(UnitFactory.CreateUnit<Enemy>(enemyTemplate.enemy, enemyTemplate.cards));
       }
       // 初始化BuffManagers BehaviorManagers
       foreach (var unit in units) {

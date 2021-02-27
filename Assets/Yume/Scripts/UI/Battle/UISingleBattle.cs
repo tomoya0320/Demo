@@ -69,7 +69,7 @@ namespace Yume.UI {
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
       
-      BattleManager.Init(levelTemplate);
+      BattleManager.Init(levelTemplate, objectContainer);
 
       callback += BattleManager.StartBattle;
       base.Open(callback, args);

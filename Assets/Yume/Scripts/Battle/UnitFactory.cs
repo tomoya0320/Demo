@@ -4,34 +4,29 @@ using Yume.Resource;
 
 namespace Yume.Battle {
   public static class UnitFactory {
-    private static Transform s_charFolder;
-    private static Transform s_enemyFolder;
-    
-    public static void Init() {
-      s_charFolder = GameObject.Find("charFolder").transform;
-      s_enemyFolder = GameObject.Find("enemyFolder").transform;
+    public static Transform charFolder { private set; get; }
+    public static Transform enemyFolder { private set; get; }
+
+    public static void Init(ObjectContainer objectContainer) {
+      charFolder = objectContainer.GetGameObject("charFolder").transform;
+      enemyFolder = objectContainer.GetGameObject("enemyFolder").transform;
     }
 
-    public static GameObject CreateUnitGameObject(string prefabName, Camp camp) {
-      var prefab = ResourceManager.Load<GameObject>(prefabName);
-      Transform parent;
-      switch (camp) {
-        case Camp.ALLY:
-          parent = s_charFolder;
-          break;
-        case Camp.ENEMY:
-          parent = s_enemyFolder;
-          break;
-        default:
-          parent = null;
-          break;
+    public static Unit CreateUnit<T>(UnitData unitData, CardData[] cardDatas) where T : Unit {
+      Unit unit = null;
+
+      if (typeof(Character).IsAssignableFrom(typeof(T))) {
+        unit = new Character(unitData, cardDatas);
+      } else if (typeof(Enemy).IsAssignableFrom(typeof(T))) {
+        unit = new Enemy(unitData, cardDatas);
       }
-      return Object.Instantiate(prefab, parent);
+
+      return unit;
     }
-    
+
     public static void CleanUp() {
-      s_charFolder = null;
-      s_enemyFolder = null;
+      charFolder = null;
+      enemyFolder = null;
     }
   }
 }

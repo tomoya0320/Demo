@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.Utilities;
+using UnityEngine;
 using Yume.Data;
+using Yume.UI;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -27,6 +29,8 @@ namespace Yume.Battle {
   
   public class Character : Unit {
     private List<Card> m_tempCardList = new List<Card>();
+    private UICardManager m_uiCardManager = new UICardManager();
+    protected override Transform folder => UnitFactory.charFolder;
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
     public Character(UnitData character, CardData[] cardDatas) : base(character) {
@@ -68,7 +72,7 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      yield return CardFactory.DrawCard(m_tempCardList.ToArray());
+      yield return m_uiCardManager.DrawCard(m_tempCardList.ToArray());
       // 启用卡牌拖拽组件
       cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(true));
       m_tempCardList.Clear();
@@ -85,22 +89,21 @@ namespace Yume.Battle {
           } 
           card.Cast(true);
           // 关闭卡牌拖拽组件
-          card.cardDrag?.SetEnable(true);
+          card.cardDrag?.SetEnable(false);
           // 把用过的牌弃掉
-          yield return CardFactory.DiscardCard(card);
+          yield return m_uiCardManager.DiscardCard(card);
         }
         yield return null;
       }
       
-      // 弃牌逻辑层
+      // 关闭卡牌拖拽组件
+      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(false));
       // 记录弃置的卡牌
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       cardHeapDict[CardHeapType.HAND].Clear();
-      // 关闭卡牌拖拽组件
-      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(false));
       // 弃牌表现层
-      yield return CardFactory.DiscardCard(m_tempCardList.ToArray());
+      yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
       m_tempCardList.Clear();
     }
     

@@ -6,6 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
+    protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
     public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
