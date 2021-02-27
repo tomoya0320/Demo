@@ -17,8 +17,12 @@ namespace Yume.Battle {
         // 计算攻击前的附加攻击值
         finalAtk += caster.blackboard.GetValueAndRemove<float>("extraAtk");
       }
-      // 伤害本身值应该是非负数
-      return Mathf.Abs(behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk));
+
+      if (finalAtk > 0) {
+        return Mathf.Abs(behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk));
+      } else {
+        return 0;
+      }
     }
   }
 }

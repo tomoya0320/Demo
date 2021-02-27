@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Yume.Battle {
+﻿namespace Yume.Battle {
   /// <summary>
   /// 根据caster上一次造成的伤害回复caster一定量的生命
   /// </summary>

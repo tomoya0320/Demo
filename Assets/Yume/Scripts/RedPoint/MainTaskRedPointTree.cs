@@ -9,8 +9,7 @@ namespace Yume.RedPointSystem {
     protected override RedPointTreeType redPointTreeType => RedPointTreeType.MAIN_TASK;
 
     public override void InitData() {
-      redPointDict = new Dictionary<string, RedPointNode>();
-      redPointDict.Add(MAIN_TASK, new RedPointNode(redPointTreeType, MAIN_TASK, null));
+      redPointDict = new Dictionary<string, RedPointNode> { { MAIN_TASK, new RedPointNode(redPointTreeType, MAIN_TASK, null) } };
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
         redPointDict.Add(type.GetDescription(), new RedPointNode(redPointTreeType,
                          type.GetDescription(), redPointDict[MAIN_TASK]));

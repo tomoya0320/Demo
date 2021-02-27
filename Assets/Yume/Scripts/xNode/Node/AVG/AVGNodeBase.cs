@@ -16,7 +16,12 @@ namespace Yume.AVG {
 		public abstract void Run(UIAVG avg);
 	}
 
-	public abstract class FadeNodeBase : AVGNodeBase {
+  public abstract class LeafNode : AVGNodeBase {
+    [Input(ShowBackingValue.Never, ConnectionType.Override)]
+    public int node;
+  }
+
+  public abstract class FadeNodeBase : LeafNode {
 		[SerializeField]
 		protected bool block = true;
 		[SerializeField]
@@ -28,15 +33,15 @@ namespace Yume.AVG {
 			if (block) {
 				avgGraph.block++;
 			}
-			Tween tween = DOTween(avg, fadeTime);
+			Tween tween = DoTween(avg, fadeTime);
 			tween.OnComplete(() => {
-				avgGraph.tweenList.Remove(tween);
+				avgGraph.tweens.Remove(tween);
 				OnFadeCompleted(avg);
 			});
-			avgGraph.tweenList.Add(tween);
+			avgGraph.tweens.Add(tween);
 		}
 
-		protected abstract Tween DOTween(UIAVG avg, float fadeTime);
+		protected abstract Tween DoTween(UIAVG avg, float fadeTime);
 
 		protected void OnFadeCompleted(UIAVG avg) {
 			var connections = GetOutputPort(nameof(onFadeCompleted)).GetConnections();

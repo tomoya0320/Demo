@@ -136,6 +136,7 @@ namespace Yume.UI {
         foreach (var card in m_cardChoiceGroup.selectedCards) {
           cardGuids.Add(card.guid);
         }
+        cardGuids.Sort();
         m_onSelected?.Invoke(cardGuids);
       });
       GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));

@@ -48,7 +48,7 @@ namespace Yume.UI {
           m_switchSliderMoveDist *= -1.0f;
         }
         if (m_valueSlider) {
-          m_valueSlider.value = PlayerPrefs.GetInt(valueKey);
+          m_valueSlider.value = PlayerPrefs.GetFloat(valueKey);
         }
 
         _AddListener();
@@ -75,8 +75,8 @@ namespace Yume.UI {
         }
       }
 
-      private void _ChangeValue(float _) {
-        PlayerPrefs.SetInt(valueKey, (int)m_valueSlider.value);
+      private void _ChangeValue(float value) {
+        PlayerPrefs.SetFloat(valueKey, value);
         _UpdateState();
       }
 

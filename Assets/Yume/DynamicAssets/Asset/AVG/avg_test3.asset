@@ -37,7 +37,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -49,10 +49,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 0
   fadeTime: 0.5
   onFadeCompleted: 0
-  node: 0
   _name: "\u6D6E\u58EB\u5FB7"
   _dialogue: "\u6218\u6597\u8FD8\u5728\u7EE7\u7EED"
 --- !u!114 &-2984065205289269494
@@ -80,9 +80,9 @@ MonoBehaviour:
   position: {x: 328, y: 8}
   ports:
     keys:
-    - node
+    - last
     values:
-    - _fieldName: node
+    - _fieldName: last
       _node: {fileID: -2984065205289269494}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -94,7 +94,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  node: 0
+  last: 0
 --- !u!114 &-1926963278744107930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: node
+      - fieldName: last
         node: {fileID: -2984065205289269494}
         reroutePoints: []
       _direction: 1
@@ -229,7 +229,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0

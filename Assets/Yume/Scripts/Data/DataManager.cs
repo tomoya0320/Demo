@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using Yume.Battle;
 using Yume.Broadcast;
 using Yume.RedPointSystem;
 using Yume.Resource;
@@ -21,10 +20,8 @@ namespace Yume.Data {
     }
 
     private static PlayMode s_playMode;
-    private static string localUserDataPath {
-      get { return Path.Combine(Application.persistentDataPath, "savedata"); }
-    }
     private static HashSet<string> s_saveDataTypes = new HashSet<string>();
+    private static string s_localUserDataPath = Path.Combine(Application.persistentDataPath, "savedata");
 
     #region User
 
@@ -195,8 +192,7 @@ namespace Yume.Data {
     }
 
     public static int GetItemCount(string id) {
-      ItemData itemDB = userItems.Find(obj => obj.id == id);
-      return itemDB?.count ?? 0;
+      return userItems.Find(obj => obj.id == id)?.count ?? 0;
     }
 
     public static List<TaskData> GetTaskList(TaskType taskType) {
@@ -207,6 +203,11 @@ namespace Yume.Data {
       return userTasks.Find(obj => obj.id == taskId);
     }
 
+    /// <summary>
+    /// 因为卡牌能重复所以只能通过guid获取
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <returns></returns>
     public static CardData GetCard(int guid) {
       return userCards.Find(obj => obj.guid == guid);
     }
@@ -274,6 +275,7 @@ namespace Yume.Data {
       userCards.Add(card);
       card.guid = s_user.validGuid++;
       s_saveDataTypes.Add("cards");
+      s_saveDataTypes.Add("validGuid");
     }
 
     #endregion
@@ -441,7 +443,7 @@ namespace Yume.Data {
             _ActivateTask(nextTask);
           }
         }
-        //任务排序用
+ 
         EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
         _UpdateTaskState(RequestType.TASK, task.id, 1);
 
@@ -455,7 +457,7 @@ namespace Yume.Data {
 
     public static void ChangeTeamIndex(int newTeamIndex) {
       userTeamIndex = newTeamIndex;
-      s_saveDataTypes.Add("teams");
+      s_saveDataTypes.Add("teamIndex");
     }
 
     public static void ChangeTeamName(TeamData team, string newName) {
@@ -504,7 +506,7 @@ namespace Yume.Data {
 
     #endregion
 
-    #region Level
+    #region Level(关卡)
 
     public static void CompleteLevel(string id) {
       var level = userLevels.Find(l => l.id == id);
@@ -524,31 +526,22 @@ namespace Yume.Data {
         }
       }
     }
-
-#if TEST
-    public static void CompleteAllLevelsTestOnly() {
-      foreach (var level in userLevels) {
-        level.completed = true;
-      }
-      s_saveDataTypes.Add("levels");
-    }
-#endif
-
+    
     #endregion
 
     #region Load&Save
 
-    public static void LoadUserDB(JObject json = null) {
+    public static void LoadUserData(JObject json = null) {
       if (json == null) {
         s_playMode = PlayMode.LOCAL;
         FileStream fs;
         BinaryFormatter bf = new BinaryFormatter();
-        if (File.Exists(localUserDataPath)) {
-          fs = new FileStream(localUserDataPath, FileMode.Open);
+        if (File.Exists(s_localUserDataPath)) {
+          fs = new FileStream(s_localUserDataPath, FileMode.Open);
           s_user = (UserData)bf.Deserialize(fs);
         } else {
           s_user = new UserData();
-          fs = File.Open(localUserDataPath, FileMode.Create);
+          fs = File.Open(s_localUserDataPath, FileMode.Create);
           //序列化     
           bf.Serialize(fs, s_user);
         }
@@ -595,7 +588,7 @@ namespace Yume.Data {
         }
         case PlayMode.LOCAL: {
           BinaryFormatter bf = new BinaryFormatter();
-          FileStream fs = File.Open(localUserDataPath, FileMode.Create);
+          FileStream fs = File.Open(s_localUserDataPath, FileMode.Create);
           //序列化     
           bf.Serialize(fs, s_user);
           fs.Close();

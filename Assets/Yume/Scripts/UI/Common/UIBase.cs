@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Yume.Data;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public abstract class UIBase {
@@ -8,25 +9,26 @@ namespace Yume.UI {
     private UITemplate m_uiData;
     private Animation m_animation;
     public GameObject root => m_root;
-    private ObjectContainer m_uiObject;
     public string name => m_uiData.name;
     public UIType uiType => m_uiData.uiType;
+    private ObjectContainer m_objectContainer;
     public float cacheTime => m_uiData.cacheTime;
+    protected ObjectContainer objectContainer => m_objectContainer;
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       m_root = gameObject;
       m_uiData = uiTemplate;
       m_root.name = uiTemplate.name;
       m_animation = gameObject.GetComponent<Animation>();
-      m_uiObject = gameObject.GetComponent<ObjectContainer>();
+      m_objectContainer = gameObject.GetComponent<ObjectContainer>();
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
-      return m_uiObject?.GetComponent<T>(objName);
+      return m_objectContainer?.GetComponent<T>(objName);
     }
 
     protected GameObject GetGameObject(string objName) {
-      return m_uiObject?.GetGameObject(objName);
+      return m_objectContainer?.GetGameObject(objName);
     }
 
     /// <summary>
@@ -47,7 +49,7 @@ namespace Yume.UI {
       if (closeClip != null) {
         CoroutineHelper.instance.PlayAnimCallback(closeClip, m_animation, callback);
       } else {
-        callback?.Invoke();
+        callback();
       }
     }
 
@@ -69,14 +71,14 @@ namespace Yume.UI {
       if (opneClip != null) {
         CoroutineHelper.instance.PlayAnimCallback(opneClip, m_animation, callback);
       } else {
-        callback?.Invoke();
+        callback();
       }
     }
 
     public virtual void OnUpdate() { }
 
     /// <summary>
-    /// 回收UI对象，返回UI实例
+    /// 回收UI对象 返回UI实例
     /// </summary>
     public virtual UIBase Recycle() {
       root.SetParent(UIManager.cacheCanvas);
@@ -87,12 +89,12 @@ namespace Yume.UI {
     /// 回收内存
     /// </summary>
     public virtual void Destroy() {
-      UnityEngine.Object.Destroy(root);
+      Object.Destroy(root);
     }
   }
 
   /// <summary>
-  /// 不受UIManager管理，由父UI管理
+  /// 不受UIManager管理 由父UI管理
   /// </summary>
   public abstract class UIChildBase {
     private GameObject m_root;

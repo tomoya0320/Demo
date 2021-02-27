@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.Battle {
   public class BuffManager {
@@ -12,13 +11,18 @@ namespace Yume.Battle {
     }
 
     public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors) {
-      if (m_buffDict.ContainsKey(buffId)) {
-        if (m_buffDict[buffId].Count == 0 || stackType == StackType.DEFAULT) {
-          _AddBuffInternal(buffId, blackboard, behaviors);
-        }
-      } else {
+      if (!m_buffDict.ContainsKey(buffId)) {
         m_buffDict.Add(buffId, new List<Buff>());
-        _AddBuffInternal(buffId, blackboard, behaviors);
+      }
+      switch (stackType) {
+        case StackType.NONE:
+          if (m_buffDict[buffId].Count == 0) {
+            _AddBuffInternal(buffId, blackboard, behaviors);
+          }
+          break;
+        case StackType.DEFAULT:
+          _AddBuffInternal(buffId, blackboard, behaviors);
+          break;
       }
     }
 

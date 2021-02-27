@@ -7,8 +7,7 @@ namespace Yume.RedPointSystem {
     protected override RedPointTreeType redPointTreeType => RedPointTreeType.MAIN_MAIL;
 
     public override void InitData() {
-      redPointDict = new Dictionary<string, RedPointNode>();
-      redPointDict.Add(MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null));
+      redPointDict = new Dictionary<string, RedPointNode> { { MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null) } };
       foreach (var mail in DataManager.userMails) {
         if (!mail.isReceived) {
           AddLeafNode(mail.title, MAIN_MAIL);

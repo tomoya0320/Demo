@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Sirenix.Utilities;
 using UnityEngine;
 using Yume.Data;
-using Yume.Resource;
 using Yume.UI;
 using Object = UnityEngine.Object;
 
@@ -30,28 +29,24 @@ namespace Yume.Battle {
   
   public class Character : Unit {
     private List<Card> m_tempCardList = new List<Card>();
+    private UICardManager m_uiCardManager = new UICardManager();
+    protected override Transform folder => UnitFactory.charFolder;
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
-    public Character(UnitData character, CardData[] cards) : base(character, BattleManager.charFolder) {
+    public Character(UnitData character, CardData[] cardDatas) : base(character) {
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         cardHeapDict.Add(cardHeapType, new List<Card>());
       }
-
-      var prefab = ResourceManager.Load<GameObject>(StringMap.CARD_PREFAB);
-      foreach (var cardData in cards) {
-        var go = Object.Instantiate(prefab, BattleManager.cardFolder);
-        cardHeapDict[CardHeapType.DRAW].Add(new Card(cardData, go, /*测试用*/card => {
-          if (!card.active || !BattleManager.isRunning) {
-            return;
+      
+      foreach (var cardData in cardDatas) {
+        Func<Card, bool> onUseCard = card => {
+          if (card.candidate == null) {
+            return false;
           }
-          if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
-            MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
-            return;
-          }
-          // TODO:一场战斗的敌人暂时只有一个
-          EnqueueCard((card, BattleManager.enemy));
-          card.active = false;
-        }));
+          EnqueueCard(card);
+          return true;
+        };
+        cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardData, onUseCard));
       }
     }
 
@@ -59,8 +54,7 @@ namespace Yume.Battle {
       // 抽牌逻辑层
       int deltaCardCount = Constant.HAND_CARD_THRESHOLD - cardHeapDict[CardHeapType.HAND].Count;
       if (deltaCardCount > 0) {
-        if (deltaCardCount > cardHeapDict[CardHeapType.DRAW].Count && 
-            cardHeapDict[CardHeapType.DISCARD].Count > 0) {
+        if (deltaCardCount > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
           // 弃牌堆的牌重新进入抽牌堆
           cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
           cardHeapDict[CardHeapType.DISCARD].Clear();
@@ -78,44 +72,43 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      // TODO:抽牌动效,现在这个暂时测试用
-      m_tempCardList.ForEach(card => card.gameObject.SetActiveEx(true));
+      yield return m_uiCardManager.DrawCard(m_tempCardList.ToArray());
+      // 启用卡牌拖拽组件
+      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(true));
       m_tempCardList.Clear();
-      
+
       // 出牌中
       while (true) {
-        // TODO:测试用
-        if (BattleManager.battleResult != BattleResult.NONE) {
+        if (BattleManager.battleState != BattleState.RUNNING) {
           yield break;
         }
         if (playCardQueue.Count > 0) {
-          var cardTuple = playCardQueue.Dequeue();
-          if (cardTuple == default) {
+          var card = playCardQueue.Dequeue();
+          if (card == null) {
             break;
           } 
-          cardTuple.card.Cast(this, cardTuple.target);
+          card.Cast(true);
+          // 关闭卡牌拖拽组件
+          card.cardDrag?.SetEnable(false);
           // 把用过的牌弃掉
-          // TODO:测试用,还没动效
-          cardTuple.card.gameObject.SetActiveEx(false);
-          cardTuple.card.active = true;
+          yield return m_uiCardManager.DiscardCard(card);
         }
         yield return null;
       }
       
-      // 弃牌逻辑层
+      // 关闭卡牌拖拽组件
+      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(false));
       // 记录弃置的卡牌
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       cardHeapDict[CardHeapType.HAND].Clear();
       // 弃牌表现层
-      // TODO:弃牌动效,现在这个暂时测试用
-      m_tempCardList.ForEach(card=>card.gameObject.SetActiveEx(false));
+      yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
       m_tempCardList.Clear();
     }
     
     public override void OnDie() {
-      // TODO:测试用
-      BattleManager.battleResult = BattleResult.LOSE;
+      BattleManager.battleState = BattleState.LOSE;
     }
 
     public override void CleanUp() {

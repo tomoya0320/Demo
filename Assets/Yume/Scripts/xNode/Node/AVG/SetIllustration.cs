@@ -2,10 +2,8 @@ using UnityEngine;
 using Yume.UI;
 
 namespace Yume.AVG {
-	public class SetIllustration : AVGNodeBase {
-		[Input(ShowBackingValue.Never)]
-		public int node;
-		[SerializeField]
+	public class SetIllustration : LeafNode {
+    [SerializeField]
 		private Sprite _illustrationSprite;
 
 		public override void Run(UIAVG avg) {

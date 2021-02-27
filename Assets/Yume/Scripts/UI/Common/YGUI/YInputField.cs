@@ -7,9 +7,7 @@ namespace Yume.UI {
     protected override void Awake() {
       base.Awake();
 
-      ColorBlock newColors = colors;
-      newColors.disabledColor = Color.white;
-      colors = newColors;
+      this.SetDefaultState();
     }
   }
 }

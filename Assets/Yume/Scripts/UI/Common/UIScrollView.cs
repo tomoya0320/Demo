@@ -44,7 +44,7 @@ namespace Yume.UI {
       };
       m_originPos = m_scrollRect.content.anchoredPosition;
 
-      // ScrollView原型复制
+      // ScrollTerm原型复制
       if (m_scrollGroup.viewList.Count > 1) {
         for (int i = m_scrollGroup.viewList.Count - 1; i > 0; i--) {
           Object.DestroyImmediate(m_scrollGroup.viewList[i].gameObject);
@@ -119,6 +119,7 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
+          
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
           UpdateView(false);
@@ -130,6 +131,7 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
+          
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
           UpdateView(false);

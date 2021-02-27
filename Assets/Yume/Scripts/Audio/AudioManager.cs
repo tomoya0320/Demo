@@ -8,11 +8,11 @@ using Yume.UI;
 namespace Yume.Audio {
   public static class AudioManager {
     private class SoundManager {
+      private int m_switch;
       private float m_value;
-      private float m_switch;
       private List<AudioSource> m_audioSourceList = new List<AudioSource>();
-      public string valueKey => UISettingType.SOUND.GetDescription() + StringMap.VALUE;
-      public string switchKey => UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
+      public readonly string valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
+      public readonly string switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
       public SoundManager(Transform root) {
         for (int i = 1; i <= Constant.MAX_SOUND_COUNT; i++) {
@@ -25,7 +25,7 @@ namespace Yume.Audio {
         }
 
         if (!PlayerPrefs.HasKey(valueKey)) {
-          PlayerPrefs.SetInt(valueKey, 100);
+          PlayerPrefs.SetFloat(valueKey, 1.0f);
         }
         if (!PlayerPrefs.HasKey(switchKey)) {
           PlayerPrefs.SetInt(switchKey, 1);
@@ -35,7 +35,7 @@ namespace Yume.Audio {
 
       public void UpdateVolume() {
         m_switch = PlayerPrefs.GetInt(switchKey);
-        m_value = 0.01f * PlayerPrefs.GetInt(valueKey);
+        m_value = PlayerPrefs.GetFloat(valueKey);
         foreach (AudioSource audioSource in m_audioSourceList) {
           audioSource.volume = m_switch * m_value;
         }
@@ -53,9 +53,9 @@ namespace Yume.Audio {
     }
 
     private class BGMManager {
-      private Tween m_tween;
+      private int m_switch;
       private float m_value;
-      private float m_switch;
+      private Tween m_tween;
       private AudioSource m_audioSource;
       private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
       private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
@@ -67,7 +67,7 @@ namespace Yume.Audio {
         m_audioSource.loop = true;
 
         if (!PlayerPrefs.HasKey(m_valueKey)) {
-          PlayerPrefs.SetInt(m_valueKey, 100);
+          PlayerPrefs.SetFloat(m_valueKey, 1.0f);
         }
         if (!PlayerPrefs.HasKey(m_switchKey)) {
           PlayerPrefs.SetInt(m_switchKey, 1);
@@ -77,7 +77,7 @@ namespace Yume.Audio {
 
       public void UpdateVolume() {
         m_switch = PlayerPrefs.GetInt(m_switchKey);
-        m_value = 0.01f * PlayerPrefs.GetInt(m_valueKey);
+        m_value = PlayerPrefs.GetFloat(m_valueKey);
         m_audioSource.volume = m_switch * m_value;
       }
 
@@ -85,23 +85,27 @@ namespace Yume.Audio {
         m_tween?.Complete();
         m_tween = m_audioSource
                   .DOFade(0, fadeTime)
-                  .OnComplete(() => {
-                    m_tween = null;
-                    m_audioSource.Stop();
-                    onCompleted?.Invoke();
-                  });
+                  .OnComplete(
+                    () => {
+                      m_tween = null;
+                      m_audioSource.Stop();
+                      onCompleted?.Invoke();
+                    }
+                  );
       }
 
       public void PlayBgm(AudioClip audioClip, bool immediate = false, float fadeTime = 1.0f) {
         if (immediate) {
           _PlayBgmInternal(audioClip);
         } else {
-          StopBgm(() => {
-            _PlayBgmInternal(audioClip);
-            m_tween = m_audioSource
+          StopBgm(
+            () => {
+              _PlayBgmInternal(audioClip);
+              m_tween = m_audioSource
                         .DOFade(m_switch * m_value, fadeTime)
                         .OnComplete(() => m_tween = null);
-          });
+            }
+          );
         }
       }
 
@@ -128,10 +132,11 @@ namespace Yume.Audio {
     }
 
     #region BGM
+
     public static void PlayBgm(AudioClip audioClip) {
       s_bgmManager.PlayBgm(audioClip);
-    }   
-    
+    }
+
     public static void PlayBgm(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
       s_bgmManager.PlayBgm(audio);
@@ -157,14 +162,16 @@ namespace Yume.Audio {
     public static string GetCurrentBgmName() {
       return s_bgmManager.GetCurrentClipName();
     }
+
     #endregion
 
     #region Sound
+
     public static void PlaySound(string audioClipName) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
       s_soundManager.PlaySound(audio);
-    }    
-    
+    }
+
     public static void PlaySound(AudioClip audioClip) {
       s_soundManager.PlaySound(audioClip);
     }
@@ -172,6 +179,7 @@ namespace Yume.Audio {
     public static void UpdateSoundVolume() {
       s_soundManager.UpdateVolume();
     }
+
     #endregion
   }
 }

@@ -22,12 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: 1352, y: -152}
+  position: {x: 1624, y: -40}
   ports:
     keys:
-    - node
+    - last
     values:
-    - _fieldName: node
+    - _fieldName: last
       _node: {fileID: -8704398818708030139}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -42,7 +42,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  node: 0
+  last: 0
 --- !u!114 &-8355902264286410136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: node
+      - fieldName: last
         node: {fileID: -8704398818708030139}
         reroutePoints: []
       _direction: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
         node: {fileID: 5411702875451095271}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -166,10 +166,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 1
   onFadeCompleted: 0
-  node: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &-6977146017915269226
 MonoBehaviour:
@@ -208,7 +208,7 @@ MonoBehaviour:
         node: {fileID: 1709785611973916465}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -223,10 +223,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 0.2
   onFadeCompleted: 0
-  node: 0
   _visible: 0
 --- !u!114 &-5860967097870442537
 MonoBehaviour:
@@ -265,7 +265,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -277,10 +277,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 0
   fadeTime: 5
   onFadeCompleted: 0
-  node: 0
   _name: "\u7A7A"
   _dialogue: "\u5317\u98CE\u5377\u5730\u767D\u8349\u6298\uFF0C\u80E1\u5929\u516B\u6708\u5373\u98DE\u96EA\u3002\u5FFD\u5982\u4E00\u591C\u6625\u98CE\u6765\uFF0C\u5343\u6811\u4E07\u6811\u68A8\u82B1\u5F00\u3002\u6563\u5165\u73E0\u5E18\u6E7F\u7F57\u5E55\uFF0C\u72D0\u88D8\u4E0D\u6696\u9526\u887E\u8584\u3002\u5C06\u519B\u89D2\u5F13\u4E0D\u5F97\u63A7\uFF0C\u90FD\u62A4\u94C1\u8863\u51B7\u96BE\u7740\u3002\u701A\u6D77\u9611\u5E72\u767E\u4E08\u51B0\uFF0C\u6101\u4E91\u60E8\u6DE1\u4E07\u91CC\u51DD\u3002\u4E2D\u519B\u7F6E\u9152\u996E\u5F52\u5BA2\uFF0C\u80E1\u7434\u7435\u7436\u4E0E\u7F8C\u7B1B\u3002"
 --- !u!114 &-4842144346989780473
@@ -320,7 +320,7 @@ MonoBehaviour:
         node: {fileID: -7230439982837018633}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -332,10 +332,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 0.5
   onFadeCompleted: 0
-  node: 0
   _visible: 1
 --- !u!114 &-2867978853022464836
 MonoBehaviour:
@@ -373,7 +373,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
@@ -414,7 +414,7 @@ MonoBehaviour:
         node: {fileID: 4302738808364545312}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -136, y: -120}
+  position: {x: -280, y: -168}
   ports:
     keys:
     - last
@@ -484,10 +484,10 @@ MonoBehaviour:
         node: {fileID: 5847907996881518768}
         reroutePoints: []
       - fieldName: node
-        node: {fileID: 6129035280962455863}
+        node: {fileID: -5860967097870442537}
         reroutePoints: []
       - fieldName: node
-        node: {fileID: -5860967097870442537}
+        node: {fileID: 6129035280962455863}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -680,10 +680,10 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: node
-        node: {fileID: 5989266302742906501}
+        node: {fileID: 4302738808364545312}
         reroutePoints: []
       - fieldName: node
-        node: {fileID: 4302738808364545312}
+        node: {fileID: 5989266302742906501}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -714,7 +714,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: 1064, y: -328}
+  position: {x: 1352, y: -280}
   ports:
     keys:
     - node
@@ -729,7 +729,7 @@ MonoBehaviour:
         node: {fileID: 4594748182505088050}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -741,10 +741,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 0
   fadeTime: 0.3
   onFadeCompleted: 0
-  node: 0
   _name: "\u591C\u9B54"
   _dialogue: "\u6211\u6700\u559C\u6B22\u535A\u58EB\u4E86"
 --- !u!114 &1709785611973916465
@@ -851,7 +851,7 @@ MonoBehaviour:
         node: {fileID: 5411702875451095271}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
@@ -893,7 +893,7 @@ MonoBehaviour:
         node: {fileID: -6977146017915269226}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -908,10 +908,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 0.8
   onFadeCompleted: 0
-  node: 0
   _visible: 0
 --- !u!114 &4302738808364545312
 MonoBehaviour:
@@ -950,7 +950,7 @@ MonoBehaviour:
         node: {fileID: 232040082186662662}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -965,10 +965,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 0
   fadeTime: 0.3
   onFadeCompleted: 0
-  node: 0
   _name: "\u591C\u9B54"
   _dialogue: "\u4F60\u597D\u554A\u6211\u662F\u591C\u9B54"
 --- !u!114 &4355135893504451352
@@ -993,7 +993,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: 1304, y: 408}
+  position: {x: 1336, y: 344}
   ports:
     keys:
     - node
@@ -1008,7 +1008,7 @@ MonoBehaviour:
         node: {fileID: -8355902264286410136}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -1020,10 +1020,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 0
   fadeTime: 0.3
   onFadeCompleted: 0
-  node: 0
   _name: "\u591C\u9B54"
   _dialogue: "\u770B\u6765\u4F60\u5931\u5FC6\u4E86......"
 --- !u!114 &4594748182505088050
@@ -1075,7 +1075,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: node
+      - fieldName: last
         node: {fileID: -8704398818708030139}
         reroutePoints: []
       _direction: 1
@@ -1134,7 +1134,7 @@ MonoBehaviour:
         node: {fileID: 3949758961068976673}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -1155,10 +1155,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 1
   onFadeCompleted: 0
-  node: 0
   _color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &5847907996881518768
 MonoBehaviour:
@@ -1196,7 +1196,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
@@ -1238,7 +1238,7 @@ MonoBehaviour:
         node: {fileID: 232040082186662662}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: onFadeCompleted
@@ -1250,10 +1250,10 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  node: 0
   block: 1
   fadeTime: 0.2
   onFadeCompleted: 0
-  node: 0
   _visible: 1
 --- !u!114 &6017689547753387790
 MonoBehaviour:
@@ -1277,7 +1277,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -392, y: -184}
+  position: {x: -600, y: -168}
   ports:
     keys:
     - next
@@ -1317,7 +1317,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -344, y: 296}
+  position: {x: -360, y: 312}
   ports:
     keys:
     - node
@@ -1331,7 +1331,7 @@ MonoBehaviour:
         node: {fileID: -1926963278744107930}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
@@ -1372,7 +1372,7 @@ MonoBehaviour:
         node: {fileID: 5411702875451095271}
         reroutePoints: []
       _direction: 0
-      _connectionType: 0
+      _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0

@@ -49,6 +49,9 @@ namespace Yume.Data {
     public BuffTemplate[] buffTemplates;
   }
 
+  /// <summary>
+  /// 绝对阵营
+  /// </summary>
   public enum Camp {
     ALLY,
     ENEMY,
@@ -150,6 +153,8 @@ namespace Yume.Data {
     public string id;
     public string title;
     public TaskType type;
+    // 任务默认的状态
+    public TaskState defaultState;
     [TextArea]
     public string description;
     public string activeTaskId;
@@ -338,6 +343,11 @@ namespace Yume.Data {
     [HideInInspector]
     public int process;
     public TaskState state;
+
+    public TaskData(string id, TaskState state) {
+      this.id = id;
+      this.state = state;
+    }
   }
 
   [Serializable]
@@ -372,18 +382,17 @@ namespace Yume.Data {
 
       ap = maxAp = ResourceManager.Load<int>($"{lv}");
 
-      tasks.AddRange(ResourceManager.LoadAll<TaskData>());
-      levels.AddRange(ResourceManager.LoadAll<LevelData>());
+      foreach (var taskTemplate in ResourceManager.LoadAll<TaskTemplate>()) {
+        tasks.Add(new TaskData(taskTemplate.id, taskTemplate.defaultState));
+      }
+
+      foreach (var levelTemplate in ResourceManager.LoadAll<LevelTemplate>()) {
+        levels.Add(new LevelData(levelTemplate.id));
+      }
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         teams.Add(new TeamData());
       }
-
-#if TEST
-      if (string.IsNullOrEmpty(name)) {
-        this.name = "游客";
-      }
-#endif
     }
   }
 
@@ -392,6 +401,10 @@ namespace Yume.Data {
     public string id;
     [HideInInspector]
     public bool completed;
+
+    public LevelData(string id) {
+      this.id = id;
+    }
   }
 
   #endregion
