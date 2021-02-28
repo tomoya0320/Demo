@@ -46,6 +46,10 @@ namespace Yume.Battle {
           // 先关闭卡牌拖拽组件避免反复触发
           card.cardDrag?.SetEnable(false);
           card.candidate?.selected.SetActiveEx(false);
+          // 从手牌堆移到弃牌堆
+          if (cardHeapDict[CardHeapType.HAND].Remove(card)) {
+            cardHeapDict[CardHeapType.DISCARD].Add(card);
+          }
           EnqueueCard(card);
           return true;
         };
@@ -87,10 +91,7 @@ namespace Yume.Battle {
           if (card == null) {
             break;
           }
-          
-          if (cardHeapDict[CardHeapType.HAND].Remove(card)) {
-            cardHeapDict[CardHeapType.DISCARD].Add(card);
-          }
+          // 出牌
           yield return card.Cast();
           // 把用过的牌弃掉
           yield return m_uiCardManager.DiscardCard(card);
