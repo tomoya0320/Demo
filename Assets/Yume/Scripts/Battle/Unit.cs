@@ -19,13 +19,14 @@ namespace Yume.Battle {
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
 
     #region 表现层
-    
+
     protected Text hpText;
     protected Text energyText;
+
+    public Animator animator { get; }
+    public GameObject selected { get; }
+    public GameObject gameObject { get; }
     protected abstract Transform folder { get; }
-    public Animator animator { private set; get; }
-    public GameObject selected { private set; get; }
-    public GameObject gameObject { private set; get; }
 
     #endregion
 
@@ -38,14 +39,14 @@ namespace Yume.Battle {
       passiveSkillLevel = unit.passiveSkillLevel;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
       attribs = MathUtil.CalculateAttribs(unit.id, unit.level);
-      
+
       // 表现层
       var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);
       gameObject = Object.Instantiate(prefab, folder);
       animator = gameObject.GetComponent<Animator>();
       selected = gameObject.FindGo("selected");
       selected?.SetActiveEx(false);
-      
+
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       hpText = objectContainer.GetComponent<Text>("hp");
       energyText = objectContainer.GetComponent<Text>("energy");

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Yume.Battle {
   public class AttachAttrib : LeafNodeBase {
@@ -19,19 +20,17 @@ namespace Yume.Battle {
         finalValue += attribAdditive.rateOnValue * owner.GetAttrib(attribAdditive.type);
         finalValue += attribAdditive.rateOnMaxValue * owner.GetAttrib(attribAdditive.type, true);
         float realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
-
+        // TODO:增加能量数字显示测试用
+        if (attribAdditive.type == AttribType.ENERGY) {
+          NumFactory.ShowNum(realValue, owner.gameObject.transform.position, Color.blue);
+        }
+        
         AttribArgs args = new AttribArgs {
           type = attribAdditive.type,
           onMaxValue = attribAdditive.onMaxValue,
           value = realValue
         };
         attribDetachments.Add(args);
-#if BETA
-        string str1 = realValue > 0 ? "增加" : "减少";
-        string str2 = attribAdditive.onMaxValue ? "最大" : "";
-        string content = $"[{owner.name}]{str1}了[{realValue:0}]点{str2}{attribAdditive.type.GetDescription()}";
-        BattleManager.Log(content);
-#endif
       }
 
       return true;

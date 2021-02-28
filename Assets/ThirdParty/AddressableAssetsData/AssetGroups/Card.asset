@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Card
+  m_EditorClassIdentifier: 
+  m_GroupName: Card
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 77b606190b490684e88e259962ca9203
+  m_SerializeEntries:
+  - m_GUID: 9c67501e8d9cedb44b8a0ca563b031fa
+    m_Address: card_prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 846814492776667746, guid: 9c67501e8d9cedb44b8a0ca563b031fa, type: 3}
+    m_TargetAsset: {fileID: 846814492776667746, guid: 9c67501e8d9cedb44b8a0ca563b031fa, type: 3}
+  - m_GUID: 20c8a5f294e24264dade19ee33713fdd
+    m_Address: anim_common_attack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 6855989636255040482, guid: 20c8a5f294e24264dade19ee33713fdd, type: 3}
+    m_TargetAsset: {fileID: 6855989636255040482, guid: 20c8a5f294e24264dade19ee33713fdd, type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e815863bea139c34894bd425c48a097f, type: 2}
+    - {fileID: 11400000, guid: d06e8c140ad01b84aa4467c591c838a4, type: 2}

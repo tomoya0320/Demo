@@ -6,12 +6,14 @@ using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public static class CardFactory {
+    public static Transform cardAnimFolder { private set; get; }
     public static Transform drawCardFolder { private set; get; }
     public static Transform handCardFolder { private set; get; }
     public static Transform discardCardFolder { private set; get; }
     public static Transform consumeCardFolder { private set; get; }
 
     public static void Init(ObjectContainer objectContainer) {
+      cardAnimFolder = objectContainer.GetGameObject("cardAnimFolder").transform;
       drawCardFolder = objectContainer.GetGameObject("drawCardFolder").transform;
       handCardFolder = objectContainer.GetGameObject("handCardFolder").transform;
       discardCardFolder = objectContainer.GetGameObject("discardCardFolder").transform;
@@ -26,8 +28,12 @@ namespace Yume.Battle {
       var go = Object.Instantiate(prefab, parent);
       return new Card(unit, cardData, go, onUseCard);
     }
-    
+
     public static void CleanUp() {
+      for (int i = 0; i < cardAnimFolder.childCount; i++) {
+        Object.Destroy(cardAnimFolder.GetChild(i).gameObject);
+      }
+      cardAnimFolder = null;
       drawCardFolder = null;
       handCardFolder = null;
       discardCardFolder = null;

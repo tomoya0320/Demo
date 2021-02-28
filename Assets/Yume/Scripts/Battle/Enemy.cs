@@ -1,26 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using Yume.Data;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
+    private Tween m_cardTween;
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
     public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
       foreach (var cardData in cardDatas) {
-        var card = CardFactory.CreateCard(this, cardData, null, gameObject.transform);
-        // 敌人默认的目标是玩家
-        card.candidate = BattleManager.character;
-        cards.Add(card);
+        cards.Add(CardFactory.CreateCard(this, cardData, null, gameObject.transform));
       }
     }
 
     public override IEnumerator OnTick() {
-      // TODO:测试用
-      yield return new WaitForSeconds(2);
+      yield return new WaitForSeconds(1);
       // 筛选出符合出牌条件的牌
       List<Card> candidateCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
       // 没有就直接结束回合
@@ -29,15 +27,13 @@ namespace Yume.Battle {
       }
       // 随机选一张牌出
       int index = MathUtil.random.Next(0, candidateCards.Count);
+      // 敌人默认的目标是玩家
+      candidateCards[index].candidate = BattleManager.character;
       playCardQueue.Enqueue(candidateCards[index]);
       // 结束出牌的标记
       playCardQueue.Enqueue(null);
       // 出牌中
       while (true) {
-        // TODO:测试用
-        if (BattleManager.battleState != BattleState.RUNNING) {
-          yield break;
-        }
         if (playCardQueue.Count > 0) {
           var card = playCardQueue.Dequeue();
           if (card == null) {
@@ -45,20 +41,28 @@ namespace Yume.Battle {
           }
           // TODO:测试用
           card.gameObject.SetActiveEx(true);
-          card.Cast();
-          // TODO:测试用
-          yield return new WaitForSeconds(2);
-          card.gameObject.SetActiveEx(false);
+          card.gameObject.transform.localScale = 0.3f * Vector3.one;
+          m_cardTween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
+          yield return new WaitUntil(() => !m_cardTween.IsPlaying());
+          yield return card.Cast();
+          m_cardTween = card.gameObject.transform.DOScale(0.3f * Vector3.one, 0.2f);
+          m_cardTween.OnComplete(() => card.gameObject.SetActiveEx(false));
+          yield return new WaitUntil(() => !m_cardTween.IsPlaying());
         }
         yield return null;
       }
     }
 
     public override void OnDie() {
-      CleanUp();
-      BattleManager.units.Remove(this);
+      // TODO:改进
+      // 隐藏物体
+      gameObject.SetActiveEx(false);
+      // 移除这个单位施加的buff
+      foreach (var buffManager in BattleManager.buffManagers.Values) {
+        buffManager.OnCasterDie(this);
+      }
       if (BattleManager.units.Count == 1) {
-        BattleManager.battleState = BattleState.WIN;
+        BattleManager.Finish(BattleResult.WIN);
       }
     }
 

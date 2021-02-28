@@ -378,47 +378,6 @@ MonoBehaviour:
       _dynamic: 0
   node: 0
   _bgmClip: {fileID: 8300000, guid: 5043e6787731bb741b439a9c5e612e57, type: 3}
---- !u!114 &-2407277398472522376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460402b0f0c988b4d8d998bf9d86a1ed, type: 3}
-  m_Name: Play Sound
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  graph: {fileID: 11400000}
-  position: {x: 804.44977, y: 518.49744}
-  ports:
-    keys:
-    - node
-    values:
-    - _fieldName: node
-      _node: {fileID: -2407277398472522376}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: onFadeCompleted
-        node: {fileID: 4302738808364545312}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  node: 0
-  _soundClip: {fileID: 8300000, guid: 9d70cc8529b42ab4ea5924114df819f4, type: 3}
 --- !u!114 &-1926963278744107930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,7 +574,6 @@ MonoBehaviour:
   - {fileID: -4842144346989780473}
   - {fileID: 5989266302742906501}
   - {fileID: 4302738808364545312}
-  - {fileID: -2407277398472522376}
   - {fileID: -110156496062415711}
   - {fileID: 4594748182505088050}
   - {fileID: 671169193595996607}
@@ -957,10 +915,7 @@ MonoBehaviour:
       _node: {fileID: 4302738808364545312}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: node
-        node: {fileID: -2407277398472522376}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0

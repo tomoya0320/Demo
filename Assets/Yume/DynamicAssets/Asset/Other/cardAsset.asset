@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Yume.Data.CardTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.Data.CardTemplate, Assembly-CSharp
@@ -51,6 +51,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210120%\u7684\u4F24\u5BB3"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
       Data: "\u6253\u51FB"
@@ -163,6 +166,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210200%\u7684\u5927\u91CF\u4F24\u5BB3"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
       Data: "\u6253\u51FB"
@@ -295,6 +301,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210100%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB350%\u7684\u751F\u547D"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
       Data: "\u55DC\u8840"
@@ -421,6 +430,9 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210160%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB380%\u7684\u751F\u547D"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
       Data: "\u55DC\u8840"
@@ -529,174 +541,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: card_003
-    - Name: cardType
-      Entry: 3
-      Data: 1
-    - Name: cardPhases
-      Entry: 7
-      Data: 26|Yume.Data.CardPhase[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: description
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: iconFileName
-      Entry: 1
-      Data: 
-    - Name: energyConsumption
-      Entry: 3
-      Data: 0
-    - Name: buffTemplates
-      Entry: 7
-      Data: 27|Yume.Data.BuffTemplate[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: description
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: iconFileName
-      Entry: 6
-      Data: 
-    - Name: energyConsumption
-      Entry: 3
-      Data: 0
-    - Name: buffTemplates
-      Entry: 7
-      Data: 28|Yume.Data.BuffTemplate[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: card_004
-    - Name: cardType
-      Entry: 3
-      Data: 1
-    - Name: cardPhases
-      Entry: 7
-      Data: 29|Yume.Data.CardPhase[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: description
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: iconFileName
-      Entry: 6
-      Data: 
-    - Name: energyConsumption
-      Entry: 3
-      Data: 0
-    - Name: buffTemplates
-      Entry: 7
-      Data: 30|Yume.Data.BuffTemplate[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: description
-      Entry: 1
-      Data: "\u6682\u672A\u5B9E\u88C5"
-    - Name: iconFileName
-      Entry: 6
-      Data: 
-    - Name: energyConsumption
-      Entry: 3
-      Data: 0
-    - Name: buffTemplates
-      Entry: 7
-      Data: 31|Yume.Data.BuffTemplate[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 0
     - Name: 
       Entry: 13
       Data: 

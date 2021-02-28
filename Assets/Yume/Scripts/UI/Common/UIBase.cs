@@ -82,6 +82,7 @@ namespace Yume.UI {
     /// </summary>
     public virtual UIBase Recycle() {
       root.SetParent(UIManager.cacheCanvas);
+      root.SetActiveEx(false);
       return this;
     }
 
