@@ -31,7 +31,9 @@ namespace Yume.Battle {
       // 持续回合为0表示瞬发
       buff.OnAdd();
       if (buff.duration == 0) {
-        buff.OnRemove();
+        if (buff.unit.isAlive) {
+          buff.OnRemove();
+        }
       } else {
         m_buffDict[buffId].Add(buff);
       }
@@ -41,6 +43,17 @@ namespace Yume.Battle {
       foreach (var buffs in m_buffDict.Values) {
         for (int i = buffs.Count - 1; i >= 0; i--) {
           if (!buffs[i].OnUpdate()) {
+            buffs[i].OnRemove();
+            buffs.RemoveAt(i);
+          }
+        }
+      }
+    }
+
+    public void OnCasterDie(Unit caster) {
+      foreach (var buffs in m_buffDict.Values) {
+        for (int i = buffs.Count - 1; i >= 0; i--) {
+          if (buffs[i].blackboard.GetValue<Unit>("caster") == caster) {
             buffs[i].OnRemove();
             buffs.RemoveAt(i);
           }

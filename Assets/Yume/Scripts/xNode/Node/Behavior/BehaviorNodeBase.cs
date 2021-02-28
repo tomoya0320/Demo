@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using XNode;
+using Yume.Audio;
 using Yume.Data;
 
 namespace Yume.Battle {
@@ -44,10 +45,10 @@ namespace Yume.Battle {
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
 
       float realDamage = OnDamage(caster);
-#if BETA
-      string content = $"[{caster.name}]对[{owner.name}]造成了[{realDamage:0}]点伤害";
-      BattleManager.Log(content);
-#endif
+      // TODO:音效测试用
+      AudioManager.PlaySound("SOTE_SFX_BlockAtk_v2");
+      // 显示数字
+      NumFactory.ShowNum(realDamage, owner.gameObject.transform.position, Color.red);
 
       // 保存最后一次造成的伤害值
       if (caster != null) {
@@ -60,8 +61,12 @@ namespace Yume.Battle {
       ownerBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGED);
       // 造成伤害后的行为树 
       castBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGE);
-      // 单位死亡
-      if (!owner.isAlive) {
+
+      if (owner.isAlive) {
+        // 受伤
+        owner.animator.SetTrigger("hurt");
+      } else {
+        // 单位死亡
         owner.OnDie();
       }
       return true;

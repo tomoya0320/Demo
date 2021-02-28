@@ -21,6 +21,7 @@ namespace Yume.UI {
         Card card = m_cards[i];
         card.gameObject.SetActiveEx(true);
         card.gameObject.SetParent(CardFactory.handCardFolder);
+        card.gameObject.transform.localScale = 0.3f * Vector3.one;
         tween.DOScale(card.gameObject, Vector3.one, CARD_SCALE_DURATION);
         Vector2 dest = new Vector2((i - 0.5f * m_cards.Count + 0.5f) * card.rect.width, 0);
         tween.DOAnchorPos(card.gameObject, dest, CARD_MOVE_DURATION);
@@ -42,9 +43,9 @@ namespace Yume.UI {
       for (int i = cards.Length - 1; i >= 0; i--) {
         m_cards.Remove(cards[i]);
         cards[i].gameObject.SetParent(CardFactory.discardCardFolder);
-        Transform transform = cards[i].gameObject.transform;
-        tween.DOScale(transform,0.3f * Vector3.one, CARD_SCALE_DURATION);
-        tween.DOLocalMove(transform, Vector3.zero, CARD_MOVE_DURATION, () => transform.gameObject.SetActiveEx(false));
+        GameObject gameObject = cards[i].gameObject;
+        tween.DOScale(gameObject.transform,0.3f * Vector3.one, CARD_SCALE_DURATION);
+        tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION, () => gameObject.SetActiveEx(false));
         if (i > 0) {
           yield return new WaitForSeconds(0.1f);
         }

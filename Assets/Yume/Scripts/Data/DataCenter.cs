@@ -30,6 +30,7 @@ namespace Yume.Data {
     public string name;
     [TextArea]
     public string description;
+    public string cardAnimName;
     public string iconFileName;
     public int energyConsumption;
     public BuffTemplate[] buffTemplates;

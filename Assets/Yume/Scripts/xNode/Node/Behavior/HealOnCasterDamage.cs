@@ -1,4 +1,6 @@
-﻿namespace Yume.Battle {
+﻿using UnityEngine;
+
+namespace Yume.Battle {
   /// <summary>
   /// 根据caster上一次造成的伤害回复caster一定量的生命
   /// </summary>
@@ -13,10 +15,8 @@
       float heal = healRate * lastDamageValue;
       if (heal > 0) {
         float realHeal = caster.AddAttrib(AttribType.HP, heal);
-#if BETA
-        string content = $"[{caster.name}]回复了[{realHeal:0}]点生命";
-        BattleManager.Log(content);
-#endif
+        // 显示数字
+        NumFactory.ShowNum(realHeal, caster.gameObject.transform.position, Color.green);
       }
       return true;
     }

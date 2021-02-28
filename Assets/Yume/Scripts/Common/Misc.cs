@@ -90,6 +90,12 @@ public static class RectTransformExtensions {
   public static void SetSizeY(this RectTransform rectTransform, float y) {
     rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, y);
   }
+  
+  public static void Reset(this RectTransform rectTransform) {
+    rectTransform.anchoredPosition3D = Vector3.zero;
+    rectTransform.localScale = Vector3.one;
+    rectTransform.eulerAngles = Vector3.zero;
+  }
 }
 
 public static class ListExtensions {

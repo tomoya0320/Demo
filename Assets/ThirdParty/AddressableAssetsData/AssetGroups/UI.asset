@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefab
+  m_Name: UI
   m_EditorClassIdentifier: 
-  m_GroupName: Prefab
+  m_GroupName: UI
   m_Data:
     m_SerializedData: []
   m_GUID: d679860c5f387974b9b25e18faedc080
@@ -192,29 +192,8 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 83274811b59a4e24196d8e394104dfc3
-    m_Address: enemy_001
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: c3f27e33b0d7fc9409a781daad747d11
-    m_Address: char_001
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: f1947713807965d4b9a87d4789d2f01a
     m_Address: message_center
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 9c67501e8d9cedb44b8a0ca563b031fa
-    m_Address: card_prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload

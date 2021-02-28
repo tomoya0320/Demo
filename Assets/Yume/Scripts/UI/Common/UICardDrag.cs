@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Yume.Audio;
 
 namespace Yume.UI {
   public class UICardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
@@ -13,8 +14,9 @@ namespace Yume.UI {
     private Func<bool> m_onUseCard;
     private Action m_onDraggingCard;
     private int m_originSiblingIndex;
-    public bool enable { private set; get; }
-    public bool interactable => enable && m_tween == null;
+    public int enable { private set; get; }
+    public bool interactable => enable > 0 && m_tween == null;
+    private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
 
     public UICardDrag Init(Action onDraggingCard, Func<bool> onUseCard, Func<bool> condition) {
       m_onUseCard = onUseCard;
@@ -24,7 +26,7 @@ namespace Yume.UI {
     }
 
     public void SetEnable(bool enable) {
-      this.enable = enable;
+      this.enable += enable ? 1 : -1;
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -38,6 +40,8 @@ namespace Yume.UI {
       transform.SetAsLastSibling();
       Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
       m_clickDownPos = mousePosition;
+      
+      AudioManager.PlaySound(SELECT_SOUND);
     }
 
     public void OnPointerUp(PointerEventData eventData) {

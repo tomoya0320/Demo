@@ -125,6 +125,7 @@ namespace Yume.UI {
       if (index >= 0) {
         ui = s_uiCacheDict[uiTemplate.uiType][index].ui;
         ui.root.SetParent(_GetRootByType(uiTemplate.uiType));
+        ui.root.SetActiveEx(true);
         s_uiCacheDict[uiTemplate.uiType].RemoveAt(index);
         return true;
       }

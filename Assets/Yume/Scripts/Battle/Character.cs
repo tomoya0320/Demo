@@ -26,7 +26,7 @@ namespace Yume.Battle {
     /// </summary>
     CONSUME,
   }
-  
+
   public class Character : Unit {
     private List<Card> m_tempCardList = new List<Card>();
     private UICardManager m_uiCardManager = new UICardManager();
@@ -37,12 +37,15 @@ namespace Yume.Battle {
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         cardHeapDict.Add(cardHeapType, new List<Card>());
       }
-      
+
       foreach (var cardData in cardDatas) {
         Func<Card, bool> onUseCard = card => {
           if (card.candidate == null) {
             return false;
           }
+          // 先关闭卡牌拖拽组件避免反复触发
+          card.cardDrag?.SetEnable(false);
+          card.candidate?.selected.SetActiveEx(false);
           EnqueueCard(card);
           return true;
         };
@@ -59,7 +62,7 @@ namespace Yume.Battle {
           cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
           cardHeapDict[CardHeapType.DISCARD].Clear();
         }
-        
+
         Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW].ToArray());
         foreach (Card card in randomCards) {
           // 记录抽取的卡牌
@@ -79,25 +82,22 @@ namespace Yume.Battle {
 
       // 出牌中
       while (true) {
-        if (BattleManager.battleState != BattleState.RUNNING) {
-          yield break;
-        }
         if (playCardQueue.Count > 0) {
           var card = playCardQueue.Dequeue();
           if (card == null) {
             break;
-          } 
-          card.Cast(true);
-          // 关闭卡牌拖拽组件
-          card.cardDrag?.SetEnable(false);
+          }
+          
+          if (cardHeapDict[CardHeapType.HAND].Remove(card)) {
+            cardHeapDict[CardHeapType.DISCARD].Add(card);
+          }
+          yield return card.Cast();
           // 把用过的牌弃掉
           yield return m_uiCardManager.DiscardCard(card);
         }
         yield return null;
       }
       
-      // 关闭卡牌拖拽组件
-      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(false));
       // 记录弃置的卡牌
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
@@ -107,15 +107,16 @@ namespace Yume.Battle {
       m_tempCardList.Clear();
     }
     
+    public void SetCardDragEnable(bool enable) {
+      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(enable));
+    }
+
     public override void OnDie() {
-      BattleManager.battleState = BattleState.LOSE;
+      BattleManager.Finish(BattleResult.LOSE);
     }
 
     public override void CleanUp() {
-      cardHeapDict.Values.ForEach(
-        cards =>
-          cards.ForEach(card => Object.Destroy(card.gameObject))
-      );
+      cardHeapDict.Values.ForEach(cards => cards.ForEach(card => card.CleanUp()));
       Object.Destroy(gameObject);
     }
   }
