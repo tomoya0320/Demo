@@ -72,6 +72,8 @@ namespace Yume.Battle {
     }
 
     public static void StartBattle() {
+      // 播放战斗中的bgm
+      AudioManager.PlayBgm(s_levelTemplate.bgm);
       // 开始作战
       s_coroutine = CoroutineHelper.instance.Run(_Run());
     }
@@ -144,9 +146,6 @@ namespace Yume.Battle {
     }
 
     private static IEnumerator _Run() {
-      // 播放战斗中的bgm
-      AudioManager.PlayBgm(s_levelTemplate.bgm);
-
       while (true) {
         // 更新UI
         if (currentUnit is Character) {
