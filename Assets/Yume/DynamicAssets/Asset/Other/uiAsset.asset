@@ -147,3 +147,8 @@ MonoBehaviour:
     typeName: Yume.UI.UISingleBattle
     prefabName: single_battle
     cacheTime: 10
+  - name: deck
+    uiType: 0
+    typeName: Yume.UI.UICard
+    prefabName: deck
+    cacheTime: 10

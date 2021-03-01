@@ -66,8 +66,6 @@ namespace Yume.UI {
       for (int i = 1; i < m_maxCellNum.x * m_maxCellNum.y + extra; i++) {
         m_scrollGroup.viewList.Add(prototype.Clone() as TView);
       }
-
-      UpdateView();
     }
 
     /// <summary>

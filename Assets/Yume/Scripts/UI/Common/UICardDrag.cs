@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 using Yume.Audio;
 
 namespace Yume.UI {
+  [RequireComponent(typeof(RectTransform))]
   public class UICardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+    private int m_enable;
     private Tween m_tween;
     private bool m_dragging;
     private Vector3 m_originPos;
@@ -14,9 +16,16 @@ namespace Yume.UI {
     private Func<bool> m_onUseCard;
     private Action m_onDraggingCard;
     private int m_originSiblingIndex;
-    public int enable { private set; get; }
-    public bool interactable => enable > 0 && m_tween == null;
+    private Vector2 m_resetAnchorPos;
+    private RectTransform m_rectTransform;
+    public bool interactable => m_enable > 0 && m_tween == null;
+    private const float SCALE_TIME = 0.2f;
+    private static Vector3 s_draggingScale = 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
+
+    private void Awake() {
+      m_rectTransform = GetComponent<RectTransform>();
+    }
 
     public UICardDrag Init(Action onDraggingCard, Func<bool> onUseCard, Func<bool> condition) {
       m_onUseCard = onUseCard;
@@ -26,7 +35,11 @@ namespace Yume.UI {
     }
 
     public void SetEnable(bool enable) {
-      this.enable += enable ? 1 : -1;
+      m_enable += enable ? 1 : -1;
+    }
+
+    public void SetResetAnchorPos(Vector2 resetAnchorPos) {
+      m_resetAnchorPos = resetAnchorPos;
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -35,12 +48,12 @@ namespace Yume.UI {
       }
 
       m_dragging = true;
-      m_originPos = transform.position;
-      m_originSiblingIndex = transform.GetSiblingIndex();
-      transform.SetAsLastSibling();
+      m_originPos = m_rectTransform.position;
+      m_originSiblingIndex = m_rectTransform.GetSiblingIndex();
+      m_rectTransform.SetAsLastSibling();
       Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
       m_clickDownPos = mousePosition;
-      
+
       AudioManager.PlaySound(SELECT_SOUND);
     }
 
@@ -51,9 +64,9 @@ namespace Yume.UI {
 
       m_dragging = false;
       if (m_onUseCard == null || !m_onUseCard()) {
-        m_tween = transform.DOMove(m_originPos, 0.2f).OnComplete(
+        m_tween = m_rectTransform.DOAnchorPos(m_resetAnchorPos, 0.2f).OnComplete(
           () => {
-            transform.SetSiblingIndex(m_originSiblingIndex);
+            m_rectTransform.SetSiblingIndex(m_originSiblingIndex);
             m_tween = null;
           }
         );
@@ -63,8 +76,11 @@ namespace Yume.UI {
     private void Update() {
       if (m_dragging) {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = m_originPos + (mousePosition - m_clickDownPos);
+        m_rectTransform.position = m_originPos + (mousePosition - m_clickDownPos);
+        m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, s_draggingScale, SCALE_TIME);
         m_onDraggingCard?.Invoke();
+      } else if (interactable) {
+        m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, Vector3.one, SCALE_TIME);
       }
     }
   }
