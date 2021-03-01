@@ -67,7 +67,7 @@ namespace Yume.UI {
       if (UIManager.GetTopUI(uiType).name == name) {
         UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", new Action(QuitAVG), null);
       } else {
-        UIManager.CloseOne("confirmation");
+        UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
       }
     }
 

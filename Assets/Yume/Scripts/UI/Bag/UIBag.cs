@@ -87,6 +87,10 @@ namespace Yume.UI {
       public override void OnUpdate() {
         m_itemScrollView.OnUpdate();
       }
+
+      public override void OnOpen(params object[] args) {
+        m_itemScrollView.UpdateView(true);
+      }
     }
 
     private UIItemGroup m_itemGroup;
@@ -97,6 +101,12 @@ namespace Yume.UI {
       m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
 
       _AddListener();
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      base.Open(callback, args);
+      
+      m_itemGroup.OnOpen(args);
     }
 
     public override void OnUpdate() {

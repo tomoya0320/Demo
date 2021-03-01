@@ -27,6 +27,28 @@ namespace Yume.UI {
     private void _AddListener() {
       m_finishTurnBtn.onClick.AddListener(_FinishPlayerTurn);
       GetComponent<Button>("abort").onClick.AddListener(_Abort);
+
+      GetComponent<Button>("drawCardFolder").onClick.AddListener(
+        () =>
+          UIManager.OpenOne(
+            "deck", null,
+            BattleManager.character.GetCardDatas(CardHeapType.DRAW)
+          )
+      );
+      GetComponent<Button>("discardCardFolder").onClick.AddListener(
+        () =>
+          UIManager.OpenOne(
+            "deck", null,
+            BattleManager.character.GetCardDatas(CardHeapType.DISCARD)
+          )
+      );
+      GetComponent<Button>("consumeCardFolder").onClick.AddListener(
+        () =>
+          UIManager.OpenOne(
+            "deck", null,
+            BattleManager.character.GetCardDatas(CardHeapType.CONSUME)
+          )
+      );
     }
 
     private void _Abort() {
@@ -34,7 +56,7 @@ namespace Yume.UI {
         UIManager.OpenOne("confirmation", null, 
           "确认放弃作战？", "确认", "取消", BattleManager.abort, null);
       } else {
-        UIManager.CloseOne("confirmation");
+        UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
       }
     }
 

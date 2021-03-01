@@ -140,6 +140,10 @@ namespace Yume.UI {
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
       }
 
+      public override void OnOpen(params object[] args) {
+        m_taskScrollView.UpdateView(true);
+      }
+
       public override void OnUpdate() {
         m_taskScrollView.OnUpdate();
       }
@@ -193,6 +197,7 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       m_taskGroupSwitch.OnOpen();
+      m_taskGroupList.ForEach(taskGroup => taskGroup.OnOpen(args));
     }
 
     public override void OnUpdate() {

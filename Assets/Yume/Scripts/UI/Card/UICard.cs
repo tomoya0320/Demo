@@ -61,17 +61,18 @@ namespace Yume.UI {
 
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
-        
-        m_cardList = DataManager.userCards;
-
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
-
         m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, this);
       }
 
       public override void OnOpen(params object[] args) {
+        if (args.Length == 0) {
+          m_cardList = DataManager.userCards;
+        } else {
+          m_cardList = args[0] as List<CardData>;
+        }
         m_cardScrollView.UpdateView(true);
       }
 
@@ -95,7 +96,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.OnOpen();
+      m_cardGroup.OnOpen(args);
 
       base.Open(callback, args);
     }

@@ -12,22 +12,22 @@ namespace Yume.Battle {
     public Unit owner;
     public Unit candidate;
     public Rect rect { get; }
+    public CardData cardData { get; }
     public UICardDrag cardDrag { get; }
     public GameObject gameObject { get; }
-    public int phase { private set; get; }
     public CardTemplate cardTemplate { get; }
     public CardAnimCallback cardAnimCallback { get; }
-    public CardPhase cardPhase => cardTemplate.cardPhases[phase];
+    public CardPhase cardPhase => cardTemplate.cardPhases[cardData.phase];
 
-    public Card(Unit unit, CardData card, GameObject root, Func<Card, bool> onUseCard = null) {
+    public Card(Unit unit, CardData data, GameObject root, Func<Card, bool> onUseCard = null) {
       owner = unit;
       gameObject = root;
-      phase = card.phase;
-      cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
+      cardData = new CardData(data.id, data.phase);
+      cardTemplate = ResourceManager.Load<CardTemplate>(cardData.id);
       
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
-      objectContainer.GetComponent<Text>("PhaseText").text = phase.ToString();
+      objectContainer.GetComponent<Text>("PhaseText").text = cardData.phase.ToString();
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       objectContainer.GetComponent<Text>("EnergyText").text = cardPhase.energyConsumption.ToString();
       objectContainer.GetComponent<Image>("IconImage").sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);

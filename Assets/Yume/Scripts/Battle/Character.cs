@@ -50,6 +50,7 @@ namespace Yume.Battle {
           if (cardHeapDict[CardHeapType.HAND].Remove(card)) {
             cardHeapDict[CardHeapType.DISCARD].Add(card);
           }
+          m_uiCardManager.RemoveCards(card);
           EnqueueCard(card);
           return true;
         };
@@ -104,12 +105,23 @@ namespace Yume.Battle {
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       cardHeapDict[CardHeapType.HAND].Clear();
       // 弃牌表现层
+      m_uiCardManager.RemoveCards(m_tempCardList.ToArray());
       yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
       m_tempCardList.Clear();
     }
     
     public void SetCardDragEnable(bool enable) {
       cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(enable));
+    }
+
+    public List<CardData> GetCardDatas(CardHeapType type) {
+      List<CardData> cardDatas = new List<CardData>();
+      if (cardHeapDict.ContainsKey(type)) {
+        foreach (var card in cardHeapDict[type]) {
+          cardDatas.Add(card.cardData);
+        }
+      }
+      return cardDatas;
     }
 
     public override void OnDie() {
