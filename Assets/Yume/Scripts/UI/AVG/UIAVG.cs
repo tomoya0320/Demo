@@ -75,6 +75,8 @@ namespace Yume.UI {
             yield return null;
           }
           if (m_auto) {
+            // 当玩家在进行其他操作的时候等待
+            yield return new WaitUntil(() => UIManager.GetTopUI(UIType.NORMAL).name == name);
             m_avgGraph.Run(this);
           }
         }
