@@ -37,25 +37,23 @@ namespace Yume.Battle {
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         cardHeapDict.Add(cardHeapType, new List<Card>());
       }
-
       foreach (var cardData in cardDatas) {
-        Func<Card, bool> onUseCard = card => {
-          if (card.candidate == null) {
-            return false;
-          }
-          // 先关闭卡牌拖拽组件避免反复触发
-          card.cardDrag?.SetEnable(false);
-          card.candidate?.selected.SetActiveEx(false);
-          // 从手牌堆移到弃牌堆
-          if (cardHeapDict[CardHeapType.HAND].Remove(card)) {
-            cardHeapDict[CardHeapType.DISCARD].Add(card);
-          }
-          m_uiCardManager.RemoveCards(card);
-          EnqueueCard(card);
-          return true;
-        };
-        cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardData, onUseCard));
+        cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardData, _OnUseCard));
       }
+    }
+
+    private bool _OnUseCard(Card card) {
+      if (card.candidate == null) {
+        return false;
+      }
+      // 先关闭卡牌拖拽组件避免反复触发
+      card.cardDrag?.SetEnable(false);
+      card.candidate?.selected.SetActiveEx(false);
+      // 从手牌堆中移除
+      cardHeapDict[CardHeapType.HAND].Remove(card);
+      cardHeapDict[CardHeapType.DISCARD].Add(card);
+      EnqueueCard(card);
+      return true;
     }
 
     public override IEnumerator OnTick() {
@@ -80,36 +78,41 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      yield return m_uiCardManager.DrawCard(m_tempCardList.ToArray());
+      yield return m_uiCardManager.DrawCard(cardHeapDict[CardHeapType.HAND], m_tempCardList.Count);
+      m_tempCardList.Clear();
       // 启用卡牌拖拽组件
       cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(true));
-      m_tempCardList.Clear();
 
       // 出牌中
       while (true) {
         if (playCardQueue.Count > 0) {
-          var card = playCardQueue.Dequeue();
-          if (card == null) {
+          var playCard = playCardQueue.Dequeue();
+          if (playCard == null) {
             break;
           }
           // 出牌
-          yield return card.Cast();
+          yield return playCard.Cast();
           // 把用过的牌弃掉
-          yield return m_uiCardManager.DiscardCard(card);
+          yield return m_uiCardManager.DiscardCard(playCard);
+          // 重新排列剩下的手牌堆
+          yield return m_uiCardManager.ResortHandCards(cardHeapDict[CardHeapType.HAND]);
         }
         yield return null;
       }
-      
+
       // 记录弃置的卡牌
+      // 默认是将手牌全部弃置
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
-      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       cardHeapDict[CardHeapType.HAND].Clear();
+      // 放入弃牌堆
+      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       // 弃牌表现层
-      m_uiCardManager.RemoveCards(m_tempCardList.ToArray());
       yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
       m_tempCardList.Clear();
+      // 重新排列剩下的手牌堆
+      yield return m_uiCardManager.ResortHandCards(cardHeapDict[CardHeapType.HAND]);
     }
-    
+
     public void SetCardDragEnable(bool enable) {
       cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(enable));
     }

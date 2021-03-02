@@ -46,7 +46,7 @@ namespace Yume.UI {
       if (!interactable || m_condition == null || !m_condition()) {
         return;
       }
-
+      
       m_dragging = true;
       m_originPos = m_rectTransform.position;
       m_originSiblingIndex = m_rectTransform.GetSiblingIndex();

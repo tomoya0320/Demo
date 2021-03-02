@@ -18,9 +18,12 @@ namespace Yume.AVG {
     }
 
     protected override Tween DoTween(UIAVG avg, float fadeTime) {
-      avg.nameText.text = _name.Replace(USER_NAME, DataManager.userName);
+      string name = _name.Replace(USER_NAME, DataManager.userName);
+      string dialogue = _dialogue.Replace(USER_NAME, DataManager.userName);
+      avg.historyDialogues += $"\n\n[{name}]:{dialogue}";
+      avg.nameText.text = name;
       avg.dialogueText.text = StringMap.EMPTY;
-      return avg.dialogueText.DOText(_dialogue.Replace(USER_NAME, DataManager.userName), fadeTime);
+      return avg.dialogueText.DOText(dialogue, fadeTime);
     }
   }
 }

@@ -7,26 +7,24 @@ namespace Yume.UI {
   public class UICardManager {
     private const float CARD_MOVE_DURATION = 0.5f;
     private const float CARD_SCALE_DURATION = 0.5f;
-    private List<Card> m_handCards = new List<Card>();
 
     /// <summary>
     /// 从抽牌堆移动到手牌堆的动效
     /// 仅限玩家
     /// </summary>
     /// <returns></returns>
-    public IEnumerator DrawCard(params Card[] cards) {
-      int handCardCount = m_handCards.Count;
+    public IEnumerator DrawCard(List<Card> handCards, int drawCardCount) {
+      int originHandCardCount = handCards.Count - drawCardCount;
       YTween tween = new YTween();
-      m_handCards.AddRange(cards);
-      for (int i = 0; i < m_handCards.Count; i++) {
-        Card card = m_handCards[i];
-        if (i >= handCardCount) {
+      for (int i = 0; i < handCards.Count; i++) {
+        Card card = handCards[i];
+        if (i >= originHandCardCount) {
           card.gameObject.SetActiveEx(true);
           card.gameObject.SetParent(CardFactory.handCardFolder);
           card.gameObject.transform.localScale = 0.3f * Vector3.one;
           tween.DOScale(card.gameObject, Vector3.one, CARD_SCALE_DURATION);
         }
-        Vector2 dest = new Vector2((i - 0.5f * m_handCards.Count + 0.5f) * card.rect.width, 0);
+        Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
         card.cardDrag?.SetResetAnchorPos(dest);
         tween.DOAnchorPos(card.gameObject, dest, CARD_MOVE_DURATION);
         yield return new WaitForSeconds(0.1f);
@@ -49,36 +47,25 @@ namespace Yume.UI {
         tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION, () => gameObject.SetActiveEx(false));
         yield return new WaitForSeconds(0.1f);
       }
-      // 重新排列剩下的手牌
-      for (int i = 0; i < m_handCards.Count; i++) {
-        Card card = m_handCards[i];
-        Vector2 dest = new Vector2((i - 0.5f * m_handCards.Count + 0.5f) * card.rect.width, 0);
-        card.cardDrag?.SetResetAnchorPos(dest);
-        tween.DOAnchorPos(card.gameObject, dest, 0.5f * CARD_MOVE_DURATION);
-        yield return new WaitForSeconds(0.05f);
-      }
 
       yield return new WaitUntil(() => tween.count == 0);
     }
-
+    
     /// <summary>
-    /// 耗牌动效=>从手牌堆到耗牌堆
+    /// 重新排列手牌堆
     /// </summary>
+    /// <param name="handCards"></param>
     /// <returns></returns>
-    public IEnumerator ConsumeCard(params Card[] cards) {
-      yield return null;
-    }
-
-    /// <summary>
-    /// 逻辑上从手牌堆移除
-    /// 因为移除的表现和逻辑不一定是同步的
-    /// 但添加的表现和逻辑是同步
-    /// </summary>
-    /// <param name="cards"></param>
-    public void RemoveCards(params Card[] cards) {
-      foreach (var card in cards) {
-        m_handCards.Remove(card);
+    public IEnumerator ResortHandCards(List<Card> handCards) {
+      YTween tween = new YTween();
+      for (int i = 0; i < handCards.Count; i++) {
+        Card card = handCards[i];
+        Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
+        card.cardDrag?.SetResetAnchorPos(dest);
+        tween.DOAnchorPos(card.gameObject, dest, 0.4f * CARD_MOVE_DURATION);
       }
+      
+      yield return new WaitUntil(() => tween.count == 0);
     }
   }
 }

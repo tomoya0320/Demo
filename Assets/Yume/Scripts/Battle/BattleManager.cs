@@ -97,9 +97,9 @@ namespace Yume.Battle {
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;
-      
+
       // TODO:战斗结算 测试用
-      Action onExitBattle = () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
+      Action onExitBattle = _CleanUp;
       switch (battleResult) {
         case BattleResult.WIN:
           // 避免引用到BattleManager的变量 因为这个变量后面马上就置空了
@@ -123,6 +123,13 @@ namespace Yume.Battle {
           return;
       }
 
+      // 退出战斗界面
+      UIManager.OpenOne(
+        "globalBlackFade", () => { UIManager.CloseOne("single_battle", onExitBattle); }
+      );
+    }
+
+    private static void _CleanUp() {
       // 清理
       s_units.ForEach(unit => unit.CleanUp());
       s_units.Clear();
@@ -138,11 +145,6 @@ namespace Yume.Battle {
       NumFactory.CleanUp();
       UnitFactory.CleanUp();
       CardFactory.CleanUp();
-
-      // 退出战斗界面
-      UIManager.OpenOne(
-        "globalBlackFade", () => { UIManager.CloseOne("single_battle", onExitBattle); }
-      );
     }
 
     private static IEnumerator _Run() {

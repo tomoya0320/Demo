@@ -106,6 +106,12 @@ public static class ListExtensions {
   public static T Last<T>(this List<T> list) {
     return list.Count == 0 ? default : list[list.Count - 1];
   }
+
+  public static void RemoveRange<T>(this List<T> list, IEnumerable<T> items) {
+    foreach (var item in items) {
+      list.Remove(item);
+    }
+  }
 }
 
 public static class GraphicExtensions {
