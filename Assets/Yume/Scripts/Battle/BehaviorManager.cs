@@ -6,7 +6,7 @@ namespace Yume.Battle {
   public class BehaviorManager {
     public Unit unit { get; }
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
- 
+
     public BehaviorManager(Unit unit) {
       this.unit = unit;
     }
@@ -38,7 +38,11 @@ namespace Yume.Battle {
 
     public void Run(BehaviorTime behaviorTime) {
       if (m_behaviorDict.ContainsKey(behaviorTime)) {
-        m_behaviorDict[behaviorTime].ForEach(behaviorTree => behaviorTree.Run());
+        // 避免在迭代的过程中对列表进行增删操作导致迭代器失效
+        var behaviors = m_behaviorDict[behaviorTime].ToArray();
+        foreach (var behavior in behaviors) {
+          behavior.Run();
+        }
       }
     }
   }

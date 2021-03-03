@@ -59,6 +59,7 @@ namespace Yume.Battle {
     }
 
     public override void OnDie() {
+      base.OnDie();
       // 隐藏
       m_canvasGroup.DOFade(0, 0.5f);
       // 移除这个单位施加的buff

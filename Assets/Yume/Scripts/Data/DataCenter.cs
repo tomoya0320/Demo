@@ -234,6 +234,14 @@ namespace Yume.Data {
     /// 在被造成伤害后
     /// </summary> 
     ON_LATE_DAMAGED,
+    /// <summary>
+    /// 在死亡前
+    /// </summary>
+    ON_BEFORE_DIE,    
+    /// <summary>
+    /// 在死亡后
+    /// </summary>
+    ON_LATE_DIE,
   }
 
   [Serializable]

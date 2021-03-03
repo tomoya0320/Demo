@@ -67,9 +67,15 @@ namespace Yume.Battle {
         // 受伤
         owner.animator.SetTrigger("hurt");
       } else {
+        BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_BEFORE_DIE);
+      }
+
+      // 在即将死亡前执行行为树有可能会脱离死亡状态
+      if (!owner.isAlive) {
         // 单位死亡
         owner.OnDie();
       }
+      
       return true;
     }
 

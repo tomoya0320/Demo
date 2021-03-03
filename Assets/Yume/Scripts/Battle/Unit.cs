@@ -57,7 +57,9 @@ namespace Yume.Battle {
 
     public abstract IEnumerator OnTick();
 
-    public abstract void OnDie();
+    public virtual void OnDie() {
+      BattleManager.behaviorManagers[this].Run(BehaviorTime.ON_LATE_DIE);
+    }
 
     public abstract void CleanUp();
 

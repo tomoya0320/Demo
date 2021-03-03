@@ -138,6 +138,7 @@ namespace Yume.Battle {
     }
 
     public override void OnDie() {
+      base.OnDie();
       BattleManager.Finish(BattleResult.LOSE);
     }
 
