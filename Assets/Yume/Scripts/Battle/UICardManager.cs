@@ -40,17 +40,17 @@ namespace Yume.UI {
     /// <returns></returns>
     public IEnumerator DiscardCard(params Card[] cards) {
       YTween tween = new YTween();
-      foreach (var card in cards) {
-        card.gameObject.SetParent(CardFactory.discardCardFolder);
-        GameObject gameObject = card.gameObject;
-        tween.DOScale(gameObject.transform,0.3f * Vector3.one, CARD_SCALE_DURATION);
+      for (int i = cards.Length - 1; i >= 0; i--) {
+        GameObject gameObject = cards[i].gameObject;
+        gameObject.SetParent(CardFactory.discardCardFolder);
+        tween.DOScale(gameObject.transform, 0.3f * Vector3.one, CARD_SCALE_DURATION);
         tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION, () => gameObject.SetActiveEx(false));
         yield return new WaitForSeconds(0.1f);
       }
 
       yield return new WaitUntil(() => tween.count == 0);
     }
-    
+
     /// <summary>
     /// 重新排列手牌堆
     /// </summary>
@@ -62,7 +62,7 @@ namespace Yume.UI {
         Card card = handCards[i];
         Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
         card.cardDrag?.SetResetAnchorPos(dest);
-        tween.DOAnchorPos(card.gameObject, dest, 0.4f * CARD_MOVE_DURATION);
+        tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
       }
       
       yield return new WaitUntil(() => tween.count == 0);
