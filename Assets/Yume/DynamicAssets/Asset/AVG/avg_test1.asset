@@ -337,47 +337,6 @@ MonoBehaviour:
   fadeTime: 0.5
   onFadeCompleted: 0
   _visible: 1
---- !u!114 &-2867978853022464836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be71f01720ff7034d8382c5c82251902, type: 3}
-  m_Name: Play Bgm
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  graph: {fileID: 11400000}
-  position: {x: -424, y: 8}
-  ports:
-    keys:
-    - node
-    values:
-    - _fieldName: node
-      _node: {fileID: -2867978853022464836}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: nodes
-        node: {fileID: -1926963278744107930}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  node: 0
-  _bgmClip: {fileID: 8300000, guid: 5043e6787731bb741b439a9c5e612e57, type: 3}
 --- !u!114 &-1926963278744107930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,9 +395,6 @@ MonoBehaviour:
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: node
-        node: {fileID: -2867978853022464836}
-        reroutePoints: []
       - fieldName: node
         node: {fileID: 5847907996881518768}
         reroutePoints: []
@@ -558,7 +514,6 @@ MonoBehaviour:
   nodes:
   - {fileID: 6017689547753387790}
   - {fileID: -1926963278744107930}
-  - {fileID: -2867978853022464836}
   - {fileID: 5847907996881518768}
   - {fileID: 6129035280962455863}
   - {fileID: -5860967097870442537}

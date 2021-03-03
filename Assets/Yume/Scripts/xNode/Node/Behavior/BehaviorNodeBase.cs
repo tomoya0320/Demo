@@ -45,8 +45,9 @@ namespace Yume.Battle {
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
 
       float realDamage = OnDamage(caster);
-      // TODO:音效测试用
-      AudioManager.PlaySound("SOTE_SFX_BlockAtk_v2");
+      // 播放受击音效
+      string hurtSound = behaviorTree.blackboard.GetValue("hurtSound", StringMap.DEFAULT_HURT_SOUND);
+      AudioManager.PlaySound(hurtSound);
       // 显示数字
       NumFactory.ShowNum(realDamage, owner.gameObject.transform.position, Color.red);
 

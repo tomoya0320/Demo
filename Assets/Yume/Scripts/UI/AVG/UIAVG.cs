@@ -87,7 +87,10 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
       
-      m_avgGraph = ResourceManager.Load<AVGGraph>((string)args[0]);
+      // 停止BGM
+      AudioManager.StopBgm();
+
+      m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
       m_onQuitAVG = args[1] as Action;
       m_avgGraph.Enter(this);
       m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
@@ -100,8 +103,6 @@ namespace Yume.UI {
         _CleanUp();
         m_onQuitAVG?.Invoke();
         UIManager.onBackList.Remove(_SkipAVG);
-        // TODO:临时用
-        AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
       };
 
       base.Close(callback, args);

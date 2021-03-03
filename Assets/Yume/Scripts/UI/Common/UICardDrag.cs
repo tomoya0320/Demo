@@ -12,7 +12,6 @@ namespace Yume.UI {
     private bool m_dragging;
     private Vector3 m_originPos;
     private Vector3 m_clickDownPos;
-    private Func<bool> m_condition;
     private Func<bool> m_onUseCard;
     private Action m_onDraggingCard;
     private int m_originSiblingIndex;
@@ -27,9 +26,8 @@ namespace Yume.UI {
       m_rectTransform = GetComponent<RectTransform>();
     }
 
-    public UICardDrag Init(Action onDraggingCard, Func<bool> onUseCard, Func<bool> condition) {
+    public UICardDrag Init(Action onDraggingCard, Func<bool> onUseCard) {
       m_onUseCard = onUseCard;
-      m_condition = condition;
       m_onDraggingCard = onDraggingCard;
       return this;
     }
@@ -43,7 +41,7 @@ namespace Yume.UI {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-      if (!interactable || m_condition == null || !m_condition()) {
+      if (!interactable) {
         return;
       }
       

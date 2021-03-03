@@ -46,6 +46,16 @@ namespace Yume.Battle {
       if (card.candidate == null) {
         return false;
       }
+      if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
+        if (card.candidate != null) {
+          card.candidate.selected.SetActiveEx(false);
+          card.candidate = null;
+        }
+        MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
+        return false;
+      }
+      // 及时消耗能量
+      AddAttrib(AttribType.ENERGY, -card.cardPhase.energyConsumption);
       // 先关闭卡牌拖拽组件避免反复触发
       card.cardDrag?.SetEnable(false);
       card.candidate?.selected.SetActiveEx(false);

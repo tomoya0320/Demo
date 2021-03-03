@@ -17,6 +17,12 @@ namespace Yume.Battle {
       s_numPrototype.gameObject.SetActiveEx(false);
     }
 
+    /// <summary>
+    /// 显示数字(伤害、治疗等数值)
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="pos"></param>
+    /// <param name="color"></param>
     public static void ShowNum(float value, Vector3 pos, Color color) {
       if (s_numPrototype == null) {
         return;

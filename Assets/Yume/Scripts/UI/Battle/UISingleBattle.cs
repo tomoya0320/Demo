@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Audio;
 using Yume.Battle;
 using Yume.Broadcast;
 using Yume.Data;
@@ -90,7 +91,10 @@ namespace Yume.UI {
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
       
       BattleManager.Init(levelTemplate, objectContainer);
-
+      
+      // 播放战斗中的bgm
+      AudioManager.PlayBgm(levelTemplate.bgm);
+      
       callback += BattleManager.StartBattle;
       base.Open(callback, args);
     }
