@@ -152,3 +152,8 @@ MonoBehaviour:
     typeName: Yume.UI.UICard
     prefabName: deck
     cacheTime: 10
+  - name: avg_history
+    uiType: 0
+    typeName: Yume.UI.UIAVGHistory
+    prefabName: avg_history
+    cacheTime: 10

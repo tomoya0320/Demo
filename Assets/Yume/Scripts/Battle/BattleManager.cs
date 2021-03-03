@@ -72,8 +72,6 @@ namespace Yume.Battle {
     }
 
     public static void StartBattle() {
-      // 播放战斗中的bgm
-      AudioManager.PlayBgm(s_levelTemplate.bgm);
       // 开始作战
       s_coroutine = CoroutineHelper.instance.Run(_Run());
     }
@@ -97,15 +95,17 @@ namespace Yume.Battle {
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;
-      
+
       // TODO:战斗结算 测试用
-      Action onExitBattle = () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
+      Action onExitBattle = _CleanUp;
       switch (battleResult) {
         case BattleResult.WIN:
-          // 避免引用到BattleManager的变量 因为这个变量后面马上就置空了
+          // 避免引用到BattleManager的变量 因为这些变量后面就置空了
           LevelTemplate levelTemplate = s_levelTemplate;
           if (!string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
             Action action = () => {
+              // TODO:暂时先播放默认的BGM
+              AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
               MessageManager.AddMessage(new Message(Message.Style.FADE, "作战胜利"));
               DataManager.CompleteLevel(levelTemplate.id);
             };
@@ -113,9 +113,13 @@ namespace Yume.Battle {
           }
           break;
         case BattleResult.LOSE:
+          // TODO:暂时先播放默认的BGM
+          AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
           MessageManager.AddMessage(new Message(Message.Style.FADE, "作战失败"));
           break;
         case BattleResult.ABORT:
+          // TODO:暂时先播放默认的BGM
+          AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
           MessageManager.AddMessage(new Message(Message.Style.FADE, "放弃作战"));
           break;
         default:
@@ -123,6 +127,13 @@ namespace Yume.Battle {
           return;
       }
 
+      // 退出战斗界面
+      UIManager.OpenOne(
+        "globalBlackFade", () => { UIManager.CloseOne("single_battle", onExitBattle); }
+      );
+    }
+
+    private static void _CleanUp() {
       // 清理
       s_units.ForEach(unit => unit.CleanUp());
       s_units.Clear();
@@ -138,11 +149,6 @@ namespace Yume.Battle {
       NumFactory.CleanUp();
       UnitFactory.CleanUp();
       CardFactory.CleanUp();
-
-      // 退出战斗界面
-      UIManager.OpenOne(
-        "globalBlackFade", () => { UIManager.CloseOne("single_battle", onExitBattle); }
-      );
     }
 
     private static IEnumerator _Run() {

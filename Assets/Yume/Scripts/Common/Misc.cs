@@ -13,6 +13,7 @@ using XLua;
 using Yume.Data;
 using Random = System.Random;
 using Axis = UnityEngine.RectTransform.Axis;
+using Component = UnityEngine.Component;
 
 public static class XLuaUtil {
   private static LuaEnv s_luaEnv = new LuaEnv();
@@ -106,6 +107,12 @@ public static class ListExtensions {
   public static T Last<T>(this List<T> list) {
     return list.Count == 0 ? default : list[list.Count - 1];
   }
+
+  public static void RemoveRange<T>(this List<T> list, IEnumerable<T> items) {
+    foreach (var item in items) {
+      list.Remove(item);
+    }
+  }
 }
 
 public static class GraphicExtensions {
@@ -120,7 +127,7 @@ public static class GameObjectExtensions {
   public static RectTransform GetRectTransform(this GameObject gameObject) {
     return gameObject.GetComponent<RectTransform>();
   }
-  
+
   public static void SetParent(this GameObject gameObject, Transform parent) {
     gameObject.transform.SetParent(parent);
   }
@@ -163,6 +170,20 @@ public static class GameObjectExtensions {
 
   public static Transform GetParent(this GameObject gameObject) {
     return gameObject.transform.parent;
+  }
+
+  /// <summary>
+  /// 如果找不到组件就添加一个
+  /// </summary>
+  /// <param name="gameObject"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
+  public static T GetComponentEx<T>(this GameObject gameObject) where T : Component {
+    T component = gameObject.GetComponent<T>();
+    if (component == null) {
+      component = gameObject.AddComponent<T>();
+    }
+    return component;
   }
 }
 
@@ -219,6 +240,7 @@ public static class StringMap {
   public const string LOGIN = "login";
   public const string HOME = "home";
   public const string DEFAULT_BGM = "SOTE_Shrine_v2";
+  public const string DEFAULT_HURT_SOUND = "SOTE_SFX_BlockAtk_v2";
   public const string DEFAULT_CLICK_SOUND = "点击2";
   public const string EXP_ID = "item_0_exp";
   public const string DIAMOND_ID = "item_1_diamond";

@@ -58,6 +58,10 @@ namespace Yume.Resource {
 
     // 加载图片、音频、预制体等通用方法
     public static T Load<T>(string key) {
+      if (string.IsNullOrEmpty(key)) {
+        throw new Exception("key is null or empty!");
+      }
+      
       if (s_resourceDict.ContainsKey((key, typeof(T)))) {
         return (T)s_resourceDict[(key, typeof(T))];
       }
@@ -75,6 +79,10 @@ namespace Yume.Resource {
     }
 
     public static bool Contains<T>(string key) {
+      if (string.IsNullOrEmpty(key)) {
+        throw new Exception("key is null or empty!");
+      }
+      
       return s_resourceDict.ContainsKey((key, typeof(T)));
     }
   }

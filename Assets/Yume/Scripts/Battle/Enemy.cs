@@ -7,11 +7,12 @@ using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
-    private Tween m_cardTween;
+    private CanvasGroup m_canvasGroup;
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
     public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
+      m_canvasGroup = gameObject.GetComponentEx<CanvasGroup>();
       foreach (var cardData in cardDatas) {
         cards.Add(CardFactory.CreateCard(this, cardData, null, gameObject.transform));
       }
@@ -29,6 +30,9 @@ namespace Yume.Battle {
       int index = MathUtil.random.Next(0, candidateCards.Count);
       // 敌人默认的目标是玩家
       candidateCards[index].candidate = BattleManager.character;
+      // 消耗能量
+      AddAttrib(AttribType.ENERGY, -candidateCards[index].cardPhase.energyConsumption);
+      // 加入出牌队列
       playCardQueue.Enqueue(candidateCards[index]);
       // 结束出牌的标记
       playCardQueue.Enqueue(null);
@@ -39,28 +43,32 @@ namespace Yume.Battle {
           if (card == null) {
             break;
           }
-          // TODO:测试用
+          
           card.gameObject.SetActiveEx(true);
           card.gameObject.transform.localScale = 0.3f * Vector3.one;
-          m_cardTween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
-          yield return new WaitUntil(() => !m_cardTween.IsPlaying());
+          var tween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
+          yield return new WaitUntil(() => !tween.IsPlaying());
           yield return card.Cast();
-          m_cardTween = card.gameObject.transform.DOScale(0.3f * Vector3.one, 0.2f);
-          m_cardTween.OnComplete(() => card.gameObject.SetActiveEx(false));
-          yield return new WaitUntil(() => !m_cardTween.IsPlaying());
+          tween = card.gameObject.transform
+                      .DOScale(0.3f * Vector3.one, 0.2f)
+                      .OnComplete(() => card.gameObject.SetActiveEx(false));
+          yield return new WaitUntil(() => !tween.IsPlaying());
         }
         yield return null;
       }
     }
 
     public override void OnDie() {
-      // TODO:改进
-      // 隐藏物体
-      gameObject.SetActiveEx(false);
+      // 隐藏
+      m_canvasGroup.DOFade(0, 0.5f);
       // 移除这个单位施加的buff
       foreach (var buffManager in BattleManager.buffManagers.Values) {
-        buffManager.OnCasterDie(this);
+        // 只针对还存活的单位
+        if (buffManager.unit.isAlive) {
+          buffManager.OnCasterDie(this);
+        }
       }
+      // 结算判断
       if (BattleManager.units.Count == 1) {
         BattleManager.Finish(BattleResult.WIN);
       }

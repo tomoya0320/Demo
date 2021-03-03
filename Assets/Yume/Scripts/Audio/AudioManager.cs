@@ -82,20 +82,34 @@ namespace Yume.Audio {
       }
 
       public void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
-        m_tween?.Complete();
-        m_tween = m_audioSource
-                  .DOFade(0, fadeTime)
-                  .OnComplete(
-                    () => {
-                      m_tween = null;
-                      m_audioSource.Stop();
-                      onCompleted?.Invoke();
-                    }
-                  );
+        // 因为OnComplete里可能又会创建一个Tween
+        while (m_tween != null) {
+          m_tween.Complete();
+        }
+        
+        if (fadeTime <= 0) {
+          _StopBgmInternal();
+          onCompleted?.Invoke();
+        } else {
+          m_tween = m_audioSource
+                    .DOFade(0, fadeTime)
+                    .OnComplete(
+                      () => {
+                        m_tween = null;
+                        _StopBgmInternal();
+                        onCompleted?.Invoke();
+                      }
+                    );  
+        }
       }
 
-      public void PlayBgm(AudioClip audioClip, bool immediate = false, float fadeTime = 1.0f) {
-        if (immediate) {
+      public void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
+        // 因为OnComplete里可能又会创建一个Tween
+        while (m_tween != null) {
+          m_tween.Complete();
+        }
+        
+        if (fadeTime <= 0) {
           _PlayBgmInternal(audioClip);
         } else {
           StopBgm(
@@ -114,6 +128,10 @@ namespace Yume.Audio {
         m_audioSource.Play();
       }
 
+      private void _StopBgmInternal() {
+        m_audioSource.Stop();
+      }
+
       public string GetCurrentClipName() {
         return m_audioSource.clip?.name;
       }
@@ -128,31 +146,22 @@ namespace Yume.Audio {
       s_soundManager = new SoundManager(audioRoot);
 
       // 播放默认的bgm
-      PlayBgm(StringMap.DEFAULT_BGM, true);
+      PlayBgm(StringMap.DEFAULT_BGM, 0);
     }
 
     #region BGM
 
-    public static void PlayBgm(AudioClip audioClip) {
-      s_bgmManager.PlayBgm(audioClip);
+    public static void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
+      s_bgmManager.PlayBgm(audioClip, fadeTime);
     }
 
-    public static void PlayBgm(string audioClipName) {
+    public static void PlayBgm(string audioClipName, float fadeTime = 1.0f) {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      s_bgmManager.PlayBgm(audio);
+      s_bgmManager.PlayBgm(audio, fadeTime);
     }
-
-    public static void PlayBgm(string audioClipName, bool immediate) {
-      var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      s_bgmManager.PlayBgm(audio, immediate);
-    }
-
-    public static void StopBgm() {
-      s_bgmManager.StopBgm();
-    }
-
-    public static void StopBgm(float fadeTime) {
-      s_bgmManager.StopBgm(null, fadeTime);
+    
+    public static void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
+      s_bgmManager.StopBgm(onCompleted, fadeTime);
     }
 
     public static void UpdateBgmVolume() {

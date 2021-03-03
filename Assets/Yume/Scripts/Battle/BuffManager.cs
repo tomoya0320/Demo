@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using Yume.Data;
 
 namespace Yume.Battle {
@@ -24,6 +25,15 @@ namespace Yume.Battle {
           _AddBuffInternal(buffId, blackboard, behaviors);
           break;
       }
+    }
+
+    public bool RemoveBuff(Buff buff) {
+      if (m_buffDict.ContainsKey(buff.id) && m_buffDict[buff.id].Remove(buff)) {
+        buff.OnRemove();
+        return true;
+      }
+      Debug.LogError($"移除buff出错！buff:{buff.id}不存在！");
+      return false;
     }
 
     private void _AddBuffInternal(string buffId, Blackboard blackboard, Behavior[] behaviors) {

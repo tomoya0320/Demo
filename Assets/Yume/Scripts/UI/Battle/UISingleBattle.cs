@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Audio;
 using Yume.Battle;
 using Yume.Broadcast;
 using Yume.Data;
@@ -28,21 +29,21 @@ namespace Yume.UI {
       m_finishTurnBtn.onClick.AddListener(_FinishPlayerTurn);
       GetComponent<Button>("abort").onClick.AddListener(_Abort);
 
-      GetComponent<Button>("drawCardFolder").onClick.AddListener(
+      GetComponent<Button>("lookDrawCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
             "deck", null,
             BattleManager.character.GetCardDatas(CardHeapType.DRAW)
           )
       );
-      GetComponent<Button>("discardCardFolder").onClick.AddListener(
+      GetComponent<Button>("lookDiscardCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
             "deck", null,
             BattleManager.character.GetCardDatas(CardHeapType.DISCARD)
           )
       );
-      GetComponent<Button>("consumeCardFolder").onClick.AddListener(
+      GetComponent<Button>("lookConsumeCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
             "deck", null,
@@ -90,7 +91,10 @@ namespace Yume.UI {
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
       
       BattleManager.Init(levelTemplate, objectContainer);
-
+      
+      // 播放战斗中的bgm
+      AudioManager.PlayBgm(levelTemplate.bgm);
+      
       callback += BattleManager.StartBattle;
       base.Open(callback, args);
     }

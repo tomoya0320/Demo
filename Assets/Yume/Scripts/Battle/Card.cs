@@ -49,15 +49,7 @@ namespace Yume.Battle {
               candidate = null;
             }
           },
-          () => onUseCard(this), 
-          () => {
-            if (cardPhase.energyConsumption > owner.GetAttrib(AttribType.ENERGY)) {
-              MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
-              return false;
-            } else {
-              return true;
-            }
-          }
+          () => onUseCard(this)
         );
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
@@ -74,8 +66,6 @@ namespace Yume.Battle {
         yield break;
       }
       
-      // TODO:前置条件需求消耗(比如能量消耗等)
-      owner.AddAttrib(AttribType.ENERGY, -cardPhase.energyConsumption);
       yield return cardAnimCallback.PlayAnim();
       candidate = null;
     }
