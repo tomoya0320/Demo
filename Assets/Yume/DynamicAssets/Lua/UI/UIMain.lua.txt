@@ -1,7 +1,7 @@
 DataManager = CS.Yume.Data.DataManager
 StringMap = CS.StringMap
-MessageManager = CS.Yume.UI.MessageManager
-Message = CS.Yume.UI.Message
+MessageManager = CS.Yume.MessageManager
+Message = CS.Yume.Message
 
 --[[
 xlua.hotfix(CS.Yume.UI.UIMain,'_UpdateUserInfo', function (self)
