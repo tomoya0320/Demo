@@ -13,11 +13,11 @@ namespace Yume.Battle {
     public static Transform consumeCardFolder { private set; get; }
 
     public static void Init(ObjectContainer objectContainer) {
-      cardAnimFolder = objectContainer.GetGameObject("cardAnimFolder").transform;
-      drawCardFolder = objectContainer.GetGameObject("drawCardFolder").transform;
-      handCardFolder = objectContainer.GetGameObject("handCardFolder").transform;
-      discardCardFolder = objectContainer.GetGameObject("discardCardFolder").transform;
-      consumeCardFolder = objectContainer.GetGameObject("consumeCardFolder").transform;
+      cardAnimFolder = objectContainer.GetTransform("cardAnimFolder");
+      drawCardFolder = objectContainer.GetTransform("drawCardFolder");
+      handCardFolder = objectContainer.GetTransform("handCardFolder");
+      discardCardFolder = objectContainer.GetTransform("discardCardFolder");
+      consumeCardFolder = objectContainer.GetTransform("consumeCardFolder");
     }
 
     public static Card CreateCard(Unit unit, CardData cardData, Func<Card, bool> onUseCard = null, Transform parent = null) {
