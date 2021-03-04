@@ -61,7 +61,11 @@ namespace Yume.Battle {
       card.candidate?.selected.SetActiveEx(false);
       // 从手牌堆中移除
       cardHeapDict[CardHeapType.HAND].Remove(card);
-      cardHeapDict[CardHeapType.DISCARD].Add(card);
+      if (card.cardPhase.consume) {
+        cardHeapDict[CardHeapType.CONSUME].Add(card); 
+      } else {
+        cardHeapDict[CardHeapType.DISCARD].Add(card); 
+      }
       EnqueueCard(card);
       return true;
     }
@@ -103,7 +107,7 @@ namespace Yume.Battle {
           // 出牌
           yield return playCard.Cast();
           // 把用过的牌弃掉
-          yield return m_uiCardManager.DiscardCard(playCard);
+          yield return m_uiCardManager.DiscardCard(playCard.cardPhase.consume, playCard);
           // 重新排列剩下的手牌堆
           yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
         }
@@ -117,7 +121,7 @@ namespace Yume.Battle {
       // 放入弃牌堆
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       // 弃牌表现层
-      yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
+      yield return m_uiCardManager.DiscardCard(false, m_tempCardList.ToArray());
       m_tempCardList.Clear();
       // 重新排列剩下的手牌堆
       yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);

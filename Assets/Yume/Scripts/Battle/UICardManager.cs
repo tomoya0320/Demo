@@ -34,15 +34,19 @@ namespace Yume.UI {
     }
 
     /// <summary>
-    /// 从手牌堆移动到弃牌堆的动效
+    /// 从手牌堆移动到弃/耗牌堆的动效
     /// 仅限玩家
     /// </summary>
     /// <returns></returns>
-    public IEnumerator DiscardCard(params Card[] cards) {
+    public IEnumerator DiscardCard(bool consume, params Card[] cards) {
       YTween tween = new YTween();
       for (int i = cards.Length - 1; i >= 0; i--) {
         GameObject gameObject = cards[i].gameObject;
-        gameObject.SetParent(CardFactory.discardCardFolder);
+        if (consume) {
+          gameObject.SetParent(CardFactory.consumeCardFolder);
+        } else {
+          gameObject.SetParent(CardFactory.discardCardFolder);
+        }
         tween.DOScale(gameObject.transform, 0.3f * Vector3.one, CARD_SCALE_DURATION);
         tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION).onComplete += () => gameObject.SetActiveEx(false);
         yield return new WaitForSeconds(0.1f);

@@ -28,6 +28,7 @@ namespace Yume.Data {
 
   public struct CardPhase {
     public string name;
+    public bool consume;
     [TextArea]
     public string description;
     public string cardAnimName;
