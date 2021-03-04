@@ -21,19 +21,24 @@ namespace Yume.Battle {
     public override IEnumerator OnTick() {
       yield return new WaitForSeconds(1);
       // 筛选出符合出牌条件的牌
-      List<Card> candidateCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
+      List<Card> validCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
       // 没有就直接结束回合
-      if (candidateCards == null || candidateCards.Count == 0) {
+      if (validCards == null || validCards.Count == 0) {
         yield break;
       }
       // 随机选一张牌出
-      int index = MathUtil.random.Next(0, candidateCards.Count);
-      // 敌人默认的目标是玩家
-      candidateCards[index].candidate = BattleManager.character;
+      int index = MathUtil.random.Next(0, validCards.Count);
+      if (validCards[index].cardTemplate.onlySelf) {
+        // candidate就是自己 
+        validCards[index].candidate = this;
+      } else {
+        // 敌人默认的目标是玩家
+        validCards[index].candidate = BattleManager.character;
+      }
       // 消耗能量
-      AddAttrib(AttribType.ENERGY, -candidateCards[index].cardPhase.energyConsumption);
+      AddAttrib(AttribType.ENERGY, -validCards[index].cardPhase.energyConsumption);
       // 加入出牌队列
-      playCardQueue.Enqueue(candidateCards[index]);
+      playCardQueue.Enqueue(validCards[index]);
       // 结束出牌的标记
       playCardQueue.Enqueue(null);
       // 出牌中
@@ -61,16 +66,17 @@ namespace Yume.Battle {
     public override void OnDie() {
       // 隐藏
       m_canvasGroup.DOFade(0, 0.5f);
-      // 移除这个单位施加的buff
-      foreach (var buffManager in BattleManager.buffManagers.Values) {
-        // 只针对还存活的单位
-        if (buffManager.unit.isAlive) {
-          buffManager.OnCasterDie(this);
-        }
-      }
       // 结算判断
       if (BattleManager.units.Count == 1) {
         BattleManager.Finish(BattleResult.WIN);
+      } else {
+        // 移除这个单位施加的buff
+        foreach (var buffManager in BattleManager.buffManagers.Values) {
+          // 只针对还存活的单位
+          if (buffManager.unit.isAlive) {
+            buffManager.OnCasterDie(this);
+          }
+        }
       }
     }
 

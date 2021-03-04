@@ -39,6 +39,8 @@ namespace Yume.Server {
       user.cards.Add(new CardData("card_002", 0));
       user.cards.Add(new CardData("card_002", 1));
       user.cards.Add(new CardData("card_002", 1));
+      user.cards.Add(new CardData("card_003", 0));
+      user.cards.Add(new CardData("card_003", 0));
       foreach (var card in user.cards) {
         card.guid = user.validGuid++;
       }

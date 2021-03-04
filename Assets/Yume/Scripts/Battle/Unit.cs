@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 using Yume.Data;
 using Yume.Resource;
+using Yume.UI;
 
 namespace Yume.Battle {
   public abstract class Unit {
@@ -20,8 +21,9 @@ namespace Yume.Battle {
 
     #region 表现层
 
-    protected Text hpText;
-    protected Text energyText;
+    protected YImage hpImage;
+    protected Tween hpImgTween;
+    protected YImage energyImage;
 
     public Animator animator { get; }
     public GameObject selected { get; }
@@ -44,15 +46,16 @@ namespace Yume.Battle {
       var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);
       gameObject = Object.Instantiate(prefab, folder);
       animator = gameObject.GetComponent<Animator>();
-      selected = gameObject.FindGo("selected");
-      selected?.SetActiveEx(false);
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
-      hpText = objectContainer.GetComponent<Text>("hp");
-      energyText = objectContainer.GetComponent<Text>("energy");
+      hpImage = objectContainer.GetComponent<YImage>("hp");
+      energyImage = objectContainer.GetComponent<YImage>("energy");
+      selected = objectContainer.GetGameObject("selected");
+      selected?.SetActiveEx(false);
 
-      hpText.text = $"HP:{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
-      energyText.text = $"E:{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
+      // 更新属性UI
+      OnAttribChanged(AttribType.HP);
+      OnAttribChanged(AttribType.ENERGY);
     }
 
     public abstract IEnumerator OnTick();
@@ -76,20 +79,19 @@ namespace Yume.Battle {
       return onMaxValue ? attribs[(int)type].maxValue : attribs[(int)type].value;
     }
 
-    protected virtual void OnAttribChanged(AttribType type, float delta, bool onMaxValue = false) {
+    protected virtual void OnAttribChanged(AttribType type, float delta = 0, bool onMaxValue = false) {
       switch (type) {
         case AttribType.HP: {
           // 更新UI
-          hpText.text = $"HP:{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
+          hpImgTween?.Complete();
+          float fillAmount = GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
+          hpImgTween = hpImage.DOFillAmount(fillAmount, 0.2f).OnComplete(() => hpImgTween = null);
+          hpImage.textComponent.text = $"{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
           break;
         }
-        case AttribType.ATK:
-          break;
         case AttribType.ENERGY:
           // 更新UI
-          energyText.text = $"E:{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
-          break;
-        case AttribType.DEF:
+          energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
           break;
       }
     }

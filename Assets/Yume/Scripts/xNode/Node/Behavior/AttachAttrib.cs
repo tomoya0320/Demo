@@ -20,11 +20,11 @@ namespace Yume.Battle {
         finalValue += attribAdditive.rateOnValue * owner.GetAttrib(attribAdditive.type);
         finalValue += attribAdditive.rateOnMaxValue * owner.GetAttrib(attribAdditive.type, true);
         float realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
-        // TODO:增加能量数字显示测试用
-        if (attribAdditive.type == AttribType.ENERGY) {
-          NumFactory.ShowNum(realValue, owner.gameObject.transform.position, Color.blue);
-        }
-        
+
+        // 显示数字
+        Color color = Colors.GetAttribColor(attribAdditive.type);
+        NumFactory.ShowNum(realValue, owner.gameObject.transform.position, color);
+
         AttribArgs args = new AttribArgs {
           type = attribAdditive.type,
           onMaxValue = attribAdditive.onMaxValue,

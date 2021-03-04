@@ -8,8 +8,8 @@ namespace Yume.Battle {
     public static Transform enemyFolder { private set; get; }
 
     public static void Init(ObjectContainer objectContainer) {
-      charFolder = objectContainer.GetGameObject("charFolder").transform;
-      enemyFolder = objectContainer.GetGameObject("enemyFolder").transform;
+      charFolder = objectContainer.GetTransform("charFolder");
+      enemyFolder = objectContainer.GetTransform("enemyFolder");
     }
 
     public static Unit CreateUnit<T>(UnitData unitData, CardData[] cardDatas) where T : Unit {

@@ -12,7 +12,7 @@ namespace Yume.Battle {
     public static Transform numFolder { private set; get; }
 
     public static void Init(ObjectContainer objectContainer) {
-      numFolder = objectContainer.GetGameObject("numFolder").transform;
+      numFolder = objectContainer.GetTransform("numFolder");
       s_numPrototype = numFolder.GetComponentInChildren<Text>(true);
       s_numPrototype.gameObject.SetActiveEx(false);
     }
@@ -35,7 +35,7 @@ namespace Yume.Battle {
         num = Object.Instantiate(s_numPrototype, numFolder);
       }
       num.gameObject.SetActiveEx(true);
-      num.text = value.ToString("0");
+      num.text = $"{value:0}";
       color.a = 0;
       num.color = color;
       num.transform.position = pos;

@@ -26,13 +26,16 @@ MonoBehaviour:
       Data: 0|Yume.Data.CardTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: Yume.Data.CardTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
+    - Name: onlySelf
+      Entry: 5
+      Data: false
     - Name: cardType
       Entry: 3
       Data: 0
@@ -48,6 +51,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u6253\u51FB"
+    - Name: consume
+      Entry: 5
+      Data: false
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210120%\u7684\u4F24\u5BB3"
@@ -163,6 +169,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u6253\u51FBPlus"
+    - Name: consume
+      Entry: 5
+      Data: false
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210200%\u7684\u5927\u91CF\u4F24\u5BB3"
@@ -283,6 +292,9 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: card_002
+    - Name: onlySelf
+      Entry: 5
+      Data: false
     - Name: cardType
       Entry: 3
       Data: 0
@@ -298,6 +310,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u55DC\u8840"
+    - Name: consume
+      Entry: 5
+      Data: false
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210100%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB350%\u7684\u751F\u547D"
@@ -427,6 +442,9 @@ MonoBehaviour:
     - Name: name
       Entry: 1
       Data: "\u55DC\u8840Plus"
+    - Name: consume
+      Entry: 5
+      Data: false
     - Name: description
       Entry: 1
       Data: "\u5BF9\u76EE\u6807\u9020\u6210160%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB380%\u7684\u751F\u547D"
@@ -526,6 +544,171 @@ MonoBehaviour:
     - Name: 
       Entry: 4
       Data: 0.8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_003
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: cardType
+      Entry: 3
+      Data: 1
+    - Name: cardPhases
+      Entry: 7
+      Data: 26|Yume.Data.CardPhase[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u5305\u624E"
+    - Name: consume
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "\u56DE\u590D20\u70B9\u751F\u547D\u503C\uFF0C\u4F7F\u7528\u540E\u4F1A\u88AB\u6D88\u8017"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_recovery
+    - Name: iconFileName
+      Entry: 1
+      Data: "\u5305\u624E"
+    - Name: energyConsumption
+      Entry: 3
+      Data: 1
+    - Name: buffTemplates
+      Entry: 7
+      Data: 27|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_recovery
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: selector
+      Entry: 7
+      Data: 28|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 29|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: attach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 30|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 6
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: attribAdditives
+    - Name: $v
+      Entry: 7
+      Data: 31|Yume.Battle.AttribAdditives, Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 20
+    - Name: rateOnValue
+      Entry: 4
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

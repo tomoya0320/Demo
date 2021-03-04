@@ -28,6 +28,7 @@ namespace Yume.Data {
 
   public struct CardPhase {
     public string name;
+    public bool consume;
     [TextArea]
     public string description;
     public string cardAnimName;
@@ -38,6 +39,11 @@ namespace Yume.Data {
 
   public struct CardTemplate {
     public string id;
+    /// <summary>
+    /// 该卡牌是否只对自己生效
+    /// 主要影响candidate的选择
+    /// </summary>
+    public bool onlySelf;
     public CardType cardType;
     public CardPhase[] cardPhases;
   }

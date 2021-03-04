@@ -113,6 +113,10 @@ namespace Yume.UI {
 
     protected GameObject GetGameObject(string objName) {
       return m_uiObject?.GetGameObject(objName);
+    }    
+    
+    protected Transform GetTransform(string objName) {
+      return m_uiObject?.GetTransform(objName);
     }
 
     /// <summary>

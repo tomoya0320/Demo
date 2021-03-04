@@ -49,7 +49,7 @@ namespace Yume.Battle {
       string hurtSound = behaviorTree.blackboard.GetValue("hurtSound", StringMap.DEFAULT_HURT_SOUND);
       AudioManager.PlaySound(hurtSound);
       // 显示数字
-      NumFactory.ShowNum(realDamage, owner.gameObject.transform.position, Color.red);
+      NumFactory.ShowNum(-realDamage, owner.gameObject.transform.position, Color.red);
 
       // 保存最后一次造成的伤害值
       if (caster != null) {

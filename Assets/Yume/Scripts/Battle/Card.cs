@@ -42,7 +42,11 @@ namespace Yume.Battle {
           () => {
             if (gameObject.transform.position.y > 0) {
               candidate?.selected.SetActiveEx(false);
-              candidate = BattleManager.GetNearestEnemy(gameObject.transform.position);
+              if (cardTemplate.onlySelf) {
+                candidate = owner;
+              } else {
+                candidate = BattleManager.GetNearestEnemy(gameObject.transform.position);
+              }
               candidate?.selected.SetActiveEx(true);
             } else {
               candidate?.selected.SetActiveEx(false);

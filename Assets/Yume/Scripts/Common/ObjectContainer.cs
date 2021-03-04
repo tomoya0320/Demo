@@ -18,6 +18,10 @@ namespace Yume {
 
     public GameObject GetGameObject(string objName) {
       return _objectDict.ContainsKey(objName) ? _objectDict[objName] : null;
+    }   
+    
+    public Transform GetTransform(string objName) {
+      return GetGameObject(objName)?.transform;
     }
   }
 }
