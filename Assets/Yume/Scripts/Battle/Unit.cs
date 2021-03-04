@@ -86,12 +86,12 @@ namespace Yume.Battle {
           hpImgTween?.Complete();
           float fillAmount = GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
           hpImgTween = hpImage.DOFillAmount(fillAmount, 0.2f).OnComplete(() => hpImgTween = null);
-          hpImage.textComponent.text = $"HP:{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
+          hpImage.textComponent.text = $"{GetAttrib(AttribType.HP):0}/{GetAttrib(AttribType.HP, true):0}";
           break;
         }
         case AttribType.ENERGY:
           // 更新UI
-          energyImage.textComponent.text = $"E:{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
+          energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY):0}/{GetAttrib(AttribType.ENERGY, true):0}";
           break;
       }
     }
