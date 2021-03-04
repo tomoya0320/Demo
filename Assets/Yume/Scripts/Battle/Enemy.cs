@@ -66,16 +66,17 @@ namespace Yume.Battle {
     public override void OnDie() {
       // 隐藏
       m_canvasGroup.DOFade(0, 0.5f);
-      // 移除这个单位施加的buff
-      foreach (var buffManager in BattleManager.buffManagers.Values) {
-        // 只针对还存活的单位
-        if (buffManager.unit.isAlive) {
-          buffManager.OnCasterDie(this);
-        }
-      }
       // 结算判断
       if (BattleManager.units.Count == 1) {
         BattleManager.Finish(BattleResult.WIN);
+      } else {
+        // 移除这个单位施加的buff
+        foreach (var buffManager in BattleManager.buffManagers.Values) {
+          // 只针对还存活的单位
+          if (buffManager.unit.isAlive) {
+            buffManager.OnCasterDie(this);
+          }
+        }
       }
     }
 

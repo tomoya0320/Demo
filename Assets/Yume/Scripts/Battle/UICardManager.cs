@@ -25,7 +25,7 @@ namespace Yume.UI {
           tween.DOScale(card.gameObject, Vector3.one, CARD_SCALE_DURATION);
         }
         Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
-        card.cardDrag?.SetResetAnchorPos(dest);
+        card.cardDrag.SetResetAnchorPos(dest);
         tween.DOAnchorPos(card.gameObject, dest, CARD_MOVE_DURATION);
         yield return new WaitForSeconds(0.1f);
       }
@@ -44,7 +44,7 @@ namespace Yume.UI {
         GameObject gameObject = cards[i].gameObject;
         gameObject.SetParent(CardFactory.discardCardFolder);
         tween.DOScale(gameObject.transform, 0.3f * Vector3.one, CARD_SCALE_DURATION);
-        tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION, () => gameObject.SetActiveEx(false));
+        tween.DOLocalMove(gameObject.transform, Vector3.zero, CARD_MOVE_DURATION).onComplete += () => gameObject.SetActiveEx(false);
         yield return new WaitForSeconds(0.1f);
       }
 
@@ -56,15 +56,16 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="handCards"></param>
     /// <returns></returns>
-    public IEnumerator ResortHandCards(List<Card> handCards) {
+    public IEnumerator ResortHandCard(List<Card> handCards) {
       YTween tween = new YTween();
       for (int i = 0; i < handCards.Count; i++) {
         Card card = handCards[i];
         Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
-        card.cardDrag?.SetResetAnchorPos(dest);
-        tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
+        card.cardDrag.SetResetAnchorPos(dest);
+        card.cardDrag.resortTween = tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
+        card.cardDrag.resortTween.onComplete += () => card.cardDrag.resortTween = null;
       }
-      
+
       yield return new WaitUntil(() => tween.count == 0);
     }
   }

@@ -10,6 +10,7 @@ namespace Yume.UI {
     private int m_enable;
     private Tween m_tween;
     private bool m_dragging;
+    public Tween resortTween;
     private Vector3 m_originPos;
     private Vector3 m_clickDownPos;
     private Func<bool> m_onUseCard;
@@ -43,6 +44,13 @@ namespace Yume.UI {
     public void OnPointerDown(PointerEventData eventData) {
       if (!interactable) {
         return;
+      }
+
+      // 为了解决当手牌堆的卡牌重新排列时又点击了手牌导致卡牌位置不对的问题
+      if (resortTween != null) {
+        Vector3 pos = transform.position;
+        resortTween.Complete();
+        transform.position = pos;
       }
       
       m_dragging = true;

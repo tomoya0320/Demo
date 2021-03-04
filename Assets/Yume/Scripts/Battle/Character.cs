@@ -105,7 +105,7 @@ namespace Yume.Battle {
           // 把用过的牌弃掉
           yield return m_uiCardManager.DiscardCard(playCard);
           // 重新排列剩下的手牌堆
-          yield return m_uiCardManager.ResortHandCards(cardHeapDict[CardHeapType.HAND]);
+          yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
         }
         yield return null;
       }
@@ -120,7 +120,7 @@ namespace Yume.Battle {
       yield return m_uiCardManager.DiscardCard(m_tempCardList.ToArray());
       m_tempCardList.Clear();
       // 重新排列剩下的手牌堆
-      yield return m_uiCardManager.ResortHandCards(cardHeapDict[CardHeapType.HAND]);
+      yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
     }
 
     public void SetCardDragEnable(bool enable) {

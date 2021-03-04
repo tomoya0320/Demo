@@ -466,41 +466,26 @@ public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : Singl
 public class YTween {
   public int count { private set; get; }
 
-  public void DOLocalMove(Transform transform, Vector3 pos, float duration, Action onCompleted = null) {
+  public Tween DOLocalMove(Transform transform, Vector3 pos, float duration) {
     count++;
-    transform.DOLocalMove(pos, duration).OnComplete(
-      () => {
-        count--;
-        onCompleted?.Invoke();
-      }
-    );
+    return transform.DOLocalMove(pos, duration).OnComplete(() => count--);
   }
 
-  public void DOScale(Transform transform, Vector3 scale, float duration, Action onCompleted = null) {
+  public Tween DOScale(Transform transform, Vector3 scale, float duration) {
     count++;
-    transform.DOScale(scale, duration).OnComplete(
-      () => {
-        count--;
-        onCompleted?.Invoke();
-      }
-    );
+    return transform.DOScale(scale, duration).OnComplete(() => count--);
   }
 
-  public void DOScale(GameObject gameObject, Vector3 scale, float duration, Action onCompleted = null) {
-    DOScale(gameObject.transform, scale, duration, onCompleted);
+  public Tween DOScale(GameObject gameObject, Vector3 scale, float duration) {
+    return DOScale(gameObject.transform, scale, duration);
   }
 
-  public void DOAnchorPos(RectTransform rectTransform, Vector2 pos, float duration, Action onCompleted = null) {
+  public Tween DOAnchorPos(RectTransform rectTransform, Vector2 pos, float duration) {
     count++;
-    rectTransform.DOAnchorPos(pos, duration).OnComplete(
-      () => {
-        count--;
-        onCompleted?.Invoke();
-      }
-    );
+    return rectTransform.DOAnchorPos(pos, duration).OnComplete(() => count--);
   }
 
-  public void DOAnchorPos(GameObject gameObject, Vector2 pos, float duration, Action onCompleted = null) {
-    DOAnchorPos(gameObject.GetRectTransform(), pos, duration, onCompleted);
+  public Tween DOAnchorPos(GameObject gameObject, Vector2 pos, float duration) {
+    return DOAnchorPos(gameObject.GetRectTransform(), pos, duration);
   }
 }
