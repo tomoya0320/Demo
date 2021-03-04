@@ -37,6 +37,21 @@ public static class Constant {
 public static class Colors {
   // ReSharper disable once InconsistentNaming
   public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
+
+  public static Color GetAttribColor(AttribType type) {
+    switch (type) {
+      case AttribType.HP:
+        return Color.red;
+      case AttribType.ATK:
+        return Color.gray;
+      case AttribType.DEF:
+        return Color.yellow;
+      case AttribType.ENERGY:
+        return Color.blue;
+      default:
+        return Color.black;
+    }
+  }
 }
 
 public static class SelectableExtensions {
