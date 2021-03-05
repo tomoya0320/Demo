@@ -4,7 +4,7 @@ using Yume.Data;
 
 namespace Yume.Battle {
   public abstract class TargetSelector {
-    public abstract List<Unit> Select(Unit caster, Unit candidate);
+    public abstract List<Unit> Select(Unit caster = null, Unit candidate = null);
   }
 
   /// <summary>
@@ -25,7 +25,7 @@ namespace Yume.Battle {
     [SerializeField]
     private TargetType _targetType;
 
-    public override List<Unit> Select(Unit caster, Unit candidate) {
+    public override List<Unit> Select(Unit caster = null, Unit candidate = null) {
       List<Unit> targets = new List<Unit>();
 
       switch (_targetType) {
@@ -50,10 +50,10 @@ namespace Yume.Battle {
     [SerializeField]
     private bool _includeSelf;
 
-    public override List<Unit> Select(Unit caster, Unit candidate) {
+    public override List<Unit> Select(Unit caster = null, Unit candidate = null) {
       List<Unit> targets = new List<Unit>();
       foreach (var unit in BattleManager.units) {
-        if ((unit.camp == _camp) && (unit != caster || _includeSelf)) {
+        if (((unit.camp & _camp) > 0) && (unit != caster || _includeSelf)) {
           targets.Add(unit);
         }
       }

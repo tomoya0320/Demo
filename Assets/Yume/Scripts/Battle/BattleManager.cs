@@ -59,7 +59,7 @@ namespace Yume.Battle {
       foreach (var unit in s_units) {
         if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
           foreach (var buffTemplate in unit.passiveSkillPhases[unit.passiveSkillLevel].buffTemplates) {
-            List<Unit> targets = buffTemplate.selector.Select(unit, null);
+            List<Unit> targets = buffTemplate.selector.Select(unit);
             foreach (var target in targets) {
               // 因为blackboard是引用类型所以需要新建一个
               Blackboard blackboard = new Blackboard { { "caster", unit } };

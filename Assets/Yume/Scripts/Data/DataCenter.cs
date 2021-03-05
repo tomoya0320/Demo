@@ -59,9 +59,12 @@ namespace Yume.Data {
   /// <summary>
   /// 绝对阵营
   /// </summary>
+  [Flags]
   public enum Camp {
-    ALLY,
-    ENEMY,
+    NONE = 0,
+    ALLY = 1 << 0,
+    ENEMY = 1 << 1,
+    ALL = ALLY | ENEMY,
   }
 
   public struct UnitTemplate {
