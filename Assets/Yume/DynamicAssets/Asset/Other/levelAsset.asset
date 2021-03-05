@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: avg_7_1
     - Name: description
       Entry: 1
-      Data: "\u5728\u9065\u8FDC\u7684\u51BB\u539F\u4E0A\uFF0C\u8FFD\u67E5\u611F\u67D3\u8005\u3001\u7EA0\u7F20\u7740\u504F\u8FDC\u6751\u5E84\u7684\u7EA0\u5BDF\u961F\uFF0C\u7A7F\u7740\u9ED1\u8272\u7532\u866B\u822C\u7684\u5236\u670D\u3002\n<\u9053\u8DEF\u969C\u788D\u7269>\u53EF\u4EE5\u963B\u6321\u4E4C\u8428\u65AF\u5E73\u6C11\u4E0E\u6597\u58EB\u5854\u9732\u62C9\u524D\u8FDB\uFF0C\u53EF\u88AB\u6211\u65B9\u5355\u4F4D\u51FB\u6BC1"
+      Data: "\u5173\u5361\u6548\u679C\uFF1A\u5168\u573A\u6240\u6709\u5355\u4F4D\u5728\u6218\u6597\u4E00\u5F00\u59CB\u65F6\u9644\u52A0\u4E00\u4E2A\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u56FA\u5B9A\u5931\u53BB5\u70B9\u751F\u547D\u503C\u7684debuff\uFF0C\u6301\u7EED\u65F6\u95F4\u4E3A5\u56DE\u5408"
     - Name: iconFileName
       Entry: 1
       Data: tr_18
@@ -261,7 +261,106 @@ MonoBehaviour:
       Data: 15|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_global_pure_damage_on_before_turn
+    - Name: stackType
+      Entry: 3
       Data: 0
+    - Name: selector
+      Entry: 7
+      Data: 16|Yume.Battle.CampSelector, Assembly-CSharp
+    - Name: _camp
+      Entry: 3
+      Data: 3
+    - Name: _includeSelf
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 17|Yume.Data.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: pure_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 18|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 14
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 19|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: atk
+    - Name: $v
+      Entry: 7
+      Data: 20|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -306,7 +405,7 @@ MonoBehaviour:
       Data: Yume.Data.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 16|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 21|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -324,13 +423,13 @@ MonoBehaviour:
       Data: Yume.Data.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 17|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 22|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 18|Yume.Data.ItemData, Assembly-CSharp
+      Data: 23|Yume.Data.ItemData, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -351,7 +450,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTemplates
       Entry: 7
-      Data: 19|Yume.Data.EnemyTemplate[], Assembly-CSharp
+      Data: 24|Yume.Data.EnemyTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -363,7 +462,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 20|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 25|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 14
@@ -378,7 +477,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 21|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 26|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
