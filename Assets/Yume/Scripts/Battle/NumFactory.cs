@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,14 @@ namespace Yume.Battle {
       } else {
         num = Object.Instantiate(s_numPrototype, numFolder);
       }
+#if BETA
+      if (num.SafeIsUnityNull()) {
+        Debug.LogError("最开始时num为空！");
+      }
+      if (num.gameObject.SafeIsUnityNull()) {
+        Debug.LogError("最开始时num.gameObject为空！");
+      }
+#endif
       num.gameObject.SetActiveEx(true);
       num.text = $"{value:0}";
       color.a = 0;
@@ -41,10 +50,23 @@ namespace Yume.Battle {
       num.transform.position = pos;
       num.DOFade(1.0f, ANIM_DURATION);
       var rectTransform = num.gameObject.GetRectTransform();
+#if BETA
+      if (rectTransform.SafeIsUnityNull()) {
+        Debug.LogError("rectTransform为空！");
+      }
+#endif
       rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + rectTransform.rect.height, ANIM_DURATION).OnComplete(
         () => {
           num.DOFade(0, ANIM_DURATION).SetDelay(NUM_SHOW_TIME).OnComplete(
             () => {
+#if BETA
+              if (num.SafeIsUnityNull()) {
+                Debug.LogError("DOTween完成回调时num为空！");
+              }
+              if (num.gameObject.SafeIsUnityNull()) {
+                Debug.LogError("DOTween完成回调时num.gameObject为空！");
+              }
+#endif
               num.gameObject.SetActiveEx(false);
               s_numStack.Push(num);
             }
