@@ -16,7 +16,7 @@ namespace Yume.Battle {
       if (heal > 0) {
         float realHeal = caster.AddAttrib(AttribType.HP, heal);
         // 显示数字
-        NumFactory.ShowNum(realHeal, caster.gameObject.transform.position, Color.red);
+        NumFactory.ShowNum(realHeal, caster.gameObject.transform.position, Color.green);
       }
       return true;
     }

@@ -30,21 +30,20 @@ namespace Yume.Battle {
   public abstract class DamageBase : LeafNodeBase {
     public sealed override bool Run() {
       // 小心不要套娃了
-      // 检测发起者是否为空
-      Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
-      if (caster == null) {
-        Debug.LogError("攻击发起者为空！");
-        return false;
-      }
       // 被造成伤害前的行为树
       Unit owner = behaviorTree.unit;
+      
       BattleManager.behaviorManagers.TryGetValue(owner, out var ownerBehaviorManager);
       ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGED);
-      // 造成伤害前的行为树 
-      BattleManager.behaviorManagers.TryGetValue(caster, out BehaviorManager castBehaviorManager);
+      
+      // 发起者为空表示这个是由关卡加上的
+      Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
+      // 造成伤害前的行为树 注意caster可能为空所以要用自定义的扩展方法
+      BattleManager.behaviorManagers.TryGetValueEx(caster, out var castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
-
+      
       float realDamage = OnDamage(caster);
+      
       // 播放受击音效
       string hurtSound = behaviorTree.blackboard.GetValue("hurtSound", StringMap.DEFAULT_HURT_SOUND);
       AudioManager.PlaySound(hurtSound);
@@ -67,10 +66,10 @@ namespace Yume.Battle {
         // 受伤
         owner.animator.SetTrigger("hurt");
       } else {
-        BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_BEFORE_DIE);
+        ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DIE);
       }
 
-      // 在即将死亡前执行行为树有可能会脱离死亡状态
+      // 在即将死亡前执行行为树有可能会脱离死亡状态所以要再判断一次
       if (!owner.isAlive) {
         // 单位死亡
         owner.OnDie();
@@ -79,6 +78,6 @@ namespace Yume.Battle {
       return true;
     }
 
-    protected abstract float OnDamage(Unit caster);
+    protected abstract float OnDamage(Unit caster = null);
   }
 }

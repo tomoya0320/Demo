@@ -20,57 +20,380 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  _levelTemplates:
-  - id: level_main_1
-    bgm: STS_Boss1MindBloom_v1
-    title: "\u9ED1\u6697\u65F6\u4EE3"
-    background: avg_7_1
-    description: "\u5728\u9065\u8FDC\u7684\u51BB\u539F\u4E0A\uFF0C\u8FFD\u67E5\u611F\u67D3\u8005\u3001\u7EA0\u7F20\u7740\u504F\u8FDC\u6751\u5E84\u7684\u7EA0\u5BDF\u961F\uFF0C\u7A7F\u7740\u9ED1\u8272\u7532\u866B\u822C\u7684\u5236\u670D\u3002\n<\u9053\u8DEF\u969C\u788D\u7269>\u53EF\u4EE5\u963B\u6321\u4E4C\u8428\u65AF\u5E73\u6C11\u4E0E\u6597\u58EB\u5854\u9732\u62C9\u524D\u8FDB\uFF0C\u53EF\u88AB\u6211\u65B9\u5355\u4F4D\u51FB\u6BC1"
-    iconFileName: tr_18
-    beforeAVGId: avg_test1
-    afterAVGId: avg_test2
-    preLevelId: 
-    regularRewards:
-      items:
-      - id: item_0_exp
-        count: 100
-      - id: item_2_gold
-        count: 1000
-    firstCompletedRewards:
-      items:
-      - id: item_1_diamond
-        count: 200
-    enemyTemplates:
-    - enemy:
-        id: enemy_001
-        level: 0
-        passiveSkillLevel: 0
-      cards:
-      - guid: 0
-        id: card_001
-        phase: 0
-    - enemy:
-        id: enemy_002
-        level: 0
-        passiveSkillLevel: 0
-      cards:
-      - guid: 0
-        id: card_001
-        phase: 0
-  - id: level_main_2
-    bgm: STS_Boss1MindBloom_v1
-    title: "\u5F02\u5375\u540C\u751F"
-    background: 
-    description: "10:32:09 \u6218\u4E89\u4ECD\u5728\u7EE7\u7EED\uFF0C\u5C40\u52BF\u5374\u53D1\u751F\u4E86\u53D8\u5316\u3002"
-    iconFileName: tr_level_rune_05-01
-    beforeAVGId: avg_test3
-    afterAVGId: 
-    preLevelId: level_main_1
-    regularRewards:
-      items: []
-    firstCompletedRewards:
-      items:
-      - id: item_1_diamond
-        count: 100
-    enemyTemplates: []
+    SerializationNodes:
+    - Name: _levelTemplates
+      Entry: 7
+      Data: 0|Yume.Data.LevelTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.LevelTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: level_main_1
+    - Name: bgm
+      Entry: 1
+      Data: STS_Boss1MindBloom_v1
+    - Name: title
+      Entry: 1
+      Data: "\u9ED1\u6697\u65F6\u4EE3"
+    - Name: background
+      Entry: 1
+      Data: avg_7_1
+    - Name: description
+      Entry: 1
+      Data: "\u5728\u9065\u8FDC\u7684\u51BB\u539F\u4E0A\uFF0C\u8FFD\u67E5\u611F\u67D3\u8005\u3001\u7EA0\u7F20\u7740\u504F\u8FDC\u6751\u5E84\u7684\u7EA0\u5BDF\u961F\uFF0C\u7A7F\u7740\u9ED1\u8272\u7532\u866B\u822C\u7684\u5236\u670D\u3002\n<\u9053\u8DEF\u969C\u788D\u7269>\u53EF\u4EE5\u963B\u6321\u4E4C\u8428\u65AF\u5E73\u6C11\u4E0E\u6597\u58EB\u5854\u9732\u62C9\u524D\u8FDB\uFF0C\u53EF\u88AB\u6211\u65B9\u5355\u4F4D\u51FB\u6BC1"
+    - Name: iconFileName
+      Entry: 1
+      Data: tr_18
+    - Name: beforeAVGId
+      Entry: 1
+      Data: avg_test1
+    - Name: afterAVGId
+      Entry: 1
+      Data: avg_test2
+    - Name: preLevelId
+      Entry: 6
+      Data: 
+    - Name: regularRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 1|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 2|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_0_exp
+    - Name: count
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 1000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: firstCompletedRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 4|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_1_diamond
+    - Name: count
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: enemyTemplates
+      Entry: 7
+      Data: 6|Yume.Data.EnemyTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.EnemyTemplate, Assembly-CSharp
+    - Name: enemy
+      Entry: 7
+      Data: 7|Yume.Data.UnitData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: enemy_001
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: passiveSkillLevel
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cards
+      Entry: 7
+      Data: 8|Yume.Data.CardData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|Yume.Data.CardData, Assembly-CSharp
+    - Name: guid
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.EnemyTemplate, Assembly-CSharp
+    - Name: enemy
+      Entry: 7
+      Data: 10|Yume.Data.UnitData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: enemy_002
+    - Name: level
+      Entry: 3
+      Data: 0
+    - Name: passiveSkillLevel
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cards
+      Entry: 7
+      Data: 11|Yume.Data.CardData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 12|Yume.Data.CardData, Assembly-CSharp
+    - Name: guid
+      Entry: 3
+      Data: 0
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 13|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 7
+      Data: 14|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 15|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.LevelTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: level_main_2
+    - Name: bgm
+      Entry: 1
+      Data: 
+    - Name: title
+      Entry: 1
+      Data: "\u5F02\u5375\u540C\u751F"
+    - Name: background
+      Entry: 1
+      Data: 
+    - Name: description
+      Entry: 1
+      Data: "10:32:09 \u6218\u4E89\u4ECD\u5728\u7EE7\u7EED\uFF0C\u5C40\u52BF\u5374\u53D1\u751F\u4E86\u53D8\u5316\u3002"
+    - Name: iconFileName
+      Entry: 1
+      Data: tr_level_rune_05-01
+    - Name: beforeAVGId
+      Entry: 1
+      Data: avg_test3
+    - Name: afterAVGId
+      Entry: 6
+      Data: 
+    - Name: preLevelId
+      Entry: 1
+      Data: level_main_1
+    - Name: regularRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 16|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: firstCompletedRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 17|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 18|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_1_diamond
+    - Name: count
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: enemyTemplates
+      Entry: 7
+      Data: 19|Yume.Data.EnemyTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 20|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 14
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 21|Yume.Data.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

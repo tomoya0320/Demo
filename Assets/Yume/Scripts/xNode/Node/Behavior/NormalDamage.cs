@@ -2,7 +2,8 @@
 
 namespace Yume.Battle {
   public class NormalDamage : DamageBase {
-    protected override float OnDamage(Unit caster) {
+    protected override float OnDamage(Unit caster = null) {
+      Unit owner = behaviorTree.unit;
       // blackboard中的攻击值
       float finalAtk = behaviorTree.blackboard.GetValue<float>("atk");
       // blackboard中的攻击比率
@@ -16,12 +17,12 @@ namespace Yume.Battle {
         finalAtk += caster.blackboard.GetValueAndRemove<float>("extraAtk");
       }
       // 计算自己被攻击前的防御比率
-      finalAtk -= (1.0f + behaviorTree.unit.blackboard.GetValueAndRemove<float>("extraDefRate")) * behaviorTree.unit.GetAttrib(AttribType.DEF);
+      finalAtk -= (1.0f + owner.blackboard.GetValueAndRemove<float>("extraDefRate")) * owner.GetAttrib(AttribType.DEF);
       // 计算自己被攻击前的防御值
-      finalAtk -= behaviorTree.unit.blackboard.GetValueAndRemove<float>("extraDef");
+      finalAtk -= owner.blackboard.GetValueAndRemove<float>("extraDef");
       
       if (finalAtk > 0) {
-        return Mathf.Abs(behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk));
+        return Mathf.Abs(owner.AddAttrib(AttribType.HP, -finalAtk));
       } else {
         return 0;
       }

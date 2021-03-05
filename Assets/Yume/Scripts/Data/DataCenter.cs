@@ -134,15 +134,12 @@ namespace Yume.Data {
     CONSUME,
     ADD
   }
-
-  [Serializable]
+  
   public struct Rewards {
     public ItemData[] items;
   }
-
-  [Serializable]
+  
   public struct TaskTemplate {
-    [Serializable]
     public struct RequestTemplate {
       public Method method;
       /// <summary>
@@ -177,8 +174,7 @@ namespace Yume.Data {
     TOP,
     TIP
   }
-
-  [Serializable]
+  
   public struct UITemplate {
     public string name;
     public UIType uiType;
@@ -186,14 +182,12 @@ namespace Yume.Data {
     public string prefabName;
     public float cacheTime;
   }
-
-  [Serializable]
+  
   public struct EnemyTemplate {
     public UnitData enemy;
     public CardData[] cards;
   }
-
-  [Serializable]
+  
   public struct LevelTemplate {
     public string id;
     public string bgm;
@@ -208,6 +202,8 @@ namespace Yume.Data {
     public Rewards regularRewards;
     public Rewards firstCompletedRewards;
     public EnemyTemplate[] enemyTemplates;
+    public Blackboard blackboard;
+    public BuffTemplate[] buffTemplates;
   }
 
   public enum BehaviorTime {
@@ -248,8 +244,7 @@ namespace Yume.Data {
     /// </summary>
     ON_BEFORE_DIE,
   }
-
-  [Serializable]
+  
   public struct Behavior {
     public string behaviorTreeId;
     public BehaviorTime behaviorTime;
@@ -265,8 +260,7 @@ namespace Yume.Data {
     /// </summary>
     DEFAULT,
   }
-
-  [Serializable]
+  
   public struct BuffTemplate {
     public string id;
     public StackType stackType;
@@ -354,7 +348,6 @@ namespace Yume.Data {
   [Serializable]
   public class TaskData {
     public string id;
-    [HideInInspector]
     public int process;
     public TaskState state;
 
