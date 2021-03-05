@@ -24,7 +24,7 @@ namespace Yume.Main {
     protected override void OnInit() {
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
-      
+
       // 实例化初始化UI
       var parent = GameObject.Find("NormalCanvas").transform;
       var initPanelPrefab = Resources.Load<GameObject>("Prefab/init");
@@ -32,7 +32,7 @@ namespace Yume.Main {
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
       m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
-      
+
       // 进入登录界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
@@ -44,7 +44,7 @@ namespace Yume.Main {
           );
         }
       );
-      
+
       StartCoroutine(_InitAll());
     }
 
@@ -64,9 +64,9 @@ namespace Yume.Main {
       UIManager.Init();
       AudioManager.Init();
       RedPointManager.Init();
-      
+
       #endregion
-      
+
       // Final
       initProcess = 1.0f;
     }
@@ -83,5 +83,13 @@ namespace Yume.Main {
       // TODO:同步数据用 待优化
       DataManager.OnLateUpdate();
     }
+
+#if BETA
+    private void OnGUI() {
+      if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {
+        LunarConsolePlugin.LunarConsole.Show();
+      }
+    }
+#endif
   }
 }
