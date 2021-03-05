@@ -7,14 +7,13 @@ namespace Yume.Battle {
   public static class NumFactory {
     private const float NUM_SHOW_TIME = 0.4f;
     private const float ANIM_DURATION = 0.3f;
-    private static Text s_numPrototype;
+    private static GameObject s_numPrototype;
     private static Stack<Text> s_numStack = new Stack<Text>();
     public static Transform numFolder { private set; get; }
 
     public static void Init(ObjectContainer objectContainer) {
       numFolder = objectContainer.GetTransform("numFolder");
-      s_numPrototype = numFolder.GetComponentInChildren<Text>(true);
-      s_numPrototype.gameObject.SetActiveEx(false);
+      s_numPrototype = Resources.Load<GameObject>("Prefab/numPrototype");
     }
 
     /// <summary>
@@ -32,9 +31,9 @@ namespace Yume.Battle {
       if (s_numStack.Count > 0) {
         num = s_numStack.Pop();
       } else {
-        num = Object.Instantiate(s_numPrototype, numFolder);
+        num = Object.Instantiate(s_numPrototype, numFolder).GetComponent<Text>();
       }
-      num.gameObject.SetActiveEx(true);
+
       num.text = $"{value:0}";
       color.a = 0;
       num.color = color;
@@ -43,22 +42,26 @@ namespace Yume.Battle {
       var rectTransform = num.gameObject.GetRectTransform();
       rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + rectTransform.rect.height, ANIM_DURATION).OnComplete(
         () => {
-          num.DOFade(0, ANIM_DURATION).SetDelay(NUM_SHOW_TIME).OnComplete(
-            () => {
-              num.gameObject.SetActiveEx(false);
-              s_numStack.Push(num);
-            }
-          );
+          if (num != null) {
+            num.DOFade(0, ANIM_DURATION).SetDelay(NUM_SHOW_TIME).OnComplete(
+              () => {
+                if (num != null) {
+                  s_numStack.Push(num);
+                }
+              }
+            );
+          }
         }
       );
     }
 
     public static void CleanUp() {
-      s_numPrototype = null;
-      numFolder = null;
-      while (s_numStack.Count > 0) {
-        Object.Destroy(s_numStack.Pop().gameObject);
+      for (int i = 0; i < numFolder.childCount; i++) {
+        Object.Destroy(numFolder.GetChild(i).gameObject);
       }
+      numFolder = null;
+      s_numPrototype = null;
+      s_numStack.Clear();
     }
   }
 }

@@ -5,7 +5,8 @@ namespace Yume.Battle {
   /// 真实伤害不需要计算对方的防御
   /// </summary>
   public class PureDamage : DamageBase {
-    protected override float OnDamage(Unit caster) {
+    protected override float OnDamage(Unit caster = null) {
+      Unit owner = behaviorTree.unit;
       // blackboard中的攻击比率
       float finalAtk = behaviorTree.blackboard.GetValue<float>("atk");
       float atkRate = behaviorTree.blackboard.GetValue<float>("atkRate");
@@ -19,7 +20,7 @@ namespace Yume.Battle {
       }
 
       if (finalAtk > 0) {
-        return Mathf.Abs(behaviorTree.unit.AddAttrib(AttribType.HP, -finalAtk));
+        return Mathf.Abs(owner.AddAttrib(AttribType.HP, -finalAtk));
       } else {
         return 0;
       }

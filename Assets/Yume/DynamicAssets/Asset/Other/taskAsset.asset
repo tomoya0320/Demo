@@ -20,95 +20,421 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  _taskTemplates:
-  - id: DAILY_xfja
-    title: "\u5C0F\u5BCC\u5373\u5B89"
-    type: 0
-    defaultState: 1
-    description: "\u4ECA\u65E5\u7D2F\u8BA1\u83B7\u5F975000\u7075\u611F\u5E01"
-    activeTaskId: 
-    taskRewards:
-      items:
-      - id: item_3_mcake
-        count: 10
-    taskRequest:
-      method: 2
-      consumable: 0
-      ignoreId: 0
-      type: 0
-      requiredCount: 5000
-      requirementId: item_2_gold
-      description: "\u91D1\u5E01"
-  - id: DAILY_hjrt
-    title: "\u6325\u91D1\u5982\u571F"
-    type: 0
-    defaultState: 1
-    description: "\u4ECA\u65E5\u7D2F\u8BA1\u6D88\u8D393000\u7075\u611F\u5E01"
-    activeTaskId: 
-    taskRewards:
-      items:
-      - id: item_1_diamond
-        count: 100
-    taskRequest:
-      method: 1
-      consumable: 0
-      ignoreId: 0
-      type: 0
-      requiredCount: 3000
-      requirementId: item_2_gold
-      description: "\u91D1\u5E01"
-  - id: MAIN_lvto5
-    title: "\u65B0\u624B\u4EFB\u52A11"
-    type: 1
-    defaultState: 1
-    description: "\u7B49\u7EA7\u63D0\u5347\u81F35\u7EA7"
-    activeTaskId: MAIN_lvto10
-    taskRewards:
-      items:
-      - id: item_4_cwine
-        count: 1
-    taskRequest:
-      method: 0
-      consumable: 0
-      ignoreId: 1
-      type: 2
-      requiredCount: 5
-      requirementId: 
-      description: "\u7B49\u7EA7"
-  - id: MAIN_lvto10
-    title: "\u65B0\u624B\u4EFB\u52A12"
-    type: 1
-    defaultState: 3
-    description: "\u7B49\u7EA7\u63D0\u5347\u81F310\u7EA7"
-    activeTaskId: MAIN_lvto15
-    taskRewards:
-      items:
-      - id: item_4_cwine
-        count: 3
-    taskRequest:
-      method: 0
-      consumable: 0
-      ignoreId: 1
-      type: 2
-      requiredCount: 10
-      requirementId: 
-      description: "\u7B49\u7EA7"
-  - id: MAIN_lvto15
-    title: "\u65B0\u624B\u4EFB\u52A13"
-    type: 1
-    defaultState: 3
-    description: "\u7B49\u7EA7\u63D0\u5347\u81F315\u7EA7"
-    activeTaskId: 
-    taskRewards:
-      items:
-      - id: item_4_cwine
-        count: 5
-    taskRequest:
-      method: 0
-      consumable: 0
-      ignoreId: 1
-      type: 2
-      requiredCount: 15
-      requirementId: 
-      description: "\u7B49\u7EA7"
+    SerializationNodes:
+    - Name: _taskTemplates
+      Entry: 7
+      Data: 0|Yume.Data.TaskTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: DAILY_xfja
+    - Name: title
+      Entry: 1
+      Data: "\u5C0F\u5BCC\u5373\u5B89"
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: defaultState
+      Entry: 3
+      Data: 1
+    - Name: description
+      Entry: 1
+      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u83B7\u5F975000\u7075\u611F\u5E01"
+    - Name: activeTaskId
+      Entry: 6
+      Data: 
+    - Name: taskRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 1|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: taskRequest
+      Entry: 7
+      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+    - Name: method
+      Entry: 3
+      Data: 2
+    - Name: consumable
+      Entry: 5
+      Data: false
+    - Name: ignoreId
+      Entry: 5
+      Data: false
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: requiredCount
+      Entry: 3
+      Data: 5000
+    - Name: requirementId
+      Entry: 1
+      Data: item_2_gold
+    - Name: description
+      Entry: 1
+      Data: "\u7075\u611F\u5E01"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: DAILY_hjrt
+    - Name: title
+      Entry: 1
+      Data: "\u6325\u91D1\u5982\u571F"
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: defaultState
+      Entry: 3
+      Data: 1
+    - Name: description
+      Entry: 1
+      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u6D88\u8D393000\u7075\u611F\u5E01"
+    - Name: activeTaskId
+      Entry: 6
+      Data: 
+    - Name: taskRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 3|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_1_diamond
+    - Name: count
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: taskRequest
+      Entry: 7
+      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+    - Name: method
+      Entry: 3
+      Data: 1
+    - Name: consumable
+      Entry: 5
+      Data: false
+    - Name: ignoreId
+      Entry: 5
+      Data: false
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: requiredCount
+      Entry: 3
+      Data: 3000
+    - Name: requirementId
+      Entry: 1
+      Data: item_2_gold
+    - Name: description
+      Entry: 1
+      Data: "\u7075\u611F\u5E01"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: MAIN_lvto5
+    - Name: title
+      Entry: 1
+      Data: "\u65B0\u624B\u4EFB\u52A11"
+    - Name: type
+      Entry: 3
+      Data: 1
+    - Name: defaultState
+      Entry: 3
+      Data: 1
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7\u63D0\u5347\u81F35\u7EA7"
+    - Name: activeTaskId
+      Entry: 1
+      Data: MAIN_lvto10
+    - Name: taskRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 5|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 6|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: taskRequest
+      Entry: 7
+      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+    - Name: method
+      Entry: 3
+      Data: 0
+    - Name: consumable
+      Entry: 5
+      Data: false
+    - Name: ignoreId
+      Entry: 5
+      Data: true
+    - Name: type
+      Entry: 3
+      Data: 2
+    - Name: requiredCount
+      Entry: 3
+      Data: 5
+    - Name: requirementId
+      Entry: 6
+      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: MAIN_lvto10
+    - Name: title
+      Entry: 1
+      Data: "\u65B0\u624B\u4EFB\u52A12"
+    - Name: type
+      Entry: 3
+      Data: 1
+    - Name: defaultState
+      Entry: 3
+      Data: 3
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7\u63D0\u5347\u81F310\u7EA7"
+    - Name: activeTaskId
+      Entry: 1
+      Data: MAIN_lvto15
+    - Name: taskRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 7|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: taskRequest
+      Entry: 7
+      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+    - Name: method
+      Entry: 3
+      Data: 0
+    - Name: consumable
+      Entry: 5
+      Data: false
+    - Name: ignoreId
+      Entry: 5
+      Data: true
+    - Name: type
+      Entry: 3
+      Data: 2
+    - Name: requiredCount
+      Entry: 3
+      Data: 10
+    - Name: requirementId
+      Entry: 6
+      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: MAIN_lvto15
+    - Name: title
+      Entry: 1
+      Data: "\u65B0\u624B\u4EFB\u52A13"
+    - Name: type
+      Entry: 3
+      Data: 1
+    - Name: defaultState
+      Entry: 3
+      Data: 3
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7\u63D0\u5347\u81F315\u7EA7"
+    - Name: activeTaskId
+      Entry: 6
+      Data: 
+    - Name: taskRewards
+      Entry: 7
+      Data: Yume.Data.Rewards, Assembly-CSharp
+    - Name: items
+      Entry: 7
+      Data: 9|Yume.Data.ItemData[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 10|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: taskRequest
+      Entry: 7
+      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+    - Name: method
+      Entry: 3
+      Data: 0
+    - Name: consumable
+      Entry: 5
+      Data: false
+    - Name: ignoreId
+      Entry: 5
+      Data: true
+    - Name: type
+      Entry: 3
+      Data: 2
+    - Name: requiredCount
+      Entry: 3
+      Data: 15
+    - Name: requirementId
+      Entry: 6
+      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u7B49\u7EA7"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

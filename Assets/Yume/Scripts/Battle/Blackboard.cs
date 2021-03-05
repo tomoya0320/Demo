@@ -38,7 +38,7 @@ namespace Yume.Battle {
       }
     }
 
-    public Blackboard Merge(Blackboard blackboard, bool overrideValue = false) {
+    public void Merge(Blackboard blackboard, bool overrideValue = false) {
       foreach (var kv in blackboard) {
         if (!ContainsKey(kv.Key)) {
           Add(kv.Key, kv.Value);
@@ -46,7 +46,6 @@ namespace Yume.Battle {
           this[kv.Key] = kv.Value;
         }
       }
-      return this;
     }
   }
 }

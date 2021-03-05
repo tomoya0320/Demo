@@ -41,11 +41,7 @@ public static class Colors {
   public static Color GetAttribColor(AttribType type) {
     switch (type) {
       case AttribType.HP:
-        return Color.red;
-      case AttribType.ATK:
-        return Color.gray;
-      case AttribType.DEF:
-        return Color.yellow;
+        return Color.green;
       case AttribType.ENERGY:
         return Color.blue;
       default:
@@ -126,6 +122,27 @@ public static class ListExtensions {
   public static void RemoveRange<T>(this List<T> list, IEnumerable<T> items) {
     foreach (var item in items) {
       list.Remove(item);
+    }
+  }
+}
+
+public static class DictionaryExtensions {
+  /// <summary>
+  /// 兼容了key为null的情况
+  /// 如果key为null则value为default并返回false
+  /// </summary>
+  /// <param name="dictionary"></param>
+  /// <param name="key"></param>
+  /// <param name="value"></param>
+  /// <typeparam name="TKey"></typeparam>
+  /// <typeparam name="TValue"></typeparam>
+  /// <returns></returns>
+  public static bool TryGetValueEx<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, out TValue value) {
+    if (typeof(TKey).IsClass && key == null) {
+      value = default;
+      return false;
+    } else {
+      return dictionary.TryGetValue(key, out value);
     }
   }
 }

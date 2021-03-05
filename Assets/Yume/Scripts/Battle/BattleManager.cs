@@ -55,18 +55,28 @@ namespace Yume.Battle {
         buffManagers.Add(unit, new BuffManager(unit));
         behaviorManagers.Add(unit, new BehaviorManager(unit));
       }
-      // TODO:初始化单位的被动Buff 有待调整
+      // 初始化单位的被动技能
       foreach (var unit in s_units) {
         if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
           foreach (var buffTemplate in unit.passiveSkillPhases[unit.passiveSkillLevel].buffTemplates) {
-            List<Unit> targets = buffTemplate.selector.Select(unit, null);
-            foreach (var target in targets) {
+            foreach (var target in buffTemplate.selector.Select(unit)) {
               // 因为blackboard是引用类型所以需要新建一个
               Blackboard blackboard = new Blackboard { { "caster", unit } };
-              blackboard = blackboard.Merge(buffTemplate.blackboard);
+              blackboard.Merge(buffTemplate.blackboard);
               buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
             }
           }
+        }
+      }
+      // 初始化关卡的Blackboard
+      blackboard.Merge(s_levelTemplate.blackboard);
+      // 初始化关卡的Buff
+      foreach (var buffTemplate in s_levelTemplate.buffTemplates) {
+        foreach (var target in buffTemplate.selector.Select()) {
+          // 因为blackboard是引用类型所以需要新建一个
+          Blackboard blackboard = new Blackboard();
+          blackboard.Merge(buffTemplate.blackboard);
+          buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
         }
       }
     }

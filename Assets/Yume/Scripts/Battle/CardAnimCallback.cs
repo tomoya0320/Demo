@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Yume.Audio;
 
@@ -29,9 +28,8 @@ namespace Yume.Battle {
       }
       
       foreach (var buffTemplate in card.cardPhase.buffTemplates) {
-        // TODO:以caster和candidate为基准筛选出目标 测试用
-        List<Unit> targets = buffTemplate.selector.Select(card.owner, card.candidate);
-        foreach (var target in targets) {
+        // 以caster和candidate为基准筛选出目标
+        foreach (var target in buffTemplate.selector.Select(card.owner, card.candidate)) {
           // 跳过已死亡的单位
           if (!target.isAlive) {
             continue;
@@ -39,7 +37,7 @@ namespace Yume.Battle {
           
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard { { "caster", card.owner } };
-          blackboard = blackboard.Merge(buffTemplate.blackboard);
+          blackboard.Merge(buffTemplate.blackboard);
           BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
         }
       }
