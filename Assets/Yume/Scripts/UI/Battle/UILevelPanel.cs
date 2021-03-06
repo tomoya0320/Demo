@@ -61,7 +61,7 @@ namespace Yume.UI {
       LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
       m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.iconFileName);
       m_title.text = levelTemplate.title;
-      m_description.text = levelTemplate.description;
+      m_description.text = StringUtil.GetActualDescription(levelTemplate.description, levelTemplate.buffTemplates);
       // 常规奖励
       for (int i = 0; i < m_regularRewards.childCount; i++) {
         var tempGo = m_regularRewards.GetChild(i).gameObject;

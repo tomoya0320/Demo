@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: avg_7_1
     - Name: description
       Entry: 1
-      Data: "\u5173\u5361\u6548\u679C\uFF1A\u5168\u573A\u6240\u6709\u5355\u4F4D\u5728\u6218\u6597\u4E00\u5F00\u59CB\u65F6\u9644\u52A0\u4E00\u4E2A\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u56FA\u5B9A\u5931\u53BB5\u70B9\u751F\u547D\u503C\u7684debuff\uFF0C\u6301\u7EED\u65F6\u95F4\u4E3A5\u56DE\u5408"
+      Data: "\u5173\u5361\u6548\u679C\uFF1A\u5168\u573A\u6240\u6709\u5355\u4F4D\u5728\u6218\u6597\u4E00\u5F00\u59CB\u65F6\u9644\u52A0\u4E00\u4E2A\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u56FA\u5B9A\u5931\u53BB{0:atk}\u70B9\u751F\u547D\u503C\u7684debuff\uFF0C\u6301\u7EED\u65F6\u95F4\u4E3A{0:duration}\u56DE\u5408"
     - Name: iconFileName
       Entry: 1
       Data: tr_18
@@ -327,7 +327,7 @@ MonoBehaviour:
       Data: 19|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -345,7 +345,7 @@ MonoBehaviour:
       Data: 20|System.Single, mscorlib
     - Name: 
       Entry: 4
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
