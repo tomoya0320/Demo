@@ -26,6 +26,11 @@ namespace Yume.Data {
     CURSE
   }
 
+  public struct CardAnimEvent {
+    public float waitingTime;
+    public int buffIndex;
+  }
+
   public struct CardPhase {
     public string name;
     public bool consume;
@@ -35,6 +40,7 @@ namespace Yume.Data {
     public string iconFileName;
     public int energyConsumption;
     public BuffTemplate[] buffTemplates;
+    public CardAnimEvent[] cardAnimEvents;
   }
 
   public struct CardTemplate {
