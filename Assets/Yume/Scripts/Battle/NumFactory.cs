@@ -56,7 +56,7 @@ namespace Yume.Battle {
     }
 
     public static void CleanUp() {
-      for (int i = 0; i < numFolder.childCount; i++) {
+      for (int i = numFolder.childCount - 1; i >= 0; i--) {
         Object.Destroy(numFolder.GetChild(i).gameObject);
       }
       numFolder = null;

@@ -2,7 +2,7 @@ using UnityEngine;
 using Yume.UI;
 
 namespace Yume.AVG {
-  public class SetBackground : LeafNode {
+  public class SetBackground : LeafNodeBase {
     [SerializeField]
 		private Sprite _bgSprite;
 

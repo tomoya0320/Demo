@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;
@@ -26,6 +27,13 @@ namespace Yume.Data {
     CURSE
   }
 
+  public struct CardAnimEvent {
+    public float waitingTime;
+    public bool loadFromBlackboard;
+    [ShowIf("@!this.loadFromBlackboard")]
+    public int eventCount;
+  }
+
   public struct CardPhase {
     public string name;
     public bool consume;
@@ -34,6 +42,7 @@ namespace Yume.Data {
     public string cardAnimName;
     public string iconFileName;
     public int energyConsumption;
+    public CardAnimEvent cardAnimEvent;
     public BuffTemplate[] buffTemplates;
   }
 
@@ -361,14 +370,12 @@ namespace Yume.Data {
   public class TeamData {
     public string charId;
     public string name = "默认队伍名";
-    public List<int> cardGuidList = new List<int>();
+    public List<int> cardGuids = new List<int>();
   }
 
   [Serializable]
   public class UserData {
     public int lv;
-    public int ap;
-    public int maxAp;
     public string name;
     public int validGuid;
     public int teamIndex;
@@ -386,8 +393,6 @@ namespace Yume.Data {
       this.name = name;
       this.account = account;
       this.password = password;
-
-      ap = maxAp = ResourceManager.Load<int>($"{lv}");
 
       foreach (var taskTemplate in ResourceManager.LoadAll<TaskTemplate>()) {
         tasks.Add(new TaskData(taskTemplate.id, taskTemplate.defaultState));

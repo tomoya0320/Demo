@@ -42,7 +42,7 @@ namespace Yume.Battle {
       var team = DataManager.userTeams[DataManager.userTeamIndex];
       var tempChar = DataManager.GetCharacter(team.charId);
       var cardList = new List<CardData>();
-      foreach (var cardGuid in team.cardGuidList) {
+      foreach (var cardGuid in team.cardGuids) {
         cardList.Add(DataManager.GetCard(cardGuid).Clone() /*因为是引用类型会影响到原来的数据所以需要复制一份*/);
       }
       s_units.Add(UnitFactory.CreateUnit<Character>(tempChar, cardList.ToArray()));

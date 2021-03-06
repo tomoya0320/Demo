@@ -15,8 +15,7 @@ namespace Yume.UI {
     private Button m_team; 
     private Button m_setting;
     private Button m_battle;
-
-    private Text m_apText;
+    
     private Text m_lvText;
     private Image m_expImg;
     private Text m_nameText;
@@ -28,8 +27,7 @@ namespace Yume.UI {
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
-
-      m_apText = GetComponent<Text>("ApText");
+      
       m_lvText = GetComponent<Text>("LvText");
       m_expImg = GetComponent<Image>("ExpImage");
       m_nameText = GetComponent<Text>("NameText");
@@ -69,15 +67,14 @@ namespace Yume.UI {
     }
 
     private void _UpdateUserInfo() {
-      m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ID).ToString();
-      m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ID).ToString();
-
-      m_apText.text = DataManager.userAp + "/" + DataManager.userMaxAp;
+      m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ITEM_ID).ToString();
+      m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ITEM_ID).ToString();
+      
       m_lvText.text = DataManager.userLv.ToString();
       m_nameText.text = DataManager.userName;
 
       float needExp = MathUtil.CalNeededExp(DataManager.userLv);
-      m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ID) / needExp;
+      m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
     }
 
     public override void Destroy() {

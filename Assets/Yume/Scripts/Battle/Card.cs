@@ -29,7 +29,8 @@ namespace Yume.Battle {
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
       objectContainer.GetComponent<Text>("PhaseText").text = cardData.phase.ToString();
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
-      objectContainer.GetComponent<Text>("EnergyText").text = cardPhase.energyConsumption.ToString();
+      string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
+      objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;
       objectContainer.GetComponent<Image>("IconImage").sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
 
       var cardAnimPrefab = ResourceManager.Load<GameObject>(cardPhase.cardAnimName);

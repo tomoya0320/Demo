@@ -39,7 +39,11 @@ namespace Yume.UI {
           m_phaseText.text = m_card.phase.ToString();
           m_typeText.text = cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
-          m_energyText.text = cardPhase.energyConsumption.ToString();
+          if (cardPhase.energyConsumption >= 0) {
+            m_energyText.text = cardPhase.energyConsumption.ToString();
+          } else {
+            m_energyText.text = "X";
+          }
           m_iconImg.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(cardPhase.description);
         }

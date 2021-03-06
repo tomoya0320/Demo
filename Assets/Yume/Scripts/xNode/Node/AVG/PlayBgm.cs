@@ -3,7 +3,7 @@ using Yume.Audio;
 using Yume.UI;
 
 namespace Yume.AVG {
-  public class PlayBgm : LeafNode {
+  public class PlayBgm : LeafNodeBase {
     [SerializeField]
 		private AudioClip _bgmClip;
 

@@ -269,19 +269,13 @@ public static class StringMap {
   public const string CLICK_GET = "点击领取";
   public const string GOT = "已领取";
   public const string GET = "获得";
-  public const string LOGIN = "login";
-  public const string HOME = "home";
   public const string DEFAULT_BGM = "SOTE_Shrine_v2";
   public const string DEFAULT_HURT_SOUND = "SOTE_SFX_BlockAtk_v2";
   public const string DEFAULT_CLICK_SOUND = "点击2";
-  public const string EXP_ID = "item_0_exp";
-  public const string DIAMOND_ID = "item_1_diamond";
-  public const string GOLD_ID = "item_2_gold";
+  public const string EXP_ITEM_ID = "item_0_exp";
+  public const string DIAMOND_ITEM_ID = "item_1_diamond";
+  public const string GOLD_ITEM_ID = "item_2_gold";
   public const string LEVEL_UP_TO = "等级提升至Lv{0}";
-  public const string AVG = "avg";
-  public const string BG = "bg";
-  public const string NAME = "name";
-  public const string DIALOGUE = "dialogue";
   public const string UI_RED_POINT = "red point";
 }
 

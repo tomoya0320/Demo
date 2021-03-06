@@ -52,16 +52,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: _OnPlaySound
-    data: SOTE_SFX_IronClad_Atk_RR1_v2
-    objectReferenceParameter: {fileID: 0}
+    functionName: set_sprite
+    data: 
+    objectReferenceParameter: {fileID: -8342240976295060109, guid: 9130d688fc7d317418f4f9e71337674e, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: set_sprite
-    data: 
-    objectReferenceParameter: {fileID: -8342240976295060109, guid: 9130d688fc7d317418f4f9e71337674e, type: 3}
+    functionName: _OnPlaySound
+    data: SOTE_SFX_IronClad_Atk_RR1_v2
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
@@ -83,13 +83,6 @@ AnimationClip:
     functionName: set_sprite
     data: 
     objectReferenceParameter: {fileID: 800691005159570469, guid: 9130d688fc7d317418f4f9e71337674e, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.25
-    functionName: _OnCast
-    data: 
-    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

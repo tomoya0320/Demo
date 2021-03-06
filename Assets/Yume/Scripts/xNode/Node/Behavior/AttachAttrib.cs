@@ -23,7 +23,7 @@ namespace Yume.Battle {
 
         // 显示数字
         Color color = Colors.GetAttribColor(attribAdditive.type);
-        NumFactory.ShowNum(realValue, owner.gameObject.transform.position, color);
+        NumFactory.ShowNum(realValue, owner.numReference.position, color);
 
         AttribArgs args = new AttribArgs {
           type = attribAdditive.type,

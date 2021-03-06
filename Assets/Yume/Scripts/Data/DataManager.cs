@@ -28,160 +28,24 @@ namespace Yume.Data {
     private static UserData s_user;
     public static bool isLogged => s_user != null;
     public static string userToken { private set; get; }
-    public static string userAccount {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.account;
-      }
-    }
-    public static string userPassword {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.password;
-      }
-    }
-    public static string userName {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.name;
-      }
-    }
-    public static int userAp {
-      private set {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        s_user.ap = value;
-      }
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.ap;
-      }
-    }
-    public static int userMaxAp {
-      private set {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        s_user.maxAp = value;
-      }
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.maxAp;
-      }
-    }
+    public static string userAccount => s_user.account;
+    public static string userPassword => s_user.password;
+    public static string userName => s_user.name;
     public static int userLv {
-      private set {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        s_user.lv = value;
-      }
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.lv;
-      }
+      private set => s_user.lv = value;
+      get => s_user.lv;
     }
     public static int userTeamIndex {
-      private set {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        s_user.teamIndex = value;
-      }
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.teamIndex;
-      }
+      private set => s_user.teamIndex = value;
+      get => s_user.teamIndex;
     }
-    public static List<ItemData> userItems {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.items;
-      }
-    }
-    public static List<CardData> userCards {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.cards;
-      }
-    }
-    public static List<TeamData> userTeams {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.teams;
-      }
-    }
-    public static List<UnitData> userChars {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.chars;
-      }
-    }
-    public static List<MailData> userMails {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.mails;
-      }
-    }
-    public static List<TaskData> userTasks {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.tasks;
-      }
-    }
-    public static List<LevelData> userLevels {
-      get {
-        if (s_user == null) {
-          s_user = new UserData();
-          Debug.LogWarning("用户未登录，创建新的存档！");
-        }
-        return s_user.levels;
-      }
-    }
+    public static List<ItemData> userItems => s_user.items;
+    public static List<CardData> userCards => s_user.cards;
+    public static List<TeamData> userTeams => s_user.teams;
+    public static List<UnitData> userChars => s_user.chars;
+    public static List<MailData> userMails => s_user.mails;
+    public static List<TaskData> userTasks => s_user.tasks;
+    public static List<LevelData> userLevels => s_user.levels;
 
     #endregion
 
@@ -326,7 +190,7 @@ namespace Yume.Data {
       MessageManager.AddMessage(new Message(Message.Style.FADE, content, itemIcon));
       
       // 经验值额外再处理一次
-      if (id == StringMap.EXP_ID) {
+      if (id == StringMap.EXP_ITEM_ID) {
         _AddExpInternal();
       }
 
@@ -363,9 +227,8 @@ namespace Yume.Data {
                 break;
               }
             }
-
+            _CheckTask(task);
           }
-          _CheckTask(task);
         }
       }
       EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
@@ -376,11 +239,14 @@ namespace Yume.Data {
       if (task.state == TaskState.INACTIVE) {
         var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
         task.state = TaskState.INPROCESS;
+        
         if (taskRequest.method == Method.HAD) {
           _SyncTaskHadCount(task);
         }
+        
         _CheckTask(task);
         EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
+        
         s_saveDataTypes.Add("tasks");
       }
     }
@@ -443,9 +309,9 @@ namespace Yume.Data {
             _ActivateTask(nextTask);
           }
         }
- 
-        EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
+        
         _UpdateTaskState(RequestType.TASK, task.id, 1);
+        EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
 
         s_saveDataTypes.Add("tasks");
       }
@@ -471,7 +337,7 @@ namespace Yume.Data {
     }
 
     public static void ChangeTeamCards(TeamData team, List<int> newCardGuidList) {
-      team.cardGuidList = newCardGuidList;
+      team.cardGuids = newCardGuidList;
       s_saveDataTypes.Add("teams");
     }
 
@@ -481,9 +347,9 @@ namespace Yume.Data {
 
     private static void _AddExpInternal() {
       int oLevel = userLv;
-      ItemData expItem = GetItem(StringMap.EXP_ID);
+      ItemData expItem = GetItem(StringMap.EXP_ITEM_ID);
       while (expItem.count >= MathUtil.CalNeededExp(userLv)) {
-        expItem.count -= MathUtil.CalNeededExp(userLv);
+        ConsumeItem(StringMap.EXP_ITEM_ID, MathUtil.CalNeededExp(userLv));
         userLv++;
       }
       //更新任务状态
@@ -491,13 +357,6 @@ namespace Yume.Data {
         string content = string.Format(StringMap.LEVEL_UP_TO, userLv);
         MessageManager.AddMessage(new Message(Message.Style.SLIDE, content));
         _UpdateTaskState(RequestType.LV_UP_TO, StringMap.EMPTY, userLv);
-        int maxAp = ResourceManager.Load<int>($"{userLv}");
-        if (maxAp > userMaxAp) {
-          userMaxAp = maxAp;
-          userAp += userMaxAp;
-          s_saveDataTypes.Add("ap");
-          s_saveDataTypes.Add("maxAp");
-        }
         s_saveDataTypes.Add("lv");
       }
       //更新UI显示
@@ -517,9 +376,9 @@ namespace Yume.Data {
           foreach (var item in levelTemplate.firstCompletedRewards.items) {
             AddItem(item.id, item.count);
           }
-          s_saveDataTypes.Add("levels");
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
+          s_saveDataTypes.Add("levels");
         }
         foreach (var item in levelTemplate.regularRewards.items) {
           AddItem(item.id, item.count);

@@ -28,6 +28,7 @@ namespace Yume.Battle {
     public Animator animator { get; }
     public GameObject selected { get; }
     public GameObject gameObject { get; }
+    public Transform numReference { get; }
     protected abstract Transform folder { get; }
 
     #endregion
@@ -50,6 +51,7 @@ namespace Yume.Battle {
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       hpImage = objectContainer.GetComponent<YImage>("hp");
       energyImage = objectContainer.GetComponent<YImage>("energy");
+      numReference = objectContainer.GetTransform("numReference");
       selected = objectContainer.GetGameObject("selected");
       selected?.SetActiveEx(false);
 

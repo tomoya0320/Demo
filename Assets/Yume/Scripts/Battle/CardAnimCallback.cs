@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Yume.Audio;
+using Yume.Data;
 
 namespace Yume.Battle {
   [RequireComponent(typeof(Animation))]
@@ -14,33 +15,55 @@ namespace Yume.Battle {
     }
 
     public IEnumerator PlayAnim() {
-      gameObject.SetActiveEx(true);
-      transform.position = card.candidate.gameObject.transform.position;
-      m_animation.Play();
-      yield return new WaitUntil(() => !m_animation.isPlaying);
-      gameObject.SetActiveEx(false);
+      CardAnimEvent cardAnimEvent = card.cardPhase.cardAnimEvent;
+      int eventCount = cardAnimEvent.eventCount;
+      if (cardAnimEvent.loadFromBlackboard) {
+        eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:eventCount");
+      }
+      while (eventCount > 0) {
+        gameObject.SetActiveEx(true);
+        transform.position = card.candidate.gameObject.transform.position;
+        m_animation.Play();
+        if (cardAnimEvent.waitingTime > 0) {
+          yield return new WaitForSeconds(cardAnimEvent.waitingTime);
+        }
+        bool result = card.owner.isAlive && _OnCast();
+        yield return new WaitUntil(() => !m_animation.isPlaying);
+        gameObject.SetActiveEx(false);
+        // 释放过程中如果自己死了或目标全都死了就直接结束
+        if (result) {
+          eventCount--;
+        } else {
+          yield break;
+        }
+      }
     }
 
-    private void _OnCast() {
+    private bool _OnCast() {
       if (card == null) {
         Debug.LogError("card is not initialized!");
-        return;
+        return false;
       }
       
       foreach (var buffTemplate in card.cardPhase.buffTemplates) {
+        int validCount = 0;
         // 以caster和candidate为基准筛选出目标
         foreach (var target in buffTemplate.selector.Select(card.owner, card.candidate)) {
           // 跳过已死亡的单位
           if (!target.isAlive) {
             continue;
           }
-          
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard { { "caster", card.owner } };
           blackboard.Merge(buffTemplate.blackboard);
           BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
+          validCount++;
+        }
+        if (validCount == 0) {
+          return false;
         }
       }
+      return true;
     }
 
     private void _OnPlaySound(string sound) {

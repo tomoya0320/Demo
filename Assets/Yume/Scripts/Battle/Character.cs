@@ -55,7 +55,13 @@ namespace Yume.Battle {
         return false;
       }
       // 及时消耗能量
-      AddAttrib(AttribType.ENERGY, -card.cardPhase.energyConsumption);
+      if (card.cardPhase.energyConsumption > 0) {
+        AddAttrib(AttribType.ENERGY, -card.cardPhase.energyConsumption);
+      } else if (card.cardPhase.energyConsumption < 0) {
+        float energy = GetAttrib(AttribType.ENERGY);
+        AddAttrib(AttribType.ENERGY, -energy);
+        blackboard[$"{card.cardTemplate.id}:eventCount"] = Mathf.RoundToInt(energy);
+      }
       // 先关闭卡牌拖拽组件避免反复触发
       card.cardDrag?.SetEnable(false);
       card.candidate?.selected.SetActiveEx(false);
