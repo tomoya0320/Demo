@@ -18,12 +18,26 @@ namespace Yume.Battle {
       gameObject.SetActiveEx(true);
       transform.position = card.candidate.gameObject.transform.position;
       m_animation.Play();
-      foreach (var cardAnimEvent in card.cardPhase.cardAnimEvents) {
-        if (cardAnimEvent.waitingTime > 0) {
-          yield return new WaitForSeconds(cardAnimEvent.waitingTime);
+      for (int i = 0; i < card.cardPhase.cardAnimEvents.Length; i++) {
+        var cardAnimEvent = card.cardPhase.cardAnimEvents[i];
+        int eventCount = cardAnimEvent.eventCount;
+        if (cardAnimEvent.loadFromBlackboard) {
+          eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:eventCount-{i}");
         }
-        _OnCast(cardAnimEvent.buffIndex);
+        while (eventCount > 0) {
+          if (cardAnimEvent.waitingTime > 0) {
+            yield return new WaitForSeconds(cardAnimEvent.waitingTime);
+          }
+          _OnCast(cardAnimEvent.buffIndex);
+          eventCount--;
+          // 释放过程中如果自己死了就直接跳过
+          if (!card.owner.isAlive) {
+            // 注意goto只用于跳出多重循环其他地方不建议使用
+            goto final;
+          }
+        }
       }
+      final:
       yield return new WaitUntil(() => !m_animation.isPlaying);
       gameObject.SetActiveEx(false);
     }

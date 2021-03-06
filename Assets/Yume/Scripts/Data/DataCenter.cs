@@ -29,6 +29,8 @@ namespace Yume.Data {
   public struct CardAnimEvent {
     public float waitingTime;
     public int buffIndex;
+    public bool loadFromBlackboard;
+    public int eventCount;
   }
 
   public struct CardPhase {
