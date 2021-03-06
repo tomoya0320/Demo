@@ -36,7 +36,9 @@ namespace Yume.Battle {
         validCards[index].candidate = BattleManager.character;
       }
       // 消耗能量
-      AddAttrib(AttribType.ENERGY, -validCards[index].cardPhase.energyConsumption);
+      if (validCards[index].cardPhase.energyConsumption > 0) {
+        AddAttrib(AttribType.ENERGY, -validCards[index].cardPhase.energyConsumption);
+      }
       // 加入出牌队列
       playCardQueue.Enqueue(validCards[index]);
       // 结束出牌的标记
