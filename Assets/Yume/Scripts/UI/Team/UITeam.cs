@@ -62,7 +62,7 @@ namespace Yume.UI {
       };
       foreach (var cardBtn in m_cardBtns) {
         cardBtn.onClick.AddListener(() => {
-          UIManager.OpenOne("card_choice", null, currentTeam.cardGuidList, onCardSelected);
+          UIManager.OpenOne("card_choice", null, currentTeam.cardGuids, onCardSelected);
         });
       }
 
@@ -94,8 +94,8 @@ namespace Yume.UI {
 
     private void _OnRefreshCards() {
       for (int i = 0; i < m_cardBtns.Count; i++) {
-        if (i < currentTeam.cardGuidList.Count) {
-          CardData card = DataManager.GetCard(currentTeam.cardGuidList[i]);
+        if (i < currentTeam.cardGuids.Count) {
+          CardData card = DataManager.GetCard(currentTeam.cardGuids[i]);
           CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
