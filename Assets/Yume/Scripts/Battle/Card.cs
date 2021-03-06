@@ -58,7 +58,7 @@ namespace Yume.Battle {
         );
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
-      descTextAutoScroll.SetTextContent(cardPhase.description);
+      descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
       
       // TODO:测试用
       rect = gameObject.GetComponent<RectTransform>().rect;

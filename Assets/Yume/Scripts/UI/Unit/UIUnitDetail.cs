@@ -54,7 +54,7 @@ namespace Yume.UI {
         PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevel];
         m_passiveSkillName.text = passiveSkillPhase.name;
         m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
-        m_passiveSkillDesc.text = passiveSkillPhase.description;
+        m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
       } else {
         m_passiveSkillName.text = String.Empty;
         m_passiveSkillDesc.text = String.Empty;

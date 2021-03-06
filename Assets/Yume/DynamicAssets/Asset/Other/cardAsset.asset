@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u76EE\u6807\u9020\u6210120%\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
@@ -189,7 +189,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u76EE\u6807\u9020\u6210200%\u7684\u5927\u91CF\u4F24\u5BB3"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
@@ -345,7 +345,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u76EE\u6807\u9020\u6210100%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB350%\u7684\u751F\u547D"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB3{0:healRateOnCasterDamage%}\u7684\u751F\u547D"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
@@ -492,7 +492,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u76EE\u6807\u9020\u6210160%\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB380%\u7684\u751F\u547D"
+      Data: "\u5BF9\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u9020\u6210\u5B9E\u9645\u4F24\u5BB3{0:healRateOnCasterDamage%}\u7684\u751F\u547D"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
@@ -666,7 +666,7 @@ MonoBehaviour:
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u56DE\u590D20\u70B9\u751F\u547D\u503C\uFF0C\u4F7F\u7528\u540E\u4F1A\u88AB\u6D88\u8017"
+      Data: "\u56DE\u590D{0:attribAdditive:HP#value}\u70B9\u751F\u547D\u503C\uFF0C\u4F7F\u7528\u540E\u4F1A\u88AB\u6D88\u8017"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_recovery
@@ -846,7 +846,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u6D88\u8017\u6240\u6709\u7684\u80FD\u91CF\uFF0C\u5BF9\u76EE\u6807\u9020\u6210X\u6B21150%\u4F24\u5BB3\uFF08X\u4E3A\u6D88\u8017\u7684\u80FD\u91CF\uFF09"
+      Data: "\u6D88\u8017\u6240\u6709\u7684\u80FD\u91CF\uFF0C\u5BF9\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u4F24\u5BB3\uFF08X\u4E3A\u6D88\u8017\u7684\u80FD\u91CF\uFF09"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attacks

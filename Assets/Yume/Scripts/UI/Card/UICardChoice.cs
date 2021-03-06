@@ -65,7 +65,7 @@ namespace Yume.UI {
             m_energyText.text = "X";
           }
           m_iconImg.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
-          m_descTextAutoScroll.SetTextContent(cardPhase.description);
+          m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
         }
       }
 

@@ -304,11 +304,13 @@ public static class StringUtil {
     byte[] bytes = Convert.FromBase64String(str);
     return Encoding.UTF8.GetString(bytes);
   }
-/*
+
   /// <summary>
-  /// 将描述里类似{xxx}的字符串替换成blackboard里的实际数值
+  /// 将卡牌描述里类似{xxx}的字符串替换成buff的blackboard里的实际数值
+  /// 比如有个描述是{0:atkRate%}即为取第一buff的blackboard里key为atkRate的值并以百分比的形式显示(atkRate需为float类型)
+  /// 如果是附加xxx属性的话格式则为{0:attribAdditive:HP#value}
   /// </summary>
-  public static string GetActualDescription(string description, Blackboard blackboard) {
+  public static string GetActualDescription(string description, BuffTemplate[] buffTemplates) {
     StringBuilder result = new StringBuilder();
     int start = 0;
     for (int i = 0; i < description.Length; i++) {
@@ -319,18 +321,22 @@ public static class StringUtil {
           break;
         }
         case '}': {
-          string key = description.Substring(start, i - start);
-          if (key[key.Length - 1] == '%') {
-            key = key.Substring(0, key.Length - 1);
-            object value = blackboard.GetValue<object>(key);
-            if (value is float f) {
-              result.Append($"{f * 100.0f}%");
-            } else {
-              Debug.LogWarning($"非float类型！type:{value.GetType()}");
-              result.Append(value);
-            }
-          } else {
-            result.Append(blackboard.GetValue<object>(key));
+          string[] expression = description.Substring(start, i - start).Split(':');
+          var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
+          switch (expression.Length) {
+            case 2:
+              result.Append(_GetValueFromBlackboard(expression[1], blackboard));
+              break;
+            case 3:
+              switch (expression[1]) {
+                case "attribAdditive":
+                  var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+                  string[] kv = expression[2].Split('#');
+                  var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
+                  result.Append(_GetValueFromAttribAdditive(kv[1], attribAdditive));
+                  break;
+              }
+              break;
           }
           start = i + 1;
           break;
@@ -342,7 +348,34 @@ public static class StringUtil {
     }
     return result.ToString();
   }
-*/
+
+  private static string _GetValueFromBlackboard(string key, Blackboard blackboard) {
+    if (key[key.Length - 1] == '%') {
+      key = key.Substring(0, key.Length - 1);
+      object value = blackboard.GetValue<object>(key);
+      if (value is float f) {
+        return $"{f * 100.0f}%";
+      } else {
+        return $"{value}";
+      }
+    } else {
+      return $"{blackboard.GetValue<object>(key)}";
+    }
+  }
+
+  private static string _GetValueFromAttribAdditive(string key, AttribAdditive attribAdditive) {
+    if (key[key.Length - 1] == '%') {
+      key = key.Substring(0, key.Length - 1);
+      object value = typeof(AttribAdditive).GetField(key).GetValue(attribAdditive);
+      if (value is float f) {
+        return $"{f * 100.0f}%";
+      } else {
+        return $"{value}";
+      }
+    } else {
+      return $"{typeof(AttribAdditive).GetField(key).GetValue(attribAdditive)}";
+    }
+  }
 }
 
 public static class ScreenUtil {
