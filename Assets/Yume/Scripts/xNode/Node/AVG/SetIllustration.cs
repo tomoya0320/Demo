@@ -2,7 +2,7 @@ using UnityEngine;
 using Yume.UI;
 
 namespace Yume.AVG {
-	public class SetIllustration : LeafNode {
+	public class SetIllustration : LeafNodeBase {
     [SerializeField]
 		private Sprite _illustrationSprite;
 

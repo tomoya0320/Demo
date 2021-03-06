@@ -15,68 +15,55 @@ namespace Yume.Battle {
     }
 
     public IEnumerator PlayAnim() {
-      gameObject.SetActiveEx(true);
-      transform.position = card.candidate.gameObject.transform.position;
-      m_animation.Play();
-      for (int i = 0; i < card.cardPhase.cardAnimEvents.Length; i++) {
-        var cardAnimEvent = card.cardPhase.cardAnimEvents[i];
-        int eventCount = cardAnimEvent.eventCount;
-        if (cardAnimEvent.loadFromBlackboard) {
-          eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:eventCount-{i}");
+      CardAnimEvent cardAnimEvent = card.cardPhase.cardAnimEvent;
+      int eventCount = cardAnimEvent.eventCount;
+      if (cardAnimEvent.loadFromBlackboard) {
+        eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:eventCount");
+      }
+      while (eventCount > 0) {
+        gameObject.SetActiveEx(true);
+        transform.position = card.candidate.gameObject.transform.position;
+        m_animation.Play();
+        if (cardAnimEvent.waitingTime > 0) {
+          yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
-        while (eventCount > 0) {
-          if (cardAnimEvent.waitingTime > 0) {
-            yield return new WaitForSeconds(cardAnimEvent.waitingTime);
-          }
-          _OnCast(cardAnimEvent.buffIndex);
+        bool result = card.owner.isAlive && _OnCast();
+        yield return new WaitUntil(() => !m_animation.isPlaying);
+        gameObject.SetActiveEx(false);
+        // 释放过程中如果自己死了或目标全都死了就直接结束
+        if (result) {
           eventCount--;
-          // 释放过程中如果自己死了就直接跳过
-          if (!card.owner.isAlive) {
-            // 注意goto只用于跳出多重循环其他地方不建议使用
-            goto final;
-          }
+        } else {
+          yield break;
         }
       }
-      final:
-      yield return new WaitUntil(() => !m_animation.isPlaying);
-      gameObject.SetActiveEx(false);
     }
 
-    private void _OnCast(int buffIndex) {
+    private bool _OnCast() {
       if (card == null) {
         Debug.LogError("card is not initialized!");
-        return;
+        return false;
       }
-
-      if (buffIndex >= card.cardPhase.buffTemplates.Length) {
-        Debug.LogError("buffIndex is out of buffTemplates range!");
-        return;
-      }
-
-      if (buffIndex < 0) {
-        // buffIndex小于0表示所有的buff都加
-        foreach (var buffTemplate in card.cardPhase.buffTemplates) {
-          _AddBuff(buffTemplate);
+      
+      foreach (var buffTemplate in card.cardPhase.buffTemplates) {
+        int validCount = 0;
+        // 以caster和candidate为基准筛选出目标
+        foreach (var target in buffTemplate.selector.Select(card.owner, card.candidate)) {
+          // 跳过已死亡的单位
+          if (!target.isAlive) {
+            continue;
+          }
+          // 因为blackboard是引用类型所以需要新建一个
+          Blackboard blackboard = new Blackboard { { "caster", card.owner } };
+          blackboard.Merge(buffTemplate.blackboard);
+          BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
+          validCount++;
         }
-      } else {
-        // 只加buffIndex指定的buff
-        _AddBuff(card.cardPhase.buffTemplates[buffIndex]);
-      }
-    }
-
-    private void _AddBuff(BuffTemplate buffTemplate) {
-      // 以caster和candidate为基准筛选出目标
-      foreach (var target in buffTemplate.selector.Select(card.owner, card.candidate)) {
-        // 跳过已死亡的单位
-        if (!target.isAlive) {
-          continue;
+        if (validCount == 0) {
+          return false;
         }
-
-        // 因为blackboard是引用类型所以需要新建一个
-        Blackboard blackboard = new Blackboard { { "caster", card.owner } };
-        blackboard.Merge(buffTemplate.blackboard);
-        BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
       }
+      return true;
     }
 
     private void _OnPlaySound(string sound) {

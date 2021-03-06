@@ -16,12 +16,12 @@ namespace Yume.AVG {
 		public abstract void Run(UIAVG avg);
 	}
 
-  public abstract class LeafNode : AVGNodeBase {
+  public abstract class LeafNodeBase : AVGNodeBase {
     [Input(ShowBackingValue.Never, ConnectionType.Override)]
     public int node;
   }
 
-  public abstract class FadeNodeBase : LeafNode {
+  public abstract class FadeNodeBase : LeafNodeBase {
 		[SerializeField]
 		protected bool block = true;
 		[SerializeField]

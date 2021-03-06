@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Yume.Battle;
 using Yume.Resource;
@@ -28,8 +29,8 @@ namespace Yume.Data {
 
   public struct CardAnimEvent {
     public float waitingTime;
-    public int buffIndex;
     public bool loadFromBlackboard;
+    [ShowIf("@!this.loadFromBlackboard")]
     public int eventCount;
   }
 
@@ -41,8 +42,8 @@ namespace Yume.Data {
     public string cardAnimName;
     public string iconFileName;
     public int energyConsumption;
+    public CardAnimEvent cardAnimEvent;
     public BuffTemplate[] buffTemplates;
-    public CardAnimEvent[] cardAnimEvents;
   }
 
   public struct CardTemplate {
