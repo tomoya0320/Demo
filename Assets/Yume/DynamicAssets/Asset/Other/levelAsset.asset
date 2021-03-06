@@ -408,7 +408,19 @@ MonoBehaviour:
       Data: 21|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 22|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_0_exp
+    - Name: count
+      Entry: 3
+      Data: 500
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -423,13 +435,13 @@ MonoBehaviour:
       Data: Yume.Data.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 22|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 23|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 23|Yume.Data.ItemData, Assembly-CSharp
+      Data: 24|Yume.Data.ItemData, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -450,7 +462,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTemplates
       Entry: 7
-      Data: 24|Yume.Data.EnemyTemplate[], Assembly-CSharp
+      Data: 25|Yume.Data.EnemyTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -462,7 +474,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 25|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 26|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 14
@@ -477,7 +489,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 26|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 27|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

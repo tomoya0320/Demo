@@ -190,7 +190,7 @@ namespace Yume.Data {
       MessageManager.AddMessage(new Message(Message.Style.FADE, content, itemIcon));
       
       // 经验值额外再处理一次
-      if (id == StringMap.EXP_ID) {
+      if (id == StringMap.EXP_ITEM_ID) {
         _AddExpInternal();
       }
 
@@ -227,9 +227,8 @@ namespace Yume.Data {
                 break;
               }
             }
-
+            _CheckTask(task);
           }
-          _CheckTask(task);
         }
       }
       EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
@@ -240,11 +239,14 @@ namespace Yume.Data {
       if (task.state == TaskState.INACTIVE) {
         var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
         task.state = TaskState.INPROCESS;
+        
         if (taskRequest.method == Method.HAD) {
           _SyncTaskHadCount(task);
         }
+        
         _CheckTask(task);
         EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
+        
         s_saveDataTypes.Add("tasks");
       }
     }
@@ -307,9 +309,9 @@ namespace Yume.Data {
             _ActivateTask(nextTask);
           }
         }
- 
-        EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
+        
         _UpdateTaskState(RequestType.TASK, task.id, 1);
+        EventCenter.Broadcast(EventType.UPDATE_TASK_PROCESS);
 
         s_saveDataTypes.Add("tasks");
       }
@@ -345,9 +347,9 @@ namespace Yume.Data {
 
     private static void _AddExpInternal() {
       int oLevel = userLv;
-      ItemData expItem = GetItem(StringMap.EXP_ID);
+      ItemData expItem = GetItem(StringMap.EXP_ITEM_ID);
       while (expItem.count >= MathUtil.CalNeededExp(userLv)) {
-        expItem.count -= MathUtil.CalNeededExp(userLv);
+        ConsumeItem(StringMap.EXP_ITEM_ID, MathUtil.CalNeededExp(userLv));
         userLv++;
       }
       //更新任务状态
@@ -374,9 +376,9 @@ namespace Yume.Data {
           foreach (var item in levelTemplate.firstCompletedRewards.items) {
             AddItem(item.id, item.count);
           }
-          s_saveDataTypes.Add("levels");
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
+          s_saveDataTypes.Add("levels");
         }
         foreach (var item in levelTemplate.regularRewards.items) {
           AddItem(item.id, item.count);
