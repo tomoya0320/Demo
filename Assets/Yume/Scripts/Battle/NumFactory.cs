@@ -40,7 +40,10 @@ namespace Yume.Battle {
       num.transform.position = pos;
       num.DOFade(1.0f, ANIM_DURATION);
       var rectTransform = num.gameObject.GetRectTransform();
-      rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + rectTransform.rect.height, ANIM_DURATION).OnComplete(
+      var width = rectTransform.rect.width;
+      var height = rectTransform.rect.height;
+      rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
+      rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + height, ANIM_DURATION).OnComplete(
         () => {
           if (num != null) {
             num.DOFade(0, ANIM_DURATION).SetDelay(NUM_SHOW_TIME).OnComplete(
