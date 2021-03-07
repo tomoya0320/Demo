@@ -29,7 +29,7 @@ namespace Yume.UI {
       ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
       m_iconImg.sprite = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
       m_nameNumText.text = $"{itemTemplate.name}*{item.count}";
-      m_descText.text = itemTemplate.description;
+      m_descText.text = StringUtil.GetActualDescription(itemTemplate.description, itemTemplate.blackboard);
 
       base.Open(callback, args);
     }

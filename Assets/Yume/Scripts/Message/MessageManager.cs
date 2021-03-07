@@ -21,7 +21,7 @@ namespace Yume {
     public float duration;
     public bool allowDuplicate;
 
-    public Message(Style style, string content, Sprite img = null, float duration = 2.0f, bool allowDuplicate = true) {
+    public Message(Style style, string content, bool allowDuplicate = true, Sprite img = null, float duration = 2.0f) {
       this.style = style;
       this.content = content;
       this.duration = duration;

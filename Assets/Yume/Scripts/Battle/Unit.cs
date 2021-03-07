@@ -35,13 +35,13 @@ namespace Yume.Battle {
 
     protected Unit(UnitData unit) {
       var unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
-      level = unit.level;
+      level = unit.lv;
       id = unitTemplate.id;
       name = unitTemplate.name;
       camp = unitTemplate.camp;
       passiveSkillLevel = unit.passiveSkillLevel;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
-      attribs = MathUtil.CalculateAttribs(unit.id, unit.level);
+      attribs = MathUtil.CalculateAttribs(unit.id, unit.lv);
 
       // 表现层
       var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);

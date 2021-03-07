@@ -73,7 +73,7 @@ namespace Yume.UI {
       m_lvText.text = DataManager.userLv.ToString();
       m_nameText.text = DataManager.userName;
 
-      float needExp = MathUtil.CalNeededExp(DataManager.userLv);
+      float needExp = MathUtil.CalNeedUserExp(DataManager.userLv);
       m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
     }
 

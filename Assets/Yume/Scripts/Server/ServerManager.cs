@@ -30,7 +30,7 @@ namespace Yume.Server {
       //update：换了一种方式初始化(直接new UserDB())
 #if BETA
       UserData user = new UserData(name/*暂时测试用*/, account, password);
-      user.chars.Add(new UnitData("char_001", 20, 0));
+      user.chars.Add(new CharData("char_001", 0, 0));
       user.cards.Add(new CardData("card_001", 0));
       user.cards.Add(new CardData("card_001", 0));
       user.cards.Add(new CardData("card_001", 1));

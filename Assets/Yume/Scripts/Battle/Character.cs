@@ -51,7 +51,7 @@ namespace Yume.Battle {
           card.candidate.selected.SetActiveEx(false);
           card.candidate = null;
         }
-        MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", null, 0.5f, false));
+        MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", false, null, 0.5f));
         return false;
       }
       // 及时消耗能量

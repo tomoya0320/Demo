@@ -12,6 +12,10 @@
     UPDATE_USER_INFO,
     UPDATE_MAIN_STORY_LEVEL,
     /// <summary>
+    /// 更新角色详情
+    /// </summary>
+    UPDATE_CHAR_DETAIL,
+    /// <summary>
     /// 当进入玩家的回合时
     /// </summary>
     ON_ENTER_PLAYER_TURN,    

@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: "\u7A7A"
     - Name: maxLevel
       Entry: 3
-      Data: 100
+      Data: 10
     - Name: prefabName
       Entry: 1
       Data: char_001
@@ -272,10 +272,10 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 4
-      Data: 100
+      Data: 200
     - Name: _maxValue
       Entry: 4
-      Data: 100
+      Data: 200
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -299,7 +299,7 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 4
-      Data: 10
+      Data: 20
     - Name: _maxValue
       Entry: 4
       Data: 999999
@@ -326,7 +326,7 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: _maxValue
       Entry: 4
       Data: 999999

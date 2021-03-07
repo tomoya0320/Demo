@@ -6,8 +6,8 @@ using Yume.Data;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public class UIUnitDetail : UIBase {
-    private Text m_lv;
+  public class UIEnemyDetail : UIBase {
+    private Text m_lvText;
     private Text m_description;
     private Image m_illustration;
     private Text m_passiveSkillName;
@@ -18,7 +18,7 @@ namespace Yume.UI {
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_lv = GetComponent<Text>("lv");
+      m_lvText = GetComponent<Text>("lv");
       m_description = GetComponent<Text>("description");
       m_illustration = GetComponent<Image>("illustration");
       m_passiveSkillName = GetComponent<Text>("passiveSkillName");
@@ -38,10 +38,10 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       UnitData unit = args[0] as UnitData;
       UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
-      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.level);
+      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.lv);
 
+      m_lvText.text = $"Lv:{unit.lv}";
       m_description.text = unitTemplate.description;
-      m_lv.text = $"Lv:{unit.level}/{unitTemplate.maxLevel}";
       m_illustration.sprite = ResourceManager.Load<Sprite>(unitTemplate.illustrationFileName);
       
       for (int i = 0; i < m_attribs.Length; i++) {
@@ -56,8 +56,8 @@ namespace Yume.UI {
         m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
         m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
       } else {
-        m_passiveSkillName.text = String.Empty;
-        m_passiveSkillDesc.text = String.Empty;
+        m_passiveSkillName.text = StringMap.EMPTY;
+        m_passiveSkillDesc.text = StringMap.EMPTY;
         m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>("noSprite");
       }
 

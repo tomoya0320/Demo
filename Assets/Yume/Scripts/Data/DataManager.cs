@@ -42,7 +42,7 @@ namespace Yume.Data {
     public static List<ItemData> userItems => s_user.items;
     public static List<CardData> userCards => s_user.cards;
     public static List<TeamData> userTeams => s_user.teams;
-    public static List<UnitData> userChars => s_user.chars;
+    public static List<CharData> userChars => s_user.chars;
     public static List<MailData> userMails => s_user.mails;
     public static List<TaskData> userTasks => s_user.tasks;
     public static List<LevelData> userLevels => s_user.levels;
@@ -76,7 +76,7 @@ namespace Yume.Data {
       return userCards.Find(obj => obj.guid == guid);
     }
 
-    public static UnitData GetCharacter(string charId) {
+    public static CharData GetCharacter(string charId) {
       return userChars.Find(obj => obj.id == charId);
     }
 
@@ -147,9 +147,40 @@ namespace Yume.Data {
     #region Character
 
     public static void AddCharacter(string id, int level, int passiveSkillLevel) {
-      UnitData character = new UnitData(id, level, passiveSkillLevel);
+      CharData character = new CharData(id, level, passiveSkillLevel);
       userChars.Add(character);
       s_saveDataTypes.Add("chars");
+    }
+
+    public static void AddCharExp(CharData character, int exp) {
+      var unitTemplate = ResourceManager.Load<UnitTemplate>(character.id);
+      character.exp += exp;
+      while (character.exp >= MathUtil.CalNeedCharExp(character.lv)) {
+        character.exp -= MathUtil.CalNeedCharExp(character.lv);
+        character.lv++;
+        if (character.lv >= unitTemplate.maxLevel) {
+          character.exp = 0;
+          break;
+        }
+      }
+      //更新UI显示
+      EventCenter.Broadcast(EventType.UPDATE_CHAR_DETAIL);
+      s_saveDataTypes.Add("chars");
+    }
+
+    public static void IfAddCharExp(string charId, int currentLv, int currentExp, int exp, out int finalLv, out int leftExp) {
+      var unitTemplate = ResourceManager.Load<UnitTemplate>(charId);
+      currentExp += exp;
+      while (currentExp >= MathUtil.CalNeedCharExp(currentLv)) {
+        currentExp -= MathUtil.CalNeedCharExp(currentLv);
+        currentLv++;
+        if (currentLv >= unitTemplate.maxLevel) {
+          currentExp = 0;
+          break;
+        }
+      }
+      finalLv = currentLv;
+      leftExp = currentExp;
     }
 
     #endregion
@@ -348,8 +379,8 @@ namespace Yume.Data {
     private static void _AddExpInternal() {
       int oLevel = userLv;
       ItemData expItem = GetItem(StringMap.EXP_ITEM_ID);
-      while (expItem.count >= MathUtil.CalNeededExp(userLv)) {
-        ConsumeItem(StringMap.EXP_ITEM_ID, MathUtil.CalNeededExp(userLv));
+      while (expItem.count >= MathUtil.CalNeedUserExp(userLv)) {
+        ConsumeItem(StringMap.EXP_ITEM_ID, MathUtil.CalNeedUserExp(userLv));
         userLv++;
       }
       //更新任务状态

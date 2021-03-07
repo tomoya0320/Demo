@@ -277,6 +277,8 @@ public static class StringMap {
   public const string GOLD_ITEM_ID = "item_2_gold";
   public const string LEVEL_UP_TO = "等级提升至Lv{0}";
   public const string UI_RED_POINT = "red point";
+  public const string CHAR_EXP = "char_exp";
+  public const string CONSUME_GOLD = "消耗金币 {0}";
 }
 
 public static class StringUtil {
@@ -338,6 +340,30 @@ public static class StringUtil {
               }
               break;
           }
+          start = i + 1;
+          break;
+        }
+      }
+    }
+    if (start < description.Length) {
+      result.Append(description.Substring(start));
+    }
+    return result.ToString();
+  }
+
+  public static string GetActualDescription(string description, Blackboard blackboard) {
+    StringBuilder result = new StringBuilder();
+    int start = 0;
+    for (int i = 0; i < description.Length; i++) {
+      switch (description[i]) {
+        case '{': {
+          result.Append(description.Substring(start, i - start));
+          start = i + 1;
+          break;
+        }
+        case '}': {
+          string key = description.Substring(start, i - start);
+          result.Append(blackboard.GetValue<object>(key));
           start = i + 1;
           break;
         }
@@ -434,10 +460,26 @@ public static class MathUtil {
   }
 
   /// <summary>
-  /// 计算当前等级还需要多少经验才能升级
+  /// 计算玩家当前等级还需要多少经验才能升级
   /// </summary>
-  public static int CalNeededExp(int lv) {
+  public static int CalNeedUserExp(int lv) {
     return 50 + lv * 50;
+  } 
+  
+  /// <summary>
+  /// 计算角色当前等级还需要多少经验才能升级
+  /// </summary>
+  public static int CalNeedCharExp(int lv) {
+    return 100 + lv * 300;
+  }
+
+  /// <summary>
+  /// 根据角色经验值计算需要花费多少金币
+  /// </summary>
+  /// <param name="exp"></param>
+  /// <returns></returns>
+  public static int CalNeedGoldByCharExp(int exp) {
+    return 10 * exp;
   }
 
   public static Attrib[] CalculateAttribs(string id, int level) {

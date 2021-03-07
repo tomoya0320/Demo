@@ -11,11 +11,13 @@ namespace Yume.Data {
 
   public struct ItemTemplate {
     public string id;
+    public string groupId;
     public string name;
     public bool hideDisplay;
     public string iconFileName;
     [TextArea]
     public string description;
+    public Blackboard blackboard;
   }
 
   public enum CardType {
@@ -344,14 +346,21 @@ namespace Yume.Data {
   [Serializable]
   public class UnitData {
     public string id;
-    public int level;
+    public int lv;
     public int passiveSkillLevel;
 
-    public UnitData(string id, int level, int passiveSkillLevel) {
+    public UnitData(string id, int lv, int passiveSkillLevel) {
       this.id = id;
-      this.level = level;
+      this.lv = lv;
       this.passiveSkillLevel = passiveSkillLevel;
     }
+  }
+
+  [Serializable]
+  public class CharData : UnitData {
+    public int exp;
+    
+    public CharData(string id, int lv, int passiveSkillLevel) : base(id, lv, passiveSkillLevel) { }
   }
 
   [Serializable]
@@ -384,7 +393,7 @@ namespace Yume.Data {
     public List<MailData> mails = new List<MailData>();
     public List<ItemData> items = new List<ItemData>();
     public List<CardData> cards = new List<CardData>();
-    public List<UnitData> chars = new List<UnitData>();
+    public List<CharData> chars = new List<CharData>();
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
     public List<LevelData> levels = new List<LevelData>();

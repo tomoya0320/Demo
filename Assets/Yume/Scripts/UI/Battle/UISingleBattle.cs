@@ -18,9 +18,9 @@ namespace Yume.UI {
 
       m_bg = GetComponent<Image>("bg");
       m_finishTurnBtn = GetComponent<YButton>("finish turn");
-      
+
       _AddListener();
-      
+
       EventCenter.AddListener(EventType.ON_ENTER_PLAYER_TURN, _EnterPlayerTurn);
       EventCenter.AddListener(EventType.ON_ENTER_FIRST_ENEMY_TURN, _EnterFirstEnemyTurn);
     }
@@ -54,8 +54,10 @@ namespace Yume.UI {
 
     private void _Abort() {
       if (UIManager.GetTopUI(uiType).name == name) {
-        UIManager.OpenOne("confirmation", null, 
-          "确认放弃作战？", "确认", "取消", BattleManager.abort, null);
+        UIManager.OpenOne(
+          "confirmation", null,
+          "确认放弃作战？", "确认", "取消", BattleManager.abort, null
+        );
       } else {
         UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
       }
@@ -72,16 +74,16 @@ namespace Yume.UI {
 
     private void _EnterFirstEnemyTurn() {
       m_finishTurnBtn.textComponent.text = "敌方回合";
-      
-      MessageManager.AddMessage(new Message(Message.Style.CENTER, "敌方回合", null, 0.5f));
+
+      MessageManager.AddMessage(new Message(Message.Style.CENTER, "敌方回合", false, null, 0.5f));
     }
 
     private void _EnterPlayerTurn() {
       m_finishTurnBtn.interactable = true;
       m_finishTurnBtn.image.color = Color.white;
       m_finishTurnBtn.textComponent.text = "结束回合";
-      
-      MessageManager.AddMessage(new Message(Message.Style.CENTER, "玩家回合", null, 0.5f));
+
+      MessageManager.AddMessage(new Message(Message.Style.CENTER, "玩家回合", false, null, 0.5f));
     }
 
     public override void Open(Action callback = null, params object[] args) {
@@ -89,12 +91,12 @@ namespace Yume.UI {
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
-      
+
       BattleManager.Init(levelTemplate, objectContainer);
-      
+
       // 播放战斗中的bgm
       AudioManager.PlayBgm(levelTemplate.bgm);
-      
+
       callback += BattleManager.StartBattle;
       base.Open(callback, args);
     }

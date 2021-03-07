@@ -27,7 +27,7 @@ namespace Yume.Battle {
         if (cardAnimEvent.waitingTime > 0) {
           yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
-        bool result = card.owner.isAlive && _OnCast();
+        bool result = _OnCast() && card.owner.isAlive;
         yield return new WaitUntil(() => !m_animation.isPlaying);
         gameObject.SetActiveEx(false);
         // 释放过程中如果自己死了或目标全都死了就直接结束
@@ -39,6 +39,10 @@ namespace Yume.Battle {
       }
     }
 
+    /// <summary>
+    /// 使用卡牌
+    /// </summary>
+    /// <returns>如果目标在使用卡牌后全部死亡则返回false</returns>
     private bool _OnCast() {
       if (card == null) {
         Debug.LogError("card is not initialized!");
@@ -46,7 +50,7 @@ namespace Yume.Battle {
       }
       
       foreach (var buffTemplate in card.cardPhase.buffTemplates) {
-        int validCount = 0;
+        int leftCount = 0;
         // 以caster和candidate为基准筛选出目标
         foreach (var target in buffTemplate.selector.Select(card.owner, card.candidate)) {
           // 跳过已死亡的单位
@@ -57,9 +61,11 @@ namespace Yume.Battle {
           Blackboard blackboard = new Blackboard { { "caster", card.owner } };
           blackboard.Merge(buffTemplate.blackboard);
           BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
-          validCount++;
+          if (target.isAlive) {
+            leftCount++;
+          }
         }
-        if (validCount == 0) {
+        if (leftCount == 0) {
           return false;
         }
       }

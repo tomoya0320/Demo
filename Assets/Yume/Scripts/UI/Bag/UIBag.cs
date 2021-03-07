@@ -14,19 +14,17 @@ namespace Yume.UI {
       private Text m_numText;
       private Image m_iconImg;
       private ItemData m_item;
-      private Button m_clickButton;
       public bool isValid => m_item != null;
 
       public UIItemTerm(GameObject root) : base(root) {
         m_numText = GetComponent<Text>("NumText");
         m_iconImg = GetComponent<Image>("IconImg");
-        m_clickButton = GetComponent<Button>("ClickButton");
 
         _AddListener();
       }
 
       private void _AddListener() {
-        m_clickButton.onClick.AddListener(() => {
+        GetComponent<Button>("ClickButton").onClick.AddListener(() => {
           UIManager.OpenOne("item_detail", null, m_item);
         });
       }
@@ -68,7 +66,7 @@ namespace Yume.UI {
 
         m_itemScrollView = new UIScrollView<ItemData, UIItemTerm>(m_itemScrollRect, this);
 
-        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
+        EventCenter.AddListener(EventType.UPDATE_ITEM_INFO, _RefreshScrollView);
       }
 
       public override void Destroy() {
@@ -76,10 +74,10 @@ namespace Yume.UI {
           itemTerm.Destroy();
         }
 
-        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _UpdateScrollView);
+        EventCenter.RemoveListener(EventType.UPDATE_ITEM_INFO, _RefreshScrollView);
       }
 
-      private void _UpdateScrollView() {
+      private void _RefreshScrollView() {
         m_itemList = DataManager.userItems.FindAll(m_findDisplayItem);
         m_itemScrollView.UpdateView();
       }

@@ -97,7 +97,7 @@ namespace Yume.UI {
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
             (ResourceManager.Load<UnitTemplate>(enemyData.id).headFileName);
-          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("unit_detail", null, enemyData));
+          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("enemy_detail", null, enemyData));
         } else {
           tempGo.SetActiveEx(false);
         }
