@@ -17,6 +17,7 @@ namespace Yume.UI {
     private Action m_onDraggingCard;
     private int m_originSiblingIndex;
     private Vector2 m_resetAnchorPos;
+    private PointerEventData m_eventData;
     private RectTransform m_rectTransform;
     public bool interactable => m_enable > 0 && m_tween == null;
     private const float SCALE_TIME = 0.2f;
@@ -42,7 +43,7 @@ namespace Yume.UI {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-      if (!interactable) {
+      if (!interactable || m_dragging) {
         return;
       }
 
@@ -52,23 +53,28 @@ namespace Yume.UI {
         resortTween.Complete();
         transform.position = pos;
       }
-      
+
       m_dragging = true;
       m_originPos = m_rectTransform.position;
       m_originSiblingIndex = m_rectTransform.GetSiblingIndex();
       m_rectTransform.SetAsLastSibling();
-      Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      
+      m_eventData = eventData;
+      Vector3 mousePosition = m_eventData.position;
+      // 坐标变换
+      mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
       m_clickDownPos = mousePosition;
 
       AudioManager.PlaySound(SELECT_SOUND);
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-      if (!m_dragging) {
+      if (!interactable || !m_dragging || m_eventData != eventData) {
         return;
       }
-
+      
       m_dragging = false;
+      m_eventData = null;
       if (m_onUseCard == null || !m_onUseCard()) {
         m_tween = m_rectTransform.DOAnchorPos(m_resetAnchorPos, 0.2f).OnComplete(
           () => {
@@ -81,7 +87,9 @@ namespace Yume.UI {
 
     private void Update() {
       if (m_dragging) {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = m_eventData.position;
+        // 坐标变换
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         m_rectTransform.position = m_originPos + (mousePosition - m_clickDownPos);
         m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, s_draggingScale, SCALE_TIME);
         m_onDraggingCard?.Invoke();
