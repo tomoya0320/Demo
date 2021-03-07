@@ -29,44 +29,47 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        GetComponent<Button>("ClickButton").onClick.AddListener(
-          () => {
-            if (m_item == null) {
-              return;
-            }
-            
-            if (m_itemGroup.charAddExp.isMaxLv) {
-              return;
-            }
-            
-            m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
-            if (count < m_item.count) {
-              m_itemGroup.selectedExpDict[m_item.id] = count + 1;
-              // 刷新角色等级、经验、属性等信息
-              m_itemGroup.charAddExp._RefreshDetail();
-              // 刷新自己道具的信息
-              UpdateScrollTerm(m_item);
-            }
+        YButton clickButton = GetComponent<YButton>("ClickButton");
+        clickButton.onClick.AddListener(() => _AddExpItem(1));
+        clickButton.onLongPressRepeat += () => _AddExpItem(4);
+        m_reduceBtn.onClick.AddListener(() => _ReduceExpItem(1));
+        m_reduceBtn.onLongPressRepeat += () => _ReduceExpItem(4);
+      }
+
+      private void _AddExpItem(int deltaCount) {
+        if (m_item == null || deltaCount < 0) {
+          return;
+        }
+
+        if (m_itemGroup.charAddExp.isMaxLv) {
+          return;
+        }
+
+        m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+        if (count < m_item.count) {
+          m_itemGroup.selectedExpDict[m_item.id] = Mathf.Min(count + deltaCount, m_item.count);
+          // 刷新角色等级、经验、属性等信息
+          m_itemGroup.charAddExp._RefreshDetail();
+          // 刷新自己道具的信息
+          UpdateScrollTerm(m_item);
+        }
+      }
+
+      private void _ReduceExpItem(int deltaCount) {
+        if (m_item == null || deltaCount < 0) {
+          return;
+        }
+        m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+        if (count > 0) {
+          m_itemGroup.selectedExpDict[m_item.id] = Mathf.Max(count - deltaCount, 0);
+          if (m_itemGroup.selectedExpDict[m_item.id] <= 0) {
+            m_itemGroup.selectedExpDict.Remove(m_item.id);
           }
-        );
-        m_reduceBtn.onClick.AddListener(
-          () => {
-            if (m_item == null) {
-              return;
-            }
-            m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
-            if (count > 0) {
-              m_itemGroup.selectedExpDict[m_item.id] = count - 1;
-              if (m_itemGroup.selectedExpDict[m_item.id] <= 0) {
-                m_itemGroup.selectedExpDict.Remove(m_item.id);
-              }
-              // 刷新角色等级、经验、属性等信息
-              m_itemGroup.charAddExp._RefreshDetail();
-              // 刷新自己道具的信息
-              UpdateScrollTerm(m_item);
-            }
-          }
-        );
+          // 刷新角色等级、经验、属性等信息
+          m_itemGroup.charAddExp._RefreshDetail();
+          // 刷新自己道具的信息
+          UpdateScrollTerm(m_item);
+        }
       }
 
       public void UpdateScrollTerm(ItemData item) {

@@ -16,11 +16,13 @@ namespace Yume.UI {
     [SerializeField]
     private bool _soundEvenDisabled;
     public event Action onLongPress;
-    private const float LONG_PRESS_MIN_TIME = 1.0f;
+    public event Action onLongPressRepeat;
+    private const float LONG_PRESS_MIN_TIME = 0.8f;
+    private const float LONG_PRESS_REPEAT_DELTA_TIME = 0.4f;
 
     protected override void Awake() {
       base.Awake();
-      
+
       this.SetDefaultState();
       _textComponent = GetComponentInChildren<Text>(true);
     }
@@ -35,8 +37,12 @@ namespace Yume.UI {
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
-      StartCoroutine(_LongPress());
-
+      if (onLongPress != null) {
+        StartCoroutine(_LongPress());
+      }
+      if (onLongPressRepeat != null) {
+        StartCoroutine(_LongPressRepeat());
+      }
       base.OnPointerDown(eventData);
     }
 
@@ -45,7 +51,7 @@ namespace Yume.UI {
       yield return null;
 
       float startTime = Time.time;
-      while(Time.time < startTime + LONG_PRESS_MIN_TIME) {
+      while (Time.time < startTime + LONG_PRESS_MIN_TIME) {
         if (currentSelectionState == SelectionState.Pressed) {
           yield return null;
         } else {
@@ -53,7 +59,33 @@ namespace Yume.UI {
         }
       }
 
-      onLongPress?.Invoke();
+      onLongPress();
+    }
+
+    private IEnumerator _LongPressRepeat() {
+      // 下一帧按钮的状态才会变成Pressed
+      yield return null;
+
+      float startTime = Time.time;
+      while (Time.time < startTime + LONG_PRESS_MIN_TIME) {
+        if (currentSelectionState == SelectionState.Pressed) {
+          yield return null;
+        } else {
+          yield break;
+        }
+      }
+
+      while (true) {
+        onLongPressRepeat();
+        startTime = Time.time;
+        while (Time.time < startTime + LONG_PRESS_REPEAT_DELTA_TIME) {
+          if (currentSelectionState == SelectionState.Pressed) {
+            yield return null;
+          } else {
+            yield break;
+          }
+        }
+      }
     }
   }
 }
