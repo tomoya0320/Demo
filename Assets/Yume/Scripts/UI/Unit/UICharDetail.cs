@@ -69,7 +69,7 @@ namespace Yume.UI {
 
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{attribs[i].value:0}";
+          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{(int)attribs[i].value}";
         }
       }
       

@@ -144,7 +144,7 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: enemy_001
-    - Name: level
+    - Name: lv
       Entry: 3
       Data: 0
     - Name: passiveSkillLevel
@@ -192,7 +192,7 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: enemy_002
-    - Name: level
+    - Name: lv
       Entry: 3
       Data: 0
     - Name: passiveSkillLevel
@@ -408,7 +408,7 @@ MonoBehaviour:
       Data: 21|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 22|Yume.Data.ItemData, Assembly-CSharp
@@ -446,6 +446,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 25|Yume.Data.ItemData, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 3000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -459,13 +471,13 @@ MonoBehaviour:
       Data: Yume.Data.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 25|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 26|Yume.Data.ItemData[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 26|Yume.Data.ItemData, Assembly-CSharp
+      Data: 27|Yume.Data.ItemData, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -486,7 +498,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTemplates
       Entry: 7
-      Data: 27|Yume.Data.EnemyTemplate[], Assembly-CSharp
+      Data: 28|Yume.Data.EnemyTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -498,7 +510,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 28|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 29|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 14
@@ -513,7 +525,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 29|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 30|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
