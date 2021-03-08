@@ -146,11 +146,11 @@ namespace Yume.Data {
     CONSUME,
     ADD
   }
-  
+
   public struct Rewards {
     public ItemData[] items;
   }
-  
+
   public struct TaskTemplate {
     public struct RequestTemplate {
       public Method method;
@@ -186,7 +186,7 @@ namespace Yume.Data {
     TOP,
     TIP
   }
-  
+
   public struct UITemplate {
     public string name;
     public UIType uiType;
@@ -194,12 +194,12 @@ namespace Yume.Data {
     public string prefabName;
     public float cacheTime;
   }
-  
+
   public struct EnemyTemplate {
     public UnitData enemy;
     public CardData[] cards;
   }
-  
+
   public struct LevelTemplate {
     public string id;
     public string bgm;
@@ -242,7 +242,7 @@ namespace Yume.Data {
     /// <summary>
     /// 在造成伤害后
     /// </summary> 
-    ON_LATE_DAMAGE,  
+    ON_LATE_DAMAGE,
     /// <summary>
     /// 在被造成伤害前
     /// </summary>
@@ -256,7 +256,7 @@ namespace Yume.Data {
     /// </summary>
     ON_BEFORE_DIE,
   }
-  
+
   public struct Behavior {
     public string behaviorTreeId;
     public BehaviorTime behaviorTime;
@@ -272,7 +272,7 @@ namespace Yume.Data {
     /// </summary>
     DEFAULT,
   }
-  
+
   public struct BuffTemplate {
     public string id;
     public StackType stackType;
@@ -289,6 +289,8 @@ namespace Yume.Data {
   public class ItemData {
     public string id;
     public int count;
+
+    private ItemData() { }
 
     public ItemData(string id, int count) {
       this.id = id;
@@ -309,6 +311,8 @@ namespace Yume.Data {
     public string signature;
     public List<ItemData> attachment = new List<ItemData>();
 
+    private MailData() { }
+
     public MailData(string title, string content, string signature, params ItemData[] attachment) {
       this.title = title;
       this.content = content;
@@ -327,6 +331,8 @@ namespace Yume.Data {
     public int guid;
     public string id;
     public int phase;
+
+    private CardData() { }
 
     public CardData(string id, int phase) {
       this.id = id;
@@ -351,19 +357,23 @@ namespace Yume.Data {
     public int exp;
     public int passiveSkillLv;
 
+    private UnitData() { }
+
     public UnitData(string id, int lv, int passiveSkillLv) {
       this.id = id;
       this.lv = lv;
       this.passiveSkillLv = passiveSkillLv;
     }
   }
-  
+
 
   [Serializable]
   public class TaskData {
     public string id;
     public int process;
     public TaskState state;
+
+    private TaskData() { }
 
     public TaskData(string id, TaskState state) {
       this.id = id;
@@ -396,8 +406,6 @@ namespace Yume.Data {
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
     public List<LevelData> levels = new List<LevelData>();
-
-    private UserDB() { }
 
     public static UserDB Create() {
       UserDB userDB = new UserDB();
@@ -438,6 +446,8 @@ namespace Yume.Data {
     public string id;
     [HideInInspector]
     public bool completed;
+
+    private LevelData() { }
 
     public LevelData(string id) {
       this.id = id;
