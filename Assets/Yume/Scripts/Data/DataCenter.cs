@@ -383,13 +383,16 @@ namespace Yume.Data {
   }
 
   [Serializable]
-  public class UserData {
+  public class PlayerData {
     public int lv;
     public string name;
     public int validGuid;
     public int teamIndex;
-    public string account;
-    public string password;
+  }
+
+  [Serializable]
+  public class UserDB {
+    public PlayerData player = new PlayerData();
     public List<MailData> mails = new List<MailData>();
     public List<ItemData> items = new List<ItemData>();
     public List<CardData> cards = new List<CardData>();
@@ -397,23 +400,23 @@ namespace Yume.Data {
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
     public List<LevelData> levels = new List<LevelData>();
-
-    public UserData(string name = "", string account = "", string password = "") {
-      this.name = name;
-      this.account = account;
-      this.password = password;
-
+    
+    public static UserDB Create() {
+      UserDB userDB = new UserDB();
+      
       foreach (var taskTemplate in ResourceManager.LoadAll<TaskTemplate>()) {
-        tasks.Add(new TaskData(taskTemplate.id, taskTemplate.defaultState));
+        userDB.tasks.Add(new TaskData(taskTemplate.id, taskTemplate.defaultState));
       }
 
       foreach (var levelTemplate in ResourceManager.LoadAll<LevelTemplate>()) {
-        levels.Add(new LevelData(levelTemplate.id));
+        userDB.levels.Add(new LevelData(levelTemplate.id));
       }
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
-        teams.Add(new TeamData());
+        userDB.teams.Add(new TeamData());
       }
+
+      return userDB;
     }
   }
 

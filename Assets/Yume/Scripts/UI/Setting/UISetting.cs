@@ -111,11 +111,6 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
-      GetComponent<Button>("go to login").onClick.AddListener(() => {
-        UIManager.OpenOne("globalBlackFade", () => {
-          UIManager.CloseAllAndOpenOne("login");
-        });
-      });
     }
 
     public override void Open(Action callback = null, params object[] args) {

@@ -87,7 +87,7 @@ namespace Yume.UI {
       public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
 
-        cardChoiceList = DataManager.userCards;
+        cardChoiceList = DataManager.playerCards;
 
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));

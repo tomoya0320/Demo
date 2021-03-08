@@ -73,7 +73,7 @@ namespace Yume.UI {
 
       public override void OnOpen(params object[] args) {
         if (args.Length == 0) {
-          m_cardList = DataManager.userCards;
+          m_cardList = DataManager.playerCards;
         } else {
           m_cardList = args[0] as List<CardData>;
         }

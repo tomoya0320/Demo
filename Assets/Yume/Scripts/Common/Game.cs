@@ -80,7 +80,6 @@ namespace Yume.Main {
     }
 
     private void LateUpdate() {
-      // TODO:同步数据用 待优化
       DataManager.OnLateUpdate();
     }
 
@@ -88,6 +87,10 @@ namespace Yume.Main {
     private void OnGUI() {
       if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {
         LunarConsolePlugin.LunarConsole.Show();
+      }   
+      
+      if (GUILayout.Button("清除存档", GUILayout.Width(200), GUILayout.Height(80))) {
+        PlayerPrefs.DeleteKey(DataManager.USER_DB_KEY);
       }
     }
 #endif

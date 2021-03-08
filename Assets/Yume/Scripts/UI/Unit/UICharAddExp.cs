@@ -114,7 +114,7 @@ namespace Yume.UI {
 
         this.charAddExp = charAddExp;
         
-        m_itemList = DataManager.userItems.FindAll(m_findDisplayItem);
+        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
 
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
@@ -130,7 +130,7 @@ namespace Yume.UI {
       }
 
       public void RefreshScrollView() {
-        m_itemList = DataManager.userItems.FindAll(m_findDisplayItem);
+        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
         m_itemScrollView.UpdateView();
       }
 

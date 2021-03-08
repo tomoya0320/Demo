@@ -8,7 +8,7 @@ namespace Yume.RedPointSystem {
 
     public override void InitData() {
       redPointDict = new Dictionary<string, RedPointNode> { { MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null) } };
-      foreach (var mail in DataManager.userMails) {
+      foreach (var mail in DataManager.playerMails) {
         if (!mail.isReceived) {
           AddLeafNode(mail.title, MAIN_MAIL);
         }

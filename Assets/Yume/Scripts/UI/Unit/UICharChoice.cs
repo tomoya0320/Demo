@@ -68,7 +68,7 @@ namespace Yume.UI {
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
 
-        m_charChoiceList = DataManager.userChars;
+        m_charChoiceList = DataManager.playerChars;
 
         for (int i = 0; i < m_charChoiceScrollRect.content.childCount; i++) {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));

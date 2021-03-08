@@ -96,7 +96,7 @@ namespace Yume.UI {
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
         m_attachmentObjects = GetGameObject("Attachments").GetComponentsInChildren<ObjectContainer>(true);
 
-        m_mails = DataManager.userMails;
+        m_mails = DataManager.playerMails;
 
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
           m_mailTermList.Add(new UIMailTerm(m_mailScrollRect.content.GetChild(i).gameObject, this));
@@ -147,7 +147,7 @@ namespace Yume.UI {
         m_mailContentPanel.SetActiveEx(true);
         m_signatureText.text = m_selectedMail.signature;
         m_dateText.text = DateTime.FromBinary(m_selectedMail.ticks).ToShortDateString();
-        m_contentText.text = string.Format(m_selectedMail.content, DataManager.userName);
+        m_contentText.text = string.Format(m_selectedMail.content, DataManager.playerName);
 
         _CheckGetButton();
       }

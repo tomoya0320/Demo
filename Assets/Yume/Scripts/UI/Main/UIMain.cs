@@ -70,10 +70,10 @@ namespace Yume.UI {
       m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ITEM_ID).ToString();
       m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ITEM_ID).ToString();
       
-      m_lvText.text = DataManager.userLv.ToString();
-      m_nameText.text = DataManager.userName;
+      m_lvText.text = DataManager.playerLv.ToString();
+      m_nameText.text = DataManager.playerName;
 
-      float needExp = MathUtil.CalNeedUserExp(DataManager.userLv);
+      float needExp = MathUtil.CalNeedUserExp(DataManager.playerLv);
       m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
     }
 

@@ -32,8 +32,8 @@ namespace Yume.UI {
       m_noCharSprite = ResourceManager.Load<Sprite>("noCharSprite");
       m_noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
 
-      m_teams = DataManager.userTeams;
-      m_curTeamIdx = DataManager.userTeamIndex;
+      m_teams = DataManager.playerTeams;
+      m_curTeamIdx = DataManager.playerTeamIndex;
       m_teamBtns[m_curTeamIdx].image.color = Color.blue;
 
       _AddListener();

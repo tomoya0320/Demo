@@ -24,7 +24,7 @@ namespace Yume.AVG {
         avg.dialogOptionBtns[0].textComponent.text = option1;
         avg.dialogOptionBtns[0].onClick.RemoveAllListeners();
         avg.dialogOptionBtns[0].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.userName}]:{option1}";
+          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option1}";
           
           avgGraph.block--;
           var connection = GetOutputPort(nameof(option1)).Connection;
@@ -41,7 +41,7 @@ namespace Yume.AVG {
         avg.dialogOptionBtns[1].textComponent.text = option2;
         avg.dialogOptionBtns[1].onClick.RemoveAllListeners();
         avg.dialogOptionBtns[1].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.userName}]:{option2}";
+          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option2}";
           
           avgGraph.block--;
           var connection = GetOutputPort(nameof(option2)).Connection;
@@ -58,7 +58,7 @@ namespace Yume.AVG {
         avg.dialogOptionBtns[2].textComponent.text = option3;
         avg.dialogOptionBtns[2].onClick.RemoveAllListeners();
         avg.dialogOptionBtns[2].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.userName}]:{option3}";
+          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option3}";
           
           avgGraph.block--;
           var connection = GetOutputPort(nameof(option3)).Connection;

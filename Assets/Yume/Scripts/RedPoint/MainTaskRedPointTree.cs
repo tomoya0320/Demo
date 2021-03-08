@@ -14,7 +14,7 @@ namespace Yume.RedPointSystem {
         redPointDict.Add(type.GetDescription(), new RedPointNode(redPointTreeType,
                          type.GetDescription(), redPointDict[MAIN_TASK]));
 
-        foreach (var task in DataManager.userTasks.FindAll(t => ResourceManager.Load<TaskTemplate>(t.id).type == type)) {
+        foreach (var task in DataManager.playerTasks.FindAll(t => ResourceManager.Load<TaskTemplate>(t.id).type == type)) {
           if (task.state == TaskState.COMPLETED) {
             AddLeafNode(task.id, type.GetDescription());
           }

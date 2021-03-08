@@ -17,7 +17,7 @@ namespace Yume.UI {
 
       m_levelBtns = GetGameObject("levels").GetComponentsInChildren<Button>(true);
 
-      m_levels = DataManager.userLevels;
+      m_levels = DataManager.playerLevels;
 
       _AddListener();
 

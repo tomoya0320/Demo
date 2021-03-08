@@ -39,7 +39,7 @@ namespace Yume.Battle {
 
       s_levelTemplate = levelTemplate;
       // 初始化角色
-      var team = DataManager.userTeams[DataManager.userTeamIndex];
+      var team = DataManager.playerTeams[DataManager.playerTeamIndex];
       var tempChar = DataManager.GetCharacter(team.charId);
       var cardList = new List<CardData>();
       foreach (var cardGuid in team.cardGuids) {

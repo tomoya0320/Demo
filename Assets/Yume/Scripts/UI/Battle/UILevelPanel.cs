@@ -31,7 +31,7 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
-        if (string.IsNullOrEmpty(DataManager.userTeams[DataManager.userTeamIndex].charId)) {
+        if (string.IsNullOrEmpty(DataManager.playerTeams[DataManager.playerTeamIndex].charId)) {
           MessageManager.AddMessage(new Message(Message.Style.FADE, "未携带角色！"));
           return;
         }
