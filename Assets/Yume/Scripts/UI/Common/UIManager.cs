@@ -125,7 +125,6 @@ namespace Yume.UI {
       if (index >= 0) {
         ui = s_uiCacheDict[uiTemplate.uiType][index].ui;
         ui.root.SetParent(_GetRootByType(uiTemplate.uiType));
-        ui.root.SetActiveEx(true);
         s_uiCacheDict[uiTemplate.uiType].RemoveAt(index);
         return true;
       }
@@ -217,7 +216,9 @@ namespace Yume.UI {
       // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
         // 回收
-        s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, stack.Pop().Recycle()));
+        UIBase ui = stack.Pop();
+        ui.root.SetParent(cacheCanvas);
+        s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, ui));
       };
       callback = action + callback;
 

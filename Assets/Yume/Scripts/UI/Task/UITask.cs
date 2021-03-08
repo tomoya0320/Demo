@@ -9,7 +9,7 @@ using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
-  public class UITask : UIBase {
+  public class UITask : UIGaussianBlurBg {
     private class UITaskTerm : UIChildBase, IScrollTerm<TaskData> {
       private Text m_title;
       private Text m_process;

@@ -15,7 +15,7 @@ namespace Yume.UI {
     SOUND
   }
 
-  public class UISetting : UIBase {
+  public class UISetting : UIGaussianBlurBg {
     /// <summary>
     /// SV指Switch和Value
     /// </summary>

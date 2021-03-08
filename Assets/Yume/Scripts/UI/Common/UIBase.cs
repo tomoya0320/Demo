@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Yume.Data;
 using Object = UnityEngine.Object;
 
@@ -16,6 +17,8 @@ namespace Yume.UI {
     protected ObjectContainer objectContainer => m_objectContainer;
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      gameObject.SetActiveEx(false);
+      
       m_root = gameObject;
       m_uiData = uiTemplate;
       m_root.name = uiTemplate.name;
@@ -44,6 +47,7 @@ namespace Yume.UI {
         UIManager.Unblock(this);
       };
       callback = action + callback;
+      callback += () => root.SetActiveEx(false);
 
       var closeClip = m_animation.GetClip("close");
       if (closeClip != null) {
@@ -59,6 +63,7 @@ namespace Yume.UI {
     /// <param name="callback"></param>
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
+      root.SetActiveEx(true);
       //保证动画完整播放
       UIManager.Block(this);
 
@@ -76,15 +81,6 @@ namespace Yume.UI {
     }
 
     public virtual void OnUpdate() { }
-
-    /// <summary>
-    /// 回收UI对象 返回UI实例
-    /// </summary>
-    public virtual UIBase Recycle() {
-      root.SetParent(UIManager.cacheCanvas);
-      root.SetActiveEx(false);
-      return this;
-    }
 
     /// <summary>
     /// 回收内存
@@ -134,5 +130,71 @@ namespace Yume.UI {
     public virtual void OnUpdate() { }
 
     public virtual void Destroy() { }
+  }
+
+  public abstract class UIGaussianBlurBg : UIBase {
+    private const int ITERATIONS = 3;
+    private const float BLUR_SPREAD = 0.6f;
+    private const int DOWN_SAMPLE = 2;
+    private Material m_material;
+    private RawImage m_bgRawImage;
+    private RenderTexture m_renderTexture;
+
+    public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
+      base.OnInit(uiTemplate, gameObject);
+
+      m_material = Resources.Load<Material>("GaussianBlur");
+      m_bgRawImage = GetComponent<RawImage>("bgRawImage");
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      m_renderTexture = RenderTexture.GetTemporary(Screen.width, Screen.height);
+      Camera.main.targetTexture = m_renderTexture;
+      Camera.main.Render();
+      Camera.main.targetTexture = null;
+      
+      int rtW = m_renderTexture.width / DOWN_SAMPLE;
+      int rtH = m_renderTexture.height / DOWN_SAMPLE;
+
+      RenderTexture buffer0 = RenderTexture.GetTemporary(rtW, rtH, 0);
+      buffer0.filterMode = FilterMode.Bilinear;
+
+      Graphics.Blit(m_renderTexture, buffer0);
+
+      for (int i = 0; i < ITERATIONS; i++)
+      {
+        m_material.SetFloat("_BlurSize", 1.0f + i * BLUR_SPREAD);
+
+        RenderTexture buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
+                
+        // 垂直
+        Graphics.Blit(buffer0, buffer1, m_material, 0);
+                
+        RenderTexture.ReleaseTemporary(buffer0);
+        buffer0 = buffer1;
+        buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
+                
+        // 水平
+        Graphics.Blit(buffer0, buffer1, m_material, 1);
+                
+        RenderTexture.ReleaseTemporary(buffer0);
+        buffer0 = buffer1;
+      }
+
+      Graphics.Blit(buffer0, m_renderTexture);
+      RenderTexture.ReleaseTemporary(buffer0);
+      m_bgRawImage.texture = m_renderTexture;
+      
+      base.Open(callback, args);
+    }
+
+    public override void Close(Action callback = null, params object[] args) {
+      callback += () => {
+        m_bgRawImage.texture = null;
+        RenderTexture.ReleaseTemporary(m_renderTexture);
+      };
+      
+      base.Close(callback, args);
+    }
   }
 }

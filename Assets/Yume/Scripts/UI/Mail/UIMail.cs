@@ -8,7 +8,7 @@ using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
-  public class UIMail : UIBase {
+  public class UIMail : UIGaussianBlurBg {
     private class UIMailTerm : UIChildBase, IScrollTerm<MailData> {
       private MailData m_mail;
       private Text m_titleText;

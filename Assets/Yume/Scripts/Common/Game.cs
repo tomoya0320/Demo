@@ -27,7 +27,7 @@ namespace Yume.Main {
 
       // 实例化初始化UI
       var parent = GameObject.Find("NormalCanvas").transform;
-      var initPanelPrefab = Resources.Load<GameObject>("Prefab/init");
+      var initPanelPrefab = Resources.Load<GameObject>("Init");
       m_initPanel = Instantiate(initPanelPrefab, parent);
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
