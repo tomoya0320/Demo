@@ -64,10 +64,12 @@ namespace Yume.UI {
       YTween tween = new YTween();
       for (int i = 0; i < handCards.Count; i++) {
         Card card = handCards[i];
-        Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
-        card.cardDrag.SetResetAnchorPos(dest);
-        card.cardDrag.resortTween = tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
-        card.cardDrag.resortTween.onComplete += () => card.cardDrag.resortTween = null;
+        if (card.cardDrag.interactable) {
+          Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
+          card.cardDrag.SetResetAnchorPos(dest);
+          card.cardDrag.resortTween = tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
+          card.cardDrag.resortTween.onComplete += () => card.cardDrag.resortTween = null;
+        }
       }
 
       yield return new WaitUntil(() => tween.count == 0);

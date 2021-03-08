@@ -49,9 +49,9 @@ namespace Yume.UI {
 
       Action action = () => {
         UIManager.Unblock(this);
+        root.SetActiveEx(false);
       };
       callback = action + callback;
-      callback += () => root.SetActiveEx(false);
 
       var closeClip = m_animation.GetClip("close");
       if (closeClip != null) {

@@ -199,7 +199,7 @@ namespace Yume.Data {
       Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
       // 小 心 引 用 类 型 (改了后没这个问题了)
       string content = $"{StringMap.GET}{itemTemplate.name}*{count}";
-      MessageManager.AddMessage(new Message(Message.Style.FADE, content, itemIcon));
+      MessageManager.AddMessage(new Message(Message.Style.FADE, content, true, itemIcon));
 
       // 经验值额外再处理一次
       if (id == StringMap.EXP_ITEM_ID) {

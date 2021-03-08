@@ -41,17 +41,19 @@ namespace Yume.UI {
           return;
         }
 
-        if (m_itemGroup.charAddExp.isMaxLv) {
-          return;
-        }
+        for (int i = 0; i < deltaCount; i++) {
+          if (m_itemGroup.charAddExp.isMaxLv) {
+            return;
+          }
 
-        m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
-        if (count < m_item.count) {
-          m_itemGroup.selectedExpDict[m_item.id] = Mathf.Min(count + deltaCount, m_item.count);
-          // 刷新角色等级、经验、属性等信息
-          m_itemGroup.charAddExp._RefreshDetail();
-          // 刷新自己道具的信息
-          UpdateScrollTerm(m_item);
+          m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+          if (count < m_item.count) {
+            m_itemGroup.selectedExpDict[m_item.id] = Mathf.Min(count + 1, m_item.count);
+            // 刷新角色等级、经验、属性等信息
+            m_itemGroup.charAddExp._RefreshDetail();
+            // 刷新自己道具的信息
+            UpdateScrollTerm(m_item);
+          }  
         }
       }
 
@@ -59,16 +61,19 @@ namespace Yume.UI {
         if (m_item == null || deltaCount < 0) {
           return;
         }
-        m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
-        if (count > 0) {
-          m_itemGroup.selectedExpDict[m_item.id] = Mathf.Max(count - deltaCount, 0);
-          if (m_itemGroup.selectedExpDict[m_item.id] <= 0) {
-            m_itemGroup.selectedExpDict.Remove(m_item.id);
+
+        for (int i = 0; i < deltaCount; i++) {
+          m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+          if (count > 0) {
+            m_itemGroup.selectedExpDict[m_item.id] = Mathf.Max(count - 1, 0);
+            if (m_itemGroup.selectedExpDict[m_item.id] <= 0) {
+              m_itemGroup.selectedExpDict.Remove(m_item.id);
+            }
+            // 刷新角色等级、经验、属性等信息
+            m_itemGroup.charAddExp._RefreshDetail();
+            // 刷新自己道具的信息
+            UpdateScrollTerm(m_item);
           }
-          // 刷新角色等级、经验、属性等信息
-          m_itemGroup.charAddExp._RefreshDetail();
-          // 刷新自己道具的信息
-          UpdateScrollTerm(m_item);
         }
       }
 
