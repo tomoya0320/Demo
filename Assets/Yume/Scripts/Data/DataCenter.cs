@@ -65,6 +65,7 @@ namespace Yume.Data {
     public string description;
     public string iconFileName;
     public BuffTemplate[] buffTemplates;
+    public ItemData[] updateRequestItems;
   }
 
   /// <summary>
@@ -332,7 +333,7 @@ namespace Yume.Data {
       this.phase = phase;
     }
 
-    private CardData(int guid, string id, int phase) {
+    public CardData(int guid, string id, int phase) {
       this.guid = guid;
       this.id = id;
       this.phase = phase;
@@ -347,21 +348,16 @@ namespace Yume.Data {
   public class UnitData {
     public string id;
     public int lv;
-    public int passiveSkillLevel;
+    public int exp;
+    public int passiveSkillLv;
 
-    public UnitData(string id, int lv, int passiveSkillLevel) {
+    public UnitData(string id, int lv, int passiveSkillLv) {
       this.id = id;
       this.lv = lv;
-      this.passiveSkillLevel = passiveSkillLevel;
+      this.passiveSkillLv = passiveSkillLv;
     }
   }
-
-  [Serializable]
-  public class CharData : UnitData {
-    public int exp;
-    
-    public CharData(string id, int lv, int passiveSkillLevel) : base(id, lv, passiveSkillLevel) { }
-  }
+  
 
   [Serializable]
   public class TaskData {
@@ -396,14 +392,16 @@ namespace Yume.Data {
     public List<MailData> mails = new List<MailData>();
     public List<ItemData> items = new List<ItemData>();
     public List<CardData> cards = new List<CardData>();
-    public List<CharData> chars = new List<CharData>();
+    public List<UnitData> chars = new List<UnitData>();
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
     public List<LevelData> levels = new List<LevelData>();
-    
+
+    private UserDB() { }
+
     public static UserDB Create() {
       UserDB userDB = new UserDB();
-      
+
       foreach (var taskTemplate in ResourceManager.LoadAll<TaskTemplate>()) {
         userDB.tasks.Add(new TaskData(taskTemplate.id, taskTemplate.defaultState));
       }
@@ -415,7 +413,22 @@ namespace Yume.Data {
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         userDB.teams.Add(new TeamData());
       }
-
+#if BETA
+      userDB.chars.Add(new UnitData("char_001", 0, 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 1));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 1));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 1));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 1));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_003", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_003", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
+      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
+      userDB.mails.Add(new MailData("内测邮件", "亲爱的{0}，欢迎参加本次内测", "管理员", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
+#endif
       return userDB;
     }
   }

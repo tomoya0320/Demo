@@ -8,8 +8,8 @@ using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIChar : UIBase {
-    private class UICharTerm : UIChildBase, IScrollTerm<CharData> {
-      private CharData m_character;
+    private class UICharTerm : UIChildBase, IScrollTerm<UnitData> {
+      private UnitData m_character;
       private Button m_detailButton;
       public bool isValid => m_character != null;
 
@@ -23,7 +23,7 @@ namespace Yume.UI {
         m_detailButton.onClick.AddListener(() => UIManager.OpenOne("char_detail", null, m_character));
       }
 
-      public void UpdateScrollTerm(CharData character) {
+      public void UpdateScrollTerm(UnitData character) {
         m_character = character;
 
         gameObject.SetActiveEx(m_character != null);
@@ -35,18 +35,18 @@ namespace Yume.UI {
         }
       }
 
-      public IScrollTerm<CharData> Clone() {
+      public IScrollTerm<UnitData> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
         return new UICharTerm(clone);
       }
     }
 
-    private class UICharGroup : UIChildBase, IScrollGroup<CharData, UICharTerm> {
-      private List<CharData> m_charList;
+    private class UICharGroup : UIChildBase, IScrollGroup<UnitData, UICharTerm> {
+      private List<UnitData> m_charList;
       private ScrollRect m_charScrollRect;
-      public List<CharData> dataList => m_charList;
+      public List<UnitData> dataList => m_charList;
       public List<UICharTerm> viewList => m_charTermList;
-      private UIScrollView<CharData, UICharTerm> m_charScrollView;
+      private UIScrollView<UnitData, UICharTerm> m_charScrollView;
       private List<UICharTerm> m_charTermList = new List<UICharTerm>();
 
       public UICharGroup(GameObject root) : base(root) {
@@ -58,7 +58,7 @@ namespace Yume.UI {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
         }
 
-        m_charScrollView = new UIScrollView<CharData, UICharTerm>(m_charScrollRect, this);
+        m_charScrollView = new UIScrollView<UnitData, UICharTerm>(m_charScrollRect, this);
       }
 
       public override void OnOpen(params object[] args) {

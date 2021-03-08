@@ -30,6 +30,10 @@ namespace Yume.UI {
       return m_objectContainer?.GetComponent<T>(objName);
     }
 
+    protected Transform GetTransform(string objName) {
+      return m_objectContainer?.GetTransform(objName);
+    }
+
     protected GameObject GetGameObject(string objName) {
       return m_objectContainer?.GetGameObject(objName);
     }
@@ -136,14 +140,22 @@ namespace Yume.UI {
     private const int ITERATIONS = 3;
     private const float BLUR_SPREAD = 0.6f;
     private const int DOWN_SAMPLE = 2;
-    private Material m_material;
     private RawImage m_bgRawImage;
     private RenderTexture m_renderTexture;
 
+    private static Material s_material;
+    private static Material material {
+      get {
+        if (s_material == null) {
+          s_material = Resources.Load<Material>("GaussianBlur");
+        }
+        return s_material;
+      }
+    }
+
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
-
-      m_material = Resources.Load<Material>("GaussianBlur");
+      
       m_bgRawImage = GetComponent<RawImage>("bgRawImage");
     }
 
@@ -163,19 +175,19 @@ namespace Yume.UI {
 
       for (int i = 0; i < ITERATIONS; i++)
       {
-        m_material.SetFloat("_BlurSize", 1.0f + i * BLUR_SPREAD);
+        material.SetFloat("_BlurSize", 1.0f + i * BLUR_SPREAD);
 
         RenderTexture buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
                 
         // 垂直
-        Graphics.Blit(buffer0, buffer1, m_material, 0);
+        Graphics.Blit(buffer0, buffer1, material, 0);
                 
         RenderTexture.ReleaseTemporary(buffer0);
         buffer0 = buffer1;
         buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
                 
         // 水平
-        Graphics.Blit(buffer0, buffer1, m_material, 1);
+        Graphics.Blit(buffer0, buffer1, material, 1);
                 
         RenderTexture.ReleaseTemporary(buffer0);
         buffer0 = buffer1;

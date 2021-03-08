@@ -8,8 +8,8 @@ using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICharChoice : UIBase {
-    private class UICharChoiceTerm : UIChildBase, IScrollTerm<CharData> {
-      private CharData m_character;
+    private class UICharChoiceTerm : UIChildBase, IScrollTerm<UnitData> {
+      private UnitData m_character;
       private YButton m_selectButton;
       private GameObject m_selected;
       public bool isValid => m_character != null;
@@ -37,7 +37,7 @@ namespace Yume.UI {
         };
       }
 
-      public void UpdateScrollTerm(CharData character) {
+      public void UpdateScrollTerm(UnitData character) {
         m_character = character;
 
         gameObject.SetActiveEx(m_character != null);
@@ -50,19 +50,19 @@ namespace Yume.UI {
         }
       }
 
-      public IScrollTerm<CharData> Clone() {
+      public IScrollTerm<UnitData> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
         return new UICharChoiceTerm(clone, m_charChoiceGroup);
       }
     }
 
-    private class UICharChoiceGroup : UIChildBase, IScrollGroup<CharData, UICharChoiceTerm> {
-      public CharData selectedChar;
-      private List<CharData> m_charChoiceList;
+    private class UICharChoiceGroup : UIChildBase, IScrollGroup<UnitData, UICharChoiceTerm> {
+      public UnitData selectedChar;
+      private List<UnitData> m_charChoiceList;
       private ScrollRect m_charChoiceScrollRect;
-      public List<CharData> dataList => m_charChoiceList;
+      public List<UnitData> dataList => m_charChoiceList;
       public List<UICharChoiceTerm> viewList => m_charChoiceTermList;
-      private UIScrollView<CharData, UICharChoiceTerm> m_charChoiceScrollView;
+      private UIScrollView<UnitData, UICharChoiceTerm> m_charChoiceScrollView;
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
 
       public UICharChoiceGroup(GameObject root) : base(root) {
@@ -74,7 +74,7 @@ namespace Yume.UI {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
 
-        m_charChoiceScrollView = new UIScrollView<CharData, UICharChoiceTerm>(m_charChoiceScrollRect, this);
+        m_charChoiceScrollView = new UIScrollView<UnitData, UICharChoiceTerm>(m_charChoiceScrollRect, this);
       }
 
       public override void OnUpdate() {

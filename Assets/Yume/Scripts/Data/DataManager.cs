@@ -27,7 +27,7 @@ namespace Yume.Data {
     public static List<ItemData> playerItems => s_userDB.items;
     public static List<CardData> playerCards => s_userDB.cards;
     public static List<TeamData> playerTeams => s_userDB.teams;
-    public static List<CharData> playerChars => s_userDB.chars;
+    public static List<UnitData> playerChars => s_userDB.chars;
     public static List<MailData> playerMails => s_userDB.mails;
     public static List<TaskData> playerTasks => s_userDB.tasks;
     public static List<LevelData> playerLevels => s_userDB.levels;
@@ -61,7 +61,7 @@ namespace Yume.Data {
       return playerCards.Find(obj => obj.guid == guid);
     }
 
-    public static CharData GetCharacter(string charId) {
+    public static UnitData GetCharacter(string charId) {
       return playerChars.Find(obj => obj.id == charId);
     }
 
@@ -122,12 +122,12 @@ namespace Yume.Data {
     #region Character
 
     public static void AddCharacter(string id, int level, int passiveSkillLevel) {
-      CharData character = new CharData(id, level, passiveSkillLevel);
+      UnitData character = new UnitData(id, level, passiveSkillLevel);
       playerChars.Add(character);
       s_saveData = true;
     }
 
-    public static void AddCharExp(CharData character, int exp) {
+    public static void AddCharExp(UnitData character, int exp) {
       var unitTemplate = ResourceManager.Load<UnitTemplate>(character.id);
       character.exp += exp;
       while (character.exp >= MathUtil.CalNeedCharExp(character.lv)) {
@@ -138,6 +138,13 @@ namespace Yume.Data {
           break;
         }
       }
+      //更新UI显示
+      EventCenter.Broadcast(EventType.UPDATE_CHAR_DETAIL);
+      s_saveData = true;
+    }
+
+    public static void UpdateCharPassiveSkill(UnitData character) {
+      character.passiveSkillLv++;
       //更新UI显示
       EventCenter.Broadcast(EventType.UPDATE_CHAR_DETAIL);
       s_saveData = true;

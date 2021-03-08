@@ -183,8 +183,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2462664316776755842, guid: cd06425115919104d87a0e71ee38aabc, type: 3}
-    m_TargetAsset: {fileID: 2462664316776755842, guid: cd06425115919104d87a0e71ee38aabc, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f22b2f8a4d1257b4cab07241e594b224
     m_Address: single_battle
     m_ReadOnly: 0
@@ -204,8 +204,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 7234854451015292612, guid: fbbeab53b4744d14c8e72c472095c006, type: 3}
-    m_TargetAsset: {fileID: 7234854451015292612, guid: fbbeab53b4744d14c8e72c472095c006, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e521f3ece4cbc254eb58badfd886eb06
     m_Address: avg_history
     m_ReadOnly: 0
@@ -218,15 +218,22 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 3935084278690750119, guid: 2cb32f27a4aee2a459226264c32dd9eb, type: 3}
-    m_TargetAsset: {fileID: 3935084278690750119, guid: 2cb32f27a4aee2a459226264c32dd9eb, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 8017edf532273284b94a592eb8e41db5
     m_Address: char_add_exp
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 596476240556003599, guid: 8017edf532273284b94a592eb8e41db5, type: 3}
-    m_TargetAsset: {fileID: 596476240556003599, guid: 8017edf532273284b94a592eb8e41db5, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c210664f0b157fe4e8543b549b5b971d
+    m_Address: char_update_passive_skill
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

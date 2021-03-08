@@ -147,7 +147,7 @@ namespace Yume.UI {
     private int m_lv;
     private int m_exp;
     private int m_consumeGold;
-    private CharData m_character;
+    private UnitData m_character;
     private UnitTemplate m_unitTemplate;
     private UIItemGroup m_itemGroup;
     public bool isMaxLv => m_lv >= m_unitTemplate.maxLevel;
@@ -177,7 +177,7 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
 
-      m_character = args[0] as CharData;
+      m_character = args[0] as UnitData;
       m_unitTemplate = ResourceManager.Load<UnitTemplate>(m_character.id);
       m_itemGroup.OnOpen(args);
 

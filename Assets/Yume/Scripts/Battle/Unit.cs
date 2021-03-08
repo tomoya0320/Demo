@@ -39,7 +39,7 @@ namespace Yume.Battle {
       id = unitTemplate.id;
       name = unitTemplate.name;
       camp = unitTemplate.camp;
-      passiveSkillLevel = unit.passiveSkillLevel;
+      passiveSkillLevel = unit.passiveSkillLv;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
       attribs = MathUtil.CalculateAttribs(unit.id, unit.lv);
 

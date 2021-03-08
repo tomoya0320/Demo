@@ -43,25 +43,19 @@ namespace Yume.UI {
       m_lvText.text = $"Lv:{unit.lv}";
       m_description.text = unitTemplate.description;
       m_illustration.sprite = ResourceManager.Load<Sprite>(unitTemplate.illustrationFileName);
-      
+
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
           m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{(int)attribs[i].value}";
         }
       }
 
-      if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unitTemplate.passiveSkillPhases.Length) {
-        PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLevel];
-        m_passiveSkillName.text = passiveSkillPhase.name;
-        m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
-        m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
-      } else {
-        m_passiveSkillName.text = StringMap.EMPTY;
-        m_passiveSkillDesc.text = StringMap.EMPTY;
-        m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>("noSprite");
-      }
+      PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLv];
+      m_passiveSkillName.text = $"Lv{unit.passiveSkillLv + 1} {passiveSkillPhase.name}";
+      m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
+      m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
 
-      base.Open(callback, args);      
+      base.Open(callback, args);
     }
   }
 }

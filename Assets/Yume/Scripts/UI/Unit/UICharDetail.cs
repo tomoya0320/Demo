@@ -9,7 +9,7 @@ using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UICharDetail : UIBase {
-    private CharData m_character;
+    private UnitData m_character;
     private Text m_lvText;
     private Text m_description;
     private Image m_illustration;
@@ -33,7 +33,7 @@ namespace Yume.UI {
       }
 
       _AddListener();
-      
+
       EventCenter.AddListener(EventType.UPDATE_CHAR_DETAIL, _RefreshDetail);
     }
 
@@ -48,7 +48,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_character = args[0] as CharData;
+      m_character = args[0] as UnitData;
       m_unitTemplate = ResourceManager.Load<UnitTemplate>(m_character.id);
       _RefreshDetail();
 
@@ -72,17 +72,11 @@ namespace Yume.UI {
           m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{(int)attribs[i].value}";
         }
       }
-      
-      if (m_character.passiveSkillLevel >= 0 && m_character.passiveSkillLevel < m_unitTemplate.passiveSkillPhases.Length) {
-        PassiveSkillPhase passiveSkillPhase = m_unitTemplate.passiveSkillPhases[m_character.passiveSkillLevel];
-        m_passiveSkillName.text = passiveSkillPhase.name;
-        m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
-        m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
-      } else {
-        m_passiveSkillName.text = StringMap.EMPTY;
-        m_passiveSkillDesc.text = StringMap.EMPTY;
-        m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>("noSprite");
-      }
+
+      PassiveSkillPhase passiveSkillPhase = m_unitTemplate.passiveSkillPhases[m_character.passiveSkillLv];
+      m_passiveSkillName.text = $"Lv{m_character.passiveSkillLv + 1} {passiveSkillPhase.name}";
+      m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
+      m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
     }
   }
 }
