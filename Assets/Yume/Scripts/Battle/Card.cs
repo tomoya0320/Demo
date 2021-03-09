@@ -11,17 +11,22 @@ namespace Yume.Battle {
   public class Card {
     public Unit owner;
     public Unit candidate;
-    public Rect rect { get; }
     public CardData cardData { get; }
     public UICardDrag cardDrag { get; }
     public GameObject gameObject { get; }
+    public Rect rect => rectTransform.rect;
     public CardTemplate cardTemplate { get; }
+    public RectTransform rectTransform { get; }
     public CardAnimCallback cardAnimCallback { get; }
     public CardPhase cardPhase => cardTemplate.cardPhases[cardData.phase];
 
     public Card(Unit unit, CardData data, GameObject root, Func<Card, bool> onUseCard = null) {
+      // 默认将卡牌隐藏
+      root.SetActiveEx(false);
       owner = unit;
       gameObject = root;
+      rectTransform = gameObject.GetComponent<RectTransform>();
+      
       cardData = new CardData(data.id, data.phase);
       cardTemplate = ResourceManager.Load<CardTemplate>(cardData.id);
       
@@ -59,11 +64,6 @@ namespace Yume.Battle {
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
-      
-      // TODO:测试用
-      rect = gameObject.GetComponent<RectTransform>().rect;
-      
-      gameObject.SetActiveEx(false);
     }
 
     public IEnumerator Cast() {

@@ -4,7 +4,7 @@ using UnityEngine;
 using Yume.Battle;
 
 namespace Yume.UI {
-  public class UICardManager {
+  public class UICharCardManager {
     private const float CARD_MOVE_DURATION = 0.5f;
     private const float CARD_SCALE_DURATION = 0.5f;
 
@@ -64,11 +64,11 @@ namespace Yume.UI {
       YTween tween = new YTween();
       for (int i = 0; i < handCards.Count; i++) {
         Card card = handCards[i];
-        if (card.cardDrag.interactable) {
-          Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
-          card.cardDrag.SetResetAnchorPos(dest);
-          card.cardDrag.resortTween = tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
-          card.cardDrag.resortTween.onComplete += () => card.cardDrag.resortTween = null;
+        Vector2 dest = new Vector2((i - 0.5f * handCards.Count + 0.5f) * card.rect.width, 0);
+        card.cardDrag.SetResetAnchorPos(dest);
+        // 如果该卡牌正在被拖拽中就不移动
+        if (!card.cardDrag.dragging) {
+          tween.DOAnchorPos(card.gameObject, dest, 0.3f * CARD_MOVE_DURATION);
         }
       }
 
