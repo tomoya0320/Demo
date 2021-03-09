@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Yume.Main;
 
 namespace Yume.Hotfix {
   public static class HotfixManager {

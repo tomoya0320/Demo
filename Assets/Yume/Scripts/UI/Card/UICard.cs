@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Broadcast;
 using Yume.Data;
 using Yume.Resource;
+using EventType = Yume.Broadcast.EventType;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
@@ -15,8 +17,9 @@ namespace Yume.UI {
       private Image m_iconImg;
       private Text m_phaseText;
       private Text m_energyText;
-      private YTextAutoScroll m_descTextAutoScroll;
+      private CardTemplate m_cardTemplate;
       public bool isValid => m_card != null;
+      private YTextAutoScroll m_descTextAutoScroll;
 
       public UICardTerm(GameObject root) : base(root) {
         m_nameText = GetComponent<Text>("NameText");
@@ -25,6 +28,18 @@ namespace Yume.UI {
         m_phaseText = GetComponent<Text>("PhaseText");
         m_energyText = GetComponent<Text>("EnergyText");
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
+
+        _AddListener();
+      }
+
+      private void _AddListener() {
+        GetComponent<Button>("button").onClick.AddListener(
+          () => {
+            if (m_card.phase < m_cardTemplate.cardPhases.Length - 1) {
+              UIManager.OpenOne("card_update", null, m_card);
+            }
+          }
+        );
       }
 
       public void UpdateScrollTerm(CardData card) {
@@ -33,12 +48,15 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
-          CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
+          m_cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
+          CardPhase cardPhase = m_cardTemplate.cardPhases[m_card.phase];
 
-          m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = cardTemplate.cardType.GetDescription();
+          m_phaseText.text = $"{m_card.phase + 1}";
+          m_typeText.text = m_cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
+          if (m_card.phase == m_cardTemplate.cardPhases.Length - 1) {
+            m_nameText.text += "[MAX]";
+          }
           if (cardPhase.energyConsumption >= 0) {
             m_energyText.text = cardPhase.energyConsumption.ToString();
           } else {
@@ -69,6 +87,12 @@ namespace Yume.UI {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
         m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, this);
+
+        EventCenter.AddListener(EventType.UPDATE_CARD_INFO, _Refresh);
+      }
+
+      private void _Refresh() {
+        m_cardScrollView.UpdateView();
       }
 
       public override void OnOpen(params object[] args) {
@@ -82,6 +106,10 @@ namespace Yume.UI {
 
       public override void OnUpdate() {
         m_cardScrollView.OnUpdate();
+      }
+
+      public override void Destroy() {
+        EventCenter.RemoveListener(EventType.UPDATE_CARD_INFO, _Refresh);
       }
     }
 

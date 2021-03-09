@@ -5,7 +5,7 @@ using Yume.Data;
 using Yume.Resource;
 
 namespace Yume.UI {
-  public class UICharUpdatePassiveSkill : UIGaussianBlurBg {
+  public class UICharUpdatePassiveSkill : UIBase {
     private Text m_oldPassiveSkillName;
     private Text m_oldPassiveSkillDesc;
     private Image m_oldPassiveSkillIcon;  
@@ -55,34 +55,31 @@ namespace Yume.UI {
           var tempGo = m_requestItems.GetChild(i).gameObject;
           tempGo.SetActiveEx(false);
         }
-      } else {
-        m_updateBtn.gameObject.SetActiveEx(true);
-        for (int i = 0; i < m_requestItems.childCount; i++) {
-          var tempGo = m_requestItems.GetChild(i).gameObject;
-          if (i < passiveSkillPhase.updateRequestItems.Length) {
-            ItemData itemData = passiveSkillPhase.updateRequestItems[i];
-            tempGo.SetActiveEx(true);
-            tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-              (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
-            tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
-          } else {
-            tempGo.SetActiveEx(false);
-          }
+        UIManager.CloseOne(name);
+        return;
+      }
+      m_updateBtn.gameObject.SetActiveEx(true);
+      for (int i = 0; i < m_requestItems.childCount; i++) {
+        var tempGo = m_requestItems.GetChild(i).gameObject;
+        if (i < passiveSkillPhase.updateRequestItems.Length) {
+          ItemData itemData = passiveSkillPhase.updateRequestItems[i];
+          tempGo.SetActiveEx(true);
+          tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
+            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
+        } else {
+          tempGo.SetActiveEx(false);
         }
       }
+
+
       m_oldPassiveSkillName.text = $"Lv{m_character.passiveSkillLv + 1} {passiveSkillPhase.name}";
       m_oldPassiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
       m_oldPassiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
 
-      if (isMaxPassiveSkillLv) {
-        m_newPassiveSkillName.text = "等级已达到最大值";
-        m_newPassiveSkillIcon.sprite = ResourceManager.Load<Sprite>("noSprite");
-        m_newPassiveSkillDesc.text = StringMap.EMPTY;
-      } else {
-        m_newPassiveSkillName.text = $"Lv{m_character.passiveSkillLv + 2} {nextPassiveSkillPhase.name}";
-        m_newPassiveSkillIcon.sprite = ResourceManager.Load<Sprite>(nextPassiveSkillPhase.iconFileName);
-        m_newPassiveSkillDesc.text = StringUtil.GetActualDescription(nextPassiveSkillPhase.description, nextPassiveSkillPhase.buffTemplates);  
-      }
+      m_newPassiveSkillName.text = $"Lv{m_character.passiveSkillLv + 2} {nextPassiveSkillPhase.name}";
+      m_newPassiveSkillIcon.sprite = ResourceManager.Load<Sprite>(nextPassiveSkillPhase.iconFileName);
+      m_newPassiveSkillDesc.text = StringUtil.GetActualDescription(nextPassiveSkillPhase.description, nextPassiveSkillPhase.buffTemplates);
     }
 
     private void _AddListener() {

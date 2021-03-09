@@ -146,7 +146,7 @@ namespace Yume.Battle {
       List<CardData> cardDatas = new List<CardData>();
       if (cardHeapDict.ContainsKey(type)) {
         foreach (var card in cardHeapDict[type]) {
-          cardDatas.Add(card.cardData);
+          cardDatas.Add(card.data);
         }
       }
       return cardDatas;

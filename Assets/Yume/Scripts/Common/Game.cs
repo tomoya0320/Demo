@@ -8,7 +8,7 @@ using Yume.Data;
 using Yume.Audio;
 using Yume.Hotfix;
 
-namespace Yume.Main {
+namespace Yume {
   public class Game : SingletonMono<Game> {
     private Button m_goToLoginBtn;
     private Image m_initProcessImg;
@@ -24,7 +24,6 @@ namespace Yume.Main {
     protected override void OnInit() {
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
       // 实例化初始化UI
       var parent = GameObject.Find("NormalCanvas").transform;
       var initPanelPrefab = Resources.Load<GameObject>("Init");
@@ -32,7 +31,6 @@ namespace Yume.Main {
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
       m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
-
       // 进入登录界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
@@ -44,7 +42,7 @@ namespace Yume.Main {
           );
         }
       );
-
+      // 开始初始化各类Manager
       StartCoroutine(_InitAll());
     }
 

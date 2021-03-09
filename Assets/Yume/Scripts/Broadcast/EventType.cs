@@ -10,6 +10,7 @@
     REFRESH_TASK_VIEW,
     UPDATE_ITEM_INFO,
     UPDATE_USER_INFO,
+    UPDATE_CARD_INFO,
     UPDATE_MAIN_STORY_LEVEL,
     /// <summary>
     /// 更新角色详情

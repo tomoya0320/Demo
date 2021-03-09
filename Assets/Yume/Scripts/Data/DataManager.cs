@@ -117,6 +117,13 @@ namespace Yume.Data {
       s_saveData = true;
     }
 
+    public static void UpdateCard(CardData card) {
+      card.phase++;
+      //更新UI显示
+      EventCenter.Broadcast(EventType.UPDATE_CARD_INFO);
+      s_saveData = true;
+    }
+    
     #endregion
 
     #region Character

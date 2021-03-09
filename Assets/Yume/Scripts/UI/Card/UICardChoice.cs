@@ -16,6 +16,7 @@ namespace Yume.UI {
       private Text m_phaseText;
       private Text m_energyText;
       private GameObject m_selected;
+      private CardTemplate m_cardTemplate;
       public bool isValid => m_card != null;
       private UICardChoiceGroup m_cardChoiceGroup;
       private YTextAutoScroll m_descTextAutoScroll;
@@ -35,15 +36,23 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        GetComponent<Button>("SelectButton").onClick.AddListener(() => {
-          if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
-            m_cardChoiceGroup.selectedCards.Remove(m_card);
-            m_cardChoiceGroup.UpdateView(false);
-          } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_COUNT) {
-            m_cardChoiceGroup.selectedCards.Add(m_card);
-            m_cardChoiceGroup.UpdateView(false);
+        var button = GetComponent<YButton>("SelectButton");
+        button.onClick.AddListener(
+          () => {
+            if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
+              m_cardChoiceGroup.selectedCards.Remove(m_card);
+              m_cardChoiceGroup.UpdateView(false);
+            } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_COUNT) {
+              m_cardChoiceGroup.selectedCards.Add(m_card);
+              m_cardChoiceGroup.UpdateView(false);
+            }
           }
-        });
+        );
+        button.onLongPress += () => {
+          if (m_card.phase < m_cardTemplate.cardPhases.Length - 1) {
+            UIManager.OpenOne("card_update", null, m_card);
+          }
+        };
       }
 
       public void UpdateScrollTerm(CardData card) {
@@ -53,12 +62,15 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
 
         if (m_card != null) {
-          CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
-          CardPhase cardPhase = cardTemplate.cardPhases[m_card.phase];
+          m_cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
+          CardPhase cardPhase = m_cardTemplate.cardPhases[m_card.phase];
 
-          m_phaseText.text = m_card.phase.ToString();
-          m_typeText.text = cardTemplate.cardType.GetDescription();
+          m_phaseText.text = $"{m_card.phase + 1}";
+          m_typeText.text = m_cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
+          if (m_card.phase == m_cardTemplate.cardPhases.Length - 1) {
+            m_nameText.text += "[MAX]";
+          }
           if (cardPhase.energyConsumption >= 0) {
             m_energyText.text = cardPhase.energyConsumption.ToString();
           } else {

@@ -46,6 +46,7 @@ namespace Yume.Data {
     public int energyConsumption;
     public CardAnimEvent cardAnimEvent;
     public BuffTemplate[] buffTemplates;
+    public ItemData[] updateRequestItems;
   }
 
   public struct CardTemplate {

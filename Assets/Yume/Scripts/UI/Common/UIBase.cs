@@ -102,7 +102,7 @@ namespace Yume.UI {
     private ObjectContainer m_uiObject;
     public GameObject gameObject => m_root;
 
-    public UIChildBase(GameObject root) {
+    protected UIChildBase(GameObject root) {
       m_root = root;
       m_uiObject = root.GetComponent<ObjectContainer>();
     }
@@ -164,11 +164,11 @@ namespace Yume.UI {
       Camera.main.targetTexture = m_renderTexture;
       Camera.main.Render();
       Camera.main.targetTexture = null;
-      
+
       int rtW = m_renderTexture.width / DOWN_SAMPLE;
       int rtH = m_renderTexture.height / DOWN_SAMPLE;
 
-      RenderTexture buffer0 = RenderTexture.GetTemporary(rtW, rtH, 0);
+      RenderTexture buffer0 = RenderTexture.GetTemporary(rtW, rtH);
       buffer0.filterMode = FilterMode.Bilinear;
 
       Graphics.Blit(m_renderTexture, buffer0);
@@ -177,14 +177,14 @@ namespace Yume.UI {
       {
         material.SetFloat("_BlurSize", 1.0f + i * BLUR_SPREAD);
 
-        RenderTexture buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
+        RenderTexture buffer1 = RenderTexture.GetTemporary(rtW, rtH);
                 
         // 垂直
         Graphics.Blit(buffer0, buffer1, material, 0);
                 
         RenderTexture.ReleaseTemporary(buffer0);
         buffer0 = buffer1;
-        buffer1 = RenderTexture.GetTemporary(rtW, rtH, 0);
+        buffer1 = RenderTexture.GetTemporary(rtW, rtH);
                 
         // 水平
         Graphics.Blit(buffer0, buffer1, material, 1);
@@ -196,7 +196,7 @@ namespace Yume.UI {
       Graphics.Blit(buffer0, m_renderTexture);
       RenderTexture.ReleaseTemporary(buffer0);
       m_bgRawImage.texture = m_renderTexture;
-      
+
       base.Open(callback, args);
     }
 

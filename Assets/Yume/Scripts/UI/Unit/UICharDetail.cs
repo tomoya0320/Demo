@@ -17,7 +17,9 @@ namespace Yume.UI {
     private Text m_passiveSkillDesc;
     private Image m_passiveSkillIcon;
     private UnitTemplate m_unitTemplate;
+    private Button m_updatePassiveSkillBtn;
     private Text[] m_attribs = new Text[Constant.ATTRIB_LENGTH];
+    private bool isMaxPassiveSkillLv => m_character.passiveSkillLv == m_unitTemplate.passiveSkillPhases.Length - 1;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -28,6 +30,7 @@ namespace Yume.UI {
       m_passiveSkillName = GetComponent<Text>("passiveSkillName");
       m_passiveSkillDesc = GetComponent<Text>("passiveSkillDesc");
       m_passiveSkillIcon = GetComponent<Image>("passiveSkillIcon");
+      m_updatePassiveSkillBtn = GetComponent<Button>("updatePassiveSkill");
       for (int i = 0; i < m_attribs.Length; i++) {
         m_attribs[i] = GetComponent<Text>($"attrib/{(AttribType)i}");
       }
@@ -42,7 +45,7 @@ namespace Yume.UI {
       GetComponent<Button>("addExp").onClick.AddListener(
         () => UIManager.OpenOne("char_add_exp", null, m_character)
       );
-      GetComponent<Button>("updatePassiveSkill").onClick.AddListener(
+      m_updatePassiveSkillBtn.onClick.AddListener(
         () => UIManager.OpenOne("char_update_passive_skill", null, m_character)
       );
     }
@@ -73,8 +76,12 @@ namespace Yume.UI {
         }
       }
 
+      m_updatePassiveSkillBtn.gameObject.SetActiveEx(!isMaxPassiveSkillLv);
       PassiveSkillPhase passiveSkillPhase = m_unitTemplate.passiveSkillPhases[m_character.passiveSkillLv];
       m_passiveSkillName.text = $"Lv{m_character.passiveSkillLv + 1} {passiveSkillPhase.name}";
+      if (isMaxPassiveSkillLv) {
+        m_passiveSkillName.text += "[MAX]";
+      }
       m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
     }
