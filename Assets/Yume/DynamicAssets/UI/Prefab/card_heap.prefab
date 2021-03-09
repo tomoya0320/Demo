@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 7234854451015292610}
   - component: {fileID: 7234854451015292611}
   m_Layer: 5
-  m_Name: deck
+  m_Name: card_heap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1105,8 +1105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -126}
-  m_SizeDelta: {x: -420, y: -280}
+  m_AnchoredPosition: {x: 0, y: -20}
+  m_SizeDelta: {x: -420, y: -20}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &221683314614930353
 MonoBehaviour:

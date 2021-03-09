@@ -1023,8 +1023,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8832072457772839502}
   - component: {fileID: 1759633777202328390}
-  - component: {fileID: 293137820243275845}
-  - component: {fileID: 2211590527652201229}
+  - component: {fileID: 8597718532520192954}
+  - component: {fileID: 3504940306244095302}
   - component: {fileID: 193759080648737232}
   - component: {fileID: 7033291220176236108}
   m_Layer: 5
@@ -1052,7 +1052,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 300, y: 49}
-  m_SizeDelta: {x: -670, y: -330}
+  m_SizeDelta: {x: -600, y: -330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1759633777202328390
 CanvasRenderer:
@@ -1062,7 +1062,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3198144251684642341}
   m_CullTransparentMesh: 0
---- !u!114 &293137820243275845
+--- !u!114 &8597718532520192954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2211590527652201229
+--- !u!114 &3504940306244095302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

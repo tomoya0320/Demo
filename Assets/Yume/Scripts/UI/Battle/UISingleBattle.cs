@@ -32,21 +32,21 @@ namespace Yume.UI {
       GetComponent<Button>("lookDrawCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
-            "deck", null,
+            "card_heap", null,
             BattleManager.character.GetCardDatas(CardHeapType.DRAW)
           )
       );
       GetComponent<Button>("lookDiscardCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
-            "deck", null,
+            "card_heap", null,
             BattleManager.character.GetCardDatas(CardHeapType.DISCARD)
           )
       );
       GetComponent<Button>("lookConsumeCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
-            "deck", null,
+            "card_heap", null,
             BattleManager.character.GetCardDatas(CardHeapType.CONSUME)
           )
       );

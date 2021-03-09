@@ -557,16 +557,16 @@ MonoBehaviour:
       Data: Yume.Data.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: deck
+      Data: card_heap
     - Name: uiType
       Entry: 3
       Data: 0
     - Name: typeName
       Entry: 1
-      Data: Yume.UI.UICard
+      Data: Yume.UI.UICardHeap
     - Name: prefabName
       Entry: 1
-      Data: deck
+      Data: card_heap
     - Name: cacheTime
       Entry: 4
       Data: 10
