@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 
 namespace Yume.UI {
   public class UILogin : UIBase {
@@ -17,7 +17,7 @@ namespace Yume.UI {
 
     private void _GoToMain() {
       DataManager.LoadUserData();
-      RedPointManager.InitData();
+      RedDotManager.InitData();
       UIManager.OpenOne("globalBlackFade", () => UIManager.CloseAllAndOpenOne("main"));
     }
   }

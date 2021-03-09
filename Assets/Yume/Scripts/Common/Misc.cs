@@ -276,7 +276,7 @@ public static class StringMap {
   public const string DIAMOND_ITEM_ID = "item_1_diamond";
   public const string GOLD_ITEM_ID = "item_2_gold";
   public const string LEVEL_UP_TO = "等级提升至Lv{0}";
-  public const string UI_RED_POINT = "red point";
+  public const string UI_RED_DOT = "red dot";
   public const string CHAR_EXP = "char_exp";
   public const string CONSUME_GOLD = "消耗金币 {0}";
 }

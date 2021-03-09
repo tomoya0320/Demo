@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 using Yume.Broadcast;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 using Yume.Resource;
 using EventType = Yume.Broadcast.EventType;
 
@@ -93,7 +93,7 @@ namespace Yume.Data {
         foreach (var item in mail.attachment) {
           AddItem(item.id, item.count);
         }
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 0);
+        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.title, MainMailRedDotTree.MAIN_MAIL, 0);
         s_saveData = true;
       }
     }
@@ -101,7 +101,7 @@ namespace Yume.Data {
     public static void AddMail(MailData mail) {
       playerMails.Add(mail);
       if (!mail.isReceived) {
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_MAIL, mail.title, MainMailRedPointTree.MAIN_MAIL, 1);
+        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.title, MainMailRedDotTree.MAIN_MAIL, 1);
       }
       s_saveData = true;
     }
@@ -269,14 +269,14 @@ namespace Yume.Data {
         if (completed && task.state == TaskState.INPROCESS) {
           task.state = TaskState.COMPLETED;
           TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
-          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 1);
+          RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 1);
           string content = string.Format(StringMap.TASK_COMPLETED, taskTemplate.title);
           MessageManager.AddMessage(new Message(Message.Style.FADE, content));
           s_saveData = true;
         } else if (!completed && task.state == TaskState.COMPLETED) {
           task.state = TaskState.INPROCESS;
           TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
-          RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
+          RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
           s_saveData = true;
         }
       }
@@ -311,7 +311,7 @@ namespace Yume.Data {
           ConsumeItem(taskTemplate.taskRequest.requirementId, taskTemplate.taskRequest.requiredCount, false);
         }
 
-        RedPointManager.SetRedPointNum(RedPointTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
+        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
 
         if (!string.IsNullOrEmpty(taskTemplate.activeTaskId)) {
           TaskData nextTask = GetTask(taskTemplate.activeTaskId);

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
@@ -22,8 +22,8 @@ namespace Yume.UI {
     private Text m_goldNumText;
     private Text m_diamondNumText;
 
-    private UIRedPoint m_taskRedPoint;
-    private UIRedPoint m_mailRedPoint;
+    private UIRedDot m_taskRedDot;
+    private UIRedDot m_mailRedDot;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -43,11 +43,11 @@ namespace Yume.UI {
       m_setting = GetComponent<Button>("Setting");
       m_battle = GetComponent<Button>("Battle");
 
-      m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, MainTaskRedPointTree.MAIN_TASK,
-        null, m_task.gameObject.FindGo(StringMap.UI_RED_POINT));
+      m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, MainTaskRedDotTree.MAIN_TASK,
+        null, m_task.gameObject.FindGo(StringMap.UI_RED_DOT));
 
-      m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, MainMailRedPointTree.MAIN_MAIL,
-        null, m_mail.gameObject.FindGo(StringMap.UI_RED_POINT));
+      m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, MainMailRedDotTree.MAIN_MAIL,
+        null, m_mail.gameObject.FindGo(StringMap.UI_RED_DOT));
 
       _AddListener();
       _UpdateUserInfo();
@@ -78,8 +78,8 @@ namespace Yume.UI {
     }
 
     public override void Destroy() {
-      m_taskRedPoint.Destroy();
-      m_mailRedPoint.Destroy();
+      m_taskRedDot.Destroy();
+      m_mailRedDot.Destroy();
 
       EventCenter.RemoveListener(EventType.UPDATE_USER_INFO, _UpdateUserInfo);
     }

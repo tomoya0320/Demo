@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 using Yume.Resource;
 using Yume.UI;
 using Yume.Data;
@@ -63,7 +63,7 @@ namespace Yume.Main {
 
       UIManager.Init();
       AudioManager.Init();
-      RedPointManager.Init();
+      RedDotManager.Init();
 
       #endregion
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Data;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 using Yume.Resource;
 using Object = UnityEngine.Object;
 
@@ -17,7 +17,7 @@ namespace Yume.UI {
       private Image m_attachmentImg;
       private GameObject m_selected;
       private UIMailGroup m_mailGroup;
-      private UIRedPoint m_mailRedPoint;
+      private UIRedDot m_mailRedDot;
       public bool isValid => m_mail != null;
 
       public UIMailTerm(GameObject root, UIMailGroup mailGroup) : base(root) {
@@ -28,8 +28,8 @@ namespace Yume.UI {
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
         m_mailGroup = mailGroup;
-        m_mailRedPoint = new UIRedPoint(RedPointTreeType.MAIN_MAIL, m_mail?.title, 
-          MainMailRedPointTree.MAIN_MAIL, root.FindGo(StringMap.UI_RED_POINT));
+        m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, m_mail?.title, 
+          MainMailRedDotTree.MAIN_MAIL, root.FindGo(StringMap.UI_RED_DOT));
 
         _AddListener();
       }
@@ -43,7 +43,7 @@ namespace Yume.UI {
       public void UpdateScrollTerm(MailData mail) {
         m_mail = mail;
 
-        m_mailRedPoint.Update(m_mail?.title);
+        m_mailRedDot.Update(m_mail?.title);
         gameObject.SetActiveEx(m_mail != null);
         m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
 
@@ -55,7 +55,7 @@ namespace Yume.UI {
       }
 
       public override void Destroy() {
-        m_mailRedPoint.Destroy();
+        m_mailRedDot.Destroy();
       }
 
       public IScrollTerm<MailData> Clone() {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.Data;
-using Yume.RedPointSystem;
+using Yume.RedDotSystem;
 using Yume.Resource;
 using Object = UnityEngine.Object;
 
@@ -17,7 +17,7 @@ namespace Yume.UI {
       private Text m_description;
       private TaskType m_taskType;
       private YButton m_getReward;
-      private UIRedPoint m_taskRedPoint;
+      private UIRedDot m_taskRedDot;
       public bool isValid => m_task != null;
       private ObjectContainer[] m_rewardObjects;
 
@@ -29,8 +29,8 @@ namespace Yume.UI {
         m_rewardObjects = GetGameObject("rewardContent").GetComponentsInChildren<ObjectContainer>(true);
 
         m_taskType = type;
-        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, m_task?.id, 
-          m_taskType.GetDescription(), gameObject.FindGo(StringMap.UI_RED_POINT));
+        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, m_task?.id, 
+          m_taskType.GetDescription(), gameObject.FindGo(StringMap.UI_RED_DOT));
 
         _AddListener();
 
@@ -67,7 +67,7 @@ namespace Yume.UI {
       public void UpdateScrollTerm(TaskData task) {
         m_task = task;
 
-        m_taskRedPoint.Update(m_task?.id);
+        m_taskRedDot.Update(m_task?.id);
         gameObject.SetActiveEx(m_task != null);
 
         if (m_task != null) {
@@ -94,7 +94,7 @@ namespace Yume.UI {
       }
 
       public override void Destroy() {
-        m_taskRedPoint.Destroy();
+        m_taskRedDot.Destroy();
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _UpdateTaskProcess);
       }
 
@@ -106,7 +106,7 @@ namespace Yume.UI {
 
     private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
       private List<TaskData> m_tasks;
-      private UIRedPoint m_taskRedPoint;
+      private UIRedDot m_taskRedDot;
       private ScrollRect m_taskScrollRect;
       public List<TaskData> dataList => m_taskShowList;
       public List<UITaskTerm> viewList => m_taskTermList;
@@ -133,8 +133,8 @@ namespace Yume.UI {
 
         m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, this);
 
-        m_taskRedPoint = new UIRedPoint(RedPointTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedPointTree.MAIN_TASK,
-          GetGameObject("Button").FindGo(StringMap.UI_RED_POINT));
+        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedDotTree.MAIN_TASK,
+          GetGameObject("Button").FindGo(StringMap.UI_RED_DOT));
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
@@ -152,7 +152,7 @@ namespace Yume.UI {
         foreach (var taskTerm in m_taskTermList) {
           taskTerm.Destroy();
         }
-        m_taskRedPoint.Destroy();
+        m_taskRedDot.Destroy();
 
         EventCenter.RemoveListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.RemoveListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);

@@ -843,7 +843,7 @@ RectTransform:
   - {fileID: 17646409481753858}
   - {fileID: 6689797020749423326}
   - {fileID: 2671671263739307194}
-  - {fileID: 2080741808528241662}
+  - {fileID: 4878689953236795562}
   m_Father: {fileID: 7928756399723759245}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4573,7 +4573,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &4802451360282508576
+--- !u!1001 &2157625672739688052
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4582,7 +4582,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1895578912650459994, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
       propertyPath: m_Name
-      value: red point
+      value: red dot
       objectReference: {fileID: 0}
     - target: {fileID: 6793112380015103710, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
       propertyPath: m_Pivot.x
@@ -4672,10 +4672,31 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"_objectDict.{\"RedDotNumText\"}","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228383119424884501, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1865747665693530227}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
---- !u!224 &2080741808528241662 stripped
+--- !u!224 &4878689953236795562 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6793112380015103710, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
-  m_PrefabInstance: {fileID: 4802451360282508576}
+  m_PrefabInstance: {fileID: 2157625672739688052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1865747665693530227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 294170503890130439, guid: ed7f6625c65db01488ffc52c1c1f80b8, type: 3}
+  m_PrefabInstance: {fileID: 2157625672739688052}
   m_PrefabAsset: {fileID: 0}

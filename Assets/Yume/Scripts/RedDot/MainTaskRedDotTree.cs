@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using Yume.Data;
 using Yume.Resource;
 
-namespace Yume.RedPointSystem {
-  public class MainTaskRedPointTree : RedPointTree {
+namespace Yume.RedDotSystem {
+  public class MainTaskRedDotTree : RedDotTree {
     public const string MAIN_TASK = "main.task";
-    protected override RedPointTreeType redPointTreeType => RedPointTreeType.MAIN_TASK;
+    protected override RedDotTreeType redDotTreeType => RedDotTreeType.MAIN_TASK;
 
     public override void InitData() {
-      redPointDict = new Dictionary<string, RedPointNode> { { MAIN_TASK, new RedPointNode(redPointTreeType, MAIN_TASK, null) } };
+      redDotDict = new Dictionary<string, RedDotNode> { { MAIN_TASK, new RedDotNode(redDotTreeType, MAIN_TASK, null) } };
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
-        redPointDict.Add(type.GetDescription(), new RedPointNode(redPointTreeType,
-                         type.GetDescription(), redPointDict[MAIN_TASK]));
+        redDotDict.Add(type.GetDescription(), new RedDotNode(redDotTreeType,
+                         type.GetDescription(), redDotDict[MAIN_TASK]));
 
         foreach (var task in DataManager.playerTasks.FindAll(t => ResourceManager.Load<TaskTemplate>(t.id).type == type)) {
           if (task.state == TaskState.COMPLETED) {

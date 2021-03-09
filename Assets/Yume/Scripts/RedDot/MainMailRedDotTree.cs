@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Yume.Data;
 
-namespace Yume.RedPointSystem {
-  public class MainMailRedPointTree : RedPointTree {
+namespace Yume.RedDotSystem {
+  public class MainMailRedDotTree : RedDotTree {
     public const string MAIN_MAIL = "main.mail";
-    protected override RedPointTreeType redPointTreeType => RedPointTreeType.MAIN_MAIL;
+    protected override RedDotTreeType redDotTreeType => RedDotTreeType.MAIN_MAIL;
 
     public override void InitData() {
-      redPointDict = new Dictionary<string, RedPointNode> { { MAIN_MAIL, new RedPointNode(redPointTreeType, MAIN_MAIL, null) } };
+      redDotDict = new Dictionary<string, RedDotNode> { { MAIN_MAIL, new RedDotNode(redDotTreeType, MAIN_MAIL, null) } };
       foreach (var mail in DataManager.playerMails) {
         if (!mail.isReceived) {
           AddLeafNode(mail.title, MAIN_MAIL);
