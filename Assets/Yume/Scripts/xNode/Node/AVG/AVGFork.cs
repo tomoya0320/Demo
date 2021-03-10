@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
 using Yume.Data;
 using Yume.UI;
@@ -14,59 +16,43 @@ namespace Yume.AVG {
     public string option3;
 
     public override void Run(UIAVG avg) {
+      _OpenOptions(avg.optionCanvasGroup);
+      _SetOption(avg, 0, option1);
+      _SetOption(avg, 1, option2);
+      _SetOption(avg, 2, option3);
+    }
+
+    private void _SetOption(UIAVG avg, int index, string option) {
+      if (string.IsNullOrEmpty(option)) {
+        avg.optionBtns[index].gameObject.SetActiveEx(false);
+      } else {
+        avg.optionBtns[index].gameObject.SetActiveEx(true);
+        avg.optionBtns[index].textComponent.text = option;
+        avg.optionBtns[index].onClick.RemoveAllListeners();
+        avg.optionBtns[index].onClick.AddListener(
+          () => {
+            avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option}";
+            _CloseOptions(avg.optionCanvasGroup, () => _Next(avg, $"option{index + 1}"));
+          }
+        );
+      }
+    }
+
+    private void _Next(UIAVG avg, string portName) {
+      avgGraph.block--;
+      var connection = GetOutputPort(portName).Connection;
+      avgGraph.avgNode = connection.node as AVGNodeBase;
+      avgGraph.Run(avg);
+    }
+
+    private void _OpenOptions(CanvasGroup options) {
       avgGraph.block++;
-      avg.dialogOptions.SetActiveEx(true);
+      options.DOFade(1.0f, 0.2f).OnComplete(() => options.blocksRaycasts = true);
+    }
 
-      if (string.IsNullOrEmpty(option1)) {
-        avg.dialogOptionBtns[0].gameObject.SetActiveEx(false);
-      } else {
-        avg.dialogOptionBtns[0].gameObject.SetActiveEx(true);
-        avg.dialogOptionBtns[0].textComponent.text = option1;
-        avg.dialogOptionBtns[0].onClick.RemoveAllListeners();
-        avg.dialogOptionBtns[0].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option1}";
-          
-          avgGraph.block--;
-          var connection = GetOutputPort(nameof(option1)).Connection;
-          avgGraph.avgNode = connection.node as AVGNodeBase;
-          avgGraph.Run(avg);
-          avg.dialogOptions.SetActiveEx(false);
-        });
-      }
-
-      if (string.IsNullOrEmpty(option2)) {
-        avg.dialogOptionBtns[1].gameObject.SetActiveEx(false);
-      } else {
-        avg.dialogOptionBtns[1].gameObject.SetActiveEx(true);
-        avg.dialogOptionBtns[1].textComponent.text = option2;
-        avg.dialogOptionBtns[1].onClick.RemoveAllListeners();
-        avg.dialogOptionBtns[1].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option2}";
-          
-          avgGraph.block--;
-          var connection = GetOutputPort(nameof(option2)).Connection;
-          avgGraph.avgNode = connection.node as AVGNodeBase;
-          avgGraph.Run(avg);
-          avg.dialogOptions.SetActiveEx(false);
-        });
-      }
-
-      if (string.IsNullOrEmpty(option3)) {
-        avg.dialogOptionBtns[2].gameObject.SetActiveEx(false);
-      } else {
-        avg.dialogOptionBtns[2].gameObject.SetActiveEx(true);
-        avg.dialogOptionBtns[2].textComponent.text = option3;
-        avg.dialogOptionBtns[2].onClick.RemoveAllListeners();
-        avg.dialogOptionBtns[2].onClick.AddListener(() => {
-          avg.historyDialogues += $"\n\n[{DataManager.playerName}]:{option3}";
-          
-          avgGraph.block--;
-          var connection = GetOutputPort(nameof(option3)).Connection;
-          avgGraph.avgNode = connection.node as AVGNodeBase;
-          avgGraph.Run(avg);
-          avg.dialogOptions.SetActiveEx(false);
-        });
-      }
+    private void _CloseOptions(CanvasGroup options, Action onCompleted) {
+      options.blocksRaycasts = false;
+      options.DOFade(0, 0.2f).OnComplete(() => onCompleted());
     }
   }
 }

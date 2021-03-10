@@ -16,8 +16,8 @@ namespace Yume.UI {
     public Text dialogueText { private set; get; }
     public Image illustration { private set; get; }
     public YButton autoButton { private set; get; }
-    public GameObject dialogOptions { private set; get; }
-    public YButton[] dialogOptionBtns { private set; get; }
+    public YButton[] optionBtns { private set; get; }
+    public CanvasGroup optionCanvasGroup { private set; get; }
     public CanvasGroup dialogueCanvasGroup { private set; get; }
     
     #endregion
@@ -36,11 +36,11 @@ namespace Yume.UI {
       nameText = GetComponent<Text>("name");
       autoButton = GetComponent<YButton>("auto");
       dialogueText = GetComponent<Text>("dialogue");
-      dialogOptions = GetGameObject("DialogOptions");
       illustration = GetComponent<Image>("illustration");
+      optionCanvasGroup = GetComponent<CanvasGroup>("options");
       dialogueCanvasGroup = GetComponent<CanvasGroup>("dialogueCanvasGroup");
-
-      dialogOptionBtns = dialogOptions.GetComponentsInChildren<YButton>(true);
+      
+      optionBtns = optionCanvasGroup.GetComponentsInChildren<YButton>(true);
 
       _AddListener();
     }
@@ -129,11 +129,12 @@ namespace Yume.UI {
 
     private void _CleanUp() {
       m_avgGraph.CleanUp();
-      foreach (var dialogOptionBtn in dialogOptionBtns) {
+      foreach (var dialogOptionBtn in optionBtns) {
         dialogOptionBtn.textComponent.text = StringMap.EMPTY;
         dialogOptionBtn.onClick.RemoveAllListeners();
       }
-      dialogOptions.SetActiveEx(false);
+      optionCanvasGroup.alpha = 0;
+      optionCanvasGroup.blocksRaycasts = false;
       bgImage.color = Color.white;
       nameText.text = StringMap.EMPTY;
       illustration.color = Color.white;
