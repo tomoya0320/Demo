@@ -18,6 +18,7 @@ namespace Yume.UI {
       private GameObject m_selected;
       private UIMailGroup m_mailGroup;
       private UIRedDot m_mailRedDot;
+      private MailTemplate m_mailTemplate;
       public bool isValid => m_mail != null;
 
       public UIMailTerm(GameObject root, UIMailGroup mailGroup) : base(root) {
@@ -28,7 +29,7 @@ namespace Yume.UI {
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
         m_mailGroup = mailGroup;
-        m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, m_mail?.title, 
+        m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, m_mail?.id, 
           MainMailRedDotTree.MAIN_MAIL, root.FindGo(StringMap.UI_RED_DOT));
 
         _AddListener();
@@ -43,13 +44,14 @@ namespace Yume.UI {
       public void UpdateScrollTerm(MailData mail) {
         m_mail = mail;
 
-        m_mailRedDot.Update(m_mail?.title);
+        m_mailRedDot.Update(m_mail?.id);
         gameObject.SetActiveEx(m_mail != null);
         m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
 
         if (m_mail != null) {
-          m_titleText.text = m_mail.title;
-          m_attachmentImg.enabled = m_mail.attachment.Count > 0;
+          m_mailTemplate = ResourceManager.Load<MailTemplate>(m_mail.id);
+          m_titleText.text = m_mailTemplate.title;
+          m_attachmentImg.enabled = m_mailTemplate.attachments.Length > 0;
           m_dateDeltaText.text = MathUtil.CalDateDeltaFromNow(m_mail.ticks);
         }
       }
@@ -76,6 +78,7 @@ namespace Yume.UI {
 
       private List<MailData> m_mails;
       private MailData m_selectedMail;
+      private MailTemplate m_selectedMailTemplate;
       private ScrollRect m_mailScrollRect;
       public List<MailData> dataList => m_mails;
       private ObjectContainer[] m_attachmentObjects;
@@ -124,11 +127,12 @@ namespace Yume.UI {
       public void SwitchMail(MailData mail) {
         if (m_selectedMail != mail) {
           m_selectedMail = mail;
+          m_selectedMailTemplate = ResourceManager.Load<MailTemplate>(mail.id);
           _UpdateMailContent();
           m_mailScrollView.UpdateView(false);
 
           // 更新附件
-          List<ItemData> attachments = new List<ItemData>(m_selectedMail?.attachment);
+          List<ItemData> attachments = new List<ItemData>(m_selectedMailTemplate.attachments);
           for (int i = 0; i < m_attachmentObjects.Length; i++) {
             var attachmentObject = m_attachmentObjects[i];
             if (i < attachments.Count) {
@@ -145,9 +149,9 @@ namespace Yume.UI {
 
       private void _UpdateMailContent() {
         m_mailContentPanel.SetActiveEx(true);
-        m_signatureText.text = m_selectedMail.signature;
+        m_signatureText.text = m_selectedMailTemplate.signature;
         m_dateText.text = DateTime.FromBinary(m_selectedMail.ticks).ToShortDateString();
-        m_contentText.text = string.Format(m_selectedMail.content, DataManager.playerName);
+        m_contentText.text = string.Format(m_selectedMailTemplate.content, DataManager.playerName);
 
         _CheckGetButton();
       }

@@ -182,6 +182,14 @@ namespace Yume.Data {
     public RequestTemplate taskRequest;
   }
 
+  public struct MailTemplate {
+    public string id;
+    public string title;
+    public string content;
+    public string signature;
+    public ItemData[] attachments;
+  }
+
   public enum UIType {
     NORMAL,
     TOP,
@@ -305,24 +313,16 @@ namespace Yume.Data {
 
   [Serializable]
   public class MailData {
+    public string id;
     public long ticks;
-    public string title;
-    public string content;
     public bool isReceived;
-    public string signature;
-    public List<ItemData> attachment = new List<ItemData>();
 
     private MailData() { }
 
-    public MailData(string title, string content, string signature, params ItemData[] attachment) {
-      this.title = title;
-      this.content = content;
-      this.signature = signature;
-      if (attachment != null) {
-        this.attachment.AddRange(attachment);
-      }
-      isReceived = this.attachment.Count == 0;
+    public MailData(string id) {
+      this.id = id;
       ticks = DateTime.Now.Ticks;
+      isReceived = ResourceManager.Load<MailTemplate>(id).attachments.Length == 0;
     }
   }
 
@@ -436,7 +436,7 @@ namespace Yume.Data {
       userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_003", 0));
       userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
       userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
-      userDB.mails.Add(new MailData("内测邮件", "亲爱的{0}，欢迎参加本次内测", "管理员", new ItemData("item_1_diamond", 4000), new ItemData("item_2_gold", 50000), new ItemData("item_5_key", 10)));
+      userDB.mails.Add(new MailData("test_mail_1"));
 #endif
       return userDB;
     }

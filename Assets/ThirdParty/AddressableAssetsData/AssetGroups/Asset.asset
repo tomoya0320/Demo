@@ -43,8 +43,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 11400000, guid: 5280bb3c3b0948347a533db50820d0d2, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 5280bb3c3b0948347a533db50820d0d2, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: eebd7e74d9f89f8449b210a9c416f5e2
     m_Address: cardAsset
     m_ReadOnly: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 03f000ce11f7be24d87b7833f21c924b, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 03f000ce11f7be24d87b7833f21c924b, type: 2}
   - m_GUID: ddf5c47724c070949965b3812fe49dd7
     m_Address: avg_test3
     m_ReadOnly: 0
@@ -143,6 +143,13 @@ MonoBehaviour:
     - Preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: b953e43be5cccb54f9b94915c1af0a6a
+    m_Address: mailAsset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 11400000, guid: b953e43be5cccb54f9b94915c1af0a6a, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: b953e43be5cccb54f9b94915c1af0a6a, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

@@ -89,11 +89,12 @@ namespace Yume.Data {
 
     public static void GetAttachment(MailData mail) {
       if (!mail.isReceived) {
-        mail.isReceived = true;
-        foreach (var item in mail.attachment) {
+        var mailTemplate = ResourceManager.Load<MailTemplate>(mail.id);
+        foreach (var item in mailTemplate.attachments) {
           AddItem(item.id, item.count);
-        }
-        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.title, MainMailRedDotTree.MAIN_MAIL, 0);
+        }   
+        mail.isReceived = true;
+        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.id, MainMailRedDotTree.MAIN_MAIL, 0);
         s_saveData = true;
       }
     }
@@ -101,7 +102,7 @@ namespace Yume.Data {
     public static void AddMail(MailData mail) {
       playerMails.Add(mail);
       if (!mail.isReceived) {
-        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.title, MainMailRedDotTree.MAIN_MAIL, 1);
+        RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.id, MainMailRedDotTree.MAIN_MAIL, 1);
       }
       s_saveData = true;
     }

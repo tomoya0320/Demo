@@ -10,7 +10,7 @@ namespace Yume.RedDotSystem {
       redDotDict = new Dictionary<string, RedDotNode> { { MAIN_MAIL, new RedDotNode(redDotTreeType, MAIN_MAIL, null) } };
       foreach (var mail in DataManager.playerMails) {
         if (!mail.isReceived) {
-          AddLeafNode(mail.title, MAIN_MAIL);
+          AddLeafNode(mail.id, MAIN_MAIL);
         }
       }
     }
