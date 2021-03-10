@@ -23,7 +23,7 @@ namespace Yume.UI {
     private Vector2 m_cellSize;
     private Vector2 m_originPos;
     private int m_initDataIndex;
-    private Rect m_scrollRectRect;
+    private Vector2 m_displayRange;
     private ScrollRect m_scrollRect;
     private Vector2Int m_maxCellNum;
     private GridLayoutGroup m_gridLayoutGroup;
@@ -37,10 +37,10 @@ namespace Yume.UI {
       m_gridLayoutGroup = scrollRect.content.GetComponent<GridLayoutGroup>();
 
       m_cellSize = m_gridLayoutGroup.cellSize + m_gridLayoutGroup.spacing;
-      m_scrollRectRect = m_scrollRectTransform.rect;
+      m_displayRange = m_scrollRectTransform.rect.size;
       m_maxCellNum = new Vector2Int {
-        x = (int)(m_scrollRectRect.size.x / m_cellSize.x),
-        y = (int)(m_scrollRectRect.size.y / m_cellSize.y)
+        x = Mathf.CeilToInt(m_displayRange.x / m_cellSize.x),
+        y = Mathf.CeilToInt(m_displayRange.y / m_cellSize.y)
       };
       m_originPos = m_scrollRect.content.anchoredPosition;
 
@@ -79,13 +79,13 @@ namespace Yume.UI {
           if (m_scrollGroup.dataList.Count % m_maxCellNum.x > 0) {
             temp++;
           }
-          m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * temp, m_scrollRectRect.height));
+          m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * temp, m_displayRange.y));
         } else if (m_scrollRect.horizontal) {
           int temp = m_scrollGroup.dataList.Count / m_maxCellNum.y;
           if (m_scrollGroup.dataList.Count % m_maxCellNum.y > 0) {
             temp++;
           }
-          m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * temp, m_scrollRectRect.width));
+          m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * temp, m_displayRange.x));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
         //强制刷新ScrollBar
