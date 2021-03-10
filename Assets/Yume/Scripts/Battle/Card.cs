@@ -49,7 +49,7 @@ namespace Yume.Battle {
       if (onUseCard != null) {
         cardDrag = gameObject.AddComponent<UICardDrag>().Init(
           () => {
-            if (gameObject.transform.position.y > 0) {
+            if (gameObject.transform.position.y > 0 && cardDrag.interactable) {
               candidate?.selected.SetActiveEx(false);
               if (cardTemplate.onlySelf) {
                 candidate = owner;

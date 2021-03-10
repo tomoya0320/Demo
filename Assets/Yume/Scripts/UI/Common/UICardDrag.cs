@@ -36,6 +36,7 @@ namespace Yume.UI {
 
     public void SetEnable(bool enable) {
       m_enable += enable ? 1 : -1;
+      m_dragging &= interactable;
     }
 
     public void SetResetAnchorPos(Vector2 resetAnchorPos) {
@@ -51,7 +52,7 @@ namespace Yume.UI {
       m_originPos = m_rectTransform.position;
       m_originSiblingIndex = m_rectTransform.GetSiblingIndex();
       m_rectTransform.SetAsLastSibling();
-      
+
       m_eventData = eventData;
       Vector3 mousePosition = m_eventData.position;
       // 坐标变换
@@ -65,7 +66,7 @@ namespace Yume.UI {
       if (!interactable || !m_dragging || m_eventData != eventData) {
         return;
       }
-      
+
       m_dragging = false;
       m_eventData = null;
       if (m_onUseCard == null || !m_onUseCard()) {
@@ -79,15 +80,17 @@ namespace Yume.UI {
     }
 
     private void Update() {
-      if (m_dragging) {
-        Vector3 mousePosition = m_eventData.position;
-        // 坐标变换
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        m_rectTransform.position = m_originPos + (mousePosition - m_clickDownPos);
-        m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, s_draggingScale, SCALE_TIME);
-        m_onDraggingCard?.Invoke();
-      } else if (interactable) {
-        m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, Vector3.one, SCALE_TIME);
+      if (interactable) {
+        if (m_dragging) {
+          Vector3 mousePosition = m_eventData.position;
+          // 坐标变换
+          mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+          m_rectTransform.position = m_originPos + (mousePosition - m_clickDownPos);
+          m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, s_draggingScale, SCALE_TIME);
+          m_onDraggingCard?.Invoke();
+        } else {
+          m_rectTransform.localScale = Vector3.Lerp(m_rectTransform.localScale, Vector3.one, SCALE_TIME);
+        }
       }
     }
   }
