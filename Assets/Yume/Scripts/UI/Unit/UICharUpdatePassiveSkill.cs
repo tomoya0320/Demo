@@ -62,11 +62,11 @@ namespace Yume.UI {
       for (int i = 0; i < m_requestItems.childCount; i++) {
         var tempGo = m_requestItems.GetChild(i).gameObject;
         if (i < passiveSkillPhase.updateRequestItems.Length) {
-          ItemData itemData = passiveSkillPhase.updateRequestItems[i];
+          ItemArgs itemArgs = passiveSkillPhase.updateRequestItems[i];
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
-          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
+            (ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
         }

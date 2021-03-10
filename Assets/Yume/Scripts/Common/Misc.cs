@@ -493,7 +493,12 @@ public static class MathUtil {
 
     float p = (float)level / unitTemplate.maxLevel;
     Attrib[] attribs = new Attrib[minAttribs.Length];
-    var curve = ResourceManager.Load<AnimationCurve>(id);
+    AnimationCurve curve;
+    if (ResourceManager.Contains<AnimationCurve>(id)) {
+      curve = ResourceManager.Load<AnimationCurve>(id);
+    } else {
+      curve = ResourceManager.Load<AnimationCurve>("common_curve");
+    }
     for (int i = 0; i < attribs.Length; i++) {
       attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
     }

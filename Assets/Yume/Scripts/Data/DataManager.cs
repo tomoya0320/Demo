@@ -311,8 +311,8 @@ namespace Yume.Data {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
-        foreach (ItemData item in taskTemplate.taskRewards.items) {
-          AddItem(item.id, item.count);
+        foreach (ItemArgs itemArgs in taskTemplate.taskRewards.items) {
+          AddItem(itemArgs.id, itemArgs.count);
         }
 
         if (taskTemplate.taskRequest.consumable && taskTemplate.taskRequest.type == RequestType.ITEM_NUM) {

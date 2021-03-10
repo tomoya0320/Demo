@@ -132,7 +132,7 @@ namespace Yume.UI {
           m_mailScrollView.UpdateView(false);
 
           // 更新附件
-          List<ItemData> attachments = new List<ItemData>(m_selectedMailTemplate.attachments);
+          List<ItemArgs> attachments = new List<ItemArgs>(m_selectedMailTemplate.attachments);
           for (int i = 0; i < m_attachmentObjects.Length; i++) {
             var attachmentObject = m_attachmentObjects[i];
             if (i < attachments.Count) {

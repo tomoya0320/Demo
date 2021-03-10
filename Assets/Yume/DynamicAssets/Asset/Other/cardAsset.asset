@@ -177,19 +177,31 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 8|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 8|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 9|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
     - Name: count
       Entry: 3
-      Data: 50
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 1000
     - Name: 
       Entry: 8
       Data: 
@@ -240,7 +252,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 10|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 9|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -255,7 +267,7 @@ MonoBehaviour:
       Data: 1
     - Name: selector
       Entry: 7
-      Data: 11|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 10|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 1
@@ -264,7 +276,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 12|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 11|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -288,7 +300,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 13|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 12|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -303,7 +315,7 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 14|System.Single, mscorlib
+      Data: 13|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 2
@@ -330,7 +342,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 15|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 14|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -366,7 +378,7 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 16|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 15|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -408,7 +420,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 17|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 16|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -423,7 +435,7 @@ MonoBehaviour:
       Data: 1
     - Name: selector
       Entry: 7
-      Data: 18|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 17|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 1
@@ -432,7 +444,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 19|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 18|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -456,7 +468,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 20|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 19|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -471,7 +483,7 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 21|System.Single, mscorlib
+      Data: 20|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 1
@@ -489,7 +501,7 @@ MonoBehaviour:
       Data: healRateOnCasterDamage
     - Name: $v
       Entry: 7
-      Data: 22|System.Single, mscorlib
+      Data: 21|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.5
@@ -516,31 +528,31 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 23|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 22|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 24|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
     - Name: count
       Entry: 3
-      Data: 100
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 25|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 3000
+      Data: 2000
     - Name: 
       Entry: 8
       Data: 
@@ -591,7 +603,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 26|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 23|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -606,7 +618,7 @@ MonoBehaviour:
       Data: 1
     - Name: selector
       Entry: 7
-      Data: 27|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 24|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 1
@@ -615,7 +627,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 28|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 25|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -639,7 +651,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 29|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 26|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -654,7 +666,7 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 30|System.Single, mscorlib
+      Data: 27|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 1.6
@@ -672,7 +684,7 @@ MonoBehaviour:
       Data: healRateOnCasterDamage
     - Name: $v
       Entry: 7
-      Data: 31|System.Single, mscorlib
+      Data: 28|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.8
@@ -699,7 +711,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 32|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 29|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -735,7 +747,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 33|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 30|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -777,7 +789,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 34|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 31|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -792,7 +804,7 @@ MonoBehaviour:
       Data: 1
     - Name: selector
       Entry: 7
-      Data: 35|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 32|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 0
@@ -801,7 +813,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 36|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 33|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -825,7 +837,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 37|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 34|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -840,7 +852,7 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 38|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 35|Yume.Battle.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -891,7 +903,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 39|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 36|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -927,7 +939,7 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 40|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 37|Yume.Data.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -969,7 +981,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 41|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 38|Yume.Data.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -984,7 +996,7 @@ MonoBehaviour:
       Data: 1
     - Name: selector
       Entry: 7
-      Data: 42|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 39|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 1
@@ -993,7 +1005,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 43|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 40|Yume.Data.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1017,7 +1029,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 44|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 41|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -1032,7 +1044,7 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 45|System.Single, mscorlib
+      Data: 42|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 1.5
@@ -1059,7 +1071,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 46|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 43|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

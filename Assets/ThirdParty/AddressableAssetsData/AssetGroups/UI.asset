@@ -50,8 +50,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 24471556247312276, guid: 82f90768bfd59f844bb5d3e33e4d2cf9, type: 3}
-    m_TargetAsset: {fileID: 24471556247312276, guid: 82f90768bfd59f844bb5d3e33e4d2cf9, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 3324578eeb7e3b64ead225109349f046
     m_Address: char_choice
     m_ReadOnly: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 4261234558080115858, guid: 74b82b80468d92f48895cf80e376f008, type: 3}
+    m_TargetAsset: {fileID: 4261234558080115858, guid: 74b82b80468d92f48895cf80e376f008, type: 3}
   - m_GUID: fba92a444f2800e41afca3e6f8a5db76
     m_Address: globalCircleBlackFade
     m_ReadOnly: 0
@@ -183,8 +183,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2462664316776755842, guid: cd06425115919104d87a0e71ee38aabc, type: 3}
+    m_TargetAsset: {fileID: 2462664316776755842, guid: cd06425115919104d87a0e71ee38aabc, type: 3}
   - m_GUID: f22b2f8a4d1257b4cab07241e594b224
     m_Address: single_battle
     m_ReadOnly: 0
@@ -232,8 +232,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7914012892163191657, guid: c210664f0b157fe4e8543b549b5b971d, type: 3}
+    m_TargetAsset: {fileID: 7914012892163191657, guid: c210664f0b157fe4e8543b549b5b971d, type: 3}
   - m_GUID: 4a590c16cff779b478d59eddb45fce00
     m_Address: card_update
     m_ReadOnly: 0
@@ -246,8 +246,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 2716908504107935913, guid: 00606fdd57223aa4db52129e7da4d28a, type: 3}
-    m_TargetAsset: {fileID: 2716908504107935913, guid: 00606fdd57223aa4db52129e7da4d28a, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4ed5ae0204da0ab41a16c93e4ee6ffc4
+    m_Address: level_panel_no_battle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    m_MainAsset: {fileID: 789861369274397592, guid: 4ed5ae0204da0ab41a16c93e4ee6ffc4, type: 3}
+    m_TargetAsset: {fileID: 789861369274397592, guid: 4ed5ae0204da0ab41a16c93e4ee6ffc4, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

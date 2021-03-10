@@ -69,8 +69,8 @@ namespace Yume.UI {
     private void _UpdateUserInfo() {
       m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ITEM_ID).ToString();
       m_diamondNumText.text = DataManager.GetItemCount(StringMap.DIAMOND_ITEM_ID).ToString();
-      
-      m_lvText.text = DataManager.playerLv.ToString();
+
+      m_lvText.text = $"{DataManager.playerLv + 1}";
       m_nameText.text = DataManager.playerName;
 
       float needExp = MathUtil.CalNeedUserExp(DataManager.playerLv);

@@ -50,10 +50,14 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
       for (int i = 0; i < m_levelBtns.Length; i++) {
         if (i < m_levels.Count) {
-          var level = m_levels[i];
+          LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_levels[i].id);
           m_levelBtns[i].gameObject.SetActiveEx(_CheckLevelActive(m_levels[i].id));
           m_levelBtns[i].onClick.AddListener(() => {
-            UIManager.OpenOne("level_panel", null, level);
+            if (levelTemplate.enemyTeams.Length > 0) {
+              UIManager.OpenOne("level_panel", null, levelTemplate);
+            } else {
+              UIManager.OpenOne("level_panel_no_battle", null, levelTemplate);
+            }
           });
         } else {
           m_levelBtns[i].gameObject.SetActiveEx(false);

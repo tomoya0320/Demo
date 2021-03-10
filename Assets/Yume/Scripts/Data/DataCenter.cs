@@ -9,6 +9,11 @@ using Yume.Resource;
 namespace Yume.Data {
   #region Template
 
+  public struct ItemArgs {
+    public string id;
+    public int count;
+  }
+
   public struct ItemTemplate {
     public string id;
     public string groupId;
@@ -46,7 +51,7 @@ namespace Yume.Data {
     public int energyConsumption;
     public CardAnimEvent cardAnimEvent;
     public BuffTemplate[] buffTemplates;
-    public ItemData[] updateRequestItems;
+    public ItemArgs[] updateRequestItems;
   }
 
   public struct CardTemplate {
@@ -66,7 +71,7 @@ namespace Yume.Data {
     public string description;
     public string iconFileName;
     public BuffTemplate[] buffTemplates;
-    public ItemData[] updateRequestItems;
+    public ItemArgs[] updateRequestItems;
   }
 
   /// <summary>
@@ -149,7 +154,7 @@ namespace Yume.Data {
   }
 
   public struct Rewards {
-    public ItemData[] items;
+    public ItemArgs[] items;
   }
 
   public struct TaskTemplate {
@@ -187,7 +192,7 @@ namespace Yume.Data {
     public string title;
     public string content;
     public string signature;
-    public ItemData[] attachments;
+    public ItemArgs[] attachments;
   }
 
   public enum UIType {

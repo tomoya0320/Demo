@@ -32,23 +32,18 @@ namespace Yume.UI {
           }
 
           Action action = () => {
-            if (m_levelTemplate.enemyTeams.Length > 0) {
-              TeamArgs teamArgs;
-              if (m_levelTemplate.isCustomTeam) {
-                teamArgs = m_levelTemplate.customTeam;
-              } else {
-                UnitArgs charArgs = UnitArgs.Create(DataManager.GetCharacter(currentTeam.charId));
-                CardArgs[] cardArgs = new CardArgs[currentTeam.cardGuids.Count];
-                for (int i = 0; i < cardArgs.Length; i++) {
-                  cardArgs[i] = CardArgs.Create(DataManager.GetCard(currentTeam.cardGuids[i]));
-                }
-                teamArgs = new TeamArgs(charArgs, cardArgs);
-              }
-              UIManager.OpenOne("single_battle", null, m_levelTemplate, teamArgs);
+            TeamArgs teamArgs;
+            if (m_levelTemplate.isCustomTeam) {
+              teamArgs = m_levelTemplate.customTeam;
             } else {
-              // 直接结算
-              DataManager.CompleteLevel(m_levelTemplate.id);
+              UnitArgs charArgs = UnitArgs.Create(DataManager.GetCharacter(currentTeam.charId));
+              CardArgs[] cardArgs = new CardArgs[currentTeam.cardGuids.Count];
+              for (int i = 0; i < cardArgs.Length; i++) {
+                cardArgs[i] = CardArgs.Create(DataManager.GetCard(currentTeam.cardGuids[i]));
+              }
+              teamArgs = new TeamArgs(charArgs, cardArgs);
             }
+            UIManager.OpenOne("single_battle", null, m_levelTemplate, teamArgs);
           };
 
           if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {

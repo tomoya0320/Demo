@@ -45,9 +45,12 @@ namespace Yume.UI {
         if (m_task != null) {
           var taskRequest = ResourceManager.Load<TaskTemplate>(m_task.id).taskRequest;
 
-          m_process.text = string.Format("{0}:{1}/{2}", taskRequest.description,
-                                         m_task.process, taskRequest.requiredCount);
-
+          if (taskRequest.type == RequestType.LV_UP_TO) {
+            // 等级的显示要特殊处理(+1)
+            m_process.text = $"{taskRequest.description}:{m_task.process + 1}/{taskRequest.requiredCount + 1}";
+          } else {
+            m_process.text = $"{taskRequest.description}:{m_task.process}/{taskRequest.requiredCount}";
+          }
           m_getReward.interactable = m_task.state == TaskState.COMPLETED;
           m_process.gameObject.SetActiveEx(m_task.state == TaskState.INPROCESS);
           m_getReward.gameObject.SetActiveEx(m_task.state == TaskState.COMPLETED || m_task.state == TaskState.FINAL);

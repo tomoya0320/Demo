@@ -6,18 +6,16 @@ using Yume.Resource;
 
 namespace Yume.UI {
   public class UILevelPanel : UIBase {
-    private Image m_icon;
     private Text m_title;
-    private LevelData m_level;
     private Text m_description;
     private RectTransform m_enemies;
+    private LevelTemplate m_levelTemplate;
     private RectTransform m_regularRewards;
     private RectTransform m_firstCompletedRewards;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
-
-      m_icon = GetComponent<Image>("icon");
+      
       m_title = GetComponent<Text>("title");
       m_description = GetComponent<Text>("description");
       m_enemies = GetComponent<RectTransform>("enemies");
@@ -31,29 +29,22 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
-        LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
-        UIManager.OpenOne("team_before_battle", null, levelTemplate);
+        UIManager.OpenOne("team_before_battle", null, m_levelTemplate);
       });
     }
 
     private void _UpdateLevelInfo() {
-      LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
-      if (string.IsNullOrEmpty(levelTemplate.background)) {
-        m_icon.sprite = ResourceManager.Load<Sprite>("noSprite");
-      } else {
-        m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
-      }
-      m_title.text = levelTemplate.title;
-      m_description.text = StringUtil.GetActualDescription(levelTemplate.description, levelTemplate.buffTemplates);
+      m_title.text = m_levelTemplate.title;
+      m_description.text = StringUtil.GetActualDescription(m_levelTemplate.description, m_levelTemplate.buffTemplates);
       // 常规奖励
       for (int i = 0; i < m_regularRewards.childCount; i++) {
         var tempGo = m_regularRewards.GetChild(i).gameObject;
-        if (i < levelTemplate.regularRewards.items.Length) {
-          ItemData itemData = levelTemplate.regularRewards.items[i];
+        if (i < m_levelTemplate.regularRewards.items.Length) {
+          ItemArgs itemArgs = m_levelTemplate.regularRewards.items[i];
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
-          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
+            (ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
         }
@@ -61,12 +52,12 @@ namespace Yume.UI {
       // 首通奖励
       for (int i = 0; i < m_firstCompletedRewards.childCount; i++) {
         var tempGo = m_firstCompletedRewards.GetChild(i).gameObject;
-        if (i < levelTemplate.firstCompletedRewards.items.Length) {
-          ItemData itemData = levelTemplate.firstCompletedRewards.items[i];
+        if (i < m_levelTemplate.firstCompletedRewards.items.Length) {
+          ItemArgs itemArgs = m_levelTemplate.firstCompletedRewards.items[i];
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-            (ResourceManager.Load<ItemTemplate>(itemData.id).iconFileName);
-          tempGo.GetComponentInChildren<Text>().text = itemData.count.ToString();
+            (ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
         }
@@ -74,9 +65,9 @@ namespace Yume.UI {
       // 敌方情报
       for (int i = 0; i < m_enemies.childCount; i++) {
         var tempGo = m_enemies.GetChild(i).gameObject;
-        if (i < levelTemplate.enemyTeams.Length) {
+        if (i < m_levelTemplate.enemyTeams.Length) {
           // 小 心 闭 包
-          UnitArgs enemyArgs = levelTemplate.enemyTeams[i].unitArgs;
+          UnitArgs enemyArgs = m_levelTemplate.enemyTeams[i].unitArgs;
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
             (ResourceManager.Load<UnitTemplate>(enemyArgs.id).headFileName);
@@ -88,7 +79,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_level = args[0] as LevelData;
+      m_levelTemplate = (LevelTemplate)args[0];
       _UpdateLevelInfo();
 
       base.Open(callback, args);

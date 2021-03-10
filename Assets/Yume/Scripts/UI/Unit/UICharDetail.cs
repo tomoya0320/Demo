@@ -67,7 +67,7 @@ namespace Yume.UI {
       Attrib[] attribs = MathUtil.CalculateAttribs(m_character.id, m_character.lv);
 
       m_description.text = m_unitTemplate.description;
-      m_lvText.text = $"Lv:{m_character.lv}/{m_unitTemplate.maxLevel}";
+      m_lvText.text = $"Lv:{m_character.lv + 1}/{m_unitTemplate.maxLevel + 1}";
       m_illustration.sprite = ResourceManager.Load<Sprite>(m_unitTemplate.illustrationFileName);
 
       for (int i = 0; i < m_attribs.Length; i++) {

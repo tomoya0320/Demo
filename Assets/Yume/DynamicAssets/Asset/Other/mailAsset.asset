@@ -44,25 +44,25 @@ MonoBehaviour:
       Data: "\u7BA1\u7406\u5458"
     - Name: attachments
       Entry: 7
-      Data: 1|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 1|Yume.Data.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
-      Data: 2|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
     - Name: count
       Entry: 3
-      Data: 4000
+      Data: 10000
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -74,13 +74,37 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_5_key
     - Name: count
       Entry: 3
-      Data: 10
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
