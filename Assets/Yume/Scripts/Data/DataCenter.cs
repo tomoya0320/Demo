@@ -130,10 +130,10 @@ namespace Yume.Data {
   }
 
   public enum TaskType {
-    [Description("daily")]
-    DAILY,
-    [Description("main")]
-    MAIN
+    [Description("achievement")]
+    ACHIEVEMENT,
+    [Description("main_story")]
+    MAIN_STORY,
   }
 
   public enum RequestType {

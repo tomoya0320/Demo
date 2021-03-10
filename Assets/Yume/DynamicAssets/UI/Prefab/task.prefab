@@ -2363,7 +2363,7 @@ GameObject:
   - component: {fileID: 8971115855369915951}
   - component: {fileID: 1784309371254439352}
   m_Layer: 5
-  m_Name: main task
+  m_Name: main story task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3859,7 +3859,7 @@ GameObject:
   - component: {fileID: 5778052118592478512}
   - component: {fileID: 1914972045265077762}
   m_Layer: 5
-  m_Name: daily task
+  m_Name: achievement task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4093,7 +4093,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: main
+      Data: main_story
     - Name: $v
       Entry: 10
       Data: 2
@@ -4105,7 +4105,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: daily
+      Data: achievement
     - Name: $v
       Entry: 10
       Data: 3
@@ -4208,7 +4208,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u65E5\u5E38\u4EFB\u52A1"
+  m_Text: "\u6210\u5C31\u4EFB\u52A1"
 --- !u!1 &5778052119071987301
 GameObject:
   m_ObjectHideFlags: 0
