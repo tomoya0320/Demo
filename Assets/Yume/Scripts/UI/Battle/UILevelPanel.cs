@@ -38,7 +38,11 @@ namespace Yume.UI {
 
     private void _UpdateLevelInfo() {
       LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
-      m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
+      if (string.IsNullOrEmpty(levelTemplate.background)) {
+        m_icon.sprite = ResourceManager.Load<Sprite>("noSprite");
+      } else {
+        m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
+      }
       m_title.text = levelTemplate.title;
       m_description.text = StringUtil.GetActualDescription(levelTemplate.description, levelTemplate.buffTemplates);
       // 常规奖励

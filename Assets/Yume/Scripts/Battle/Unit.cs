@@ -25,11 +25,17 @@ namespace Yume.Battle {
     protected Tween hpImgTween;
     protected YImage energyImage;
 
+    private int m_selectedEnable;
     public Animator animator { get; }
-    public GameObject selected { get; }
     public GameObject gameObject { get; }
+    protected GameObject selected { get; }
     public Transform numReference { get; }
     protected abstract Transform folder { get; }
+
+    public void SetSelectedEnable(bool enable) {
+      m_selectedEnable += enable ? 1 : -1;
+      selected.SetActiveEx(m_selectedEnable > 0);
+    }
 
     #endregion
 

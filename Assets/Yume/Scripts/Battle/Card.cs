@@ -28,14 +28,14 @@ namespace Yume.Battle {
       rectTransform = gameObject.GetComponent<RectTransform>();
       
       data = new CardData(args.id, args.phase);
-      cardTemplate = ResourceManager.Load<CardTemplate>(this.data.id);
+      cardTemplate = ResourceManager.Load<CardTemplate>(data.id);
       
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
       if (data.phase == cardTemplate.cardPhases.Length - 1) {
         objectContainer.GetComponent<Text>("NameText").text += "[MAX]";
       }
-      objectContainer.GetComponent<Text>("PhaseText").text = $"{this.data.phase + 1}";
+      objectContainer.GetComponent<Text>("PhaseText").text = $"{data.phase + 1}";
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
       objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;
@@ -50,15 +50,15 @@ namespace Yume.Battle {
         cardDrag = gameObject.AddComponent<UICardDrag>().Init(
           () => {
             if (gameObject.transform.position.y > 0 && cardDrag.interactable) {
-              candidate?.selected.SetActiveEx(false);
+              candidate?.SetSelectedEnable(false);
               if (cardTemplate.onlySelf) {
                 candidate = owner;
               } else {
                 candidate = BattleManager.GetNearestEnemy(gameObject.transform.position);
               }
-              candidate?.selected.SetActiveEx(true);
+              candidate?.SetSelectedEnable(true);
             } else {
-              candidate?.selected.SetActiveEx(false);
+              candidate?.SetSelectedEnable(false);
               candidate = null;
             }
           },

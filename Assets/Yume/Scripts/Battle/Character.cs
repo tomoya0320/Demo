@@ -48,7 +48,7 @@ namespace Yume.Battle {
       }
       if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
         if (card.candidate != null) {
-          card.candidate.selected.SetActiveEx(false);
+          card.candidate.SetSelectedEnable(false);
           card.candidate = null;
         }
         MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", false, null, 0.5f));
@@ -65,7 +65,7 @@ namespace Yume.Battle {
       // 先关闭卡牌拖拽组件避免反复触发
       card.cardDrag.SetEnable(false);
       // 取消目标选中的UI
-      card.candidate.selected.SetActiveEx(false);
+      card.candidate.SetSelectedEnable(false);
       // 从手牌堆中移除
       cardHeapDict[CardHeapType.HAND].Remove(card);
       // 加入出牌队列
