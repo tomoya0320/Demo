@@ -31,35 +31,14 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       GetComponent<Button>("startBattleBtn").onClick.AddListener(() => {
-        if (string.IsNullOrEmpty(DataManager.playerTeams[DataManager.playerTeamIndex].charId)) {
-          MessageManager.AddMessage(new Message(Message.Style.FADE, "未携带角色！"));
-          return;
-        }
-
         LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
-
-        Action action = () => {
-          if (levelTemplate.enemyTemplates.Length > 0) {
-            UIManager.OpenOne("single_battle", null, levelTemplate);
-          } else {
-            // TODO:直接打开结算界面 测试用
-            DataManager.CompleteLevel(levelTemplate.id);
-          }
-        };
-
-        if (string.IsNullOrEmpty(levelTemplate.beforeAVGId)) {
-          UIManager.OpenOne("globalBlackFade", action);
-        } else {
-          UIManager.OpenOne("globalBlackFade", () => {
-            UIManager.OpenOne("avg", null, levelTemplate.beforeAVGId, action);
-          });
-        }
+        UIManager.OpenOne("team_before_battle", null, levelTemplate);
       });
     }
 
     private void _UpdateLevelInfo() {
       LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(m_level.id);
-      m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.iconFileName);
+      m_icon.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
       m_title.text = levelTemplate.title;
       m_description.text = StringUtil.GetActualDescription(levelTemplate.description, levelTemplate.buffTemplates);
       // 常规奖励
@@ -91,13 +70,13 @@ namespace Yume.UI {
       // 敌方情报
       for (int i = 0; i < m_enemies.childCount; i++) {
         var tempGo = m_enemies.GetChild(i).gameObject;
-        if (i < levelTemplate.enemyTemplates.Length) {
+        if (i < levelTemplate.enemyTeams.Length) {
           // 小 心 闭 包
-          UnitData enemyData = levelTemplate.enemyTemplates[i].enemy;
+          UnitArgs enemyArgs = levelTemplate.enemyTeams[i].unitArgs;
           tempGo.SetActiveEx(true);
           tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-            (ResourceManager.Load<UnitTemplate>(enemyData.id).headFileName);
-          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("enemy_detail", null, enemyData));
+            (ResourceManager.Load<UnitTemplate>(enemyArgs.id).headFileName);
+          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("enemy_detail", null, enemyArgs));
         } else {
           tempGo.SetActiveEx(false);
         }

@@ -20,13 +20,13 @@ namespace Yume.Battle {
       consumeCardFolder = objectContainer.GetTransform("consumeCardFolder");
     }
 
-    public static Card CreateCard(Unit unit, CardData cardData, Func<Card, bool> onUseCard = null, Transform parent = null) {
+    public static Card CreateCard(Unit unit, CardArgs cardArgs, Func<Card, bool> onUseCard = null, Transform parent = null) {
       var prefab = ResourceManager.Load<GameObject>("card_prefab");
       if (parent == null) {
         parent = drawCardFolder;
       }
       var go = Object.Instantiate(prefab, parent);
-      return new Card(unit, cardData, go, onUseCard);
+      return new Card(unit, cardArgs, go, onUseCard);
     }
 
     public static void CleanUp() {

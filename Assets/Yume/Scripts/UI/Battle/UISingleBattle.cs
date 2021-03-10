@@ -92,7 +92,7 @@ namespace Yume.UI {
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
       m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
 
-      BattleManager.Init(levelTemplate, objectContainer);
+      BattleManager.Init((TeamArgs)args[1], levelTemplate, objectContainer);
 
       // 播放战斗中的bgm
       AudioManager.PlayBgm(levelTemplate.bgm);

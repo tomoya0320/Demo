@@ -31,7 +31,7 @@ namespace Yume.Battle {
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
     public static Action abort => () => Finish(BattleResult.ABORT);
 
-    public static void Init(LevelTemplate levelTemplate, ObjectContainer objectContainer) {
+    public static void Init(TeamArgs teamArgs, LevelTemplate levelTemplate, ObjectContainer objectContainer) {
       // 初始化工厂
       NumFactory.Init(objectContainer);
       UnitFactory.Init(objectContainer);
@@ -39,16 +39,10 @@ namespace Yume.Battle {
 
       s_levelTemplate = levelTemplate;
       // 初始化角色
-      var team = DataManager.playerTeams[DataManager.playerTeamIndex];
-      var tempChar = DataManager.GetCharacter(team.charId);
-      var cardList = new List<CardData>();
-      foreach (var cardGuid in team.cardGuids) {
-        cardList.Add(DataManager.GetCard(cardGuid).Clone() /*因为是引用类型会影响到原来的数据所以需要复制一份*/);
-      }
-      s_units.Add(UnitFactory.CreateUnit<Character>(tempChar, cardList.ToArray()));
+      s_units.Add(UnitFactory.CreateUnit<Character>(teamArgs.unitArgs, teamArgs.cardArgsArray));
       // 初始化敌人
-      foreach (var enemyTemplate in s_levelTemplate.enemyTemplates) {
-        s_units.Add(UnitFactory.CreateUnit<Enemy>(enemyTemplate.enemy, enemyTemplate.cards));
+      foreach (var enemyTeam in s_levelTemplate.enemyTeams) {
+        s_units.Add(UnitFactory.CreateUnit<Enemy>(enemyTeam.unitArgs, enemyTeam.cardArgsArray));
       }
       // 初始化BuffManagers BehaviorManagers
       foreach (var unit in s_units) {

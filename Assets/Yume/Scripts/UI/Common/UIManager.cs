@@ -135,11 +135,12 @@ namespace Yume.UI {
     /// <summary>
     /// 销毁栈中的所有UI并打开新的UI
     /// 相当于场景跳转
+    /// 关闭的UI不会被回收
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
     /// <param name="args"></param>
-    public static void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
+    public static void DestroyAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
 
@@ -153,6 +154,35 @@ namespace Yume.UI {
           stack.Pop().Destroy();
         }
         OpenOne(name, callback, args);
+      } else {
+        Debug.LogError($"UI未加载！name：{name}");
+      }
+    }
+    
+    /// <summary>
+    /// 立即销毁UI不播放close动画
+    /// 关闭的UI不会被回收
+    /// </summary>
+    /// <param name="name"></param>
+    public static void DestroyOne(string name) {
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        var data = ResourceManager.Load<UITemplate>(name);
+
+        if (s_blockDict[data.uiType] > 0) {
+          return;
+        }
+
+        var stack = s_uiStackDict[data.uiType];
+
+        if (stack.Count == 0) {
+          Debug.LogError("UI栈为空！");
+          return;
+        }
+        if (stack.Peek().name == name) {
+          stack.Pop().Destroy();
+        } else {
+          Debug.LogError($"UI未在栈顶！name：{name}");
+        }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }

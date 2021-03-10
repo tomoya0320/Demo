@@ -33,15 +33,15 @@ namespace Yume.Battle {
 
     #endregion
 
-    protected Unit(UnitData unit) {
-      var unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
-      level = unit.lv;
+    protected Unit(UnitArgs unitArgs) {
+      var unitTemplate = ResourceManager.Load<UnitTemplate>(unitArgs.id);
+      level = unitArgs.lv;
       id = unitTemplate.id;
       name = unitTemplate.name;
       camp = unitTemplate.camp;
-      passiveSkillLevel = unit.passiveSkillLv;
+      passiveSkillLevel = unitArgs.passiveSkillLv;
       passiveSkillPhases = unitTemplate.passiveSkillPhases;
-      attribs = MathUtil.CalculateAttribs(unit.id, unit.lv);
+      attribs = MathUtil.CalculateAttribs(unitArgs.id, unitArgs.lv);
 
       // 表现层
       var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);

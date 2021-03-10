@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Yume.Data.UITemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 31
+      Data: 32
     - Name: 
       Entry: 7
       Data: Yume.Data.UITemplate, Assembly-CSharp
@@ -672,6 +672,27 @@ MonoBehaviour:
     - Name: prefabName
       Entry: 1
       Data: card_update
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: team_before_battle
+    - Name: uiType
+      Entry: 3
+      Data: 0
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UITeamBeforeBattle
+    - Name: prefabName
+      Entry: 1
+      Data: team_before_battle
     - Name: cacheTime
       Entry: 4
       Data: 10

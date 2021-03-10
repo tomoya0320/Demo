@@ -7,7 +7,7 @@ using Yume.Resource;
 
 namespace Yume.UI {
   public class UITeam : UIBase {
-    private TeamData currentTeam {
+    protected TeamData currentTeam {
       get {
         if (m_curTeamIdx >= 0 && m_curTeamIdx < m_teams.Count) {
           return m_teams[m_curTeamIdx];
@@ -19,7 +19,7 @@ namespace Yume.UI {
     private List<TeamData> m_teams;
     private int m_curTeamIdx = -1;
     private Sprite m_noCharSprite;
-    private Sprite m_noCardSprite;
+    protected Sprite noCardSprite;
     private List<Button> m_cardBtns;
     private List<YButton> m_teamBtns;
 
@@ -30,7 +30,7 @@ namespace Yume.UI {
       m_cardBtns = new List<Button>(GetGameObject("cards").GetComponentsInChildren<Button>());
       m_teamBtns = new List<YButton>(GetGameObject("team_buttons").GetComponentsInChildren<YButton>());
       m_noCharSprite = ResourceManager.Load<Sprite>("noCharSprite");
-      m_noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
+      noCardSprite = ResourceManager.Load<Sprite>("noCardSprite");
 
       m_teams = DataManager.playerTeams;
       m_curTeamIdx = DataManager.playerTeamIndex;
@@ -100,7 +100,7 @@ namespace Yume.UI {
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
           m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
         } else {
-          m_cardBtns[i].image.sprite = m_noCardSprite;
+          m_cardBtns[i].image.sprite = noCardSprite;
         }
       }
     }

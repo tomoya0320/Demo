@@ -36,11 +36,11 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      UnitData unit = args[0] as UnitData;
-      UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(unit.id);
-      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, unit.lv);
+      UnitArgs enemyArgs = (UnitArgs)args[0];
+      UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(enemyArgs.id);
+      Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, enemyArgs.lv);
 
-      m_lvText.text = $"Lv:{unit.lv}";
+      m_lvText.text = $"Lv:{enemyArgs.lv}";
       m_description.text = unitTemplate.description;
       m_illustration.sprite = ResourceManager.Load<Sprite>(unitTemplate.illustrationFileName);
 
@@ -50,8 +50,8 @@ namespace Yume.UI {
         }
       }
 
-      PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[unit.passiveSkillLv];
-      m_passiveSkillName.text = $"Lv{unit.passiveSkillLv + 1} {passiveSkillPhase.name}";
+      PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[enemyArgs.passiveSkillLv];
+      m_passiveSkillName.text = $"Lv{enemyArgs.passiveSkillLv + 1} {passiveSkillPhase.name}";
       m_passiveSkillIcon.sprite = ResourceManager.Load<Sprite>(passiveSkillPhase.iconFileName);
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
 

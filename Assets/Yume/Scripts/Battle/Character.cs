@@ -33,12 +33,12 @@ namespace Yume.Battle {
     protected override Transform folder => UnitFactory.charFolder;
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
-    public Character(UnitData character, CardData[] cardDatas) : base(character) {
+    public Character(UnitArgs charArgs, CardArgs[] cardArgsArray) : base(charArgs) {
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         cardHeapDict.Add(cardHeapType, new List<Card>());
       }
-      foreach (var cardData in cardDatas) {
-        cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardData, _OnUseCard));
+      foreach (var cardArgs in cardArgsArray) {
+        cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardArgs, _OnUseCard));
       }
     }
 

@@ -20,19 +20,19 @@ namespace Yume.Battle {
     public CardAnimCallback cardAnimCallback { get; }
     public CardPhase cardPhase => cardTemplate.cardPhases[data.phase];
 
-    public Card(Unit unit, CardData data, GameObject root, Func<Card, bool> onUseCard = null) {
+    public Card(Unit unit, CardArgs args, GameObject root, Func<Card, bool> onUseCard = null) {
       // 默认将卡牌隐藏
       root.SetActiveEx(false);
       owner = unit;
       gameObject = root;
       rectTransform = gameObject.GetComponent<RectTransform>();
       
-      this.data = new CardData(data.id, data.phase);
+      data = new CardData(args.id, args.phase);
       cardTemplate = ResourceManager.Load<CardTemplate>(this.data.id);
       
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
-      if (this.data.phase == cardTemplate.cardPhases.Length - 1) {
+      if (data.phase == cardTemplate.cardPhases.Length - 1) {
         objectContainer.GetComponent<Text>("NameText").text += "[MAX]";
       }
       objectContainer.GetComponent<Text>("PhaseText").text = $"{this.data.phase + 1}";

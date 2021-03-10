@@ -12,13 +12,13 @@ namespace Yume.Battle {
       enemyFolder = objectContainer.GetTransform("enemyFolder");
     }
 
-    public static Unit CreateUnit<T>(UnitData unitData, CardData[] cardDatas) where T : Unit {
+    public static Unit CreateUnit<T>(UnitArgs unitArgs, CardArgs[] cardArgsArray) where T : Unit {
       Unit unit = null;
 
       if (typeof(Character).IsAssignableFrom(typeof(T))) {
-        unit = new Character(unitData, cardDatas);
+        unit = new Character(unitArgs, cardArgsArray);
       } else if (typeof(Enemy).IsAssignableFrom(typeof(T))) {
-        unit = new Enemy(unitData, cardDatas);
+        unit = new Enemy(unitArgs, cardArgsArray);
       }
 
       return unit;

@@ -204,27 +204,74 @@ namespace Yume.Data {
     public float cacheTime;
   }
 
-  public struct EnemyTemplate {
-    public UnitData enemy;
-    public CardData[] cards;
+  public enum LevelType {
+    /// <summary>
+    /// 主线关卡
+    /// </summary>
+    MAIN_STORY,
+    /// <summary>
+    /// 教程关卡
+    /// </summary>
+    GUIDE,
   }
 
+  public struct UnitArgs {
+    public string id;
+    public int lv;
+    public int passiveSkillLv;
+
+    public static UnitArgs Create(UnitData unitData) {
+      UnitArgs unitArgs = new UnitArgs {
+        id = unitData.id,
+        lv = unitData.lv,
+        passiveSkillLv = unitData.passiveSkillLv
+      };
+      return unitArgs;
+    }
+  }
+
+  public struct CardArgs {
+    public string id;
+    public int phase;
+
+    public static CardArgs Create(CardData cardData) {
+      CardArgs cardArgs = new CardArgs {
+        id = cardData.id,
+        phase = cardData.phase
+      };
+      return cardArgs;
+    }
+  }
+
+  public struct TeamArgs {
+    public UnitArgs unitArgs;
+    public CardArgs[] cardArgsArray;
+
+    public TeamArgs(UnitArgs unitArgs, CardArgs[] cardArgsArray) {
+      this.unitArgs = unitArgs;
+      this.cardArgsArray = cardArgsArray;
+    }
+  }
+  
   public struct LevelTemplate {
     public string id;
     public string bgm;
     public string title;
+    public LevelType type;
     public string background;
     [TextArea]
     public string description;
-    public string iconFileName;
     public string beforeAVGId;
     public string afterAVGId;
     public string preLevelId;
     public Rewards regularRewards;
     public Rewards firstCompletedRewards;
-    public EnemyTemplate[] enemyTemplates;
+    public TeamArgs[] enemyTeams;
     public Blackboard blackboard;
     public BuffTemplate[] buffTemplates;
+    public bool isCustomTeam;
+    [ShowIf("isCustomTeam")]
+    public TeamArgs customTeam;
   }
 
   public enum BehaviorTime {

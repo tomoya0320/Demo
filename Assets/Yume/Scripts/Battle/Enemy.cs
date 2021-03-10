@@ -11,10 +11,10 @@ namespace Yume.Battle {
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
 
-    public Enemy(UnitData enemy, CardData[] cardDatas) : base(enemy) {
+    public Enemy(UnitArgs enemyArgs, CardArgs[] cardArgsArray) : base(enemyArgs) {
       m_canvasGroup = gameObject.GetComponentEx<CanvasGroup>();
-      foreach (var cardData in cardDatas) {
-        cards.Add(CardFactory.CreateCard(this, cardData, null, gameObject.transform));
+      foreach (var cardArgs in cardArgsArray) {
+        cards.Add(CardFactory.CreateCard(this, cardArgs, null, gameObject.transform));
       }
     }
 

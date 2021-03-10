@@ -18,7 +18,7 @@ namespace Yume.UI {
     private void _GoToMain() {
       DataManager.LoadUserData();
       RedDotManager.InitData();
-      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseAllAndOpenOne("main"));
+      UIManager.OpenOne("globalBlackFade", () => UIManager.DestroyAllAndOpenOne("main"));
     }
   }
 }
