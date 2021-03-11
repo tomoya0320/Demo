@@ -90,11 +90,13 @@ namespace Yume.Data {
 
     public static void GetAttachment(MailData mail) {
       if (!mail.isReceived) {
-        var mailTemplate = ResourceManager.Load<MailTemplate>(mail.id);
+        mail.isReceived = true;
+        MailTemplate mailTemplate = ResourceManager.Load<MailTemplate>(mail.id);
         foreach (var item in mailTemplate.attachments) {
           AddItem(item.id, item.count);
-        }   
-        mail.isReceived = true;
+        }
+        UIManager.OpenOne("item_settlement", null, mailTemplate.attachments);
+        
         RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_MAIL, mail.id, MainMailRedDotTree.MAIN_MAIL, 0);
         s_saveData = true;
       }
@@ -249,18 +251,16 @@ namespace Yume.Data {
     }
 
     private static void _ActivateTask(TaskData task) {
-      if (task.state == TaskState.INACTIVE) {
-        var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
-        task.state = TaskState.INPROCESS;
+      var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
+      task.state = TaskState.INPROCESS;
 
-        if (taskRequest.method == Method.HAD) {
-          _SyncTaskHadCount(task);
-        }
-
-        _CheckTask(task);
-        EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
-        s_saveData = true;
+      if (taskRequest.method == Method.HAD) {
+        _SyncTaskHadCount(task);
       }
+
+      _CheckTask(task);
+      EventCenter.Broadcast(EventType.REFRESH_TASK_VIEW);
+      s_saveData = true;
     }
 
     private static void _CheckTask(TaskData task) {
@@ -305,13 +305,13 @@ namespace Yume.Data {
       if (task.state == TaskState.COMPLETED) {
         task.state = TaskState.FINAL;
         TaskTemplate taskTemplate = ResourceManager.Load<TaskTemplate>(task.id);
-        foreach (ItemArgs itemArgs in taskTemplate.taskRewards.items) {
-          AddItem(itemArgs.id, itemArgs.count);
-        }
-
         if (taskTemplate.taskRequest.consumable && taskTemplate.taskRequest.type == RequestType.ITEM_NUM) {
           ConsumeItem(taskTemplate.taskRequest.requirementId, taskTemplate.taskRequest.requiredCount, false);
         }
+        foreach (ItemArgs itemArgs in taskTemplate.taskRewards.items) {
+          AddItem(itemArgs.id, itemArgs.count);
+        }
+        UIManager.OpenOne("item_settlement", null, taskTemplate.taskRewards.items);
 
         RedDotManager.SetRedDotNum(RedDotTreeType.MAIN_TASK, task.id, taskTemplate.type.GetDescription(), 0);
 
