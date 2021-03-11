@@ -10,8 +10,6 @@ namespace Yume.Resource {
     private static Dictionary<(string key, Type type), object> s_resourceDict = new Dictionary<(string, Type), object>();
 
     public static IEnumerator Init(float min = 0, float max = 1.0f) {
-      yield return Addressables.InitializeAsync();
-
       var locationList = Addressables.LoadResourceLocationsAsync("Preload");
       yield return locationList;
 
@@ -43,16 +41,8 @@ namespace Yume.Resource {
           s_resourceDict.Add((location.PrimaryKey, location.ResourceType), res.Result);
         }
 
-        Game.instance.initProcess = min + (max - min) * (process++ / locationList.Result.Count);
+        Game.instance.process = min + (max - min) * (process++ / locationList.Result.Count);
       }
-
-      #region 回收内存
-      
-      yield return Resources.UnloadUnusedAssets();
-
-      GC.Collect();
-      
-      #endregion
     }
 
     // 加载图片、音频、预制体等通用方法

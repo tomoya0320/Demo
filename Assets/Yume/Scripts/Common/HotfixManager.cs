@@ -15,7 +15,7 @@ namespace Yume.Hotfix {
 
         XLuaUtil.DoString(luaRes.Result.text);
 
-        Game.instance.initProcess = min + (max - min) * (process++ / locationList.Result.Count);
+        Game.instance.process = min + (max - min) * (process++ / locationList.Result.Count);
       }
     }
   }

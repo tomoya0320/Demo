@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using Yume.RedDotSystem;
 using Yume.Resource;
@@ -10,15 +12,12 @@ using Yume.Hotfix;
 
 namespace Yume {
   public class Game : SingletonMono<Game> {
+    private Text m_tipText;
+    private Image m_processImg;
     private Button m_goToLoginBtn;
-    private Image m_initProcessImg;
     private GameObject m_initPanel;
-    public float initProcess {
-      set {
-        m_initProcessImg.fillAmount = value;
-        m_goToLoginBtn.gameObject.SetActiveEx(value >= 1.0f);
-        m_initProcessImg.gameObject.SetActiveEx(value < 1.0f);
-      }
+    public float process {
+      set => m_processImg.fillAmount = value;
     }
 
     protected override void OnInit() {
@@ -29,8 +28,9 @@ namespace Yume {
       var initPanelPrefab = Resources.Load<GameObject>("Init");
       m_initPanel = Instantiate(initPanelPrefab, parent);
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
+      m_tipText = objectContainer.GetComponent<Text>("tip");
+      m_processImg = objectContainer.GetComponent<Image>("processImg");
       m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
-      m_initProcessImg = objectContainer.GetComponent<Image>("initProcessImg");
       // 进入登录界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
@@ -42,31 +42,51 @@ namespace Yume {
           );
         }
       );
-      // 开始初始化各类Manager
-      StartCoroutine(_InitAll());
+      // 初始化
+      StartCoroutine(_Init());
     }
 
-    private IEnumerator _InitAll() {
-      #region 异步
+    private IEnumerator _Init() {
+      process = 0;
+      m_tipText.text = "检查游戏资源中";
+      m_processImg.gameObject.SetActiveEx(true);
+      
+      yield return Addressables.InitializeAsync();
 
+      var sizehandle = Addressables.GetDownloadSizeAsync("Download");
+      yield return sizehandle;
+
+      if (sizehandle.Result > 0) {
+        m_tipText.text = $"正在下载游戏资源({(sizehandle.Result / 1024.0f / 1024.0f):0.00}MB)";
+        var downloadHandle = Addressables.DownloadDependenciesAsync("Download");
+        while (!downloadHandle.IsDone) {
+          process = downloadHandle.PercentComplete;
+          yield return null;
+        }
+        if (downloadHandle.Status != AsyncOperationStatus.Succeeded) {
+          m_tipText.text = "下载出错请重启游戏";
+          yield break;
+        }
+      }
+      
+      process = 0;
+      m_tipText.text = "游戏初始化中";
+      
       // Hotfix
       yield return HotfixManager.Init(0, 0.1f);
-
       // Resource
       yield return ResourceManager.Init(0.1f, 0.9f);
-
-      #endregion
-
-      #region 同步
-
+      
       UIManager.Init();
       AudioManager.Init();
       RedDotManager.Init();
+      
+      process = 1.0f;
+      
+      yield return Resources.UnloadUnusedAssets();
 
-      #endregion
-
-      // Final
-      initProcess = 1.0f;
+      m_processImg.gameObject.SetActiveEx(false);
+      m_goToLoginBtn.gameObject.SetActiveEx(true);
     }
 
     private void Update() {
