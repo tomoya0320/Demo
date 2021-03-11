@@ -4,6 +4,7 @@ using UnityEngine;
 using Yume.Broadcast;
 using Yume.RedDotSystem;
 using Yume.Resource;
+using Yume.UI;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Data {
@@ -202,13 +203,6 @@ namespace Yume.Data {
         tempItem.count += count;
       }
 
-      // 提示
-      ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(id);
-      Sprite itemIcon = ResourceManager.Load<Sprite>(itemTemplate.iconFileName);
-      // 小 心 引 用 类 型 (改了后没这个问题了)
-      string content = $"{StringMap.GET}{itemTemplate.name}*{count}";
-      MessageManager.AddMessage(new Message(Message.Style.FADE, content, true, itemIcon));
-
       // 经验值额外再处理一次
       if (id == StringMap.EXP_ITEM_ID) {
         _AddExpInternal();
@@ -387,18 +381,25 @@ namespace Yume.Data {
     public static void CompleteLevel(string id) {
       var level = playerLevels.Find(l => l.id == id);
       if (level != null) {
+        List<ItemArgs> itemArgsList = new List<ItemArgs>();
         LevelTemplate levelTemplate = ResourceManager.Load<LevelTemplate>(id);
         if (!level.completed) {
           level.completed = true;
-          foreach (var item in levelTemplate.firstCompletedRewards.items) {
-            AddItem(item.id, item.count);
+          foreach (var itemArgs in levelTemplate.firstCompletedRewards.items) {
+            AddItem(itemArgs.id, itemArgs.count);
+            itemArgsList.Add(itemArgs);
           }
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
           s_saveData = true;
         }
-        foreach (var item in levelTemplate.regularRewards.items) {
-          AddItem(item.id, item.count);
+        foreach (var itemArgs in levelTemplate.regularRewards.items) {
+          AddItem(itemArgs.id, itemArgs.count);
+          itemArgsList.Add(itemArgs);
+        }
+        if (itemArgsList.Count > 0) {
+          // 显示道具结算界面
+          UIManager.OpenOne("item_settlement", null, itemArgsList.ToArray());
         }
       }
     }

@@ -99,41 +99,33 @@ namespace Yume.Battle {
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;
+      
+      // 避免引用到BattleManager的变量因为这些变量后面就置空了
+      LevelTemplate levelTemplate = s_levelTemplate;
 
-      // TODO:战斗结算 测试用
-      Action onExitBattle = _CleanUp;
-      switch (battleResult) {
-        case BattleResult.WIN:
-          // 避免引用到BattleManager的变量 因为这些变量后面就置空了
-          LevelTemplate levelTemplate = s_levelTemplate;
-          if (!string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
-            Action action = () => {
-              // TODO:暂时先播放默认的BGM
-              AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
-              MessageManager.AddMessage(new Message(Message.Style.FADE, "作战胜利"));
-              DataManager.CompleteLevel(levelTemplate.id);
-            };
-            onExitBattle += () => UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action);
-          }
-          break;
-        case BattleResult.LOSE:
-          // TODO:暂时先播放默认的BGM
-          AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
-          MessageManager.AddMessage(new Message(Message.Style.FADE, "作战失败"));
-          break;
-        case BattleResult.ABORT:
-          // TODO:暂时先播放默认的BGM
-          AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
-          MessageManager.AddMessage(new Message(Message.Style.FADE, "放弃作战"));
-          break;
-        default:
-          Debug.LogError("战斗结果为空！");
-          return;
-      }
-
-      // 退出战斗界面
+      // 退出战斗
       UIManager.OpenOne(
-        "globalBlackFade", () => { UIManager.CloseOne("single_battle", onExitBattle); }
+        "globalBlackFade", () => {
+          // 先清理
+          _CleanUp();
+          // 再关闭战斗UI
+          UIManager.CloseOne("single_battle");
+          // 最后结算
+          Action action = () => {
+            AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
+            string content = StringUtil.GetStringByBattleResult(battleResult);
+            MessageManager.AddMessage(new Message(Message.Style.FADE, content));
+            if (battleResult == BattleResult.WIN) {
+              DataManager.CompleteLevel(levelTemplate.id);
+            }
+          };
+          // 判断胜利的情况下是否需要播放avg
+          if (battleResult == BattleResult.WIN && !string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
+            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action);
+          } else {
+            action();
+          }
+        }
       );
     }
 
