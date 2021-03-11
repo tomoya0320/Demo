@@ -80,7 +80,6 @@ namespace Yume {
     private void LateUpdate() {
       DataManager.OnLateUpdate();
     }
-
 #if BETA
     private void OnGUI() {
       if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {

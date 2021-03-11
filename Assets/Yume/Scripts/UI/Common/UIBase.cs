@@ -142,7 +142,6 @@ namespace Yume.UI {
     private const int DOWN_SAMPLE = 2;
     private RawImage m_bgRawImage;
     private RenderTexture m_renderTexture;
-
     private static Material s_material;
     private static Material material {
       get {
@@ -161,9 +160,7 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       m_renderTexture = RenderTexture.GetTemporary(Screen.width, Screen.height);
-      Camera.main.targetTexture = m_renderTexture;
-      Camera.main.Render();
-      Camera.main.targetTexture = null;
+      Graphics.Blit(CameraHelper.instance.lastFrameRT, m_renderTexture);
 
       int rtW = m_renderTexture.width / DOWN_SAMPLE;
       int rtH = m_renderTexture.height / DOWN_SAMPLE;
