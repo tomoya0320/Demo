@@ -54,8 +54,7 @@ Shader "UI/GlobalCircleBlackFade"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 2.0
-
+  
             #include "UnityCG.cginc"
             #include "UnityUI.cginc"
 
@@ -76,7 +75,6 @@ Shader "UI/GlobalCircleBlackFade"
                 fixed4 color    : COLOR;
                 float2 texcoord  : TEXCOORD0;
                 float4 worldPosition : TEXCOORD1;
-                half4  mask : TEXCOORD2;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -92,17 +90,10 @@ Shader "UI/GlobalCircleBlackFade"
                 v2f OUT;
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
-                float4 vPosition = UnityObjectToClipPos(v.vertex);
                 OUT.worldPosition = v.vertex;
-                OUT.vertex = vPosition;
+                OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
 
-                float2 pixelSize = vPosition.w;
-                pixelSize /= float2(1, 1) * abs(mul((float2x2)UNITY_MATRIX_P, _ScreenParams.xy));
-
-                float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
-                float2 maskUV = (v.vertex.xy - clampedRect.xy) / (clampedRect.zw - clampedRect.xy);
-                OUT.texcoord = float4(v.texcoord.x, v.texcoord.y, maskUV.x, maskUV.y);
-                OUT.mask = half4(v.vertex.xy * 2 - clampedRect.xy - clampedRect.zw, 0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) + abs(pixelSize.xy)));
+                OUT.texcoord = v.texcoord;
 
                 OUT.color = v.color;
                 return OUT;
@@ -110,29 +101,28 @@ Shader "UI/GlobalCircleBlackFade"
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                half4 color = IN.color;
-
-                float2 pos = IN.vertex;
-                float2 center = float2(IN.color.r * _ScreenParams.x, IN.color.g * _ScreenParams.y);
-                float len = 0.5 * length(_ScreenParams);
-                float deltaLen = length(pos - center);
-                if(deltaLen <= (1 - IN.color.b) * (len + length(center - 0.5 * _ScreenParams))){
-                  color = fixed4(0, 0, 0, 0);
-                } else {
-                  color = fixed4(0, 0, 0, IN.color.a); 
-                }
+                half4 color = half4(0, 0, 0, 1);
 
                 #ifdef UNITY_UI_CLIP_RECT
-                    half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy)) * IN.mask.zw);
-                    color.a *= m.x * m.y;
+                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
                 #endif
 
                 #ifdef UNITY_UI_ALPHACLIP
                     clip (color.a - 0.001);
                 #endif
 
-                color.rgb *= color.a;
+                float2 pos = IN.vertex.xy / _ScreenParams.xy;
+                pos.y *= _ScreenParams.y / _ScreenParams.x;
+                float2 center = float2(IN.color.r, IN.color.g);
+                center.y *= _ScreenParams.y / _ScreenParams.x;
 
+                #if defined(SHADER_API_D3D11) || defined(SHADER_API_D3D9)
+                    pos.y = 1 - pos.y;
+                    center.y = 1 - center.y;
+                #endif
+
+                color.a *= step(1.0 - IN.color.b, length(pos - center));
+                
                 return color;
             }
             ENDCG

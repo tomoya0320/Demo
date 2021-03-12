@@ -18,7 +18,7 @@ namespace Yume.UI {
     private void _GoToMain() {
       DataManager.LoadUserData();
       RedDotManager.InitData();
-      UIManager.OpenOne("globalBlackFade", () => UIManager.DestroyAllAndOpenOne("main"));
+      UIManager.OpenOne("globalCircleBlackFade", () => UIManager.DestroyAllAndOpenOne("main"), ScreenUtil.mousePosNormalized);
     }
   }
 }
