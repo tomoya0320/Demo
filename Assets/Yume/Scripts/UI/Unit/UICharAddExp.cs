@@ -196,7 +196,7 @@ namespace Yume.UI {
         totalExp, out m_lv, out m_exp
       );
       m_consumeGold = MathUtil.CalNeedGoldByCharExp(totalExp);
-      m_lvText.text = $"Lv:{m_lv}/{m_unitTemplate.maxLevel}";
+      m_lvText.text = $"Lv:{m_lv + 1}/{m_unitTemplate.maxLevel + 1}";
       m_goldText.text = DataManager.GetItemCount(StringMap.GOLD_ITEM_ID).ToString();
       m_consumeGoldText.text = string.Format(StringMap.CONSUME_GOLD, m_consumeGold);
       if (isMaxLv) {
