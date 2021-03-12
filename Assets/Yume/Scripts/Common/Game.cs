@@ -31,14 +31,18 @@ namespace Yume {
       m_tipText = objectContainer.GetComponent<Text>("tip");
       m_processImg = objectContainer.GetComponent<Image>("processImg");
       m_goToLoginBtn = objectContainer.GetComponent<Button>("goToLoginBtn");
-      // 进入登录界面的点击事件
+      // 进入主界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
+          DataManager.LoadUserData();
+          RedDotManager.InitData();
           UIManager.OpenOne(
-            "globalBlackFade", () => {
+            "globalCircleBlackFade",
+            () => {
               Destroy(m_initPanel);
-              UIManager.OpenOne("login");
-            }
+              UIManager.DestroyAllAndOpenOne("main");
+            },
+            ScreenUtil.mousePosNormalized
           );
         }
       );
