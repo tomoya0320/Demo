@@ -99,7 +99,7 @@ namespace Yume.Battle {
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;
-      
+
       // 避免引用到BattleManager的变量因为这些变量后面就置空了
       LevelTemplate levelTemplate = s_levelTemplate;
 
@@ -112,7 +112,6 @@ namespace Yume.Battle {
           UIManager.CloseOne("single_battle");
           // 最后结算
           Action action = () => {
-            AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
             string content = StringUtil.GetStringByBattleResult(battleResult);
             MessageManager.AddMessage(new Message(Message.Style.FADE, content));
             if (battleResult == BattleResult.WIN) {
@@ -121,8 +120,9 @@ namespace Yume.Battle {
           };
           // 判断胜利的情况下是否需要播放avg
           if (battleResult == BattleResult.WIN && !string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
-            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action);
+            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action, StringMap.DEFAULT_BGM);
           } else {
+            action += () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
             action();
           }
         }
