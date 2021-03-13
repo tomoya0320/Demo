@@ -8,6 +8,7 @@ using Yume.UI;
 namespace Yume.AVG {
   [CreateAssetMenu]
   public class AVGGraph : NodeGraph {
+    public bool disableSkip;
     [NonSerialized]
     public int block;
     [NonSerialized]

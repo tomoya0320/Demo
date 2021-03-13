@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using Yume.Broadcast;
@@ -406,13 +407,24 @@ namespace Yume.Data {
 
     #endregion
 
+    #region Player
+    
+    public static void AlterName(string newName) {
+      s_userDB.player.name = newName;
+      s_saveData = true;
+    }
+
+    #endregion
+
     #region Load&Save
 
-    public static void LoadUserData() {
+    public static bool LoadUserData() {
       if (PlayerPrefs.HasKey(USER_DB_KEY)) {
         s_userDB = JsonConvert.DeserializeObject<UserDB>(PlayerPrefs.GetString(USER_DB_KEY));
+        return true;
       } else {
         s_userDB = UserDB.Create();
+        return false;
       }
     }
 

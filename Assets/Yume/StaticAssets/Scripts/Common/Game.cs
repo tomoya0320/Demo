@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -40,16 +41,17 @@ namespace Yume {
       // 进入主界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
-          DataManager.LoadUserData();
+          Action action = () => {
+            Destroy(m_initPanel);
+            UIManager.OpenOne("main");
+          };
+          if (DataManager.LoadUserData()) {
+            UIManager.OpenOne("globalCircleBlackFade", action, ScreenUtil.mousePosNormalized);
+          } else {
+            string openingAVG = ResourceManager.Load<string>("openingAVG");
+            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, action));
+          }
           RedDotManager.InitData();
-          UIManager.OpenOne(
-            "globalCircleBlackFade",
-            () => {
-              Destroy(m_initPanel);
-              UIManager.DestroyAllAndOpenOne("main");
-            },
-            ScreenUtil.mousePosNormalized
-          );
         }
       );
       // 初始化

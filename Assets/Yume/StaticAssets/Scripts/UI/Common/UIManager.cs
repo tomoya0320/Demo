@@ -18,7 +18,7 @@ namespace Yume.UI {
     private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
     private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
     private static Dictionary<UIType, List<(float createTime, UIBase ui)>> s_uiCacheDict = new Dictionary<UIType, List<(float, UIBase)>>();
-    
+
     public static void Init() {
       var root = GameObject.Find("UIRoot");
       topCanvas = root.FindGo("TopCanvas").transform;
@@ -34,8 +34,9 @@ namespace Yume.UI {
 
       onBackList.Add(
         () => {
-          if (s_uiStackDict[UIType.NORMAL].Count > 1) {
-            CloseOne(s_uiStackDict[UIType.NORMAL].Peek().name);
+          var uiStack = s_uiStackDict[UIType.NORMAL];
+          if (uiStack.Count > 1 || (uiStack.Count > 0 && uiStack.Peek().name == "confirmation")) {
+            CloseOne(uiStack.Peek().name);
           } else {
             OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
           }

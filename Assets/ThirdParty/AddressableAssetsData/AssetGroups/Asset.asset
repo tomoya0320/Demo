@@ -127,8 +127,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: ddf5c47724c070949965b3812fe49dd7, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: ddf5c47724c070949965b3812fe49dd7, type: 2}
   - m_GUID: 8c5b1508c4701d54f857a5f39715c9d2
     m_Address: detach_attrib
     m_ReadOnly: 0
@@ -169,6 +169,14 @@ MonoBehaviour:
     - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: c8c83c15073efde4eb8db28bd5f661ff
+    m_Address: avg_opening
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: c8c83c15073efde4eb8db28bd5f661ff, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: c8c83c15073efde4eb8db28bd5f661ff, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
