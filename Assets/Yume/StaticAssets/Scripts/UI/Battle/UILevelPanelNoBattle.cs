@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Audio;
 using Yume.Data;
 using Yume.Resource;
 
@@ -30,7 +31,8 @@ namespace Yume.UI {
           "globalBlackFade", () => {
             // 把自己销毁掉
             UIManager.DestroyOne(name);
-            UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action);
+            string lateBGM = AudioManager.GetCurrentBgmName();
+            UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action, lateBGM);
           }
         );
       });

@@ -118,11 +118,12 @@ namespace Yume.Battle {
               DataManager.CompleteLevel(levelTemplate.id);
             }
           };
+          const string lateBGM = StringMap.DEFAULT_BGM;
           // 判断胜利的情况下是否需要播放avg
           if (battleResult == BattleResult.WIN && !string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
-            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action, StringMap.DEFAULT_BGM);
+            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action, lateBGM);
           } else {
-            action += () => AudioManager.PlayBgm(StringMap.DEFAULT_BGM);
+            action += () => AudioManager.PlayBgm(lateBGM);
             action();
           }
         }

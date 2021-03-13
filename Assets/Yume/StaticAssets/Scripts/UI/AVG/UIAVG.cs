@@ -72,26 +72,15 @@ namespace Yume.UI {
         () =>
           UIManager.OpenOne("avg_history", null, historyDialogues)
       );
+      
       autoButton.onClick.AddListener(() => _SetAutoState(!m_auto));
+      skipButton.onClick.AddListener(Skip);
+      skipVideoButton.onClick.AddListener(SkipVideo);
     }
 
-    private void _AddSkipListener() {
-      skipButton.onClick.RemoveAllListeners();
-      skipVideoButton.onClick.RemoveAllListeners();
-
-      if (m_avgGraph.disableSkip) {
-        skipButton.gameObject.SetActiveEx(false);
-      } else {
-        skipButton.gameObject.SetActiveEx(true);
-        skipButton.onClick.AddListener(Skip);
-      }
-
-      if (m_avgGraph.disableSkipVideo) {
-        skipVideoButton.gameObject.SetActiveEx(false);
-      } else {
-        skipVideoButton.gameObject.SetActiveEx(true);
-        skipVideoButton.onClick.AddListener(SkipVideo);
-      }
+    private void _CheckSkipButtons() {
+      skipButton.gameObject.SetActiveEx(!m_avgGraph.disableSkip);
+      skipVideoButton.gameObject.SetActiveEx(!m_avgGraph.disableSkipVideo);
     }
 
     private void _SetAutoState(bool state) {
@@ -133,8 +122,8 @@ namespace Yume.UI {
       onQuitAVG = args[1] as Action;
       m_lateBGM = args[2] as string;
       
-      // 跳过事件需要每次打开的时候都判断一下能否注册
-      _AddSkipListener();
+      // 检查是否激活跳过按钮
+      _CheckSkipButtons();
       
       UIManager.onBackList.Add(Skip);
       
