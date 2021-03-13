@@ -8,7 +8,7 @@ using Yume.UI;
 namespace Yume.AVG {
   public class PlayVideo : LeafNodeBase {
     [SerializeField]
-    private VideoClip _clip;
+    private string _clipName;
 
     public override void Run(UIAVG avg) {
       CoroutineHelper.instance.Run(_PlayVideo(avg));
@@ -25,7 +25,7 @@ namespace Yume.AVG {
       avg.videoRawImage.texture = renderTexture;
       avg.videoPlayer.targetTexture = renderTexture;
 
-      avg.videoPlayer.clip = _clip;
+      avg.videoPlayer.clip = ResourceManager.Load<VideoClip>(_clipName);
       avg.videoPlayer.Play();
       yield return new WaitUntil(() => !avg.videoPlayer.isPlaying);
 
