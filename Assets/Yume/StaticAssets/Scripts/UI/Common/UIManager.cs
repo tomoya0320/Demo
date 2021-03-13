@@ -7,13 +7,11 @@ using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
-  // TODO:增加非栈UI的支持
   public static class UIManager {
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
-    public static CanvasGroup globalIneraction{ private set; get; }
     public static bool activeBack = true;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
@@ -27,7 +25,6 @@ namespace Yume.UI {
       tipCanvas = root.FindGo("TipCanvas").transform;
       cacheCanvas = root.FindGo("CacheCanvas").transform;
       normalCanvas = root.FindGo("NormalCanvas").transform;
-      globalIneraction = root.GetComponent<CanvasGroup>();
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_blockDict.Add(type, 0);
@@ -217,20 +214,7 @@ namespace Yume.UI {
         Debug.LogError($"UI未加载！name：{name}");
       }
     }
-
-    /// <summary>
-    /// 设置全局禁止交互的遮罩
-    /// 同步用户数据时使用
-    /// </summary>
-    /// <param name="active"></param>
-    public static void SetGlobalInteractable(bool active) {
-      if (globalIneraction) {
-        globalIneraction.interactable = active;
-      } else {
-        Debug.LogError("全局交互遮罩未正确设置！");
-      }
-    }
-
+    
     /// <summary>
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
@@ -261,8 +245,6 @@ namespace Yume.UI {
           return normalCanvas;
         case UIType.TOP:
           return topCanvas;
-        case UIType.TIP:
-          return tipCanvas;
         default:
           return null;
       }

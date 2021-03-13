@@ -31,7 +31,7 @@ namespace Yume {
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
       // 实例化初始化UI
       var parent = GameObject.Find("NormalCanvas").transform;
-      var initPanelPrefab = Resources.Load<GameObject>("Init");
+      var initPanelPrefab = Resources.Load<GameObject>("init");
       m_initPanel = Instantiate(initPanelPrefab, parent);
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_tipText = objectContainer.GetComponent<Text>("tip");
@@ -90,6 +90,7 @@ namespace Yume {
       UIManager.Init();
       AudioManager.Init();
       RedDotManager.Init();
+      MessageManager.Init(); // 依赖UIManager
       
       process = 1.0f;
       

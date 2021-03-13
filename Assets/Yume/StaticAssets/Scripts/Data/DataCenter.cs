@@ -198,7 +198,6 @@ namespace Yume.Data {
   public enum UIType {
     NORMAL,
     TOP,
-    TIP
   }
 
   public struct UITemplate {

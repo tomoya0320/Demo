@@ -5,9 +5,15 @@ Message = CS.Yume.Message
 
 --[[
 xlua.hotfix(CS.Yume.UI.UIMain,'_UpdateUserInfo', function (self)
-    MessageManager.AddMessage(Message(Message.Style.FADE,'测试'))
-    MessageManager.AddMessage(Message(Message.Style.SLIDE,'测试'))
-    MessageManager.AddMessage(Message(Message.Style.CENTER,'测试'))
+    MessageManager.AddMessage(Message(Message.Style.FADE,'测试1'))
+    MessageManager.AddMessage(Message(Message.Style.FADE,'测试2'))
+    MessageManager.AddMessage(Message(Message.Style.FADE,'测试3'))
+    MessageManager.AddMessage(Message(Message.Style.SLIDE,'测试1'))
+    MessageManager.AddMessage(Message(Message.Style.SLIDE,'测试2'))
+    MessageManager.AddMessage(Message(Message.Style.SLIDE,'测试3'))
+    MessageManager.AddMessage(Message(Message.Style.CENTER,'测试1'))
+    MessageManager.AddMessage(Message(Message.Style.CENTER,'测试2'))
+    MessageManager.AddMessage(Message(Message.Style.CENTER,'测试3'))
     self.m_goldNumText.text = DataManager.GetItemCount(StringMap.GOLD_ID)
 end)
 --]]
