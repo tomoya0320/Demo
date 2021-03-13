@@ -20,8 +20,190 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  _serverUrlType: 0
-  _remoteServerUrl: http://26t84737h4.wicp.vip/GameServlet
-  _localServerUrl: http://192.168.31.206:8080/GameServlet
-  _userServlet: UserServlet
+    SerializationNodes:
+    - Name: _initialChars
+      Entry: 7
+      Data: 0|Yume.Data.UnitArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.UnitArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: char_001
+    - Name: lv
+      Entry: 3
+      Data: 0
+    - Name: passiveSkillLv
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _initialCards
+      Entry: 7
+      Data: 1|Yume.Data.CardArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 12
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_002
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_002
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_002
+    - Name: phase
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_002
+    - Name: phase
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_003
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_003
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_004
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.Data.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_004
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _openingAVG: avg_opening
+  _initialMails:
+  - test_mail_1

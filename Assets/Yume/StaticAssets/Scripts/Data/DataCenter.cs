@@ -473,22 +473,19 @@ namespace Yume.Data {
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
         userDB.teams.Add(new TeamData());
       }
-#if BETA
-      userDB.chars.Add(new UnitData("char_001", 0, 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 1));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_001", 1));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 1));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_002", 1));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_003", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_003", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
-      userDB.cards.Add(new CardData(userDB.player.validGuid++, "card_004", 0));
-      userDB.mails.Add(new MailData("test_mail_1"));
-#endif
+
+      foreach (var initialMail in ResourceManager.Load<string[]>("initialMails")) {
+        userDB.mails.Add(new MailData(initialMail));
+      }   
+      
+      foreach (var initialChar in ResourceManager.Load<UnitArgs[]>("initialChars")) {
+        userDB.chars.Add(new UnitData(initialChar.id, initialChar.lv, initialChar.passiveSkillLv));
+      }   
+      
+      foreach (var initialCard in ResourceManager.Load<CardArgs[]>("initialCards")) {
+        userDB.cards.Add(new CardData(userDB.player.validGuid++, initialCard.id, initialCard.phase));
+      }
+      
       return userDB;
     }
   }
