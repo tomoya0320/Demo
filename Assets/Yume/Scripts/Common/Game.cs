@@ -19,8 +19,14 @@ namespace Yume {
     public float process {
       set => m_processImg.fillAmount = value;
     }
+#if BETA
+    public GameObject lunarConsolePrefab;
+#endif
 
     protected override void OnInit() {
+#if BETA
+      Instantiate(lunarConsolePrefab);
+#endif
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
       // 实例化初始化UI
