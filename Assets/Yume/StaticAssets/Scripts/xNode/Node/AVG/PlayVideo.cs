@@ -21,6 +21,7 @@ namespace Yume.AVG {
       avg.videoCanvasGroup.blocksRaycasts = true;
 
       RenderTexture renderTexture = RenderTexture.GetTemporary(Screen.width, Screen.height);
+      avg.videoRawImage.material.SetFloat("_AlphaAdd", 1.0f);
       avg.videoRawImage.texture = renderTexture;
       avg.videoPlayer.targetTexture = renderTexture;
 
@@ -29,9 +30,10 @@ namespace Yume.AVG {
       yield return new WaitUntil(() => !avg.videoPlayer.isPlaying);
 
       UIManager.activeBack--;
+      avg.videoRawImage.material.SetFloat("_AlphaAdd", 0);
       avg.videoCanvasGroup.DOFade(0, 0.5f).OnComplete(
         () => {
-          avg.videoRawImage.texture = ResourceManager.Load<Sprite>("noSprite").texture;
+          avg.videoRawImage.texture = null;
           avg.videoPlayer.targetTexture = null;
           RenderTexture.ReleaseTemporary(renderTexture);
           
