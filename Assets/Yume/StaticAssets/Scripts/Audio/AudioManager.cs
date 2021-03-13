@@ -159,7 +159,7 @@ namespace Yume.Audio {
       var audio = ResourceManager.Load<AudioClip>(audioClipName);
       s_bgmManager.PlayBgm(audio, fadeTime);
     }
-    
+
     public static void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
       s_bgmManager.StopBgm(onCompleted, fadeTime);
     }

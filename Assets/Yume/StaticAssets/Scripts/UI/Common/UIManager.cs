@@ -12,7 +12,7 @@ namespace Yume.UI {
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
-    public static bool activeBack = true;
+    public static int activeBack = 1;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
     private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
@@ -220,7 +220,7 @@ namespace Yume.UI {
     /// 回退操作只适用于NORMAL层的UI
     /// </summary>
     public static void Back() {
-      if (activeBack) {
+      if (activeBack > 0) {
         onBackList.Last()?.Invoke();
       }
     }

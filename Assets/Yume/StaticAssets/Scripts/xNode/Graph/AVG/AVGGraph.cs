@@ -9,6 +9,7 @@ namespace Yume.AVG {
   [CreateAssetMenu]
   public class AVGGraph : NodeGraph {
     public bool disableSkip;
+    public bool disableSkipVideo;
     [NonSerialized]
     public int block;
     [NonSerialized]

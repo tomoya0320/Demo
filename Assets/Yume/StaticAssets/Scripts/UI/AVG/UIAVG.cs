@@ -11,20 +11,20 @@ using Yume.Resource;
 namespace Yume.UI {
   public class UIAVG : UIBase {
     #region Component
-
-    private Button m_skipButton;
-    private Button m_skipVideoButton;
     
     public Image bgImage { private set; get; }
     public Text nameText { private set; get; }
+    public Button skipButton { private set; get; }
     public Text dialogueText { private set; get; }
     public Image illustration { private set; get; }
     public YButton autoButton { private set; get; }
     public YButton[] optionBtns { private set; get; }
     public InputField inputField { private set; get; }
+    public Button skipVideoButton { private set; get; }
     public Button inputFieldOkBtn { private set; get; }
     public RawImage videoRawImage { private set; get; }
     public VideoPlayer videoPlayer { private set; get; }
+    public CanvasGroup videoCanvasGroup { private set; get; }
     public CanvasGroup optionCanvasGroup { private set; get; }
     public CanvasGroup dialogueCanvasGroup { private set; get; }
     public CanvasGroup inputFieldCanvasGroup { private set; get; }
@@ -33,6 +33,7 @@ namespace Yume.UI {
 
     private bool m_auto;
     public Action onQuitAVG;
+    private string m_lateBGM;
     private AVGGraph m_avgGraph;
     public string historyDialogues;
     private Coroutine m_autoCoroutine;
@@ -41,8 +42,8 @@ namespace Yume.UI {
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_skipButton = GetComponent<Button>("skip");
-      m_skipVideoButton = GetComponent<Button>("skipVideo");
+      skipButton = GetComponent<Button>("skip");
+      skipVideoButton = GetComponent<Button>("skipVideo");
 
       bgImage = GetComponent<Image>("bg");
       nameText = GetComponent<Text>("name");
@@ -54,6 +55,7 @@ namespace Yume.UI {
       videoRawImage = GetComponent<RawImage>("videoRawImage");
       optionCanvasGroup = GetComponent<CanvasGroup>("options");
       inputFieldOkBtn = GetComponent<Button>("inputFieldOkBtn");
+      videoCanvasGroup = GetComponent<CanvasGroup>("videoCanvasGroup");
       dialogueCanvasGroup = GetComponent<CanvasGroup>("dialogueCanvasGroup");
       inputFieldCanvasGroup = GetComponent<CanvasGroup>("inputFieldCanvasGroup");
       
@@ -74,15 +76,21 @@ namespace Yume.UI {
     }
 
     private void _AddSkipListener() {
-      m_skipButton.onClick.RemoveAllListeners();
-      m_skipVideoButton.onClick.RemoveAllListeners();
-      
+      skipButton.onClick.RemoveAllListeners();
+      skipVideoButton.onClick.RemoveAllListeners();
+
       if (m_avgGraph.disableSkip) {
-        m_skipButton.gameObject.SetActiveEx(false);
+        skipButton.gameObject.SetActiveEx(false);
       } else {
-        m_skipButton.gameObject.SetActiveEx(true);
-        m_skipButton.onClick.AddListener(_SkipAVG);
-        m_skipVideoButton.onClick.AddListener(_SkipVideo);
+        skipButton.gameObject.SetActiveEx(true);
+        skipButton.onClick.AddListener(Skip);
+      }
+
+      if (m_avgGraph.disableSkipVideo) {
+        skipVideoButton.gameObject.SetActiveEx(false);
+      } else {
+        skipVideoButton.gameObject.SetActiveEx(true);
+        skipVideoButton.onClick.AddListener(SkipVideo);
       }
     }
 
@@ -123,26 +131,28 @@ namespace Yume.UI {
 
       m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
       onQuitAVG = args[1] as Action;
-      m_avgGraph.Enter(this);
-      m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
+      m_lateBGM = args[2] as string;
       
       // 跳过事件需要每次打开的时候都判断一下能否注册
       _AddSkipListener();
       
-      UIManager.onBackList.Add(_SkipAVG);
+      UIManager.onBackList.Add(Skip);
+      
+      m_avgGraph.Enter(this);
+      m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
     }
 
     public override void Close(Action callback = null, params object[] args) {
       callback += () => {
         _CleanUp();
         onQuitAVG?.Invoke();
-        UIManager.onBackList.Remove(_SkipAVG);
+        UIManager.onBackList.Remove(Skip);
       };
 
       base.Close(callback, args);
     }
 
-    private void _SkipAVG() {
+    public void Skip() {
       if (m_avgGraph.disableSkip) {
         return;
       }
@@ -155,8 +165,8 @@ namespace Yume.UI {
       }
     }    
     
-    private void _SkipVideo() {
-      if (m_avgGraph.disableSkip) {
+    public void SkipVideo() {
+      if (m_avgGraph.disableSkipVideo) {
         return;
       }
       
@@ -176,7 +186,12 @@ namespace Yume.UI {
     }
 
     public void QuitAVG() {
-      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
+      UIManager.OpenOne(
+        "globalBlackFade", () => {
+          UIManager.CloseOne(name);
+          AudioManager.PlayBgm(m_lateBGM);
+        }
+      );
     }
 
     private void _CleanUp() {
@@ -185,7 +200,6 @@ namespace Yume.UI {
         dialogOptionBtn.textComponent.text = StringMap.EMPTY;
         dialogOptionBtn.onClick.RemoveAllListeners();
       }
-      videoPlayer.gameObject.SetActiveEx(false);
       inputField.text = StringMap.EMPTY;
       inputFieldOkBtn.onClick.RemoveAllListeners();
       inputFieldCanvasGroup.alpha = 0;

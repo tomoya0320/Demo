@@ -48,8 +48,9 @@ namespace Yume {
           if (DataManager.LoadUserData()) {
             UIManager.OpenOne("globalCircleBlackFade", action, ScreenUtil.mousePosNormalized);
           } else {
+            string lateBGM = AudioManager.GetCurrentBgmName();
             string openingAVG = ResourceManager.Load<string>("openingAVG");
-            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, action));
+            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, action, lateBGM));
           }
           RedDotManager.InitData();
         }

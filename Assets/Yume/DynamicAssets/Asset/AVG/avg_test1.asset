@@ -536,6 +536,8 @@ MonoBehaviour:
   - {fileID: 4355135893504451352}
   - {fileID: 4473644782445790354}
   - {fileID: 7870460722545911139}
+  disableSkip: 0
+  disableSkipVideo: 0
 --- !u!114 &232040082186662662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,7 +1259,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -600, y: -168}
+  position: {x: -840, y: -168}
   ports:
     keys:
     - next
