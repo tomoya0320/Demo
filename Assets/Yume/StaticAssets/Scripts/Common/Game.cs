@@ -88,6 +88,7 @@ namespace Yume {
       AudioManager.Init();
       RedDotManager.Init();
       MessageManager.Init(); // 依赖UIManager
+      GuideManager.Init(); // 依赖UIManager
       
       process = 1.0f;
       

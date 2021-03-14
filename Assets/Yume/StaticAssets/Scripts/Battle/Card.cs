@@ -56,8 +56,7 @@ namespace Yume.Battle {
               }
               candidate?.SetSelectedEnable(true);
             } else {
-              candidate?.SetSelectedEnable(false);
-              candidate = null;
+              UnselectCandidate();
             }
           },
           () => onUseCard(this)
@@ -65,6 +64,11 @@ namespace Yume.Battle {
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
+    }
+
+    public void UnselectCandidate() {
+      candidate?.SetSelectedEnable(false);
+      candidate = null;
     }
 
     public IEnumerator Cast() {

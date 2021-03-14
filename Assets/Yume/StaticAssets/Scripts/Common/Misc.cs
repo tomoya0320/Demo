@@ -128,6 +128,10 @@ namespace Yume {
     }
   }
 
+  public struct Rewards {
+    public ItemArgs[] items;
+  }
+  
   /// <summary>
   /// 数值代表排序的优先级，值越小越靠前
   /// </summary>
@@ -140,7 +144,7 @@ namespace Yume {
     /// </summary>
     INACTIVE = 3
   }
-
+    
   public enum TaskType {
     [Description("achievement")]
     ACHIEVEMENT,
@@ -154,18 +158,14 @@ namespace Yume {
     LV_UP_TO
   }
 
-  public enum Method {
-    HAD,
-    CONSUME,
-    ADD
-  }
-
-  public struct Rewards {
-    public ItemArgs[] items;
-  }
-
   public struct TaskTemplate {
-    public struct RequestTemplate {
+    public enum Method {
+      HAD,
+      CONSUME,
+      ADD
+    }
+    
+    public struct Request {
       public Method method;
       /// <summary>
       /// 完成任务后是否消耗所需物品
@@ -191,7 +191,7 @@ namespace Yume {
     public string description;
     public string activeTaskId;
     public Rewards taskRewards;
-    public RequestTemplate taskRequest;
+    public Request taskRequest;
   }
 
   public struct MailTemplate {
@@ -347,6 +347,45 @@ namespace Yume {
     public Behavior[] behaviors;
     public Blackboard blackboard;
   }
+  
+  public struct GuideContent {
+    public enum PositionType {
+      LEFT_TOP,
+      LEFT_BOTTOM,
+      RIGHT_TOP,
+      RIGHT_BOTTOM,
+    }
+
+    public PositionType positionType;
+    public string targetUI;
+    public string targetUIObject;
+    [TextArea]
+    public string description;
+    public string iconFileName;
+  }
+
+  public enum GuideState {
+    INACTIVE,
+    ACTIVE,
+    COMPLETED,
+  }
+  
+  public struct GuideTemplate {
+    public enum ConditionType {
+      COMPLETE_GUIDE,
+      COMPLETE_LEVEL,
+      OPEN_UI,
+    }
+    
+    public struct Condition {
+      public string id;
+      public ConditionType type;
+    }
+
+    public string id;
+    public Condition condition;
+    public GuideContent content;
+  }
 
   #endregion
 
@@ -424,8 +463,7 @@ namespace Yume {
       this.passiveSkillLv = passiveSkillLv;
     }
   }
-
-
+  
   [Serializable]
   public class TaskData {
     public string id;
@@ -454,6 +492,32 @@ namespace Yume {
     public int validGuid;
     public int teamIndex;
   }
+  
+  [Serializable]
+  public class LevelData {
+    public string id;
+    [HideInInspector]
+    public bool completed;
+
+    private LevelData() { }
+
+    public LevelData(string id) {
+      this.id = id;
+    }
+  }
+
+  [Serializable]
+  public class GuideData {
+    public string id;
+    public GuideState state;
+    
+    private GuideData() { }
+
+    public GuideData(string id) {
+      this.id = id;
+      state = GuideState.INACTIVE;
+    }
+  }
 
   [Serializable]
   public class UserDB {
@@ -465,6 +529,7 @@ namespace Yume {
     public List<TeamData> teams = new List<TeamData>();
     public List<TaskData> tasks = new List<TaskData>();
     public List<LevelData> levels = new List<LevelData>();
+    public List<GuideData> guides = new List<GuideData>();
 
     public static UserDB Create() {
       UserDB userDB = new UserDB();
@@ -475,6 +540,10 @@ namespace Yume {
 
       foreach (var levelTemplate in ResourceManager.LoadAll<LevelTemplate>()) {
         userDB.levels.Add(new LevelData(levelTemplate.id));
+      }
+      
+      foreach (var guideTemplate in ResourceManager.LoadAll<GuideTemplate>()) {
+        userDB.guides.Add(new GuideData(guideTemplate.id));
       }
 
       for (int i = 0; i < Constant.MAX_TEAN_COUNT; i++) {
@@ -494,19 +563,6 @@ namespace Yume {
       }
 
       return userDB;
-    }
-  }
-
-  [Serializable]
-  public class LevelData {
-    public string id;
-    [HideInInspector]
-    public bool completed;
-
-    private LevelData() { }
-
-    public LevelData(string id) {
-      this.id = id;
     }
   }
 

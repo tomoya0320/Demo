@@ -30,6 +30,7 @@ namespace Yume {
     public static List<MailData> playerMails => s_userDB.mails;
     public static List<TaskData> playerTasks => s_userDB.tasks;
     public static List<LevelData> playerLevels => s_userDB.levels;
+    public static List<GuideData> playerGuides => s_userDB.guides;
 
     #endregion
 
@@ -227,15 +228,15 @@ namespace Yume {
           var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
           if (taskRequest.type == type && (taskRequest.requirementId == reqId || taskRequest.ignoreId)) {
             switch (taskRequest.method) {
-              case Method.ADD: {
+              case TaskTemplate.Method.ADD: {
                 task.process += reqCount > 0 ? reqCount : 0;
                 break;
               }
-              case Method.CONSUME: {
+              case TaskTemplate.Method.CONSUME: {
                 task.process += reqCount < 0 ? -reqCount : 0;
                 break;
               }
-              case Method.HAD: {
+              case TaskTemplate.Method.HAD: {
                 _SyncTaskHadCount(task);
                 break;
               }
@@ -252,7 +253,7 @@ namespace Yume {
       var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
       task.state = TaskState.INPROCESS;
 
-      if (taskRequest.method == Method.HAD) {
+      if (taskRequest.method == TaskTemplate.Method.HAD) {
         _SyncTaskHadCount(task);
       }
 
@@ -284,7 +285,7 @@ namespace Yume {
 
     private static void _SyncTaskHadCount(TaskData task) {
       var taskRequest = ResourceManager.Load<TaskTemplate>(task.id).taskRequest;
-      if (taskRequest.method == Method.HAD) {
+      if (taskRequest.method == TaskTemplate.Method.HAD) {
         switch (taskRequest.type) {
           case RequestType.ITEM_NUM: {
             task.process = GetItemCount(taskRequest.requirementId);
@@ -401,6 +402,10 @@ namespace Yume {
         }
       }
     }
+
+    #endregion
+
+    #region Guide
 
     #endregion
 

@@ -110,20 +110,26 @@ namespace Yume.Battle {
           yield return playCard.Cast();
           // 把用过的牌弃掉
           if (playCard.cardPhase.consume) {
-            cardHeapDict[CardHeapType.CONSUME].Add(playCard); 
+            cardHeapDict[CardHeapType.CONSUME].Add(playCard);
           } else {
-            cardHeapDict[CardHeapType.DISCARD].Add(playCard); 
+            cardHeapDict[CardHeapType.DISCARD].Add(playCard);
           }
           // 弃牌表现层
           yield return m_uiCharCardManager.DiscardCard(playCard.cardPhase.consume, playCard);
-          // 重新排列剩下的手牌堆(动画过程中暂时关闭拖拽组件以防止被点击造成动画位置不正确)
-          cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(false));
-          yield return m_uiCharCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
-          cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(true));
+          if (playCardQueue.Count == 0) {
+            // 重新排列剩下没有被拖拽的卡牌(动画过程中暂时关闭拖拽组件以防止被点击造成动画位置不正确)
+            m_tempCardList = cardHeapDict[CardHeapType.HAND].FindAll(card => !card.cardDrag.dragging);
+            m_tempCardList.ForEach(card => card.cardDrag?.SetEnable(false));
+            yield return m_uiCharCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
+            m_tempCardList.ForEach(card => card.cardDrag?.SetEnable(true));
+            m_tempCardList.Clear();
+          }
         }
         yield return null;
       }
       
+      // 取消手牌中仍有选中目标的卡牌的选中目标(case:一只手指还正在拖拽卡牌另一只手指点了结束回合)
+      cardHeapDict[CardHeapType.HAND].ForEach(card => card.UnselectCandidate());
       // 记录弃置的卡牌
       // 默认是将手牌全部弃置
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);

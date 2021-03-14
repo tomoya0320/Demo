@@ -32,6 +32,7 @@ namespace Yume.AVG {
       avg.videoRawImage.material.SetFloat("_AlphaAdd", 0);
       avg.videoCanvasGroup.DOFade(0, 0.5f).OnComplete(
         () => {
+          avg.videoPlayer.clip = null;
           avg.videoRawImage.texture = null;
           avg.videoPlayer.targetTexture = null;
           RenderTexture.ReleaseTemporary(renderTexture);

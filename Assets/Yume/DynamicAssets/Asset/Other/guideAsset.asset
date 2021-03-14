@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e42626001c4f042bad5168054d67b2, type: 3}
+  m_Name: guideAsset
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _guideTemplates
+      Entry: 7
+      Data: 0|Yume.GuideTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: guide_001
+    - Name: condition
+      Entry: 7
+      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: main
+    - Name: type
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: content
+      Entry: 7
+      Data: Yume.GuideContent, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: targetUI
+      Entry: 1
+      Data: main
+    - Name: targetUIObject
+      Entry: 1
+      Data: Battle
+    - Name: description
+      Entry: 1
+      Data: "\u8BA9\u6211\u4EEC\u6765\u5F00\u59CB\u7B2C\u4E00\u573A\u6218\u6597\u5427"
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
