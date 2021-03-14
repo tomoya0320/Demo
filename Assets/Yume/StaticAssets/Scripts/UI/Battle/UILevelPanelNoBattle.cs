@@ -26,8 +26,6 @@ namespace Yume.UI {
       GetComponent<Button>("start").onClick.AddListener(() => {
         UIManager.OpenOne(
           "globalBlackFade", () => {
-            // 把自己销毁掉
-            UIManager.DestroyOne(name);
             string lateBGM = AudioManager.GetCurrentBgmName();
             UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action, lateBGM);
           }
