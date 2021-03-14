@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _taskTemplates
       Entry: 7
-      Data: 0|Yume.Data.TaskTemplate[], Assembly-CSharp
+      Data: 0|Yume.TaskTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: DAILY_xfja
@@ -50,16 +50,16 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 1|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 1|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -80,7 +80,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+RequestTemplate, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 2
@@ -110,7 +110,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: DAILY_hjrt
@@ -131,16 +131,16 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 2|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 2|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -161,7 +161,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+RequestTemplate, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 1
@@ -191,7 +191,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto5
@@ -212,16 +212,16 @@ MonoBehaviour:
       Data: MAIN_lvto10
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 3|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 3|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_6_char_exp
@@ -242,7 +242,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+RequestTemplate, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto10
@@ -293,16 +293,16 @@ MonoBehaviour:
       Data: MAIN_lvto15
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 4|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 4|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_6_char_exp
@@ -323,7 +323,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+RequestTemplate, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto15
@@ -374,16 +374,16 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 5|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 5|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_7_char_exp
@@ -404,7 +404,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+RequestTemplate, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0

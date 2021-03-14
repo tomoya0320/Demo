@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _cardTemplates
       Entry: 7
-      Data: 0|Yume.Data.CardTemplate[], Assembly-CSharp
+      Data: 0|Yume.CardTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
+      Data: Yume.CardTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
@@ -41,13 +41,13 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 1|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 1|Yume.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u6253\u51FB"
@@ -68,7 +68,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.15
@@ -83,13 +83,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 2|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 2|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_normal_damage
@@ -107,13 +107,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 4|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 4|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: normal_damage
@@ -177,13 +177,13 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 8|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 8|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -195,7 +195,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -216,7 +216,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u6253\u51FBPlus"
@@ -237,7 +237,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.15
@@ -252,13 +252,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 9|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 9|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_normal_damage
@@ -276,13 +276,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 11|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 11|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: normal_damage
@@ -342,7 +342,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 14|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 14|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
+      Data: Yume.CardTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_002
@@ -378,13 +378,13 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 15|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 15|Yume.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u55DC\u8840"
@@ -405,7 +405,7 @@ MonoBehaviour:
       Data: 2
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.15
@@ -420,13 +420,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 16|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 16|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: "buff_\u55DC\u8840"
@@ -444,13 +444,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 18|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 18|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: damage_and_heal
@@ -528,13 +528,13 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 22|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 22|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -546,7 +546,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -567,7 +567,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u55DC\u8840Plus"
@@ -588,7 +588,7 @@ MonoBehaviour:
       Data: 2
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.15
@@ -603,13 +603,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 23|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 23|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: "buff_\u55DC\u8840"
@@ -627,13 +627,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 25|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 25|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: damage_and_heal
@@ -711,7 +711,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 29|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 29|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -735,7 +735,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
+      Data: Yume.CardTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_003
@@ -747,13 +747,13 @@ MonoBehaviour:
       Data: 1
     - Name: cardPhases
       Entry: 7
-      Data: 30|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 30|Yume.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u5305\u624E"
@@ -774,7 +774,7 @@ MonoBehaviour:
       Data: 1
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.2
@@ -789,13 +789,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 31|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 31|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_recovery
@@ -813,13 +813,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 33|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 33|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: attach_attrib
@@ -903,7 +903,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 36|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 36|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardTemplate, Assembly-CSharp
+      Data: Yume.CardTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_004
@@ -939,13 +939,13 @@ MonoBehaviour:
       Data: 0
     - Name: cardPhases
       Entry: 7
-      Data: 37|Yume.Data.CardPhase[], Assembly-CSharp
+      Data: 37|Yume.CardPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardPhase, Assembly-CSharp
+      Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u591A\u6BB5\u653B\u51FB"
@@ -966,7 +966,7 @@ MonoBehaviour:
       Data: -1
     - Name: cardAnimEvent
       Entry: 7
-      Data: Yume.Data.CardAnimEvent, Assembly-CSharp
+      Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
       Data: 0.1
@@ -981,13 +981,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 38|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 38|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_normal_damage
@@ -1005,13 +1005,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 40|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 40|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: normal_damage
@@ -1071,7 +1071,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 43|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 43|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

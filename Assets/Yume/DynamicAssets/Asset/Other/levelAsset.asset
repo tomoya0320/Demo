@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _levelTemplates
       Entry: 7
-      Data: 0|Yume.Data.LevelTemplate[], Assembly-CSharp
+      Data: 0|Yume.LevelTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.LevelTemplate, Assembly-CSharp
+      Data: Yume.LevelTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: level_main_1
@@ -59,16 +59,16 @@ MonoBehaviour:
       Data: 
     - Name: regularRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 1|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 1|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -80,7 +80,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_6_char_exp
@@ -92,7 +92,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_7_char_exp
@@ -113,16 +113,16 @@ MonoBehaviour:
       Data: 
     - Name: firstCompletedRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 2|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 2|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -143,16 +143,16 @@ MonoBehaviour:
       Data: 
     - Name: enemyTeams
       Entry: 7
-      Data: 3|Yume.Data.TeamArgs[], Assembly-CSharp
+      Data: 3|Yume.TeamArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.TeamArgs, Assembly-CSharp
+      Data: Yume.TeamArgs, Assembly-CSharp
     - Name: unitArgs
       Entry: 7
-      Data: Yume.Data.UnitArgs, Assembly-CSharp
+      Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: enemy_001
@@ -167,13 +167,13 @@ MonoBehaviour:
       Data: 
     - Name: cardArgsArray
       Entry: 7
-      Data: 4|Yume.Data.CardArgs[], Assembly-CSharp
+      Data: 4|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardArgs, Assembly-CSharp
+      Data: Yume.CardArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
@@ -194,10 +194,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TeamArgs, Assembly-CSharp
+      Data: Yume.TeamArgs, Assembly-CSharp
     - Name: unitArgs
       Entry: 7
-      Data: Yume.Data.UnitArgs, Assembly-CSharp
+      Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: enemy_002
@@ -212,13 +212,13 @@ MonoBehaviour:
       Data: 
     - Name: cardArgsArray
       Entry: 7
-      Data: 5|Yume.Data.CardArgs[], Assembly-CSharp
+      Data: 5|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardArgs, Assembly-CSharp
+      Data: Yume.CardArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
@@ -264,13 +264,13 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 8|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 8|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_global_pure_damage_on_before_turn
@@ -291,13 +291,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 10|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 10|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: pure_damage
@@ -378,10 +378,10 @@ MonoBehaviour:
       Data: false
     - Name: customTeam
       Entry: 7
-      Data: Yume.Data.TeamArgs, Assembly-CSharp
+      Data: Yume.TeamArgs, Assembly-CSharp
     - Name: unitArgs
       Entry: 7
-      Data: Yume.Data.UnitArgs, Assembly-CSharp
+      Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: char_001
@@ -396,13 +396,13 @@ MonoBehaviour:
       Data: 
     - Name: cardArgsArray
       Entry: 7
-      Data: 14|Yume.Data.CardArgs[], Assembly-CSharp
+      Data: 14|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardArgs, Assembly-CSharp
+      Data: Yume.CardArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
@@ -414,7 +414,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.CardArgs, Assembly-CSharp
+      Data: Yume.CardArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: card_001
@@ -438,7 +438,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.LevelTemplate, Assembly-CSharp
+      Data: Yume.LevelTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: level_main_2
@@ -468,10 +468,10 @@ MonoBehaviour:
       Data: level_main_1
     - Name: regularRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 15|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 15|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -486,16 +486,16 @@ MonoBehaviour:
       Data: 
     - Name: firstCompletedRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 16|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 16|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -516,7 +516,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTeams
       Entry: 7
-      Data: 17|Yume.Data.TeamArgs[], Assembly-CSharp
+      Data: 17|Yume.TeamArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 19|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 19|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -558,10 +558,10 @@ MonoBehaviour:
       Data: false
     - Name: customTeam
       Entry: 7
-      Data: Yume.Data.TeamArgs, Assembly-CSharp
+      Data: Yume.TeamArgs, Assembly-CSharp
     - Name: unitArgs
       Entry: 7
-      Data: Yume.Data.UnitArgs, Assembly-CSharp
+      Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 6
       Data: 

@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _unitTemplates
       Entry: 7
-      Data: 0|Yume.Data.UnitTemplate[], Assembly-CSharp
+      Data: 0|Yume.UnitTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: Yume.Data.UnitTemplate, Assembly-CSharp
+      Data: Yume.UnitTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: char_001
@@ -62,13 +62,13 @@ MonoBehaviour:
       Data: "\u7ACB\u7ED8_\u7A7A_2"
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 1|Yume.Data.PassiveSkillPhase[], Assembly-CSharp
+      Data: 1|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.PassiveSkillPhase, Assembly-CSharp
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u5B89\u53EF"
@@ -80,13 +80,13 @@ MonoBehaviour:
       Data: "\u5B89\u53EF"
     - Name: buffTemplates
       Entry: 7
-      Data: 2|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 2|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_encore
@@ -104,13 +104,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 4|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 4|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: attach_attrib_with_prob
@@ -234,13 +234,13 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 10|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 10|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -252,7 +252,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -264,7 +264,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_3_mcake
@@ -276,7 +276,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_4_cwine
@@ -297,7 +297,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.PassiveSkillPhase, Assembly-CSharp
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u5B89\u53EF"
@@ -309,13 +309,13 @@ MonoBehaviour:
       Data: "\u5B89\u53EF"
     - Name: buffTemplates
       Entry: 7
-      Data: 11|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 11|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_encore
@@ -333,13 +333,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 13|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 13|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: attach_attrib_with_prob
@@ -459,7 +459,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 18|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 18|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UnitTemplate, Assembly-CSharp
+      Data: Yume.UnitTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: enemy_001
@@ -774,13 +774,13 @@ MonoBehaviour:
       Data: "\u7ACB\u7ED8_\u591C\u9B54_2"
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 22|Yume.Data.PassiveSkillPhase[], Assembly-CSharp
+      Data: 22|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.PassiveSkillPhase, Assembly-CSharp
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u7075\u9B42\u6C72\u53D6"
@@ -792,13 +792,13 @@ MonoBehaviour:
       Data: "\u529B\u91CF\u5F3A\u5316"
     - Name: buffTemplates
       Entry: 7
-      Data: 23|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 23|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: "buff_\u7075\u9B42\u6C72\u53D6"
@@ -819,13 +819,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 25|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 25|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: damage_and_heal
@@ -921,7 +921,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 30|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 30|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UnitTemplate, Assembly-CSharp
+      Data: Yume.UnitTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: enemy_002
@@ -1236,13 +1236,13 @@ MonoBehaviour:
       Data: "\u7ACB\u7ED8_\u5E7D\u7075\u9CA8_2"
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 34|Yume.Data.PassiveSkillPhase[], Assembly-CSharp
+      Data: 34|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.PassiveSkillPhase, Assembly-CSharp
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: "\u6B7B\u4EA1\u6297\u62D2"
@@ -1254,13 +1254,13 @@ MonoBehaviour:
       Data: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
     - Name: buffTemplates
       Entry: 7
-      Data: 35|Yume.Data.BuffTemplate[], Assembly-CSharp
+      Data: 35|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_recovery_before_die
@@ -1278,13 +1278,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 37|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 37|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: behavior_recovery_before_die
@@ -1380,7 +1380,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.BuffTemplate, Assembly-CSharp
+      Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: buff_pure_damage_late_die
@@ -1401,13 +1401,13 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 42|Yume.Data.Behavior[], Assembly-CSharp
+      Data: 42|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.Behavior, Assembly-CSharp
+      Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
       Data: pure_damage
@@ -1485,7 +1485,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 46|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 46|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

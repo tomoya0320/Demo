@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _mailTemplates
       Entry: 7
-      Data: 0|Yume.Data.MailTemplate[], Assembly-CSharp
+      Data: 0|Yume.MailTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Data.MailTemplate, Assembly-CSharp
+      Data: Yume.MailTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: test_mail_1
@@ -44,13 +44,13 @@ MonoBehaviour:
       Data: "\u7BA1\u7406\u5458"
     - Name: attachments
       Entry: 7
-      Data: 1|Yume.Data.ItemArgs[], Assembly-CSharp
+      Data: 1|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_1_diamond
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_2_gold
@@ -74,7 +74,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_3_mcake
@@ -86,7 +86,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_4_cwine
@@ -98,7 +98,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.ItemArgs, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: item_5_key
