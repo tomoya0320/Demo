@@ -261,8 +261,13 @@ namespace Yume {
       ui.canvasGroup.interactable = true;
     }
 
-    public static bool IsBlocked(UIType type) {
-      return s_blockDict[type] > 0;
+    public static bool IsAnyBlocked() {
+      foreach (var block in s_blockDict.Values) {
+        if (block > 0) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

@@ -6,7 +6,9 @@ namespace Yume.UI {
       // 屏蔽回退响应
       UIManager.activeBack--;
 
-      callback += () => UIManager.CloseOne(name);
+      // 配合引导需要先调用这个方法
+      Action action = () => UIManager.CloseOne(name);
+      callback = action + callback;
 
       base.Open(callback, args);
     }

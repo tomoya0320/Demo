@@ -8,10 +8,8 @@ namespace Yume.AVG {
       avg.inputFieldOkBtn.onClick.RemoveAllListeners();
       avg.inputFieldOkBtn.onClick.AddListener(
         () => {
-          // 避免闭包引用到avg对象
-          string name = avg.inputField.text;
-          if (!string.IsNullOrEmpty(name)) {
-            DataManager.AlterName(name);
+          if (!string.IsNullOrEmpty(avg.inputField.text)) {
+            DataManager.AlterName(avg.inputField.text);
             _CloseInputField(avg);
           }
         }
