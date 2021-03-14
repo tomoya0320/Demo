@@ -14,8 +14,11 @@ namespace Yume.UI {
     private string _overrideSoundName;
     [SerializeField]
     private bool _soundEvenDisabled;
+    [SerializeField]
+    private bool _mute;
     public event Action onLongPress;
     public event Action onLongPressRepeat;
+    public Action<PointerEventData> onClickWithPointer;
     private const float LONG_PRESS_MIN_TIME = 0.8f;
     private const float LONG_PRESS_REPEAT_DELTA_TIME = 0.4f;
 
@@ -27,10 +30,12 @@ namespace Yume.UI {
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
-      if (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled) {
+      if (!_mute && (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled)) {
         string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
         AudioManager.PlaySound(clipName);
       }
+      
+      onClickWithPointer?.Invoke(eventData);
 
       base.OnPointerClick(eventData);
     }

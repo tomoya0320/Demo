@@ -123,6 +123,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &519941934071194837
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +247,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &649546095404616689
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +371,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &948155602226546879
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +496,7 @@ MonoBehaviour:
   _textComponent: {fileID: 230979924096607009}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &1214910389570581417
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +621,7 @@ MonoBehaviour:
   _textComponent: {fileID: 6278138345437442526}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &1364531295096876216
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +824,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &1789307015453851218
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +948,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &2513495914531821837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1073,7 @@ MonoBehaviour:
   _textComponent: {fileID: 7007332930452899977}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &3309494586991559724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,6 +1197,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &3536566065736896578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1321,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &3547318810231824224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,6 +1683,7 @@ MonoBehaviour:
   _textComponent: {fileID: 6317192552417631663}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &4339464770378831542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,6 +1970,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &4339464770965624561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +1980,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4339464770965624560}
-  - component: {fileID: 306373505407203433}
   m_Layer: 5
   m_Name: team group
   m_TagString: Untagged
@@ -1998,19 +2009,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &306373505407203433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4339464770965624561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf9dca0fa03522409860b955f1a7e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiList: []
 --- !u!1 &4382837077730271288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,6 +2348,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &6802655304565974434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2474,6 +2473,7 @@ MonoBehaviour:
   _textComponent: {fileID: 4778352701735239737}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &7371843321001422211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,6 +2597,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &7708508939754760103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,6 +2721,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &7770535339292815581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2918,6 +2920,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &8904700797178481047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,6 +3044,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &9049973494701111307
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,3 +3168,4 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0

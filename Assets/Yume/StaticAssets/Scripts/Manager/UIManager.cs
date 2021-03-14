@@ -192,8 +192,7 @@ namespace Yume {
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
-    /// <param name="args"></param>
-    public static void CloseOne(string name, Action callback = null, params object[] args) {
+    public static void CloseOne(string name, Action callback = null) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
 
@@ -208,7 +207,7 @@ namespace Yume {
           return;
         }
         if (stack.Peek().name == name) {
-          _CloseInternal(data, stack, callback, args);
+          _CloseInternal(data, stack, callback);
         } else {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
@@ -226,7 +225,7 @@ namespace Yume {
       }
     }
 
-    private static void _CloseInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _CloseInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null) {
       // Action的执行顺序要特别当心
       // 先执行下面的再执行其他的回调
       // 因为其他的回调里可能会执行打开UI的操作
@@ -238,7 +237,7 @@ namespace Yume {
       };
       callback = action + callback;
 
-      stack.Peek().Close(callback, args);
+      stack.Peek().Close(callback);
     }
 
     private static Transform _GetRootByType(UIType uiType) {
@@ -254,10 +253,16 @@ namespace Yume {
 
     public static void Block(UIBase ui) {
       s_blockDict[ui.uiType]++;
+      ui.canvasGroup.interactable = false;
     }
 
     public static void Unblock(UIBase ui) {
       s_blockDict[ui.uiType]--;
+      ui.canvasGroup.interactable = true;
+    }
+
+    public static bool IsBlocked(UIType type) {
+      return s_blockDict[type] > 0;
     }
   }
 }

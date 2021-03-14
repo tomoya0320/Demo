@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine.UI;
 using Yume.UI;
 
@@ -12,8 +11,7 @@ namespace Yume.AVG {
           // 避免闭包引用到avg对象
           string name = avg.inputField.text;
           if (!string.IsNullOrEmpty(name)) {
-            Action action = () => DataManager.AlterName(name);
-            avg.onQuitAVG = action + avg.onQuitAVG;
+            DataManager.AlterName(name);
             _CloseInputField(avg);
           }
         }

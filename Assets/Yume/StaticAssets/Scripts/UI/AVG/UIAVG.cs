@@ -29,8 +29,8 @@ namespace Yume.UI {
     #endregion
 
     private bool m_auto;
-    public Action onQuitAVG;
     private string m_lateBGM;
+    private Action m_onQuitAVG;
     private AVGGraph m_avgGraph;
     public string historyDialogues;
     private Coroutine m_autoCoroutine;
@@ -116,7 +116,7 @@ namespace Yume.UI {
       AudioManager.StopBgm();
 
       m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
-      onQuitAVG = args[1] as Action;
+      m_onQuitAVG = args[1] as Action;
       m_lateBGM = args[2] as string;
       
       // 检查是否激活跳过按钮
@@ -128,14 +128,14 @@ namespace Yume.UI {
       m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
     }
 
-    public override void Close(Action callback = null, params object[] args) {
+    public override void Close(Action callback = null) {
       callback += () => {
         _CleanUp();
-        onQuitAVG?.Invoke();
+        m_onQuitAVG?.Invoke();
         UIManager.onBackList.Remove(Skip);
       };
 
-      base.Close(callback, args);
+      base.Close(callback);
     }
 
     public void Skip() {

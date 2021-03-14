@@ -101,6 +101,7 @@ namespace Yume {
       foreach (Message.Style style in Enum.GetValues(typeof(Message.Style))) {
         var prefab = Resources.Load<GameObject>(style.GetDescription());
         var gameObject = Object.Instantiate(prefab, UIManager.tipCanvas);
+        gameObject.name = prefab.name;
         s_uiMessageDict.Add(style, new UIMessage(gameObject));
         s_messageQueueDict.Add(style, new Queue<Message>());
       }

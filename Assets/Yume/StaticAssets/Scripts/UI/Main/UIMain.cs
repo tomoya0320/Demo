@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.RedDotSystem;
@@ -74,6 +75,16 @@ namespace Yume.UI {
 
       float needExp = MathUtil.CalNeedUserExp(DataManager.playerLv);
       m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      // case:引导到一半程序被关闭了或发生其他意外情况导致没有将引导完整做下来
+      var guide = DataManager.playerGuides.Find(g => g.state == GuideState.ACTIVE);
+      if (guide != null) {
+        callback += () => GuideManager.ShowGuide(guide);
+      }
+
+      base.Open(callback, args);
     }
 
     public override void Destroy() {

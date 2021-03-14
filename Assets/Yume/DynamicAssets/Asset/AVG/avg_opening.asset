@@ -474,9 +474,10 @@ MonoBehaviour:
       _dynamic: 0
   node: 0
   block: 0
-  fadeTime: 2
+  fadeTime: 15
   onFadeCompleted: 0
   _name: "\u5E7D\u7075\u9CA8"
+  _setSpeedBased: 1
   _dialogue: "\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5"
 --- !u!114 &7654226473362282707
 MonoBehaviour:
@@ -597,7 +598,8 @@ MonoBehaviour:
       _dynamic: 0
   node: 0
   block: 0
-  fadeTime: 0.5
+  fadeTime: 15
   onFadeCompleted: 0
   _name: "\u5E7D\u7075\u9CA8"
+  _setSpeedBased: 1
   _dialogue: "\u8FDB\u5165\u4E3B\u754C\u9762\u8FDB\u5165\u4E3B\u754C\u9762\u8FDB\u5165\u4E3B\u754C\u9762"

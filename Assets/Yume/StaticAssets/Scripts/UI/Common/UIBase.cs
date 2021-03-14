@@ -9,10 +9,12 @@ namespace Yume.UI {
     private UITemplate m_uiData;
     private Animation m_animation;
     public GameObject root => m_root;
+    private CanvasGroup m_canvasGroup;
     public string name => m_uiData.name;
     public UIType uiType => m_uiData.uiType;
     private ObjectContainer m_objectContainer;
     public float cacheTime => m_uiData.cacheTime;
+    public CanvasGroup canvasGroup => m_canvasGroup;
     protected ObjectContainer objectContainer => m_objectContainer;
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
@@ -22,6 +24,7 @@ namespace Yume.UI {
       m_uiData = uiTemplate;
       m_root.name = uiTemplate.name;
       m_animation = gameObject.GetComponent<Animation>();
+      m_canvasGroup = gameObject.GetComponent<CanvasGroup>();
       m_objectContainer = gameObject.GetComponent<ObjectContainer>();
     }
 
@@ -41,8 +44,7 @@ namespace Yume.UI {
     /// 当没有动画时直接执行callback
     /// </summary>
     /// <param name="callback"></param>
-    /// <param name="args"></param>
-    public virtual void Close(Action callback = null, params object[] args) {
+    public virtual void Close(Action callback = null) {
       //保证动画完整播放
       UIManager.Block(this);
 
@@ -74,6 +76,8 @@ namespace Yume.UI {
         UIManager.Unblock(this);
       };
       callback = action + callback;
+      // 更新新手引导
+      callback += () => DataManager.UpdateGuide(name, GuideTemplate.ConditionType.OPEN_UI);
 
       var opneClip = m_animation.GetClip("open");
       if (opneClip != null) {
@@ -127,8 +131,7 @@ namespace Yume.UI {
     /// <summary>
     /// 父UI关闭时调用
     /// </summary>
-    /// <param name="args"></param>
-    public virtual void OnClose(params object[] args) { }
+    public virtual void OnClose() { }
 
     public virtual void OnUpdate() { }
 
@@ -196,13 +199,13 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
 
-    public override void Close(Action callback = null, params object[] args) {
+    public override void Close(Action callback = null) {
       callback += () => {
         m_bgRawImage.texture = null;
         RenderTexture.ReleaseTemporary(m_renderTexture);
       };
       
-      base.Close(callback, args);
+      base.Close(callback);
     }
   }
 }

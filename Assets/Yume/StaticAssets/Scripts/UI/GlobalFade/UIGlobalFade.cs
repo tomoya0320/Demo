@@ -11,11 +11,11 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
 
-    public override void Close(Action callback = null, params object[] args) {
+    public override void Close(Action callback = null) {
       // 恢复回退响应
       callback += () => UIManager.activeBack++;
 
-      base.Close(callback, args);
+      base.Close(callback);
     }
   }
 }

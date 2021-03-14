@@ -95,9 +95,9 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
 
-    public override void Close(Action callback = null, params object[] args) {
+    public override void Close(Action callback = null) {
       callback += () => UIManager.onBackList.Remove(_Abort);
-      base.Close(callback, args);
+      base.Close(callback);
     }
 
     public override void Destroy() {

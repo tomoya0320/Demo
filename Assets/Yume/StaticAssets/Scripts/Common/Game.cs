@@ -28,6 +28,7 @@ namespace Yume {
       var parent = GameObject.Find("NormalCanvas").transform;
       var initPanelPrefab = Resources.Load<GameObject>("init");
       m_initPanel = Instantiate(initPanelPrefab, parent);
+      m_initPanel.name = initPanelPrefab.name;
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_tipText = objectContainer.GetComponent<Text>("tip");
       m_processImg = objectContainer.GetComponent<Image>("processImg");

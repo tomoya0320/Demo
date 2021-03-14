@@ -349,14 +349,6 @@ namespace Yume {
   }
   
   public struct GuideContent {
-    public enum PositionType {
-      LEFT_TOP,
-      LEFT_BOTTOM,
-      RIGHT_TOP,
-      RIGHT_BOTTOM,
-    }
-
-    public PositionType positionType;
     public string targetUI;
     public string targetUIObject;
     [TextArea]
@@ -372,9 +364,8 @@ namespace Yume {
   
   public struct GuideTemplate {
     public enum ConditionType {
-      COMPLETE_GUIDE,
-      COMPLETE_LEVEL,
       OPEN_UI,
+      COMPLETE_GUIDE,
     }
     
     public struct Condition {
@@ -383,6 +374,7 @@ namespace Yume {
     }
 
     public string id;
+    public bool ignoreClickPos;
     public Condition condition;
     public GuideContent content;
   }
@@ -1090,6 +1082,10 @@ namespace Yume {
 
     public static bool Prob(float prob) {
       return random.NextDouble() < prob;
+    }
+
+    public static bool IsPointInRect(Vector2 point, Vector4 rect) {
+      return point.x >= rect.x && point.y >= rect.y && point.x <= rect.z && point.y <= rect.w;
     }
   }
 
