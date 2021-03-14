@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Data;
 
 namespace Yume.Battle {
   public abstract class TargetSelector {

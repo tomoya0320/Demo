@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.UI {
   public class UILevelPanel : UIBase {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using Yume.Data;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {

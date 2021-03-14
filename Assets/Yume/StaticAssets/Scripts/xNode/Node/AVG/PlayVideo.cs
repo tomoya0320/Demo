@@ -2,7 +2,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Video;
-using Yume.Resource;
 using Yume.UI;
 
 namespace Yume.AVG {

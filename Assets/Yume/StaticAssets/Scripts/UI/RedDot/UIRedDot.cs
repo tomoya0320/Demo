@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Yume.RedDotSystem;
 
 namespace Yume.UI {
   public class UIRedDot : UIChildBase {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.UI;
 using Object = UnityEngine.Object;
 
 namespace Yume {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Yume.Data;
 
 namespace Yume.RedDotSystem {
   public class MainMailRedDotTree : RedDotTree {

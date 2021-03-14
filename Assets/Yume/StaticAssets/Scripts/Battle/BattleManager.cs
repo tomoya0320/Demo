@@ -2,10 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Audio;
 using Yume.Broadcast;
-using Yume.Data;
-using Yume.UI;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {

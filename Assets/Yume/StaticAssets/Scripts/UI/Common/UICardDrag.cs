@@ -2,7 +2,6 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Yume.Audio;
 
 namespace Yume.UI {
   [RequireComponent(typeof(RectTransform))]

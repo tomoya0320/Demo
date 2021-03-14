@@ -1,6 +1,4 @@
 using UnityEngine;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.Battle {
   public static class UnitFactory {

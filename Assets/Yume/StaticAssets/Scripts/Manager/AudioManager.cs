@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Resource;
 using Yume.UI;
 
-namespace Yume.Audio {
+namespace Yume {
   public static class AudioManager {
     private class SoundManager {
       private int m_switch;

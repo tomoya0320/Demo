@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using Yume.Data;
-using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {

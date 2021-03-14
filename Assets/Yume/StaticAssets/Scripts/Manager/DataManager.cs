@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using Yume.Broadcast;
 using Yume.RedDotSystem;
-using Yume.Resource;
-using Yume.UI;
 using EventType = Yume.Broadcast.EventType;
 
-namespace Yume.Data {
+namespace Yume {
   public static class DataManager {
     private static bool s_saveData;
     public const string USER_DB_KEY = "savedata";

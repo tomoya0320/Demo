@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using Sirenix.Utilities;
 using UnityEngine;
-using Yume.Data;
-using Yume.Resource;
+using Yume.UI;
 using Object = UnityEngine.Object;
 
-namespace Yume.UI {
+namespace Yume {
   public static class UIManager {
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
+    public static Transform guidelCanvas { private set; get; }
     public static int activeBack = 1;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
@@ -24,6 +24,7 @@ namespace Yume.UI {
       topCanvas = root.FindGo("TopCanvas").transform;
       tipCanvas = root.FindGo("TipCanvas").transform;
       cacheCanvas = root.FindGo("CacheCanvas").transform;
+      guidelCanvas = root.FindGo("GuideCanvas").transform;
       normalCanvas = root.FindGo("NormalCanvas").transform;
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {

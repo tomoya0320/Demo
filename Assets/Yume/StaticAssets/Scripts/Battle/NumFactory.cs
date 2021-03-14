@@ -13,7 +13,7 @@ namespace Yume.Battle {
 
     public static void Init(ObjectContainer objectContainer) {
       numFolder = objectContainer.GetTransform("numFolder");
-      s_numPrototype = Resources.Load<GameObject>("numPrototype");
+      s_numPrototype = Resources.Load<GameObject>("num_prototype");
     }
 
     /// <summary>

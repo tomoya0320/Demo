@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Broadcast;
-using Yume.Data;
-using Yume.Resource;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {

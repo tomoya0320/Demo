@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Data;
-using Yume.Resource;
 using Yume.UI;
 using Object = UnityEngine.Object;
 

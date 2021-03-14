@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using Yume.Data;
 using Yume.UI;
 
 namespace Yume.AVG {

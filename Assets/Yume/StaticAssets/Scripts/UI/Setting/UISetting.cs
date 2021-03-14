@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Yume.Audio;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System;
-using Yume.Data;
 
 namespace Yume.UI {
   public enum UISettingType {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.RedDotSystem {
   public class MainTaskRedDotTree : RedDotTree {

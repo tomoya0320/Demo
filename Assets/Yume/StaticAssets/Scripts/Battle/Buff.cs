@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.Battle {
   public class Buff {

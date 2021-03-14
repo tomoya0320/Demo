@@ -4,8 +4,6 @@ using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.Data;
-using Yume.Resource;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {

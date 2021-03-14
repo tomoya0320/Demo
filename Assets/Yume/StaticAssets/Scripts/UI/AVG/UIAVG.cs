@@ -3,10 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
-using Yume.Audio;
 using Yume.AVG;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.UI {
   public class UIAVG : UIBase {

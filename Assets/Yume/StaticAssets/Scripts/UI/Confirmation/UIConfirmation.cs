@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Data;
 
 namespace Yume.UI {
   public class UIConfirmation : UIBase {

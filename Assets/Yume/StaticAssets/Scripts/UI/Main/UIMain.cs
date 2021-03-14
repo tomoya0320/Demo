@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
-using Yume.Data;
 using Yume.RedDotSystem;
 using EventType = Yume.Broadcast.EventType;
 

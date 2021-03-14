@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
-using Yume.RedDotSystem;
-using Yume.Resource;
-using Yume.UI;
-using Yume.Data;
-using Yume.Audio;
-using Yume.Hotfix;
 
 namespace Yume {
   public class Game : SingletonMono<Game> {

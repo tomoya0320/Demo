@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.UI {
   public class UITeam : UIBase {

@@ -1,9 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Audio;
-using Yume.Data;
-using Yume.Resource;
 
 namespace Yume.UI {
   public class UILevelPanelNoBattle : UIGaussianBlurBg {

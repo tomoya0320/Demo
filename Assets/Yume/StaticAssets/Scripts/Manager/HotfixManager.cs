@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Yume.Hotfix {
+namespace Yume {
   public static class HotfixManager {
     public static IEnumerator Init(float min = 0, float max = 1.0f) {
       var locationList = Addressables.LoadResourceLocationsAsync("Hotfix");

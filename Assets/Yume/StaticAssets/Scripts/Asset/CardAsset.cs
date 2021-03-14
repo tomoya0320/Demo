@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Data;
 
 namespace Yume.Asset {
   public class CardAsset : YScriptableObject {

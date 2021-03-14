@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-using Yume.Data;
 
 namespace Yume.Asset {
   public class ConfigAsset : YScriptableObject {

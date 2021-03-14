@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using XNode;
-using Yume.Audio;
-using Yume.Data;
 
 namespace Yume.Battle {
   public abstract class BehaviorNodeBase : Node {

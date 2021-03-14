@@ -4,7 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using Yume.UI;
 
-namespace Yume.RedDotSystem {
+namespace Yume {
   /// <summary>
   /// Description为Tree的Type
   /// 一种红点树类型代表了一个红点树的子类

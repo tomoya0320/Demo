@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Yume.Audio;
-using Yume.Data;
 
 namespace Yume.Battle {
   [RequireComponent(typeof(Animation))]

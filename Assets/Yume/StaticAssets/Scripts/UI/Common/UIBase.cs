@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Data;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
