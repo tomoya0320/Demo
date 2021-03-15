@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 1|Yume.GuideStep[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 14
     - Name: 
       Entry: 7
       Data: Yume.GuideStep, Assembly-CSharp
@@ -57,6 +57,9 @@ MonoBehaviour:
     - Name: targetUI
       Entry: 1
       Data: main
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
     - Name: targetUIObject
       Entry: 1
       Data: battle_button
@@ -81,6 +84,9 @@ MonoBehaviour:
     - Name: targetUI
       Entry: 1
       Data: battle
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
     - Name: targetUIObject
       Entry: 1
       Data: main_story
@@ -105,6 +111,9 @@ MonoBehaviour:
     - Name: targetUI
       Entry: 1
       Data: main_story
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
     - Name: targetUIObject
       Entry: 1
       Data: level_main_1
@@ -129,6 +138,9 @@ MonoBehaviour:
     - Name: targetUI
       Entry: 1
       Data: level_panel
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
     - Name: targetUIObject
       Entry: 1
       Data: startBattleBtn
@@ -153,15 +165,261 @@ MonoBehaviour:
     - Name: targetUI
       Entry: 1
       Data: team_before_battle
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
     - Name: targetUIObject
       Entry: 1
-      Data: team
+      Data: char
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
     - Name: description
       Entry: 1
-      Data: "\u70B9\u51FB\u89D2\u8272\u548C\u5361\u724C\u7F16\u8F91\u540E\u5F00\u59CB\u4F5C\u6218\u5427"
+      Data: "\u70B9\u51FB\u89D2\u8272\u9009\u62E9"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: char_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: true
+    - Name: targetUIObject
+      Entry: 1
+      Data: char group/char_001
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u89D2\u8272"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: char_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
+    - Name: targetUIObject
+      Entry: 1
+      Data: ok
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u786E\u8BA4"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 2
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: team_before_battle
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
+    - Name: targetUIObject
+      Entry: 1
+      Data: card_1
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5361\u724C\u9009\u62E9"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: card_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: true
+    - Name: targetUIObject
+      Entry: 1
+      Data: card group/card_001
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: card_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: true
+    - Name: targetUIObject
+      Entry: 1
+      Data: card group/card_002
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: card_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: true
+    - Name: targetUIObject
+      Entry: 1
+      Data: card group/card_003
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: card_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: true
+    - Name: targetUIObject
+      Entry: 1
+      Data: card group/card_004
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: card_choice
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
+    - Name: targetUIObject
+      Entry: 1
+      Data: ok
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u786E\u8BA4"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: targetUI
+      Entry: 1
+      Data: team_before_battle
+    - Name: isDynamicList
+      Entry: 5
+      Data: false
+    - Name: targetUIObject
+      Entry: 1
+      Data: start battle
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5F00\u59CB\u4F5C\u6218"
     - Name: 
       Entry: 8
       Data: 

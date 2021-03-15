@@ -117,8 +117,6 @@ namespace Yume.UI {
 
         this.charAddExp = charAddExp;
         
-        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
-
         for (int i = 0; i < m_itemScrollRect.content.childCount; i++) {
           m_itemTermList.Add(new UIItemTerm(m_itemScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -141,8 +139,11 @@ namespace Yume.UI {
         m_itemScrollView.OnUpdate();
       }
 
-      public override void OnOpen(params object[] args) {
+      public override void OnOpen() {
+        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
+        m_itemList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         selectedExpDict.Clear();
+        m_itemScrollView.ResetNormalizedPosition();
         m_itemScrollView.UpdateView(true);
       }
     }
@@ -182,7 +183,7 @@ namespace Yume.UI {
 
       m_character = args[0] as UnitData;
       m_unitTemplate = ResourceManager.Load<UnitTemplate>(m_character.id);
-      m_itemGroup.OnOpen(args);
+      m_itemGroup.OnOpen();
 
       _RefreshDetail();
     }

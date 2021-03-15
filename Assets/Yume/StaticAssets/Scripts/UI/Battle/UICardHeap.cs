@@ -60,9 +60,9 @@ namespace Yume.UI {
     }
 
     private class UICardGroup : UIChildBase, IScrollGroup<CardData, UICardTerm> {
-      private List<CardData> m_cardList;
+      public List<CardData> cardList;
       private ScrollRect m_cardScrollRect;
-      public List<CardData> dataList => m_cardList;
+      public List<CardData> dataList => cardList;
       public List<UICardTerm> viewList => m_cardTermList;
       private UIScrollView<CardData, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
@@ -81,12 +81,8 @@ namespace Yume.UI {
         m_cardScrollView.UpdateView();
       }
 
-      public override void OnOpen(params object[] args) {
-        if (args.Length == 0) {
-          m_cardList = DataManager.playerCards;
-        } else {
-          m_cardList = args[0] as List<CardData>;
-        }
+      public override void OnOpen() {
+        m_cardScrollView.ResetNormalizedPosition();
         m_cardScrollView.UpdateView(true);
       }
 
@@ -114,7 +110,9 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.OnOpen(args);
+      m_cardGroup.cardList = args[0] as List<CardData>;
+      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+      m_cardGroup.OnOpen();
 
       base.Open(callback, args);
     }

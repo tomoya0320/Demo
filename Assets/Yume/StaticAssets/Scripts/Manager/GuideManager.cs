@@ -7,6 +7,8 @@ using Object = UnityEngine.Object;
 
 namespace Yume {
   public static class GuideManager {
+    public static bool isGuiding { private set; get; }
+    
     private class UIGuideContent {
       public Image icon;
       public Text description;
@@ -48,6 +50,7 @@ namespace Yume {
 
     // 被引导的UI目前仅限NORMAL层
     public static void ShowGuide(GuideData guide) {
+      isGuiding = true;
       // 引导过程中需要屏蔽回退响应
       UIManager.activeBack--;
       var guideTemplate = ResourceManager.Load<GuideTemplate>(guide.id);
@@ -68,13 +71,21 @@ namespace Yume {
         DataManager.CompleteGuide(guide);
         // 引导过程中需要屏蔽回退响应
         UIManager.activeBack++;
+        isGuiding = false;
       }
     }
 
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
-      var uiRoot = UIManager.GetTopUI(UIType.NORMAL).root;
-      var rectTransform = uiRoot.FindGo(stepEnumerator.current.targetUIObject).GetComponent<RectTransform>();
+      var ui = UIManager.GetTopUI(UIType.NORMAL);
+      GameObject tempGo;
+      if (stepEnumerator.current.isDynamicList) {
+        string[] path = stepEnumerator.current.targetUIObject.Split('/');
+        tempGo = ui.GetObjectInDynamicList(path[0], path[1]);
+      } else {
+        tempGo = ui.root.FindGo(stepEnumerator.current.targetUIObject);
+      }
+      var rectTransform = tempGo.GetComponent<RectTransform>();
       float width = rectTransform.rect.width;
       float height = rectTransform.rect.height;
       Vector2 targetPos = Camera.main.WorldToScreenPoint(rectTransform.position);

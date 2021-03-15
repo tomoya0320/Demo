@@ -39,6 +39,15 @@ namespace Yume.UI {
     protected GameObject GetGameObject(string objName) {
       return m_objectContainer?.GetGameObject(objName);
     }
+    
+    /// <summary>
+    /// 在某个动态列表里根据id获取对象
+    /// 配合新手引导使用故查找是从后往前进行的
+    /// </summary>
+    /// <param name="list"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public virtual GameObject GetObjectInDynamicList(string list, string id) => null;
 
     /// <summary>
     /// 当没有动画时直接执行callback
@@ -125,8 +134,7 @@ namespace Yume.UI {
     /// <summary>
     /// 父UI打开时调用
     /// </summary>
-    /// <param name="args"></param>
-    public virtual void OnOpen(params object[] args) { }
+    public virtual void OnOpen() { }
 
     /// <summary>
     /// 父UI关闭时调用

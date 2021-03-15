@@ -49,9 +49,7 @@ namespace Yume.UI {
 
       public UICharGroup(GameObject root) : base(root) {
         m_charScrollRect = GetComponent<ScrollRect>("CharScrollRect");
-
-        m_charList = DataManager.playerChars;
-
+        
         for (int i = 0; i < m_charScrollRect.content.childCount; i++) {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
         }
@@ -59,7 +57,10 @@ namespace Yume.UI {
         m_charScrollView = new UIScrollView<UnitData, UICharTerm>(m_charScrollRect, this);
       }
 
-      public override void OnOpen(params object[] args) {
+      public override void OnOpen() {
+        m_charList = DataManager.playerChars;
+        m_charList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+        m_charScrollView.ResetNormalizedPosition();
         m_charScrollView.UpdateView(true);
       }
 

@@ -106,8 +106,9 @@ namespace Yume.UI {
     }
 
     private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
-      private List<TaskData> m_tasks;
+      private TaskType m_taskType;
       private UIRedDot m_taskRedDot;
+      private List<TaskData> m_tasks;
       private ScrollRect m_taskScrollRect;
       public List<TaskData> dataList => m_taskShowList;
       public List<UITaskTerm> viewList => m_taskTermList;
@@ -118,30 +119,28 @@ namespace Yume.UI {
       public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
 
-        m_tasks = DataManager.GetTaskList(taskType);
-
-        foreach (TaskData task in m_tasks) {
-          if (task.state != TaskState.INACTIVE) {
-            m_taskShowList.Add(task);
-          }
-        }
-        //初始化任务排序
-        m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
-
+        m_taskType = taskType;
+        
         for (int i = 0; i < m_taskScrollRect.content.childCount; i++) {
-          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject, taskType));
+          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject, m_taskType));
         }
 
         m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, this);
 
-        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedDotTree.MAIN_TASK,
+        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, m_taskType.GetDescription(), MainTaskRedDotTree.MAIN_TASK,
           GetGameObject("Button").FindGo(StringMap.UI_RED_DOT));
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
       }
 
-      public override void OnOpen(params object[] args) {
+      public override void OnOpen() {
+        m_tasks = DataManager.GetTaskList(m_taskType);
+        m_tasks.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+        m_taskShowList.Clear();
+        m_taskShowList.AddRange(m_tasks.FindAll(t => t.state != TaskState.INACTIVE));
+        m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
+        m_taskScrollView.ResetNormalizedPosition();
         m_taskScrollView.UpdateView(true);
       }
 
@@ -198,7 +197,7 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       m_taskGroupSwitch.OnOpen();
-      m_taskGroupList.ForEach(taskGroup => taskGroup.OnOpen(args));
+      m_taskGroupList.ForEach(taskGroup => taskGroup.OnOpen());
     }
 
     public override void OnUpdate() {

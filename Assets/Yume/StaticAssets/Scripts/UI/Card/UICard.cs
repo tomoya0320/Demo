@@ -93,12 +93,10 @@ namespace Yume.UI {
         m_cardScrollView.UpdateView();
       }
 
-      public override void OnOpen(params object[] args) {
-        if (args.Length == 0) {
-          m_cardList = DataManager.playerCards;
-        } else {
-          m_cardList = args[0] as List<CardData>;
-        }
+      public override void OnOpen() {
+        m_cardList = DataManager.playerCards;
+        m_cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+        m_cardScrollView.ResetNormalizedPosition();
         m_cardScrollView.UpdateView(true);
       }
 
@@ -126,7 +124,7 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.OnOpen(args);
+      m_cardGroup.OnOpen();
 
       base.Open(callback, args);
     }

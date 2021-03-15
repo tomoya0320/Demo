@@ -359,6 +359,7 @@ namespace Yume {
     public PositionType positionType;
     public bool ignoreClickPos;
     public string targetUI;
+    public bool isDynamicList;
     public string targetUIObject;
     public string iconFileName;
     [TextArea]
@@ -726,15 +727,15 @@ namespace Yume {
     /// <param name="name"></param>
     /// <returns></returns>
     public static GameObject FindGo(this GameObject gameObject, string name) {
-      Stack<Transform> stack = new Stack<Transform>();
-      stack.Push(gameObject.transform);
+      Queue<Transform> stack = new Queue<Transform>();
+      stack.Enqueue(gameObject.transform);
       while (stack.Count > 0) {
-        var tempTransform = stack.Pop();
+        var tempTransform = stack.Dequeue();
         if (tempTransform.name == name) {
           return tempTransform.gameObject;
         }
         for (int i = 0; i < tempTransform.childCount; i++) {
-          stack.Push(tempTransform.GetChild(i));
+          stack.Enqueue(tempTransform.GetChild(i));
         }
       }
 

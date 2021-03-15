@@ -14,6 +14,7 @@ namespace Yume.UI {
       private Text m_phaseText;
       private Text m_energyText;
       private GameObject m_selected;
+      public CardData card => m_card;
       private CardTemplate m_cardTemplate;
       public bool isValid => m_card != null;
       private UICardChoiceGroup m_cardChoiceGroup;
@@ -93,12 +94,11 @@ namespace Yume.UI {
       public List<UICardChoiceTerm> viewList => m_cardChoiceTermList;
       private UIScrollView<CardData, UICardChoiceTerm> m_cardChoiceScrollView;
       private List<UICardChoiceTerm> m_cardChoiceTermList = new List<UICardChoiceTerm>();
+      public UIScrollView<CardData, UICardChoiceTerm> cardChoiceScrollView => m_cardChoiceScrollView;
 
       public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
-
-        cardChoiceList = DataManager.playerCards;
-
+        
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -112,6 +112,13 @@ namespace Yume.UI {
 
       public void UpdateView(bool recalLen) {
         m_cardChoiceScrollView.UpdateView(recalLen);
+      }
+
+      public override void OnOpen() {
+        cardChoiceList = DataManager.playerCards;
+        cardChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+        m_cardChoiceScrollView.ResetNormalizedPosition();
+        UpdateView(true);
       }
     }
 
@@ -133,10 +140,21 @@ namespace Yume.UI {
         m_cardChoiceGroup.selectedCards.Add(DataManager.GetCard(cardGuid));
       }
       m_onSelected = args[1] as Action<List<int>>;
-
-      m_cardChoiceGroup.UpdateView(true);
+      
+      m_cardChoiceGroup.OnOpen();
 
       base.Open(callback, args);
+    }
+    
+    public override GameObject GetObjectInDynamicList(string list, string id) {
+      if (m_cardChoiceGroup.gameObject.name == list) {
+        int index = m_cardChoiceGroup.dataList.FindLastIndex(data => data.id == id);
+        if (index >= 0) {
+          m_cardChoiceGroup.cardChoiceScrollView.Swap(0, index);
+          return m_cardChoiceGroup.viewList.First().gameObject;
+        }
+      }
+      return null;
     }
 
     public override void OnUpdate() {

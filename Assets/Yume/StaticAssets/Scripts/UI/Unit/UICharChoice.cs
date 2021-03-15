@@ -8,8 +8,9 @@ namespace Yume.UI {
   public class UICharChoice : UIBase {
     private class UICharChoiceTerm : UIChildBase, IScrollTerm<UnitData> {
       private UnitData m_character;
-      private YButton m_selectButton;
       private GameObject m_selected;
+      private YButton m_selectButton;
+      public UnitData character => m_character;
       public bool isValid => m_character != null;
       private UICharChoiceGroup m_charChoiceGroup;
 
@@ -62,12 +63,11 @@ namespace Yume.UI {
       public List<UICharChoiceTerm> viewList => m_charChoiceTermList;
       private UIScrollView<UnitData, UICharChoiceTerm> m_charChoiceScrollView;
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
+      public UIScrollView<UnitData, UICharChoiceTerm> charChoiceScrollView => m_charChoiceScrollView;
 
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
-
-        m_charChoiceList = DataManager.playerChars;
-
+        
         for (int i = 0; i < m_charChoiceScrollRect.content.childCount; i++) {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -81,6 +81,13 @@ namespace Yume.UI {
 
       public void UpdateView(bool recalLen) {
         m_charChoiceScrollView.UpdateView(recalLen);
+      }
+
+      public override void OnOpen() {
+        m_charChoiceList = DataManager.playerChars;
+        m_charChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+        m_charChoiceScrollView.ResetNormalizedPosition();
+        UpdateView(true);
       }
     }
 
@@ -99,10 +106,21 @@ namespace Yume.UI {
       string charId = (string)args[0];
       m_charChoiceGroup.selectedChar = DataManager.GetCharacter(charId);
       m_onSelected = args[1] as Action<string>;
-
-      m_charChoiceGroup.UpdateView(true);
+      
+      m_charChoiceGroup.OnOpen();
 
       base.Open(callback, args);
+    }
+
+    public override GameObject GetObjectInDynamicList(string list, string id) {
+      if (m_charChoiceGroup.gameObject.name == list) {
+        int index = m_charChoiceGroup.dataList.FindLastIndex(data => data.id == id);
+        if (index >= 0) {
+          m_charChoiceGroup.charChoiceScrollView.Swap(0, index);
+          return m_charChoiceGroup.viewList.First().gameObject;
+        }
+      }
+      return null;
     }
 
     public override void OnUpdate() {

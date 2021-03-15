@@ -70,7 +70,7 @@ namespace Yume {
     #region Operate
 
     public static void OnLateUpdate() {
-      if (s_saveData) {
+      if (s_saveData && !GuideManager.isGuiding/*引导过程中不保存数据*/) {
         _SaveData();
         s_saveData = false;
       }

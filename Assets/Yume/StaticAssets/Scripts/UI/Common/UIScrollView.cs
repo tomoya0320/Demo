@@ -88,13 +88,7 @@ namespace Yume.UI {
           m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * temp, m_displayRange.x));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-        //强制刷新ScrollBar
-        if (m_scrollRect.verticalScrollbar != null) {
-          m_scrollRect.verticalScrollbar.value = m_scrollRect.normalizedPosition.y;
-        }
-        if (m_scrollRect.horizontalScrollbar != null) {
-          m_scrollRect.horizontalScrollbar.value = m_scrollRect.normalizedPosition.x;
-        }
+        _ForceRefreshScrollBar();
       }
 
       for (int i = 0; i < m_scrollGroup.viewList.Count; i++) {
@@ -103,6 +97,18 @@ namespace Yume.UI {
         } else {
           m_scrollGroup.viewList[i].UpdateScrollTerm(null);
         }
+      }
+    }
+
+    /// <summary>
+    /// 强制刷新ScrollBar
+    /// </summary>
+    private void _ForceRefreshScrollBar() {
+      if (m_scrollRect.verticalScrollbar != null) {
+        m_scrollRect.verticalScrollbar.value = m_scrollRect.normalizedPosition.y;
+      }
+      if (m_scrollRect.horizontalScrollbar != null) {
+        m_scrollRect.horizontalScrollbar.value = m_scrollRect.normalizedPosition.x;
       }
     }
 
@@ -117,7 +123,7 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
-          
+
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
           UpdateView(false);
@@ -129,12 +135,24 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
-          
+
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
 
           UpdateView(false);
         }
       }
+    }
+    
+    public void Swap(int left, int right) {
+      TData temp = m_scrollGroup.dataList[left];
+      m_scrollGroup.dataList[left] = m_scrollGroup.dataList[right];
+      m_scrollGroup.dataList[right] = temp;
+      
+      UpdateView();
+    }
+
+    public void ResetNormalizedPosition() {
+      m_scrollRect.normalizedPosition = Vector2.one;
     }
   }
 }
