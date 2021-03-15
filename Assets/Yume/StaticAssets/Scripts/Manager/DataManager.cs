@@ -407,16 +407,12 @@ namespace Yume {
 
     #region Guide
 
-    public static void UpdateGuide(string conditionId, GuideTemplate.ConditionType conditionType) {
+    public static void UpdateGuide(string conditionId, ConditionType conditionType) {
       List<GuideData> activeGuides = new List<GuideData>();
-      foreach (var guide in playerGuides) {
-        var condition = ResourceManager.Load<GuideTemplate>(guide.id).condition;
-        // 先判断一下该引导是否未激活防止"掉线重连"时反复触发引导
-        if (guide.state == GuideState.INACTIVE) {
-          if (condition.type == conditionType && condition.id == conditionId) {
-            guide.state = GuideState.ACTIVE;
-            activeGuides.Add(guide);
-          }
+      foreach (var guide in playerGuides.FindAll(g => !g.completed)) {
+        var guideTemplate = ResourceManager.Load<GuideTemplate>(guide.id);
+        if (guideTemplate.conditionType == conditionType && guideTemplate.conditionId == conditionId) {
+          activeGuides.Add(guide);
         }
       }
       if (activeGuides.Count > 0) {
@@ -426,11 +422,8 @@ namespace Yume {
     }
 
     public static void CompleteGuide(GuideData guid) {
-      if (guid != null) {
-        guid.state = GuideState.COMPLETED;
-        UpdateGuide(guid.id, GuideTemplate.ConditionType.COMPLETE_GUIDE);
-        s_saveData = true;
-      }
+      guid.completed = true;
+      s_saveData = true;
     }
 
     #endregion

@@ -26,211 +26,133 @@ MonoBehaviour:
       Data: 0|Yume.GuideTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 7
       Data: Yume.GuideTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: guide_001
+    - Name: conditionId
+      Entry: 1
+      Data: main
+    - Name: conditionType
+      Entry: 3
+      Data: 0
+    - Name: guideSteps
+      Entry: 7
+      Data: 1|Yume.GuideStep[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: condition
-      Entry: 7
-      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: main
-    - Name: type
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: content
-      Entry: 7
-      Data: Yume.GuideContent, Assembly-CSharp
     - Name: targetUI
       Entry: 1
       Data: main
     - Name: targetUIObject
       Entry: 1
       Data: battle_button
-    - Name: description
-      Entry: 1
-      Data: "\u8BA9\u6211\u4EEC\u6765\u5F00\u59CB\u7B2C\u4E00\u573A\u6218\u6597\u5427"
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u8BA9\u6211\u4EEC\u6765\u5F00\u59CB\u7B2C\u4E00\u573A\u6218\u6597\u5427"
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.GuideTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_002
+      Data: Yume.GuideStep, Assembly-CSharp
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: condition
-      Entry: 7
-      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_001
-    - Name: type
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: content
-      Entry: 7
-      Data: Yume.GuideContent, Assembly-CSharp
     - Name: targetUI
       Entry: 1
       Data: battle
     - Name: targetUIObject
       Entry: 1
       Data: main_story
-    - Name: description
-      Entry: 1
-      Data: "\u70B9\u51FB\u4E3B\u7EBF\u6A21\u5F0F"
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u4E3B\u7EBF\u6A21\u5F0F"
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.GuideTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_003
+      Data: Yume.GuideStep, Assembly-CSharp
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: condition
-      Entry: 7
-      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_002
-    - Name: type
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: content
-      Entry: 7
-      Data: Yume.GuideContent, Assembly-CSharp
     - Name: targetUI
       Entry: 1
       Data: main_story
     - Name: targetUIObject
       Entry: 1
       Data: level_main_1
-    - Name: description
-      Entry: 1
-      Data: "\u70B9\u51FB\u5173\u53611-1"
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u4E3B\u7EBF\u5173\u53611-1"
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.GuideTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_004
+      Data: Yume.GuideStep, Assembly-CSharp
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: condition
-      Entry: 7
-      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_003
-    - Name: type
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: content
-      Entry: 7
-      Data: Yume.GuideContent, Assembly-CSharp
     - Name: targetUI
       Entry: 1
       Data: level_panel
     - Name: targetUIObject
       Entry: 1
       Data: startBattleBtn
-    - Name: description
-      Entry: 1
-      Data: "\u70B9\u51FB\u5F00\u59CB\u884C\u52A8"
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5F00\u59CB\u884C\u52A8"
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.GuideTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_005
+      Data: Yume.GuideStep, Assembly-CSharp
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: condition
-      Entry: 7
-      Data: Yume.GuideTemplate+Condition, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: guide_004
-    - Name: type
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: content
-      Entry: 7
-      Data: Yume.GuideContent, Assembly-CSharp
     - Name: targetUI
       Entry: 1
       Data: team_before_battle
     - Name: targetUIObject
       Entry: 1
       Data: team
-    - Name: description
-      Entry: 1
-      Data: "\u70B9\u51FB\u89D2\u8272\u548C\u5361\u724C\u7F16\u8F91\u540E\u5F00\u59CB\u4F5C\u6218\u5427"
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u89D2\u8272\u548C\u5361\u724C\u7F16\u8F91\u540E\u5F00\u59CB\u4F5C\u6218\u5427"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

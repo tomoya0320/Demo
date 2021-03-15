@@ -348,35 +348,24 @@ namespace Yume {
     public Blackboard blackboard;
   }
   
-  public struct GuideContent {
+  public struct GuideStep {
+    public bool ignoreClickPos;
     public string targetUI;
     public string targetUIObject;
+    public string iconFileName;
     [TextArea]
     public string description;
-    public string iconFileName;
   }
 
-  public enum GuideState {
-    INACTIVE,
-    ACTIVE,
-    COMPLETED,
+  public enum ConditionType {
+    OPEN_UI,
   }
   
   public struct GuideTemplate {
-    public enum ConditionType {
-      OPEN_UI,
-      COMPLETE_GUIDE,
-    }
-    
-    public struct Condition {
-      public string id;
-      public ConditionType type;
-    }
-
     public string id;
-    public bool ignoreClickPos;
-    public Condition condition;
-    public GuideContent content;
+    public string conditionId;
+    public ConditionType conditionType;
+    public GuideStep[] guideSteps;
   }
 
   #endregion
@@ -501,13 +490,12 @@ namespace Yume {
   [Serializable]
   public class GuideData {
     public string id;
-    public GuideState state;
+    public bool completed;
     
     private GuideData() { }
 
     public GuideData(string id) {
       this.id = id;
-      state = GuideState.INACTIVE;
     }
   }
 
@@ -1140,6 +1128,25 @@ namespace Yume {
 
     public Tween DOAnchorPos(GameObject gameObject, Vector2 pos, float duration) {
       return DOAnchorPos(gameObject.GetRectTransform(), pos, duration);
+    }
+  }
+
+  public class YEnumerator<T> {
+    private T[] m_array;
+    private int m_index;
+    public T current => (m_index >= 0 && m_index < m_array.Length) ? m_array[m_index] : default;
+
+    public YEnumerator(T[] array) {
+      m_array = array ?? new T[0];
+      m_index = -1;
+    }
+
+    public bool TryMoveNext() {
+      if (m_index + 1 < m_array.Length) {
+        m_index++;
+        return true;
+      }
+      return false;
     }
   }
 }

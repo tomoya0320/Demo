@@ -77,7 +77,7 @@ namespace Yume.UI {
       };
       callback = action + callback;
       // 更新新手引导
-      callback += () => DataManager.UpdateGuide(name, GuideTemplate.ConditionType.OPEN_UI);
+      callback += () => DataManager.UpdateGuide(name, ConditionType.OPEN_UI);
 
       var opneClip = m_animation.GetClip("open");
       if (opneClip != null) {
