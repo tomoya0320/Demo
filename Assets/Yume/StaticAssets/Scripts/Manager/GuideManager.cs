@@ -11,10 +11,12 @@ namespace Yume {
       public Image icon;
       public Text description;
       public GameObject gameObject;
+      public RectTransform rectTransform;
 
       public UIGuideContent(GameObject gameObject) {
         var objectContainer = gameObject.GetComponent<ObjectContainer>();
         this.gameObject = gameObject;
+        rectTransform = gameObject.GetRectTransform();
         icon = objectContainer.GetComponent<Image>("icon");
         description = objectContainer.GetComponent<Text>("description");
       }
@@ -86,7 +88,28 @@ namespace Yume {
       // 设置遮罩
       s_guidMaskButton.targetGraphic.material.SetVector("_CustomRect", clipRectNormalized);
       s_guidMask.SetActiveEx(true);
-
+      // 设置引导位置以及npc图标和对话内容
+      width = s_uiGuideContent.rectTransform.rect.width;
+      height = s_uiGuideContent.rectTransform.rect.height;
+      Vector2 contentPos;
+      switch (stepEnumerator.current.positionType) {
+        case PositionType.LEFT_TOP:
+          contentPos = new Vector2(-0.5f * Screen.width, 0.5f * Screen.height - height);
+          break;
+        case PositionType.LEFT_BOTTOM:
+          contentPos = new Vector2(-0.5f * Screen.width, -0.5f * Screen.height);
+          break;
+        case PositionType.RIGHT_TOP:
+          contentPos = new Vector2(0.5f * Screen.width - width, 0.5f * Screen.height - height);
+          break;
+        case PositionType.RIGHT_BOTTOM:
+          contentPos = new Vector2(0.5f * Screen.width - width, -0.5f * Screen.height);
+          break;
+        default:
+          contentPos = Vector2.zero;
+          break;
+      }
+      s_uiGuideContent.rectTransform.anchoredPosition = contentPos;
       s_uiGuideContent.icon.sprite = ResourceManager.Load<Sprite>(stepEnumerator.current.iconFileName);
       s_uiGuideContent.description.text = StringMap.EMPTY;
       s_uiGuideContent.description.DOText(stepEnumerator.current.description, 15.0f).SetSpeedBased().OnComplete(

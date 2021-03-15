@@ -347,8 +347,16 @@ namespace Yume {
     public Behavior[] behaviors;
     public Blackboard blackboard;
   }
+
+  public enum PositionType {
+    LEFT_TOP,
+    LEFT_BOTTOM,
+    RIGHT_TOP,
+    RIGHT_BOTTOM,
+  }
   
   public struct GuideStep {
+    public PositionType positionType;
     public bool ignoreClickPos;
     public string targetUI;
     public string targetUIObject;
