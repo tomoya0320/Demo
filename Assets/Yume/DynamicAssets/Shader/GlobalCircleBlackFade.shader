@@ -116,11 +116,6 @@ Shader "UI/GlobalCircleBlackFade"
                 float2 center = float2(IN.color.r, IN.color.g);
                 center.y *= _ScreenParams.y / _ScreenParams.x;
 
-                #if defined(SHADER_API_D3D11) || defined(SHADER_API_D3D9)
-                    pos.y = 1 - pos.y;
-                    center.y = 1 - center.y;
-                #endif
-
                 color.a *= step(1.0 - IN.color.b, length(pos - center));
                 
                 return color;
