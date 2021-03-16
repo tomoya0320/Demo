@@ -28,7 +28,7 @@ namespace Yume.UI {
 
         m_taskType = type;
         m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, m_task?.id, 
-          m_taskType.GetDescription(), gameObject.FindGo(StringMap.UI_RED_DOT));
+          m_taskType.GetDescription(), m_getReward.transform.Find(StringMap.UI_RED_DOT));
 
         _AddListener();
 
@@ -106,7 +106,6 @@ namespace Yume.UI {
     }
 
     private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
-      private TaskType m_taskType;
       private UIRedDot m_taskRedDot;
       private List<TaskData> m_tasks;
       private ScrollRect m_taskScrollRect;
@@ -119,23 +118,22 @@ namespace Yume.UI {
       public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
 
-        m_taskType = taskType;
-        
+        m_tasks = DataManager.GetTaskList(taskType);
+
         for (int i = 0; i < m_taskScrollRect.content.childCount; i++) {
-          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject, m_taskType));
+          m_taskTermList.Add(new UITaskTerm(m_taskScrollRect.content.GetChild(i).gameObject, taskType));
         }
 
         m_taskScrollView = new UIScrollView<TaskData, UITaskTerm>(m_taskScrollRect, this);
 
-        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, m_taskType.GetDescription(), MainTaskRedDotTree.MAIN_TASK,
-          GetGameObject("Button").FindGo(StringMap.UI_RED_DOT));
+        m_taskRedDot = new UIRedDot(RedDotTreeType.MAIN_TASK, taskType.GetDescription(), MainTaskRedDotTree.MAIN_TASK,
+          GetTransform("Button").Find(StringMap.UI_RED_DOT));
 
         EventCenter.AddListener(Broadcast.EventType.UPDATE_TASK_PROCESS, _ResortTasks);
         EventCenter.AddListener(Broadcast.EventType.REFRESH_TASK_VIEW, _RefreshTaskView);
       }
 
       public override void OnOpen() {
-        m_tasks = DataManager.GetTaskList(m_taskType);
         m_tasks.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_taskShowList.Clear();
         m_taskShowList.AddRange(m_tasks.FindAll(t => t.state != TaskState.INACTIVE));

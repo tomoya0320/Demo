@@ -13,7 +13,7 @@ namespace Yume.UI {
     private RedDotTreeType m_redDotTreeType;
     public RedDotTreeType redDotTreeType => m_redDotTreeType;
 
-    public UIRedDot(RedDotTreeType redDotTreeType, string name, string parent, GameObject root, bool showNum = false) : base(root) {
+    public UIRedDot(RedDotTreeType redDotTreeType, string name, string parent, Transform transform, bool showNum = false) : base(transform.gameObject) {
       m_name = name;
       m_parent = parent;
       m_showNum = showNum;

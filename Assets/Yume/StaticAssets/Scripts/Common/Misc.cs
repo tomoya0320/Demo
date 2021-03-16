@@ -358,9 +358,11 @@ namespace Yume {
   public struct GuideStep {
     public PositionType positionType;
     public bool ignoreClickPos;
-    public string targetUI;
-    public bool isDynamicList;
-    public string targetUIObject;
+    public string uiName;
+    public string targetObj;
+    public bool isDynamicListObj;
+    [ShowIf("isDynamicListObj")]
+    public string dynamicListObjId;
     public string iconFileName;
     [TextArea]
     public string description;
@@ -718,28 +720,6 @@ namespace Yume {
         return true;
       }
       return false;
-    }
-
-    /// <summary>
-    /// 深度优先遍历查找所有的子物体
-    /// </summary>
-    /// <param name="gameObject"></param>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public static GameObject FindGo(this GameObject gameObject, string name) {
-      Queue<Transform> stack = new Queue<Transform>();
-      stack.Enqueue(gameObject.transform);
-      while (stack.Count > 0) {
-        var tempTransform = stack.Dequeue();
-        if (tempTransform.name == name) {
-          return tempTransform.gameObject;
-        }
-        for (int i = 0; i < tempTransform.childCount; i++) {
-          stack.Enqueue(tempTransform.GetChild(i));
-        }
-      }
-
-      return null;
     }
 
     public static Transform GetParent(this GameObject gameObject) {

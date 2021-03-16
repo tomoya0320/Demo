@@ -25,7 +25,7 @@ namespace Yume {
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
       // 实例化初始化UI
-      var parent = GameObject.Find("NormalCanvas").transform;
+      var parent = GameObject.Find("UIRoot/NormalCanvas").transform;
       var initPanelPrefab = Resources.Load<GameObject>("init");
       m_initPanel = Instantiate(initPanelPrefab, parent);
       m_initPanel.name = initPanelPrefab.name;

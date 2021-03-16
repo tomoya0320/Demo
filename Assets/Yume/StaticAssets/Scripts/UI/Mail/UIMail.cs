@@ -28,7 +28,7 @@ namespace Yume.UI {
 
         m_mailGroup = mailGroup;
         m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, m_mail?.id, 
-          MainMailRedDotTree.MAIN_MAIL, root.FindGo(StringMap.UI_RED_DOT));
+          MainMailRedDotTree.MAIN_MAIL, m_clickButton.transform.Find(StringMap.UI_RED_DOT));
 
         _AddListener();
       }
@@ -97,6 +97,8 @@ namespace Yume.UI {
         m_mailScrollRect = GetComponent<ScrollRect>("MailScrollRect");
         m_attachmentObjects = GetGameObject("Attachments").GetComponentsInChildren<ObjectContainer>(true);
         
+        m_mails = DataManager.playerMails;
+        
         for (int i = 0; i < m_mailScrollRect.content.childCount; i++) {
           m_mailTermList.Add(new UIMailTerm(m_mailScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -107,7 +109,6 @@ namespace Yume.UI {
       }
 
       public override void OnOpen() {
-        m_mails = DataManager.playerMails;
         m_mails.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_mailScrollView.ResetNormalizedPosition();
         SwitchMail(m_mails.First());

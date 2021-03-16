@@ -20,6 +20,8 @@ namespace Yume.UI {
   }
 
   public class UIScrollView<TData, TView> where TData : class where TView : class, IScrollTerm<TData> {
+    private int m_row; // 行
+    private int m_column; // 列
     private Vector2 m_cellSize;
     private Vector2 m_originPos;
     private int m_initDataIndex;
@@ -39,9 +41,17 @@ namespace Yume.UI {
       m_cellSize = m_gridLayoutGroup.cellSize + m_gridLayoutGroup.spacing;
       m_displayRange = m_scrollRectTransform.rect.size;
       m_maxCellNum = new Vector2Int {
-        x = Mathf.CeilToInt(m_displayRange.x / m_cellSize.x),
-        y = Mathf.CeilToInt(m_displayRange.y / m_cellSize.y)
+        x = (int)(m_displayRange.x / m_cellSize.x),
+        y = (int)(m_displayRange.y / m_cellSize.y)
       };
+      
+      // 适配
+      if (m_scrollRect.vertical) {
+        m_scrollRectTransform.SetSizeX(m_maxCellNum.x * m_cellSize.x);
+      } else if (m_scrollRect.horizontal) {
+        m_scrollRectTransform.SetSizeY(m_maxCellNum.y * m_cellSize.y);
+      }
+
       m_originPos = m_scrollRect.content.anchoredPosition;
 
       // ScrollTerm原型复制
@@ -75,22 +85,20 @@ namespace Yume.UI {
     public void UpdateView(bool recalLen = true) {
       if (recalLen) {
         if (m_scrollRect.vertical) {
-          int temp = m_scrollGroup.dataList.Count / m_maxCellNum.x;
-          if (m_scrollGroup.dataList.Count % m_maxCellNum.x > 0) {
-            temp++;
-          }
-          m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * temp, m_displayRange.y));
+          m_row = (m_scrollGroup.dataList.Count - 1) / m_maxCellNum.x + 1;
+          m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * m_row, m_displayRange.y));
         } else if (m_scrollRect.horizontal) {
-          int temp = m_scrollGroup.dataList.Count / m_maxCellNum.y;
-          if (m_scrollGroup.dataList.Count % m_maxCellNum.y > 0) {
-            temp++;
-          }
-          m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * temp, m_displayRange.x));
+          m_column = (m_scrollGroup.dataList.Count - 1) / m_maxCellNum.y + 1;
+          m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * m_column, m_displayRange.x));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
         _ForceRefreshScrollBar();
       }
 
+      _UpdateViewData();
+    }
+
+    private void _UpdateViewData() {
       for (int i = 0; i < m_scrollGroup.viewList.Count; i++) {
         if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_scrollGroup.dataList.Count) {
           m_scrollGroup.viewList[i].UpdateScrollTerm(m_scrollGroup.dataList[m_initDataIndex + i]);
@@ -123,10 +131,8 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.top = (int)(m_cellSize.y * row);
-
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-
-          UpdateView(false);
+          _UpdateViewData();
         }
       } else if (m_scrollRect.horizontal) {
         //注意，左右的方向是和上下的相反的
@@ -135,23 +141,33 @@ namespace Yume.UI {
         if (m_initDataIndex != newInitDataIndex) {
           m_initDataIndex = newInitDataIndex;
           m_gridLayoutGroup.padding.left = (int)(m_cellSize.x * column);
-
           LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
-
-          UpdateView(false);
+          _UpdateViewData();
         }
       }
     }
-    
-    public void Swap(int left, int right) {
-      TData temp = m_scrollGroup.dataList[left];
-      m_scrollGroup.dataList[left] = m_scrollGroup.dataList[right];
-      m_scrollGroup.dataList[right] = temp;
-      
-      UpdateView();
+
+    public void SetAsFirstDisplay(int index) {
+      // 这里的行列参考索引的方式下标是从0开始的需要注意
+      if (m_scrollRect.vertical) {
+        if (m_scrollGroup.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
+          int row = index / m_maxCellNum.x;
+          float posY = 1.0f - row * m_cellSize.y / (m_scrollRect.content.rect.height - m_scrollRectTransform.rect.height);
+          m_scrollRect.verticalNormalizedPosition = Mathf.Clamp(posY, 0, 1.0f);
+          _UpdateViewData();
+        }
+      } else if (m_scrollRect.horizontal) {
+        if (m_scrollGroup.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
+          int column = index / m_maxCellNum.y;
+          float posX = 1.0f - column * m_cellSize.x / (m_scrollRect.content.rect.width - m_scrollRectTransform.rect.width);
+          m_scrollRect.horizontalNormalizedPosition =  Mathf.Clamp(posX, 0, 1.0f);
+          _UpdateViewData();
+        }
+      }
     }
 
     public void ResetNormalizedPosition() {
+      // 注意(1, 1)才是最开始的位置
       m_scrollRect.normalizedPosition = Vector2.one;
     }
   }

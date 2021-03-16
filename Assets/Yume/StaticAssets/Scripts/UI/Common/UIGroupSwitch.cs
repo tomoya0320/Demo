@@ -39,7 +39,7 @@ namespace Yume.UI {
     /// 父UI打开时调用主要为了重新播放动画
     /// </summary>
     public void OnOpen() {
-      _Switch(m_currentUI, true);
+      _Switch(_uiList.First(), true);
     }
 
     private void _Switch(UIKV ui, bool force = false) {

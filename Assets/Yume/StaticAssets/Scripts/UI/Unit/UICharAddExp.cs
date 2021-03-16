@@ -114,6 +114,8 @@ namespace Yume.UI {
 
       public UIItemGroup(GameObject root, UICharAddExp charAddExp) : base(root) {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
+        
+        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
 
         this.charAddExp = charAddExp;
         
@@ -140,7 +142,6 @@ namespace Yume.UI {
       }
 
       public override void OnOpen() {
-        m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
         m_itemList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         selectedExpDict.Clear();
         m_itemScrollView.ResetNormalizedPosition();

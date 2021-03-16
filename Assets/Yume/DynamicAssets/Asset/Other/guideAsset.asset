@@ -54,15 +54,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: main
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: battle_button
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -81,15 +84,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: battle
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: main_story
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -108,15 +114,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: main_story
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: level_main_1
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -135,15 +144,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: level_panel
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: startBattleBtn
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -162,15 +174,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: team_before_battle
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: char
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -189,15 +204,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: char_choice
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: char group
+    - Name: isDynamicListObj
       Entry: 5
       Data: true
-    - Name: targetUIObject
+    - Name: dynamicListObjId
       Entry: 1
-      Data: char group/char_001
+      Data: char_001
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -216,15 +234,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: char_choice
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: ok
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -243,15 +264,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: team_before_battle
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: cards/card_1
+    - Name: isDynamicListObj
       Entry: 5
       Data: false
-    - Name: targetUIObject
-      Entry: 1
-      Data: card_1
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -270,15 +294,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: card_choice
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: card group
+    - Name: isDynamicListObj
       Entry: 5
       Data: true
-    - Name: targetUIObject
+    - Name: dynamicListObjId
       Entry: 1
-      Data: card group/card_001
+      Data: card_001
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -297,15 +324,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: card_choice
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: card group
+    - Name: isDynamicListObj
       Entry: 5
       Data: true
-    - Name: targetUIObject
+    - Name: dynamicListObjId
       Entry: 1
-      Data: card group/card_002
+      Data: card_002
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -324,15 +354,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: card_choice
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: card group
+    - Name: isDynamicListObj
       Entry: 5
       Data: true
-    - Name: targetUIObject
+    - Name: dynamicListObjId
       Entry: 1
-      Data: card group/card_003
+      Data: card_003
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -351,15 +384,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: card_choice
-    - Name: isDynamicList
+    - Name: targetObj
+      Entry: 1
+      Data: card group
+    - Name: isDynamicListObj
       Entry: 5
       Data: true
-    - Name: targetUIObject
+    - Name: dynamicListObjId
       Entry: 1
-      Data: card group/card_004
+      Data: card_004
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -378,15 +414,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: card_choice
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: ok
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head
@@ -405,15 +444,18 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
-    - Name: targetUI
+    - Name: uiName
       Entry: 1
       Data: team_before_battle
-    - Name: isDynamicList
-      Entry: 5
-      Data: false
-    - Name: targetUIObject
+    - Name: targetObj
       Entry: 1
       Data: start battle
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
     - Name: iconFileName
       Entry: 1
       Data: char_101_sora_head

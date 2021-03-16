@@ -872,7 +872,7 @@ RectTransform:
   m_GameObject: {fileID: 2365979607804888949}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2365979605991827634}
   - {fileID: 2365979606834532455}
@@ -974,6 +974,7 @@ MonoBehaviour:
   _textComponent: {fileID: 2365979606834532452}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!114 &2365979607804888939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,7 +1550,7 @@ RectTransform:
   m_GameObject: {fileID: 6898687656939614037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6898687657711333497}
   m_Father: {fileID: 5874671052253434711}
@@ -1645,6 +1646,7 @@ MonoBehaviour:
   _textComponent: {fileID: 6898687657711333494}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &6898687656950176145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1675,7 @@ RectTransform:
   m_GameObject: {fileID: 6898687656950176145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6898687658804826438}
   m_Father: {fileID: 5874671052253434711}
@@ -1769,6 +1771,7 @@ MonoBehaviour:
   _textComponent: {fileID: 6898687658804826439}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &6898687656954334035
 GameObject:
   m_ObjectHideFlags: 0

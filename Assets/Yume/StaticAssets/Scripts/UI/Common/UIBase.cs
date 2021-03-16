@@ -47,7 +47,7 @@ namespace Yume.UI {
     /// <param name="list"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual GameObject GetObjectInDynamicList(string list, string id) => null;
+    public virtual RectTransform GetDynamicListObj(string list, string id) => null;
 
     /// <summary>
     /// 当没有动画时直接执行callback

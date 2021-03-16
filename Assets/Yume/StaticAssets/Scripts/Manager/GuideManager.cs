@@ -62,10 +62,10 @@ namespace Yume {
       if (stepEnumerator.TryMoveNext()) {
         // 等UI动画结束了再调用
         yield return new WaitWhile(UIManager.IsAnyBlocked);
-        if (UIManager.GetTopUI(UIType.NORMAL).name == stepEnumerator.current.targetUI) {
+        if (UIManager.GetTopUI(UIType.NORMAL).name == stepEnumerator.current.uiName) {
           _SetGuideStep(guide, stepEnumerator);
         } else {
-          UIManager.OpenOne(stepEnumerator.current.targetUI, () => _SetGuideStep(guide, stepEnumerator));
+          UIManager.OpenOne(stepEnumerator.current.uiName, () => _SetGuideStep(guide, stepEnumerator));
         }
       } else {
         DataManager.CompleteGuide(guide);
@@ -78,21 +78,19 @@ namespace Yume {
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
       var ui = UIManager.GetTopUI(UIType.NORMAL);
-      GameObject tempGo;
-      if (stepEnumerator.current.isDynamicList) {
-        string[] path = stepEnumerator.current.targetUIObject.Split('/');
-        tempGo = ui.GetObjectInDynamicList(path[0], path[1]);
+      RectTransform dynamicListObj;
+      if (stepEnumerator.current.isDynamicListObj) {
+        dynamicListObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);
       } else {
-        tempGo = ui.root.FindGo(stepEnumerator.current.targetUIObject);
+        dynamicListObj = GameObject.Find(stepEnumerator.current.targetObj).GetComponent<RectTransform>();
       }
-      var rectTransform = tempGo.GetComponent<RectTransform>();
-      float width = rectTransform.rect.width;
-      float height = rectTransform.rect.height;
-      Vector2 targetPos = Camera.main.WorldToScreenPoint(rectTransform.position);
+      float width = dynamicListObj.rect.width;
+      float height = dynamicListObj.rect.height;
+      Vector2 targetPos = Camera.main.WorldToScreenPoint(dynamicListObj.position);
       Vector4 clipRect = new Vector4(targetPos.x - 0.5f * width, targetPos.y - 0.5f * height, targetPos.x + 0.5f * width, targetPos.y + 0.5f * height);
       // 显示指示器
-      s_indicator.GetComponent<RectTransform>().sizeDelta = rectTransform.rect.size;
-      s_indicator.transform.position = rectTransform.position;
+      s_indicator.GetComponent<RectTransform>().sizeDelta = dynamicListObj.rect.size;
+      s_indicator.transform.position = dynamicListObj.position;
       s_indicator.SetActiveEx(true);
       // 归一化的坐标
       Vector4 clipRectNormalized = new Vector4(clipRect.x / Screen.width, clipRect.y / Screen.height, clipRect.z / Screen.width, clipRect.w / Screen.height);
@@ -127,7 +125,7 @@ namespace Yume {
         () =>
           s_guidMaskButton.onClickWithPointer = pointer => {
             if (stepEnumerator.current.ignoreClickPos || MathUtil.IsPointInRect(pointer.position, clipRect)) {
-              rectTransform.GetComponent<Button>()?.OnPointerClick(pointer);
+              dynamicListObj.GetComponent<Button>()?.OnPointerClick(pointer);
 
               s_uiGuideContent.gameObject.SetActiveEx(false);
               s_guidMask.SetActiveEx(false);

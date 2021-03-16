@@ -20,12 +20,11 @@ namespace Yume {
     private static Dictionary<UIType, List<(float createTime, UIBase ui)>> s_uiCacheDict = new Dictionary<UIType, List<(float, UIBase)>>();
 
     public static void Init() {
-      var root = GameObject.Find("UIRoot");
-      topCanvas = root.FindGo("TopCanvas").transform;
-      tipCanvas = root.FindGo("TipCanvas").transform;
-      cacheCanvas = root.FindGo("CacheCanvas").transform;
-      guidelCanvas = root.FindGo("GuideCanvas").transform;
-      normalCanvas = root.FindGo("NormalCanvas").transform;
+      topCanvas = GameObject.Find("UIRoot/TopCanvas").transform;
+      tipCanvas = GameObject.Find("UIRoot/TipCanvas").transform;
+      cacheCanvas = GameObject.Find("UIRoot/CacheCanvas").transform;
+      guidelCanvas = GameObject.Find("UIRoot/GuideCanvas").transform;
+      normalCanvas = GameObject.Find("UIRoot/NormalCanvas").transform;
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_blockDict.Add(type, 0);

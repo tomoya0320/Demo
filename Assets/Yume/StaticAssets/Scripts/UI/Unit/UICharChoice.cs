@@ -68,6 +68,8 @@ namespace Yume.UI {
       public UICharChoiceGroup(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
         
+        m_charChoiceList = DataManager.playerChars;
+        
         for (int i = 0; i < m_charChoiceScrollRect.content.childCount; i++) {
           m_charChoiceTermList.Add(new UICharChoiceTerm(m_charChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -84,7 +86,6 @@ namespace Yume.UI {
       }
 
       public override void OnOpen() {
-        m_charChoiceList = DataManager.playerChars;
         m_charChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_charChoiceScrollView.ResetNormalizedPosition();
         UpdateView(true);
@@ -112,12 +113,13 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
 
-    public override GameObject GetObjectInDynamicList(string list, string id) {
+    public override RectTransform GetDynamicListObj(string list, string id) {
       if (m_charChoiceGroup.gameObject.name == list) {
         int index = m_charChoiceGroup.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
-          m_charChoiceGroup.charChoiceScrollView.Swap(0, index);
-          return m_charChoiceGroup.viewList.First().gameObject;
+          m_charChoiceGroup.charChoiceScrollView.SetAsFirstDisplay(index);
+          var view = m_charChoiceGroup.viewList.FindLast(v => v.character?.id == id);
+          return view.gameObject.GetComponent<RectTransform>();
         }
       }
       return null;

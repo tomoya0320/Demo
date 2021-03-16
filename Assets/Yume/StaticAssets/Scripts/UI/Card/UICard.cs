@@ -81,6 +81,9 @@ namespace Yume.UI {
 
       public UICardGroup(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
+        
+        m_cardList = DataManager.playerCards;
+        
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
@@ -94,7 +97,6 @@ namespace Yume.UI {
       }
 
       public override void OnOpen() {
-        m_cardList = DataManager.playerCards;
         m_cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_cardScrollView.ResetNormalizedPosition();
         m_cardScrollView.UpdateView(true);

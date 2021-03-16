@@ -99,6 +99,8 @@ namespace Yume.UI {
       public UICardChoiceGroup(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
         
+        cardChoiceList = DataManager.playerCards;
+        
         for (int i = 0; i < m_cardChoiceScrollRect.content.childCount; i++) {
           m_cardChoiceTermList.Add(new UICardChoiceTerm(m_cardChoiceScrollRect.content.GetChild(i).gameObject, this));
         }
@@ -115,7 +117,6 @@ namespace Yume.UI {
       }
 
       public override void OnOpen() {
-        cardChoiceList = DataManager.playerCards;
         cardChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_cardChoiceScrollView.ResetNormalizedPosition();
         UpdateView(true);
@@ -146,12 +147,13 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
     
-    public override GameObject GetObjectInDynamicList(string list, string id) {
+    public override RectTransform GetDynamicListObj(string list, string id) {
       if (m_cardChoiceGroup.gameObject.name == list) {
         int index = m_cardChoiceGroup.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
-          m_cardChoiceGroup.cardChoiceScrollView.Swap(0, index);
-          return m_cardChoiceGroup.viewList.First().gameObject;
+          m_cardChoiceGroup.cardChoiceScrollView.SetAsFirstDisplay(index);
+          var view = m_cardChoiceGroup.viewList.FindLast(v => v.card?.id == id);
+          return view.gameObject.GetComponent<RectTransform>();
         }
       }
       return null;
