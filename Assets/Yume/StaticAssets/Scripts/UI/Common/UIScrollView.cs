@@ -44,13 +44,11 @@ namespace Yume.UI {
         x = (int)(m_displayRange.x / m_cellSize.x),
         y = (int)(m_displayRange.y / m_cellSize.y)
       };
-      
+
       // 适配
-      if (m_scrollRect.vertical) {
-        m_scrollRectTransform.SetSizeX(m_maxCellNum.x * m_cellSize.x);
-      } else if (m_scrollRect.horizontal) {
-        m_scrollRectTransform.SetSizeY(m_maxCellNum.y * m_cellSize.y);
-      }
+      m_scrollRectTransform.SetSizeX(m_maxCellNum.x * m_cellSize.x);
+      m_scrollRectTransform.SetSizeY(m_maxCellNum.y * m_cellSize.y);
+      m_displayRange = m_scrollRectTransform.rect.size;
 
       m_originPos = m_scrollRect.content.anchoredPosition;
 
