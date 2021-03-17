@@ -34,12 +34,10 @@ namespace Yume.Battle {
         // 敌人默认的目标是玩家
         validCards[index].candidate = BattleManager.character;
       }
-      // 消耗能量
-      if (validCards[index].cardPhase.energyConsumption > 0) {
-        AddAttrib(AttribType.ENERGY, -validCards[index].cardPhase.energyConsumption);
-      }
       // 加入出牌队列
-      playCardQueue.Enqueue(validCards[index]);
+      if (validCards[index].cardPhase.cardPlayer.TryPlay(validCards[index])) {
+        playCardQueue.Enqueue(validCards[index]);
+      }
       // 结束出牌的标记
       playCardQueue.Enqueue(null);
       // 出牌中

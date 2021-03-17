@@ -45,21 +45,8 @@ namespace Yume.Battle {
       if (card.candidate == null) {
         return false;
       }
-      if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
-        if (card.candidate != null) {
-          card.candidate.SetSelectedEnable(false);
-          card.candidate = null;
-        }
-        MessageManager.AddMessage(new Message(Message.Style.CENTER, "能量不足！", false, null, 0.5f));
+      if (!card.cardPhase.cardPlayer.TryPlay(card)) {
         return false;
-      }
-      // 及时消耗能量
-      if (card.cardPhase.energyConsumption > 0) {
-        AddAttrib(AttribType.ENERGY, -card.cardPhase.energyConsumption);
-      } else if (card.cardPhase.energyConsumption < 0) {
-        float energy = GetAttrib(AttribType.ENERGY);
-        AddAttrib(AttribType.ENERGY, -energy);
-        blackboard[$"{card.cardTemplate.id}:eventCount"] = Mathf.RoundToInt(energy);
       }
       // 先关闭卡牌拖拽组件避免反复触发
       card.cardDrag.SetEnable(false);

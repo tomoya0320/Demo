@@ -56,6 +56,7 @@ namespace Yume {
     public string cardAnimName;
     public string iconFileName;
     public int energyConsumption;
+    public CardPlayer cardPlayer;
     public CardAnimEvent cardAnimEvent;
     public BuffTemplate[] buffTemplates;
     public ItemArgs[] updateRequestItems;
