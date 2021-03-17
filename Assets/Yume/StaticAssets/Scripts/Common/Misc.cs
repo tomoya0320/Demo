@@ -569,6 +569,7 @@ namespace Yume {
   }
 
   public static class Constant {
+    public const int THOUSAND = 1000;
     public const int MAX_TEAN_COUNT = 5;
     public const int MAX_CARD_COUNT = 12;
     public const int MAX_SOUND_COUNT = 5;
@@ -902,11 +903,11 @@ namespace Yume {
       if (key[key.Length - 1] == '%') {
         key = key.Substring(0, key.Length - 1);
         object value = blackboard.GetValue<object>(key);
-        if (value is float f) {
-          return $"{f * 100.0f}%";
-        } else {
-          return $"{value}";
-        }
+        return value switch {
+          int i => $"{i * 100 / Constant.THOUSAND}%",
+          float f => $"{f * 100.0f}%",
+          _ => $"{value}"
+        };
       } else {
         return $"{blackboard.GetValue<object>(key)}";
       }
@@ -916,11 +917,11 @@ namespace Yume {
       if (key[key.Length - 1] == '%') {
         key = key.Substring(0, key.Length - 1);
         object value = typeof(AttribAdditive).GetField(key).GetValue(attribAdditive);
-        if (value is float f) {
-          return $"{f * 100.0f}%";
-        } else {
-          return $"{value}";
-        }
+        return value switch {
+          int i => $"{i * 100 / Constant.THOUSAND}%",
+          float f => $"{f * 100.0f}%",
+          _ => $"{value}"
+        };
       } else {
         return $"{typeof(AttribAdditive).GetField(key).GetValue(attribAdditive)}";
       }

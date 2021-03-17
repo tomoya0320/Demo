@@ -19,7 +19,7 @@ namespace Yume.Battle {
       if (card.cardPhase.energyConsumption > 0) {
         card.owner.AddAttrib(AttribType.ENERGY, -card.cardPhase.energyConsumption);
       } else if (card.cardPhase.energyConsumption < 0) {
-        float energy = card.owner.GetAttrib(AttribType.ENERGY);
+        int energy = card.owner.GetAttrib(AttribType.ENERGY);
         card.owner.AddAttrib(AttribType.ENERGY, -energy);
         card.owner.blackboard[$"{card.cardTemplate.id}:eventCount"] = Mathf.RoundToInt(energy);
       }

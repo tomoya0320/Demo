@@ -154,8 +154,8 @@ namespace Yume.Battle {
           EventCenter.Broadcast(EventType.ON_ENTER_FIRST_ENEMY_TURN);
         }
         // 补充能量
-        float energy = currentUnit.GetAttrib(AttribType.ENERGY);
-        float maxEnergy = currentUnit.GetAttrib(AttribType.ENERGY, true);
+        int energy = currentUnit.GetAttrib(AttribType.ENERGY);
+        int maxEnergy = currentUnit.GetAttrib(AttribType.ENERGY, true);
         if (energy < maxEnergy) {
           currentUnit.AddAttrib(AttribType.ENERGY, maxEnergy - energy);
         }

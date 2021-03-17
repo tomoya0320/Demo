@@ -179,13 +179,13 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: value
-      Entry: 4
+      Entry: 3
       Data: 1
     - Name: rateOnValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: rateOnMaxValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 8
@@ -422,13 +422,13 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: value
-      Entry: 4
+      Entry: 3
       Data: 1
     - Name: rateOnValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: rateOnMaxValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 8
@@ -497,7 +497,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -508,10 +508,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 200
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 200
     - Name: _allowNegative
       Entry: 5
@@ -535,11 +535,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 20
+      Entry: 3
+      Data: 10
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -562,11 +562,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 2
+      Entry: 3
+      Data: 5
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -589,10 +589,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -600,6 +600,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -621,7 +729,7 @@ MonoBehaviour:
       Data: 20
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -632,11 +740,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 1000
+      Entry: 3
+      Data: 500
     - Name: _maxValue
-      Entry: 4
-      Data: 1000
+      Entry: 3
+      Data: 500
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -659,11 +767,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 100
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -686,11 +794,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 10
+      Entry: 3
+      Data: 30
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -713,10 +821,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -724,6 +832,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -828,7 +1044,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: damage_and_heal
+      Data: pure_damage_and_heal
     - Name: behaviorTime
       Entry: 3
       Data: 1
@@ -876,10 +1092,10 @@ MonoBehaviour:
       Data: healRateOnCasterDamage
     - Name: $v
       Entry: 7
-      Data: 28|System.Single, mscorlib
+      Data: 28|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 0.5
+      Entry: 3
+      Data: 500
     - Name: 
       Entry: 8
       Data: 
@@ -894,9 +1110,9 @@ MonoBehaviour:
       Data: atk
     - Name: $v
       Entry: 7
-      Data: 29|System.Single, mscorlib
+      Data: 29|System.Int32, mscorlib
     - Name: 
-      Entry: 4
+      Entry: 3
       Data: 10
     - Name: 
       Entry: 8
@@ -959,7 +1175,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -970,10 +1186,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 100
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 100
     - Name: _allowNegative
       Entry: 5
@@ -997,11 +1213,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 10
+      Entry: 3
+      Data: 5
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1024,11 +1240,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1051,10 +1267,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -1062,6 +1278,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1083,7 +1407,7 @@ MonoBehaviour:
       Data: 32
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -1094,11 +1418,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 600
+      Entry: 3
+      Data: 300
     - Name: _maxValue
-      Entry: 4
-      Data: 600
+      Entry: 3
+      Data: 300
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1121,11 +1445,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 50
+      Entry: 3
+      Data: 10
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1148,11 +1472,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 0
+      Entry: 3
+      Data: 10
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1175,10 +1499,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -1186,6 +1510,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1331,14 +1763,14 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: value
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: rateOnValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: rateOnMaxValue
-      Entry: 4
-      Data: 0.5
+      Entry: 3
+      Data: 500
     - Name: 
       Entry: 8
       Data: 
@@ -1440,9 +1872,9 @@ MonoBehaviour:
       Data: atk
     - Name: $v
       Entry: 7
-      Data: 44|System.Single, mscorlib
+      Data: 44|System.Int32, mscorlib
     - Name: 
-      Entry: 4
+      Entry: 3
       Data: 20
     - Name: 
       Entry: 8
@@ -1523,7 +1955,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -1534,11 +1966,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 200
+      Entry: 3
+      Data: 100
     - Name: _maxValue
-      Entry: 4
-      Data: 200
+      Entry: 3
+      Data: 100
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1561,11 +1993,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 20
+      Entry: 3
+      Data: 10
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1588,11 +2020,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 5
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1615,10 +2047,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -1626,6 +2058,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1647,7 +2187,7 @@ MonoBehaviour:
       Data: 48
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -1658,10 +2198,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 1000
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 1000
     - Name: _allowNegative
       Entry: 5
@@ -1685,11 +2225,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 100
+      Entry: 3
+      Data: 20
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1712,11 +2252,11 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
-      Data: 10
+      Entry: 3
+      Data: 20
     - Name: _maxValue
-      Entry: 4
-      Data: 999999
+      Entry: 3
+      Data: 99999999
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1739,10 +2279,10 @@ MonoBehaviour:
       Entry: 7
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _maxValue
-      Entry: 4
+      Entry: 3
       Data: 3
     - Name: _allowNegative
       Entry: 5
@@ -1750,6 +2290,114 @@ MonoBehaviour:
     - Name: _allowExceedMax
       Entry: 5
       Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Battle.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 

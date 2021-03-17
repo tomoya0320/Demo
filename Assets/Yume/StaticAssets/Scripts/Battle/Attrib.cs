@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Yume.Battle {
   /// <summary>
   /// Description用来存储属性的实际显示名称
+  /// 注意所有属性相关的比率都是千分比
   /// </summary>
   public enum AttribType {
     [Description("生命")]
@@ -16,6 +17,14 @@ namespace Yume.Battle {
     DEF,
     [Description("能量")]
     ENERGY,
+    [Description("攻击伤害加深值")]
+    DAMAGE_CHANGE,  
+    [Description("攻击伤害加深率")]
+    DAMAGE_CHANGE_RATE,
+    [Description("反攻击伤害加深值")]
+    ANTI_DAMAGE_CHANGE,  
+    [Description("反攻击伤害加深率")]
+    ANTI_DAMAGE_CHANGE_RATE,
   }
   
   [Serializable]
@@ -25,11 +34,11 @@ namespace Yume.Battle {
     // 是否作用在最大值上
     public bool onMaxValue;
     // 基础值
-    public float value;
+    public int value;
     // 基于当前值的比率
-    public float rateOnValue;
+    public int rateOnValue;
     // 基于当前最大值的比率
-    public float rateOnMaxValue;
+    public int rateOnMaxValue;
   }
 
   public class AttribAdditives : List<AttribAdditive> { }
@@ -37,11 +46,11 @@ namespace Yume.Battle {
   [Serializable]
   public struct Attrib {
     [SerializeField]
-    private float _value;
-    public float value => _value;
+    private int _value;
+    public int value => _value;
     [SerializeField]
-    private float _maxValue;
-    public float maxValue => _maxValue;
+    private int _maxValue;
+    public int maxValue => _maxValue;
     [SerializeField]
     private bool _allowNegative;  
     [SerializeField]
@@ -70,20 +79,20 @@ namespace Yume.Battle {
       return attrib;
     }
 
-    public static Attrib operator *(Attrib a, float value) {
+    public static Attrib operator *(Attrib a, float rate) {
       Attrib attrib = new Attrib {
-        _value = value * a._value,
-        _maxValue = value * a._maxValue,
+        _value = (int)(rate * a._value),
+        _maxValue = (int)(rate * a._maxValue),
         _allowNegative = a._allowNegative,
         _allowExceedMax = a._allowExceedMax
       };
       return attrib;
     }
 
-    public static Attrib operator *(float value, Attrib a) {
+    public static Attrib operator *(float rate, Attrib a) {
       Attrib attrib = new Attrib {
-        _value = value * a._value,
-        _maxValue = value * a._maxValue,
+        _value = (int)(rate * a._value),
+        _maxValue = (int)(rate * a._maxValue),
         _allowNegative = a._allowNegative,
         _allowExceedMax = a._allowExceedMax
       };
@@ -97,8 +106,8 @@ namespace Yume.Battle {
     /// </summary>
     /// <param name="value">可正可负</param>
     /// <returns>返回实际添加的值</returns>
-    public float AddValue(float value) {
-      float origin = _value;
+    public int AddValue(int value) {
+      int origin = _value;
       _value += value;
       if (_value < 0 && !_allowNegative) {
         _value = 0;
@@ -114,8 +123,8 @@ namespace Yume.Battle {
     /// </summary>
     /// <param name="maxValue">可正可负</param>
     /// <returns>返回实际添加的最大值</returns>
-    public float AddMaxValue(float maxValue) {
-      float origin = _maxValue;
+    public int AddMaxValue(int maxValue) {
+      int origin = _maxValue;
       // 最大值不能为负
       _maxValue = Mathf.Max(0, _maxValue + maxValue);
       if (_maxValue > origin) {

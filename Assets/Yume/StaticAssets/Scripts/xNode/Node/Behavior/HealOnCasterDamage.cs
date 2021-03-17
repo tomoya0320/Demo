@@ -10,11 +10,11 @@ namespace Yume.Battle {
       if (caster == null) {
         return false;
       }
-      float healRate = behaviorTree.blackboard.GetValue<float>("healRateOnCasterDamage");
-      float lastDamageValue = caster.blackboard.GetValue<float>("lastDamageValue");
-      float heal = healRate * lastDamageValue;
+      int healRate = behaviorTree.blackboard.GetValue<int>("healRateOnCasterDamage");
+      int lastDamageValue = caster.blackboard.GetValue<int>("lastDamageValue");
+      int heal = healRate * lastDamageValue / Constant.THOUSAND;
       if (heal > 0) {
-        float realHeal = caster.AddAttrib(AttribType.HP, heal);
+        int realHeal = caster.AddAttrib(AttribType.HP, heal);
         // 显示数字
         NumFactory.ShowNum(realHeal, caster.numReference.position, Color.green);
       }

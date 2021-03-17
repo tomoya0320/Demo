@@ -2,28 +2,34 @@
 
 namespace Yume.Battle {
   /// <summary>
-  /// 真实伤害不需要计算对方的防御
+  /// 伤害公式:最终伤害=(卡牌攻击值+卡牌攻击率*攻击者的攻击力)*(1+攻击者的伤害加深率-被击者的反伤害加深率)+(攻击者的伤害加深值-被击者的反伤害加深值)
   /// </summary>
   public class PureDamage : DamageBase {
-    protected override float OnDamage(Unit caster = null) {
+    protected override int OnDamage(Unit caster = null) {
       Unit owner = behaviorTree.unit;
-      // blackboard中的攻击比率
-      float finalAtk = behaviorTree.blackboard.GetValue<float>("atk");
-      float atkRate = behaviorTree.blackboard.GetValue<float>("atkRate");
-      if (caster != null) {
-        // 计算攻击发起者的基础攻击力
-        finalAtk += caster.GetAttrib(AttribType.ATK) * atkRate;
-        // 计算攻击前的附加攻击比率
-        finalAtk *= (1.0f + caster.blackboard.GetValue<float>("extraAtkRate"));
-        // 计算攻击前的附加攻击值
-        finalAtk += caster.blackboard.GetValue<float>("extraAtk");
-      }
+      
+      // 卡牌攻击值
+      int cardAtk = behaviorTree.blackboard.GetValue<int>("atk");
+      // 卡牌攻击率
+      int cardAtkRate = behaviorTree.blackboard.GetValue<int>("atkRate");
+      // 攻击者的攻击力
+      int atk = caster?.GetAttrib(AttribType.ATK) ?? 0;
+      // 攻击者的伤害加深值
+      int damageChange = caster?.GetAttrib(AttribType.DAMAGE_CHANGE) ?? 0;
+      // 攻击者的伤害加深率
+      int damageChangeRate = caster?.GetAttrib(AttribType.DAMAGE_CHANGE_RATE) ?? 0;
+      // 被击者的反伤害加深值
+      int antiDamageChange = owner.GetAttrib(AttribType.ANTI_DAMAGE_CHANGE);
+      // 被击者的反伤害加深率
+      int antiDamageChangeRate = owner.GetAttrib(AttribType.ANTI_DAMAGE_CHANGE_RATE);
 
-      if (finalAtk > 0) {
-        return Mathf.Abs(owner.AddAttrib(AttribType.HP, -finalAtk));
-      } else {
-        return 0;
-      }
+      // 最终的伤害
+      int finalDamage = (Constant.THOUSAND * cardAtk + cardAtkRate * atk) *
+                        (Constant.THOUSAND + damageChangeRate - antiDamageChangeRate) /
+                        (Constant.THOUSAND * Constant.THOUSAND) +
+                        (damageChange + antiDamageChange);
+
+      return finalDamage > 0 ? Mathf.Abs(owner.AddAttrib(AttribType.HP, -finalDamage)) : 0;
     }
   }
 }

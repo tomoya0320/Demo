@@ -156,10 +156,10 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 8|System.Single, mscorlib
+      Data: 8|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 1.2
+      Entry: 3
+      Data: 1200
     - Name: 
       Entry: 8
       Data: 
@@ -327,10 +327,10 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 15|System.Single, mscorlib
+      Data: 15|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 2
+      Entry: 3
+      Data: 2000
     - Name: 
       Entry: 8
       Data: 
@@ -501,10 +501,10 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 23|System.Single, mscorlib
+      Data: 23|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 1
+      Entry: 3
+      Data: 1000
     - Name: 
       Entry: 8
       Data: 
@@ -519,10 +519,10 @@ MonoBehaviour:
       Data: healRateOnCasterDamage
     - Name: $v
       Entry: 7
-      Data: 24|System.Single, mscorlib
+      Data: 24|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 0.5
+      Entry: 3
+      Data: 500
     - Name: 
       Entry: 8
       Data: 
@@ -690,10 +690,10 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 31|System.Single, mscorlib
+      Data: 31|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 1.6
+      Entry: 3
+      Data: 1600
     - Name: 
       Entry: 8
       Data: 
@@ -708,10 +708,10 @@ MonoBehaviour:
       Data: healRateOnCasterDamage
     - Name: $v
       Entry: 7
-      Data: 32|System.Single, mscorlib
+      Data: 32|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 0.8
+      Entry: 3
+      Data: 800
     - Name: 
       Entry: 8
       Data: 
@@ -896,13 +896,13 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: value
-      Entry: 4
+      Entry: 3
       Data: 20
     - Name: rateOnValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: rateOnMaxValue
-      Entry: 4
+      Entry: 3
       Data: 0
     - Name: 
       Entry: 8
@@ -1080,10 +1080,10 @@ MonoBehaviour:
       Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 48|System.Single, mscorlib
+      Data: 48|System.Int32, mscorlib
     - Name: 
-      Entry: 4
-      Data: 1.5
+      Entry: 3
+      Data: 1500
     - Name: 
       Entry: 8
       Data: 

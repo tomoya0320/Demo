@@ -11,10 +11,10 @@ namespace Yume.Battle {
 
       AttribAdditives realAttribAdditives = new AttribAdditives();
       foreach (var attribAdditive in attribAdditives) {
-        float finalValue = attribAdditive.value;
-        finalValue += attribAdditive.rateOnValue * owner.GetAttrib(attribAdditive.type);
-        finalValue += attribAdditive.rateOnMaxValue * owner.GetAttrib(attribAdditive.type, true);
-        float realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
+        int finalValue = attribAdditive.value;
+        finalValue += attribAdditive.rateOnValue * owner.GetAttrib(attribAdditive.type) / Constant.THOUSAND;
+        finalValue += attribAdditive.rateOnMaxValue * owner.GetAttrib(attribAdditive.type, true) / Constant.THOUSAND;
+        int realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
 
         // 显示数字
         Color color = Colors.GetAttribColor(attribAdditive.type);

@@ -40,7 +40,7 @@ namespace Yume.Battle {
       BattleManager.behaviorManagers.TryGetValueEx(caster, out var castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
       
-      float realDamage = OnDamage(caster);
+      int realDamage = OnDamage(caster);
       
       // 播放受击音效
       string hurtSound = behaviorTree.blackboard.GetValue("hurtSound", StringMap.DEFAULT_HURT_SOUND);
@@ -76,6 +76,6 @@ namespace Yume.Battle {
       return true;
     }
 
-    protected abstract float OnDamage(Unit caster = null);
+    protected abstract int OnDamage(Unit caster = null);
   }
 }

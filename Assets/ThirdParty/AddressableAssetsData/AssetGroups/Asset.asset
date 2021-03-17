@@ -138,13 +138,13 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: cc31857a9515dee408c7d70f302a29cf
-    m_Address: damage_and_heal
+    m_Address: pure_damage_and_heal
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: cc31857a9515dee408c7d70f302a29cf, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: cc31857a9515dee408c7d70f302a29cf, type: 2}
   - m_GUID: 7fb1562f44e89d942a911a283e0a2ffd
     m_Address: behavior_recovery_before_die
     m_ReadOnly: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 7e68dc65111c4cf468c81ed9a54cd3ef, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 7e68dc65111c4cf468c81ed9a54cd3ef, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: b953e43be5cccb54f9b94915c1af0a6a
     m_Address: mailAsset
     m_ReadOnly: 0
@@ -183,8 +183,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4f396ad0acfe84d43a15b30075835118
+    m_Address: damage_and_heal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 4f396ad0acfe84d43a15b30075835118, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 4f396ad0acfe84d43a15b30075835118, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

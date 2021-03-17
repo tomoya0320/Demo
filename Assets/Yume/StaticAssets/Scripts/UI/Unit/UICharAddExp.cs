@@ -213,7 +213,7 @@ namespace Yume.UI {
       string color = m_character.lv < m_lv ? "#3232CD" : "#000000";
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{(int)oldAttribs[i].value}---><color={color}>{(int)newAttribs[i].value}</color>";
+          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{oldAttribs[i].value}---><color={color}>{newAttribs[i].value}</color>";
         }
       }
     }

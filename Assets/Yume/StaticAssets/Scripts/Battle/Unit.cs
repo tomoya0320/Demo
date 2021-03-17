@@ -70,8 +70,8 @@ namespace Yume.Battle {
 
     public abstract void CleanUp();
 
-    public float AddAttrib(AttribType type, float value, bool onMaxValue = false) {
-      float result;
+    public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
+      int result;
       if (onMaxValue) {
         result = attribs[(int)type].AddMaxValue(value);
       } else {
@@ -81,23 +81,23 @@ namespace Yume.Battle {
       return result;
     }
 
-    public float GetAttrib(AttribType type, bool onMaxValue = false) {
+    public int GetAttrib(AttribType type, bool onMaxValue = false) {
       return onMaxValue ? attribs[(int)type].maxValue : attribs[(int)type].value;
     }
 
-    protected virtual void OnAttribChanged(AttribType type, float delta = 0, bool onMaxValue = false) {
+    protected virtual void OnAttribChanged(AttribType type, int delta = 0, bool onMaxValue = false) {
       switch (type) {
         case AttribType.HP: {
           // 更新UI
           hpImgTween?.Complete();
-          float fillAmount = GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
+          float fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
           hpImgTween = hpImage.DOFillAmount(fillAmount, 0.2f).OnComplete(() => hpImgTween = null);
-          hpImage.textComponent.text = $"{(int)GetAttrib(AttribType.HP)}/{(int)GetAttrib(AttribType.HP, true)}";
+          hpImage.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
           break;
         }
         case AttribType.ENERGY:
           // 更新UI
-          energyImage.textComponent.text = $"{(int)GetAttrib(AttribType.ENERGY)}/{(int)GetAttrib(AttribType.ENERGY, true)}";
+          energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY)}/{GetAttrib(AttribType.ENERGY, true)}";
           break;
       }
     }

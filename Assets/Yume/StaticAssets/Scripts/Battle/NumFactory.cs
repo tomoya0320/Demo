@@ -22,7 +22,7 @@ namespace Yume.Battle {
     /// <param name="value"></param>
     /// <param name="pos"></param>
     /// <param name="color"></param>
-    public static void ShowNum(float value, Vector3 pos, Color color) {
+    public static void ShowNum(int value, Vector3 pos, Color color) {
       if (s_numPrototype == null) {
         return;
       }
@@ -34,7 +34,7 @@ namespace Yume.Battle {
         num = Object.Instantiate(s_numPrototype, numFolder).GetComponent<Text>();
       }
 
-      num.text = $"{value:0}";
+      num.text = value.ToString();
       color.a = 0;
       num.color = color;
       num.transform.position = pos;
