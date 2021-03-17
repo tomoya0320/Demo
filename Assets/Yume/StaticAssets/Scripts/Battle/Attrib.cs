@@ -32,16 +32,6 @@ namespace Yume.Battle {
     public float rateOnMaxValue;
   }
 
-  [Serializable]
-  public struct AttribArgs {
-    // 属性类型
-    public AttribType type;
-    // 是否作用在最大值上
-    public bool onMaxValue;
-    // 属性值
-    public float value;
-  }
-
   public class AttribAdditives : List<AttribAdditive> { }
 
   [Serializable]

@@ -12,14 +12,14 @@ namespace Yume.Battle {
         // 计算攻击发起者的基础攻击力
         finalAtk += caster.GetAttrib(AttribType.ATK) * atkRate;
         // 计算攻击前的附加攻击比率
-        finalAtk *= (1.0f + caster.blackboard.GetValueAndRemove<float>("extraAtkRate"));
+        finalAtk *= (1.0f + caster.blackboard.GetValue<float>("extraAtkRate"));
         // 计算攻击前的附加攻击值
-        finalAtk += caster.blackboard.GetValueAndRemove<float>("extraAtk");
+        finalAtk += caster.blackboard.GetValue<float>("extraAtk");
       }
       // 计算自己被攻击前的防御比率
-      finalAtk -= (1.0f + owner.blackboard.GetValueAndRemove<float>("extraDefRate")) * owner.GetAttrib(AttribType.DEF);
+      finalAtk -= (1.0f + owner.blackboard.GetValue<float>("extraDefRate")) * owner.GetAttrib(AttribType.DEF);
       // 计算自己被攻击前的防御值
-      finalAtk -= owner.blackboard.GetValueAndRemove<float>("extraDef");
+      finalAtk -= owner.blackboard.GetValue<float>("extraDef");
       
       if (finalAtk > 0) {
         return Mathf.Abs(owner.AddAttrib(AttribType.HP, -finalAtk));

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Yume.Battle {
   public class AttachAttrib : LeafNodeBase {
@@ -9,12 +8,8 @@ namespace Yume.Battle {
       if (attribAdditives == null) {
         return false;
       }
-      
-      var attribDetachments = behaviorTree.blackboard.GetValue<List<AttribArgs>>("attribDetachments");
-      if (attribDetachments == null) {
-        attribDetachments = new List<AttribArgs>();
-        behaviorTree.blackboard["attribDetachments"] = attribDetachments;
-      }
+
+      AttribAdditives realAttribAdditives = new AttribAdditives();
       foreach (var attribAdditive in attribAdditives) {
         float finalValue = attribAdditive.value;
         finalValue += attribAdditive.rateOnValue * owner.GetAttrib(attribAdditive.type);
@@ -25,13 +20,14 @@ namespace Yume.Battle {
         Color color = Colors.GetAttribColor(attribAdditive.type);
         NumFactory.ShowNum(realValue, owner.numReference.position, color);
 
-        AttribArgs args = new AttribArgs {
+        AttribAdditive args = new AttribAdditive {
           type = attribAdditive.type,
           onMaxValue = attribAdditive.onMaxValue,
           value = realValue
         };
-        attribDetachments.Add(args);
+        realAttribAdditives.Add(args);
       }
+      behaviorTree.blackboard["realAttribAdditives"] = realAttribAdditives;
 
       return true;
     }

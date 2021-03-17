@@ -21,8 +21,7 @@ namespace Yume.Battle {
     }
     
     /// <summary>
-    /// 有些值取一次后就需要移除
-    /// 比如在计算伤害前增加攻击力计算完后就没有了
+    /// 相当于Pop
     /// </summary>
     /// <param name="key"></param>
     /// <param name="defaultValue"></param>

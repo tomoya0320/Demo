@@ -14,9 +14,9 @@ namespace Yume.Battle {
         // 计算攻击发起者的基础攻击力
         finalAtk += caster.GetAttrib(AttribType.ATK) * atkRate;
         // 计算攻击前的附加攻击比率
-        finalAtk *= (1.0f + caster.blackboard.GetValueAndRemove<float>("extraAtkRate"));
+        finalAtk *= (1.0f + caster.blackboard.GetValue<float>("extraAtkRate"));
         // 计算攻击前的附加攻击值
-        finalAtk += caster.blackboard.GetValueAndRemove<float>("extraAtk");
+        finalAtk += caster.blackboard.GetValue<float>("extraAtk");
       }
 
       if (finalAtk > 0) {
