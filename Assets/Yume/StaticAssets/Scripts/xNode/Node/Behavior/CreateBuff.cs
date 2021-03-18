@@ -1,8 +1,8 @@
 namespace Yume.Battle {
   public class CreateBuff : LeafNodeBase {
     public override bool Run() {
-      if (behaviorTree.blackboard.TryGetValue<BuffTemplates>("buffs", out var buffTemplates)) {
-        Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
+      if (behaviorTree.blackboard.TryGetValue<BuffTemplates>(Blackboard.BUFFS, out var buffTemplates)) {
+        Unit caster = behaviorTree.blackboard.GetValue<Unit>(Blackboard.CASTER);
         foreach (var buffTemplate in buffTemplates) {
           int leftCount = 0;
           // 以owner和caster为基准筛选出目标
@@ -12,7 +12,7 @@ namespace Yume.Battle {
               continue;
             }
             // 因为blackboard是引用类型所以需要新建一个
-            Blackboard blackboard = new Blackboard { { "caster", owner } };
+            Blackboard blackboard = new Blackboard { { Blackboard.CASTER, owner } };
             blackboard.Merge(buffTemplate.blackboard);
             BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
             if (target.isAlive) {

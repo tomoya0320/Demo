@@ -65,8 +65,6 @@ namespace Yume.UI {
       m_finishTurnBtn.image.color = Color.gray;
 
       BattleManager.character.EnqueueCard(null);
-      // 关闭卡牌拖拽组件避免反复触发
-      BattleManager.character.SetCardDragEnable(false);
     }
 
     private void _EnterFirstEnemyTurn() {

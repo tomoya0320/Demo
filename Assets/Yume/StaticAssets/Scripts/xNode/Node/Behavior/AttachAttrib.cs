@@ -3,7 +3,7 @@
 namespace Yume.Battle {
   public class AttachAttrib : LeafNodeBase {
     public override bool Run() {
-      var attribAdditives = behaviorTree.blackboard.GetValue<AttribAdditives>("attribAdditives");
+      var attribAdditives = behaviorTree.blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
       if (attribAdditives == null) {
         return false;
       }
@@ -26,7 +26,7 @@ namespace Yume.Battle {
         };
         realAttribAdditives.Add(args);
       }
-      behaviorTree.blackboard["realAttribAdditives"] = realAttribAdditives;
+      behaviorTree.blackboard[Blackboard.REAL_ATTRIB_ADDITIVES] = realAttribAdditives;
 
       return true;
     }

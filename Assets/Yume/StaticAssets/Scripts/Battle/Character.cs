@@ -28,7 +28,7 @@ namespace Yume.Battle {
 
   public class Character : Unit {
     private List<Card> m_tempCardList = new List<Card>();
-    private UICharCardManager m_uiCharCardManager = new UICharCardManager();
+    private UICardManager m_uiCardManager = new UICardManager();
     protected override Transform folder => UnitFactory.charFolder;
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
@@ -48,10 +48,6 @@ namespace Yume.Battle {
       if (!card.cardPhase.cardPlayer.TryPlay(card)) {
         return false;
       }
-      // 先关闭卡牌拖拽组件避免反复触发
-      card.cardDrag.SetEnable(false);
-      // 取消目标选中的UI
-      card.candidate.SetSelectedEnable(false);
       // 从手牌堆中移除
       cardHeapDict[CardHeapType.HAND].Remove(card);
       // 加入出牌队列
@@ -66,6 +62,12 @@ namespace Yume.Battle {
         if (deltaCardCount > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
           // 弃牌堆的牌重新进入抽牌堆
           cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
+          cardHeapDict[CardHeapType.DISCARD].ForEach(
+            card => {
+              card.gameObject.SetParent(CardFactory.drawCardFolder);
+              card.rectTransform.anchoredPosition = Vector2.zero;
+            }
+          );
           cardHeapDict[CardHeapType.DISCARD].Clear();
         }
 
@@ -81,11 +83,9 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      yield return m_uiCharCardManager.DrawCard(cardHeapDict[CardHeapType.HAND], m_tempCardList.Count);
+      yield return m_uiCardManager.AddCard(cardHeapDict[CardHeapType.HAND], m_tempCardList.Count);
       m_tempCardList.Clear();
-      // 启用卡牌拖拽组件
-      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag?.SetEnable(true));
-
+      
       // 出牌中
       while (true) {
         if (playCardQueue.Count > 0) {
@@ -102,21 +102,15 @@ namespace Yume.Battle {
             cardHeapDict[CardHeapType.DISCARD].Add(playCard);
           }
           // 弃牌表现层
-          yield return m_uiCharCardManager.DiscardCard(playCard.cardPhase.consume, playCard);
+          yield return m_uiCardManager.RemoveCard(playCard.cardPhase.consume ? CardHeapType.CONSUME : CardHeapType.DISCARD, playCard);
           if (playCardQueue.Count == 0) {
             // 重新排列剩下没有被拖拽的卡牌(动画过程中暂时关闭拖拽组件以防止被点击造成动画位置不正确)
-            m_tempCardList = cardHeapDict[CardHeapType.HAND].FindAll(card => !card.cardDrag.dragging);
-            m_tempCardList.ForEach(card => card.cardDrag?.SetEnable(false));
-            yield return m_uiCharCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
-            m_tempCardList.ForEach(card => card.cardDrag?.SetEnable(true));
-            m_tempCardList.Clear();
+            yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
           }
         }
         yield return null;
       }
       
-      // 取消手牌中仍有选中目标的卡牌的选中目标(case:一只手指还正在拖拽卡牌另一只手指点了结束回合)
-      cardHeapDict[CardHeapType.HAND].ForEach(card => card.UnselectCandidate());
       // 记录弃置的卡牌
       // 默认是将手牌全部弃置
       m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
@@ -124,14 +118,34 @@ namespace Yume.Battle {
       // 放入弃牌堆
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
       // 弃牌表现层
-      yield return m_uiCharCardManager.DiscardCard(false, m_tempCardList.ToArray());
+      yield return m_uiCardManager.RemoveCard(CardHeapType.DISCARD, m_tempCardList.ToArray());
       m_tempCardList.Clear();
       // 重新排列剩下的手牌堆
-      yield return m_uiCharCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
+      yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
     }
 
-    public void SetCardDragEnable(bool enable) {
-      cardHeapDict[CardHeapType.HAND].ForEach(card => card.cardDrag.SetEnable(enable));
+    /// <summary>
+    /// 卡牌效果
+    /// 将某处的卡牌移到另一处
+    /// </summary>
+    /// <param name="selector"></param>
+    public void TransferCards(CardSelector selector) {
+      if (selector.from == selector.to) {
+        Debug.LogWarning($"卡牌移动的起止位置相同！from:{selector.from.ToString()},to:{selector.to.ToString()}");
+        return;
+      }
+
+      List<Card> cards = selector.Select(cardHeapDict[selector.from]);
+      foreach (var card in cards) {
+        cardHeapDict[selector.from].Remove(card);
+      }
+      cardHeapDict[selector.to].AddRange(cards);
+
+      if (selector.to == CardHeapType.HAND) {
+        CoroutineHelper.instance.Run(m_uiCardManager.AddCard(cardHeapDict[CardHeapType.HAND], cards.Count));
+      } else if (selector.from == CardHeapType.HAND) {
+        CoroutineHelper.instance.Run(m_uiCardManager.RemoveCard(selector.to, cards.ToArray()));
+      }
     }
 
     public List<CardData> GetCardDatas(CardHeapType type) {

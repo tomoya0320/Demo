@@ -24,10 +24,10 @@ namespace Yume.Battle {
       owner = unit;
       gameObject = root;
       rectTransform = gameObject.GetComponent<RectTransform>();
-      
+
       data = new CardData(args.id, args.phase);
       cardTemplate = ResourceManager.Load<CardTemplate>(data.id);
-      
+
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
       if (data.phase == cardTemplate.cardPhases.Length - 1) {
@@ -43,7 +43,7 @@ namespace Yume.Battle {
       cardAnimCallback = Object.Instantiate(cardAnimPrefab, CardFactory.cardAnimFolder).GetComponent<CardAnimCallback>();
       cardAnimCallback.gameObject.SetActiveEx(false);
       cardAnimCallback.card = this;
-      
+
       if (onUseCard != null) {
         cardDrag = gameObject.AddComponent<UICardDrag>().Init(
           () => {
@@ -54,9 +54,10 @@ namespace Yume.Battle {
               } else {
                 candidate = BattleManager.GetNearestEnemy(gameObject.transform.position);
               }
-              candidate?.SetSelectedEnable(true);
+              candidate.SetSelectedEnable(true);
             } else {
-              UnselectCandidate();
+              candidate?.SetSelectedEnable(false);
+              candidate = null;
             }
           },
           () => onUseCard(this)
@@ -64,11 +65,6 @@ namespace Yume.Battle {
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
-    }
-
-    public void UnselectCandidate() {
-      candidate?.SetSelectedEnable(false);
-      candidate = null;
     }
 
     public IEnumerator Cast() {

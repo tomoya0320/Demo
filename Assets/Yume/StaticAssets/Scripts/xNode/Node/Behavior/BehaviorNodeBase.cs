@@ -43,7 +43,7 @@ namespace Yume.Battle {
       ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGED);
       
       // 发起者为空表示这个是由关卡加上的
-      Unit caster = behaviorTree.blackboard.GetValue<Unit>("caster");
+      Unit caster = behaviorTree.blackboard.GetValue<Unit>(Blackboard.CASTER);
       // 造成伤害前的行为树 注意caster可能为空所以要用自定义的扩展方法
       BattleManager.behaviorManagers.TryGetValueEx(caster, out var castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
@@ -51,17 +51,17 @@ namespace Yume.Battle {
       int realDamage = OnDamage(caster);
       
       // 播放受击音效
-      string hurtSound = behaviorTree.blackboard.GetValue("hurtSound", StringMap.DEFAULT_HURT_SOUND);
+      string hurtSound = behaviorTree.blackboard.GetValue(Blackboard.HURT_SOUND, StringMap.DEFAULT_HURT_SOUND);
       AudioManager.PlaySound(hurtSound);
       // 显示数字
       NumFactory.ShowNum(-realDamage, owner.numReference.position, Color.red);
 
       // 保存最后一次造成的伤害值
       if (caster != null) {
-        caster.blackboard["lastDamageValue"] = realDamage;
+        caster.blackboard[Blackboard.LAST_DAMAGE_VALUE] = realDamage;
       }
       // 保存最后一次被造成的伤害值
-      owner.blackboard["lastDamagedValue"] = realDamage;
+      owner.blackboard[Blackboard.LAST_DAMAGED_VALUE] = realDamage;
 
       // 被造成伤害后的行为树
       ownerBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGED);
@@ -70,7 +70,7 @@ namespace Yume.Battle {
 
       if (owner.isAlive) {
         // 受伤
-        owner.animator.SetTrigger("hurt");
+        owner.animator.SetTrigger(AnimatorParams.HURT);
       } else {
         ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DIE);
       }

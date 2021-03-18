@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -144,7 +145,7 @@ namespace Yume.UI {
         }
       }
     }
-
+    
     public void SetAsFirstDisplay(int index) {
       // 这里的行列参考索引的方式下标是从0开始的需要注意
       if (m_scrollRect.vertical) {
@@ -152,6 +153,7 @@ namespace Yume.UI {
           int row = index / m_maxCellNum.x;
           float posY = 1.0f - row * m_cellSize.y / (m_scrollRect.content.rect.height - m_scrollRectTransform.rect.height);
           m_scrollRect.verticalNormalizedPosition = Mathf.Clamp(posY, 0, 1.0f);
+          _UpdateInitDataIndex();
           _UpdateViewData();
         }
       } else if (m_scrollRect.horizontal) {
@@ -159,6 +161,7 @@ namespace Yume.UI {
           int column = index / m_maxCellNum.y;
           float posX = 1.0f - column * m_cellSize.x / (m_scrollRect.content.rect.width - m_scrollRectTransform.rect.width);
           m_scrollRect.horizontalNormalizedPosition =  Mathf.Clamp(posX, 0, 1.0f);
+          _UpdateInitDataIndex();
           _UpdateViewData();
         }
       }

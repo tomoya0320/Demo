@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 namespace Yume.UI {
   [RequireComponent(typeof(RectTransform))]
   public class UICardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
-    private int m_enable;
     private Tween m_tween;
     private bool m_dragging;
     private Vector3 m_originPos;
@@ -18,7 +17,7 @@ namespace Yume.UI {
     public bool dragging => m_dragging;
     private PointerEventData m_eventData;
     private RectTransform m_rectTransform;
-    public bool interactable => m_enable > 0 && m_tween == null;
+    public bool interactable => m_tween == null;
     private const float SCALE_TIME = 0.2f;
     private static Vector3 s_draggingScale = 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
@@ -31,11 +30,6 @@ namespace Yume.UI {
       m_onUseCard = onUseCard;
       m_onDraggingCard = onDraggingCard;
       return this;
-    }
-
-    public void SetEnable(bool enable) {
-      m_enable += enable ? 1 : -1;
-      m_dragging &= interactable;
     }
 
     public void SetResetAnchorPos(Vector2 resetAnchorPos) {

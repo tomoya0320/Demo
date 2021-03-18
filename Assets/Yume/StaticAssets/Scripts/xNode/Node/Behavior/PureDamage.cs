@@ -7,9 +7,9 @@ namespace Yume.Battle {
   public class PureDamage : DamageBase {
     protected override int OnDamage(Unit caster = null) {
       // 卡牌攻击值
-      int cardAtk = behaviorTree.blackboard.GetValue<int>("atk");
+      int cardAtk = behaviorTree.blackboard.GetValue<int>(Blackboard.ATK);
       // 卡牌攻击率
-      int cardAtkRate = behaviorTree.blackboard.GetValue<int>("atkRate");
+      int cardAtkRate = behaviorTree.blackboard.GetValue<int>(Blackboard.ATK_RATE);
       // 攻击者的攻击力
       int atk = caster?.GetAttrib(AttribType.ATK) ?? 0;
       // 攻击者的伤害加深值

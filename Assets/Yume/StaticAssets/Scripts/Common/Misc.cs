@@ -582,7 +582,7 @@ namespace Yume {
     public const int MAX_TEAN_COUNT = 5;
     public const int MAX_CARD_COUNT = 12;
     public const int MAX_SOUND_COUNT = 5;
-    public const int HAND_CARD_THRESHOLD = 6;
+    public const int HAND_CARD_THRESHOLD = 5;
     // ReSharper disable once InconsistentNaming
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
     // ReSharper disable once InconsistentNaming
@@ -662,22 +662,6 @@ namespace Yume {
       rectTransform.anchoredPosition3D = Vector3.zero;
       rectTransform.localScale = Vector3.one;
       rectTransform.eulerAngles = Vector3.zero;
-    }
-  }
-
-  public static class ListExtensions {
-    public static T First<T>(this List<T> list) {
-      return list.Count == 0 ? default : list[0];
-    }
-
-    public static T Last<T>(this List<T> list) {
-      return list.Count == 0 ? default : list[list.Count - 1];
-    }
-
-    public static void RemoveRange<T>(this List<T> list, IEnumerable<T> items) {
-      foreach (var item in items) {
-        list.Remove(item);
-      }
     }
   }
 
@@ -776,6 +760,10 @@ namespace Yume {
     public static object CreateInstance(string typeName) {
       return s_assembly.CreateInstance(typeName);
     }
+  }
+
+  public static class AnimatorParams {
+    public const string HURT = "hurt";
   }
 
   public static class StringMap {
