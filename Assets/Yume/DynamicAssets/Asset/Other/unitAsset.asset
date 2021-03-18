@@ -536,7 +536,7 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 10
+      Data: 30
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -1002,7 +1002,7 @@ MonoBehaviour:
       Data: "\u7075\u9B42\u6C72\u53D6"
     - Name: description
       Entry: 1
-      Data: "\u73A9\u5BB6\u6BCF\u56DE\u5408\u7ED3\u675F\u540E\u5BF9\u5176\u9020\u6210{0:atk}\u70B9\u771F\u5B9E\u4F24\u5BB3\u5E76\u56DE\u590D\u81EA\u5DF1\u9020\u6210\u5B9E\u9645\u4F24\u5BB3{0:healRateOnCasterDamage%}\u7684\u751F\u547D\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF0C\u6218\u6597\u5F00\u59CB\u65F6\u751F\u6548"
+      Data: "\u73A9\u5BB6\u6BCF\u56DE\u5408\u7ED3\u675F\u540E\u5BF9\u5176\u9020\u6210{0:atk}\u70B9\u771F\u5B9E\u4F24\u5BB3\u5E76\u56DE\u590D\u81EA\u5DF1\u9020\u6210\u5B9E\u9645\u4F24\u5BB3{0:buff:healRateOnDamage%}\u7684\u751F\u547D\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF0C\u6218\u6597\u5F00\u59CB\u65F6\u751F\u6548"
     - Name: iconFileName
       Entry: 1
       Data: "\u529B\u91CF\u5F3A\u5316"
@@ -1089,13 +1089,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: healRateOnCasterDamage
+      Data: atk
     - Name: $v
       Entry: 7
       Data: 28|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 500
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -1107,13 +1107,82 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atk
+      Data: buff
     - Name: $v
       Entry: 7
-      Data: 29|System.Int32, mscorlib
+      Data: 29|Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_heal_on_damage
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: selector
+      Entry: 7
+      Data: 30|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 31|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: heal_on_damage
+    - Name: behaviorTime
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 32|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 6
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: healRateOnDamage
+    - Name: $v
+      Entry: 7
+      Data: 33|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 10
+      Data: 500
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1137,7 +1206,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 30|Yume.ItemArgs[], Assembly-CSharp
+      Data: 34|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1158,11 +1227,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 31|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 35|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 32|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 36|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1400,11 +1469,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 33|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 37|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 32
+      Data: 36
     - Name: 
       Entry: 12
       Data: 8
@@ -1668,7 +1737,7 @@ MonoBehaviour:
       Data: "\u7ACB\u7ED8_\u5E7D\u7075\u9CA8_2"
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 34|Yume.PassiveSkillPhase[], Assembly-CSharp
+      Data: 38|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1686,7 +1755,7 @@ MonoBehaviour:
       Data: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
     - Name: buffTemplates
       Entry: 7
-      Data: 35|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 39|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -1701,7 +1770,7 @@ MonoBehaviour:
       Data: 0
     - Name: selector
       Entry: 7
-      Data: 36|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 40|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 0
@@ -1710,7 +1779,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 37|Yume.Behavior[], Assembly-CSharp
+      Data: 41|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1719,7 +1788,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: behavior_recovery_before_die
+      Data: attach_attrib_remove_buff
     - Name: behaviorTime
       Entry: 3
       Data: 8
@@ -1734,7 +1803,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 38|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 42|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -1749,7 +1818,7 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 39|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 43|Yume.Battle.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1791,7 +1860,7 @@ MonoBehaviour:
       Data: duration
     - Name: $v
       Entry: 7
-      Data: 40|System.Int32, mscorlib
+      Data: 44|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: -1
@@ -1821,7 +1890,7 @@ MonoBehaviour:
       Data: 0
     - Name: selector
       Entry: 7
-      Data: 41|Yume.Battle.CampSelector, Assembly-CSharp
+      Data: 45|Yume.Battle.CampSelector, Assembly-CSharp
     - Name: _camp
       Entry: 3
       Data: 1
@@ -1833,7 +1902,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 42|Yume.Behavior[], Assembly-CSharp
+      Data: 46|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1857,7 +1926,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 43|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 47|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -1872,7 +1941,7 @@ MonoBehaviour:
       Data: atk
     - Name: $v
       Entry: 7
-      Data: 44|System.Int32, mscorlib
+      Data: 48|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 20
@@ -1890,7 +1959,7 @@ MonoBehaviour:
       Data: duration
     - Name: $v
       Entry: 7
-      Data: 45|System.Int32, mscorlib
+      Data: 49|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: -1
@@ -1917,7 +1986,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 46|Yume.ItemArgs[], Assembly-CSharp
+      Data: 50|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1938,11 +2007,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 47|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 51|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 48|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 52|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1967,10 +2036,10 @@ MonoBehaviour:
       Data: Yume.Battle.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 100
+      Data: 500
     - Name: _maxValue
       Entry: 3
-      Data: 100
+      Data: 500
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -2180,11 +2249,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 49|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 53|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 48
+      Data: 52
     - Name: 
       Entry: 12
       Data: 8

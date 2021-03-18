@@ -6,8 +6,6 @@ namespace Yume.Battle {
   /// </summary>
   public class NormalDamage : DamageBase {
     protected override int OnDamage(Unit caster = null) {
-      Unit owner = behaviorTree.unit;
-
       // 卡牌攻击值
       int cardAtk = behaviorTree.blackboard.GetValue<int>("atk");
       // 卡牌攻击率

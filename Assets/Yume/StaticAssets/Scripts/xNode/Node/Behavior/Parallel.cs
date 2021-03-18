@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Yume.Battle {
-  public class Parallel : IntermediateNodeBase {
+  public class Parallel : ControllerNodeBase {
     public override bool Run() {
       bool result = false;
       var connections = GetOutputPort(nameof(next)).GetConnections();

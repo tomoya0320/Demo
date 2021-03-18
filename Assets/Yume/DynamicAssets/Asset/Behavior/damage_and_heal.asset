@@ -1,45 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-67559790399697665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1914c9fd81bc5cb48b22c2fcf0345d1e, type: 3}
-  m_Name: Heal On Caster Damage
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  graph: {fileID: 11400000}
-  position: {x: 56, y: 168}
-  ports:
-    keys:
-    - last
-    values:
-    - _fieldName: last
-      _node: {fileID: -67559790399697665}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: next
-        node: {fileID: 2331285125934905645}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  last: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +25,47 @@ MonoBehaviour:
   - {fileID: 6861931032593815189}
   - {fileID: 2331285125934905645}
   - {fileID: 2126521785339962996}
-  - {fileID: -67559790399697665}
+  - {fileID: 1077634895552656495}
+--- !u!114 &1077634895552656495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0705c04311ce44c9c793f2d6d45a14, type: 3}
+  m_Name: Create Buff
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 136, y: 232}
+  ports:
+    keys:
+    - last
+    values:
+    - _fieldName: last
+      _node: {fileID: 1077634895552656495}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: next
+        node: {fileID: 2331285125934905645}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  last: 0
 --- !u!114 &2126521785339962996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
         node: {fileID: 2126521785339962996}
         reroutePoints: []
       - fieldName: last
-        node: {fileID: -67559790399697665}
+        node: {fileID: 1077634895552656495}
         reroutePoints: []
       _direction: 1
       _connectionType: 0

@@ -12,7 +12,7 @@ namespace Yume.Battle {
   public class SingleSelector : TargetSelector {
     private enum TargetType {
       /// <summary>
-      /// 自己
+      /// 释放者
       /// </summary>
       CASTER,
       /// <summary>
@@ -20,7 +20,7 @@ namespace Yume.Battle {
       /// </summary>
       CANDIDATE,
     }
-
+    
     [SerializeField]
     private TargetType _targetType;
 

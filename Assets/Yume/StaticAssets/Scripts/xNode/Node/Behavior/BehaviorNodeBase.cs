@@ -4,6 +4,7 @@ using XNode;
 namespace Yume.Battle {
   public abstract class BehaviorNodeBase : Node {
     protected BehaviorTree behaviorTree;
+    protected Unit owner => behaviorTree.unit;
 
     protected override void Init() {
       base.Init();
@@ -18,7 +19,14 @@ namespace Yume.Battle {
     public int last;
   }
 
-  public abstract class IntermediateNodeBase : BehaviorNodeBase {
+  public abstract class DecoratorNodeBase : BehaviorNodeBase {
+    [Input(ShowBackingValue.Never, ConnectionType.Override)]
+    public int last;
+    [Output(ShowBackingValue.Never, ConnectionType.Override)]
+    public int next;
+  }
+
+  public abstract class ControllerNodeBase : BehaviorNodeBase {
     [Input(ShowBackingValue.Never, ConnectionType.Override)]
     public int last;
     [Output(ShowBackingValue.Never)]

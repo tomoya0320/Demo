@@ -3,7 +3,6 @@
 namespace Yume.Battle {
   public class AttachAttrib : LeafNodeBase {
     public override bool Run() {
-      Unit owner = behaviorTree.unit;
       var attribAdditives = behaviorTree.blackboard.GetValue<AttribAdditives>("attribAdditives");
       if (attribAdditives == null) {
         return false;

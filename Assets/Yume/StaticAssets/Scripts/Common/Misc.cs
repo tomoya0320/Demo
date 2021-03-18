@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using DG.Tweening;
@@ -847,22 +848,20 @@ namespace Yume {
             break;
           }
           case '}': {
-            string[] expression = description.Substring(start, i - start).Split(':');
-            var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
-            switch (expression.Length) {
-              case 2:
-                result.Append(_GetValueFromBlackboard(expression[1], blackboard));
-                break;
-              case 3:
-                switch (expression[1]) {
-                  case "attribAdditive":
-                    var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
-                    string[] kv = expression[2].Split('#');
-                    var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
-                    result.Append(_GetValueFromAttribAdditive(kv[1], attribAdditive));
-                    break;
-                }
-                break;
+            List<string> expression = description.Substring(start, i - start).Split(':').ToList();
+            var blackboard = buffTemplates[int.Parse(expression.First())].blackboard;
+            int buffArgsIndex = expression.FindIndex(s => s == "buff");
+            if (buffArgsIndex >= 0) {
+              blackboard = blackboard.GetValue<BuffTemplate>("buff").blackboard;
+            }
+            int attribAdditiveIndex = expression.FindIndex(s => s == "attribAdditive");
+            if (attribAdditiveIndex >= 0) {
+              var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+              string[] kv = expression.Last().Split('#');
+              var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
+              result.Append(_GetValueFromAttribAdditive(kv[1], attribAdditive));
+            } else {
+              result.Append(_GetValueFromBlackboard(expression.Last(), blackboard));
             }
             start = i + 1;
             break;

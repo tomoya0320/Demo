@@ -4,7 +4,6 @@
   /// </summary>
   public class DetachAttrib : LeafNodeBase {
     public override bool Run() {
-      Unit owner = behaviorTree.unit;
       var realAttribAdditives = behaviorTree.blackboard.GetValueAndRemove<AttribAdditives>("realAttribAdditives");
       if (realAttribAdditives == null) {
         return false;

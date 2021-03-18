@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Yume.Battle {
-  public class Selector : IntermediateNodeBase {
+  public class Selector : ControllerNodeBase {
     public override bool Run() {
       var connections = GetOutputPort(nameof(next)).GetConnections();
       foreach (var connection in connections) {
