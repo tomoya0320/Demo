@@ -75,8 +75,11 @@ namespace Yume.Battle {
       if (!candidate.isAlive) {
         yield break;
       }
-      
+      owner.playingCard = this;
+      BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_BEFORE_PLAY_CARD);
       yield return cardAnimCallback.PlayAnim();
+      BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_LATE_PLAY_CARD);
+      owner.playingCard = null;
       candidate = null;
     }
 

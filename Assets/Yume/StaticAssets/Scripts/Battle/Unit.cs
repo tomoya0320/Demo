@@ -13,10 +13,11 @@ namespace Yume.Battle {
     private Attrib[] attribs { get; }
     public int passiveSkillLevel { get; }
     public PassiveSkillPhase[] passiveSkillPhases { get; }
-    public Blackboard blackboard { get; } = new Blackboard();
-    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
+    public Card playingCard;
+    public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
-
+    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
+    
     #region 表现层
 
     protected YImage hpImage;

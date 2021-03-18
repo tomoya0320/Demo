@@ -324,6 +324,14 @@ namespace Yume {
     /// 在死亡前
     /// </summary>
     ON_BEFORE_DIE,
+    /// <summary>
+    /// 在出牌前
+    /// </summary>
+    ON_BEFORE_PLAY_CARD,    
+    /// <summary>
+    /// 在出牌后
+    /// </summary>
+    ON_LATE_PLAY_CARD,
   }
 
   public struct Behavior {

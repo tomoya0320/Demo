@@ -26,7 +26,7 @@ namespace Yume.Battle {
           yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
         bool result = _OnCast() && card.owner.isAlive;
-        yield return new WaitUntil(() => !m_animation.isPlaying);
+        yield return new WaitWhile(() => m_animation.isPlaying);
         gameObject.SetActiveEx(false);
         // 释放过程中如果自己死了或目标全都死了就直接结束
         if (result) {
