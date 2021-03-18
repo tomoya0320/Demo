@@ -852,7 +852,7 @@ namespace Yume {
             var blackboard = buffTemplates[int.Parse(expression.First())].blackboard;
             int buffArgsIndex = expression.FindIndex(s => s == "buff");
             if (buffArgsIndex >= 0) {
-              blackboard = blackboard.GetValue<BuffTemplate>("buff").blackboard;
+              blackboard = blackboard.GetValue<BuffTemplates>("buffs")[int.Parse(expression[buffArgsIndex + 1])].blackboard;
             }
             int attribAdditiveIndex = expression.FindIndex(s => s == "attribAdditive");
             if (attribAdditiveIndex >= 0) {

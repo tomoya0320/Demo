@@ -42,6 +42,8 @@ namespace Yume.Battle {
   }
 
   public class AttribAdditives : List<AttribAdditive> { }
+  
+  public class BuffTemplates : List<BuffTemplate> { }
 
   [Serializable]
   public struct Attrib {
