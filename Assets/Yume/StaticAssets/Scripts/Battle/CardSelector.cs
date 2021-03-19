@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Yume.Battle {
   public abstract class CardSelector {
@@ -10,12 +9,11 @@ namespace Yume.Battle {
   }
 
   public class RandomSelector : CardSelector {
-    [SerializeField]
-    private int _selectCount;
+    public int selectCount;
 
     public override List<Card> Select(List<Card> cards) {
       List<Card> result = new List<Card>(MathUtil.FisherYatesShuffle(cards.ToArray()));
-      int removeCount = result.Count - _selectCount;
+      int removeCount = result.Count - selectCount;
       while (removeCount > 0) {
         result.RemoveAt(0);
         removeCount--;

@@ -845,19 +845,26 @@ namespace Yume {
           }
           case '}': {
             List<string> expression = description.Substring(start, i - start).Split(':').ToList();
-            var blackboard = buffTemplates[int.Parse(expression.First())].blackboard;
-            int buffArgsIndex = expression.FindIndex(s => s == "buff");
-            if (buffArgsIndex >= 0) {
-              blackboard = blackboard.GetValue<BuffTemplates>("buffs")[int.Parse(expression[buffArgsIndex + 1])].blackboard;
+            var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
+            int nextIndex = 1;
+            if (expression[nextIndex] == "buffs") {
+              blackboard = blackboard.GetValue<BuffTemplates>("buffs")[int.Parse(expression[nextIndex + 1])].blackboard;
+              nextIndex += 2;
             }
-            int attribAdditiveIndex = expression.FindIndex(s => s == "attribAdditive");
-            if (attribAdditiveIndex >= 0) {
-              var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
-              string[] kv = expression.Last().Split('#');
-              var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
-              result.Append(_GetValueFromAttribAdditive(kv[1], attribAdditive));
-            } else {
-              result.Append(_GetValueFromBlackboard(expression.Last(), blackboard));
+            switch (expression[nextIndex]) {
+              case "attribAdditives":
+                var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+                string[] kv = expression[nextIndex + 1].Split('#');
+                var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
+                result.Append(_GetValueFromType(kv[1], attribAdditive));
+                break;
+              case "cardSelector":
+                var cardSelector = blackboard.GetValue<CardSelector>("cardSelector");
+                result.Append(_GetValueFromType(expression[nextIndex + 1], cardSelector));
+                break;
+              default:
+                result.Append(_GetValueFromBlackboard(expression.Last(), blackboard));
+                break;
             }
             start = i + 1;
             break;
@@ -908,17 +915,17 @@ namespace Yume {
       }
     }
 
-    private static string _GetValueFromAttribAdditive(string key, AttribAdditive attribAdditive) {
+    private static string _GetValueFromType(string key, object obj) {
       if (key[key.Length - 1] == '%') {
         key = key.Substring(0, key.Length - 1);
-        object value = typeof(AttribAdditive).GetField(key).GetValue(attribAdditive);
+        object value = obj.GetType().GetField(key).GetValue(obj);
         return value switch {
           int i => $"{i * 100 / Constant.THOUSAND}%",
           float f => $"{f * 100.0f}%",
           _ => $"{value}"
         };
       } else {
-        return $"{typeof(AttribAdditive).GetField(key).GetValue(attribAdditive)}";
+        return $"{obj.GetType().GetField(key).GetValue(obj)}";
       }
     }
 

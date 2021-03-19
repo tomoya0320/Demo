@@ -231,7 +231,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3\u5E76\u62BD\u53D63\u5F20\u724C"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u5927\u91CF\u4F24\u5BB3\u5E76\u62BD\u53D6{0:buffs:0:cardSelector:selectCount}\u5F20\u724C"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
@@ -427,7 +427,7 @@ MonoBehaviour:
     - Name: to
       Entry: 3
       Data: 1
-    - Name: _selectCount
+    - Name: selectCount
       Entry: 3
       Data: 3
     - Name: 
@@ -681,7 +681,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u51FB\u6740\u76EE\u6807\uFF0C\u56DE\u590D{0:buff:0:attribAdditive:ENERGY#value}\u70B9\u80FD\u91CF"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u51FB\u6740\u76EE\u6807\uFF0C\u56DE\u590D{0:buff:0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attack
