@@ -10,7 +10,7 @@ namespace Yume.Battle {
     public Unit owner;
     public Unit candidate;
     public CardData data { get; }
-    public UICardDrag cardDrag { get; }
+    public UIBattleCard battleCard { get; }
     public GameObject gameObject { get; }
     public Rect rect => rectTransform.rect;
     public CardTemplate cardTemplate { get; }
@@ -19,8 +19,6 @@ namespace Yume.Battle {
     public CardPhase cardPhase => cardTemplate.cardPhases[data.phase];
 
     public Card(Unit unit, CardArgs args, GameObject root, Func<Card, bool> onUseCard = null) {
-      // 默认将卡牌隐藏
-      root.SetActiveEx(false);
       owner = unit;
       gameObject = root;
       rectTransform = gameObject.GetComponent<RectTransform>();
@@ -44,24 +42,10 @@ namespace Yume.Battle {
       cardAnimCallback.gameObject.SetActiveEx(false);
       cardAnimCallback.card = this;
 
-      if (onUseCard != null) {
-        cardDrag = gameObject.AddComponent<UICardDrag>().Init(
-          () => {
-            if (gameObject.transform.position.y > 0 && cardDrag.interactable) {
-              candidate?.SetSelectedEnable(false);
-              if (cardTemplate.onlySelf) {
-                candidate = owner;
-              } else {
-                candidate = BattleManager.GetNearestEnemy(gameObject.transform.position);
-              }
-              candidate.SetSelectedEnable(true);
-            } else {
-              candidate?.SetSelectedEnable(false);
-              candidate = null;
-            }
-          },
-          () => onUseCard(this)
-        );
+      if (onUseCard == null) {
+        gameObject.SetActiveEx(false);
+      } else {
+        battleCard = gameObject.AddComponent<UIBattleCard>().Init(this, () => onUseCard(this));
       }
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));

@@ -1097,33 +1097,6 @@ namespace Yume {
     protected virtual void OnInit() { }
   }
 
-  public class YTween {
-    public int count { private set; get; }
-
-    public Tween DOLocalMove(Transform transform, Vector3 pos, float duration) {
-      count++;
-      return transform.DOLocalMove(pos, duration).OnComplete(() => count--);
-    }
-
-    public Tween DOScale(Transform transform, Vector3 scale, float duration) {
-      count++;
-      return transform.DOScale(scale, duration).OnComplete(() => count--);
-    }
-
-    public Tween DOScale(GameObject gameObject, Vector3 scale, float duration) {
-      return DOScale(gameObject.transform, scale, duration);
-    }
-
-    public Tween DOAnchorPos(RectTransform rectTransform, Vector2 pos, float duration) {
-      count++;
-      return rectTransform.DOAnchorPos(pos, duration).OnComplete(() => count--);
-    }
-
-    public Tween DOAnchorPos(GameObject gameObject, Vector2 pos, float duration) {
-      return DOAnchorPos(gameObject.GetRectTransform(), pos, duration);
-    }
-  }
-
   public class YEnumerator<T> {
     private T[] m_array;
     private int m_index;

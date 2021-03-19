@@ -4,38 +4,56 @@ using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public static class CardFactory {
-    public static Transform cardAnimFolder { private set; get; }
-    public static Transform drawCardFolder { private set; get; }
-    public static Transform handCardFolder { private set; get; }
-    public static Transform discardCardFolder { private set; get; }
-    public static Transform consumeCardFolder { private set; get; }
+    private static GameObject s_cardPrefab;
+    private static Transform s_drawCardFolder;
+    private static Transform s_handCardFolder;
+    private static Transform s_cardAnimFolder;
+    private static Transform s_discardCardFolder;
+    private static Transform s_consumeCardFolder;
+    public static Transform cardAnimFolder => s_cardAnimFolder;
 
     public static void Init(ObjectContainer objectContainer) {
-      cardAnimFolder = objectContainer.GetTransform("cardAnimFolder");
-      drawCardFolder = objectContainer.GetTransform("drawCardFolder");
-      handCardFolder = objectContainer.GetTransform("handCardFolder");
-      discardCardFolder = objectContainer.GetTransform("discardCardFolder");
-      consumeCardFolder = objectContainer.GetTransform("consumeCardFolder");
+      s_cardAnimFolder = objectContainer.GetTransform("cardAnimFolder");
+      s_drawCardFolder = objectContainer.GetTransform("drawCardFolder");
+      s_handCardFolder = objectContainer.GetTransform("handCardFolder");
+      s_discardCardFolder = objectContainer.GetTransform("discardCardFolder");
+      s_consumeCardFolder = objectContainer.GetTransform("consumeCardFolder");
+
+      s_cardPrefab = ResourceManager.Load<GameObject>("card_prefab");
+    }
+
+    public static Transform GetFolder(CardHeapType cardHeapType) {
+      switch (cardHeapType) {
+        case CardHeapType.DRAW:
+          return s_drawCardFolder;
+        case CardHeapType.HAND:
+          return s_handCardFolder;
+        case CardHeapType.DISCARD:
+          return s_discardCardFolder;
+        case CardHeapType.CONSUME:
+          return s_consumeCardFolder;
+        default:
+          return null;
+      }
     }
 
     public static Card CreateCard(Unit unit, CardArgs cardArgs, Func<Card, bool> onUseCard = null, Transform parent = null) {
-      var prefab = ResourceManager.Load<GameObject>("card_prefab");
       if (parent == null) {
-        parent = drawCardFolder;
+        parent = s_drawCardFolder;
       }
-      var go = Object.Instantiate(prefab, parent);
+      var go = Object.Instantiate(s_cardPrefab, parent);
       return new Card(unit, cardArgs, go, onUseCard);
     }
 
     public static void CleanUp() {
-      for (int i = 0; i < cardAnimFolder.childCount; i++) {
-        Object.Destroy(cardAnimFolder.GetChild(i).gameObject);
+      for (int i = 0; i < s_cardAnimFolder.childCount; i++) {
+        Object.Destroy(s_cardAnimFolder.GetChild(i).gameObject);
       }
-      cardAnimFolder = null;
-      drawCardFolder = null;
-      handCardFolder = null;
-      discardCardFolder = null;
-      consumeCardFolder = null;
+      s_cardAnimFolder = null;
+      s_drawCardFolder = null;
+      s_handCardFolder = null;
+      s_discardCardFolder = null;
+      s_consumeCardFolder = null;
     }
   }
 }

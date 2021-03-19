@@ -27,9 +27,9 @@ namespace Yume.Battle {
   }
 
   public class Character : Unit {
-    private List<Card> m_tempCardList = new List<Card>();
-    private UICardManager m_uiCardManager = new UICardManager();
+    private List<Card> m_tempCards = new List<Card>();
     protected override Transform folder => UnitFactory.charFolder;
+    private List<IEnumerator> m_enumerators = new List<IEnumerator>(); // 其他主线程地方触发的协程
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
     public Character(UnitArgs charArgs, CardArgs[] cardArgsArray) : base(charArgs) {
@@ -42,16 +42,21 @@ namespace Yume.Battle {
     }
 
     private bool _OnUseCard(Card card) {
+      if (BattleManager.currentUnit != this) {
+        return false;
+      }
       if (card.candidate == null) {
         return false;
       }
       if (!card.cardPhase.cardPlayer.TryPlay(card)) {
         return false;
       }
+
       // 从手牌堆中移除
       cardHeapDict[CardHeapType.HAND].Remove(card);
       // 加入出牌队列
       EnqueueCard(card);
+
       return true;
     }
 
@@ -64,7 +69,7 @@ namespace Yume.Battle {
           cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
           cardHeapDict[CardHeapType.DISCARD].ForEach(
             card => {
-              card.gameObject.SetParent(CardFactory.drawCardFolder);
+              card.gameObject.SetParent(CardFactory.GetFolder(CardHeapType.DRAW));
               card.rectTransform.anchoredPosition = Vector2.zero;
             }
           );
@@ -74,7 +79,7 @@ namespace Yume.Battle {
         Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW].ToArray());
         foreach (Card card in randomCards) {
           // 记录抽取的卡牌
-          m_tempCardList.Add(card);
+          m_tempCards.Add(card);
           cardHeapDict[CardHeapType.HAND].Add(card);
           cardHeapDict[CardHeapType.DRAW].Remove(card);
           if (cardHeapDict[CardHeapType.HAND].Count >= Constant.HAND_CARD_THRESHOLD) {
@@ -83,9 +88,9 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      yield return m_uiCardManager.AddCard(cardHeapDict[CardHeapType.HAND], m_tempCardList.Count);
-      m_tempCardList.Clear();
-      
+      yield return _AddCards(cardHeapDict[CardHeapType.HAND], m_tempCards.Count);
+      m_tempCards.Clear();
+
       // 出牌中
       while (true) {
         if (playCardQueue.Count > 0) {
@@ -95,33 +100,71 @@ namespace Yume.Battle {
           }
           // 出牌
           yield return playCard.Cast();
+          // 执行主线程其他地方触发的协程
+          foreach (var enumerator in m_enumerators) {
+            yield return enumerator;
+          }
           // 把用过的牌弃掉
           if (playCard.cardPhase.consume) {
             cardHeapDict[CardHeapType.CONSUME].Add(playCard);
+            yield return _RemoveCards(CardHeapType.CONSUME, playCard);
           } else {
             cardHeapDict[CardHeapType.DISCARD].Add(playCard);
+            yield return _RemoveCards(CardHeapType.DISCARD, playCard);
           }
-          // 弃牌表现层
-          yield return m_uiCardManager.RemoveCard(playCard.cardPhase.consume ? CardHeapType.CONSUME : CardHeapType.DISCARD, playCard);
-          if (playCardQueue.Count == 0) {
-            // 重新排列剩下没有被拖拽的卡牌(动画过程中暂时关闭拖拽组件以防止被点击造成动画位置不正确)
-            yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
-          }
+          // 重新排列剩下没有被拖拽的卡牌
+          _ResortHandCards();
         }
         yield return null;
       }
-      
+
       // 记录弃置的卡牌
       // 默认是将手牌全部弃置
-      m_tempCardList.AddRange(cardHeapDict[CardHeapType.HAND]);
+      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND]);
       cardHeapDict[CardHeapType.HAND].Clear();
       // 放入弃牌堆
-      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCardList);
+      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCards);
       // 弃牌表现层
-      yield return m_uiCardManager.RemoveCard(CardHeapType.DISCARD, m_tempCardList.ToArray());
-      m_tempCardList.Clear();
+      yield return _RemoveCards(CardHeapType.DISCARD, m_tempCards.ToArray());
+      m_tempCards.Clear();
       // 重新排列剩下的手牌堆
-      yield return m_uiCardManager.ResortHandCard(cardHeapDict[CardHeapType.HAND]);
+      _ResortHandCards();
+    }
+
+    private IEnumerator _AddCards(List<Card> cards, int drawCardCount) {
+      int drawCardStartIndex = cards.Count - drawCardCount;
+      for (int i = 0; i < cards.Count; i++) {
+        cards[i].gameObject.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
+        Vector2 dest = new Vector2((i - 0.5f * cards.Count + 0.5f) * cards[i].rect.width, 0);
+        cards[i].battleCard.SetTargetAnchorPos(dest);
+        if (i >= drawCardStartIndex) {
+          cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.ADDING);
+        }
+        yield return new WaitForSeconds(0.1f);
+      }
+      foreach (var card in cards) {
+        yield return new WaitWhile(() => card.battleCard.GetCurrentState() == BattleCardState.ADDING);
+      }
+    }
+
+    private IEnumerator _RemoveCards(CardHeapType to, params Card[] cards) {
+      for (int i = cards.Length - 1; i >= 0; i--) {
+        cards[i].gameObject.SetParent(CardFactory.GetFolder(to));
+        cards[i].battleCard.SetTargetAnchorPos(Vector2.zero);
+        cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.REMOVING);
+        yield return new WaitForSeconds(0.1f);
+      }
+      foreach (var card in cards) {
+        yield return new WaitWhile(() => card.battleCard.GetCurrentState() == BattleCardState.REMOVING);
+      }
+    }
+
+    private void _ResortHandCards() {
+      for (int i = 0; i < cardHeapDict[CardHeapType.HAND].Count; i++) {
+        float width = cardHeapDict[CardHeapType.HAND][i].rect.width;
+        Vector2 dest = new Vector2((i - 0.5f * cardHeapDict[CardHeapType.HAND].Count + 0.5f) * width, 0);
+        cardHeapDict[CardHeapType.HAND][i].battleCard.SetTargetAnchorPos(dest);
+      }
     }
 
     /// <summary>
@@ -142,9 +185,16 @@ namespace Yume.Battle {
       cardHeapDict[selector.to].AddRange(cards);
 
       if (selector.to == CardHeapType.HAND) {
-        CoroutineHelper.instance.Run(m_uiCardManager.AddCard(cardHeapDict[CardHeapType.HAND], cards.Count));
+        m_enumerators.Add(_AddCards(cardHeapDict[CardHeapType.HAND], cards.Count));
       } else if (selector.from == CardHeapType.HAND) {
-        CoroutineHelper.instance.Run(m_uiCardManager.RemoveCard(selector.to, cards.ToArray()));
+        m_enumerators.Add(_RemoveCards(selector.to, cards.ToArray()));
+      } else {
+        cards.ForEach(
+          card => {
+            card.gameObject.SetParent(CardFactory.GetFolder(selector.to));
+            card.rectTransform.anchoredPosition = Vector2.zero;
+          }
+        );
       }
     }
 

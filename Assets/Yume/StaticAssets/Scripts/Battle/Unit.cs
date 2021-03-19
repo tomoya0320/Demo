@@ -13,7 +13,7 @@ namespace Yume.Battle {
     private Attrib[] attribs { get; }
     public int passiveSkillLevel { get; }
     public PassiveSkillPhase[] passiveSkillPhases { get; }
-    public Card playingCard;
+    public Card playingCard; // 正在出的牌
     public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
     protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
