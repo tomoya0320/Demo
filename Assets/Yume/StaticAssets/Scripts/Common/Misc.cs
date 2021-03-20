@@ -5,8 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using DG.Tweening;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Battle;
 using XLua;
@@ -691,6 +691,12 @@ namespace Yume {
       Color color = graphic.color;
       color.a = alpha;
       graphic.color = color;
+    }
+  }
+
+  public static class ImageExtensions {
+    public static async void SetSpriteAsync(this Image image, string name) {
+      image.sprite = await Addressables.LoadAssetAsync<Sprite>(name).Task;
     }
   }
 

@@ -119,7 +119,7 @@ namespace Yume {
           break;
       }
       s_uiGuideContent.rectTransform.anchoredPosition = contentPos;
-      s_uiGuideContent.icon.sprite = ResourceManager.Load<Sprite>(stepEnumerator.current.iconFileName);
+      s_uiGuideContent.icon.SetSpriteAsync(stepEnumerator.current.iconFileName);
       s_uiGuideContent.description.text = StringMap.EMPTY;
       s_uiGuideContent.description.DOText(stepEnumerator.current.description, 15.0f).SetSpeedBased().OnComplete(
         () =>

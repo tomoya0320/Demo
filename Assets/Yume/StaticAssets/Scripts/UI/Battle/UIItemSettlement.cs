@@ -26,8 +26,7 @@ namespace Yume.UI {
         if (i < itemArgsArray.Length) {
           ItemArgs itemArgs = itemArgsArray[i];
           tempGo.SetActiveEx(true);
-          tempGo.GetComponentInChildren<Image>().sprite = ResourceManager.Load<Sprite>
-            (ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Image>().SetSpriteAsync(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
           tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);

@@ -18,15 +18,15 @@ namespace Yume {
 
     public Style style;
     public string content;
-    public Sprite img;
+    public string spriteName;
     public float duration;
     public bool allowDuplicate;
 
-    public Message(Style style, string content, bool allowDuplicate = true, Sprite img = null, float duration = 2.0f) {
+    public Message(Style style, string content, bool allowDuplicate = true, string spriteName = null, float duration = 2.0f) {
       this.style = style;
       this.content = content;
       this.duration = duration;
-      this.img = img;
+      this.spriteName = spriteName;
       this.allowDuplicate = allowDuplicate;
     }
   }
@@ -55,8 +55,12 @@ namespace Yume {
 
       public void Show(Message.Style style) {
         m_message = s_messageQueueDict[style].Peek();
-        m_image.sprite = m_message.img;
-        m_image.enabled = m_image.sprite != null;
+        if (string.IsNullOrEmpty(m_message.spriteName)) {
+          m_image.enabled = false;
+        } else {
+          m_image.enabled = true;
+          m_image.SetSpriteAsync(m_message.spriteName);
+        }
 
         m_description.text = m_message.content;
         m_textRect.SetSizeX(Mathf.Clamp(m_description.preferredWidth, 300, 1500));

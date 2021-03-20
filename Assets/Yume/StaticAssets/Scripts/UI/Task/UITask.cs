@@ -81,8 +81,7 @@ namespace Yume.UI {
             var rewardObject = m_rewardObjects[i];
             if (i < taskTemplate.taskRewards.items.Length) {
               rewardObject.gameObject.SetActiveEx(true);
-              rewardObject.GetComponent<Image>("icon").sprite = ResourceManager.Load<Sprite>
-                     (ResourceManager.Load<ItemTemplate>(taskTemplate.taskRewards.items[i].id).iconFileName);
+              rewardObject.GetComponent<Image>("icon").SetSpriteAsync(ResourceManager.Load<ItemTemplate>(taskTemplate.taskRewards.items[i].id).iconFileName);
               rewardObject.GetComponent<Text>("num").text = taskTemplate.taskRewards.items[i].count.ToString();
             } else {
               rewardObject.gameObject.SetActiveEx(false);

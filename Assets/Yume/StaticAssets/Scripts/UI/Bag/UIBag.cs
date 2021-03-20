@@ -34,7 +34,7 @@ namespace Yume.UI {
 
         if (m_item != null) {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
-          m_iconImg.sprite = ResourceManager.Load<Sprite>(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
+          m_iconImg.SetSpriteAsync(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
       }
 

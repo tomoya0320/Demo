@@ -43,9 +43,7 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
 
         if (m_character != null) {
-          UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(m_character.id);
-
-          m_selectButton.image.sprite = ResourceManager.Load<Sprite>(charTemplate.portraitFileName);
+          m_selectButton.image.SetSpriteAsync(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
         }
       }
 

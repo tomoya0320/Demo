@@ -85,7 +85,7 @@ namespace Yume.UI {
       UIManager.onBackList.Add(_Abort);
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
-      m_bg.sprite = ResourceManager.Load<Sprite>(levelTemplate.background);
+      m_bg.SetSpriteAsync(levelTemplate.background);
 
       BattleManager.Init((TeamArgs)args[1], levelTemplate, objectContainer);
 

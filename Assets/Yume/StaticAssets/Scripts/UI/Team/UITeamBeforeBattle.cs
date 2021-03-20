@@ -75,15 +75,15 @@ namespace Yume.UI {
 
         UnitArgs charArgs = m_levelTemplate.customTeam.unitArgs;
         UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(charArgs.id);
-        m_customCharBtn.image.sprite = ResourceManager.Load<Sprite>(charTemplate.portraitFileName);
+        m_customCharBtn.image.SetSpriteAsync(charTemplate.portraitFileName);
         for (int i = 0; i < m_customCardBtns.Length; i++) {
           if (i < m_levelTemplate.customTeam.cardArgsArray.Length) {
             CardArgs cardArgs = m_levelTemplate.customTeam.cardArgsArray[i];
             CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(cardArgs.id);
             CardPhase cardPhase = cardTemplate.cardPhases[cardArgs.phase];
-            m_customCardBtns[i].image.sprite = ResourceManager.Load<Sprite>(cardPhase.iconFileName);
+            m_customCardBtns[i].image.SetSpriteAsync(cardPhase.iconFileName);
           } else {
-            m_customCardBtns[i].image.sprite = noCardSprite;
+            m_customCardBtns[i].image.sprite = ResourceManager.Load<Sprite>("noCardSprite");
           }
         }
       } else {
