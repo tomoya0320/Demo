@@ -68,10 +68,9 @@ namespace Yume {
           UIManager.OpenOne(stepEnumerator.current.uiName, () => _SetGuideStep(guide, stepEnumerator));
         }
       } else {
-        DataManager.CompleteGuide(guide);
-        // 引导过程中需要屏蔽回退响应
-        UIManager.activeBack++;
         isGuiding = false;
+        UIManager.activeBack++;
+        DataManager.CompleteGuide(guide);
       }
     }
 

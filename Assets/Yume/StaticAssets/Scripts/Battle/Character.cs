@@ -24,6 +24,10 @@ namespace Yume.Battle {
     /// 耗牌堆
     /// </summary>
     CONSUME,
+    /// <summary>
+    /// 出牌堆
+    /// </summary>
+    PLAYING,
   }
 
   public class Character : Unit {
@@ -54,6 +58,7 @@ namespace Yume.Battle {
 
       // 从手牌堆中移除
       cardHeapDict[CardHeapType.HAND].Remove(card);
+      card.cardHeapType = CardHeapType.PLAYING;
       // 加入出牌队列
       EnqueueCard(card);
 
@@ -62,17 +67,17 @@ namespace Yume.Battle {
 
     public override IEnumerator OnTick() {
       // 抽牌逻辑层
-      int deltaCardCount = Constant.HAND_CARD_THRESHOLD - cardHeapDict[CardHeapType.HAND].Count;
-      if (deltaCardCount > 0) {
-        if (deltaCardCount > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
+      if (cardHeapDict[CardHeapType.HAND].Count < Constant.MAX_HAND_CARD_COUNT) {
+        if (Constant.DRAW_CARD_COUNT > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
           // 弃牌堆的牌重新进入抽牌堆
-          cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
           cardHeapDict[CardHeapType.DISCARD].ForEach(
             card => {
               card.gameObject.SetParent(CardFactory.GetFolder(CardHeapType.DRAW));
               card.rectTransform.anchoredPosition = Vector2.zero;
+              card.cardHeapType = CardHeapType.DRAW;
             }
           );
+          cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
           cardHeapDict[CardHeapType.DISCARD].Clear();
         }
 
@@ -80,9 +85,10 @@ namespace Yume.Battle {
         foreach (Card card in randomCards) {
           // 记录抽取的卡牌
           m_tempCards.Add(card);
+          card.cardHeapType = CardHeapType.HAND;
           cardHeapDict[CardHeapType.HAND].Add(card);
           cardHeapDict[CardHeapType.DRAW].Remove(card);
-          if (cardHeapDict[CardHeapType.HAND].Count >= Constant.HAND_CARD_THRESHOLD) {
+          if (m_tempCards.Count >= Constant.DRAW_CARD_COUNT || cardHeapDict[CardHeapType.HAND].Count >= Constant.MAX_HAND_CARD_COUNT) {
             break;
           }
         }
@@ -106,12 +112,13 @@ namespace Yume.Battle {
           }
           // 把用过的牌弃掉
           if (playCard.cardPhase.consume) {
+            playCard.cardHeapType = CardHeapType.CONSUME;
             cardHeapDict[CardHeapType.CONSUME].Add(playCard);
-            yield return _RemoveCards(CardHeapType.CONSUME, playCard);
           } else {
+            playCard.cardHeapType = CardHeapType.DISCARD;
             cardHeapDict[CardHeapType.DISCARD].Add(playCard);
-            yield return _RemoveCards(CardHeapType.DISCARD, playCard);
           }
+          yield return _RemoveCards(playCard);
           // 重新排列剩下没有被拖拽的卡牌
           _ResortHandCards();
         }
@@ -119,13 +126,17 @@ namespace Yume.Battle {
       }
 
       // 记录弃置的卡牌
-      // 默认是将手牌全部弃置
-      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND]);
-      cardHeapDict[CardHeapType.HAND].Clear();
+      // 将不保留的手牌全部弃置
+      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !card.cardPhase.retain));
+      m_tempCards.ForEach(card => {
+          card.cardHeapType = CardHeapType.DISCARD;
+          cardHeapDict[CardHeapType.HAND].Remove(card);
+        }
+      );
       // 放入弃牌堆
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCards);
       // 弃牌表现层
-      yield return _RemoveCards(CardHeapType.DISCARD, m_tempCards.ToArray());
+      yield return _RemoveCards(m_tempCards.ToArray());
       m_tempCards.Clear();
       // 重新排列剩下的手牌堆
       _ResortHandCards();
@@ -134,7 +145,6 @@ namespace Yume.Battle {
     private IEnumerator _AddCards(int drawCardCount, params Card[] cards) {
       int drawCardStartIndex = cards.Length - drawCardCount;
       for (int i = 0; i < cards.Length; i++) {
-        cards[i].gameObject.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         Vector2 dest = new Vector2((i - 0.5f * cards.Length + 0.5f) * cards[i].rect.width, 0);
         cards[i].battleCard.SetTargetAnchorPos(dest);
         if (i >= drawCardStartIndex) {
@@ -148,9 +158,8 @@ namespace Yume.Battle {
       }
     }
 
-    private IEnumerator _RemoveCards(CardHeapType to, params Card[] cards) {
+    private IEnumerator _RemoveCards(params Card[] cards) {
       for (int i = cards.Length - 1; i >= 0; i--) {
-        cards[i].gameObject.SetParent(CardFactory.GetFolder(to));
         cards[i].battleCard.SetTargetAnchorPos(Vector2.zero);
         cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.REMOVING);
         yield return new WaitForSeconds(0.1f);
@@ -181,15 +190,25 @@ namespace Yume.Battle {
       }
 
       List<Card> cards = selector.Select(cardHeapDict[selector.from]);
-      foreach (var card in cards) {
-        cardHeapDict[selector.from].Remove(card);
+      if (selector.to == CardHeapType.HAND) {
+        int deltaCount = Constant.MAX_HAND_CARD_COUNT - cardHeapDict[CardHeapType.HAND].Count;
+        if (cards.Count > deltaCount) {
+          cards = cards.GetRange(0, deltaCount);
+        }
       }
+
+      cards.ForEach(
+        card => {
+          card.cardHeapType = selector.to;
+          cardHeapDict[selector.from].Remove(card);
+        }
+      );
       cardHeapDict[selector.to].AddRange(cards);
 
       if (selector.to == CardHeapType.HAND) {
         m_enumerators.Add(_AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray()));
       } else if (selector.from == CardHeapType.HAND) {
-        m_enumerators.Add(_RemoveCards(selector.to, cards.ToArray()));
+        m_enumerators.Add(_RemoveCards(cards.ToArray()));
       } else {
         cards.ForEach(
           card => {
@@ -200,14 +219,8 @@ namespace Yume.Battle {
       }
     }
 
-    public List<CardData> GetCardDatas(CardHeapType type) {
-      List<CardData> cardDatas = new List<CardData>();
-      if (cardHeapDict.ContainsKey(type)) {
-        foreach (var card in cardHeapDict[type]) {
-          cardDatas.Add(card.data);
-        }
-      }
-      return cardDatas;
+    public List<Card> GetCard(CardHeapType cardHeapType) {
+      return cardHeapDict[cardHeapType];
     }
 
     public override void OnDie() {

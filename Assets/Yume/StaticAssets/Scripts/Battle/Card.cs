@@ -9,6 +9,8 @@ namespace Yume.Battle {
   public class Card {
     public Unit owner;
     public Unit candidate;
+    public CardHeapType cardHeapType;
+    
     public CardData data { get; }
     public GameObject gameObject { get; }
     public UIBattleCard battleCard { get; }
@@ -21,6 +23,7 @@ namespace Yume.Battle {
     public Card(Unit unit, CardArgs args, GameObject root, Func<Card, bool> onUseCard = null) {
       owner = unit;
       gameObject = root;
+      cardHeapType = CardHeapType.DRAW;
       rectTransform = gameObject.GetComponent<RectTransform>();
 
       data = new CardData(args.id, args.phase);

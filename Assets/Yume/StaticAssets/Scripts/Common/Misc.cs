@@ -51,6 +51,7 @@ namespace Yume {
 
   public struct CardPhase {
     public string name;
+    public bool retain;
     public bool consume;
     [TextArea]
     public string description;
@@ -582,7 +583,8 @@ namespace Yume {
     public const int MAX_TEAN_COUNT = 5;
     public const int MAX_CARD_COUNT = 12;
     public const int MAX_SOUND_COUNT = 5;
-    public const int HAND_CARD_THRESHOLD = 5;
+    public const int DRAW_CARD_COUNT = 5;
+    public const int MAX_HAND_CARD_COUNT = 10;
     // ReSharper disable once InconsistentNaming
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
     // ReSharper disable once InconsistentNaming

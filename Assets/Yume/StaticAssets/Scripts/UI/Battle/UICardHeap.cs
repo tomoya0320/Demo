@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Battle;
 using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICardHeap : UIBase {
-    private class UICardTerm : UIChildBase, IScrollTerm<CardData> {
-      private CardData m_card;
+    private class UICardTerm : UIChildBase, IScrollTerm<Card> {
+      private Card m_card;
       private Text m_nameText;
       private Text m_typeText;
       private Image m_iconImg;
@@ -28,19 +29,19 @@ namespace Yume.UI {
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
       }
 
-      public void UpdateScrollTerm(CardData card) {
+      public void UpdateScrollTerm(Card card) {
         m_card = card;
 
         gameObject.SetActiveEx(m_card != null);
 
         if (m_card != null) {
-          m_cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
-          CardPhase cardPhase = m_cardTemplate.cardPhases[m_card.phase];
+          m_cardTemplate = m_card.cardTemplate;
+          CardPhase cardPhase = m_card.cardPhase;
 
-          m_phaseText.text = $"{m_card.phase + 1}";
+          m_phaseText.text = $"{m_card.data.phase + 1}";
           m_typeText.text = m_cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
-          if (m_card.phase == m_cardTemplate.cardPhases.Length - 1) {
+          if (m_card.data.phase == m_cardTemplate.cardPhases.Length - 1) {
             m_nameText.text += "[MAX]";
           }
           if (cardPhase.energyConsumption >= 0) {
@@ -53,18 +54,18 @@ namespace Yume.UI {
         }
       }
 
-      public IScrollTerm<CardData> Clone() {
+      public IScrollTerm<Card> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
         return new UICardTerm(clone);
       }
     }
 
-    private class UICardGroup : UIChildBase, IScrollGroup<CardData, UICardTerm> {
-      public List<CardData> cardList;
+    private class UICardGroup : UIChildBase, IScrollGroup<Card, UICardTerm> {
+      public List<Card> cardList;
       private ScrollRect m_cardScrollRect;
-      public List<CardData> dataList => cardList;
+      public List<Card> dataList => cardList;
       public List<UICardTerm> viewList => m_cardTermList;
-      private UIScrollView<CardData, UICardTerm> m_cardScrollView;
+      private UIScrollView<Card, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
       public UICardGroup(GameObject root) : base(root) {
@@ -72,7 +73,7 @@ namespace Yume.UI {
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
         }
-        m_cardScrollView = new UIScrollView<CardData, UICardTerm>(m_cardScrollRect, this);
+        m_cardScrollView = new UIScrollView<Card, UICardTerm>(m_cardScrollRect, this);
 
         EventCenter.AddListener(EventType.UPDATE_CARD_INFO, _Refresh);
       }
@@ -110,8 +111,8 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.cardList = args[0] as List<CardData>;
-      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+      m_cardGroup.cardList = args[0] as List<Card>;
+      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.data.id, right.data.id));
       m_cardGroup.OnOpen();
 
       base.Open(callback, args);

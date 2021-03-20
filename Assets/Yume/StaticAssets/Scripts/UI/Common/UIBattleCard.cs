@@ -37,6 +37,7 @@ namespace Yume.UI {
       public override void OnEnter(int lastStateId) {
         m_speed = speed;
         owner.transform.localScale = smallScale;
+        owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
       }
 
       public override void OnTrick() {
@@ -64,13 +65,17 @@ namespace Yume.UI {
     private class Dragging : StateBase<UIBattleCard> {
       public Dragging(UIBattleCard owner) : base((int)BattleCardState.DRAGGING, owner) { }
 
+      public override void OnEnter(int lastStateId) {
+        owner.transform.SetParent(CardFactory.handCardTopFolder);
+      }
+
       public override void OnTrick() {
         // 大小缩放
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
         Vector3 mousePosition = owner.m_eventData.position;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        owner.m_rectTransform.position = owner.m_originPos + (mousePosition - owner.m_clickPos);
+        owner.transform.position = owner.m_originPos + (mousePosition - owner.m_clickPos);
         // 目标选择
         // 取消之前选择的
         if (owner.m_card.candidate != null) {
@@ -89,13 +94,15 @@ namespace Yume.UI {
       }
 
       public override void OnExit(int nextStateId) {
-        if (owner.m_card.candidate == null) {
-          return;
+        if (nextStateId == (int)BattleCardState.IN_HAND) {
+          owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         }
         
-        owner.m_card.candidate.SetSelectedEnable(false);
-        if (nextStateId != (int)BattleCardState.PLAYING) {
-          owner.m_card.candidate = null;
+        if (owner.m_card.candidate != null) {
+          owner.m_card.candidate.SetSelectedEnable(false);
+          if (nextStateId != (int)BattleCardState.PLAYING) {
+            owner.m_card.candidate = null;
+          }
         }
       }
     }
@@ -111,6 +118,7 @@ namespace Yume.UI {
 
       public override void OnEnter(int lastStateId) {
         m_speed = speed;
+        owner.transform.SetParent(CardFactory.GetFolder(owner.m_card.cardHeapType));
       }
 
       public override void OnTrick() {
@@ -134,11 +142,10 @@ namespace Yume.UI {
     private Func<bool> m_onUseCard;
     private Vector2 m_targettAnchorPos;
     private PointerEventData m_eventData;
-    private RectTransform m_rectTransform;
     public StateMachine stateMachine { get; } = new StateMachine();
     private Vector2 anchoredPosition {
-      get => m_rectTransform.anchoredPosition;
-      set => m_rectTransform.anchoredPosition = value;
+      get => m_card.rectTransform.anchoredPosition;
+      set => m_card.rectTransform.anchoredPosition = value;
     }
     private static float speed => 3.0f * Time.deltaTime;
     private static float speedIncrement => 0.05f * Time.deltaTime;
@@ -151,7 +158,6 @@ namespace Yume.UI {
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
       m_onUseCard = onUseCard;
-      m_rectTransform = GetComponent<RectTransform>();
 
       stateMachine.RegisterState(new Adding(this));
       stateMachine.RegisterState(new InHand(this));
@@ -181,7 +187,6 @@ namespace Yume.UI {
       if (_CanDrag()) {
         m_eventData = eventData;
         m_originPos = transform.position;
-        transform.SetAsLastSibling();
         Vector3 mousePosition = m_eventData.position;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         m_clickPos = mousePosition;

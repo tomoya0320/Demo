@@ -10,7 +10,9 @@ namespace Yume.Battle {
     private static Transform s_cardAnimFolder;
     private static Transform s_discardCardFolder;
     private static Transform s_consumeCardFolder;
+    private static Transform s_handCardTopFolder;
     public static Transform cardAnimFolder => s_cardAnimFolder;
+    public static Transform handCardTopFolder => s_handCardTopFolder;
 
     public static void Init(ObjectContainer objectContainer) {
       s_cardAnimFolder = objectContainer.GetTransform("cardAnimFolder");
@@ -18,6 +20,7 @@ namespace Yume.Battle {
       s_handCardFolder = objectContainer.GetTransform("handCardFolder");
       s_discardCardFolder = objectContainer.GetTransform("discardCardFolder");
       s_consumeCardFolder = objectContainer.GetTransform("consumeCardFolder");
+      s_handCardTopFolder = objectContainer.GetTransform("handCardTopFolder");
 
       s_cardPrefab = ResourceManager.Load<GameObject>("card_prefab");
     }
@@ -49,11 +52,13 @@ namespace Yume.Battle {
       for (int i = 0; i < s_cardAnimFolder.childCount; i++) {
         Object.Destroy(s_cardAnimFolder.GetChild(i).gameObject);
       }
+      s_cardPrefab = null;
       s_cardAnimFolder = null;
       s_drawCardFolder = null;
       s_handCardFolder = null;
       s_discardCardFolder = null;
       s_consumeCardFolder = null;
+      s_handCardTopFolder = null;
     }
   }
 }
