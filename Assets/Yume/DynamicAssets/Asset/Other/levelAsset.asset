@@ -47,7 +47,7 @@ MonoBehaviour:
       Data: avg_7_1
     - Name: description
       Entry: 1
-      Data: "\u5173\u5361\u6548\u679C\uFF1A\u5168\u573A\u6240\u6709\u5355\u4F4D\u5728\u6218\u6597\u4E00\u5F00\u59CB\u65F6\u9644\u52A0\u4E00\u4E2A\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u56FA\u5B9A\u5931\u53BB{0:atk}\u70B9\u751F\u547D\u503C\u7684debuff\uFF0C\u6301\u7EED\u65F6\u95F4\u4E3A{0:duration}\u56DE\u5408"
+      Data: "\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E\u5173\u5361\u8BF4\u660E"
     - Name: beforeAVGId
       Entry: 1
       Data: avg_test1
@@ -267,106 +267,7 @@ MonoBehaviour:
       Data: 8|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: Yume.BuffTemplate, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: buff_global_pure_damage_on_before_turn
-    - Name: stackType
-      Entry: 3
       Data: 0
-    - Name: selector
-      Entry: 7
-      Data: 9|Yume.Battle.CampSelector, Assembly-CSharp
-    - Name: _camp
-      Entry: 3
-      Data: 3
-    - Name: _includeSelf
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: behaviors
-      Entry: 7
-      Data: 10|Yume.Behavior[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: Yume.Behavior, Assembly-CSharp
-    - Name: behaviorTreeId
-      Entry: 1
-      Data: pure_damage
-    - Name: behaviorTime
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: blackboard
-      Entry: 7
-      Data: 11|Yume.Battle.Blackboard, Assembly-CSharp
-    - Name: comparer
-      Entry: 9
-      Data: 7
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: duration
-    - Name: $v
-      Entry: 7
-      Data: 12|System.Int32, mscorlib
-    - Name: 
-      Entry: 3
-      Data: 6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: atk
-    - Name: $v
-      Entry: 7
-      Data: 13|System.Int32, mscorlib
-    - Name: 
-      Entry: 3
-      Data: 6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -396,7 +297,7 @@ MonoBehaviour:
       Data: 
     - Name: cardArgsArray
       Entry: 7
-      Data: 14|Yume.CardArgs[], Assembly-CSharp
+      Data: 9|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -471,7 +372,7 @@ MonoBehaviour:
       Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 15|Yume.ItemArgs[], Assembly-CSharp
+      Data: 10|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -489,7 +390,7 @@ MonoBehaviour:
       Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 16|Yume.ItemArgs[], Assembly-CSharp
+      Data: 11|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -516,7 +417,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTeams
       Entry: 7
-      Data: 17|Yume.TeamArgs[], Assembly-CSharp
+      Data: 12|Yume.TeamArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -528,7 +429,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 18|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 13|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 7
@@ -543,7 +444,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 19|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 14|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
