@@ -10,8 +10,8 @@ namespace Yume.Battle {
     public Unit owner;
     public Unit candidate;
     public CardData data { get; }
-    public UIBattleCard battleCard { get; }
     public GameObject gameObject { get; }
+    public UIBattleCard battleCard { get; }
     public Rect rect => rectTransform.rect;
     public CardTemplate cardTemplate { get; }
     public RectTransform rectTransform { get; }

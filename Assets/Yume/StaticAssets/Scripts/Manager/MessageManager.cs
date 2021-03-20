@@ -59,15 +59,7 @@ namespace Yume {
         m_image.enabled = m_image.sprite != null;
 
         m_description.text = m_message.content;
-
-        Vector2 size = m_textRect.rect.size;
-        // height保持不变
-        m_textRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
-        // 动态设置width
-        m_textRect.SetSizeWithCurrentAnchors(
-          RectTransform.Axis.Horizontal,
-          Mathf.Clamp(m_description.preferredWidth, 300, 1500)
-        );
+        m_textRect.SetSizeX(Mathf.Clamp(m_description.preferredWidth, 300, 1500));
 
         m_gameObject.SetActiveEx(true);
         CoroutineHelper.instance.PlayAnimCallback(m_animation.GetClip("open"), m_animation, _OnOpenCompleted);

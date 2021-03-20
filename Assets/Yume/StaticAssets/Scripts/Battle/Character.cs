@@ -88,7 +88,7 @@ namespace Yume.Battle {
         }
       }
       // 抽牌表现层
-      yield return _AddCards(cardHeapDict[CardHeapType.HAND], m_tempCards.Count);
+      yield return _AddCards(m_tempCards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
       m_tempCards.Clear();
 
       // 出牌中
@@ -131,17 +131,18 @@ namespace Yume.Battle {
       _ResortHandCards();
     }
 
-    private IEnumerator _AddCards(List<Card> cards, int drawCardCount) {
-      int drawCardStartIndex = cards.Count - drawCardCount;
-      for (int i = 0; i < cards.Count; i++) {
+    private IEnumerator _AddCards(int drawCardCount, params Card[] cards) {
+      int drawCardStartIndex = cards.Length - drawCardCount;
+      for (int i = 0; i < cards.Length; i++) {
         cards[i].gameObject.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
-        Vector2 dest = new Vector2((i - 0.5f * cards.Count + 0.5f) * cards[i].rect.width, 0);
+        Vector2 dest = new Vector2((i - 0.5f * cards.Length + 0.5f) * cards[i].rect.width, 0);
         cards[i].battleCard.SetTargetAnchorPos(dest);
         if (i >= drawCardStartIndex) {
           cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.ADDING);
         }
         yield return new WaitForSeconds(0.1f);
       }
+      // 避免迭代器失效所以传入的参数得是数组
       foreach (var card in cards) {
         yield return new WaitWhile(() => card.battleCard.GetCurrentState() == BattleCardState.ADDING);
       }
@@ -154,6 +155,7 @@ namespace Yume.Battle {
         cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.REMOVING);
         yield return new WaitForSeconds(0.1f);
       }
+      // 避免迭代器失效所以传入的参数得是数组
       foreach (var card in cards) {
         yield return new WaitWhile(() => card.battleCard.GetCurrentState() == BattleCardState.REMOVING);
       }
@@ -185,7 +187,7 @@ namespace Yume.Battle {
       cardHeapDict[selector.to].AddRange(cards);
 
       if (selector.to == CardHeapType.HAND) {
-        m_enumerators.Add(_AddCards(cardHeapDict[CardHeapType.HAND], cards.Count));
+        m_enumerators.Add(_AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray()));
       } else if (selector.from == CardHeapType.HAND) {
         m_enumerators.Add(_RemoveCards(selector.to, cards.ToArray()));
       } else {

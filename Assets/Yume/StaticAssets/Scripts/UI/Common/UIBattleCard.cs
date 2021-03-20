@@ -53,24 +53,11 @@ namespace Yume.UI {
     }
 
     private class InHand : StateBase<UIBattleCard> {
-      private float m_speed;
-      
       public InHand(UIBattleCard owner) : base((int)BattleCardState.IN_HAND, owner) { }
 
-      public override void OnEnter(int lastStateId) {
-        m_speed = speed;
-      }
-
       public override void OnTrick() {
-        if (Vector2.Distance(owner.m_targettAnchorPos, owner.anchoredPosition) < MIN_DIST) {
-          owner.transform.localScale = Vector3.one;
-          owner.anchoredPosition = owner.m_targettAnchorPos;
-          m_speed = speed;
-        } else {
-          owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, m_speed);
-          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targettAnchorPos, m_speed);
-          m_speed += speedIncrement;
-        }
+        owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, SPEED_SCALE * speed);
+        owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targettAnchorPos, SPEED_SCALE * speed);
       }
     }
 
@@ -79,7 +66,7 @@ namespace Yume.UI {
 
       public override void OnTrick() {
         // 大小缩放
-        owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, speed);
+        owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
         Vector3 mousePosition = owner.m_eventData.position;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -159,6 +146,7 @@ namespace Yume.UI {
     private static Vector3 bigScale => 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
     private const float MIN_DIST = 1.0f;
+    private const float SPEED_SCALE = 2.0f;
 
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;

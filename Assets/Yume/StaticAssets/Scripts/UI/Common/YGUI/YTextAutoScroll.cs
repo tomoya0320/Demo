@@ -24,9 +24,11 @@ namespace Yume.UI {
         m_tween.Kill();
         m_tween = null;
       }
+      
       m_textComponent.text = content;
-      LayoutRebuilder.ForceRebuildLayoutImmediate(m_textRectTransform);
+      m_textRectTransform.SetSizeY(m_textComponent.preferredHeight);
       float endValue = m_textRectTransform.rect.height - m_rectTransform.rect.height;
+      
       if (endValue > 0) {
         _ScrollTextInternal(endValue);
       }
