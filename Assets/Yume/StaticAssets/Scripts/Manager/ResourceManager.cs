@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Yume.Asset;
 
@@ -15,17 +14,7 @@ namespace Yume {
 
       float process = 0;
       foreach (var location in locationList.Result) {
-        // 冗余的类型
-        if (typeof(Texture2D).IsAssignableFrom(location.ResourceType)) {
-          Debug.LogWarning($"冗余的类型:{location.ResourceType.FullName}");
-        }
-        // 特殊处理
-        else if (typeof(Sprite).IsAssignableFrom(location.ResourceType)) {
-          var sprite = Addressables.LoadAssetAsync<Sprite>(location);
-          yield return sprite;
-
-          s_resourceDict.Add((location.PrimaryKey, location.ResourceType), sprite.Result);
-        } else if (typeof(YScriptableObject).IsAssignableFrom(location.ResourceType)) {
+        if (typeof(YScriptableObject).IsAssignableFrom(location.ResourceType)) {
           var asset = Addressables.LoadAssetAsync<YScriptableObject>(location);
           yield return asset;
 
