@@ -11,30 +11,32 @@ namespace Yume.Battle {
     public Unit candidate;
     public CardHeapType cardHeapType;
     
-    public CardData data { get; }
+    public string id { get; }
+    public int phase { get; }
     public GameObject gameObject { get; }
     public UIBattleCard battleCard { get; }
     public Rect rect => rectTransform.rect;
     public CardTemplate cardTemplate { get; }
     public RectTransform rectTransform { get; }
     public CardAnimCallback cardAnimCallback { get; }
-    public CardPhase cardPhase => cardTemplate.cardPhases[data.phase];
+    public CardPhase cardPhase => cardTemplate.cardPhases[phase];
 
     public Card(Unit unit, CardArgs args, GameObject root, Func<Card, bool> onUseCard = null) {
+      id = args.id;
+      phase = args.phase;
       owner = unit;
       gameObject = root;
       cardHeapType = CardHeapType.DRAW;
       rectTransform = gameObject.GetComponent<RectTransform>();
-
-      data = new CardData(args.id, args.phase);
-      cardTemplate = ResourceManager.Load<CardTemplate>(data.id);
+      
+      cardTemplate = ResourceManager.Load<CardTemplate>(id);
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Text>("NameText").text = cardPhase.name;
-      if (data.phase == cardTemplate.cardPhases.Length - 1) {
+      if (phase == cardTemplate.cardPhases.Length - 1) {
         objectContainer.GetComponent<Text>("NameText").text += "[MAX]";
       }
-      objectContainer.GetComponent<Text>("PhaseText").text = $"{data.phase + 1}";
+      objectContainer.GetComponent<Text>("PhaseText").text = $"{phase + 1}";
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
       objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;

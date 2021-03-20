@@ -38,10 +38,10 @@ namespace Yume.UI {
           m_cardTemplate = m_card.cardTemplate;
           CardPhase cardPhase = m_card.cardPhase;
 
-          m_phaseText.text = $"{m_card.data.phase + 1}";
+          m_phaseText.text = $"{m_card.phase + 1}";
           m_typeText.text = m_cardTemplate.cardType.GetDescription();
           m_nameText.text = cardPhase.name;
-          if (m_card.data.phase == m_cardTemplate.cardPhases.Length - 1) {
+          if (m_card.phase == m_cardTemplate.cardPhases.Length - 1) {
             m_nameText.text += "[MAX]";
           }
           if (cardPhase.energyConsumption >= 0) {
@@ -112,7 +112,7 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       m_cardGroup.cardList = args[0] as List<Card>;
-      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.data.id, right.data.id));
+      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
       m_cardGroup.OnOpen();
 
       base.Open(callback, args);
