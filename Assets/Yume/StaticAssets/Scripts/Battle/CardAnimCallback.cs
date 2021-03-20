@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Yume.Battle {
   [RequireComponent(typeof(Animation))]
   public class CardAnimCallback : MonoBehaviour {
-    public Card card { set; get; }
+    public Card card;
     private Animation m_animation;
 
     private void Awake() {
@@ -16,7 +16,7 @@ namespace Yume.Battle {
       CardAnimEvent cardAnimEvent = card.cardPhase.cardAnimEvent;
       int eventCount = cardAnimEvent.eventCount;
       if (cardAnimEvent.loadFromBlackboard) {
-        eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:eventCount");
+        eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:{Blackboard.EVENT_COUNT}");
       }
       while (eventCount > 0) {
         gameObject.SetActiveEx(true);
@@ -43,7 +43,7 @@ namespace Yume.Battle {
     /// <returns>如果目标在使用卡牌后全部死亡则返回false</returns>
     private bool _OnCast() {
       if (card == null) {
-        Debug.LogError("card is not initialized!");
+        Debug.LogError("card is null!");
         return false;
       }
       
@@ -56,7 +56,7 @@ namespace Yume.Battle {
             continue;
           }
           // 因为blackboard是引用类型所以需要新建一个
-          Blackboard blackboard = new Blackboard { { "caster", card.owner } };
+          Blackboard blackboard = new Blackboard { { Blackboard.CASTER, card.owner } };
           blackboard.Merge(buffTemplate.blackboard);
           BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
           if (target.isAlive) {

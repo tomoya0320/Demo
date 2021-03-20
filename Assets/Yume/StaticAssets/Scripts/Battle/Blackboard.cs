@@ -14,6 +14,7 @@ namespace Yume.Battle {
     public const string HEAL_RATE_ON_DAMAGE = "healRateOnDamage";
     public const string PROB = "prob";
     public const string CARD_SELECTOR = "cardSelector";
+    public const string EVENT_COUNT = "eventCount";
     
     public T GetValue<T>(string key, T defaultValue = default) {
       if (ContainsKey(key) && this[key] is T) {
