@@ -146,7 +146,7 @@ MonoBehaviour:
       Data: 3|Yume.TeamArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: Yume.TeamArgs, Assembly-CSharp
@@ -200,7 +200,7 @@ MonoBehaviour:
       Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: enemy_002
+      Data: enemy_001
     - Name: lv
       Entry: 3
       Data: 0
@@ -238,6 +238,51 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: Yume.TeamArgs, Assembly-CSharp
+    - Name: unitArgs
+      Entry: 7
+      Data: Yume.UnitArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: enemy_002
+    - Name: lv
+      Entry: 3
+      Data: 0
+    - Name: passiveSkillLv
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardArgsArray
+      Entry: 7
+      Data: 6|Yume.CardArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_001
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -245,10 +290,10 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 6|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 7|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 7
-      Data: 7|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 8|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -264,7 +309,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 8|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 9|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -297,7 +342,7 @@ MonoBehaviour:
       Data: 
     - Name: cardArgsArray
       Entry: 7
-      Data: 9|Yume.CardArgs[], Assembly-CSharp
+      Data: 10|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -372,7 +417,7 @@ MonoBehaviour:
       Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 10|Yume.ItemArgs[], Assembly-CSharp
+      Data: 11|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -390,7 +435,7 @@ MonoBehaviour:
       Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 11|Yume.ItemArgs[], Assembly-CSharp
+      Data: 12|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -417,7 +462,7 @@ MonoBehaviour:
       Data: 
     - Name: enemyTeams
       Entry: 7
-      Data: 12|Yume.TeamArgs[], Assembly-CSharp
+      Data: 13|Yume.TeamArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -429,10 +474,10 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 13|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 14|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
-      Data: 7
+      Data: 8
     - Name: 
       Entry: 12
       Data: 0
@@ -444,7 +489,7 @@ MonoBehaviour:
       Data: 
     - Name: buffTemplates
       Entry: 7
-      Data: 14|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 15|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

@@ -69,5 +69,9 @@ namespace Yume.Battle {
         }
       }
     }
+
+    public bool ContainBuff(string buffId) {
+      return m_buffDict.TryGetValue(buffId, out var buffs) && buffs.Count > 0;
+    }
   }
 }

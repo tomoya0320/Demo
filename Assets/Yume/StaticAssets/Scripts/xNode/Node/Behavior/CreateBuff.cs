@@ -1,7 +1,7 @@
 namespace Yume.Battle {
   public class CreateBuff : LeafNodeBase {
     public override bool Run() {
-      if (behaviorTree.blackboard.TryGetValue<BuffTemplates>(Blackboard.BUFFS, out var buffTemplates)) {
+      if (behaviorTree.blackboard.TryGetValue<BuffTemplates>(Blackboard.CREATE_BUFFS, out var buffTemplates)) {
         Unit caster = behaviorTree.blackboard.GetValue<Unit>(Blackboard.CASTER);
         foreach (var buffTemplate in buffTemplates) {
           int leftCount = 0;

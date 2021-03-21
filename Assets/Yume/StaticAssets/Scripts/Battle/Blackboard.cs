@@ -10,14 +10,19 @@ namespace Yume.Battle {
     public const string HURT_SOUND = "hurtSound";
     public const string LAST_DAMAGE_VALUE = "lastDamageValue";
     public const string LAST_DAMAGED_VALUE = "lastDamagedValue";
-    public const string BUFFS = "buffs";
+    public const string CREATE_BUFFS = "createbuffs";
     public const string HEAL_RATE_ON_DAMAGE = "healRateOnDamage";
     public const string PROB = "prob";
     public const string CARD_SELECTOR = "cardSelector";
     public const string EVENT_COUNT = "eventCount";
+    public const string CONTAIN_BUFF = "containBuff";
+
+    public bool ContainsKey<T>(string key) {
+      return ContainsKey(key) && this[key] is T;
+    }
     
     public T GetValue<T>(string key, T defaultValue = default) {
-      if (ContainsKey(key) && this[key] is T) {
+      if (ContainsKey<T>(key)) {
         return (T)this[key];
       } else {
         return defaultValue;
@@ -25,7 +30,7 @@ namespace Yume.Battle {
     }
     
     public bool TryGetValue<T>(string key, out T value) {
-      if (ContainsKey(key) && this[key] is T) {
+      if (ContainsKey<T>(key)) {
         value = (T)this[key];
         return true;
       } else {
@@ -42,7 +47,7 @@ namespace Yume.Battle {
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public T GetValueAndRemove<T>(string key, T defaultValue = default) {
-      if (ContainsKey(key) && this[key] is T) {
+      if (ContainsKey<T>(key)) {
         T result = (T)this[key];
         Remove(key);
         return result;

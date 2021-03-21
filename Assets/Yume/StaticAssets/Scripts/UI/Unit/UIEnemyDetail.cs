@@ -38,7 +38,7 @@ namespace Yume.UI {
       UnitTemplate unitTemplate = ResourceManager.Load<UnitTemplate>(enemyArgs.id);
       Attrib[] attribs = MathUtil.CalculateAttribs(unitTemplate.id, enemyArgs.lv);
 
-      m_lvText.text = $"Lv:{enemyArgs.lv}";
+      m_lvText.text = $"Lv:{enemyArgs.lv + 1}";
       m_description.text = unitTemplate.description;
       m_illustration.SetSpriteAsync(unitTemplate.illustrationFileName);
 

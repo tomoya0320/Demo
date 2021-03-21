@@ -24,6 +24,7 @@ namespace Yume.UI {
       if (m_tween != null) {
         m_tween.Kill();
         m_tween = null;
+        m_textRectTransform.anchoredPosition = Vector2.zero;
       }
       
       m_textComponent.text = content;
