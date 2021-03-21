@@ -167,8 +167,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
   - m_GUID: 561d323f11bed6c4aa0af4343f59639e
     m_Address: normal_damage_recovery_energy
     m_ReadOnly: 0
@@ -199,8 +199,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 9a56e98f68abb3f47bb2c73ab1a0e600, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 9a56e98f68abb3f47bb2c73ab1a0e600, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 68786019205a217428bc03c6b088d44b
+    m_Address: contain_buff_normal_damage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 68786019205a217428bc03c6b088d44b, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 68786019205a217428bc03c6b088d44b, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
