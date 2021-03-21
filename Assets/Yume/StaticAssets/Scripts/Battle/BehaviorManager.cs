@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Yume.Battle {
   public class BehaviorManager {
     public Unit unit { get; }
+    public Dictionary<BehaviorTime, List<BehaviorTree>> behaviorDict => m_behaviorDict;
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
 
     public BehaviorManager(Unit unit) {

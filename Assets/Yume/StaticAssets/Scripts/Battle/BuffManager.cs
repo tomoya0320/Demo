@@ -73,5 +73,33 @@ namespace Yume.Battle {
     public bool ContainBuff(string buffId) {
       return m_buffDict.TryGetValue(buffId, out var buffs) && buffs.Count > 0;
     }
+
+    /// <summary>
+    /// 目前只支持回合结束后的行为
+    /// </summary>
+    /// <param name="buffId"></param>
+    public void TriggerBuff(string buffId) {
+      if (m_buffDict.TryGetValue(buffId, out var buffs) && buffs.Count > 0) {
+        foreach (var buff in buffs) {
+          if (buff.behaviorTreeDict.TryGetValue(BehaviorTime.ON_LATE_TURN, out var behaviorTrees)) {
+            for (int i = buff.turn; i < buff.duration; i++) {
+              behaviorTrees.ForEach(behaviorTree => behaviorTree.Run());
+            }
+            buff.behaviorTreeDict.Remove(BehaviorTime.ON_LATE_TURN);
+            var behaviorDict = BattleManager.behaviorManagers[unit].behaviorDict;
+            foreach (var behaviorTree in behaviorTrees) {
+              behaviorDict[BehaviorTime.ON_LATE_TURN].Remove(behaviorTree);
+            }
+          }
+        }
+
+        for (int i = buffs.Count - 1; i >= 0; i--) {
+          if (buffs[i].behaviorTreeDict.Count == 0) {
+            buffs[i].OnRemove();
+            buffs.RemoveAt(i);
+          }
+        }
+      }
+    }
   }
 }

@@ -16,6 +16,7 @@ namespace Yume.Battle {
     public const string CARD_SELECTOR = "cardSelector";
     public const string EVENT_COUNT = "eventCount";
     public const string CONTAIN_BUFF = "containBuff";
+    public const string TRIGGER_BUFF = "triggerBuff";
 
     public bool ContainsKey<T>(string key) {
       return ContainsKey(key) && this[key] is T;

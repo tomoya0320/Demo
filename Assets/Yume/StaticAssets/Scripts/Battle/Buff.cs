@@ -10,6 +10,7 @@ namespace Yume.Battle {
     // 因为是引用类型所以很方便
     public Blackboard blackboard { get; }
     public int turn { private set; get; }
+    public Dictionary<BehaviorTime, List<BehaviorTree>> behaviorTreeDict => m_behaviorTreeDict;
     // 这个buff所属的行为树
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorTreeDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
 
