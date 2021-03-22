@@ -419,7 +419,6 @@ namespace Yume {
       if (activeGuides.Count > 0) {
         GuideManager.ShowGuide(activeGuides.First());
       }
-      s_saveData = true;
     }
 
     public static void CompleteGuide(GuideData guid) {
