@@ -9,6 +9,7 @@ namespace Yume.UI {
   public class UICharDetail : UIBase {
     private UnitData m_character;
     private Text m_lvText;
+    private Text[] m_attribs;
     private Text m_description;
     private Image m_illustration;
     private Text m_passiveSkillName;
@@ -16,7 +17,6 @@ namespace Yume.UI {
     private Image m_passiveSkillIcon;
     private UnitTemplate m_unitTemplate;
     private Button m_updatePassiveSkillBtn;
-    private Text[] m_attribs = new Text[Constant.ATTRIB_LENGTH];
     private bool isMaxPassiveSkillLv => m_character.passiveSkillLv == m_unitTemplate.passiveSkillPhases.Length - 1;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
@@ -29,6 +29,8 @@ namespace Yume.UI {
       m_passiveSkillDesc = GetComponent<Text>("passiveSkillDesc");
       m_passiveSkillIcon = GetComponent<Image>("passiveSkillIcon");
       m_updatePassiveSkillBtn = GetComponent<Button>("updatePassiveSkill");
+      
+      m_attribs = new Text[Constant.ATTRIB_LENGTH];
       for (int i = 0; i < m_attribs.Length; i++) {
         m_attribs[i] = GetComponent<Text>($"attrib/{(AttribType)i}");
       }

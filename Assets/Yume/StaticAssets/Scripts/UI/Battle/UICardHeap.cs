@@ -84,7 +84,6 @@ namespace Yume.UI {
 
       public override void OnOpen() {
         m_cardScrollView.ResetNormalizedPosition();
-        m_cardScrollView.UpdateView(true);
       }
 
       public override void OnUpdate() {

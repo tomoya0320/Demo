@@ -119,7 +119,6 @@ namespace Yume.UI {
       public override void OnOpen() {
         cardChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_cardChoiceScrollView.ResetNormalizedPosition();
-        UpdateView(true);
       }
     }
 

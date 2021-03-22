@@ -6,12 +6,12 @@ using Yume.Battle;
 namespace Yume.UI {
   public class UIEnemyDetail : UIBase {
     private Text m_lvText;
+    private Text[] m_attribs;
     private Text m_description;
     private Image m_illustration;
     private Text m_passiveSkillName;
     private Text m_passiveSkillDesc;
     private Image m_passiveSkillIcon;
-    private Text[] m_attribs = new Text[Constant.ATTRIB_LENGTH];
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -22,6 +22,8 @@ namespace Yume.UI {
       m_passiveSkillName = GetComponent<Text>("passiveSkillName");
       m_passiveSkillDesc = GetComponent<Text>("passiveSkillDesc");
       m_passiveSkillIcon = GetComponent<Image>("passiveSkillIcon");
+      
+      m_attribs = new Text[Constant.ATTRIB_LENGTH];
       for (int i = 0; i < m_attribs.Length; i++) {
         m_attribs[i] = GetComponent<Text>($"attrib/{(AttribType)i}");
       }

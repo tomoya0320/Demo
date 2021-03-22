@@ -170,6 +170,7 @@ namespace Yume.UI {
     public void ResetNormalizedPosition() {
       // 注意(1, 1)才是最开始的位置
       m_scrollRect.normalizedPosition = Vector2.one;
+      UpdateView();
     }
   }
 }
