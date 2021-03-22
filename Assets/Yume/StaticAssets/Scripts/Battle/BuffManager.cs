@@ -4,24 +4,25 @@ using UnityEngine;
 namespace Yume.Battle {
   public class BuffManager {
     public Unit unit { get; }
+    public Dictionary<string, List<Buff>> buffDict => m_buffDict;
     private Dictionary<string, List<Buff>> m_buffDict = new Dictionary<string, List<Buff>>();
 
     public BuffManager(Unit unit) {
       this.unit = unit;
     }
 
-    public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors) {
+    public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
       if (!m_buffDict.ContainsKey(buffId)) {
         m_buffDict.Add(buffId, new List<Buff>());
       }
       switch (stackType) {
         case StackType.NONE:
           if (m_buffDict[buffId].Count == 0) {
-            _AddBuffInternal(buffId, blackboard, behaviors);
+            _AddBuffInternal(buffId, blackboard, behaviors, display);
           }
           break;
         case StackType.DEFAULT:
-          _AddBuffInternal(buffId, blackboard, behaviors);
+          _AddBuffInternal(buffId, blackboard, behaviors, display);
           break;
       }
     }
@@ -35,8 +36,8 @@ namespace Yume.Battle {
       return false;
     }
 
-    private void _AddBuffInternal(string buffId, Blackboard blackboard, Behavior[] behaviors) {
-      Buff buff = new Buff(unit, buffId, blackboard, behaviors);
+    private void _AddBuffInternal(string buffId, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
+      Buff buff = new Buff(unit, buffId, blackboard, behaviors, display);
       // 持续回合为0表示瞬发
       buff.OnAdd();
       if (buff.duration == 0) {

@@ -351,9 +351,16 @@ namespace Yume {
     DEFAULT,
   }
 
+  public struct BuffDisplay {
+    public string icon;
+    [TextArea]
+    public string description;
+  }
+
   public struct BuffTemplate {
     public string id;
     public StackType stackType;
+    public BuffDisplay display;
     public TargetSelector selector;
     public Behavior[] behaviors;
     public Blackboard blackboard;
@@ -896,8 +903,22 @@ namespace Yume {
             break;
           }
           case '}': {
-            string key = description.Substring(start, i - start);
-            result.Append(blackboard.GetValue<object>(key));
+            string[] key = description.Substring(start, i - start).Split(':');
+            switch (key[0]) {
+              case "attribAdditives":
+                var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+                string[] kv = key[1].Split('#');
+                var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
+                result.Append(_GetValueFromType(kv[1], attribAdditive));
+                break;
+              case "cardSelector":
+                var cardSelector = blackboard.GetValue<CardSelector>("cardSelector");
+                result.Append(_GetValueFromType(key[1], cardSelector));
+                break;
+              default:
+                result.Append(_GetValueFromBlackboard(key[0], blackboard));
+                break;
+            }
             start = i + 1;
             break;
           }

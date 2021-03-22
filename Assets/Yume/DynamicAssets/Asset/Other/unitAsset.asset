@@ -93,6 +93,18 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: selector
       Entry: 7
       Data: 3|Yume.Battle.SingleSelector, Assembly-CSharp
@@ -322,6 +334,18 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: selector
       Entry: 7
       Data: 12|Yume.Battle.SingleSelector, Assembly-CSharp
@@ -1017,10 +1041,22 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: "buff_\u7075\u9B42\u6C72\u53D6"
+      Data: buff_recovery_before_turn
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u529B\u91CF\u5F3A\u5316"
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u56DE\u590D{attribAdditives:HP#value}\u70B9\u751F\u547D\u503C"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: selector
       Entry: 7
       Data: 24|Yume.Battle.SingleSelector, Assembly-CSharp
@@ -1702,6 +1738,18 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
+    - Name: description
+      Entry: 1
+      Data: "\u5F53\u81EA\u8EAB\u5C06\u8981\u6B7B\u4EA1\u524D\u4EC5\u4E00\u6B21\u56DE\u590D{attribAdditives:HP#rateOnMaxValue%}\u7684\u6700\u5927\u751F\u547D\u503C"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: selector
       Entry: 7
       Data: 35|Yume.Battle.SingleSelector, Assembly-CSharp

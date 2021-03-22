@@ -5,7 +5,9 @@ namespace Yume.Battle {
   public class Buff {
     public Unit unit { get; }
     public string id { get; }
+    public string icon { get; }
     public int duration { get; }
+    public string description { get; }
     // buff下的行为树共用
     // 因为是引用类型所以很方便
     public Blackboard blackboard { get; }
@@ -14,12 +16,14 @@ namespace Yume.Battle {
     // 这个buff所属的行为树
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorTreeDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
 
-    public Buff(Unit unit, string id, Blackboard blackboard, Behavior[] behaviors) {
+    public Buff(Unit unit, string id, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
       this.id = id;
       this.unit = unit;
       this.blackboard = blackboard;
+      icon = display.icon;
+      description = display.description;
       // 这些属性从blackboard中取
-      duration = blackboard.GetValue<int>("duration");
+      duration = blackboard.GetValue<int>(Blackboard.DURATION);
 
       foreach (var behavior in behaviors) {
         if (!m_behaviorTreeDict.TryGetValue(behavior.behaviorTime, out var behaviorTrees)) {

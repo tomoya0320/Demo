@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 using Yume.UI;
 
 namespace Yume.Battle {
@@ -10,7 +11,7 @@ namespace Yume.Battle {
     public Camp camp { get; }
     public string id { get; }
     public string name { get; }
-    private Attrib[] attribs { get; }
+    public Attrib[] attribs { get; }
     public int passiveSkillLevel { get; }
     public PassiveSkillPhase[] passiveSkillPhases { get; }
     public Card playingCard; // 正在出的牌
@@ -54,6 +55,10 @@ namespace Yume.Battle {
       animator = gameObject.GetComponent<Animator>();
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
+      objectContainer.GetComponent<Button>("detailButton").onClick.AddListener(
+        () =>
+          UIManager.OpenOne("battle_unit_detail", null, this)
+      );
       hpImage = objectContainer.GetComponent<YImage>("hp");
       energyImage = objectContainer.GetComponent<YImage>("energy");
       numReference = objectContainer.GetTransform("numReference");

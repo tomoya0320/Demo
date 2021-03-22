@@ -55,7 +55,9 @@ namespace Yume.Battle {
               // 因为blackboard是引用类型所以需要新建一个
               Blackboard blackboard = new Blackboard { { "caster", unit } };
               blackboard.Merge(buffTemplate.blackboard);
-              buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
+              buffManagers[target].AddBuff(
+                buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+              );
             }
           }
         }
@@ -68,7 +70,9 @@ namespace Yume.Battle {
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard();
           blackboard.Merge(buffTemplate.blackboard);
-          buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
+          buffManagers[target].AddBuff(
+            buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+          );
         }
       }
     }

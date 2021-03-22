@@ -14,7 +14,9 @@ namespace Yume.Battle {
             // 因为blackboard是引用类型所以需要新建一个
             Blackboard blackboard = new Blackboard { { Blackboard.CASTER, owner } };
             blackboard.Merge(buffTemplate.blackboard);
-            BattleManager.buffManagers[target].AddBuff(buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors);
+            BattleManager.buffManagers[target].AddBuff(
+              buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+            );
             if (target.isAlive) {
               leftCount++;
             }
