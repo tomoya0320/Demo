@@ -135,8 +135,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 8c5b1508c4701d54f857a5f39715c9d2, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 8c5b1508c4701d54f857a5f39715c9d2, type: 2}
   - m_GUID: 7e68dc65111c4cf468c81ed9a54cd3ef
     m_Address: pure_damage
     m_ReadOnly: 0
@@ -167,22 +167,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 5ae23f3a55ebf184d8b45a374913391f, type: 2}
-  - m_GUID: 561d323f11bed6c4aa0af4343f59639e
-    m_Address: normal_damage_recovery_energy
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 43a343acbedd9194eae491df2eb0f4f8
-    m_Address: heal_on_damage
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: ba5da6cadb53d254eac28c4da72d3034
@@ -207,16 +191,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 68786019205a217428bc03c6b088d44b, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 68786019205a217428bc03c6b088d44b, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 664860fa028248a4db2d7197a5c9eed9
     m_Address: trigger_buff
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 664860fa028248a4db2d7197a5c9eed9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 664860fa028248a4db2d7197a5c9eed9, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f8d842173dd9a2741b7694f010c66026
+    m_Address: remove_buff_of_behaviorTree
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: f8d842173dd9a2741b7694f010c66026, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: f8d842173dd9a2741b7694f010c66026, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

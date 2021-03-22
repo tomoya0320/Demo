@@ -35,16 +35,16 @@ namespace Yume.Battle {
 
   public abstract class DamageBase : LeafNodeBase {
     public sealed override bool Run() {
+      if (!owner.isAlive) {
+        return false;
+      }
       // 小心不要套娃了
-      // 被造成伤害前的行为树
-      Unit owner = behaviorTree.unit;
-      
       BattleManager.behaviorManagers.TryGetValue(owner, out var ownerBehaviorManager);
       ownerBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGED);
       
       // 发起者为空表示这个是由关卡加上的
       Unit caster = behaviorTree.blackboard.GetValue<Unit>(Blackboard.CASTER);
-      // 造成伤害前的行为树 注意caster可能为空所以要用自定义的扩展方法
+      // 造成伤害前的行为树 注意caster可能为空所以要用自定义的方法
       BattleManager.behaviorManagers.TryGetValueEx(caster, out var castBehaviorManager);
       castBehaviorManager?.Run(BehaviorTime.ON_BEFORE_DAMAGE);
       
