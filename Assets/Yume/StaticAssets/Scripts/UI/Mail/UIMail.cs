@@ -61,6 +61,7 @@ namespace Yume.UI {
 
       public IScrollTerm<MailData> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        clone.name = gameObject.name;
         return new UIMailTerm(clone, m_mailGroup);
       }
     }

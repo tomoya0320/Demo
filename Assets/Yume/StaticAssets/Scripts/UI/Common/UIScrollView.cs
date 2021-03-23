@@ -46,7 +46,7 @@ namespace Yume.UI {
         y = (int)(m_displayRange.y / m_cellSize.y)
       };
 
-      // 适配
+      // 适配屏幕比例
       m_scrollRectTransform.SetSizeX(m_maxCellNum.x * m_cellSize.x);
       m_scrollRectTransform.SetSizeY(m_maxCellNum.y * m_cellSize.y);
       m_displayRange = m_scrollRectTransform.rect.size;

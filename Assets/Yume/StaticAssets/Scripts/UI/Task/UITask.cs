@@ -100,6 +100,7 @@ namespace Yume.UI {
 
       public IScrollTerm<TaskData> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        clone.name = gameObject.name;
         return new UITaskTerm(clone, m_taskType);
       }
     }

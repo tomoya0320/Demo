@@ -56,6 +56,7 @@ namespace Yume.UI {
 
       public IScrollTerm<Card> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        clone.name = gameObject.name;
         return new UICardTerm(clone);
       }
     }

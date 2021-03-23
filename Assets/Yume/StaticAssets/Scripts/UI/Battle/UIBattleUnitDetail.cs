@@ -39,6 +39,7 @@ namespace Yume.UI {
 
       public IScrollTerm<Buff> Clone() {
         var clone = Object.Instantiate(gameObject, gameObject.GetParent());
+        clone.name = gameObject.name;
         return new UIBuffTerm(clone);
       }
     }
