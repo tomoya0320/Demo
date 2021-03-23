@@ -12,10 +12,8 @@ namespace Yume.AVG {
           string name = avg.inputField.text;
           if (!string.IsNullOrEmpty(name)) {
             Action action = () => {
-              if (string.IsNullOrEmpty(DataManager.playerName)) {
-                DataManager.UpdateGuide(StringMap.EMPTY, ConditionType.FIRST_PLAY);
-              }
-              DataManager.AlterName(avg.inputField.text);
+              DataManager.AlterName(name);
+              DataManager.UpdateGuide(StringMap.EMPTY, ConditionType.FIRST_PLAY);
             };
             avg.onQuitAVG = action + avg.onQuitAVG;
             _CloseInputField(avg);
