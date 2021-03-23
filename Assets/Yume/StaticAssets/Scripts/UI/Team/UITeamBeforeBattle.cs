@@ -29,40 +29,29 @@ namespace Yume.UI {
             return;
           }
 
-          Action action = () => {
-            TeamArgs teamArgs;
-            if (m_levelTemplate.isCustomTeam) {
-              teamArgs = m_levelTemplate.customTeam;
-            } else {
-              UnitArgs charArgs = UnitArgs.Create(DataManager.GetCharacter(currentTeam.charId));
-              CardArgs[] cardArgs = new CardArgs[currentTeam.cardGuids.Count];
-              for (int i = 0; i < cardArgs.Length; i++) {
-                cardArgs[i] = CardArgs.Create(DataManager.GetCard(currentTeam.cardGuids[i]));
+          UIManager.OpenOne(
+            "globalBlackFade", () => {
+              TeamArgs teamArgs;
+              if (m_levelTemplate.isCustomTeam) {
+                teamArgs = m_levelTemplate.customTeam;
+              } else {
+                UnitArgs charArgs = UnitArgs.Create(DataManager.GetCharacter(currentTeam.charId));
+                CardArgs[] cardArgs = new CardArgs[currentTeam.cardGuids.Count];
+                for (int i = 0; i < cardArgs.Length; i++) {
+                  cardArgs[i] = CardArgs.Create(DataManager.GetCard(currentTeam.cardGuids[i]));
+                }
+                teamArgs = new TeamArgs(charArgs, cardArgs);
               }
-              teamArgs = new TeamArgs(charArgs, cardArgs);
-            }
-            UIManager.OpenOne("single_battle", null, m_levelTemplate, teamArgs);
-          };
-
-          if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {
-            UIManager.OpenOne(
-              "globalBlackFade", () => {
-                // 把自己销毁掉
-                UIManager.DestroyOne(name);
+              Action action = () => UIManager.DestroyOneAndOpenOne("single_battle", null, m_levelTemplate, teamArgs);
+              if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {
+                action();
                 // 播放战斗中的bgm
                 AudioManager.PlayBgm(m_levelTemplate.bgm);
-                action();
-              }
-            );
-          } else {
-            UIManager.OpenOne(
-              "globalBlackFade", () => {
-                // 把自己销毁掉
-                UIManager.DestroyOne(name);
+              } else {
                 UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action, m_levelTemplate.bgm);
               }
-            );
-          }
+            }
+          );
         }
       );
     }
@@ -90,7 +79,7 @@ namespace Yume.UI {
         m_team.SetActiveEx(true);
         m_customTeam.SetActiveEx(false);
       }
-      
+
       base.Open(callback, args);
     }
   }

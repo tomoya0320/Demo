@@ -45,7 +45,7 @@ namespace Yume {
   public struct CardAnimEvent {
     public float waitingTime;
     public bool loadFromBlackboard;
-    [ShowIf("@!this.loadFromBlackboard")]
+    [ShowIf("@!loadFromBlackboard")]
     public int eventCount;
   }
 
@@ -178,9 +178,10 @@ namespace Yume {
       /// 是否忽略需求的ID
       /// </summary>
       public bool ignoreId;
+      [ShowIf("@!ignoreId")]
+      public string requirementId;
       public RequestType type;
       public int requiredCount;
-      public string requirementId;
       [TextArea]
       public string description;
     }
@@ -387,11 +388,19 @@ namespace Yume {
   }
 
   public enum ConditionType {
-    OPEN_UI,
+    FIRST_PLAY,
+  }
+
+  public enum GuideState {
+    INACTIVE,
+    ACTIVE,
+    COMPLETED,
   }
   
   public struct GuideTemplate {
     public string id;
+    public bool ignoreConditionId;
+    [ShowIf("@!ignoreConditionId")]
     public string conditionId;
     public ConditionType conditionType;
     public GuideStep[] guideSteps;
@@ -519,12 +528,13 @@ namespace Yume {
   [Serializable]
   public class GuideData {
     public string id;
-    public bool completed;
+    public GuideState state;
     
     private GuideData() { }
 
     public GuideData(string id) {
       this.id = id;
+      state = GuideState.INACTIVE;
     }
   }
 
@@ -628,7 +638,7 @@ namespace Yume {
       selectable.navigation = newNavigation;
     }
   }
-
+  
   public static class TypeExtensions {
     public static List<string> GetFieldNames(this Type type) {
       FieldInfo[] fieldInfos = type.GetFields();

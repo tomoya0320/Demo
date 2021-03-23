@@ -88,6 +88,7 @@ namespace Yume {
         }
 
         var stack = s_uiStackDict[data.uiType];
+        
         _OpenInternal(data, stack, callback, args);
       } else {
         Debug.LogError($"UI未加载！name：{name}");
@@ -106,6 +107,7 @@ namespace Yume {
       }
       
       stack.Push(ui);
+      ui.OnDisplay();
       ui.Open(callback, args);
     }
 
@@ -132,7 +134,7 @@ namespace Yume {
     }
 
     /// <summary>
-    /// 销毁栈中的所有UI并打开新的UI
+    /// 销毁栈中所有的UI并打开新的UI
     /// 相当于场景跳转
     /// 关闭的UI不会被回收
     /// </summary>
@@ -159,11 +161,13 @@ namespace Yume {
     }
     
     /// <summary>
-    /// 立即销毁UI不播放close动画
+    /// 销毁栈中当前的UI并打开新的UI
     /// 关闭的UI不会被回收
     /// </summary>
     /// <param name="name"></param>
-    public static void DestroyOne(string name) {
+    /// <param name="callback"></param>
+    /// <param name="args"></param>
+    public static void DestroyOneAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
 
@@ -173,15 +177,10 @@ namespace Yume {
 
         var stack = s_uiStackDict[data.uiType];
 
-        if (stack.Count == 0) {
-          Debug.LogError("UI栈为空！");
-          return;
-        }
-        if (stack.Peek().name == name) {
+        if (stack.Count > 0) {
           stack.Pop().Destroy();
-        } else {
-          Debug.LogError($"UI未在栈顶！name：{name}");
         }
+        OpenOne(name, callback, args);
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
@@ -230,10 +229,13 @@ namespace Yume {
       // 先执行下面的再执行其他的回调
       // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
-        // 回收
         UIBase ui = stack.Pop();
         ui.root.SetParent(cacheCanvas);
         s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, ui));
+
+        if (stack.Count > 0) {
+          stack.Peek().OnDisplay();
+        }
       };
       callback = action + callback;
 

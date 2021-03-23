@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine.UI;
 using Yume.UI;
 
@@ -8,8 +9,15 @@ namespace Yume.AVG {
       avg.inputFieldOkBtn.onClick.RemoveAllListeners();
       avg.inputFieldOkBtn.onClick.AddListener(
         () => {
-          if (!string.IsNullOrEmpty(avg.inputField.text)) {
-            DataManager.AlterName(avg.inputField.text);
+          string name = avg.inputField.text;
+          if (!string.IsNullOrEmpty(name)) {
+            Action action = () => {
+              if (string.IsNullOrEmpty(DataManager.playerName)) {
+                DataManager.UpdateGuide(StringMap.EMPTY, ConditionType.FIRST_PLAY);
+              }
+              DataManager.AlterName(avg.inputField.text);
+            };
+            avg.onQuitAVG = action + avg.onQuitAVG;
             _CloseInputField(avg);
           }
         }

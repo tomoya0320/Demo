@@ -78,6 +78,7 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
       root.SetActiveEx(true);
+
       //保证动画完整播放
       UIManager.Block(this);
 
@@ -85,8 +86,6 @@ namespace Yume.UI {
         UIManager.Unblock(this);
       };
       callback = action + callback;
-      // 更新新手引导
-      callback += () => DataManager.UpdateGuide(name, ConditionType.OPEN_UI);
 
       var opneClip = m_animation.GetClip("open");
       if (opneClip != null) {
@@ -95,6 +94,11 @@ namespace Yume.UI {
         callback();
       }
     }
+
+    /// <summary>
+    /// 当前UI被显示时调用 case:自己被打开或上一个UI被关闭(需等待至关闭完成)
+    /// </summary>
+    public virtual void OnDisplay() { }
 
     public virtual void OnUpdate() { }
 

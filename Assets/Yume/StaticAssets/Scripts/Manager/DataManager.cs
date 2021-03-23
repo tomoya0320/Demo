@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using Yume.Broadcast;
@@ -72,7 +71,7 @@ namespace Yume {
 
     public static void OnLateUpdate() {
       if (s_saveData && !GuideManager.isGuiding/*引导过程中不保存数据*/) {
-        _SaveData();
+        SaveData();
         s_saveData = false;
       }
     }
@@ -409,21 +408,20 @@ namespace Yume {
     #region Guide
 
     public static void UpdateGuide(string conditionId, ConditionType conditionType) {
-      List<GuideData> activeGuides = new List<GuideData>();
-      foreach (var guide in playerGuides.FindAll(g => !g.completed)) {
+      foreach (var guide in playerGuides.FindAll(g => g.state == GuideState.INACTIVE)) {
         var guideTemplate = ResourceManager.Load<GuideTemplate>(guide.id);
-        if (guideTemplate.conditionType == conditionType && guideTemplate.conditionId == conditionId) {
-          activeGuides.Add(guide);
+        if (guideTemplate.conditionId == conditionId && (guideTemplate.ignoreConditionId || guideTemplate.conditionType == conditionType)) {
+          guide.state = GuideState.ACTIVE;
+          s_saveData = true;
         }
-      }
-      if (activeGuides.Count > 0) {
-        GuideManager.ShowGuide(activeGuides.First());
       }
     }
 
     public static void CompleteGuide(GuideData guid) {
-      guid.completed = true;
-      s_saveData = true;
+      if (guid.state == GuideState.ACTIVE) {
+        guid.state = GuideState.COMPLETED;
+        s_saveData = true;
+      }
     }
 
     #endregion
@@ -449,7 +447,7 @@ namespace Yume {
       }
     }
 
-    private static void _SaveData() {
+    public static void SaveData() {
       PlayerPrefs.SetString(USER_DB_KEY, JsonConvert.SerializeObject(s_userDB));
     }
 

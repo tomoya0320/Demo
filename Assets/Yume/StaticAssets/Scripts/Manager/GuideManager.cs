@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -50,6 +51,10 @@ namespace Yume {
 
     // 被引导的UI目前仅限NORMAL层
     public static void ShowGuide(GuideData guide) {
+      // 引导前先手动存一下档
+      DataManager.SaveData();
+      // 开启引导此时会屏蔽存档功能
+      // 防止引导过程中的数据被保存而遇到意外情况程序被关闭导致下一次重新引导数据对不上
       isGuiding = true;
       // 引导过程中需要屏蔽回退响应
       UIManager.activeBack--;
@@ -62,10 +67,11 @@ namespace Yume {
       if (stepEnumerator.TryMoveNext()) {
         // 等UI动画结束了再调用
         yield return new WaitWhile(UIManager.IsAnyBlocked);
+        Action action = () => _SetGuideStep(guide, stepEnumerator);
         if (UIManager.GetTopUI(UIType.NORMAL).name == stepEnumerator.current.uiName) {
-          _SetGuideStep(guide, stepEnumerator);
+          action();
         } else {
-          UIManager.OpenOne(stepEnumerator.current.uiName, () => _SetGuideStep(guide, stepEnumerator));
+          UIManager.OpenOne(stepEnumerator.current.uiName, action);
         }
       } else {
         isGuiding = false;

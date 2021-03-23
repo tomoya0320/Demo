@@ -76,6 +76,16 @@ namespace Yume.UI {
       m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
     }
 
+    public override void OnDisplay() {
+      base.OnDisplay();
+      
+      // 回到主界面时检查是否需要触发引导
+      GuideData guide = DataManager.playerGuides.Find(g => g.state == GuideState.ACTIVE);
+      if (guide != null) {
+        GuideManager.ShowGuide(guide);
+      }
+    }
+
     public override void Destroy() {
       m_taskRedDot.Destroy();
       m_mailRedDot.Destroy();

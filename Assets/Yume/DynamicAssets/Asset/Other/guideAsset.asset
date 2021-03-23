@@ -33,9 +33,12 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: guide_001
+    - Name: ignoreConditionId
+      Entry: 5
+      Data: true
     - Name: conditionId
       Entry: 1
-      Data: main
+      Data: 
     - Name: conditionType
       Entry: 3
       Data: 0
