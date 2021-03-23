@@ -54,7 +54,8 @@ MonoBehaviour:
   fadeTime: 0.5
   onFadeCompleted: 0
   _name: "\u6D6E\u58EB\u5FB7"
-  _dialogue: "\u6218\u6597\u8FD8\u5728\u7EE7\u7EED[user]\u3001[user]\u3001[user]"
+  _setSpeedBased: 0
+  _dialogue: "\u6218\u6597\u8FD8\u5728\u7EE7\u7EED"
 --- !u!114 &-2984065205289269494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +194,8 @@ MonoBehaviour:
   - {fileID: 5847907996881518768}
   - {fileID: -5860967097870442537}
   - {fileID: -2984065205289269494}
+  disableSkip: 0
+  disableSkipVideo: 0
 --- !u!114 &5847907996881518768
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,8 +29,9 @@ namespace Yume.UI {
     #endregion
 
     private bool m_auto;
-    private string m_lateBGM;
     public Action onQuitAVG;
+    private string m_lateBGM;
+    public string playerName;
     private AVGGraph m_avgGraph;
     public string historyDialogues;
     private Coroutine m_autoCoroutine;
@@ -118,6 +119,7 @@ namespace Yume.UI {
       m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
       onQuitAVG = args[1] as Action;
       m_lateBGM = args[2] as string;
+      playerName = DataManager.playerName;
       
       // 检查是否激活跳过按钮
       _CheckSkipButtons();
@@ -186,6 +188,7 @@ namespace Yume.UI {
         dialogOptionBtn.textComponent.text = StringMap.EMPTY;
         dialogOptionBtn.onClick.RemoveAllListeners();
       }
+      playerName = StringMap.EMPTY;
       inputField.text = StringMap.EMPTY;
       inputFieldOkBtn.onClick.RemoveAllListeners();
       inputFieldCanvasGroup.alpha = 0;

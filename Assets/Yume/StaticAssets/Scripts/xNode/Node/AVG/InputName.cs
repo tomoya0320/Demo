@@ -10,14 +10,17 @@ namespace Yume.AVG {
       avg.inputFieldOkBtn.onClick.AddListener(
         () => {
           string name = avg.inputField.text;
-          if (!string.IsNullOrEmpty(name)) {
-            Action action = () => {
-              DataManager.AlterName(name);
-              DataManager.UpdateGuide(StringMap.EMPTY, ConditionType.FIRST_PLAY);
-            };
-            avg.onQuitAVG = action + avg.onQuitAVG;
-            _CloseInputField(avg);
+          if (string.IsNullOrEmpty(name)) {
+            return;
           }
+          
+          Action action = () => {
+            DataManager.AlterName(name);
+            DataManager.UpdateGuide(StringMap.EMPTY, ConditionType.FIRST_PLAY);
+          };
+          avg.playerName = name;
+          avg.onQuitAVG = action + avg.onQuitAVG;
+          _CloseInputField(avg);
         }
       );
       ((Text)avg.inputField.placeholder).text = "请输入你的名字";

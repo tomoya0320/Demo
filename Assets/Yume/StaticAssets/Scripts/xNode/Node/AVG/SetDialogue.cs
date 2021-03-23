@@ -10,7 +10,7 @@ namespace Yume.AVG {
     private bool _setSpeedBased;
     [SerializeField, TextArea]
     private string _dialogue;
-    private const string USER_NAME = "[user]";
+    private const string USER_NAME = "[player]";
 
     protected override void Init() {
       base.Init();
@@ -19,8 +19,8 @@ namespace Yume.AVG {
     }
 
     protected override Tween DoTween(UIAVG avg, float fadeTime) {
-      string name = _name.Replace(USER_NAME, DataManager.playerName);
-      string dialogue = _dialogue.Replace(USER_NAME, DataManager.playerName);
+      string name = _name.Replace(USER_NAME, avg.playerName);
+      string dialogue = _dialogue.Replace(USER_NAME, avg.playerName);
       avg.historyDialogues += $"\n\n[{name}]:{dialogue}";
       avg.nameText.text = name;
       avg.dialogueText.text = StringMap.EMPTY;
