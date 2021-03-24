@@ -334,6 +334,10 @@ namespace Yume {
     /// 在出牌后
     /// </summary>
     ON_LATE_PLAY_CARD,
+    /// <summary>
+    /// 瞬发
+    /// </summary>
+    ON_INSTANT,
   }
 
   public struct Behavior {

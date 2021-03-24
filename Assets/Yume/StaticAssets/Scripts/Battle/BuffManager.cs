@@ -38,13 +38,14 @@ namespace Yume.Battle {
 
     private void _AddBuffInternal(string buffId, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
       Buff buff = new Buff(unit, buffId, blackboard, behaviors, display);
-      // 持续回合为0表示瞬发
-      buff.OnAdd();
       if (buff.duration == 0) {
-        if (buff.unit.isAlive) {
-          buff.OnRemove();
+        // 持续回合为0表示瞬发
+        // 不会走Add和Remove流程
+        if (buff.behaviorTreeDict.TryGetValue(BehaviorTime.ON_INSTANT, out var behaviorTrees)) {
+          behaviorTrees.ForEach(behaviorTree => behaviorTree.Run());
         }
       } else {
+        buff.OnAdd();
         m_buffDict[buffId].Add(buff);
       }
     }
