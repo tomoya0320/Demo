@@ -63,7 +63,7 @@ namespace Yume.Battle {
     public void OnCasterDie(Unit caster) {
       foreach (var buffs in m_buffDict.Values) {
         for (int i = buffs.Count - 1; i >= 0; i--) {
-          if (buffs[i].blackboard.GetValue<Unit>("caster") == caster) {
+          if (buffs[i].blackboard.GetValue<Unit>(Blackboard.CASTER) == caster) {
             buffs[i].OnRemove();
             buffs.RemoveAt(i);
           }

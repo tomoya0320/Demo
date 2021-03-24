@@ -222,7 +222,7 @@ namespace Yume.UI {
       int exp = 0;
       foreach (var kv in m_itemGroup.selectedExpDict) {
         Blackboard blackboard = ResourceManager.Load<ItemTemplate>(kv.Key).blackboard;
-        exp += kv.Value * blackboard.GetValue<int>("exp");
+        exp += kv.Value * blackboard.GetValue<int>(Blackboard.EXP);
       }
       return exp;
     }

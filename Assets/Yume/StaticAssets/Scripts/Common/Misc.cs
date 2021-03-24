@@ -872,19 +872,19 @@ namespace Yume {
             List<string> expression = description.Substring(start, i - start).Split(':').ToList();
             var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
             int nextIndex = 1;
-            if (expression[nextIndex] == "buffs") {
-              blackboard = blackboard.GetValue<BuffTemplates>("buffs")[int.Parse(expression[nextIndex + 1])].blackboard;
+            if (expression[nextIndex] == Blackboard.BUFFS) {
+              blackboard = blackboard.GetValue<BuffTemplates>(Blackboard.BUFFS)[int.Parse(expression[nextIndex + 1])].blackboard;
               nextIndex += 2;
             }
             switch (expression[nextIndex]) {
-              case "attribAdditives":
-                var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+              case Blackboard.ATTRIB_ADDITIVES:
+                var attribAdditives = blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
                 string[] kv = expression[nextIndex + 1].Split('#');
                 var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
                 result.Append(_GetValueFromType(kv[1], attribAdditive));
                 break;
-              case "cardSelector":
-                var cardSelector = blackboard.GetValue<CardSelector>("cardSelector");
+              case Blackboard.CARD_SELECTOR:
+                var cardSelector = blackboard.GetValue<CardSelector>(Blackboard.CARD_SELECTOR);
                 result.Append(_GetValueFromType(expression[nextIndex + 1], cardSelector));
                 break;
               default:
@@ -915,14 +915,14 @@ namespace Yume {
           case '}': {
             string[] key = description.Substring(start, i - start).Split(':');
             switch (key[0]) {
-              case "attribAdditives":
-                var attribAdditives = blackboard.GetValue<AttribAdditives>("attribAdditives");
+              case Blackboard.ATTRIB_ADDITIVES:
+                var attribAdditives = blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
                 string[] kv = key[1].Split('#');
                 var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
                 result.Append(_GetValueFromType(kv[1], attribAdditive));
                 break;
-              case "cardSelector":
-                var cardSelector = blackboard.GetValue<CardSelector>("cardSelector");
+              case Blackboard.CARD_SELECTOR:
+                var cardSelector = blackboard.GetValue<CardSelector>(Blackboard.CARD_SELECTOR);
                 result.Append(_GetValueFromType(key[1], cardSelector));
                 break;
               default:
