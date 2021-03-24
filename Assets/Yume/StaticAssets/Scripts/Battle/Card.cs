@@ -15,7 +15,6 @@ namespace Yume.Battle {
     public int phase { get; }
     public GameObject gameObject { get; }
     public UIBattleCard battleCard { get; }
-    public Rect rect => rectTransform.rect;
     public CardTemplate cardTemplate { get; }
     public RectTransform rectTransform { get; }
     public CardAnimCallback cardAnimCallback { get; }

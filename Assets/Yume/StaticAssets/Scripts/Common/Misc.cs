@@ -605,7 +605,9 @@ namespace Yume {
     public const int MAX_CARD_COUNT = 12;
     public const int MAX_SOUND_COUNT = 5;
     public const int DRAW_CARD_COUNT = 5;
-    public const int MAX_HAND_CARD_COUNT = 10;
+    public const float ANGLE_DELTA = 1.5f;
+    public const float SPACING_SCALE = 0.5f;
+    public const float OFFSET_SCALE_Y = 0.02f;
     // ReSharper disable once InconsistentNaming
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
     // ReSharper disable once InconsistentNaming
@@ -625,6 +627,14 @@ namespace Yume {
         default:
           return Color.black;
       }
+    }
+  }
+
+  public static class TransformExtensions {
+    public static void SetAngleZ(this Transform transform, float angle) {
+      Vector3 eulerAngles = transform.eulerAngles;
+      eulerAngles.z = angle;
+      transform.eulerAngles = eulerAngles;
     }
   }
 

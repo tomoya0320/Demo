@@ -67,30 +67,28 @@ namespace Yume.Battle {
 
     public override IEnumerator OnTick() {
       // 抽牌逻辑层
-      if (cardHeapDict[CardHeapType.HAND].Count < Constant.MAX_HAND_CARD_COUNT) {
-        if (Constant.DRAW_CARD_COUNT > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
-          // 弃牌堆的牌重新进入抽牌堆
-          cardHeapDict[CardHeapType.DISCARD].ForEach(
-            card => {
-              card.gameObject.SetParent(CardFactory.GetFolder(CardHeapType.DRAW));
-              card.rectTransform.anchoredPosition = Vector2.zero;
-              card.cardHeapType = CardHeapType.DRAW;
-            }
-          );
-          cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
-          cardHeapDict[CardHeapType.DISCARD].Clear();
-        }
-
-        Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW].ToArray());
-        foreach (Card card in randomCards) {
-          // 记录抽取的卡牌
-          m_tempCards.Add(card);
-          card.cardHeapType = CardHeapType.HAND;
-          cardHeapDict[CardHeapType.HAND].Add(card);
-          cardHeapDict[CardHeapType.DRAW].Remove(card);
-          if (m_tempCards.Count >= Constant.DRAW_CARD_COUNT || cardHeapDict[CardHeapType.HAND].Count >= Constant.MAX_HAND_CARD_COUNT) {
-            break;
+      if (Constant.DRAW_CARD_COUNT > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {
+        // 弃牌堆的牌重新进入抽牌堆
+        cardHeapDict[CardHeapType.DISCARD].ForEach(
+          card => {
+            card.gameObject.SetParent(CardFactory.GetFolder(CardHeapType.DRAW));
+            card.rectTransform.anchoredPosition = Vector2.zero;
+            card.cardHeapType = CardHeapType.DRAW;
           }
+        );
+        cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
+        cardHeapDict[CardHeapType.DISCARD].Clear();
+      }
+
+      Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW].ToArray());
+      foreach (Card card in randomCards) {
+        // 记录抽取的卡牌
+        m_tempCards.Add(card);
+        card.cardHeapType = CardHeapType.HAND;
+        cardHeapDict[CardHeapType.HAND].Add(card);
+        cardHeapDict[CardHeapType.DRAW].Remove(card);
+        if (m_tempCards.Count >= Constant.DRAW_CARD_COUNT) {
+          break;
         }
       }
       // 抽牌表现层
@@ -128,7 +126,8 @@ namespace Yume.Battle {
       // 记录弃置的卡牌
       // 将不保留的手牌全部弃置
       m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !card.cardPhase.retain));
-      m_tempCards.ForEach(card => {
+      m_tempCards.ForEach(
+        card => {
           card.cardHeapType = CardHeapType.DISCARD;
           cardHeapDict[CardHeapType.HAND].Remove(card);
         }
@@ -145,8 +144,12 @@ namespace Yume.Battle {
     private IEnumerator _AddCards(int drawCardCount, params Card[] cards) {
       int drawCardStartIndex = cards.Length - drawCardCount;
       for (int i = 0; i < cards.Length; i++) {
-        Vector2 dest = new Vector2((i - 0.5f * cards.Length + 0.5f) * cards[i].rect.width, 0);
-        cards[i].battleCard.SetTargetAnchorPos(dest);
+        float scale = i - 0.5f * cards.Length + 0.5f;
+        float angle = -scale * Constant.ANGLE_DELTA;
+        float targetPosX = Constant.SPACING_SCALE * scale * CardFactory.cardWidth;
+        float targetPosY = -Mathf.Abs(scale) * CardFactory.cardHeight * Constant.OFFSET_SCALE_Y;
+        Vector2 dest = new Vector2(targetPosX, targetPosY);
+        cards[i].battleCard.SetTarget(angle, i, dest);
         if (i >= drawCardStartIndex) {
           cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.ADDING);
         }
@@ -160,7 +163,7 @@ namespace Yume.Battle {
 
     private IEnumerator _RemoveCards(params Card[] cards) {
       for (int i = cards.Length - 1; i >= 0; i--) {
-        cards[i].battleCard.SetTargetAnchorPos(Vector2.zero);
+        cards[i].battleCard.SetTarget(0, i, Vector2.zero);
         cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.REMOVING);
         yield return new WaitForSeconds(0.1f);
       }
@@ -171,10 +174,14 @@ namespace Yume.Battle {
     }
 
     private void _ResortHandCards() {
-      for (int i = 0; i < cardHeapDict[CardHeapType.HAND].Count; i++) {
-        float width = cardHeapDict[CardHeapType.HAND][i].rect.width;
-        Vector2 dest = new Vector2((i - 0.5f * cardHeapDict[CardHeapType.HAND].Count + 0.5f) * width, 0);
-        cardHeapDict[CardHeapType.HAND][i].battleCard.SetTargetAnchorPos(dest);
+      List<Card> cards = cardHeapDict[CardHeapType.HAND];
+      for (int i = 0; i < cards.Count; i++) {
+        float scale = i - 0.5f * cards.Count + 0.5f;
+        float angle = -scale * Constant.ANGLE_DELTA;
+        float targetPosX = Constant.SPACING_SCALE * scale * CardFactory.cardWidth;
+        float targetPosY = -Mathf.Abs(scale) * CardFactory.cardHeight * Constant.OFFSET_SCALE_Y;
+        Vector2 dest = new Vector2(targetPosX, targetPosY);
+        cards[i].battleCard.SetTarget(angle, i, dest);
       }
     }
 
@@ -190,13 +197,6 @@ namespace Yume.Battle {
       }
 
       List<Card> cards = selector.Select(cardHeapDict[selector.from]);
-      if (selector.to == CardHeapType.HAND) {
-        int deltaCount = Constant.MAX_HAND_CARD_COUNT - cardHeapDict[CardHeapType.HAND].Count;
-        if (cards.Count > deltaCount) {
-          cards = cards.GetRange(0, deltaCount);
-        }
-      }
-
       cards.ForEach(
         card => {
           card.cardHeapType = selector.to;

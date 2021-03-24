@@ -41,13 +41,15 @@ namespace Yume.UI {
       }
 
       public override void OnTrick() {
-        if (Vector2.Distance(owner.m_targettAnchorPos, owner.anchoredPosition) < MIN_DIST) {
+        if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
           owner.transform.localScale = Vector3.one;
-          owner.anchoredPosition = owner.m_targettAnchorPos;
+          owner.anchoredPosition = owner.m_targetAnchorPos;
+          owner.transform.SetAngleZ(owner.m_targetAngle);
           stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
           owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, m_speed);
-          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targettAnchorPos, m_speed);
+          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, m_speed);
+          owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, m_speed));
           m_speed += speedIncrement;
         }
       }
@@ -58,7 +60,8 @@ namespace Yume.UI {
 
       public override void OnTrick() {
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, SPEED_SCALE * speed);
-        owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targettAnchorPos, SPEED_SCALE * speed);
+        owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, SPEED_SCALE * speed);
+        owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, SPEED_SCALE * speed));
       }
     }
 
@@ -66,6 +69,7 @@ namespace Yume.UI {
       public Dragging(UIBattleCard owner) : base((int)BattleCardState.DRAGGING, owner) { }
 
       public override void OnEnter(int lastStateId) {
+        owner.transform.eulerAngles = Vector3.zero;
         owner.transform.SetParent(CardFactory.handCardTopFolder);
       }
 
@@ -73,9 +77,7 @@ namespace Yume.UI {
         // 大小缩放
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
-        Vector3 mousePosition = owner.m_eventData.position;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        owner.transform.position = owner.m_originPos + (mousePosition - owner.m_clickPos);
+        owner.anchoredPosition = owner.m_eventData.position - 0.5f * Constant.SCREEN_SIZE;
         // 目标选择
         // 取消之前选择的
         if (owner.m_card.candidate != null) {
@@ -96,6 +98,7 @@ namespace Yume.UI {
       public override void OnExit(int nextStateId) {
         if (nextStateId == (int)BattleCardState.IN_HAND) {
           owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
+          owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
         }
         
         if (owner.m_card.candidate != null) {
@@ -124,11 +127,13 @@ namespace Yume.UI {
       public override void OnTrick() {
         if (owner.anchoredPosition.magnitude < MIN_DIST) {
           owner.transform.localScale = smallScale;
-          owner.anchoredPosition = owner.m_targettAnchorPos;
+          owner.anchoredPosition = owner.m_targetAnchorPos;
+          owner.transform.SetAngleZ(owner.m_targetAngle);
           stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
         } else {
           owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, smallScale, m_speed);
-          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targettAnchorPos, m_speed);
+          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, m_speed);
+          owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, m_speed));
           m_speed += speedIncrement;
         }
       }
@@ -137,10 +142,10 @@ namespace Yume.UI {
     #endregion
 
     private Card m_card;
-    private Vector3 m_clickPos;
-    private Vector3 m_originPos;
     private Func<bool> m_onUseCard;
-    private Vector2 m_targettAnchorPos;
+    private float m_targetAngle;
+    private int m_targetSiblingIndex;
+    private Vector2 m_targetAnchorPos;
     private PointerEventData m_eventData;
     public StateMachine stateMachine { get; } = new StateMachine();
     private Vector2 anchoredPosition {
@@ -171,8 +176,10 @@ namespace Yume.UI {
       return this;
     }
 
-    public void SetTargetAnchorPos(Vector2 targettAnchorPos) {
-      m_targettAnchorPos = targettAnchorPos;
+    public void SetTarget(float targetAngle, int targetSiblingIndex, Vector2 targetAnchorPos) {
+      m_targetAngle = targetAngle;
+      m_targetAnchorPos = targetAnchorPos;
+      m_targetSiblingIndex = targetSiblingIndex;
     }
 
     private void Update() {
@@ -186,13 +193,7 @@ namespace Yume.UI {
 
       if (_CanDrag()) {
         m_eventData = eventData;
-        m_originPos = transform.position;
-        Vector3 mousePosition = m_eventData.position;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        m_clickPos = mousePosition;
-
         stateMachine.SwitchState((int)BattleCardState.DRAGGING);
-
         AudioManager.PlaySound(SELECT_SOUND);
       }
     }

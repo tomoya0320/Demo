@@ -11,6 +11,8 @@ namespace Yume.Battle {
     private static Transform s_discardCardFolder;
     private static Transform s_consumeCardFolder;
     private static Transform s_handCardTopFolder;
+    public static float cardWidth { private set; get; }
+    public static float cardHeight { private set; get; }
     public static Transform cardAnimFolder => s_cardAnimFolder;
     public static Transform handCardTopFolder => s_handCardTopFolder;
 
@@ -23,6 +25,8 @@ namespace Yume.Battle {
       s_handCardTopFolder = objectContainer.GetTransform("handCardTopFolder");
 
       s_cardPrefab = ResourceManager.Load<GameObject>("card_prefab");
+      cardWidth = s_cardPrefab.GetComponent<RectTransform>().rect.width;
+      cardHeight = s_cardPrefab.GetComponent<RectTransform>().rect.height;
     }
 
     public static Transform GetFolder(CardHeapType cardHeapType) {
