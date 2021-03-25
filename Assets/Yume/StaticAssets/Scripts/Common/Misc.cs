@@ -613,7 +613,6 @@ namespace Yume {
   }
 
   public static class Colors {
-    // ReSharper disable once InconsistentNaming
     public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 
     public static Color GetAttribColor(AttribType type) {
@@ -648,6 +647,23 @@ namespace Yume {
       Navigation newNavigation = selectable.navigation;
       newNavigation.mode = Navigation.Mode.None;
       selectable.navigation = newNavigation;
+    }
+  }
+
+  public static class ListExtensions {
+    /// <summary>
+    /// 模拟队列
+    /// </summary>
+    /// <param name="list"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static T Dequeue<T>(this List<T> list) {
+      if (list.Count > 0) {
+        T element = list.First();
+        list.Remove(element);
+        return element;
+      }
+      return default;
     }
   }
   

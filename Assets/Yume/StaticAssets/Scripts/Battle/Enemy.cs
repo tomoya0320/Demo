@@ -9,6 +9,7 @@ namespace Yume.Battle {
     private CanvasGroup m_canvasGroup;
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
+    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
 
     public Enemy(UnitArgs enemyArgs, CardArgs[] cardArgsArray) : base(enemyArgs) {
       m_canvasGroup = gameObject.GetComponentEx<CanvasGroup>();
@@ -82,6 +83,10 @@ namespace Yume.Battle {
     public override void CleanUp() {
       cards.ForEach(card => Object.Destroy(card.gameObject));
       Object.Destroy(gameObject);
+    }
+
+    public override void EnqueueCard(Card card) {
+      playCardQueue.Enqueue(card);
     }
   }
 }

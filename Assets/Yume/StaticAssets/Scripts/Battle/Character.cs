@@ -57,10 +57,15 @@ namespace Yume.Battle {
       }
 
       // 从手牌堆中移除
-      cardHeapDict[CardHeapType.HAND].Remove(card);
-      card.cardHeapType = CardHeapType.PLAYING;
+      List<Card> handCards = cardHeapDict[CardHeapType.HAND];
+      handCards.Remove(card);
       // 加入出牌队列
       EnqueueCard(card);
+      card.cardHeapType = CardHeapType.PLAYING;
+      // 调整SiblingIndex
+      for (int i = 0; i < handCards.Count; i++) {
+        handCards[i].battleCard.SetTargetSiblingIndex(i);
+      }
 
       return true;
     }
@@ -97,8 +102,8 @@ namespace Yume.Battle {
 
       // 出牌中
       while (true) {
-        if (playCardQueue.Count > 0) {
-          var playCard = playCardQueue.Dequeue();
+        if (cardHeapDict[CardHeapType.PLAYING].Count > 0) {
+          var playCard = cardHeapDict[CardHeapType.PLAYING].Dequeue();
           if (playCard == null) {
             break;
           }
@@ -230,6 +235,10 @@ namespace Yume.Battle {
     public override void CleanUp() {
       cardHeapDict.Values.ForEach(cards => cards.ForEach(card => card.CleanUp()));
       Object.Destroy(gameObject);
+    }
+
+    public override void EnqueueCard(Card card) {
+      cardHeapDict[CardHeapType.PLAYING].Add(card);
     }
   }
 }

@@ -59,6 +59,7 @@ namespace Yume.UI {
       public InHand(UIBattleCard owner) : base((int)BattleCardState.IN_HAND, owner) { }
 
       public override void OnEnter(int lastStateId) {
+        owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
       }
 
@@ -100,10 +101,6 @@ namespace Yume.UI {
       }
 
       public override void OnExit(int nextStateId) {
-        if (nextStateId == (int)BattleCardState.IN_HAND) {
-          owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
-        }
-        
         if (owner.m_card.candidate != null) {
           owner.m_card.candidate.SetSelectedEnable(false);
           if (nextStateId != (int)BattleCardState.PLAYING) {
@@ -182,6 +179,10 @@ namespace Yume.UI {
     public void SetTarget(float targetAngle, int targetSiblingIndex, Vector2 targetAnchorPos) {
       m_targetAngle = targetAngle;
       m_targetAnchorPos = targetAnchorPos;
+      m_targetSiblingIndex = targetSiblingIndex;
+    }
+
+    public void SetTargetSiblingIndex(int targetSiblingIndex) {
       m_targetSiblingIndex = targetSiblingIndex;
     }
 

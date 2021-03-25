@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +16,7 @@ namespace Yume.Battle {
     public Card playingCard; // 正在出的牌
     public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
-    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
-    
+
     #region 表现层
 
     protected YImage hpImage;
@@ -108,6 +106,6 @@ namespace Yume.Battle {
       }
     }
 
-    public void EnqueueCard(Card card) => playCardQueue.Enqueue(card);
+    public abstract void EnqueueCard(Card card);
   }
 }
