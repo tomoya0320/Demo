@@ -35,11 +35,11 @@ namespace Yume.Battle {
     public override void OnExit(int nextStateId) { }
   }
 
-  public class StateMachine {
+  public abstract class StateMachine {
     private Dictionary<int, State> m_states = new Dictionary<int, State>();
     public State currentState { get; private set; }
 
-    public StateMachine() {
+    protected StateMachine() {
       State defaultState = new DefaultState();
       if (RegisterState(defaultState)) {
         currentState = defaultState;

@@ -139,6 +139,19 @@ namespace Yume.UI {
       }
     }
 
+    private class CardStateMachine : StateMachine {
+      public CardStateMachine(UIBattleCard battleCard) {
+        RegisterState(new Adding(battleCard));
+        RegisterState(new InHand(battleCard));
+        RegisterState(new Playing(battleCard));
+        RegisterState(new OutHand(battleCard));
+        RegisterState(new Dragging(battleCard));
+        RegisterState(new Removing(battleCard));
+
+        SwitchState((int)BattleCardState.OUT_HAND);
+      }
+    }
+
     #endregion
 
     private Card m_card;
@@ -147,7 +160,7 @@ namespace Yume.UI {
     private int m_targetSiblingIndex;
     private Vector2 m_targetAnchorPos;
     private PointerEventData m_eventData;
-    public StateMachine stateMachine { get; } = new StateMachine();
+    public StateMachine stateMachine { private set; get; }
     private Vector2 anchoredPosition {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
@@ -163,16 +176,8 @@ namespace Yume.UI {
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
       m_onUseCard = onUseCard;
-
-      stateMachine.RegisterState(new Adding(this));
-      stateMachine.RegisterState(new InHand(this));
-      stateMachine.RegisterState(new Playing(this));
-      stateMachine.RegisterState(new OutHand(this));
-      stateMachine.RegisterState(new Dragging(this));
-      stateMachine.RegisterState(new Removing(this));
+      stateMachine = new CardStateMachine(this);
       
-      stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
-
       return this;
     }
 
