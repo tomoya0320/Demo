@@ -602,7 +602,7 @@ namespace Yume {
   public static class Constant {
     public const int THOUSAND = 1000;
     public const int MAX_TEAN_COUNT = 5;
-    public const int MAX_CARD_COUNT = 12;
+    public const int MAX_CARD_COUNT = 15;
     public const int MAX_SOUND_COUNT = 5;
     public const int DRAW_CARD_COUNT = 5;
     public const float ANGLE_DELTA = 1.5f;
