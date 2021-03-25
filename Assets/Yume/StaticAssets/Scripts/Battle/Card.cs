@@ -56,9 +56,6 @@ namespace Yume.Battle {
     }
 
     public IEnumerator Cast() {
-      if (!candidate.isAlive) {
-        yield break;
-      }
       owner.playingCard = this;
       BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_BEFORE_PLAY_CARD);
       yield return cardAnimCallback.PlayAnim();

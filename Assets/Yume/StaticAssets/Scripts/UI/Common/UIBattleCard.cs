@@ -58,6 +58,10 @@ namespace Yume.UI {
     private class InHand : StateBase<UIBattleCard> {
       public InHand(UIBattleCard owner) : base((int)BattleCardState.IN_HAND, owner) { }
 
+      public override void OnEnter(int lastStateId) {
+        owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
+      }
+
       public override void OnTrick() {
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, SPEED_SCALE * speed);
         owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, SPEED_SCALE * speed);
@@ -98,7 +102,6 @@ namespace Yume.UI {
       public override void OnExit(int nextStateId) {
         if (nextStateId == (int)BattleCardState.IN_HAND) {
           owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
-          owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
         }
         
         if (owner.m_card.candidate != null) {

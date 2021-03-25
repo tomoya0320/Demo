@@ -608,9 +608,7 @@ namespace Yume {
     public const float ANGLE_DELTA = 1.5f;
     public const float SPACING_SCALE = 0.5f;
     public const float OFFSET_SCALE_Y = 0.02f;
-    // ReSharper disable once InconsistentNaming
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
-    // ReSharper disable once InconsistentNaming
     public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
   }
 
