@@ -817,6 +817,7 @@ namespace Yume {
 
   public static class AnimatorParams {
     public const string HURT = "hurt";
+    public const string DIE = "die";
   }
 
   public static class StringMap {

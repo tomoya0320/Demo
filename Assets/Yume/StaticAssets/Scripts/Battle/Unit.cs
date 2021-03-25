@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.UI;
+using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public abstract class Unit {
@@ -69,11 +70,28 @@ namespace Yume.Battle {
     }
 
     public abstract IEnumerator OnTick();
-
-    public abstract void OnDie();
-
+    
     public abstract void CleanUp();
 
+    public virtual void OnDie() {
+      animator.SetBool(AnimatorParams.DIE, true);
+      if (this is Character) {
+        // 战斗失败
+        BattleManager.Finish(BattleResult.LOSE);
+      } else if(this is Enemy){
+        // 移除这个单位施加的buff
+        foreach (var buffManager in BattleManager.buffManagers.Values) {
+          // 只针对还存活的单位
+          if (buffManager.unit.isAlive) {
+            buffManager.OnCasterDie(this);
+          }
+        }
+        // 判断是否胜利
+        if (BattleManager.units.Count == 1) {
+          BattleManager.Finish(BattleResult.WIN);
+        }
+      }
+    }
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
       int result;
       if (onMaxValue) {

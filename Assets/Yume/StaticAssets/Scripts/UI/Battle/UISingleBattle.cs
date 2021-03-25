@@ -50,6 +50,10 @@ namespace Yume.UI {
     }
 
     private void _Abort() {
+      if (!BattleManager.isRunning) {
+        return;
+      }
+      
       if (UIManager.GetTopUI(uiType).name == name) {
         UIManager.OpenOne(
           "confirmation", null,

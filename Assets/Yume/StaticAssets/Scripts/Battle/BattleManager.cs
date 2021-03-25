@@ -18,6 +18,7 @@ namespace Yume.Battle {
     private static Coroutine s_coroutine;
     private static int s_currentUnitIndex;
     private static LevelTemplate s_levelTemplate;
+    public static bool isRunning => s_coroutine != null;
     private static List<Unit> s_units = new List<Unit>();
     public static List<Unit> units => s_units.FindAll(unit => unit.isAlive);
     // 当前回合的单位
@@ -104,7 +105,6 @@ namespace Yume.Battle {
 
       // 避免引用到BattleManager的变量因为这些变量后面就置空了
       LevelTemplate levelTemplate = s_levelTemplate;
-
       // 退出战斗
       UIManager.OpenOne(
         "globalBlackFade", () => {
@@ -144,7 +144,7 @@ namespace Yume.Battle {
       blackboard.Clear();
       buffManagers.Clear();
       behaviorManagers.Clear();
-      
+
       NumFactory.CleanUp();
       UnitFactory.CleanUp();
       CardFactory.CleanUp();

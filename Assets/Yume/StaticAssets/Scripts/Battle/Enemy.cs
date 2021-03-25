@@ -6,13 +6,11 @@ using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
-    private CanvasGroup m_canvasGroup;
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
     protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
 
     public Enemy(UnitArgs enemyArgs, CardArgs[] cardArgsArray) : base(enemyArgs) {
-      m_canvasGroup = gameObject.GetComponentEx<CanvasGroup>();
       foreach (var cardArgs in cardArgsArray) {
         cards.Add(CardFactory.CreateCard(this, cardArgs, null, gameObject.transform));
       }
@@ -60,23 +58,6 @@ namespace Yume.Battle {
           yield return new WaitUntil(() => !tween.IsPlaying());
         }
         yield return null;
-      }
-    }
-
-    public override void OnDie() {
-      // 隐藏
-      m_canvasGroup.DOFade(0, 0.5f);
-      // 结算判断
-      if (BattleManager.units.Count == 1) {
-        BattleManager.Finish(BattleResult.WIN);
-      } else {
-        // 移除这个单位施加的buff
-        foreach (var buffManager in BattleManager.buffManagers.Values) {
-          // 只针对还存活的单位
-          if (buffManager.unit.isAlive) {
-            buffManager.OnCasterDie(this);
-          }
-        }
       }
     }
 

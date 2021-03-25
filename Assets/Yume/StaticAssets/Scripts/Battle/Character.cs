@@ -228,10 +228,6 @@ namespace Yume.Battle {
       return cardHeapDict[cardHeapType];
     }
 
-    public override void OnDie() {
-      BattleManager.Finish(BattleResult.LOSE);
-    }
-
     public override void CleanUp() {
       cardHeapDict.Values.ForEach(cards => cards.ForEach(card => card.CleanUp()));
       Object.Destroy(gameObject);

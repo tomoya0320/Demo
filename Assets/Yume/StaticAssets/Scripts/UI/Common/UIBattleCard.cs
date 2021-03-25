@@ -152,8 +152,8 @@ namespace Yume.UI {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
     }
-    private static float speed => 3.0f * Time.deltaTime;
-    private static float speedIncrement => 0.05f * Time.deltaTime;
+    private static float speed => Time.fixedDeltaTime;
+    private static float speedIncrement => 0.02f * Time.fixedDeltaTime;
     private static Vector3 smallScale => 0.3f * Vector3.one;
     private static Vector3 bigScale => 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";

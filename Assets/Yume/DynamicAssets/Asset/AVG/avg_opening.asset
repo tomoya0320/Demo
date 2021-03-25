@@ -41,115 +41,6 @@ MonoBehaviour:
       _dynamic: 0
   node: 0
   _illustrationSprite: {fileID: 21300000, guid: fe120faa0972eb343a990aa6e7931387, type: 3}
---- !u!114 &-6675154211506369563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67076d691e538524ebcd3cbbcfe2bbc1, type: 3}
-  m_Name: Play Video
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  graph: {fileID: 11400000}
-  position: {x: -1880, y: 488}
-  ports:
-    keys:
-    - node
-    values:
-    - _fieldName: node
-      _node: {fileID: -6675154211506369563}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: nodes
-        node: {fileID: -4421319208022766570}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  node: 0
-  _videoClip: {fileID: 32900000, guid: 8375805aae397b641b9103c1f15093a3, type: 3}
---- !u!114 &-4421319208022766570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3478a3491b761f459b071d9d956526e, type: 3}
-  m_Name: AVG Main
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  graph: {fileID: 11400000}
-  position: {x: -1800, y: 184}
-  ports:
-    keys:
-    - last
-    - next
-    - nodes
-    values:
-    - _fieldName: last
-      _node: {fileID: -4421319208022766570}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: next
-        node: {fileID: -1465967886209995379}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: next
-      _node: {fileID: -4421319208022766570}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: last
-        node: {fileID: -2988151529694506945}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: nodes
-      _node: {fileID: -4421319208022766570}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: node
-        node: {fileID: -6675154211506369563}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  last: 0
-  next: 0
-  nodes: 0
 --- !u!114 &-2988151529694506945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +76,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: next
-        node: {fileID: -4421319208022766570}
+        node: {fileID: -1465967886209995379}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -327,7 +218,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -2072, y: 136}
+  position: {x: -1784, y: 168}
   ports:
     keys:
     - next
@@ -338,7 +229,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: last
-        node: {fileID: -4421319208022766570}
+        node: {fileID: -2988151529694506945}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -376,8 +267,6 @@ MonoBehaviour:
   - {fileID: 7654226473362282707}
   - {fileID: -2058161955476753007}
   - {fileID: 8891636703112474972}
-  - {fileID: -4421319208022766570}
-  - {fileID: -6675154211506369563}
   disableSkip: 1
   disableSkipVideo: 1
 --- !u!114 &3400257784913475395

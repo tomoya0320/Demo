@@ -85,15 +85,7 @@ namespace Yume.Battle {
         foreach (var buff in buffs) {
           if (buff.behaviorTreeDict.TryGetValue(BehaviorTime.ON_LATE_TURN, out var behaviorTrees)) {
             for (int i = buff.turn; i < buff.duration; i++) {
-              foreach (var behaviorTree in behaviorTrees) {
-                behaviorTree.Run();
-                if (!unit.isAlive) {
-                  break;
-                }
-              }
-              if (!unit.isAlive) {
-                break;
-              }
+              behaviorTrees.ForEach(behaviorTree => behaviorTree.Run());
             }
             buff.behaviorTreeDict.Remove(BehaviorTime.ON_LATE_TURN);
             var behaviorDict = BattleManager.behaviorManagers[unit].behaviorDict;
