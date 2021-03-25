@@ -125,7 +125,7 @@ namespace Yume.Battle {
           if (battleResult == BattleResult.WIN && !string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
             UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action, lateBGM);
           } else {
-            action += () => AudioManager.PlayBgm(lateBGM);
+            AudioManager.PlayBgm(lateBGM);
             action();
           }
         }
