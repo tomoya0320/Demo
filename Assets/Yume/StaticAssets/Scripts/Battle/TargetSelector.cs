@@ -59,4 +59,21 @@ namespace Yume.Battle {
       return targets;
     }
   }
+
+  public class CampSelectorWithBuff : CampSelector {
+    [SerializeField]
+    private string _buffId;
+    
+    public override List<Unit> Select(Unit caster = null, Unit candidate = null) {
+      List<Unit> targets = new List<Unit>();
+
+      foreach (var target in base.Select(caster, candidate)) {
+        if (BattleManager.buffManagers[target].ContainBuff(_buffId)) {
+          targets.Add(target);
+        }
+      }
+
+      return targets;
+    }
+  }
 }

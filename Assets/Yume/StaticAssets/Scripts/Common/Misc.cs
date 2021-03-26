@@ -615,14 +615,17 @@ namespace Yume {
   public static class Colors {
     public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 
-    public static Color GetAttribColor(AttribType type) {
+    public static bool TryGetAttribColor(AttribType type, out Color color) {
       switch (type) {
         case AttribType.HP:
-          return Color.green;
+          color = Color.green;
+          return true;
         case AttribType.ENERGY:
-          return Color.blue;
+          color = Color.blue;
+          return true;
         default:
-          return Color.black;
+          color = Color.black;
+          return false;
       }
     }
   }
@@ -901,8 +904,8 @@ namespace Yume {
             List<string> expression = description.Substring(start, i - start).Split(':').ToList();
             var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
             int nextIndex = 1;
-            if (expression[nextIndex] == Blackboard.BUFFS) {
-              blackboard = blackboard.GetValue<BuffTemplates>(Blackboard.BUFFS)[int.Parse(expression[nextIndex + 1])].blackboard;
+            if (expression[nextIndex] == Blackboard.CREATE_BUFFS) {
+              blackboard = blackboard.GetValue<BuffTemplates>(Blackboard.CREATE_BUFFS)[int.Parse(expression[nextIndex + 1])].blackboard;
               nextIndex += 2;
             }
             switch (expression[nextIndex]) {
@@ -974,12 +977,17 @@ namespace Yume {
         key = key.Substring(0, key.Length - 1);
         object value = blackboard.GetValue<object>(key);
         return value switch {
-          int i => $"{i * 100 / Constant.THOUSAND}%",
-          float f => $"{f * 100.0f}%",
+          int i => $"{Mathf.Abs(i) * 100 / Constant.THOUSAND}%",
+          float f => $"{Mathf.Abs(f) * 100.0f}%",
           _ => $"{value}"
         };
       } else {
-        return $"{blackboard.GetValue<object>(key)}";
+        object value = blackboard.GetValue<object>(key);
+        return value switch {
+          int i => $"{Mathf.Abs(i)}",
+          float f => $"{Mathf.Abs(f)}",
+          _ => $"{value}"
+        };
       }
     }
 
@@ -988,12 +996,17 @@ namespace Yume {
         key = key.Substring(0, key.Length - 1);
         object value = obj.GetType().GetField(key).GetValue(obj);
         return value switch {
-          int i => $"{i * 100 / Constant.THOUSAND}%",
-          float f => $"{f * 100.0f}%",
+          int i => $"{Mathf.Abs(i) * 100 / Constant.THOUSAND}%",
+          float f => $"{Mathf.Abs(f) * 100.0f}%",
           _ => $"{value}"
         };
       } else {
-        return $"{obj.GetType().GetField(key).GetValue(obj)}";
+        object value = obj.GetType().GetField(key).GetValue(obj);
+        return value switch {
+          int i => $"{Mathf.Abs(i)}",
+          float f => $"{Mathf.Abs(f)}",
+          _ => $"{value}"
+        };
       }
     }
 

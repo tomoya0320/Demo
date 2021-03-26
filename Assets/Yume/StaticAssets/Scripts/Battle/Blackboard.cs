@@ -19,7 +19,6 @@ namespace Yume.Battle {
     public const string CONTAIN_BUFF = "containBuff";
     public const string TRIGGER_BUFF = "triggerBuff";
     public const string DURATION = "duration";
-    public const string BUFFS = "buffs";
     public const string EXP = "exp";
     public const string EXTEND_BUFF = "extendBuff";
     public const string EXTEND_BUFF_DURATION = "extendBuffDuration";

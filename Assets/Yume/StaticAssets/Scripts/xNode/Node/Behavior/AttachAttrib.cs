@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Yume.Battle {
+﻿namespace Yume.Battle {
   public class AttachAttrib : LeafNodeBase {
     public override bool Run() {
       var attribAdditives = behaviorTree.blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
@@ -16,8 +14,9 @@ namespace Yume.Battle {
         int realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
 
         // 显示数字
-        Color color = Colors.GetAttribColor(attribAdditive.type);
-        NumFactory.ShowNum(realValue, owner.numReference.position, color);
+        if (Colors.TryGetAttribColor(attribAdditive.type, out var color)) {
+          NumFactory.ShowNum(realValue, owner.numReference.position, color);
+        }
 
         AttribAdditive args = new AttribAdditive {
           type = attribAdditive.type,
