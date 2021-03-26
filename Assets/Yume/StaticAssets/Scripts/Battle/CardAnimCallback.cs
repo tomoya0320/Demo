@@ -14,9 +14,11 @@ namespace Yume.Battle {
 
     public IEnumerator PlayAnim() {
       CardAnimEvent cardAnimEvent = card.cardPhase.cardAnimEvent;
-      int eventCount = cardAnimEvent.eventCount;
+      int eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}");
       if (cardAnimEvent.loadFromBlackboard) {
-        eventCount = card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:{Blackboard.EVENT_COUNT}");
+        eventCount += card.owner.blackboard.GetValue<int>($"{card.cardTemplate.id}:{Blackboard.EVENT_COUNT}");
+      } else {
+        eventCount += cardAnimEvent.eventCount;
       }
       while (eventCount > 0) {
         gameObject.SetActiveEx(true);

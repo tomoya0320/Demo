@@ -135,8 +135,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 8c5b1508c4701d54f857a5f39715c9d2, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 8c5b1508c4701d54f857a5f39715c9d2, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 7e68dc65111c4cf468c81ed9a54cd3ef
     m_Address: pure_damage
     m_ReadOnly: 0
@@ -151,8 +151,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: b953e43be5cccb54f9b94915c1af0a6a, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: b953e43be5cccb54f9b94915c1af0a6a, type: 2}
   - m_GUID: c8c83c15073efde4eb8db28bd5f661ff
     m_Address: avg_opening
     m_ReadOnly: 0
@@ -207,8 +207,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: f8d842173dd9a2741b7694f010c66026, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: f8d842173dd9a2741b7694f010c66026, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 1c896e0e7a02829479d88045ef3bb1aa
+    m_Address: extend_buff_if_contain_buff
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 1c896e0e7a02829479d88045ef3bb1aa, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 1c896e0e7a02829479d88045ef3bb1aa, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

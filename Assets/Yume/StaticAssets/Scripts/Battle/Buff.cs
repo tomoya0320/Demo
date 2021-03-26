@@ -6,7 +6,7 @@ namespace Yume.Battle {
     public Unit unit { get; }
     public string id { get; }
     public string icon { get; }
-    public int duration { get; }
+    public int duration;
     public string description { get; }
     // buff下的行为树共用
     // 因为是引用类型所以很方便

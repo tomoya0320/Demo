@@ -15,11 +15,14 @@ namespace Yume.Battle {
     public const string PROB = "prob";
     public const string CARD_SELECTOR = "cardSelector";
     public const string EVENT_COUNT = "eventCount";
+    public const string EXTRA_EVENT_COUNT = "extraEventCount";
     public const string CONTAIN_BUFF = "containBuff";
     public const string TRIGGER_BUFF = "triggerBuff";
     public const string DURATION = "duration";
     public const string BUFFS = "buffs";
     public const string EXP = "exp";
+    public const string EXTEND_BUFF = "extendBuff";
+    public const string EXTEND_BUFF_DURATION = "extendBuffDuration";
 
     public bool ContainsKey<T>(string key) {
       return ContainsKey(key) && this[key] is T;
