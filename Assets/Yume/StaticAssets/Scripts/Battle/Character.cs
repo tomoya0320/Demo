@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.Utilities;
 using UnityEngine;
 using Yume.UI;
@@ -46,6 +47,13 @@ namespace Yume.Battle {
     }
 
     private bool _OnUseCard(Card card) {
+      // 点了回合结束但还有牌没出完的情况下不能再出牌了
+      if (cardHeapDict[CardHeapType.PLAYING].Count > 0 &&
+          cardHeapDict[CardHeapType.PLAYING].Last() == null) {
+        
+        return false;
+      }
+      // 回合外也不能出牌了
       if (BattleManager.currentUnit != this) {
         return false;
       }
