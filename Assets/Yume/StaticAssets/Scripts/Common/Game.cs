@@ -107,8 +107,8 @@ namespace Yume {
       }
     }
 
-    private void LateUpdate() {
-      DataManager.OnLateUpdate();
+    private void FixedUpdate() {
+      DataManager.CheckSaveData();
     }
 #if BETA
     private void OnGUI() {

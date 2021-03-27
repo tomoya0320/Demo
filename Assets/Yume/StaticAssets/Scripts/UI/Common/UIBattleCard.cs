@@ -165,13 +165,13 @@ namespace Yume.UI {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
     }
-    private static float speed => 3.0f * Time.fixedDeltaTime;
-    private static float speedIncrement => 0.1f * Time.fixedDeltaTime;
+    private static float speed => Time.deltaTime;
+    private static float speedIncrement => 0.1f * Time.deltaTime;
     private static Vector3 smallScale => 0.3f * Vector3.one;
     private static Vector3 bigScale => 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
     private const float MIN_DIST = 1.0f;
-    private const float SPEED_SCALE = 2.0f;
+    private const float SPEED_SCALE = 6.0f;
 
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
@@ -191,7 +191,7 @@ namespace Yume.UI {
       m_targetSiblingIndex = targetSiblingIndex;
     }
 
-    private void FixedUpdate() {
+    private void Update() {
       stateMachine.OnTrick();
     }
 
