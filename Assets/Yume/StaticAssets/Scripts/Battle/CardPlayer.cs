@@ -44,7 +44,8 @@ namespace Yume.Battle {
       }
       return false;
     }
-  }  
+  }
+
   public class CardPlayerWithEnergyAndBuffStack : CardPlayerWithEnergy {
     [SerializeField]
     private string _buffId;
