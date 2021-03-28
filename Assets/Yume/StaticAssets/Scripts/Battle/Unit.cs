@@ -55,8 +55,11 @@ namespace Yume.Battle {
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
       objectContainer.GetComponent<Button>("detailButton").onClick.AddListener(
-        () =>
-          UIManager.OpenOne("battle_unit_detail", null, this)
+        () => {
+          if (isAlive) {
+            UIManager.OpenOne("battle_unit_detail", null, this);
+          }
+        }
       );
       hpImage = objectContainer.GetComponent<YImage>("hp");
       energyImage = objectContainer.GetComponent<YImage>("energy");
