@@ -26,7 +26,7 @@ namespace Yume.Battle {
       }
       // 随机选一张牌出
       int index = MathUtil.random.Next(0, validCards.Count);
-      if (validCards[index].cardTemplate.onlySelf) {
+      if (validCards[index].cardPhase.onlySelf) {
         // candidate就是自己 
         validCards[index].candidate = this;
       } else {

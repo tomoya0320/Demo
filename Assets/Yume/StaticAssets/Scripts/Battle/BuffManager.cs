@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Yume.Battle {
@@ -12,9 +13,15 @@ namespace Yume.Battle {
     }
 
     public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
+      // 检查是否免疫该buff
+      if (ContainBuff($"buff_immune_{buffId}")) {
+        return;
+      }
+      
       if (!m_buffDict.ContainsKey(buffId)) {
         m_buffDict.Add(buffId, new List<Buff>());
       }
+      
       switch (stackType) {
         case StackType.NONE:
           if (m_buffDict[buffId].Count == 0) {
@@ -23,6 +30,13 @@ namespace Yume.Battle {
           break;
         case StackType.DEFAULT:
           _AddBuffInternal(buffId, blackboard, behaviors, display);
+          break;
+        case StackType.DURATION:
+          if (m_buffDict[buffId].Count == 0) {
+            _AddBuffInternal(buffId, blackboard, behaviors, display);
+          } else {
+            m_buffDict[buffId].Last().duration += blackboard.GetValue<int>(Blackboard.DURATION);
+          }
           break;
       }
     }
@@ -52,10 +66,10 @@ namespace Yume.Battle {
 
     public void OnLateUpdate() {
       foreach (var buffs in m_buffDict.Values) {
+        // 避免迭代器失效
         for (int i = buffs.Count - 1; i >= 0; i--) {
           if (!buffs[i].OnUpdate()) {
-            buffs[i].OnRemove();
-            buffs.RemoveAt(i);
+            RemoveBuff(buffs[i]);
           }
         }
       }

@@ -91,7 +91,7 @@ namespace Yume.UI {
         }
         if (owner.gameObject.transform.position.y > 0) {
           // 重新选择
-          if (owner.m_card.cardTemplate.onlySelf) {
+          if (owner.m_card.cardPhase.onlySelf) {
             owner.m_card.candidate = owner.m_card.owner;
           } else {
             owner.m_card.candidate = BattleManager.GetNearestEnemy(owner.gameObject.transform.position);

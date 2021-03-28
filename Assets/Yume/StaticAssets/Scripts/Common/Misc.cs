@@ -53,6 +53,11 @@ namespace Yume {
     public string name;
     public bool retain;
     public bool consume;
+    /// <summary>
+    /// 该卡牌是否只对自己生效
+    /// 主要影响candidate的选择
+    /// </summary>
+    public bool onlySelf;
     [TextArea]
     public string description;
     public string cardAnimName;
@@ -66,11 +71,6 @@ namespace Yume {
 
   public struct CardTemplate {
     public string id;
-    /// <summary>
-    /// 该卡牌是否只对自己生效
-    /// 主要影响candidate的选择
-    /// </summary>
-    public bool onlySelf;
     public CardType cardType;
     public CardPhase[] cardPhases;
   }
@@ -354,6 +354,10 @@ namespace Yume {
     /// 默认叠加方式相同的buff都有独立的生命周期
     /// </summary>
     DEFAULT,
+    /// <summary>
+    /// 将新buff的持续回合数加到上一个buff上
+    /// </summary>
+    DURATION,
   }
 
   public struct BuffDisplay {

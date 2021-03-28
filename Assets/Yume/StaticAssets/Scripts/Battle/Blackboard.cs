@@ -2,6 +2,8 @@
 
 namespace Yume.Battle {
   public class Blackboard : Dictionary<string, object> {
+    #region Key
+
     public const string ATK = "atk";
     public const string ATK_RATE = "atkRate";
     public const string ATTRIB_ADDITIVES = "attribAdditives";
@@ -22,7 +24,10 @@ namespace Yume.Battle {
     public const string EXP = "exp";
     public const string EXTEND_BUFF = "extendBuff";
     public const string EXTEND_BUFF_DURATION = "extendBuffDuration";
-
+    public const string REMOVE_BUFF = "removeBuff";
+    
+    #endregion
+    
     public bool ContainsKey<T>(string key) {
       return ContainsKey(key) && this[key] is T;
     }
