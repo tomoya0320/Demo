@@ -50,7 +50,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u731B\u51FB"
+      Data: "\u731B\u653B"
     - Name: retain
       Entry: 5
       Data: false
@@ -228,7 +228,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u731B\u51FB"
+      Data: "\u731B\u653B"
     - Name: retain
       Entry: 5
       Data: false
@@ -417,7 +417,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u7A7F\u523A"
+      Data: "\u88C2\u7259"
     - Name: retain
       Entry: 5
       Data: false
@@ -699,7 +699,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u7A7F\u523A"
+      Data: "\u88C2\u7259"
     - Name: retain
       Entry: 5
       Data: false
@@ -996,7 +996,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6563\u5C04"
+      Data: "\u7A7F\u76EE"
     - Name: retain
       Entry: 5
       Data: false
@@ -1005,16 +1005,16 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_aoe_attack
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
-      Data: cards[cards_2]
+      Data: cards[cards_3]
     - Name: energyConsumption
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 43|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -1026,7 +1026,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -1047,7 +1047,7 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: buff_normal_damage
+      Data: buff_normnal_damage
     - Name: stackType
       Entry: 3
       Data: 1
@@ -1065,13 +1065,10 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 45|Yume.Battle.CampSelector, Assembly-CSharp
-    - Name: _camp
+      Data: 45|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
       Entry: 3
-      Data: 2
-    - Name: _includeSelf
-      Entry: 5
-      Data: false
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1173,7 +1170,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6563\u5C04"
+      Data: "\u7A7F\u76EE"
     - Name: retain
       Entry: 5
       Data: false
@@ -1182,16 +1179,16 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_aoe_attack
+      Data: anim_common_attack
     - Name: iconFileName
       Entry: 1
-      Data: cards[cards_2]
+      Data: cards[cards_3]
     - Name: energyConsumption
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 50|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -1203,7 +1200,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -1242,13 +1239,10 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 52|Yume.Battle.CampSelector, Assembly-CSharp
-    - Name: _camp
+      Data: 52|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
       Entry: 3
-      Data: 2
-    - Name: _includeSelf
-      Entry: 5
-      Data: false
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1296,7 +1290,7 @@ MonoBehaviour:
       Data: 55|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 1500
     - Name: 
       Entry: 8
       Data: 
@@ -1335,13 +1329,10 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 56|Yume.Battle.CampSelector, Assembly-CSharp
-    - Name: _camp
+      Data: 56|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
       Entry: 3
-      Data: 2
-    - Name: _includeSelf
-      Entry: 5
-      Data: false
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1383,13 +1374,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atkRate
+      Data: containBuff
     - Name: $v
       Entry: 7
-      Data: 59|System.Int32, mscorlib
+      Data: 59|System.String, mscorlib
     - Name: 
-      Entry: 3
-      Data: 150
+      Entry: 1
+      Data: buff_bleeding
     - Name: 
       Entry: 8
       Data: 
@@ -1401,13 +1392,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: containBuff
+      Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 60|System.String, mscorlib
+      Data: 60|System.Int32, mscorlib
     - Name: 
-      Entry: 1
-      Data: buff_bleeding
+      Entry: 3
+      Data: 250
     - Name: 
       Entry: 8
       Data: 
@@ -1476,7 +1467,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5F3A\u51FB"
+      Data: "\u52B2\u5F13"
     - Name: retain
       Entry: 5
       Data: false
@@ -1485,16 +1476,16 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_attack
+      Data: anim_common_aoe_attack
     - Name: iconFileName
       Entry: 1
-      Data: cards[cards_3]
+      Data: cards[cards_2]
     - Name: energyConsumption
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: cardPlayer
       Entry: 7
       Data: 63|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -1506,7 +1497,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.15
+      Data: 0.2
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -1527,7 +1518,7 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: buff_normnal_damage
+      Data: buff_normal_damage
     - Name: stackType
       Entry: 3
       Data: 1
@@ -1545,10 +1536,13 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 65|Yume.Battle.SingleSelector, Assembly-CSharp
-    - Name: _targetType
+      Data: 65|Yume.Battle.CampSelector, Assembly-CSharp
+    - Name: _camp
       Entry: 3
-      Data: 1
+      Data: 2
+    - Name: _includeSelf
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1650,7 +1644,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5F3A\u51FB"
+      Data: "\u52B2\u5F13"
     - Name: retain
       Entry: 5
       Data: false
@@ -1659,16 +1653,16 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_attack
+      Data: anim_common_aoe_attack
     - Name: iconFileName
       Entry: 1
-      Data: cards[cards_3]
+      Data: cards[cards_2]
     - Name: energyConsumption
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: cardPlayer
       Entry: 7
       Data: 70|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -1680,7 +1674,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.15
+      Data: 0.2
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -1719,10 +1713,13 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 72|Yume.Battle.SingleSelector, Assembly-CSharp
-    - Name: _targetType
+      Data: 72|Yume.Battle.CampSelector, Assembly-CSharp
+    - Name: _camp
       Entry: 3
-      Data: 1
+      Data: 2
+    - Name: _includeSelf
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1770,7 +1767,7 @@ MonoBehaviour:
       Data: 75|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1500
+      Data: 1200
     - Name: 
       Entry: 8
       Data: 
@@ -1809,10 +1806,13 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 76|Yume.Battle.SingleSelector, Assembly-CSharp
-    - Name: _targetType
+      Data: 76|Yume.Battle.CampSelector, Assembly-CSharp
+    - Name: _camp
       Entry: 3
-      Data: 1
+      Data: 2
+    - Name: _includeSelf
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -1854,13 +1854,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: containBuff
+      Data: atkRate
     - Name: $v
       Entry: 7
-      Data: 79|System.String, mscorlib
+      Data: 79|System.Int32, mscorlib
     - Name: 
-      Entry: 1
-      Data: buff_bleeding
+      Entry: 3
+      Data: 150
     - Name: 
       Entry: 8
       Data: 
@@ -1872,13 +1872,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atkRate
+      Data: containBuff
     - Name: $v
       Entry: 7
-      Data: 80|System.Int32, mscorlib
+      Data: 80|System.String, mscorlib
     - Name: 
-      Entry: 3
-      Data: 250
+      Entry: 1
+      Data: buff_bleeding
     - Name: 
       Entry: 8
       Data: 
@@ -1947,7 +1947,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u843D\u4E95\u4E0B\u77F3"
+      Data: "\u6B66\u8005\u7684\u523B\u8584"
     - Name: retain
       Entry: 5
       Data: false
@@ -2346,7 +2346,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u843D\u4E95\u4E0B\u77F3"
+      Data: "\u6B66\u8005\u7684\u523B\u8584"
     - Name: retain
       Entry: 5
       Data: false
@@ -2760,7 +2760,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5F31\u70B9\u7784\u51C6"
+      Data: "\u950B\u6781\u4E4B\u9488"
     - Name: retain
       Entry: 5
       Data: false
@@ -2964,7 +2964,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5F31\u70B9\u7784\u51C6"
+      Data: "\u950B\u6781\u4E4B\u9488"
     - Name: retain
       Entry: 5
       Data: false
@@ -3291,7 +3291,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u8FDE\u653B"
+      Data: "\u8292\u523A"
     - Name: retain
       Entry: 5
       Data: false
@@ -3471,7 +3471,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u8FDE\u653B"
+      Data: "\u8292\u523A"
     - Name: retain
       Entry: 5
       Data: false
@@ -4035,7 +4035,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u788E\u7532"
+      Data: "\u8FC5\u6377\u4E4B\u9E70\u773C"
     - Name: retain
       Entry: 5
       Data: false
@@ -4269,7 +4269,7 @@ MonoBehaviour:
       Data: Yume.CardPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u788E\u7532"
+      Data: "\u8FC5\u6377\u4E4B\u9E70\u773C"
     - Name: retain
       Entry: 5
       Data: false
