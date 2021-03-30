@@ -86,7 +86,7 @@ namespace Yume.UI {
 
       public override void OnOpen() {
         m_charChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
-        m_charChoiceScrollView.ResetNormalizedPosition();
+        m_charChoiceScrollView.ResetNormalizedPos();
       }
     }
 

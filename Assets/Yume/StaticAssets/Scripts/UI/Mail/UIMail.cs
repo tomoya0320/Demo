@@ -112,7 +112,7 @@ namespace Yume.UI {
 
       public override void OnOpen() {
         m_mails.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
-        m_mailScrollView.ResetNormalizedPosition();
+        m_mailScrollView.ResetNormalizedPos();
         SwitchMail(m_mails.First());
         _RefreshMailView();
       }

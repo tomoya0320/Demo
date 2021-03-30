@@ -60,7 +60,7 @@ namespace Yume.UI {
 
       public override void OnOpen() {
         m_charList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
-        m_charScrollView.ResetNormalizedPosition();
+        m_charScrollView.ResetNormalizedPos();
       }
 
       public override void OnUpdate() {

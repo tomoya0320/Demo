@@ -138,7 +138,7 @@ namespace Yume.UI {
         m_taskShowList.Clear();
         m_taskShowList.AddRange(m_tasks.FindAll(t => t.state != TaskState.INACTIVE));
         m_taskShowList.Sort((a, b) => a.state.CompareTo(b.state));
-        m_taskScrollView.ResetNormalizedPosition();
+        m_taskScrollView.ResetNormalizedPos();
       }
 
       public override void OnUpdate() {

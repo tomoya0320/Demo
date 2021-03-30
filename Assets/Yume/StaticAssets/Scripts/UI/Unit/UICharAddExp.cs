@@ -145,7 +145,7 @@ namespace Yume.UI {
       public override void OnOpen() {
         m_itemList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         selectedExpDict.Clear();
-        m_itemScrollView.ResetNormalizedPosition();
+        m_itemScrollView.ResetNormalizedPos();
       }
     }
 

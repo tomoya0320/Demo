@@ -2,7 +2,9 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Broadcast;
 using Yume.UI;
+using EventType = Yume.Broadcast.EventType;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -125,6 +127,8 @@ namespace Yume.Battle {
           energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY)}/{GetAttrib(AttribType.ENERGY, true)}";
           break;
       }
+      // 同步更新其他地方的UI
+      EventCenter.Broadcast(EventType.UPDATE_BATTLE_UNIT_ATTRIB, type, this);
     }
 
     public abstract void EnqueueCard(Card card);

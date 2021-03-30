@@ -12,9 +12,6 @@
     UPDATE_USER_INFO,
     UPDATE_CARD_INFO,
     UPDATE_MAIN_STORY_LEVEL,
-    /// <summary>
-    /// 更新角色详情
-    /// </summary>
     UPDATE_CHAR_DETAIL,
     /// <summary>
     /// 当进入玩家的回合时
@@ -24,5 +21,7 @@
     /// 当进入第一个敌人的回合时
     /// </summary>
     ON_ENTER_FIRST_ENEMY_TURN,
+    UPDATE_BATTLE_UNIT_ATTRIB,
+    UPDATE_BATTLE_UNIT_BUFF,
   }
 }
