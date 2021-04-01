@@ -21,7 +21,5 @@
     /// 当进入第一个敌人的回合时
     /// </summary>
     ON_ENTER_FIRST_ENEMY_TURN,
-    UPDATE_BATTLE_UNIT_ATTRIB,
-    UPDATE_BATTLE_UNIT_BUFF,
   }
 }

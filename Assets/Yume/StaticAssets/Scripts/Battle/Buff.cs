@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Yume.Broadcast;
-using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
   public enum BuffAction {
@@ -59,8 +57,6 @@ namespace Yume.Battle {
           BattleManager.behaviorManagers[unit].AddBehaviorTree(behaviorTime, behavior);       
         }
       }
-      // 更新其他地方的UI
-      EventCenter.Broadcast(EventType.UPDATE_BATTLE_UNIT_BUFF, BuffAction.ADD, this);
     }
 
     public void OnRemove() {
@@ -75,8 +71,6 @@ namespace Yume.Battle {
           BattleManager.behaviorManagers[unit].RemoveBehaviorTree(behaviorTime, behavior);       
         }
       }
-      // 更新其他地方的UI
-      EventCenter.Broadcast(EventType.UPDATE_BATTLE_UNIT_BUFF, BuffAction.REMOVE, this);
     }
 
     public bool OnUpdate() {
@@ -86,8 +80,6 @@ namespace Yume.Battle {
       }
       
       turn++;
-      // 更新其他地方的UI
-      EventCenter.Broadcast(EventType.UPDATE_BATTLE_UNIT_BUFF, BuffAction.UPDATE, this);
       
       return turn < duration;
     }

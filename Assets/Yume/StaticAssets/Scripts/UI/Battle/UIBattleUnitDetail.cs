@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Yume.Broadcast;
-using EventType = Yume.Broadcast.EventType;
 using Object = UnityEngine.Object;
 
 namespace Yume.UI {
@@ -63,44 +61,19 @@ namespace Yume.UI {
         }
 
         m_buffScrollView = new UIScrollView<Buff, UIBuffTerm>(m_buffScrollRect, this);
-
-        EventCenter.AddListener<BuffAction, Buff>(EventType.UPDATE_BATTLE_UNIT_BUFF, _RefreshBuff);
       }
 
       public override void OnOpen() {
-        m_buffList.Clear();
-        foreach (var buffs in BattleManager.buffManagers[unit].buffDict.Values) {
-          m_buffList.AddRange(buffs);
-        }
         m_buffScrollView.ResetNormalizedPos();
       }
 
       public override void OnUpdate() {
-        m_buffScrollView.OnUpdate();
-      }
-
-      public override void Destroy() {
-        EventCenter.RemoveListener<BuffAction, Buff>(EventType.UPDATE_BATTLE_UNIT_BUFF, _RefreshBuff);
-      }
-
-      private void _RefreshBuff(BuffAction action, Buff buff) {
-        if (buff.unit != unit) {
-          return;
+        m_buffList.Clear();
+        foreach (var buffs in BattleManager.buffManagers[unit].buffDict.Values) {
+          m_buffList.AddRange(buffs);
         }
         
-        switch (action) {
-          case BuffAction.ADD:
-            m_buffList.Add(buff);
-            m_buffScrollView.UpdateView();
-            break;
-          case BuffAction.REMOVE:
-            m_buffList.Remove(buff);
-            m_buffScrollView.UpdateView();
-            break;
-          case BuffAction.UPDATE:
-            m_buffScrollView.UpdateView(false);
-            break;
-        }
+        m_buffScrollView.OnUpdate(true);
       }
     }
 
@@ -123,8 +96,6 @@ namespace Yume.UI {
       m_buffGroup = new UIBuffGroup(GetGameObject("buffGroup"));
       
       _AddListener();
-
-      EventCenter.AddListener<AttribType, Unit>(EventType.UPDATE_BATTLE_UNIT_ATTRIB, _RefreshAttrib);
     }
 
     private void _AddListener() {
@@ -134,12 +105,6 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       m_buffGroup.unit = args[0] as Unit;
       m_name.text = m_buffGroup.unit.name;
-      
-      for (int i = 0; i < m_attribs.Length; i++) {
-        if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{m_buffGroup.unit.attribs[i].value}";
-        }
-      }
 
       m_buffGroup.OnOpen();
       m_groupSwitch.OnOpen();
@@ -149,21 +114,11 @@ namespace Yume.UI {
 
     public override void OnUpdate() {
       m_buffGroup.OnUpdate();
-    }
-
-    public override void Destroy() {
-      base.Destroy();
-      m_buffGroup.Destroy();
-      EventCenter.RemoveListener<AttribType, Unit>(EventType.UPDATE_BATTLE_UNIT_ATTRIB, _RefreshAttrib);
-    }
-
-    private void _RefreshAttrib(AttribType type, Unit unit) {
-      if (unit != m_buffGroup.unit) {
-        return;
-      }
       
-      if (m_attribs[(int)type] != null) {
-        m_attribs[(int)type].text = $"{type.GetDescription()}:{m_buffGroup.unit.attribs[(int)type].value}";
+      for (int i = 0; i < m_attribs.Length; i++) {
+        if (m_attribs[i] != null) {
+          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{m_buffGroup.unit.attribs[i].value}";
+        }
       }
     }
   }
