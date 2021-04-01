@@ -28,7 +28,7 @@ namespace Yume.Battle {
     public static Blackboard blackboard = new Blackboard();
     public static Dictionary<Unit, BuffManager> buffManagers = new Dictionary<Unit, BuffManager>();
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
-    public static Action abort => () => Finish(BattleResult.ABORT);
+    public static readonly Action abort = () => Finish(BattleResult.ABORT);
 
     public static void Init(TeamArgs teamArgs, LevelTemplate levelTemplate, ObjectContainer objectContainer) {
       // 初始化工厂

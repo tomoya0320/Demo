@@ -119,8 +119,11 @@ namespace Yume.UI {
       }
     }
 
-    public void OnUpdate() {
+    public void OnUpdate(bool forceUpdate = false) {
       _UpdateInitDataIndex();
+      if (forceUpdate) {
+        UpdateView();
+      }
     }
 
     private void _UpdateInitDataIndex() {

@@ -88,7 +88,7 @@ namespace Yume.UI {
       }
 
       public override void OnUpdate() {
-        m_cardScrollView.OnUpdate();
+        m_cardScrollView.OnUpdate(true);
       }
 
       public override void Destroy() {

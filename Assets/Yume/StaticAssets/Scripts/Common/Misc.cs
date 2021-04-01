@@ -861,6 +861,7 @@ namespace Yume {
     public const string UI_RED_DOT = "red dot";
     public const string CHAR_EXP = "char_exp";
     public const string CONSUME_GOLD = "消耗金币 {0}";
+    public const string COMMON_CURVE = "common_curve";
   }
 
   public static class StringUtil {
@@ -1121,7 +1122,7 @@ namespace Yume {
       if (ResourceManager.Contains<AnimationCurve>(id)) {
         curve = ResourceManager.Load<AnimationCurve>(id);
       } else {
-        curve = ResourceManager.Load<AnimationCurve>("common_curve");
+        curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
       }
       for (int i = 0; i < attribs.Length; i++) {
         attribs[i] = minAttribs[i] + (maxAttribs[i] - minAttribs[i]) * curve.Evaluate(p);
@@ -1152,6 +1153,10 @@ namespace Yume {
 
     public static bool IsPointInRect(Vector2 point, Vector4 rect) {
       return point.x >= rect.x && point.y >= rect.y && point.x <= rect.z && point.y <= rect.w;
+    }
+
+    public static float Calculate(AnimationCurve curve, float start, float end, float t) {
+      return start + (end - start) * curve.Evaluate(t);
     }
   }
 
