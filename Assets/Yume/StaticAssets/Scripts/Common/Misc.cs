@@ -385,6 +385,7 @@ namespace Yume {
   public struct GuideStep {
     public PositionType positionType;
     public bool ignoreClickPos;
+    public bool ignoreClickEvent;
     public string uiName;
     public string targetObj;
     public bool isDynamicListObj;

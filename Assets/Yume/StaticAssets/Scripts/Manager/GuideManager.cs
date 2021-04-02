@@ -83,19 +83,19 @@ namespace Yume {
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
       var ui = UIManager.GetTopUI(UIType.NORMAL);
-      RectTransform dynamicListObj;
+      RectTransform targetObj;
       if (stepEnumerator.current.isDynamicListObj) {
-        dynamicListObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);
+        targetObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);
       } else {
-        dynamicListObj = GameObject.Find(stepEnumerator.current.targetObj).GetComponent<RectTransform>();
+        targetObj = GameObject.Find(stepEnumerator.current.targetObj).GetComponent<RectTransform>();
       }
-      float width = dynamicListObj.rect.width;
-      float height = dynamicListObj.rect.height;
-      Vector2 targetPos = Camera.main.WorldToScreenPoint(dynamicListObj.position);
+      float width = targetObj.rect.width;
+      float height = targetObj.rect.height;
+      Vector2 targetPos = Camera.main.WorldToScreenPoint(targetObj.position);
       Vector4 clipRect = new Vector4(targetPos.x - 0.5f * width, targetPos.y - 0.5f * height, targetPos.x + 0.5f * width, targetPos.y + 0.5f * height);
       // 显示指示器
-      s_indicator.GetComponent<RectTransform>().sizeDelta = dynamicListObj.rect.size;
-      s_indicator.transform.position = dynamicListObj.position;
+      s_indicator.GetComponent<RectTransform>().sizeDelta = targetObj.rect.size;
+      s_indicator.transform.position = targetObj.position;
       s_indicator.SetActiveEx(true);
       // 归一化的坐标
       Vector4 clipRectNormalized = new Vector4(clipRect.x / Screen.width, clipRect.y / Screen.height, clipRect.z / Screen.width, clipRect.w / Screen.height);
@@ -130,7 +130,9 @@ namespace Yume {
         () =>
           s_guidMaskButton.onClickWithPointer = pointer => {
             if (stepEnumerator.current.ignoreClickPos || MathUtil.IsPointInRect(pointer.position, clipRect)) {
-              dynamicListObj.GetComponent<Button>()?.OnPointerClick(pointer);
+              if (!stepEnumerator.current.ignoreClickEvent) {
+                targetObj.GetComponent<Button>()?.OnPointerClick(pointer);
+              }
 
               s_uiGuideContent.gameObject.SetActiveEx(false);
               s_guidMask.SetActiveEx(false);
