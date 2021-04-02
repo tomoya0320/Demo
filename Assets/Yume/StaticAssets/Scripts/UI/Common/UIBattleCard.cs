@@ -1,6 +1,8 @@
 using System;
+using Coffee.UIExtensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Yume.Battle;
 using Random = UnityEngine.Random;
 
@@ -13,11 +15,11 @@ namespace Yume.UI {
     ADDING,
     REMOVING,
   }
-  
+
   [RequireComponent(typeof(RectTransform))]
   public class UIBattleCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     #region StateMachine
-    
+
     private class OutHand : StateBase<UIBattleCard> {
       public OutHand(UIBattleCard owner) : base((int)BattleCardState.OUT_HAND, owner) { }
 
@@ -29,45 +31,50 @@ namespace Yume.UI {
         owner.gameObject.SetActiveEx(true);
       }
     }
-    
+
     private class Adding : StateBase<UIBattleCard> {
       private float m_speed;
-      
+      private AnimationCurve m_curve;
+      private Vector2 m_originAnchoredPos;
+
       public Adding(UIBattleCard owner) : base((int)BattleCardState.ADDING, owner) { }
 
       public override void OnEnter(int lastStateId) {
-        m_speed = speed;
-        owner.transform.localScale = smallScale;
+        owner.m_targetScale = Vector3.one;
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
+        
+        m_speed = speed;
+        m_originAnchoredPos = owner.anchoredPosition;
+        m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
       }
 
       public override void OnTrick() {
         if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
-          owner.transform.localScale = Vector3.one;
-          owner.anchoredPosition = owner.m_targetAnchorPos;
-          owner.transform.SetAngleZ(owner.m_targetAngle);
           stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
-          owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, m_speed);
-          owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, m_speed);
-          owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, m_speed));
-          m_speed += speedIncrement;
+          owner._DoTransformTween(m_curve, m_originAnchoredPos, m_speed);
         }
+        m_speed += speedIncrement;
       }
     }
 
     private class InHand : StateBase<UIBattleCard> {
+      private AnimationCurve m_curve;
+      private Vector2 m_originAnchoredPos;
+      
       public InHand(UIBattleCard owner) : base((int)BattleCardState.IN_HAND, owner) { }
 
       public override void OnEnter(int lastStateId) {
+        owner.m_targetScale = Vector3.one;
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
+        
+        m_originAnchoredPos = owner.anchoredPosition;
+        m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
       }
 
       public override void OnTrick() {
-        owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, Vector3.one, SPEED_SCALE * speed);
-        owner.anchoredPosition = Vector2.Lerp(owner.anchoredPosition, owner.m_targetAnchorPos, SPEED_SCALE * speed);
-        owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, SPEED_SCALE * speed));
+        owner._DoTransformTween(m_curve, m_originAnchoredPos, SPEED_SCALE * speed);
       }
     }
 
@@ -114,20 +121,22 @@ namespace Yume.UI {
     private class Playing : StateBase<UIBattleCard> {
       public Playing(UIBattleCard owner) : base((int)BattleCardState.PLAYING, owner) { }
     }
-    
+
     private class Removing : StateBase<UIBattleCard> {
       private float m_speed;
       private AnimationCurve m_curve;
       private Vector2 m_originAnchoredPos;
-      
+
       public Removing(UIBattleCard owner) : base((int)BattleCardState.REMOVING, owner) { }
 
       public override void OnEnter(int lastStateId) {
-        m_speed = speed;
+        owner.m_targetScale = smallScale;
         owner.transform.SetParent(CardFactory.GetFolder(owner.m_card.cardHeapType));
+        
+        m_speed = speed;
         m_originAnchoredPos = owner.anchoredPosition;
         if (lastStateId == (int)BattleCardState.PLAYING) {
-          int random = Random.Range(1, CARD_MOVE_CURVE_COUNT + 1);
+          int random = Random.Range(0, CARD_MOVE_CURVE_COUNT);
           m_curve = ResourceManager.Load<AnimationCurve>(string.Format(CARD_MOVE_CURVE, random));
         } else {
           m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
@@ -135,21 +144,24 @@ namespace Yume.UI {
       }
 
       public override void OnTrick() {
-        if (owner.anchoredPosition.magnitude < MIN_DIST) {
-          owner.transform.localScale = smallScale;
-          owner.anchoredPosition = owner.m_targetAnchorPos;
-          owner.transform.SetAngleZ(owner.m_targetAngle);
-          stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
-        } else {
-          owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, smallScale, m_speed);
-          Vector2 anchoredPosition = owner.anchoredPosition;
-          anchoredPosition.x = Mathf.Lerp(anchoredPosition.x, owner.m_targetAnchorPos.x, m_speed);
-          float t = (anchoredPosition.x - m_originAnchoredPos.x) / (owner.m_targetAnchorPos.x - m_originAnchoredPos.x);
-          anchoredPosition.y = MathUtil.Calculate(m_curve, m_originAnchoredPos.y, owner.m_targetAnchorPos.y, t);
-          owner.anchoredPosition = anchoredPosition;
-          owner.transform.SetAngleZ(Mathf.LerpAngle(owner.transform.eulerAngles.z, owner.m_targetAngle, m_speed));
-          m_speed += speedIncrement;
+        switch (owner.m_card.cardHeapType) {
+          case CardHeapType.DISCARD:
+            if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
+              stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
+            } else {
+              owner._DoTransformTween(m_curve, m_originAnchoredPos, m_speed);
+            }
+            break;
+          case CardHeapType.CONSUME:
+            if (MathUtil.Approximately(owner.m_dissolve.effectFactor, 1.0f)) {
+              owner._ResetTransform();
+              stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
+            } else {
+              owner.m_dissolve.effectFactor = Mathf.Lerp(owner.m_dissolve.effectFactor, 1.0f, m_speed);
+            }
+            break;
         }
+        m_speed += speedIncrement;
       }
     }
 
@@ -162,18 +174,21 @@ namespace Yume.UI {
         RegisterState(new Dragging(battleCard));
         RegisterState(new Removing(battleCard));
 
-        SwitchState((int)BattleCardState.OUT_HAND);
+        currentState = states[(int)BattleCardState.OUT_HAND];
+        currentState.OnEnter(-1);
       }
     }
 
     #endregion
 
     private Card m_card;
-    private Func<bool> m_onUseCard;
     private float m_targetAngle;
+    private UIDissolve m_dissolve;
+    private Func<bool> m_onUseCard;
     private int m_targetSiblingIndex;
     private Vector2 m_targetAnchorPos;
     private PointerEventData m_eventData;
+    private Vector3 m_targetScale = Vector3.one;
     public StateMachine stateMachine { private set; get; }
     private Vector2 anchoredPosition {
       get => m_card.rectTransform.anchoredPosition;
@@ -181,7 +196,7 @@ namespace Yume.UI {
     }
     private static float speed => 0.5f * Time.deltaTime;
     private static float speedIncrement => 0.1f * speed;
-    private static Vector3 smallScale => 0.3f * Vector3.one;
+    public static Vector3 smallScale => 0.3f * Vector3.one;
     private static Vector3 bigScale => 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
     private const float MIN_DIST = 1.0f;
@@ -193,6 +208,14 @@ namespace Yume.UI {
       m_card = card;
       m_onUseCard = onUseCard;
       stateMachine = new CardStateMachine(this);
+
+      #region 添加组件
+
+      gameObject.AddComponent<Image>();
+      gameObject.AddComponent<Mask>().showMaskGraphic = false;
+      m_dissolve = gameObject.AddComponent<UIDissolve>();    
+
+      #endregion
       
       return this;
     }
@@ -227,7 +250,7 @@ namespace Yume.UI {
       if (m_eventData != eventData) {
         return;
       }
-      
+
       m_eventData = null;
       if (GetCurrentState() == BattleCardState.DRAGGING) {
         if (m_onUseCard == null || !m_onUseCard()) {
@@ -245,6 +268,23 @@ namespace Yume.UI {
     private bool _CanDrag() {
       return stateMachine.currentState.stateId == (int)BattleCardState.IN_HAND ||
              stateMachine.currentState.stateId == (int)BattleCardState.ADDING;
+    }
+
+    private void _DoTransformTween(AnimationCurve curve, Vector2 originAnchoredPos, float speed) {
+      transform.localScale = Vector3.Lerp(transform.localScale, m_targetScale, speed);
+      Vector2 newAnchoredPos = anchoredPosition;
+      newAnchoredPos.x = Mathf.Lerp(newAnchoredPos.x, m_targetAnchorPos.x, speed);
+      float t = (newAnchoredPos.x - originAnchoredPos.x) / (m_targetAnchorPos.x - originAnchoredPos.x);
+      newAnchoredPos.y = MathUtil.Calculate(curve, originAnchoredPos.y, m_targetAnchorPos.y, t);
+      anchoredPosition = newAnchoredPos;
+      transform.SetAngleZ(Mathf.LerpAngle(transform.eulerAngles.z, m_targetAngle, speed));
+    }
+
+    private void _ResetTransform() {
+      anchoredPosition = m_targetAnchorPos;
+      transform.localScale = m_targetScale;
+      transform.SetAngleZ(m_targetAngle);
+      m_dissolve.effectFactor = 0;
     }
   }
 }

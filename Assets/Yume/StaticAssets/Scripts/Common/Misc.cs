@@ -1034,9 +1034,9 @@ namespace Yume {
     public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
   }
 
-  public static class MathUtil {
+  public static class MathUtil { 
+    public const float EPSILON = 0.0001f;
     public static readonly Random random = new Random();
-
     /*
     /// <summary>
     /// 在XOZ平面上旋转一个Vector3
@@ -1157,6 +1157,10 @@ namespace Yume {
 
     public static float Calculate(AnimationCurve curve, float start, float end, float t) {
       return start + (end - start) * curve.Evaluate(t);
+    }
+
+    public static bool Approximately(float f1, float f2) {
+      return Mathf.Abs(f1 - f2) < EPSILON;
     }
   }
 

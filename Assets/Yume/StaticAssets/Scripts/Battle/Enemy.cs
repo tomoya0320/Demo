@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Yume.UI;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -48,12 +49,11 @@ namespace Yume.Battle {
           }
           
           card.gameObject.SetActiveEx(true);
-          card.gameObject.transform.localScale = 0.3f * Vector3.one;
           var tween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
           yield return new WaitUntil(() => !tween.IsPlaying());
           yield return card.Cast();
           tween = card.gameObject.transform
-                      .DOScale(0.3f * Vector3.one, 0.2f)
+                      .DOScale(UIBattleCard.smallScale, 0.2f)
                       .OnComplete(() => card.gameObject.SetActiveEx(false));
           yield return new WaitUntil(() => !tween.IsPlaying());
         }

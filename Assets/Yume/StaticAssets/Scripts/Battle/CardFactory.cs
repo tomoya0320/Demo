@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Yume.UI;
 using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
@@ -48,7 +49,8 @@ namespace Yume.Battle {
       if (parent == null) {
         parent = s_drawCardFolder;
       }
-      var go = Object.Instantiate(s_cardPrefab, parent);
+      GameObject go = Object.Instantiate(s_cardPrefab, parent);
+      go.transform.localScale = UIBattleCard.smallScale;
       return new Card(unit, cardArgs, go, onUseCard);
     }
 

@@ -29,6 +29,7 @@ namespace Yume.Battle {
     public static Dictionary<Unit, BuffManager> buffManagers = new Dictionary<Unit, BuffManager>();
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
     public static readonly Action abort = () => Finish(BattleResult.ABORT);
+    private const float LATE_TURN_WAITING_TIME = 0.5f;
 
     public static void Init(TeamArgs teamArgs, LevelTemplate levelTemplate, ObjectContainer objectContainer) {
       // 初始化工厂
@@ -177,6 +178,8 @@ namespace Yume.Battle {
         do {
           s_currentUnitIndex = (s_currentUnitIndex + 1) % s_units.Count;
         } while (!currentUnit.isAlive);
+        // 等待一会再进入下一个回合
+        yield return new WaitForSeconds(LATE_TURN_WAITING_TIME);
       }
     }
   }
