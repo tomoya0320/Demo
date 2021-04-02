@@ -2,7 +2,6 @@ using System;
 using Coffee.UIExtensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Yume.Battle;
 using Random = UnityEngine.Random;
 
@@ -186,6 +185,7 @@ namespace Yume.UI {
     private UIDissolve m_dissolve;
     private Func<bool> m_onUseCard;
     private int m_targetSiblingIndex;
+    private CanvasGroup m_canvasGroup;
     private Vector2 m_targetAnchorPos;
     private PointerEventData m_eventData;
     private Vector3 m_targetScale = Vector3.one;
@@ -208,15 +208,12 @@ namespace Yume.UI {
       m_card = card;
       m_onUseCard = onUseCard;
       stateMachine = new CardStateMachine(this);
-
-      #region 添加组件
-
-      gameObject.AddComponent<Image>();
-      gameObject.AddComponent<Mask>().showMaskGraphic = false;
-      m_dissolve = gameObject.AddComponent<UIDissolve>();    
-
-      #endregion
       
+      m_dissolve = GetComponent<UIDissolve>();
+      m_canvasGroup = GetComponent<CanvasGroup>();
+
+      m_canvasGroup.blocksRaycasts = true;
+
       return this;
     }
 
