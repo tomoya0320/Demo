@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: d679860c5f387974b9b25e18faedc080
+  m_DefaultGroup: b1c21fd72a826254ebe0279f72d6df5d
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -27,10 +27,8 @@ MonoBehaviour:
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: 719e617549f4e2e408843fa16e87b9d8, type: 2}
-  - {fileID: 11400000, guid: f2631f9b2420f774c80085c394ab96f9, type: 2}
+  - {fileID: 11400000, guid: 12d15967c5e0bb04886410e9c50dd3eb, type: 2}
   - {fileID: 11400000, guid: fea623c850202c344be76b54f65882dd, type: 2}
-  - {fileID: 11400000, guid: 29dd7349363373840acffbabb5542bed, type: 2}
-  - {fileID: 11400000, guid: 632516a4a060f2040bea04ce415daa63, type: 2}
   - {fileID: 11400000, guid: 96952a2705ba5cf42b9c45a921d821d0, type: 2}
   - {fileID: 11400000, guid: a970d23339dac8644bc34a8c9d59a429, type: 2}
   - {fileID: 11400000, guid: f5fec24b36216cf47beeddead793a4e3, type: 2}
@@ -117,7 +115,7 @@ MonoBehaviour:
           m_Key: HostingServicePort
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/Android/Android
+          m_Data: ServerData/Android;Library/com.unity.addressables/aa/Android/Android
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean

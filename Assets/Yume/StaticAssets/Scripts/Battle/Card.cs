@@ -27,7 +27,7 @@ namespace Yume.Battle {
       gameObject = root;
       cardHeapType = CardHeapType.DRAW;
       rectTransform = gameObject.GetComponent<RectTransform>();
-      
+
       cardTemplate = ResourceManager.Load<CardTemplate>(id);
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();
@@ -40,19 +40,17 @@ namespace Yume.Battle {
       string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
       objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;
       objectContainer.GetComponent<Image>("IconImage").SetSpriteAsync(cardPhase.iconFileName);
+      var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
+      descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
 
       var cardAnimPrefab = ResourceManager.Load<GameObject>(cardPhase.cardAnimName);
       cardAnimCallback = Object.Instantiate(cardAnimPrefab, CardFactory.cardAnimFolder).GetComponent<CardAnimCallback>();
       cardAnimCallback.gameObject.SetActiveEx(false);
       cardAnimCallback.card = this;
 
-      if (onUseCard == null) {
-        gameObject.SetActiveEx(false);
-      } else {
+      if (onUseCard != null) {
         battleCard = gameObject.AddComponent<UIBattleCard>().Init(this, () => onUseCard(this));
       }
-      var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
-      descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
     }
 
     public IEnumerator Cast() {

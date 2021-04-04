@@ -13,7 +13,10 @@ namespace Yume.Battle {
 
     public Enemy(UnitArgs enemyArgs, CardArgs[] cardArgsArray) : base(enemyArgs) {
       foreach (var cardArgs in cardArgsArray) {
-        cards.Add(CardFactory.CreateCard(this, cardArgs, null, gameObject.transform));
+        Card card = CardFactory.CreateCard(this, cardArgs, null, gameObject.transform);
+        // 初始隐藏
+        card.gameObject.SetActiveEx(false);
+        cards.Add(card);
       }
     }
 

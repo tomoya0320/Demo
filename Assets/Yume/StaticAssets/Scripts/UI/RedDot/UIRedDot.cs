@@ -3,21 +3,18 @@ using UnityEngine.UI;
 
 namespace Yume.UI {
   public class UIRedDot : UIChildBase {
-    private string m_name;
     private bool m_showNum;
-    private string m_parent;
     private int m_redDotNum;
-    public string name => m_name;
     private Text m_redDotNumText;
-    public string parent => m_parent;
-    private RedDotTreeType m_redDotTreeType;
-    public RedDotTreeType redDotTreeType => m_redDotTreeType;
+    public string name { private set; get; }
+    public string parent { private set; get; }
+    public RedDotTreeType redDotTreeType { get; }
 
     public UIRedDot(RedDotTreeType redDotTreeType, string name, string parent, Transform transform, bool showNum = false) : base(transform.gameObject) {
-      m_name = name;
-      m_parent = parent;
+      this.name = name;
+      this.parent = parent;
+      this.redDotTreeType = redDotTreeType;
       m_showNum = showNum;
-      m_redDotTreeType = redDotTreeType;
       m_redDotNumText = GetComponent<Text>("RedDotNumText");
 
       RedDotManager.AddUIRedDot(this);
@@ -29,7 +26,7 @@ namespace Yume.UI {
     /// </summary>
     /// <param name="name"></param>
     public void Update(string name) {
-      m_name = name;
+      this.name = name;
       OnChanged();
     }
 
@@ -37,7 +34,7 @@ namespace Yume.UI {
     /// 红点UI监听
     /// </summary>
     public void OnChanged() {
-      m_redDotNum = RedDotManager.GetRedDotNum(m_redDotTreeType, m_name, m_parent);
+      m_redDotNum = RedDotManager.GetRedDotNum(redDotTreeType, name, parent);
       if (m_redDotNum > 0) {
         gameObject.SetActiveEx(true);
         m_redDotNumText.text = m_showNum ? m_redDotNum.ToString() : StringMap.EMPTY;

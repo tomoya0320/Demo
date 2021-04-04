@@ -5,39 +5,43 @@ using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public abstract class UIBase {
-    private GameObject m_root;
     private UITemplate m_uiData;
-    private Animation m_animation;
-    public GameObject root => m_root;
-    private CanvasGroup m_canvasGroup;
     public string name => m_uiData.name;
     public UIType uiType => m_uiData.uiType;
-    private ObjectContainer m_objectContainer;
     public float cacheTime => m_uiData.cacheTime;
-    public CanvasGroup canvasGroup => m_canvasGroup;
-    protected ObjectContainer objectContainer => m_objectContainer;
+    
+    public GameObject root { private set; get; }
+    public GameObject effect { private set; get; }
+    public Animation animation { private set; get; }
+    public CanvasGroup canvasGroup { private set; get; }
+    public ObjectContainer objectContainer { private set; get; }
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       gameObject.SetActiveEx(false);
       
-      m_root = gameObject;
+      root = gameObject;
       m_uiData = uiTemplate;
-      m_root.name = uiTemplate.name;
-      m_animation = gameObject.GetComponent<Animation>();
-      m_canvasGroup = gameObject.GetComponent<CanvasGroup>();
-      m_objectContainer = gameObject.GetComponent<ObjectContainer>();
+      animation = gameObject.GetComponent<Animation>();
+      canvasGroup = gameObject.GetComponent<CanvasGroup>();
+      objectContainer = gameObject.GetComponent<ObjectContainer>();
+
+      if (!string.IsNullOrEmpty(m_uiData.effectName)) {
+        GameObject prefab = ResourceManager.Load<GameObject>(m_uiData.effectName);
+        effect = Object.Instantiate(prefab, UIManager.effectRoot);
+        effect.name = m_uiData.effectName;
+      }
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
-      return m_objectContainer?.GetComponent<T>(objName);
+      return objectContainer?.GetComponent<T>(objName);
     }
 
     protected Transform GetTransform(string objName) {
-      return m_objectContainer?.GetTransform(objName);
+      return objectContainer?.GetTransform(objName);
     }
 
     protected GameObject GetGameObject(string objName) {
-      return m_objectContainer?.GetGameObject(objName);
+      return objectContainer?.GetGameObject(objName);
     }
     
     /// <summary>
@@ -60,12 +64,13 @@ namespace Yume.UI {
       Action action = () => {
         UIManager.Unblock(this);
         root.SetActiveEx(false);
+        effect?.SetActiveEx(false);
       };
       callback = action + callback;
 
-      var closeClip = m_animation.GetClip("close");
+      var closeClip = animation.GetClip("close");
       if (closeClip != null) {
-        CoroutineHelper.instance.PlayAnimCallback(closeClip, m_animation, callback);
+        CoroutineHelper.instance.PlayAnimCallback(closeClip, animation, callback);
       } else {
         callback();
       }
@@ -78,6 +83,7 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
       root.SetActiveEx(true);
+      effect?.SetActiveEx(true);
 
       //保证动画完整播放
       UIManager.Block(this);
@@ -87,9 +93,9 @@ namespace Yume.UI {
       };
       callback = action + callback;
 
-      var opneClip = m_animation.GetClip("open");
+      var opneClip = animation.GetClip("open");
       if (opneClip != null) {
-        CoroutineHelper.instance.PlayAnimCallback(opneClip, m_animation, callback);
+        CoroutineHelper.instance.PlayAnimCallback(opneClip, animation, callback);
       } else {
         callback();
       }
@@ -98,7 +104,12 @@ namespace Yume.UI {
     /// <summary>
     /// 当前UI被显示时调用 case:自己被打开或上一个UI被关闭(需等待至关闭完成)
     /// </summary>
-    public virtual void OnDisplay() { }
+    public virtual void OnDisplay() { }   
+    
+    /// <summary>
+    /// 当前UI被隐藏时调用 case:自己被关闭(需等待至关闭完成)或下一个UI被打开
+    /// </summary>
+    public virtual void OnHide() { }
 
     public virtual void OnUpdate() { }
 
@@ -107,6 +118,9 @@ namespace Yume.UI {
     /// </summary>
     public virtual void Destroy() {
       Object.Destroy(root);
+      if (effect != null) {
+        Object.Destroy(effect);
+      }
     }
   }
 

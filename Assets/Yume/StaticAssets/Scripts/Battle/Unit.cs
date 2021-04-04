@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.UI;
@@ -21,7 +20,6 @@ namespace Yume.Battle {
     #region 表现层
 
     protected YImage hpImage;
-    protected Tween hpImgTween;
     protected YImage energyImage;
 
     private int m_selectedEnable;
@@ -114,9 +112,7 @@ namespace Yume.Battle {
       switch (type) {
         case AttribType.HP: {
           // 更新UI
-          hpImgTween?.Complete();
-          float fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
-          hpImgTween = hpImage.DOFillAmount(fillAmount, 0.2f).OnComplete(() => hpImgTween = null);
+          hpImage.fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
           hpImage.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
           break;
         }

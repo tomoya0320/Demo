@@ -14,8 +14,7 @@ namespace Yume.UI {
     ADDING,
     REMOVING,
   }
-
-  [RequireComponent(typeof(RectTransform))]
+  
   public class UIBattleCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     #region StateMachine
 
@@ -33,8 +32,6 @@ namespace Yume.UI {
 
     private class Adding : StateBase<UIBattleCard> {
       private float m_speed;
-      private AnimationCurve m_curve;
-      private Vector2 m_originAnchoredPos;
 
       public Adding(UIBattleCard owner) : base((int)BattleCardState.ADDING, owner) { }
 
@@ -43,37 +40,29 @@ namespace Yume.UI {
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         
         m_speed = speed;
-        m_originAnchoredPos = owner.anchoredPosition;
-        m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
       }
 
       public override void OnTrick() {
         if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
           stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
-          owner._DoTransformTween(m_curve, m_originAnchoredPos, m_speed);
+          owner._DoTransformTween(m_speed);
         }
         m_speed += speedIncrement;
       }
     }
 
     private class InHand : StateBase<UIBattleCard> {
-      private AnimationCurve m_curve;
-      private Vector2 m_originAnchoredPos;
-      
       public InHand(UIBattleCard owner) : base((int)BattleCardState.IN_HAND, owner) { }
 
       public override void OnEnter(int lastStateId) {
         owner.m_targetScale = Vector3.one;
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
         owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
-        
-        m_originAnchoredPos = owner.anchoredPosition;
-        m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
       }
 
       public override void OnTrick() {
-        owner._DoTransformTween(m_curve, m_originAnchoredPos, SPEED_SCALE * speed);
+        owner._DoTransformTween(SPEED_SCALE * speed);
       }
     }
 
@@ -90,20 +79,21 @@ namespace Yume.UI {
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
         owner.anchoredPosition = owner.m_eventData.position - 0.5f * Constant.SCREEN_SIZE;
-        // 目标选择
-        // 取消之前选择的
-        if (owner.m_card.candidate != null) {
-          owner.m_card.candidate.SetSelectedEnable(false);
-          owner.m_card.candidate = null;
-        }
+        // 目标选中的逻辑层
+        Unit oldCandidate = owner.m_card.candidate;
         if (owner.gameObject.transform.position.y > 0) {
-          // 重新选择
           if (owner.m_card.cardPhase.onlySelf) {
             owner.m_card.candidate = owner.m_card.owner;
           } else {
             owner.m_card.candidate = BattleManager.GetNearestEnemy(owner.gameObject.transform.position);
           }
-          owner.m_card.candidate.SetSelectedEnable(true);
+        } else {
+          owner.m_card.candidate = null;
+        }
+        // 目标选中的表现层
+        if (oldCandidate != owner.m_card.candidate) {
+          oldCandidate?.SetSelectedEnable(false);
+          owner.m_card.candidate?.SetSelectedEnable(true);
         }
       }
 
@@ -209,9 +199,8 @@ namespace Yume.UI {
       m_onUseCard = onUseCard;
       stateMachine = new CardStateMachine(this);
       
-      m_dissolve = GetComponent<UIDissolve>();
+      m_dissolve = GetComponentInChildren<UIDissolve>();
       m_canvasGroup = GetComponent<CanvasGroup>();
-
       m_canvasGroup.blocksRaycasts = true;
 
       return this;
@@ -267,6 +256,12 @@ namespace Yume.UI {
              stateMachine.currentState.stateId == (int)BattleCardState.ADDING;
     }
 
+    private void _DoTransformTween(float speed) {
+      transform.localScale = Vector3.Lerp(transform.localScale, m_targetScale, speed);
+      anchoredPosition = Vector2.Lerp(anchoredPosition, m_targetAnchorPos, speed);
+      transform.SetAngleZ(Mathf.LerpAngle(transform.eulerAngles.z, m_targetAngle, speed));
+    }    
+    
     private void _DoTransformTween(AnimationCurve curve, Vector2 originAnchoredPos, float speed) {
       transform.localScale = Vector3.Lerp(transform.localScale, m_targetScale, speed);
       Vector2 newAnchoredPos = anchoredPosition;

@@ -13,6 +13,7 @@ namespace Yume {
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
     public static Transform guidelCanvas { private set; get; }
+    public static Transform effectRoot { private set; get; }
     public static int activeBack = 1;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
@@ -26,6 +27,7 @@ namespace Yume {
       cacheCanvas = GameObject.Find("UIRoot/CacheCanvas").transform;
       guidelCanvas = GameObject.Find("UIRoot/GuideCanvas").transform;
       normalCanvas = GameObject.Find("UIRoot/NormalCanvas").transform;
+      effectRoot = GameObject.Find("EffectRoot").transform;
 
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         s_blockDict.Add(type, 0);
@@ -103,9 +105,14 @@ namespace Yume {
           Debug.LogError($"Prefab为空！url:{uiTemplate.prefabName}");
           return;
         }
-        ui.OnInit(uiTemplate, Object.Instantiate(prefab, _GetRootByType(uiTemplate.uiType)));
+        GameObject tempGo = Object.Instantiate(prefab, _GetRootByType(uiTemplate.uiType));
+        tempGo.name = uiTemplate.name;
+        ui.OnInit(uiTemplate, tempGo);
       }
-      
+
+      if (stack.Count > 0) {
+        stack.Peek().OnHide();
+      }
       stack.Push(ui);
       ui.OnDisplay();
       ui.Open(callback, args);
@@ -232,6 +239,7 @@ namespace Yume {
         UIBase ui = stack.Pop();
         ui.root.SetParent(cacheCanvas);
         s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, ui));
+        ui.OnHide();
 
         if (stack.Count > 0) {
           stack.Peek().OnDisplay();

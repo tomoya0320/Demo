@@ -216,6 +216,7 @@ namespace Yume {
     public UIType uiType;
     public string typeName;
     public string prefabName;
+    public string effectName;
     public float cacheTime;
   }
 
