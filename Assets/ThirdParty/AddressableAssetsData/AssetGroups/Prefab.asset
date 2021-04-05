@@ -351,24 +351,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 6855989636255040482, guid: 367f5951530badc479905810680c432a, type: 3}
-    m_TargetAsset: {fileID: 6855989636255040482, guid: 367f5951530badc479905810680c432a, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e58229e88ea9a554d9bf5a5d006ef302
     m_Address: anim_card_003
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 6855989636255040482, guid: e58229e88ea9a554d9bf5a5d006ef302, type: 3}
-    m_TargetAsset: {fileID: 6855989636255040482, guid: e58229e88ea9a554d9bf5a5d006ef302, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 6455e1374822a2f43a25d1e61a0d6889
     m_Address: anim_common_buff
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 6855989636255040482, guid: 6455e1374822a2f43a25d1e61a0d6889, type: 3}
-    m_TargetAsset: {fileID: 6855989636255040482, guid: 6455e1374822a2f43a25d1e61a0d6889, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a84b47d209cb0f2499bb5dd99a72f12c
+    m_Address: effect_single_battle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Preload
+    m_MainAsset: {fileID: 1533542208803829575, guid: a84b47d209cb0f2499bb5dd99a72f12c, type: 3}
+    m_TargetAsset: {fileID: 1533542208803829575, guid: a84b47d209cb0f2499bb5dd99a72f12c, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
