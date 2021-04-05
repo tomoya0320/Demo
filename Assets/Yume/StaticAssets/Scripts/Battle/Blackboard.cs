@@ -25,6 +25,8 @@ namespace Yume.Battle {
     public const string EXTEND_BUFF = "extendBuff";
     public const string EXTEND_BUFF_DURATION = "extendBuffDuration";
     public const string REMOVE_BUFF = "removeBuff";
+    public const string DISCARD_AND_DRAW_COUNT = "discardAndDrawCount";
+    public const string DRAW_COUNT = "drawCount";
     
     #endregion
     

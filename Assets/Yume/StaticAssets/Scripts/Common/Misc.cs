@@ -642,6 +642,14 @@ namespace Yume {
       eulerAngles.z = angle;
       transform.eulerAngles = eulerAngles;
     }
+
+    public static bool SetParentEx(this Transform transform, Transform parent) {
+      if (transform.parent != parent) {
+        transform.SetParent(parent);
+        return true;
+      }
+      return false;
+    }
   }
 
   public static class SelectableExtensions {

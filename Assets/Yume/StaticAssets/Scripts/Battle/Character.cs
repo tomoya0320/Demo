@@ -83,9 +83,9 @@ namespace Yume.Battle {
         // 弃牌堆的牌重新进入抽牌堆
         cardHeapDict[CardHeapType.DISCARD].ForEach(
           card => {
-            card.gameObject.SetParent(CardFactory.GetFolder(CardHeapType.DRAW));
-            card.rectTransform.anchoredPosition = Vector2.zero;
             card.cardHeapType = CardHeapType.DRAW;
+            card.battleCard.ResetTransform();
+            card.battleCard.SwitchState(BattleCardState.OUT_HAND);
           }
         );
         cardHeapDict[CardHeapType.DRAW].AddRange(cardHeapDict[CardHeapType.DISCARD]);
@@ -159,15 +159,15 @@ namespace Yume.Battle {
         Vector2 dest = new Vector2(targetPosX, targetPosY);
         cards[i].battleCard.SetTarget(angle, i, dest);
         if (i >= drawCardStartIndex) {
-          cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.ADDING);
+          cards[i].battleCard.SwitchState(BattleCardState.ADDING);
         }
       }
     }
 
     private void _RemoveCards(params Card[] cards) {
-      for (int i = cards.Length - 1; i >= 0; i--) {
+      for (int i = 0; i < cards.Length; i++) {
         cards[i].battleCard.SetTarget(0, i, Vector2.zero);
-        cards[i].battleCard.stateMachine.SwitchState((int)BattleCardState.REMOVING);
+        cards[i].battleCard.SwitchState(BattleCardState.REMOVING);
       }
     }
 
@@ -210,14 +210,14 @@ namespace Yume.Battle {
       } else {
         cards.ForEach(
           card => {
-            card.gameObject.SetParent(CardFactory.GetFolder(selector.to));
-            card.rectTransform.anchoredPosition = Vector2.zero;
+            card.battleCard.ResetTransform();
+            card.battleCard.SwitchState(BattleCardState.OUT_HAND);
           }
         );
       }
     }
 
-    public List<Card> GetCard(CardHeapType cardHeapType) {
+    public List<Card> GetCards(CardHeapType cardHeapType) {
       return cardHeapDict[cardHeapType];
     }
 

@@ -13,10 +13,12 @@ namespace Yume.Battle {
 
     public override List<Card> Select(List<Card> cards) {
       List<Card> result = new List<Card>(MathUtil.FisherYatesShuffle(cards.ToArray()));
-      int removeCount = result.Count - selectCount;
-      while (removeCount > 0) {
-        result.RemoveAt(0);
-        removeCount--;
+      if (selectCount > 0) {
+        int removeCount = result.Count - selectCount;
+        while (removeCount > 0) {
+          result.RemoveAt(0);
+          removeCount--;
+        }
       }
       return result;
     }

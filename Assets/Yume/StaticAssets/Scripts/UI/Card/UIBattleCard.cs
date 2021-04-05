@@ -58,11 +58,11 @@ namespace Yume.UI {
       public override void OnEnter(int lastStateId) {
         owner.m_targetScale = Vector3.one;
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
-        owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
       }
 
       public override void OnTrick() {
         owner._DoTransformTween(SPEED_SCALE * speed);
+        owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
       }
     }
 
@@ -136,6 +136,7 @@ namespace Yume.UI {
         switch (owner.m_card.cardHeapType) {
           case CardHeapType.DISCARD:
             if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
+              owner.ResetTransform();
               stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
             } else {
               owner._DoTransformTween(m_curve, m_originAnchoredPos, m_speed);
@@ -143,7 +144,7 @@ namespace Yume.UI {
             break;
           case CardHeapType.CONSUME:
             if (MathUtil.Approximately(owner.m_dissolve.effectFactor, 1.0f)) {
-              owner._ResetTransform();
+              owner.ResetTransform();
               stateMachine.SwitchState((int)BattleCardState.OUT_HAND);
             } else {
               owner.m_dissolve.effectFactor = Mathf.Lerp(owner.m_dissolve.effectFactor, 1.0f, m_speed);
@@ -177,9 +178,10 @@ namespace Yume.UI {
     private int m_targetSiblingIndex;
     private CanvasGroup m_canvasGroup;
     private Vector2 m_targetAnchorPos;
+    private StateMachine m_stateMachine;
     private PointerEventData m_eventData;
     private Vector3 m_targetScale = Vector3.one;
-    public StateMachine stateMachine { private set; get; }
+    public BattleCardState curState => (BattleCardState)m_stateMachine.currentState.stateId;
     private Vector2 anchoredPosition {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
@@ -197,7 +199,7 @@ namespace Yume.UI {
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
       m_onUseCard = onUseCard;
-      stateMachine = new CardStateMachine(this);
+      m_stateMachine = new CardStateMachine(this);
       
       m_dissolve = GetComponentInChildren<UIDissolve>();
       m_canvasGroup = GetComponent<CanvasGroup>();
@@ -212,12 +214,19 @@ namespace Yume.UI {
       m_targetSiblingIndex = targetSiblingIndex;
     }
 
+    public void SetTargetAngle(float targetAngle) {
+      m_targetAngle = targetAngle;
+    }   
+    public void SetTargetAnchorPos(Vector2 targetAnchorPos) {
+      m_targetAnchorPos = targetAnchorPos;
+    }
+    
     public void SetTargetSiblingIndex(int targetSiblingIndex) {
       m_targetSiblingIndex = targetSiblingIndex;
     }
 
     private void Update() {
-      stateMachine.OnTrick();
+      m_stateMachine.OnTrick();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -227,7 +236,7 @@ namespace Yume.UI {
 
       if (_CanDrag()) {
         m_eventData = eventData;
-        stateMachine.SwitchState((int)BattleCardState.DRAGGING);
+        m_stateMachine.SwitchState((int)BattleCardState.DRAGGING);
         AudioManager.PlaySound(SELECT_SOUND);
       }
     }
@@ -240,20 +249,24 @@ namespace Yume.UI {
       m_eventData = null;
       if (GetCurrentState() == BattleCardState.DRAGGING) {
         if (m_onUseCard == null || !m_onUseCard()) {
-          stateMachine.SwitchState((int)BattleCardState.IN_HAND);
+          m_stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
-          stateMachine.SwitchState((int)BattleCardState.PLAYING);
+          m_stateMachine.SwitchState((int)BattleCardState.PLAYING);
         }
       }
     }
 
+    public void SwitchState(BattleCardState state, bool force = false) {
+      m_stateMachine.SwitchState((int)state, force);
+    }
+
     public BattleCardState GetCurrentState() {
-      return (BattleCardState)stateMachine.currentState.stateId;
+      return (BattleCardState)m_stateMachine.currentState.stateId;
     }
 
     private bool _CanDrag() {
-      return stateMachine.currentState.stateId == (int)BattleCardState.IN_HAND ||
-             stateMachine.currentState.stateId == (int)BattleCardState.ADDING;
+      return m_stateMachine.currentState.stateId == (int)BattleCardState.IN_HAND ||
+             m_stateMachine.currentState.stateId == (int)BattleCardState.ADDING;
     }
 
     private void _DoTransformTween(float speed) {
@@ -272,7 +285,8 @@ namespace Yume.UI {
       transform.SetAngleZ(Mathf.LerpAngle(transform.eulerAngles.z, m_targetAngle, speed));
     }
 
-    private void _ResetTransform() {
+    public void ResetTransform() {
+      transform.SetParentEx(CardFactory.GetFolder(m_card.cardHeapType));
       anchoredPosition = m_targetAnchorPos;
       transform.localScale = m_targetScale;
       transform.SetAngleZ(m_targetAngle);

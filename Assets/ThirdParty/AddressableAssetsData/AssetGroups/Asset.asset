@@ -23,8 +23,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Download
     - Preload
-    m_MainAsset: {fileID: 11400000, guid: 3a766d48dd38a42419ae71de84da86d7, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 3a766d48dd38a42419ae71de84da86d7, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 9cbc7429fab218344a5550cfffc1f67c
     m_Address: configAsset
     m_ReadOnly: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 5d3b2df00af960b4bb7e46b9dd2a3b01, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 5d3b2df00af960b4bb7e46b9dd2a3b01, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f32ebe06187448c4ca8746ab142248db
     m_Address: levelAsset
     m_ReadOnly: 0
@@ -169,14 +169,6 @@ MonoBehaviour:
     - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: ba5da6cadb53d254eac28c4da72d3034
-    m_Address: transfer_card
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    - Download
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 9a56e98f68abb3f47bb2c73ab1a0e600
     m_Address: contain_buff_pure_damage
     m_ReadOnly: 0
@@ -217,6 +209,22 @@ MonoBehaviour:
     - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 8525b854518d9b540aec1689b3e5d6df
+    m_Address: discard_and_draw_card
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 6019d09de0e11f147868eed920264e7f
+    m_Address: draw_card
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 6019d09de0e11f147868eed920264e7f, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 6019d09de0e11f147868eed920264e7f, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
