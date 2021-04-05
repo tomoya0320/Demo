@@ -1014,7 +1014,7 @@ MonoBehaviour:
       Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_attack
+      Data: anim_card_003
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_3]
@@ -1191,7 +1191,7 @@ MonoBehaviour:
       Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_attack
+      Data: anim_card_003
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_3]
@@ -4071,7 +4071,7 @@ MonoBehaviour:
       Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u8106\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u8106\u5F31</color>:\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_8]
@@ -4089,7 +4089,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -4308,7 +4308,7 @@ MonoBehaviour:
       Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u8106\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u8106\u5F31</color>:\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_8]
@@ -4326,7 +4326,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -4557,7 +4557,7 @@ MonoBehaviour:
       Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u865A\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u865A\u5F31</color>:\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_9]
@@ -4575,7 +4575,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -4794,7 +4794,7 @@ MonoBehaviour:
       Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u865A\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u865A\u5F31</color>:\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_9]
@@ -4812,7 +4812,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -5043,7 +5043,7 @@ MonoBehaviour:
       Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u8106\u5F31</color>\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u865A\u5F31</color>\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_10]
@@ -5061,7 +5061,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
@@ -5454,7 +5454,7 @@ MonoBehaviour:
       Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u8106\u5F31</color>\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u865A\u5F31</color>\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
     - Name: cardAnimName
       Entry: 1
-      Data: anim_common_recovery
+      Data: anim_common_buff
     - Name: iconFileName
       Entry: 1
       Data: cards[cards_10]
@@ -5472,7 +5472,7 @@ MonoBehaviour:
       Data: Yume.CardAnimEvent, Assembly-CSharp
     - Name: waitingTime
       Entry: 4
-      Data: 0.2
+      Data: 0.15
     - Name: loadFromBlackboard
       Entry: 5
       Data: false
