@@ -52,16 +52,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: _OnPlaySound
-    data: SOTE_SFX_IronClad_Atk_RR2_v2
-    objectReferenceParameter: {fileID: 0}
+    functionName: set_sprite
+    data: 
+    objectReferenceParameter: {fileID: 21300000, guid: bc655c4234953fa44ac0a0b726b02daf, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: set_sprite
-    data: 
-    objectReferenceParameter: {fileID: 21300000, guid: bc655c4234953fa44ac0a0b726b02daf, type: 3}
+    functionName: _OnPlaySound
+    data: SOTE_SFX_IronClad_Atk_RR2_v2
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
