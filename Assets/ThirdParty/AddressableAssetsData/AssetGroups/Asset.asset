@@ -223,8 +223,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 11400000, guid: 6019d09de0e11f147868eed920264e7f, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 6019d09de0e11f147868eed920264e7f, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7d1313df7da554f4fa4d476d96b8a75c
+    m_Address: compare_card_heap_count_and_draw_card
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 7d1313df7da554f4fa4d476d96b8a75c, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 7d1313df7da554f4fa4d476d96b8a75c, type: 2}
+  - m_GUID: f306a33afc6bf7b4ebbb5bfdae732e4f
+    m_Address: compare_card_heap_count_and_draw_card_or_attach_attrib
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: f306a33afc6bf7b4ebbb5bfdae732e4f, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: f306a33afc6bf7b4ebbb5bfdae732e4f, type: 2}
+  - m_GUID: 587fa311ff9c5484597c278cb1ac7c98
+    m_Address: random_retain_card
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 11400000, guid: 587fa311ff9c5484597c278cb1ac7c98, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 587fa311ff9c5484597c278cb1ac7c98, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

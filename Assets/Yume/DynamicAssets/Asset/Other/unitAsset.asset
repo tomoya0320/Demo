@@ -177,13 +177,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 8|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 8|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 3
@@ -432,13 +432,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 17|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 17|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 3
@@ -504,11 +504,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 19|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 19|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 20|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 20|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -530,7 +530,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 200
@@ -557,7 +557,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 30
@@ -584,7 +584,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 5
@@ -611,7 +611,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -638,7 +638,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -665,7 +665,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -719,7 +719,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -746,7 +746,7 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 21|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
@@ -762,7 +762,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 500
@@ -789,7 +789,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 100
@@ -816,7 +816,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 30
@@ -843,7 +843,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -870,7 +870,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -924,7 +924,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -951,7 +951,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1125,13 +1125,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 28|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 28|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 0
@@ -1197,11 +1197,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 30|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 30|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 31|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 31|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1223,7 +1223,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 200
@@ -1250,7 +1250,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 5
@@ -1277,7 +1277,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1304,7 +1304,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -1331,7 +1331,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1358,7 +1358,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1385,7 +1385,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1412,7 +1412,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1439,7 +1439,7 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 32|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 32|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
@@ -1455,7 +1455,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 1000
@@ -1482,7 +1482,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 10
@@ -1509,7 +1509,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 10
@@ -1536,7 +1536,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -1563,7 +1563,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1590,7 +1590,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1617,7 +1617,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1644,7 +1644,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -1812,13 +1812,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 38|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 38|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 0
@@ -1920,11 +1920,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 42|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 42|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 43|System.Collections.Generic.EnumEqualityComparer`1[[Yume.Battle.AttribType,
+      Data: 43|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1946,7 +1946,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 600
@@ -1973,7 +1973,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 10
@@ -2000,7 +2000,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 1
@@ -2027,7 +2027,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -2054,7 +2054,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2081,7 +2081,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2108,7 +2108,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2135,7 +2135,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2162,7 +2162,7 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 44|System.Collections.Generic.Dictionary`2[[Yume.Battle.AttribType, Assembly-CSharp],[Yume.Battle.Attrib,
+      Data: 44|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
@@ -2178,7 +2178,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 1200
@@ -2205,7 +2205,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 20
@@ -2232,7 +2232,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 20
@@ -2259,7 +2259,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 3
@@ -2286,7 +2286,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2313,7 +2313,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2340,7 +2340,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0
@@ -2367,7 +2367,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: Yume.Battle.Attrib, Assembly-CSharp
+      Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
       Data: 0

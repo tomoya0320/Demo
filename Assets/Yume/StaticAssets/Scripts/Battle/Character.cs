@@ -32,6 +32,7 @@ namespace Yume.Battle {
   }
 
   public class Character : Unit {
+    public List<Card> retainCards = new List<Card>();
     private List<Card> m_tempCards = new List<Card>();
     protected override Transform folder => UnitFactory.charFolder;
     protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
@@ -92,7 +93,7 @@ namespace Yume.Battle {
         cardHeapDict[CardHeapType.DISCARD].Clear();
       }
 
-      Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW].ToArray());
+      Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW]);
       foreach (Card card in randomCards) {
         // 记录抽取的卡牌
         m_tempCards.Add(card);
@@ -130,10 +131,15 @@ namespace Yume.Battle {
         }
         yield return null;
       }
+      
+      // 结束回合前调用的行为树
+      BattleManager.behaviorManagers[this].Run(BehaviorTime.ON_BEFORE_END_TURN);
 
+      // 记录要保留的手牌
+      retainCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => card.cardPhase.retain));
       // 记录弃置的卡牌
       // 将不保留的手牌全部弃置
-      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !card.cardPhase.retain));
+      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !retainCards.Contains(card)));
       m_tempCards.ForEach(
         card => {
           card.cardHeapType = CardHeapType.DISCARD;
@@ -144,7 +150,9 @@ namespace Yume.Battle {
       cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCards);
       // 弃牌表现层
       _RemoveCards(m_tempCards.ToArray());
+      // 清空列表
       m_tempCards.Clear();
+      retainCards.Clear();
       // 重新排列剩下的手牌堆
       _ResortHandCards();
     }

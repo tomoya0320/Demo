@@ -15,7 +15,7 @@ using Axis = UnityEngine.RectTransform.Axis;
 using Component = UnityEngine.Component;
 
 namespace Yume {
-  #region Template
+  #region Struct
 
   public struct ItemArgs {
     public string id;
@@ -339,6 +339,10 @@ namespace Yume {
     /// 瞬发
     /// </summary>
     ON_INSTANT,
+    /// <summary>
+    /// 在结束回合前
+    /// </summary>
+    ON_BEFORE_END_TURN,
   }
 
   public struct Behavior {
@@ -415,10 +419,148 @@ namespace Yume {
     public ConditionType conditionType;
     public GuideStep[] guideSteps;
   }
+  
+  /// <summary>
+  /// Description用来存储属性的实际显示名称
+  /// 注意所有属性相关的比率都是千分比
+  /// </summary>
+  public enum AttribType {
+    [Description("生命")]
+    HP,
+    [Description("攻击")]
+    ATK,
+    [Description("防御")]
+    DEF,
+    [Description("能量")]
+    ENERGY,
+    [Description("攻击伤害加深值")]
+    DAMAGE_CHANGE,  
+    [Description("攻击伤害加深率")]
+    DAMAGE_CHANGE_RATE,
+    [Description("反攻击伤害加深值")]
+    ANTI_DAMAGE_CHANGE,  
+    [Description("反攻击伤害加深率")]
+    ANTI_DAMAGE_CHANGE_RATE,
+  }
+  
+  public struct AttribAdditive {
+    // 属性类型
+    public AttribType type;
+    // 是否作用在最大值上
+    public bool onMaxValue;
+    // 基础值
+    public int value;
+    // 基于当前值的比率
+    public int rateOnValue;
+    // 基于当前最大值的比率
+    public int rateOnMaxValue;
+  }
+  
+  public struct Attrib {
+    [SerializeField]
+    private int _value;
+    public int value => _value;
+    [SerializeField]
+    private int _maxValue;
+    public int maxValue => _maxValue;
+    [SerializeField]
+    private bool _allowNegative;  
+    [SerializeField]
+    private bool _allowExceedMax;
+
+
+    #region 仅为了方便根据等级计算属性
+
+    public static Attrib operator +(Attrib a1, Attrib a2) {
+      Attrib attrib = new Attrib {
+        _value = a1._value + a2._value,
+        _maxValue = a1._maxValue + a2._maxValue,
+        _allowNegative = a1._allowNegative || a2._allowNegative,
+        _allowExceedMax = a1._allowExceedMax || a2._allowExceedMax
+      };
+      return attrib;
+    }
+
+    public static Attrib operator -(Attrib a1, Attrib a2) {
+      Attrib attrib = new Attrib {
+        _value = a1._value - a2._value,
+        _maxValue = a1._maxValue - a2._maxValue,
+        _allowNegative = a1._allowNegative || a2._allowNegative,
+        _allowExceedMax = a1._allowExceedMax || a2._allowExceedMax
+      };
+      return attrib;
+    }
+
+    public static Attrib operator *(Attrib a, float rate) {
+      Attrib attrib = new Attrib {
+        _value = (int)(rate * a._value),
+        _maxValue = (int)(rate * a._maxValue),
+        _allowNegative = a._allowNegative,
+        _allowExceedMax = a._allowExceedMax
+      };
+      return attrib;
+    }
+
+    public static Attrib operator *(float rate, Attrib a) {
+      Attrib attrib = new Attrib {
+        _value = (int)(rate * a._value),
+        _maxValue = (int)(rate * a._maxValue),
+        _allowNegative = a._allowNegative,
+        _allowExceedMax = a._allowExceedMax
+      };
+      return attrib;
+    }
+
+    #endregion
+    
+    /// <summary>
+    /// 添加值
+    /// </summary>
+    /// <param name="value">可正可负</param>
+    /// <returns>返回实际添加的值</returns>
+    public int AddValue(int value) {
+      int origin = _value;
+      _value += value;
+      if (_value < 0 && !_allowNegative) {
+        _value = 0;
+      }
+      if (_value > _maxValue && !_allowExceedMax) {
+        _value = _maxValue;
+      }
+      return _value - origin;
+    }
+
+    /// <summary>
+    /// 添加最大值
+    /// </summary>
+    /// <param name="maxValue">可正可负</param>
+    /// <returns>返回实际添加的最大值</returns>
+    public int AddMaxValue(int maxValue) {
+      int origin = _maxValue;
+      // 最大值不能为负
+      _maxValue = Mathf.Max(0, _maxValue + maxValue);
+      if (_maxValue > origin) {
+        AddValue(_maxValue - origin);
+      } else if (_maxValue < _value) {
+        AddValue(_maxValue - _value);
+      }
+      return _maxValue - origin;
+    }
+
+    public override string ToString() {
+      return $"value:{_value},maxValue:{_maxValue}";
+    }
+  }
+  
+  public struct CardHeapCountComparer {
+    public int count;
+    public CompareMethod method;
+    public CardHeapType cardHeapType;
+  }
 
   #endregion
 
-  #region Data
+  #region Class
 
   [Serializable]
   public class ItemData {
@@ -547,6 +689,12 @@ namespace Yume {
       state = GuideState.INACTIVE;
     }
   }
+
+  [Serializable]
+  public class AttribAdditives : List<AttribAdditive> { }
+  
+  [Serializable]
+  public class BuffTemplates : List<BuffTemplate> { }
 
   [Serializable]
   public class UserDB {
@@ -1044,6 +1192,14 @@ namespace Yume {
     public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
   }
 
+  public enum CompareMethod {
+    EQUAL,
+    GREATER,
+    LESS,
+    GREATER_EQUAL,
+    LESS_EQUAL,
+  }
+
   public static class MathUtil { 
     public const float EPSILON = 0.0001f;
     public static readonly Random random = new Random();
@@ -1157,6 +1313,10 @@ namespace Yume {
       return array;
     }
 
+    public static T[] FisherYatesShuffle<T>(List<T> list) {
+      return FisherYatesShuffle(list.ToArray());
+    }
+
     public static bool Prob(float prob) {
       return random.NextDouble() < prob;
     }
@@ -1171,6 +1331,24 @@ namespace Yume {
 
     public static bool Approximately(float f1, float f2) {
       return Mathf.Abs(f1 - f2) < EPSILON;
+    }
+
+    public static bool Compare(IComparable left, IComparable right, CompareMethod method) {
+      int delta = left.CompareTo(right);
+      switch (method) {
+        case CompareMethod.EQUAL:
+          return delta == 0;
+        case CompareMethod.GREATER:
+          return delta > 0;
+        case CompareMethod.LESS:
+          return delta < 0;
+        case CompareMethod.GREATER_EQUAL:
+          return delta >= 0;
+        case CompareMethod.LESS_EQUAL:
+          return delta <= 0;
+      }
+      Debug.LogWarning($"未知的比较方式！{method}");
+      return false;
     }
   }
 

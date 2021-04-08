@@ -27,6 +27,8 @@ namespace Yume.Battle {
     public const string REMOVE_BUFF = "removeBuff";
     public const string DISCARD_AND_DRAW_COUNT = "discardAndDrawCount";
     public const string DRAW_COUNT = "drawCount";
+    public const string CARD_HEAP_COUNT_COMPARER = "cardHeapCountComparer";
+    public const string RETAIN_COUNT = "retainCount";
     
     #endregion
     

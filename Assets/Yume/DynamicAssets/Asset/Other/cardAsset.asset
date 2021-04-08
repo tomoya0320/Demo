@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Yume.CardTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 15
     - Name: 
       Entry: 7
       Data: Yume.CardTemplate, Assembly-CSharp
@@ -4194,13 +4194,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 175|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 175|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 7
@@ -4449,13 +4449,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 184|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 184|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 7
@@ -4680,13 +4680,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 192|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 192|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 5
@@ -4917,13 +4917,13 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 200|Yume.Battle.AttribAdditives, Assembly-CSharp
+      Data: 200|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: Yume.Battle.AttribAdditive, Assembly-CSharp
+      Data: Yume.AttribAdditive, Assembly-CSharp
     - Name: type
       Entry: 3
       Data: 5
@@ -6318,7 +6318,7 @@ MonoBehaviour:
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u4E22\u5F03\u6240\u6709\u624B\u724C\uFF0C\u7136\u540E\u4ECE\u62BD\u724C\u5806\u4E2D\u62BD\u53D6\u7B49\u91CF\u7684\u5361\u724C"
+      Data: "\u4E22\u5F03\u6240\u6709\u624B\u724C\uFF0C\u7136\u540E\u62BD\u53D6\u7B49\u91CF\u7684\u5361\u724C"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -6477,7 +6477,7 @@ MonoBehaviour:
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u4E22\u5F03\u6240\u6709\u624B\u724C\uFF0C\u7136\u540E\u4ECE\u62BD\u724C\u5806\u4E2D\u62BD\u53D6\u7B49\u91CF\u7684\u5361\u724C\uFF0C\u518D\u989D\u5916\u62BD{0:drawCount}\u5F20\u724C"
+      Data: "\u4E22\u5F03\u6240\u6709\u624B\u724C\uFF0C\u7136\u540E\u62BD\u53D6\u7B49\u91CF\u7684\u5361\u724C\uFF0C\u518D\u989D\u5916\u62BD{0:drawCount}\u5F20\u724C"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -6625,6 +6625,864 @@ MonoBehaviour:
     - Name: updateRequestItems
       Entry: 7
       Data: 272|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_014
+    - Name: cardType
+      Entry: 3
+      Data: 1
+    - Name: cardPhases
+      Entry: 7
+      Data: 273|Yume.CardPhase[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u8D2A\u5A6A\u4E4B\u4E66"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: false
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "\u82E5\u62BD\u724C\u5806\u6709\u724C\uFF0C\u5219\u62BD{0:drawCount}\u5F20\u724C"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_13]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 0
+    - Name: cardPlayer
+      Entry: 7
+      Data: 274|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.15
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 275|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_compare_card_heap_count_and_draw_card
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 6
+      Data: 
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 276|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 277|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: compare_card_heap_count_and_draw_card
+    - Name: behaviorTime
+      Entry: 3
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 278|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: drawCount
+    - Name: $v
+      Entry: 7
+      Data: 279|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: cardHeapCountComparer
+    - Name: $v
+      Entry: 7
+      Data: 280|Yume.CardHeapCountComparer, Assembly-CSharp
+    - Name: count
+      Entry: 3
+      Data: 0
+    - Name: method
+      Entry: 3
+      Data: 1
+    - Name: cardHeapType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 281|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 1000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u8D2A\u5A6A\u4E4B\u4E66"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: false
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "\u82E5\u62BD\u724C\u5806\u6709\u724C\uFF0C\u5219\u62BD{0:drawCount}\u5F20\u724C\uFF1B\u5426\u5219\uFF0C\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_13]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 0
+    - Name: cardPlayer
+      Entry: 7
+      Data: 282|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.15
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 283|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_compare_card_heap_count_and_draw_card_or_attach_attrib
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 6
+      Data: 
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 284|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 285|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: compare_card_heap_count_and_draw_card_or_attach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 286|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: drawCount
+    - Name: $v
+      Entry: 7
+      Data: 287|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: cardHeapCountComparer
+    - Name: $v
+      Entry: 7
+      Data: 288|Yume.CardHeapCountComparer, Assembly-CSharp
+    - Name: count
+      Entry: 3
+      Data: 0
+    - Name: method
+      Entry: 3
+      Data: 1
+    - Name: cardHeapType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: attribAdditives
+    - Name: $v
+      Entry: 7
+      Data: 289|Yume.AttribAdditives, Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.AttribAdditive, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: 2
+    - Name: rateOnValue
+      Entry: 3
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 290|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_015
+    - Name: cardType
+      Entry: 3
+      Data: 1
+    - Name: cardPhases
+      Entry: 7
+      Data: 291|Yume.CardPhase[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u4E24\u9762\u624B\u6CD5"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: true
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u3010\u6D88\u8017\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{0:retainCount}\u5F20\u624B\u724C\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_14]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 0
+    - Name: cardPlayer
+      Entry: 7
+      Data: 292|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.15
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 293|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_random_retain_card
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: magic
+    - Name: description
+      Entry: 1
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 294|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 295|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: random_retain_card
+    - Name: behaviorTime
+      Entry: 3
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 296|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: retainCount
+    - Name: $v
+      Entry: 7
+      Data: 297|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 298|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 299|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 1000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u4E24\u9762\u624B\u6CD5"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: true
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u3010\u6D88\u8017\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{0:retainCount}\u5F20\u624B\u724C\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_14]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 0
+    - Name: cardPlayer
+      Entry: 7
+      Data: 300|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.15
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 301|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_random_retain_card
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: magic
+    - Name: description
+      Entry: 1
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 302|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 303|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: random_retain_card
+    - Name: behaviorTime
+      Entry: 3
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 304|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 305|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: retainCount
+    - Name: $v
+      Entry: 7
+      Data: 306|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 307|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

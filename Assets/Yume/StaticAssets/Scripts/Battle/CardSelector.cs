@@ -12,7 +12,7 @@ namespace Yume.Battle {
     public int selectCount;
 
     public override List<Card> Select(List<Card> cards) {
-      List<Card> result = new List<Card>(MathUtil.FisherYatesShuffle(cards.ToArray()));
+      List<Card> result = new List<Card>(MathUtil.FisherYatesShuffle(cards));
       if (selectCount > 0) {
         int removeCount = result.Count - selectCount;
         while (removeCount > 0) {
