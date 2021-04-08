@@ -133,7 +133,7 @@ namespace Yume {
     public static void Init() {
       foreach (RedDotTreeType redDotTreeType in Enum.GetValues(typeof(RedDotTreeType))) {
         if (redDotTreeType != RedDotTreeType.NONE) {
-          var redDotTree = AssemblyUtil.CreateInstance(redDotTreeType.GetDescription()) as RedDotTree;
+          var redDotTree = AssemblyUtil.CreateInstance<RedDotTree>(redDotTreeType.GetDescription());
           s_redDotTreeDict.Add(redDotTreeType, redDotTree);
         }
       }

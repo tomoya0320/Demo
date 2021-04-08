@@ -31,7 +31,7 @@ namespace Yume.UI {
     private bool m_auto;
     public Action onQuitAVG;
     private string m_lateBGM;
-    public string playerName;
+    public string playerName; // 与真正的PlayerName独立开来方便一些特殊的需求
     private AVGGraph m_avgGraph;
     public string historyDialogues;
     private Coroutine m_autoCoroutine;

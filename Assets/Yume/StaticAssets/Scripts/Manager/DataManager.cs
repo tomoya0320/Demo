@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using Yume.Broadcast;
@@ -415,6 +416,10 @@ namespace Yume {
           s_saveData = true;
         }
       }
+    }
+
+    public static void UpdateGuide(ConditionType conditionType) {
+      UpdateGuide(StringMap.EMPTY, conditionType);
     }
 
     public static void CompleteGuide(GuideData guid) {

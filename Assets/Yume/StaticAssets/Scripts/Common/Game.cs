@@ -36,16 +36,18 @@ namespace Yume {
       // 进入主界面的点击事件
       m_goToLoginBtn.onClick.AddListener(
         () => {
-          Action action = () => {
+          Action callback = () => {
             Destroy(m_initPanel);
             UIManager.OpenOne("main");
           };
           if (DataManager.LoadUserData()) {
-            UIManager.OpenOne("globalCircleBlackFade", action, ScreenUtil.mousePosNormalized);
+            UIManager.OpenOne("globalCircleBlackFade", callback, ScreenUtil.mousePosNormalized);
           } else {
             string lateBGM = AudioManager.GetCurrentBgmName();
             string openingAVG = ResourceManager.Load<string>("openingAVG");
-            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, action, lateBGM));
+            Action action = () => DataManager.UpdateGuide(ConditionType.FIRST_PLAY);
+            callback = action + callback;
+            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, callback, lateBGM));
           }
           RedDotManager.InitData();
         }

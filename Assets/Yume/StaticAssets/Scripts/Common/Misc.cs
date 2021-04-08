@@ -827,8 +827,8 @@ namespace Yume {
   public static class AssemblyUtil {
     private static Assembly s_assembly = Assembly.GetExecutingAssembly();
 
-    public static object CreateInstance(string typeName) {
-      return s_assembly.CreateInstance(typeName);
+    public static T CreateInstance<T>(string typeName) where T : class {
+      return s_assembly.CreateInstance(typeName) as T;
     }
   }
 

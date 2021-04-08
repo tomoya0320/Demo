@@ -99,7 +99,7 @@ namespace Yume {
 
     private static void _OpenInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null, params object[] args) {
       if (!_TryGetCache(uiTemplate, out UIBase ui)) {
-        ui = AssemblyUtil.CreateInstance(uiTemplate.typeName) as UIBase;
+        ui = AssemblyUtil.CreateInstance<UIBase>(uiTemplate.typeName);
         GameObject prefab = ResourceManager.Load<GameObject>(uiTemplate.prefabName);
         if (prefab == null) {
           Debug.LogError($"Prefab为空！url:{uiTemplate.prefabName}");
