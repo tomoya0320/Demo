@@ -24,6 +24,8 @@ namespace Yume.UI {
       if (m_tween != null) {
         m_tween.Kill();
         m_tween = null;
+        // 恢复默认值
+        m_canvasGroup.alpha = 1.0f;
         m_textRectTransform.anchoredPosition = Vector2.zero;
       }
       
@@ -37,7 +39,6 @@ namespace Yume.UI {
     }
 
     private void _ScrollTextInternal(float endValue) {
-      m_canvasGroup.alpha = 1.0f;
       m_textRectTransform.anchoredPosition = Vector2.zero;
       m_tween = m_textRectTransform
                 .DOAnchorPosY(endValue, SCROLL_SPEED)
