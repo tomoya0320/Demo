@@ -92,6 +92,7 @@ namespace Yume {
       RedDotManager.Init();
       MessageManager.Init(); // 依赖UIManager
       GuideManager.Init(); // 依赖UIManager
+      EffectManager.Init();
       // 清理资源
       yield return Resources.UnloadUnusedAssets();
       // 完成初始化

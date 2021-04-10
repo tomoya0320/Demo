@@ -5,13 +5,12 @@ using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public abstract class UIBase {
-    private UITemplate m_uiData;
-    public string name => m_uiData.name;
-    public UIType uiType => m_uiData.uiType;
-    public float cacheTime => m_uiData.cacheTime;
+    private UITemplate m_uiTemplate;
+    public string name => m_uiTemplate.name;
+    public UIType uiType => m_uiTemplate.uiType;
+    public float cacheTime => m_uiTemplate.cacheTime;
     
     public GameObject root { private set; get; }
-    public GameObject effect { private set; get; }
     public Animation animation { private set; get; }
     public CanvasGroup canvasGroup { private set; get; }
     public ObjectContainer objectContainer { private set; get; }
@@ -20,16 +19,12 @@ namespace Yume.UI {
       gameObject.SetActiveEx(false);
       
       root = gameObject;
-      m_uiData = uiTemplate;
+      m_uiTemplate = uiTemplate;
       animation = gameObject.GetComponent<Animation>();
       canvasGroup = gameObject.GetComponent<CanvasGroup>();
       objectContainer = gameObject.GetComponent<ObjectContainer>();
 
-      if (!string.IsNullOrEmpty(m_uiData.effectName)) {
-        GameObject prefab = ResourceManager.Load<GameObject>(m_uiData.effectName);
-        effect = Object.Instantiate(prefab, UIManager.effectRoot);
-        effect.name = m_uiData.effectName;
-      }
+      EffectManager.AddUIEffect(uiType, m_uiTemplate.effectName);
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
@@ -64,7 +59,6 @@ namespace Yume.UI {
       Action action = () => {
         UIManager.Unblock(this);
         root.SetActiveEx(false);
-        effect?.SetActiveEx(false);
       };
       callback = action + callback;
 
@@ -83,7 +77,6 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
       root.SetActiveEx(true);
-      effect?.SetActiveEx(true);
 
       //保证动画完整播放
       UIManager.Block(this);
@@ -105,9 +98,10 @@ namespace Yume.UI {
     /// 当前UI被显示时调用 case:自己被打开或上一个UI被关闭(需等待至关闭完成)
     /// </summary>
     public virtual void OnDisplay() {
-      if (!string.IsNullOrEmpty(m_uiData.bgm)) {
-        AudioManager.PlayBgm(m_uiData.bgm);
+      if (!string.IsNullOrEmpty(m_uiTemplate.bgm)) {
+        AudioManager.PlayBgm(m_uiTemplate.bgm);
       }
+      EffectManager.ShowUIEffect(uiType, m_uiTemplate.effectName);
     }   
     
     /// <summary>
@@ -121,10 +115,8 @@ namespace Yume.UI {
     /// 回收内存
     /// </summary>
     public virtual void Destroy() {
+      EffectManager.RemoveUIEffect(uiType, m_uiTemplate.effectName);
       Object.Destroy(root);
-      if (effect != null) {
-        Object.Destroy(effect);
-      }
     }
   }
 

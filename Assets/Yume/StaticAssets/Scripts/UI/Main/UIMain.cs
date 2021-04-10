@@ -84,16 +84,6 @@ namespace Yume.UI {
       if (guide != null) {
         GuideManager.ShowGuide(guide);
       }
-      
-      // UI显示的时候显示粒子特效
-      effect?.SetActiveEx(true);
-    }
-
-    public override void OnHide() {
-      base.OnHide();
-      
-      // UI隐藏的时候隐藏粒子特效
-      effect?.SetActiveEx(false);
     }
 
     public override void Destroy() {
