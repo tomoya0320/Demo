@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 4d8cecb76f02aaa4095b6c589e2b4ded
   m_SerializeEntries:
   - m_GUID: e109fea60f7757a4cb053340aece68a5
-    m_Address: "\u70B9\u51FB2"
+    m_Address: default_click_sound
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
@@ -73,8 +73,8 @@ MonoBehaviour:
     - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: d9991e1cd54d3cf4aafceb930bd77d30
-    m_Address: SOTE_Shrine_v2
+  - m_GUID: 9f455985698137b4e985f2d46baa67ce
+    m_Address: default_bgm
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
@@ -90,7 +90,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3424b77769501254494fd7b5061d5d5d
-    m_Address: SOTE_SFX_BlockAtk_v2
+    m_Address: default_hurt_sound
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
@@ -111,8 +111,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 8300000, guid: 7e89f16fdf76a2b4aacb2c383dd62016, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: 7e89f16fdf76a2b4aacb2c383dd62016, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4e1dbe7aab9162e4898a8ada067181cd
+    m_Address: bgm_main
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 8300000, guid: 4e1dbe7aab9162e4898a8ada067181cd, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4e1dbe7aab9162e4898a8ada067181cd, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

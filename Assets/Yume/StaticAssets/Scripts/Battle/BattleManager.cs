@@ -28,10 +28,9 @@ namespace Yume.Battle {
     public static Blackboard blackboard = new Blackboard();
     public static Dictionary<Unit, BuffManager> buffManagers = new Dictionary<Unit, BuffManager>();
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
-    public static readonly Action abort = () => Finish(BattleResult.ABORT);
     private const float LATE_TURN_WAITING_TIME = 0.5f;
 
-    public static void Init(TeamArgs teamArgs, LevelTemplate levelTemplate, ObjectContainer objectContainer) {
+    public static void StartBattle(TeamArgs teamArgs, LevelTemplate levelTemplate, ObjectContainer objectContainer) {
       // 初始化工厂
       NumFactory.Init(objectContainer);
       UnitFactory.Init(objectContainer);
@@ -77,11 +76,11 @@ namespace Yume.Battle {
           );
         }
       }
-    }
-
-    public static void StartBattle() {
+      
       // 开始作战
       s_coroutine = CoroutineHelper.instance.Run(_Run());
+      // 注册每帧调用的更新事件
+      Game.instance.onUpdate += _OnUpdate;
     }
 
     public static Unit GetNearestEnemy(Vector3 point) {
@@ -103,6 +102,8 @@ namespace Yume.Battle {
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;
+      // 移除每帧调用的更新事件
+      Game.instance.onUpdate -= _OnUpdate;
 
       // 避免引用到BattleManager的变量因为这些变量后面就置空了
       LevelTemplate levelTemplate = s_levelTemplate;
@@ -121,16 +122,19 @@ namespace Yume.Battle {
               DataManager.CompleteLevel(levelTemplate.id);
             }
           };
-          const string lateBGM = StringMap.DEFAULT_BGM;
           // 判断胜利的情况下是否需要播放avg
           if (battleResult == BattleResult.WIN && !string.IsNullOrEmpty(levelTemplate.afterAVGId)) {
-            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action, lateBGM);
+            UIManager.OpenOne("avg", null, levelTemplate.afterAVGId, action);
           } else {
-            AudioManager.PlayBgm(lateBGM);
             action();
           }
         }
       );
+    }
+
+    private static void _OnUpdate() {
+      // 目前是角色卡牌的状态机在用
+      character.OnUpdate();
     }
 
     private static void _CleanUp() {

@@ -104,7 +104,11 @@ namespace Yume.UI {
     /// <summary>
     /// 当前UI被显示时调用 case:自己被打开或上一个UI被关闭(需等待至关闭完成)
     /// </summary>
-    public virtual void OnDisplay() { }   
+    public virtual void OnDisplay() {
+      if (!string.IsNullOrEmpty(m_uiData.bgm)) {
+        AudioManager.PlayBgm(m_uiData.bgm);
+      }
+    }   
     
     /// <summary>
     /// 当前UI被隐藏时调用 case:自己被关闭(需等待至关闭完成)或下一个UI被打开

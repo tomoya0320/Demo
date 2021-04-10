@@ -9,6 +9,7 @@ namespace Yume {
   public class Game : SingletonMono<Game> {
     private Text m_tipText;
     private Image m_processImg;
+    public event Action onUpdate;
     private Button m_goToLoginBtn;
     private GameObject m_initPanel;
     public float process {
@@ -43,11 +44,10 @@ namespace Yume {
           if (DataManager.LoadUserData()) {
             UIManager.OpenOne("globalCircleBlackFade", callback, ScreenUtil.mousePosNormalized);
           } else {
-            string lateBGM = AudioManager.GetCurrentBgmName();
             string openingAVG = ResourceManager.Load<string>("openingAVG");
             Action action = () => DataManager.UpdateGuide(ConditionType.FIRST_PLAY);
             callback = action + callback;
-            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, callback, lateBGM));
+            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, callback));
           }
           RedDotManager.InitData();
         }
@@ -60,7 +60,7 @@ namespace Yume {
       process = 0;
       m_tipText.text = "检查游戏资源中";
       m_processImg.gameObject.SetActiveEx(true);
-      
+
       yield return Addressables.InitializeAsync();
 
       var sizehandle = Addressables.GetDownloadSizeAsync("Download");
@@ -78,35 +78,31 @@ namespace Yume {
           yield break;
         }
       }
-      
+
       process = 0;
       m_tipText.text = "游戏初始化中";
-      
+
       // Hotfix
       yield return HotfixManager.Init(0, 0.1f);
       // Resource
       yield return ResourceManager.Init(0.1f, 0.9f);
-      
+
       UIManager.Init();
       AudioManager.Init();
       RedDotManager.Init();
       MessageManager.Init(); // 依赖UIManager
       GuideManager.Init(); // 依赖UIManager
-      
-      process = 1.0f;
-      
+      // 清理资源
       yield return Resources.UnloadUnusedAssets();
-
+      // 完成初始化
+      process = 1.0f;
+      // 隐藏和显示相应的UI
       m_processImg.gameObject.SetActiveEx(false);
       m_goToLoginBtn.gameObject.SetActiveEx(true);
     }
 
     private void Update() {
-      UIManager.OnUpdate();
-
-      if (Input.GetKeyDown(KeyCode.Escape)) {
-        UIManager.Back();
-      }
+      onUpdate?.Invoke();
     }
 
     private void FixedUpdate() {

@@ -30,7 +30,6 @@ namespace Yume.UI {
 
     private bool m_auto;
     public Action onQuitAVG;
-    private string m_lateBGM;
     public string playerName; // 与真正的PlayerName独立开来方便一些特殊的需求
     private AVGGraph m_avgGraph;
     public string historyDialogues;
@@ -118,7 +117,6 @@ namespace Yume.UI {
 
       m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
       onQuitAVG = args[1] as Action;
-      m_lateBGM = args[2] as string;
       playerName = DataManager.playerName;
       
       // 检查是否激活跳过按钮
@@ -174,12 +172,7 @@ namespace Yume.UI {
     }
 
     public void QuitAVG() {
-      UIManager.OpenOne(
-        "globalBlackFade", () => {
-          UIManager.CloseOne(name);
-          AudioManager.PlayBgm(m_lateBGM);
-        }
-      );
+      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
     }
 
     private void _CleanUp() {

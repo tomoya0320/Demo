@@ -34,10 +34,10 @@ namespace Yume {
         s_uiStackDict.Add(type, new Stack<UIBase>());
         s_uiCacheDict.Add(type, new List<(float, UIBase)>());
       }
-
+      
       onBackList.Add(
         () => {
-          var uiStack = s_uiStackDict[UIType.NORMAL];
+          var uiStack = s_uiStackDict[UIType.NORMAL]; // 回退操作只适用于NORMAL层的UI
           if (uiStack.Count > 1 || (uiStack.Count > 0 && uiStack.Peek().name == "confirmation")) {
             CloseOne(uiStack.Peek().name);
           } else {
@@ -45,6 +45,15 @@ namespace Yume {
           }
         }
       );
+
+      Game.instance.onUpdate += () => {
+        OnUpdate();
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+          if (activeBack > 0) {
+            onBackList.Last()?.Invoke();
+          }
+        }
+      };
     }
 
     public static void OnUpdate() {
@@ -219,15 +228,6 @@ namespace Yume {
         }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
-      }
-    }
-    
-    /// <summary>
-    /// 回退操作只适用于NORMAL层的UI
-    /// </summary>
-    public static void Back() {
-      if (activeBack > 0) {
-        onBackList.Last()?.Invoke();
       }
     }
 

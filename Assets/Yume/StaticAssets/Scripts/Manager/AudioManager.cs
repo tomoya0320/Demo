@@ -130,6 +130,7 @@ namespace Yume {
 
       private void _StopBgmInternal() {
         m_audioSource.Stop();
+        m_audioSource.clip = null;
       }
 
       public string GetCurrentClipName() {
@@ -146,7 +147,7 @@ namespace Yume {
       s_soundManager = new SoundManager(audioRoot);
 
       // 播放默认的bgm
-      PlayBgm(StringMap.DEFAULT_BGM, 0);
+      PlayBgm(StringMap.DEFAULT_BGM);
     }
 
     #region BGM
@@ -155,9 +156,11 @@ namespace Yume {
       s_bgmManager.PlayBgm(audioClip, fadeTime);
     }
 
-    public static void PlayBgm(string audioClipName, float fadeTime = 1.0f) {
-      var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      s_bgmManager.PlayBgm(audio, fadeTime);
+    public static void PlayBgm(string audioClipName, float fadeTime = 1.0f, bool force = false) {
+      if (GetCurrentBgmName() != audioClipName || force) {
+        var audio = ResourceManager.Load<AudioClip>(audioClipName);
+        s_bgmManager.PlayBgm(audio, fadeTime);
+      }
     }
 
     public static void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {

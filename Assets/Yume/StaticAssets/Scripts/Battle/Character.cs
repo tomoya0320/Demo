@@ -78,6 +78,12 @@ namespace Yume.Battle {
       return true;
     }
 
+    public void OnUpdate() {
+      foreach (var cards in cardHeapDict.Values) {
+        cards.ForEach(card => card?.OnUpdate());
+      }
+    }
+
     public override IEnumerator OnTick() {
       // 抽牌逻辑层
       if (Constant.DRAW_CARD_COUNT > cardHeapDict[CardHeapType.DRAW].Count && cardHeapDict[CardHeapType.DISCARD].Count > 0) {

@@ -46,7 +46,7 @@ namespace Yume.Battle {
       var cardAnimPrefab = ResourceManager.Load<GameObject>(cardPhase.cardAnimName);
       cardAnimCallback = Object.Instantiate(cardAnimPrefab, CardFactory.cardAnimFolder).GetComponent<CardAnimCallback>();
       cardAnimCallback.gameObject.SetActiveEx(false);
-      cardAnimCallback.card = this;
+      cardAnimCallback.SetCard(this);
 
       if (onUseCard != null) {
         battleCard = gameObject.AddComponent<UIBattleCard>().Init(this, () => onUseCard(this));
@@ -64,6 +64,10 @@ namespace Yume.Battle {
       BattleManager.behaviorManagers[owner].Run(BehaviorTime.ON_LATE_PLAY_CARD);
       owner.playingCard = null;
       candidate = null;
+    }
+
+    public void OnUpdate() {
+      battleCard?.OnUpdate();
     }
 
     public void CleanUp() {

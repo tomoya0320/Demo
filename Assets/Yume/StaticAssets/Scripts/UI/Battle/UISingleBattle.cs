@@ -9,6 +9,7 @@ namespace Yume.UI {
   public class UISingleBattle : UIBase {
     private Image m_bg;
     private YButton m_finishTurnBtn;
+    private Action m_abort = () => BattleManager.Finish(BattleResult.ABORT);
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -24,7 +25,7 @@ namespace Yume.UI {
 
     private void _AddListener() {
       m_finishTurnBtn.onClick.AddListener(_FinishPlayerTurn);
-      GetComponent<Button>("abort").onClick.AddListener(_Abort);
+      GetComponent<Button>("abort").onClick.AddListener(_OnClickAbort);
 
       GetComponent<Button>("lookDrawCard").onClick.AddListener(
         () =>
@@ -49,7 +50,7 @@ namespace Yume.UI {
       );
     }
 
-    private void _Abort() {
+    private void _OnClickAbort() {
       if (!BattleManager.isRunning) {
         return;
       }
@@ -57,7 +58,7 @@ namespace Yume.UI {
       if (UIManager.GetTopUI(uiType).name == name) {
         UIManager.OpenOne(
           "confirmation", null,
-          "确认放弃作战？", "确认", "取消", BattleManager.abort, null
+          "确认放弃作战？", "确认", "取消", m_abort, null
         );
       } else {
         UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
@@ -86,19 +87,21 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      UIManager.onBackList.Add(_Abort);
+      UIManager.onBackList.Add(_OnClickAbort);
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
+      // 播放战斗中的BGM
+      AudioManager.PlayBgm(levelTemplate.bgm);
+      // 设置战斗背景
       m_bg.SetSpriteAsync(levelTemplate.background);
+      // 开始战斗
+      BattleManager.StartBattle((TeamArgs)args[1], levelTemplate, objectContainer);
 
-      BattleManager.Init((TeamArgs)args[1], levelTemplate, objectContainer);
-
-      callback += BattleManager.StartBattle;
       base.Open(callback, args);
     }
 
     public override void Close(Action callback = null) {
-      callback += () => UIManager.onBackList.Remove(_Abort);
+      callback += () => UIManager.onBackList.Remove(_OnClickAbort);
       base.Close(callback);
     }
 

@@ -20,7 +20,7 @@ namespace Yume.UI {
     public event Action onLongPressRepeat;
     public Action<PointerEventData> onClickWithPointer;
     private const float LONG_PRESS_MIN_TIME = 0.8f;
-    private const float LONG_PRESS_REPEAT_DELTA_TIME = 0.4f;
+    private const float LONG_PRESS_REPEAT_DELTA_TIME = 0.2f;
 
     protected override void Awake() {
       base.Awake();
@@ -30,17 +30,21 @@ namespace Yume.UI {
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
-      if (!_mute && (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled)) {
-        string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
-        AudioManager.PlaySound(clipName);
-      }
+      base.OnPointerClick(eventData);   
       
       onClickWithPointer?.Invoke(eventData);
+    }
 
-      base.OnPointerClick(eventData);
+    private void _PlayClickSound() {
+      string clipName = string.IsNullOrEmpty(_overrideSoundName) ? StringMap.DEFAULT_CLICK_SOUND : _overrideSoundName;
+      AudioManager.PlaySound(clipName);
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
+      if (!_mute && (currentSelectionState != SelectionState.Disabled || _soundEvenDisabled)) {
+        _PlayClickSound();
+      }
+      
       if (onLongPress != null) {
         StartCoroutine(_LongPress());
       }
@@ -62,7 +66,7 @@ namespace Yume.UI {
           yield break;
         }
       }
-
+      _PlayClickSound();
       onLongPress();
     }
 
@@ -80,6 +84,7 @@ namespace Yume.UI {
       }
 
       while (true) {
+        _PlayClickSound();
         onLongPressRepeat();
         startTime = Time.time;
         while (Time.time < startTime + LONG_PRESS_REPEAT_DELTA_TIME) {

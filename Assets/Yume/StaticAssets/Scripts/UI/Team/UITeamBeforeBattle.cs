@@ -45,10 +45,8 @@ namespace Yume.UI {
               Action action = () => UIManager.DestroyOneAndOpenOne("single_battle", null, m_levelTemplate, teamArgs);
               if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {
                 action();
-                // 播放战斗中的bgm
-                AudioManager.PlayBgm(m_levelTemplate.bgm);
               } else {
-                UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action, m_levelTemplate.bgm);
+                UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action);
               }
             }
           );

@@ -225,7 +225,7 @@ namespace Yume.UI {
       m_targetSiblingIndex = targetSiblingIndex;
     }
 
-    private void Update() {
+    public void OnUpdate() {
       m_stateMachine.OnTrick();
     }
 
