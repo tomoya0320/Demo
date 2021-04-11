@@ -29,8 +29,8 @@ namespace Yume.UI {
             return;
           }
 
-          UIManager.OpenOne(
-            "globalBlackFade", () => {
+          UIManager.GlobalFade(
+            GlobalFadeType.BLACK_FADE, () => {
               TeamArgs teamArgs;
               if (m_levelTemplate.isCustomTeam) {
                 teamArgs = m_levelTemplate.customTeam;

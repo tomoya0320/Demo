@@ -49,7 +49,7 @@ namespace Yume.Battle {
       if (parent == null) {
         parent = s_drawCardFolder;
       }
-      GameObject go = Object.Instantiate(s_cardPrefab, parent);
+      GameObject go = ObjectUtil.Instantiate(s_cardPrefab, parent);
       go.transform.localScale = UIBattleCard.smallScale;
       return new Card(unit, cardArgs, go, onUseCard);
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.RedDotSystem;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UITask : UIGaussianBlurBg {
@@ -99,8 +98,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<TaskData> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UITaskTerm(clone, m_taskType);
       }
     }

@@ -56,6 +56,7 @@ namespace Yume {
       private int m_switch;
       private float m_value;
       private Tween m_tween;
+      private AudioClip m_curBgm;
       private AudioSource m_audioSource;
       private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
       private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
@@ -109,12 +110,13 @@ namespace Yume {
           m_tween.Complete();
         }
         
+        m_curBgm = audioClip;
         if (fadeTime <= 0) {
-          _PlayBgmInternal(audioClip);
+          _PlayBgmInternal(m_curBgm);
         } else {
           StopBgm(
             () => {
-              _PlayBgmInternal(audioClip);
+              _PlayBgmInternal(m_curBgm);
               m_tween = m_audioSource
                         .DOFade(m_switch * m_value, fadeTime)
                         .OnComplete(() => m_tween = null);
@@ -130,11 +132,10 @@ namespace Yume {
 
       private void _StopBgmInternal() {
         m_audioSource.Stop();
-        m_audioSource.clip = null;
       }
 
-      public string GetCurrentClipName() {
-        return m_audioSource.clip?.name;
+      public string GetCurClipName() {
+        return m_curBgm?.name;
       }
     }
 
@@ -156,8 +157,8 @@ namespace Yume {
       s_bgmManager.PlayBgm(audioClip, fadeTime);
     }
 
-    public static void PlayBgm(string audioClipName, float fadeTime = 1.0f, bool force = false) {
-      if (GetCurrentBgmName() != audioClipName || force) {
+    public static void PlayBgm(string audioClipName, bool force = false, float fadeTime = 1.0f) {
+      if (GetCurBgmName() != audioClipName || force) {
         var audio = ResourceManager.Load<AudioClip>(audioClipName);
         s_bgmManager.PlayBgm(audio, fadeTime);
       }
@@ -171,8 +172,8 @@ namespace Yume {
       s_bgmManager.UpdateVolume();
     }
 
-    public static string GetCurrentBgmName() {
-      return s_bgmManager.GetCurrentClipName();
+    public static string GetCurBgmName() {
+      return s_bgmManager.GetCurClipName();
     }
 
     #endregion

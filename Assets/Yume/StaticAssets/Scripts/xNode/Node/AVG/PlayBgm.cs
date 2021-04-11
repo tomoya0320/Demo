@@ -8,6 +8,7 @@ namespace Yume.AVG {
 
 		public override void Run(UIAVG avg) {
 			AudioManager.PlayBgm(_bgmClip);
-		}
+      avg.CacheBgm();
+    }
 	}
 }

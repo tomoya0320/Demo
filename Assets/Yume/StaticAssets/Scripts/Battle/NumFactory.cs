@@ -31,7 +31,7 @@ namespace Yume.Battle {
       if (s_numStack.Count > 0) {
         num = s_numStack.Pop();
       } else {
-        num = Object.Instantiate(s_numPrototype, numFolder).GetComponent<Text>();
+        num = ObjectUtil.Instantiate<Text>(s_numPrototype, numFolder);
       }
 
       num.text = value.ToString();

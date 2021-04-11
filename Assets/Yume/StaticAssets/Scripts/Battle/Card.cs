@@ -43,8 +43,7 @@ namespace Yume.Battle {
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
 
-      var cardAnimPrefab = ResourceManager.Load<GameObject>(cardPhase.cardAnimName);
-      cardAnimCallback = Object.Instantiate(cardAnimPrefab, CardFactory.cardAnimFolder).GetComponent<CardAnimCallback>();
+      cardAnimCallback = ObjectUtil.Instantiate<CardAnimCallback>(cardPhase.cardAnimName, CardFactory.cardAnimFolder);
       cardAnimCallback.gameObject.SetActiveEx(false);
       cardAnimCallback.SetCard(this);
 

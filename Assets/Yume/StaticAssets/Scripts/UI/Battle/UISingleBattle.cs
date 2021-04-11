@@ -55,13 +55,13 @@ namespace Yume.UI {
         return;
       }
       
-      if (UIManager.GetTopUI(uiType).name == name) {
+      if (UIManager.GetTopUI().name == name) {
         UIManager.OpenOne(
           "confirmation", null,
           "确认放弃作战？", "确认", "取消", m_abort, null
         );
       } else {
-        UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
+        UIManager.CloseOne(UIManager.GetTopUI().name);
       }
     }
 
@@ -87,17 +87,18 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      base.Open(callback, args);
-      
       UIManager.onBackList.Add(_OnClickAbort);
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
-      // 播放战斗中的BGM
-      AudioManager.PlayBgm(levelTemplate.bgm);
+      // 设置bgm
+      uiTemplate.bgm = levelTemplate.bgm;
       // 设置战斗背景
       m_bg.SetSpriteAsync(levelTemplate.background);
       // 开始战斗
-      BattleManager.StartBattle((TeamArgs)args[1], levelTemplate, objectContainer);
+      BattleManager.StartBattle((TeamArgs)args[1], levelTemplate, objectContainer); 
+      
+      // 注意顺序
+      base.Open(callback, args);
     }
 
     public override void Close(Action callback = null) {

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICardChoice : UIBase {
@@ -81,8 +80,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<CardData> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UICardChoiceTerm(clone, m_cardChoiceGroup);
       }
     }

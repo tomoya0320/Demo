@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Yume.Battle;
 using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICardHeap : UIBase {
@@ -55,8 +54,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<Card> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UICardTerm(clone);
       }
     }

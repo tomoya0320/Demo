@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UICharChoice : UIBase {
@@ -48,8 +47,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<UnitData> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UICharChoiceTerm(clone, m_charChoiceGroup);
       }
     }

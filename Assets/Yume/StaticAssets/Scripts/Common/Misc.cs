@@ -13,6 +13,7 @@ using XLua;
 using Random = System.Random;
 using Axis = UnityEngine.RectTransform.Axis;
 using Component = UnityEngine.Component;
+using Object = UnityEngine.Object;
 
 namespace Yume {
   #region Struct
@@ -206,13 +207,7 @@ namespace Yume {
     public ItemArgs[] attachments;
   }
 
-  public enum UIType {
-    NORMAL,
-    TOP,
-  }
-
   public struct UITemplate {
-    public UIType uiType;
     public string name;
     public string prefabName;
     public string typeName;
@@ -952,6 +947,27 @@ namespace Yume {
         component = gameObject.AddComponent<T>();
       }
       return component;
+    }
+  }
+
+  public static class ObjectUtil {
+    public static GameObject Instantiate(string prefabName, Transform parent = null) {
+      GameObject prefab = ResourceManager.Load<GameObject>(prefabName);
+      return Instantiate(prefab, parent);
+    }
+    
+    public static GameObject Instantiate(GameObject prefab, Transform parent = null) {
+      GameObject gameObject = Object.Instantiate(prefab, parent);
+      gameObject.name = prefab.name;
+      return gameObject;
+    }
+
+    public static T Instantiate<T>(string prefabName, Transform parent = null) where T : Component {
+      return Instantiate(prefabName, parent)?.GetComponent<T>();
+    }    
+    
+    public static T Instantiate<T>(GameObject prefab, Transform parent = null) where T : Component {
+      return Instantiate(prefab, parent)?.GetComponent<T>();
     }
   }
 

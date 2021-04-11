@@ -31,21 +31,15 @@ namespace Yume {
     private static UIGuideContent s_uiGuideContent;
 
     public static void Init() {
-      var guideMaskPrefab = Resources.Load<GameObject>("guide_mask");
-      s_guidMask = Object.Instantiate(guideMaskPrefab, UIManager.guidelCanvas);
-      s_guidMask.name = guideMaskPrefab.name;
+      s_guidMask = ObjectUtil.Instantiate("guide_mask", UIManager.guidelCanvas);
       s_guidMaskButton = s_guidMask.GetComponent<YButton>();
       s_guidMask.SetActiveEx(false);
-
-      var guideContentPrefab = Resources.Load<GameObject>("guide_content");
-      var guideContent = Object.Instantiate(guideContentPrefab, UIManager.guidelCanvas);
-      guideContent.name = guideContentPrefab.name;
+      
+      var guideContent = ObjectUtil.Instantiate("guide_content", UIManager.guidelCanvas);
       s_uiGuideContent = new UIGuideContent(guideContent);
       guideContent.SetActiveEx(false);
-
-      var indicatorPrefab = Resources.Load<GameObject>("indicator");
-      s_indicator = Object.Instantiate(indicatorPrefab, UIManager.guidelCanvas);
-      s_indicator.name = indicatorPrefab.name;
+      
+      s_indicator = ObjectUtil.Instantiate("indicator", UIManager.guidelCanvas);
       s_indicator.SetActiveEx(false);
     }
 
@@ -68,7 +62,7 @@ namespace Yume {
         // 等UI动画结束了再调用
         yield return new WaitWhile(UIManager.IsAnyBlocked);
         Action action = () => _SetGuideStep(guide, stepEnumerator);
-        if (UIManager.GetTopUI(UIType.NORMAL).name == stepEnumerator.current.uiName) {
+        if (UIManager.GetTopUI().name == stepEnumerator.current.uiName) {
           action();
         } else {
           UIManager.OpenOne(stepEnumerator.current.uiName, action);
@@ -82,7 +76,7 @@ namespace Yume {
 
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
-      var ui = UIManager.GetTopUI(UIType.NORMAL);
+      var ui = UIManager.GetTopUI();
       RectTransform targetObj;
       if (stepEnumerator.current.isDynamicListObj) {
         targetObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);

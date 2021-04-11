@@ -8,7 +8,7 @@ using Yume.AVG;
 namespace Yume.UI {
   public class UIAVG : UIBase {
     #region Component
-    
+
     public Image bgImage { private set; get; }
     public Text nameText { private set; get; }
     public Button skipButton { private set; get; }
@@ -25,7 +25,7 @@ namespace Yume.UI {
     public CanvasGroup optionCanvasGroup { private set; get; }
     public CanvasGroup dialogueCanvasGroup { private set; get; }
     public CanvasGroup inputFieldCanvasGroup { private set; get; }
-    
+
     #endregion
 
     private bool m_auto;
@@ -55,9 +55,9 @@ namespace Yume.UI {
       videoCanvasGroup = GetComponent<CanvasGroup>("videoCanvasGroup");
       dialogueCanvasGroup = GetComponent<CanvasGroup>("dialogueCanvasGroup");
       inputFieldCanvasGroup = GetComponent<CanvasGroup>("inputFieldCanvasGroup");
-      
+
       optionBtns = optionCanvasGroup.GetComponentsInChildren<YButton>(true);
-      
+
       videoPlayer.targetCamera = Camera.main;
 
       _AddListener();
@@ -69,7 +69,7 @@ namespace Yume.UI {
         () =>
           UIManager.OpenOne("avg_history", null, historyDialogues)
       );
-      
+
       autoButton.onClick.AddListener(() => _SetAutoState(!m_auto));
       skipButton.onClick.AddListener(Skip);
       skipVideoButton.onClick.AddListener(SkipVideo);
@@ -101,7 +101,7 @@ namespace Yume.UI {
           }
           if (m_auto) {
             // 当玩家在进行其他操作的时候等待
-            yield return new WaitUntil(() => UIManager.GetTopUI(UIType.NORMAL).name == name);
+            yield return new WaitUntil(() => UIManager.GetTopUI().name == name);
             m_avgGraph.Run(this);
           }
         }
@@ -111,56 +111,43 @@ namespace Yume.UI {
 
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
-      
-      // 停止BGM
-      AudioManager.StopBgm();
 
       m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
       onQuitAVG = args[1] as Action;
       playerName = DataManager.playerName;
-      
+
       // 检查是否激活跳过按钮
       _CheckSkipButtons();
-      
+
       UIManager.onBackList.Add(Skip);
-      
+
       m_avgGraph.Enter(this);
       m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
-    }
-
-    public override void Close(Action callback = null) {
-      callback += () => {
-        _CleanUp();
-        onQuitAVG?.Invoke();
-        UIManager.onBackList.Remove(Skip);
-      };
-
-      base.Close(callback);
     }
 
     public void Skip() {
       if (m_avgGraph.disableSkip) {
         return;
       }
-      
-      if (UIManager.GetTopUI(uiType).name == name) {
+
+      if (UIManager.GetTopUI().name == name) {
         Action action = QuitAVG;
         UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
+        UIManager.CloseOne(UIManager.GetTopUI().name);
       }
-    }    
-    
+    }
+
     public void SkipVideo() {
       if (m_avgGraph.disableSkipVideo) {
         return;
       }
-      
-      if (UIManager.GetTopUI(uiType).name == name) {
+
+      if (UIManager.GetTopUI().name == name) {
         Action action = videoPlayer.Stop;
         UIManager.OpenOne("confirmation", null, "确认跳过视频？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetTopUI(uiType).name);
+        UIManager.CloseOne(UIManager.GetTopUI().name);
       }
     }
 
@@ -172,32 +159,14 @@ namespace Yume.UI {
     }
 
     public void QuitAVG() {
-      UIManager.OpenOne("globalBlackFade", () => UIManager.CloseOne(name));
+      UIManager.GlobalFade(GlobalFadeType.BLACK_FADE, _CleanUp + onQuitAVG);
     }
 
     private void _CleanUp() {
       m_avgGraph.CleanUp();
-      foreach (var dialogOptionBtn in optionBtns) {
-        dialogOptionBtn.textComponent.text = StringMap.EMPTY;
-        dialogOptionBtn.onClick.RemoveAllListeners();
-      }
-      playerName = StringMap.EMPTY;
-      inputField.text = StringMap.EMPTY;
-      inputFieldOkBtn.onClick.RemoveAllListeners();
-      inputFieldCanvasGroup.alpha = 0;
-      inputFieldCanvasGroup.blocksRaycasts = false; 
-      optionCanvasGroup.alpha = 0;
-      optionCanvasGroup.blocksRaycasts = false;
-      bgImage.color = Color.white;
-      nameText.text = StringMap.EMPTY;
-      illustration.color = Color.white;
-      dialogueCanvasGroup.alpha = 1.0f;
-      historyDialogues = StringMap.EMPTY;
-      dialogueText.text = StringMap.EMPTY;
-      bgImage.sprite = ResourceManager.Load<Sprite>("noSprite");
-      illustration.sprite = ResourceManager.Load<Sprite>("noSprite");
       CoroutineHelper.instance.Stop(m_autoCoroutine);
-      m_autoCoroutine = null;
+      UIManager.DestroyOne(name);
+      UIManager.onBackList.Remove(Skip);
     }
   }
 }

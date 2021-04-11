@@ -108,8 +108,8 @@ namespace Yume.Battle {
       // 避免引用到BattleManager的变量因为这些变量后面就置空了
       LevelTemplate levelTemplate = s_levelTemplate;
       // 退出战斗
-      UIManager.OpenOne(
-        "globalBlackFade", () => {
+      UIManager.GlobalFade(
+        GlobalFadeType.BLACK_FADE, () => {
           // 先清理
           _CleanUp();
           // 再关闭战斗UI

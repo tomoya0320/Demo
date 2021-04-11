@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public abstract class Unit {
@@ -47,8 +46,7 @@ namespace Yume.Battle {
       attribs = MathUtil.CalculateAttribs(unitArgs.id, unitArgs.lv);
 
       // 表现层
-      var prefab = ResourceManager.Load<GameObject>(unitTemplate.prefabName);
-      gameObject = Object.Instantiate(prefab, folder);
+      gameObject = ObjectUtil.Instantiate(unitTemplate.prefabName, folder);
       animator = gameObject.GetComponent<Animator>();
 
       var objectContainer = gameObject.GetComponent<ObjectContainer>();

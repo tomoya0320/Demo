@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  public class UIItemDetail : UIBase {
+  public class UIItemDetail : UIGaussianBlurBg {
     private Image m_iconImg;
     private Text m_descText;
     private Text m_nameNumText;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.Battle;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIBattleUnitDetail : UIBase {
@@ -38,8 +37,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<Buff> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UIBuffTerm(clone);
       }
     }

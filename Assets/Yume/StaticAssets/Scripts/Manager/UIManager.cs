@@ -1,24 +1,43 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.Utilities;
 using UnityEngine;
+using UnityEngine.UI;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume {
+  public enum GlobalFadeType {
+    BLACK_FADE,
+    CIRCLE_FADE,
+  }
+
   public static class UIManager {
+    #region UIFolder
+
     public static Transform topCanvas { private set; get; }
     public static Transform tipCanvas { private set; get; }
     public static Transform cacheCanvas { private set; get; }
     public static Transform normalCanvas { private set; get; }
     public static Transform guidelCanvas { private set; get; }
+
+    #endregion
+
+    #region GlobalFade
+
+    private static Animation s_blackFadeAnim;
+    private static Animation s_circleFadeAnim;
+    private static Image s_circleFadeImage;
+
+    #endregion
+
+    private static int s_block;
     public static int activeBack = 1;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
-    private static Dictionary<UIType, int> s_blockDict = new Dictionary<UIType, int>();
-    private static Dictionary<UIType, Stack<UIBase>> s_uiStackDict = new Dictionary<UIType, Stack<UIBase>>();
-    private static Dictionary<UIType, List<(float createTime, UIBase ui)>> s_uiCacheDict = new Dictionary<UIType, List<(float, UIBase)>>();
+    private static Stack<UIBase> s_uiStack = new Stack<UIBase>();
+    private static Dictionary<string, (float createTime, UIBase ui)> s_uiCacheDict = new Dictionary<string, (float, UIBase)>();
 
     public static void Init() {
       topCanvas = GameObject.Find("UIRoot/TopCanvas").transform;
@@ -27,17 +46,18 @@ namespace Yume {
       guidelCanvas = GameObject.Find("UIRoot/GuideCanvas").transform;
       normalCanvas = GameObject.Find("UIRoot/NormalCanvas").transform;
 
-      foreach (UIType type in Enum.GetValues(typeof(UIType))) {
-        s_blockDict.Add(type, 0);
-        s_uiStackDict.Add(type, new Stack<UIBase>());
-        s_uiCacheDict.Add(type, new List<(float, UIBase)>());
-      }
-      
+      GameObject tempGo = ObjectUtil.Instantiate("globalBlackFade", topCanvas);
+      s_blackFadeAnim = tempGo.GetComponent<Animation>();
+      tempGo.SetActiveEx(false);
+      tempGo = ObjectUtil.Instantiate("globalCircleBlackFade", topCanvas);
+      s_circleFadeAnim = tempGo.GetComponent<Animation>();
+      s_circleFadeImage = tempGo.GetComponent<Image>();
+      tempGo.SetActiveEx(false);
+
       onBackList.Add(
         () => {
-          var uiStack = s_uiStackDict[UIType.NORMAL]; // 回退操作只适用于NORMAL层的UI
-          if (uiStack.Count > 1 || (uiStack.Count > 0 && uiStack.Peek().name == "confirmation")) {
-            CloseOne(uiStack.Peek().name);
+          if (s_uiStack.Count > 1 || (s_uiStack.Count > 0 && s_uiStack.Peek().name == "confirmation")) {
+            CloseOne(s_uiStack.Peek().name);
           } else {
             OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
           }
@@ -60,26 +80,21 @@ namespace Yume {
     }
 
     private static void _UpdateUI() {
-      foreach (var uiStack in s_uiStackDict.Values) {
-        uiStack.ForEach(ui => ui.OnUpdate());
-      }
+      s_uiStack.ForEach(ui => ui.OnUpdate());
     }
 
     private static void _UpdateCache() {
-      foreach (var list in s_uiCacheDict.Values) {
-        for (int i = list.Count - 1; i >= 0; i--) {
-          if (list[i].ui.cacheTime > 0 && list[i].createTime +
-            list[i].ui.cacheTime <= Time.realtimeSinceStartup) {
-
-            list[i].ui.Destroy();
-            list.RemoveAt(i);
-          }
+      foreach (var name in s_uiCacheDict.Keys.ToArray()) {
+        (float createTime, UIBase ui) = s_uiCacheDict[name];
+        if (ui.cacheTime > 0 && createTime + ui.cacheTime <= Time.realtimeSinceStartup) {
+          s_uiCacheDict.Remove(name);
+          ui.Destroy();
         }
       }
     }
 
-    public static UIBase GetTopUI(UIType uiType) {
-      return s_uiStackDict[uiType].Peek();
+    public static UIBase GetTopUI() {
+      return s_uiStack.Peek();
     }
 
     /// <summary>
@@ -92,36 +107,28 @@ namespace Yume {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
 
-        if (s_blockDict[data.uiType] > 0) {
+        if (s_block > 0) {
           return;
         }
 
-        var stack = s_uiStackDict[data.uiType];
-        
-        _OpenInternal(data, stack, callback, args);
+        _OpenInternal(data, callback, args);
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
-    private static void _OpenInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null, params object[] args) {
+    private static void _OpenInternal(UITemplate uiTemplate, Action callback = null, params object[] args) {
       if (!_TryGetCache(uiTemplate, out UIBase ui)) {
         ui = AssemblyUtil.CreateInstance<UIBase>(uiTemplate.typeName);
-        GameObject prefab = ResourceManager.Load<GameObject>(uiTemplate.prefabName);
-        if (prefab == null) {
-          Debug.LogError($"Prefab为空！url:{uiTemplate.prefabName}");
-          return;
-        }
-        GameObject tempGo = Object.Instantiate(prefab, _GetRootByType(uiTemplate.uiType));
+        GameObject tempGo = ObjectUtil.Instantiate(uiTemplate.prefabName, normalCanvas);
         tempGo.name = uiTemplate.name;
         ui.OnInit(uiTemplate, tempGo);
       }
 
-      if (stack.Count > 0) {
-        stack.Peek().OnHide();
+      if (s_uiStack.Count > 0) {
+        s_uiStack.Peek().OnHide();
       }
-      stack.Push(ui);
-      ui.OnDisplay();
+      s_uiStack.Push(ui);
       ui.Open(callback, args);
     }
 
@@ -132,18 +139,13 @@ namespace Yume {
     /// <param name="ui"></param>
     /// <returns></returns>
     private static bool _TryGetCache(UITemplate uiTemplate, out UIBase ui) {
-      ui = null;
-      
-      int index = s_uiCacheDict[uiTemplate.uiType].
-        FindIndex(tuple => tuple.ui.name == uiTemplate.name);
-      
-      if (index >= 0) {
-        ui = s_uiCacheDict[uiTemplate.uiType][index].ui;
-        ui.root.SetParent(_GetRootByType(uiTemplate.uiType));
-        s_uiCacheDict[uiTemplate.uiType].RemoveAt(index);
+      if (s_uiCacheDict.ContainsKey(uiTemplate.name)) {
+        ui = s_uiCacheDict[uiTemplate.name].ui;
+        ui.gameObject.SetParent(normalCanvas);
+        s_uiCacheDict.Remove(uiTemplate.name);
         return true;
       }
-      
+      ui = null;
       return false;
     }
 
@@ -157,23 +159,19 @@ namespace Yume {
     /// <param name="args"></param>
     public static void DestroyAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        var data = ResourceManager.Load<UITemplate>(name);
-
-        if (s_blockDict[data.uiType] > 0) {
+        if (s_block > 0) {
           return;
         }
 
-        var stack = s_uiStackDict[data.uiType];
-
-        while (stack.Count > 0) {
-          stack.Pop().Destroy();
+        while (s_uiStack.Count > 0) {
+          s_uiStack.Pop().Destroy();
         }
         OpenOne(name, callback, args);
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
     }
-    
+
     /// <summary>
     /// 销毁栈中当前的UI并打开新的UI
     /// 关闭的UI不会被回收
@@ -183,18 +181,33 @@ namespace Yume {
     /// <param name="args"></param>
     public static void DestroyOneAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        var data = ResourceManager.Load<UITemplate>(name);
-
-        if (s_blockDict[data.uiType] > 0) {
+        if (s_block > 0) {
           return;
         }
 
-        var stack = s_uiStackDict[data.uiType];
-
-        if (stack.Count > 0) {
-          stack.Pop().Destroy();
+        if (s_uiStack.Count > 0) {
+          s_uiStack.Pop().Destroy();
         }
         OpenOne(name, callback, args);
+      } else {
+        Debug.LogError($"UI未加载！name：{name}");
+      }
+    }
+
+    /// <summary>
+    /// 销毁栈中当前的UI
+    /// 关闭的UI不会被回收
+    /// </summary>
+    /// <param name="name"></param>
+    public static void DestroyOne(string name) {
+      if (ResourceManager.Contains<UITemplate>(name)) {
+        if (s_block > 0) {
+          return;
+        }
+
+        if (s_uiStack.Count > 0 && s_uiStack.Peek().name == name) {
+          s_uiStack.Pop().Destroy();
+        }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
@@ -207,20 +220,16 @@ namespace Yume {
     /// <param name="callback"></param>
     public static void CloseOne(string name, Action callback = null) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        var data = ResourceManager.Load<UITemplate>(name);
-
-        if (s_blockDict[data.uiType] > 0) {
+        if (s_block > 0) {
           return;
         }
 
-        var stack = s_uiStackDict[data.uiType];
-
-        if (stack.Count == 0) {
+        if (s_uiStack.Count == 0) {
           Debug.LogError("UI栈为空！");
           return;
         }
-        if (stack.Peek().name == name) {
-          _CloseInternal(data, stack, callback);
+        if (s_uiStack.Peek().name == name) {
+          _CloseInternal(callback);
         } else {
           Debug.LogError($"UI未在栈顶！name：{name}");
         }
@@ -229,53 +238,74 @@ namespace Yume {
       }
     }
 
-    private static void _CloseInternal(UITemplate uiTemplate, Stack<UIBase> stack, Action callback = null) {
+    private static void _CloseInternal(Action callback = null) {
       // Action的执行顺序要特别当心
       // 先执行下面的再执行其他的回调
       // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
-        UIBase ui = stack.Pop();
-        ui.root.SetParent(cacheCanvas);
-        s_uiCacheDict[uiTemplate.uiType].Add((Time.realtimeSinceStartup, ui));
-        ui.OnHide();
+        UIBase ui = s_uiStack.Pop();
+        ui.gameObject.SetParent(cacheCanvas);
+        s_uiCacheDict.Add(ui.name, (Time.realtimeSinceStartup, ui));
 
-        if (stack.Count > 0) {
-          stack.Peek().OnDisplay();
+        if (s_uiStack.Count > 0) {
+          s_uiStack.Peek().OnDisplay();
         }
       };
       callback = action + callback;
 
-      stack.Peek().Close(callback);
-    }
-
-    private static Transform _GetRootByType(UIType uiType) {
-      switch (uiType) {
-        case UIType.NORMAL:
-          return normalCanvas;
-        case UIType.TOP:
-          return topCanvas;
-        default:
-          return null;
-      }
+      s_uiStack.Peek().Close(callback);
     }
 
     public static void Block(UIBase ui) {
-      s_blockDict[ui.uiType]++;
+      s_block++;
       ui.canvasGroup.interactable = false;
     }
 
     public static void Unblock(UIBase ui) {
-      s_blockDict[ui.uiType]--;
+      s_block--;
       ui.canvasGroup.interactable = true;
     }
 
     public static bool IsAnyBlocked() {
-      foreach (var block in s_blockDict.Values) {
-        if (block > 0) {
-          return true;
-        }
+      return s_block > 0;
+    }
+
+    public static void GlobalFade(GlobalFadeType type, Action callback) {
+      Animation animation = null;
+      switch (type) {
+        case GlobalFadeType.BLACK_FADE:
+          animation = s_blackFadeAnim;
+          break;
+        case GlobalFadeType.CIRCLE_FADE:
+          Vector2 clickPos = ScreenUtil.mousePosNormalized;
+          Color color = s_circleFadeImage.color;
+          color.r = clickPos.x;
+          color.g = clickPos.y;
+          s_circleFadeImage.color = color;
+          animation = s_circleFadeAnim;
+          break;
       }
-      return false;
+      if (animation == null) {
+        Debug.LogError($"未知的全局过渡类型！{type}");
+        return;
+      }
+      CoroutineHelper.instance.Run(_GlobalFade(animation, callback));
+    }
+
+    private static IEnumerator _GlobalFade(Animation animation, Action callback) {
+      s_block++;
+      animation.gameObject.SetActiveEx(true);
+      animation.Play("open");
+      yield return new WaitWhile(() => animation.isPlaying);
+      s_block--;
+      
+      callback?.Invoke();
+      
+      s_block++;
+      animation.Play("close");
+      yield return new WaitWhile(() => animation.isPlaying);
+      animation.gameObject.SetActiveEx(false);
+      s_block--;
     }
   }
 }

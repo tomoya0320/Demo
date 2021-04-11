@@ -28,7 +28,7 @@ namespace Yume {
       // 实例化初始化UI
       var parent = GameObject.Find("UIRoot/NormalCanvas").transform;
       var initPanelPrefab = Resources.Load<GameObject>("init");
-      m_initPanel = Instantiate(initPanelPrefab, parent);
+      m_initPanel = ObjectUtil.Instantiate(initPanelPrefab, parent);
       m_initPanel.name = initPanelPrefab.name;
       var objectContainer = m_initPanel.GetComponent<ObjectContainer>();
       m_tipText = objectContainer.GetComponent<Text>("tip");
@@ -42,12 +42,15 @@ namespace Yume {
             UIManager.OpenOne("main");
           };
           if (DataManager.LoadUserData()) {
-            UIManager.OpenOne("globalCircleBlackFade", callback, ScreenUtil.mousePosNormalized);
+            UIManager.GlobalFade(GlobalFadeType.CIRCLE_FADE, callback);
           } else {
             string openingAVG = ResourceManager.Load<string>("openingAVG");
             Action action = () => DataManager.UpdateGuide(ConditionType.FIRST_PLAY);
             callback = action + callback;
-            UIManager.OpenOne("globalBlackFade", () => UIManager.OpenOne("avg", null, openingAVG, callback));
+            UIManager.GlobalFade(
+              GlobalFadeType.BLACK_FADE,
+              () => UIManager.OpenOne("avg", null, openingAVG, callback)
+            );
           }
           RedDotManager.InitData();
         }

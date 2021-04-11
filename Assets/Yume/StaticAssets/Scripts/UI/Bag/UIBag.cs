@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
-using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIBag : UIBase {
@@ -39,8 +38,7 @@ namespace Yume.UI {
       }
 
       public IScrollTerm<ItemData> Clone() {
-        var clone = Object.Instantiate(gameObject, gameObject.GetParent());
-        clone.name = gameObject.name;
+        var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
         return new UIItemTerm(clone);
       }
     }

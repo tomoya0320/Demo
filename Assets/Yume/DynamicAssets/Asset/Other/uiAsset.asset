@@ -26,73 +26,10 @@ MonoBehaviour:
       Data: 0|Yume.UITemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 31
+      Data: 29
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 1
-    - Name: name
-      Entry: 1
-      Data: globalBlackFade
-    - Name: prefabName
-      Entry: 1
-      Data: globalBlackFade
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIGlobalFade
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 1
-    - Name: name
-      Entry: 1
-      Data: globalCircleBlackFade
-    - Name: prefabName
-      Entry: 1
-      Data: globalCircleBlackFade
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIGlobalCircleFade
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: avg
@@ -102,15 +39,12 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVG
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
     - Name: effectName
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: empty
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -120,9 +54,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: main
@@ -132,9 +63,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMain
-    - Name: overrideBgm
-      Entry: 5
-      Data: true
     - Name: bgm
       Entry: 1
       Data: bgm_main
@@ -150,9 +78,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: setting
@@ -162,9 +87,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISetting
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -180,9 +102,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: task
@@ -192,9 +111,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITask
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -210,9 +126,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: mail
@@ -222,9 +135,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMail
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -240,9 +150,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: bag
@@ -252,9 +159,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBag
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -270,9 +174,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: card
@@ -282,9 +183,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICard
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -300,9 +198,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: char
@@ -312,9 +207,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIChar
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -330,9 +222,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: char_detail
@@ -342,9 +231,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharDetail
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -360,9 +246,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: confirmation
@@ -372,9 +255,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIConfirmation
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -390,9 +270,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: text_editor
@@ -402,9 +279,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITextEditor
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -420,9 +294,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: team
@@ -432,9 +303,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITeam
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -450,9 +318,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: char_choice
@@ -462,9 +327,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharChoice
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -480,9 +342,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: card_choice
@@ -492,9 +351,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardChoice
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -510,9 +366,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: item_detail
@@ -522,9 +375,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIItemDetail
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -540,9 +390,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: battle
@@ -552,9 +399,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBattle
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -570,9 +414,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: main_story
@@ -582,9 +423,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMainStory
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -600,9 +438,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: level_panel
@@ -612,9 +447,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UILevelPanel
-    - Name: overrideBgm
-      Entry: 5
-      Data: true
     - Name: bgm
       Entry: 1
       Data: bgm_main
@@ -630,9 +462,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: single_battle
@@ -642,9 +471,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISingleBattle
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -660,9 +486,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: card_heap
@@ -672,9 +495,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardHeap
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -690,9 +510,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: avg_history
@@ -702,9 +519,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVGHistory
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -720,9 +534,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: enemy_detail
@@ -732,9 +543,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIEnemyDetail
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -750,9 +558,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: char_add_exp
@@ -762,9 +567,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharAddExp
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -780,9 +582,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: char_update_passive_skill
@@ -792,9 +591,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharUpdatePassiveSkill
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -810,9 +606,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: card_update
@@ -822,9 +615,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardUpdate
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -840,9 +630,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: team_before_battle
@@ -852,9 +639,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITeamBeforeBattle
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -870,9 +654,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: level_panel_no_battle
@@ -882,9 +663,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UILevelPanelNoBattle
-    - Name: overrideBgm
-      Entry: 5
-      Data: true
     - Name: bgm
       Entry: 1
       Data: bgm_main
@@ -900,9 +678,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: item_settlement
@@ -912,9 +687,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIItemSettlement
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 
@@ -930,9 +702,6 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: Yume.UITemplate, Assembly-CSharp
-    - Name: uiType
-      Entry: 3
-      Data: 0
     - Name: name
       Entry: 1
       Data: battle_unit_detail
@@ -942,9 +711,6 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBattleUnitDetail
-    - Name: overrideBgm
-      Entry: 5
-      Data: false
     - Name: bgm
       Entry: 6
       Data: 

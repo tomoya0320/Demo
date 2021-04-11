@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume {
   public struct Message {
@@ -95,9 +94,7 @@ namespace Yume {
       s_uiMessageDict = new Dictionary<Message.Style, UIMessage>();
       s_messageQueueDict = new Dictionary<Message.Style, Queue<Message>>();
       foreach (Message.Style style in Enum.GetValues(typeof(Message.Style))) {
-        var prefab = Resources.Load<GameObject>(style.GetDescription());
-        var gameObject = Object.Instantiate(prefab, UIManager.tipCanvas);
-        gameObject.name = prefab.name;
+        var gameObject = ObjectUtil.Instantiate(style.GetDescription(), UIManager.tipCanvas);
         s_uiMessageDict.Add(style, new UIMessage(gameObject));
         s_messageQueueDict.Add(style, new Queue<Message>());
       }
