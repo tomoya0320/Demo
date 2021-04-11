@@ -1026,7 +1026,7 @@ namespace Yume {
     public const string CLICK_GET = "点击领取";
     public const string GOT = "已领取";
     public const string GET = "获得";
-    public const string DEFAULT_BGM = "default_bgm";
+    public const string START_BGM = "start_bgm";
     public const string DEFAULT_HURT_SOUND = "default_hurt_sound";
     public const string DEFAULT_CLICK_SOUND = "default_click_sound";
     public const string EXP_ITEM_ID = "item_0_exp";

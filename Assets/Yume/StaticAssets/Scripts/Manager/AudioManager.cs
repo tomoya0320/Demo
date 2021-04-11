@@ -14,10 +14,10 @@ namespace Yume {
       public readonly string valueKey = UISettingType.SOUND.GetDescription() + StringMap.VALUE;
       public readonly string switchKey = UISettingType.SOUND.GetDescription() + StringMap.SWITCH;
 
-      public SoundManager(Transform root) {
+      public SoundManager(Transform parent) {
         for (int i = 1; i <= Constant.MAX_SOUND_COUNT; i++) {
           var gameObject = new GameObject($"Sound_{i}");
-          gameObject.transform.parent = root;
+          gameObject.transform.parent = parent;
           var audioSource = gameObject.AddComponent<AudioSource>();
           audioSource.playOnAwake = false;
 
@@ -61,12 +61,13 @@ namespace Yume {
       private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
       private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
 
-      public BGMManager(Transform root) {
+      public BGMManager(Transform parent) {
         GameObject gameObject = new GameObject("BGM");
-        gameObject.transform.parent = root;
+        gameObject.transform.SetParent(parent);
         m_audioSource = gameObject.AddComponent<AudioSource>();
+        m_audioSource.playOnAwake = false;
         m_audioSource.loop = true;
-
+        
         if (!PlayerPrefs.HasKey(m_valueKey)) {
           PlayerPrefs.SetFloat(m_valueKey, 1.0f);
         }
@@ -147,8 +148,8 @@ namespace Yume {
       s_bgmManager = new BGMManager(audioRoot);
       s_soundManager = new SoundManager(audioRoot);
 
-      // 播放默认的bgm
-      PlayBgm(StringMap.DEFAULT_BGM);
+      // 播放开始界面的bgm
+      PlayBgm(StringMap.START_BGM);
     }
 
     #region BGM

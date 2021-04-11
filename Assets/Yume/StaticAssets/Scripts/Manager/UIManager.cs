@@ -32,8 +32,10 @@ namespace Yume {
 
     #endregion
 
-    private static int s_block;
+    private static int s_blockNormalUI;
     public static int activeBack = 1;
+    public static bool blockNormalUI => s_blockNormalUI > 0;
+    public static bool globalFading { private set; get; }
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
     private static Stack<UIBase> s_uiStack = new Stack<UIBase>();
@@ -107,7 +109,7 @@ namespace Yume {
       if (ResourceManager.Contains<UITemplate>(name)) {
         var data = ResourceManager.Load<UITemplate>(name);
 
-        if (s_block > 0) {
+        if (s_blockNormalUI > 0) {
           return;
         }
 
@@ -159,7 +161,7 @@ namespace Yume {
     /// <param name="args"></param>
     public static void DestroyAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_block > 0) {
+        if (s_blockNormalUI > 0) {
           return;
         }
 
@@ -181,7 +183,7 @@ namespace Yume {
     /// <param name="args"></param>
     public static void DestroyOneAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_block > 0) {
+        if (s_blockNormalUI > 0) {
           return;
         }
 
@@ -201,7 +203,7 @@ namespace Yume {
     /// <param name="name"></param>
     public static void DestroyOne(string name) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_block > 0) {
+        if (s_blockNormalUI > 0) {
           return;
         }
 
@@ -220,7 +222,7 @@ namespace Yume {
     /// <param name="callback"></param>
     public static void CloseOne(string name, Action callback = null) {
       if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_block > 0) {
+        if (s_blockNormalUI > 0) {
           return;
         }
 
@@ -256,18 +258,14 @@ namespace Yume {
       s_uiStack.Peek().Close(callback);
     }
 
-    public static void Block(UIBase ui) {
-      s_block++;
+    public static void BlockNormalUI(UIBase ui) {
+      s_blockNormalUI++;
       ui.canvasGroup.interactable = false;
     }
 
-    public static void Unblock(UIBase ui) {
-      s_block--;
+    public static void UnblockNormalUI(UIBase ui) {
+      s_blockNormalUI--;
       ui.canvasGroup.interactable = true;
-    }
-
-    public static bool IsAnyBlocked() {
-      return s_block > 0;
     }
 
     public static void GlobalFade(GlobalFadeType type, Action callback) {
@@ -293,19 +291,17 @@ namespace Yume {
     }
 
     private static IEnumerator _GlobalFade(Animation animation, Action callback) {
-      s_block++;
+      activeBack--;
+      globalFading = true;
       animation.gameObject.SetActiveEx(true);
       animation.Play("open");
       yield return new WaitWhile(() => animation.isPlaying);
-      s_block--;
-      
       callback?.Invoke();
-      
-      s_block++;
       animation.Play("close");
       yield return new WaitWhile(() => animation.isPlaying);
       animation.gameObject.SetActiveEx(false);
-      s_block--;
+      globalFading = false;
+      activeBack++;
     }
   }
 }

@@ -4,7 +4,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume {
   public static class GuideManager {
@@ -59,8 +58,8 @@ namespace Yume {
 
     private static IEnumerator _ShowGuide(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       if (stepEnumerator.TryMoveNext()) {
-        // 等UI动画结束了再调用
-        yield return new WaitWhile(UIManager.IsAnyBlocked);
+        // 等UI动画和全局过渡动画都结束了再调用
+        yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
         Action action = () => _SetGuideStep(guide, stepEnumerator);
         if (UIManager.GetTopUI().name == stepEnumerator.current.uiName) {
           action();

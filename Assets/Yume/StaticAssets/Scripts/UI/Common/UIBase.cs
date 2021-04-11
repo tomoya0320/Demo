@@ -57,10 +57,10 @@ namespace Yume.UI {
     /// <param name="callback"></param>
     public virtual void Close(Action callback = null) {
       //保证动画完整播放
-      UIManager.Block(this);
+      UIManager.BlockNormalUI(this);
 
       Action action = () => {
-        UIManager.Unblock(this);
+        UIManager.UnblockNormalUI(this);
         gameObject.SetActiveEx(false);
         OnHide();
       };
@@ -80,17 +80,18 @@ namespace Yume.UI {
     /// <param name="callback"></param>
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
+      gameObject.SetActiveEx(true);
+      
       // 缓存bgm和UI特效信息
       CacheBgm();
       CacheEffect();
-
-      gameObject.SetActiveEx(true);
+      
       OnDisplay();
 
       //保证动画完整播放
-      UIManager.Block(this);
+      UIManager.BlockNormalUI(this);
 
-      Action action = () => UIManager.Unblock(this);
+      Action action = () => UIManager.UnblockNormalUI(this);
       callback = action + callback;
 
       var opneClip = animation.GetClip("open");

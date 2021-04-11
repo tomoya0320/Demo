@@ -74,7 +74,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 9f455985698137b4e985f2d46baa67ce
-    m_Address: default_bgm
+    m_Address: start_bgm
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
@@ -119,8 +119,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-    m_MainAsset: {fileID: 8300000, guid: 4e1dbe7aab9162e4898a8ada067181cd, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: 4e1dbe7aab9162e4898a8ada067181cd, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:
