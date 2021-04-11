@@ -87,6 +87,8 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
+      base.Open(callback, args);
+      
       UIManager.onBackList.Add(_OnClickAbort);
 
       LevelTemplate levelTemplate = (LevelTemplate)args[0];
@@ -96,8 +98,6 @@ namespace Yume.UI {
       m_bg.SetSpriteAsync(levelTemplate.background);
       // 开始战斗
       BattleManager.StartBattle((TeamArgs)args[1], levelTemplate, objectContainer);
-
-      base.Open(callback, args);
     }
 
     public override void Close(Action callback = null) {

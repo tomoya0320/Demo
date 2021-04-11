@@ -17,14 +17,15 @@ namespace Yume.UI {
 
     public virtual void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       gameObject.SetActiveEx(false);
-      
+
       root = gameObject;
       m_uiTemplate = uiTemplate;
       animation = gameObject.GetComponent<Animation>();
       canvasGroup = gameObject.GetComponent<CanvasGroup>();
       objectContainer = gameObject.GetComponent<ObjectContainer>();
-
-      EffectManager.AddUIEffect(uiType, m_uiTemplate.effectName);
+      if (!string.IsNullOrEmpty(m_uiTemplate.effectName)) {
+        EffectManager.AddUIEffect(uiType, m_uiTemplate.effectName);
+      }
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
@@ -101,9 +102,11 @@ namespace Yume.UI {
       if (!string.IsNullOrEmpty(m_uiTemplate.bgm)) {
         AudioManager.PlayBgm(m_uiTemplate.bgm);
       }
-      EffectManager.ShowUIEffect(uiType, m_uiTemplate.effectName);
-    }   
-    
+      if (!string.IsNullOrEmpty(m_uiTemplate.effectName)) {
+        EffectManager.ShowUIEffect(uiType, m_uiTemplate.effectName);
+      }
+    }
+
     /// <summary>
     /// 当前UI被隐藏时调用 case:自己被关闭(需等待至关闭完成)或下一个UI被打开
     /// </summary>
@@ -115,7 +118,9 @@ namespace Yume.UI {
     /// 回收内存
     /// </summary>
     public virtual void Destroy() {
-      EffectManager.RemoveUIEffect(uiType, m_uiTemplate.effectName);
+      if (!string.IsNullOrEmpty(m_uiTemplate.effectName)) {
+        EffectManager.RemoveUIEffect(uiType, m_uiTemplate.effectName);
+      }
       Object.Destroy(root);
     }
   }
