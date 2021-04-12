@@ -31,6 +31,9 @@ namespace Yume.UI {
 
           UIManager.GlobalFade(
             GlobalFadeType.BLACK_FADE, () => {
+              // 立刻把自己给销毁了
+              UIManager.DestroyOne(name);
+
               TeamArgs teamArgs;
               if (m_levelTemplate.isCustomTeam) {
                 teamArgs = m_levelTemplate.customTeam;
@@ -42,7 +45,8 @@ namespace Yume.UI {
                 }
                 teamArgs = new TeamArgs(charArgs, cardArgs);
               }
-              Action action = () => UIManager.DestroyOneAndOpenOne("single_battle", null, m_levelTemplate, teamArgs);
+
+              Action action = () => UIManager.OpenOne("single_battle", null, m_levelTemplate, teamArgs);
               if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {
                 action();
               } else {

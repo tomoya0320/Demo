@@ -198,7 +198,7 @@ namespace Yume.UI {
     private static Material material {
       get {
         if (s_material == null) {
-          s_material = Resources.Load<Material>("GaussianBlur");
+          s_material = ResourceManager.Load<Material>("GaussianBlur");
         }
         return s_material;
       }

@@ -86,9 +86,9 @@ namespace Yume {
     }
 
     private static void _UpdateCache() {
-      foreach (var name in s_uiCacheDict.Keys.ToArray()) {
+      foreach (string name in s_uiCacheDict.Keys.ToArray()) {
         (float createTime, UIBase ui) = s_uiCacheDict[name];
-        if (ui.cacheTime > 0 && createTime + ui.cacheTime <= Time.realtimeSinceStartup) {
+        if (createTime + ui.cacheTime <= Time.realtimeSinceStartup) {
           s_uiCacheDict.Remove(name);
           ui.Destroy();
         }
@@ -154,7 +154,6 @@ namespace Yume {
     /// <summary>
     /// 销毁栈中所有的UI并打开新的UI
     /// 相当于场景跳转
-    /// 关闭的UI不会被回收
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
@@ -175,32 +174,9 @@ namespace Yume {
     }
 
     /// <summary>
-    /// 销毁栈中当前的UI并打开新的UI
-    /// 关闭的UI不会被回收
+    /// 销毁栈顶的UI
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="callback"></param>
-    /// <param name="args"></param>
-    public static void DestroyOneAndOpenOne(string name, Action callback = null, params object[] args) {
-      if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_blockNormalUI > 0) {
-          return;
-        }
-
-        if (s_uiStack.Count > 0) {
-          s_uiStack.Pop().Destroy();
-        }
-        OpenOne(name, callback, args);
-      } else {
-        Debug.LogError($"UI未加载！name：{name}");
-      }
-    }
-
-    /// <summary>
-    /// 销毁栈中当前的UI
-    /// 关闭的UI不会被回收
-    /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">栈顶UI的名字</param>
     public static void DestroyOne(string name) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         if (s_blockNormalUI > 0) {
@@ -226,14 +202,8 @@ namespace Yume {
           return;
         }
 
-        if (s_uiStack.Count == 0) {
-          Debug.LogError("UI栈为空！");
-          return;
-        }
-        if (s_uiStack.Peek().name == name) {
+        if (s_uiStack.Count > 0 && s_uiStack.Peek().name == name) {
           _CloseInternal(callback);
-        } else {
-          Debug.LogError($"UI未在栈顶！name：{name}");
         }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
@@ -246,9 +216,13 @@ namespace Yume {
       // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
         UIBase ui = s_uiStack.Pop();
-        ui.gameObject.SetParent(cacheCanvas);
-        s_uiCacheDict.Add(ui.name, (Time.realtimeSinceStartup, ui));
-
+        if (ui.cacheTime > 0) {
+          ui.gameObject.SetParent(cacheCanvas);
+          s_uiCacheDict.Add(ui.name, (Time.realtimeSinceStartup, ui));
+        } else {
+          ui.Destroy();
+        }
+        
         if (s_uiStack.Count > 0) {
           s_uiStack.Peek().OnDisplay();
         }
