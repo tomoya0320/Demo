@@ -16,10 +16,10 @@ namespace Yume.UI {
       public CardData card => m_card;
       private CardTemplate m_cardTemplate;
       public bool isValid => m_card != null;
-      private UICardChoiceGroup m_cardChoiceGroup;
+      private UICardChoiceContainer m_cardChoiceContainer;
       private YTextAutoScroll m_descTextAutoScroll;
 
-      public UICardChoiceTerm(GameObject root, UICardChoiceGroup cardChoiceGroup) : base(root) {
+      public UICardChoiceTerm(GameObject root, UICardChoiceContainer cardChoiceContainer) : base(root) {
         m_selected = GetGameObject("Selected");
         m_nameText = GetComponent<Text>("NameText");
         m_typeText = GetComponent<Text>("TypeText");
@@ -28,7 +28,7 @@ namespace Yume.UI {
         m_energyText = GetComponent<Text>("EnergyText");
         m_descTextAutoScroll = new YTextAutoScroll(GetGameObject("Description"));
 
-        m_cardChoiceGroup = cardChoiceGroup;
+        m_cardChoiceContainer = cardChoiceContainer;
 
         _AddListener();
       }
@@ -37,12 +37,12 @@ namespace Yume.UI {
         var button = GetComponent<YButton>("SelectButton");
         button.onClick.AddListener(
           () => {
-            if (m_cardChoiceGroup.selectedCards.Contains(m_card)) {
-              m_cardChoiceGroup.selectedCards.Remove(m_card);
-              m_cardChoiceGroup.UpdateView(false);
-            } else if (m_cardChoiceGroup.selectedCards.Count < Constant.MAX_CARD_COUNT) {
-              m_cardChoiceGroup.selectedCards.Add(m_card);
-              m_cardChoiceGroup.UpdateView(false);
+            if (m_cardChoiceContainer.selectedCards.Contains(m_card)) {
+              m_cardChoiceContainer.selectedCards.Remove(m_card);
+              m_cardChoiceContainer.UpdateView(false);
+            } else if (m_cardChoiceContainer.selectedCards.Count < Constant.MAX_CARD_COUNT) {
+              m_cardChoiceContainer.selectedCards.Add(m_card);
+              m_cardChoiceContainer.UpdateView(false);
             }
           }
         );
@@ -57,7 +57,7 @@ namespace Yume.UI {
         m_card = card;
 
         gameObject.SetActiveEx(m_card != null);
-        m_selected.SetActiveEx(m_cardChoiceGroup.selectedCards.Contains(m_card));
+        m_selected.SetActiveEx(m_cardChoiceContainer.selectedCards.Contains(m_card));
 
         if (m_card != null) {
           m_cardTemplate = ResourceManager.Load<CardTemplate>(m_card.id);
@@ -81,11 +81,11 @@ namespace Yume.UI {
 
       public IScrollTerm<CardData> Clone() {
         var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
-        return new UICardChoiceTerm(clone, m_cardChoiceGroup);
+        return new UICardChoiceTerm(clone, m_cardChoiceContainer);
       }
     }
 
-    private class UICardChoiceGroup : UIChildBase, IScrollGroup<CardData, UICardChoiceTerm> {
+    private class UICardChoiceContainer : UIChildBase, IScrollContainer<CardData, UICardChoiceTerm> {
       public List<CardData> cardChoiceList;
       private ScrollRect m_cardChoiceScrollRect;
       public List<CardData> dataList => cardChoiceList;
@@ -95,7 +95,7 @@ namespace Yume.UI {
       private List<UICardChoiceTerm> m_cardChoiceTermList = new List<UICardChoiceTerm>();
       public UIScrollView<CardData, UICardChoiceTerm> cardChoiceScrollView => m_cardChoiceScrollView;
 
-      public UICardChoiceGroup(GameObject root) : base(root) {
+      public UICardChoiceContainer(GameObject root) : base(root) {
         m_cardChoiceScrollRect = GetComponent<ScrollRect>("CardChoiceScrollRect");
         
         cardChoiceList = DataManager.playerCards;
@@ -122,35 +122,35 @@ namespace Yume.UI {
     }
 
     private Action<List<int>> m_onSelected;
-    private UICardChoiceGroup m_cardChoiceGroup;
+    private UICardChoiceContainer m_cardChoiceContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_cardChoiceGroup = new UICardChoiceGroup(GetGameObject("CardChoiceGroup"));
+      m_cardChoiceContainer = new UICardChoiceContainer(GetGameObject("CardChoiceContainer"));
 
       _AddListener();
     }
 
     public override void Open(Action callback = null, params object[] args) {
       List<int> cardGuids = args[0] as List<int>;
-      m_cardChoiceGroup.selectedCards.Clear();
+      m_cardChoiceContainer.selectedCards.Clear();
       foreach (var cardGuid in cardGuids) {
-        m_cardChoiceGroup.selectedCards.Add(DataManager.GetCard(cardGuid));
+        m_cardChoiceContainer.selectedCards.Add(DataManager.GetCard(cardGuid));
       }
       m_onSelected = args[1] as Action<List<int>>;
       
-      m_cardChoiceGroup.OnOpen();
+      m_cardChoiceContainer.OnOpen();
 
       base.Open(callback, args);
     }
     
     public override RectTransform GetDynamicListObj(string list, string id) {
-      if (m_cardChoiceGroup.gameObject.name == list) {
-        int index = m_cardChoiceGroup.dataList.FindLastIndex(data => data.id == id);
+      if (m_cardChoiceContainer.gameObject.name == list) {
+        int index = m_cardChoiceContainer.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
-          m_cardChoiceGroup.cardChoiceScrollView.SetAsFirstDisplay(index);
-          var view = m_cardChoiceGroup.viewList.FindLast(v => v.card?.id == id);
+          m_cardChoiceContainer.cardChoiceScrollView.SetAsFirstDisplay(index);
+          var view = m_cardChoiceContainer.viewList.FindLast(v => v.card?.id == id);
           return view.gameObject.GetComponent<RectTransform>();
         }
       }
@@ -158,14 +158,14 @@ namespace Yume.UI {
     }
 
     public override void OnUpdate() {
-      m_cardChoiceGroup.OnUpdate();
+      m_cardChoiceContainer.OnUpdate();
     }
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
         UIManager.CloseOne(name);
         List<int> cardGuids = new List<int>();
-        foreach (var card in m_cardChoiceGroup.selectedCards) {
+        foreach (var card in m_cardChoiceContainer.selectedCards) {
           cardGuids.Add(card.guid);
         }
         cardGuids.Sort();

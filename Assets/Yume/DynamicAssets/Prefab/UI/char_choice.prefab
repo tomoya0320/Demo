@@ -125,6 +125,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!114 &2762990928613425896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +471,7 @@ MonoBehaviour:
   _textComponent: {fileID: 2532382692960566939}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &2532382692937340796
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +596,7 @@ MonoBehaviour:
   _textComponent: {fileID: 2532382691872825258}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &2532382692960566933
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +814,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: CharChoiceGroup
+      Data: CharChoiceContainer
     - Name: $v
       Entry: 10
       Data: 2
@@ -914,7 +917,7 @@ GameObject:
   - component: {fileID: 6769718655499581554}
   - component: {fileID: 6545088035895215278}
   m_Layer: 5
-  m_Name: char group
+  m_Name: char container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

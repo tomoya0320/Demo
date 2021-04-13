@@ -59,7 +59,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UICardGroup : UIChildBase, IScrollGroup<Card, UICardTerm> {
+    private class UICardContainer : UIChildBase, IScrollContainer<Card, UICardTerm> {
       public List<Card> cardList;
       private ScrollRect m_cardScrollRect;
       public List<Card> dataList => cardList;
@@ -67,7 +67,7 @@ namespace Yume.UI {
       private UIScrollView<Card, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
-      public UICardGroup(GameObject root) : base(root) {
+      public UICardContainer(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         for (int i = 0; i < m_cardScrollRect.content.childCount; i++) {
           m_cardTermList.Add(new UICardTerm(m_cardScrollRect.content.GetChild(i).gameObject));
@@ -94,24 +94,24 @@ namespace Yume.UI {
       }
     }
 
-    private UICardGroup m_cardGroup;
+    private UICardContainer m_cardContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_cardGroup = new UICardGroup(GetGameObject("CardGroup"));
+      m_cardContainer = new UICardContainer(GetGameObject("CardContainer"));
 
       _AddListener();
     }
 
     public override void OnUpdate() {
-      m_cardGroup.OnUpdate();
+      m_cardContainer.OnUpdate();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.cardList = args[0] as List<Card>;
-      m_cardGroup.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
-      m_cardGroup.OnOpen();
+      m_cardContainer.cardList = args[0] as List<Card>;
+      m_cardContainer.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
+      m_cardContainer.OnOpen();
 
       base.Open(callback, args);
     }
@@ -122,7 +122,7 @@ namespace Yume.UI {
 
     public override void Destroy() {
       base.Destroy();
-      m_cardGroup.Destroy();
+      m_cardContainer.Destroy();
     }
   }
 }

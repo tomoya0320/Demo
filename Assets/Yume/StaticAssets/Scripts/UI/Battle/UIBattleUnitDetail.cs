@@ -42,7 +42,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIBuffGroup : UIChildBase, IScrollGroup<Buff, UIBuffTerm> {
+    private class UIBuffContainer : UIChildBase, IScrollContainer<Buff, UIBuffTerm> {
       public Unit unit;
       private ScrollRect m_buffScrollRect;
       public List<Buff> dataList => m_buffList;
@@ -51,7 +51,7 @@ namespace Yume.UI {
       private UIScrollView<Buff, UIBuffTerm> m_buffScrollView;
       private List<UIBuffTerm> m_buffTermList = new List<UIBuffTerm>();
 
-      public UIBuffGroup(GameObject root) : base(root) {
+      public UIBuffContainer(GameObject root) : base(root) {
         m_buffScrollRect = GetComponent<ScrollRect>("buffScrollRect");
 
         for (int i = 0; i < m_buffScrollRect.content.childCount; i++) {
@@ -77,7 +77,7 @@ namespace Yume.UI {
 
     private Text m_name;
     private Text[] m_attribs;
-    private UIBuffGroup m_buffGroup;
+    private UIBuffContainer m_buffContainer;
     private UIGroupSwitch m_groupSwitch;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
@@ -91,7 +91,7 @@ namespace Yume.UI {
         m_attribs[i] = GetComponent<Text>($"attrib/{(AttribType)i}");
       }
 
-      m_buffGroup = new UIBuffGroup(GetGameObject("buffGroup"));
+      m_buffContainer = new UIBuffContainer(GetGameObject("buffContainer"));
       
       _AddListener();
     }
@@ -101,21 +101,21 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_buffGroup.unit = args[0] as Unit;
-      m_name.text = m_buffGroup.unit.name;
+      m_buffContainer.unit = args[0] as Unit;
+      m_name.text = m_buffContainer.unit.name;
 
-      m_buffGroup.OnOpen();
+      m_buffContainer.OnOpen();
       m_groupSwitch.OnOpen();
 
       base.Open(callback, args);
     }
 
     public override void OnUpdate() {
-      m_buffGroup.OnUpdate();
+      m_buffContainer.OnUpdate();
       
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
-          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{m_buffGroup.unit.attribs[i].value}";
+          m_attribs[i].text = $"{((AttribType)i).GetDescription()}:{m_buffContainer.unit.attribs[i].value}";
         }
       }
     }

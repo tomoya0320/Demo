@@ -15,7 +15,7 @@ namespace Yume.UI {
     void UpdateScrollTerm(TData data);
   }
 
-  public interface IScrollGroup<TData, TView> where TData : class where TView : IScrollTerm<TData> {
+  public interface IScrollContainer<TData, TView> where TData : class where TView : IScrollTerm<TData> {
     List<TData> dataList { get; }
     List<TView> viewList { get; }
   }
@@ -31,11 +31,11 @@ namespace Yume.UI {
     private Vector2Int m_maxCellNum;
     private GridLayoutGroup m_gridLayoutGroup;
     private RectTransform m_scrollRectTransform;
-    private IScrollGroup<TData, TView> m_scrollGroup;
+    private IScrollContainer<TData, TView> m_scrollContainer;
 
-    public UIScrollView(ScrollRect scrollRect, IScrollGroup<TData, TView> scrollGroup) {
+    public UIScrollView(ScrollRect scrollRect, IScrollContainer<TData, TView> scrollContainer) {
       m_scrollRect = scrollRect;
-      m_scrollGroup = scrollGroup;
+      m_scrollContainer = scrollContainer;
       m_scrollRectTransform = scrollRect.GetComponent<RectTransform>();
       m_gridLayoutGroup = scrollRect.content.GetComponent<GridLayoutGroup>();
 
@@ -54,14 +54,14 @@ namespace Yume.UI {
       m_originPos = m_scrollRect.content.anchoredPosition;
 
       // ScrollTerm原型复制
-      if (m_scrollGroup.viewList.Count > 1) {
-        for (int i = m_scrollGroup.viewList.Count - 1; i > 0; i--) {
-          Object.DestroyImmediate(m_scrollGroup.viewList[i].gameObject);
-          m_scrollGroup.viewList.RemoveAt(i);
+      if (m_scrollContainer.viewList.Count > 1) {
+        for (int i = m_scrollContainer.viewList.Count - 1; i > 0; i--) {
+          Object.DestroyImmediate(m_scrollContainer.viewList[i].gameObject);
+          m_scrollContainer.viewList.RemoveAt(i);
         }
         Debug.LogWarning("冗余的ScrollView原型");
       }
-      var prototype = m_scrollGroup.viewList.First();
+      var prototype = m_scrollContainer.viewList.First();
       if (prototype == null) {
         throw new System.Exception("ScrollView原型为空！");
       }
@@ -73,7 +73,7 @@ namespace Yume.UI {
         extra = m_maxCellNum.y;
       }
       for (int i = 1; i < m_maxCellNum.x * m_maxCellNum.y + extra; i++) {
-        m_scrollGroup.viewList.Add(prototype.Clone() as TView);
+        m_scrollContainer.viewList.Add(prototype.Clone() as TView);
       }
     }
 
@@ -84,10 +84,10 @@ namespace Yume.UI {
     public void UpdateView(bool recalLen = true) {
       if (recalLen) {
         if (m_scrollRect.vertical) {
-          m_row = (m_scrollGroup.dataList.Count - 1) / m_maxCellNum.x + 1;
+          m_row = (m_scrollContainer.dataList.Count - 1) / m_maxCellNum.x + 1;
           m_scrollRect.content.SetSizeY(Mathf.Max(m_cellSize.y * m_row, m_displayRange.y));
         } else if (m_scrollRect.horizontal) {
-          m_column = (m_scrollGroup.dataList.Count - 1) / m_maxCellNum.y + 1;
+          m_column = (m_scrollContainer.dataList.Count - 1) / m_maxCellNum.y + 1;
           m_scrollRect.content.SetSizeX(Mathf.Max(m_cellSize.x * m_column, m_displayRange.x));
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(m_scrollRectTransform);
@@ -98,11 +98,11 @@ namespace Yume.UI {
     }
 
     private void _UpdateViewData() {
-      for (int i = 0; i < m_scrollGroup.viewList.Count; i++) {
-        if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_scrollGroup.dataList.Count) {
-          m_scrollGroup.viewList[i].UpdateScrollTerm(m_scrollGroup.dataList[m_initDataIndex + i]);
+      for (int i = 0; i < m_scrollContainer.viewList.Count; i++) {
+        if (m_initDataIndex + i >= 0 && m_initDataIndex + i < m_scrollContainer.dataList.Count) {
+          m_scrollContainer.viewList[i].UpdateScrollTerm(m_scrollContainer.dataList[m_initDataIndex + i]);
         } else {
-          m_scrollGroup.viewList[i].UpdateScrollTerm(null);
+          m_scrollContainer.viewList[i].UpdateScrollTerm(null);
         }
       }
     }
@@ -153,7 +153,7 @@ namespace Yume.UI {
     public void SetAsFirstDisplay(int index) {
       // 这里的行列参考索引的方式下标是从0开始的需要注意
       if (m_scrollRect.vertical) {
-        if (m_scrollGroup.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
+        if (m_scrollContainer.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
           int row = index / m_maxCellNum.x;
           float posY = 1.0f - row * m_cellSize.y / (m_scrollRect.content.rect.height - m_scrollRectTransform.rect.height);
           m_scrollRect.verticalNormalizedPosition = Mathf.Clamp(posY, 0, 1.0f);
@@ -161,7 +161,7 @@ namespace Yume.UI {
           _UpdateViewData();
         }
       } else if (m_scrollRect.horizontal) {
-        if (m_scrollGroup.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
+        if (m_scrollContainer.dataList.Count > m_maxCellNum.x * m_maxCellNum.y) {
           int column = index / m_maxCellNum.y;
           float posX = 1.0f - column * m_cellSize.x / (m_scrollRect.content.rect.width - m_scrollRectTransform.rect.width);
           m_scrollRect.horizontalNormalizedPosition =  Mathf.Clamp(posX, 0, 1.0f);

@@ -36,7 +36,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UICharGroup : UIChildBase, IScrollGroup<UnitData, UICharTerm> {
+    private class UICharContainer : UIChildBase, IScrollContainer<UnitData, UICharTerm> {
       private List<UnitData> m_charList;
       private ScrollRect m_charScrollRect;
       public List<UnitData> dataList => m_charList;
@@ -44,7 +44,7 @@ namespace Yume.UI {
       private UIScrollView<UnitData, UICharTerm> m_charScrollView;
       private List<UICharTerm> m_charTermList = new List<UICharTerm>();
 
-      public UICharGroup(GameObject root) : base(root) {
+      public UICharContainer(GameObject root) : base(root) {
         m_charScrollRect = GetComponent<ScrollRect>("CharScrollRect");
         
         m_charList = DataManager.playerChars;
@@ -66,24 +66,24 @@ namespace Yume.UI {
       }
     }
 
-    private UICharGroup m_charGroup;
+    private UICharContainer m_charContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_charGroup = new UICharGroup(GetGameObject("CharGroup"));
+      m_charContainer = new UICharContainer(GetGameObject("CharContainer"));
 
       _AddListener();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_charGroup.OnOpen();
+      m_charContainer.OnOpen();
 
       base.Open(callback, args);
     }
 
     public override void OnUpdate() {
-      m_charGroup.OnUpdate();
+      m_charContainer.OnUpdate();
     }
 
     private void _AddListener() {

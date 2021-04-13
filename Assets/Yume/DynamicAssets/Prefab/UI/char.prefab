@@ -199,7 +199,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: CharGroup
+      Data: CharContainer
     - Name: $v
       Entry: 10
       Data: 1
@@ -335,6 +335,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!1 &24471556818178365
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ GameObject:
   - component: {fileID: 4195893005000013963}
   - component: {fileID: 5198099940206158214}
   m_Layer: 5
-  m_Name: char group
+  m_Name: char container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,6 +636,7 @@ MonoBehaviour:
   _textComponent: {fileID: 0}
   _overrideSoundName: 
   _soundEvenDisabled: 0
+  _mute: 0
 --- !u!114 &797190004794984650
 MonoBehaviour:
   m_ObjectHideFlags: 0

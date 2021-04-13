@@ -70,7 +70,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UICardGroup : UIChildBase, IScrollGroup<CardData, UICardTerm> {
+    private class UICardContainer : UIChildBase, IScrollContainer<CardData, UICardTerm> {
       private List<CardData> m_cardList;
       private ScrollRect m_cardScrollRect;
       public List<CardData> dataList => m_cardList;
@@ -78,7 +78,7 @@ namespace Yume.UI {
       private UIScrollView<CardData, UICardTerm> m_cardScrollView;
       private List<UICardTerm> m_cardTermList = new List<UICardTerm>();
 
-      public UICardGroup(GameObject root) : base(root) {
+      public UICardContainer(GameObject root) : base(root) {
         m_cardScrollRect = GetComponent<ScrollRect>("CardScrollRect");
         
         m_cardList = DataManager.playerCards;
@@ -109,22 +109,22 @@ namespace Yume.UI {
       }
     }
 
-    private UICardGroup m_cardGroup;
+    private UICardContainer m_cardContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_cardGroup = new UICardGroup(GetGameObject("CardGroup"));
+      m_cardContainer = new UICardContainer(GetGameObject("CardContainer"));
 
       _AddListener();
     }
 
     public override void OnUpdate() {
-      m_cardGroup.OnUpdate();
+      m_cardContainer.OnUpdate();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardGroup.OnOpen();
+      m_cardContainer.OnOpen();
 
       base.Open(callback, args);
     }
@@ -135,7 +135,7 @@ namespace Yume.UI {
 
     public override void Destroy() {
       base.Destroy();
-      m_cardGroup.Destroy();
+      m_cardContainer.Destroy();
     }
   }
 }

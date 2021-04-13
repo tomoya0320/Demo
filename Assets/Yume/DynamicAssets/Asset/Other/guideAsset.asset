@@ -57,6 +57,9 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
     - Name: uiName
       Entry: 1
       Data: main
@@ -85,6 +88,9 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
       Entry: 5
       Data: false
     - Name: uiName
@@ -117,6 +123,9 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
     - Name: uiName
       Entry: 1
       Data: main_story
@@ -145,6 +154,9 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
       Entry: 5
       Data: false
     - Name: uiName
@@ -177,6 +189,9 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
     - Name: uiName
       Entry: 1
       Data: team_before_battle
@@ -207,12 +222,15 @@ MonoBehaviour:
     - Name: ignoreClickPos
       Entry: 5
       Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
     - Name: uiName
       Entry: 1
       Data: char_choice
     - Name: targetObj
       Entry: 1
-      Data: char group
+      Data: char container
     - Name: isDynamicListObj
       Entry: 5
       Data: true
@@ -235,6 +253,9 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
       Entry: 5
       Data: false
     - Name: uiName

@@ -656,7 +656,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: buffGroup
+      Data: buffContainer
     - Name: $v
       Entry: 10
       Data: 6
@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 644160506980465909}
   - component: {fileID: 644160506980465908}
   m_Layer: 5
-  m_Name: buff group
+  m_Name: buff container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

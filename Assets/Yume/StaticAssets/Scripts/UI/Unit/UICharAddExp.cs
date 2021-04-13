@@ -12,15 +12,15 @@ namespace Yume.UI {
       private Image m_iconImg;
       private ItemData m_item;
       private YButton m_reduceBtn;
-      private UIItemGroup m_itemGroup;
+      private UIItemContainer m_itemContainer;
       public bool isValid => m_item != null;
 
-      public UIItemTerm(GameObject root, UIItemGroup itemGroup) : base(root) {
+      public UIItemTerm(GameObject root, UIItemContainer itemContainer) : base(root) {
         m_numText = GetComponent<Text>("NumText");
         m_iconImg = GetComponent<Image>("IconImg");
         m_reduceBtn = GetComponent<YButton>("reduce");
 
-        m_itemGroup = itemGroup;
+        m_itemContainer = itemContainer;
         
         _AddListener();
       }
@@ -39,15 +39,15 @@ namespace Yume.UI {
         }
 
         for (int i = 0; i < deltaCount; i++) {
-          if (m_itemGroup.charAddExp.isMaxLv) {
+          if (m_itemContainer.charAddExp.isMaxLv) {
             return;
           }
 
-          m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+          m_itemContainer.selectedExpDict.TryGetValue(m_item.id, out int count);
           if (count < m_item.count) {
-            m_itemGroup.selectedExpDict[m_item.id] = Mathf.Min(count + 1, m_item.count);
+            m_itemContainer.selectedExpDict[m_item.id] = Mathf.Min(count + 1, m_item.count);
             // 刷新角色等级、经验、属性等信息
-            m_itemGroup.charAddExp._RefreshDetail();
+            m_itemContainer.charAddExp._RefreshDetail();
             // 刷新自己道具的信息
             UpdateScrollTerm(m_item);
           }  
@@ -60,14 +60,14 @@ namespace Yume.UI {
         }
 
         for (int i = 0; i < deltaCount; i++) {
-          m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count);
+          m_itemContainer.selectedExpDict.TryGetValue(m_item.id, out int count);
           if (count > 0) {
-            m_itemGroup.selectedExpDict[m_item.id] = Mathf.Max(count - 1, 0);
-            if (m_itemGroup.selectedExpDict[m_item.id] <= 0) {
-              m_itemGroup.selectedExpDict.Remove(m_item.id);
+            m_itemContainer.selectedExpDict[m_item.id] = Mathf.Max(count - 1, 0);
+            if (m_itemContainer.selectedExpDict[m_item.id] <= 0) {
+              m_itemContainer.selectedExpDict.Remove(m_item.id);
             }
             // 刷新角色等级、经验、属性等信息
-            m_itemGroup.charAddExp._RefreshDetail();
+            m_itemContainer.charAddExp._RefreshDetail();
             // 刷新自己道具的信息
             UpdateScrollTerm(m_item);
           }
@@ -78,7 +78,7 @@ namespace Yume.UI {
         m_item = item;
 
         gameObject.SetActiveEx(m_item != null);
-        if (m_item != null && m_itemGroup.selectedExpDict.TryGetValue(m_item.id, out int count)) {
+        if (m_item != null && m_itemContainer.selectedExpDict.TryGetValue(m_item.id, out int count)) {
           m_reduceBtn.gameObject.SetActiveEx(true);
           m_reduceBtn.textComponent.text = count.ToString();
         } else {
@@ -93,11 +93,11 @@ namespace Yume.UI {
 
       public IScrollTerm<ItemData> Clone() {
         var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
-        return new UIItemTerm(clone, m_itemGroup);
+        return new UIItemTerm(clone, m_itemContainer);
       }
     }
 
-    private class UIItemGroup : UIChildBase, IScrollGroup<ItemData, UIItemTerm> {
+    private class UIItemContainer : UIChildBase, IScrollContainer<ItemData, UIItemTerm> {
       private List<ItemData> m_itemList;
       private ScrollRect m_itemScrollRect;
       public UICharAddExp charAddExp { get; }
@@ -111,7 +111,7 @@ namespace Yume.UI {
         return !itemTemplate.hideDisplay && itemTemplate.groupId == StringMap.CHAR_EXP;
       };
 
-      public UIItemGroup(GameObject root, UICharAddExp charAddExp) : base(root) {
+      public UIItemContainer(GameObject root, UICharAddExp charAddExp) : base(root) {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
         
         m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
@@ -152,7 +152,7 @@ namespace Yume.UI {
     private int m_consumeGold;
     private UnitData m_character;
     private UnitTemplate m_unitTemplate;
-    private UIItemGroup m_itemGroup;
+    private UIItemContainer m_itemContainer;
     public bool isMaxLv => m_lv >= m_unitTemplate.maxLevel;
     
     private Text m_lvText;
@@ -164,7 +164,7 @@ namespace Yume.UI {
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
       
-      m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"), this);
+      m_itemContainer = new UIItemContainer(GetGameObject("ItemContainer"), this);
       
       m_lvText = GetComponent<Text>("lv");
       m_goldText = GetComponent<Text>("gold");
@@ -182,7 +182,7 @@ namespace Yume.UI {
 
       m_character = args[0] as UnitData;
       m_unitTemplate = ResourceManager.Load<UnitTemplate>(m_character.id);
-      m_itemGroup.OnOpen();
+      m_itemContainer.OnOpen();
 
       _RefreshDetail();
     }
@@ -218,7 +218,7 @@ namespace Yume.UI {
 
     private int _GetSelectedExp() {
       int exp = 0;
-      foreach (var kv in m_itemGroup.selectedExpDict) {
+      foreach (var kv in m_itemContainer.selectedExpDict) {
         Blackboard blackboard = ResourceManager.Load<ItemTemplate>(kv.Key).blackboard;
         exp += kv.Value * blackboard.GetValue<int>(Blackboard.EXP);
       }
@@ -238,7 +238,7 @@ namespace Yume.UI {
             }
             // 消耗道具
             DataManager.ConsumeItem(StringMap.GOLD_ITEM_ID, m_consumeGold);
-            m_itemGroup.selectedExpDict.ForEach(
+            m_itemContainer.selectedExpDict.ForEach(
               kv => {
                 DataManager.ConsumeItem(kv.Key, kv.Value);
               }
@@ -254,18 +254,18 @@ namespace Yume.UI {
     }
 
     private void _ClearSelectedExp() {
-      m_itemGroup.selectedExpDict.Clear();
-      m_itemGroup.RefreshScrollView();
+      m_itemContainer.selectedExpDict.Clear();
+      m_itemContainer.RefreshScrollView();
       _RefreshDetail();
     }
 
     public override void OnUpdate() {
-      m_itemGroup.OnUpdate();
+      m_itemContainer.OnUpdate();
     }
 
     public override void Destroy() {
       base.Destroy();
-      m_itemGroup.Destroy();
+      m_itemContainer.Destroy();
     }
   }
 }

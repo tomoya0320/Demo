@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
 
 namespace Yume.UI {
   public class UIEnemyDetail : UIBase {

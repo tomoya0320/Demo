@@ -11,21 +11,21 @@ namespace Yume.UI {
       private YButton m_selectButton;
       public UnitData character => m_character;
       public bool isValid => m_character != null;
-      private UICharChoiceGroup m_charChoiceGroup;
+      private UICharChoiceContainer m_charChoiceContainer;
 
-      public UICharChoiceTerm(GameObject root, UICharChoiceGroup charChoiceGroup) : base(root) {
+      public UICharChoiceTerm(GameObject root, UICharChoiceContainer charChoiceContainer) : base(root) {
         m_selected = GetGameObject("Selected");
         m_selectButton = GetComponent<YButton>("SelectButton");
 
-        m_charChoiceGroup = charChoiceGroup;
+        m_charChoiceContainer = charChoiceContainer;
 
         _AddListener();
       }
 
       private void _AddListener() {
         m_selectButton.onClick.AddListener(() => {
-          m_charChoiceGroup.selectedChar = m_charChoiceGroup.selectedChar == m_character ? null : m_character;
-          m_charChoiceGroup.UpdateView(false);
+          m_charChoiceContainer.selectedChar = m_charChoiceContainer.selectedChar == m_character ? null : m_character;
+          m_charChoiceContainer.UpdateView(false);
         });
 
         m_selectButton.onLongPress += () => {
@@ -39,7 +39,7 @@ namespace Yume.UI {
         m_character = character;
 
         gameObject.SetActiveEx(m_character != null);
-        m_selected.SetActiveEx(m_charChoiceGroup.selectedChar == m_character);
+        m_selected.SetActiveEx(m_charChoiceContainer.selectedChar == m_character);
 
         if (m_character != null) {
           m_selectButton.image.SetSpriteAsync(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
@@ -48,11 +48,11 @@ namespace Yume.UI {
 
       public IScrollTerm<UnitData> Clone() {
         var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
-        return new UICharChoiceTerm(clone, m_charChoiceGroup);
+        return new UICharChoiceTerm(clone, m_charChoiceContainer);
       }
     }
 
-    private class UICharChoiceGroup : UIChildBase, IScrollGroup<UnitData, UICharChoiceTerm> {
+    private class UICharChoiceContainer : UIChildBase, IScrollContainer<UnitData, UICharChoiceTerm> {
       public UnitData selectedChar;
       private List<UnitData> m_charChoiceList;
       private ScrollRect m_charChoiceScrollRect;
@@ -62,7 +62,7 @@ namespace Yume.UI {
       private List<UICharChoiceTerm> m_charChoiceTermList = new List<UICharChoiceTerm>();
       public UIScrollView<UnitData, UICharChoiceTerm> charChoiceScrollView => m_charChoiceScrollView;
 
-      public UICharChoiceGroup(GameObject root) : base(root) {
+      public UICharChoiceContainer(GameObject root) : base(root) {
         m_charChoiceScrollRect = GetComponent<ScrollRect>("CharChoiceScrollRect");
         
         m_charChoiceList = DataManager.playerChars;
@@ -89,32 +89,32 @@ namespace Yume.UI {
     }
 
     private Action<string> m_onSelected;
-    private UICharChoiceGroup m_charChoiceGroup;
+    private UICharChoiceContainer m_charChoiceContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_charChoiceGroup = new UICharChoiceGroup(GetGameObject("CharChoiceGroup"));
+      m_charChoiceContainer = new UICharChoiceContainer(GetGameObject("CharChoiceContainer"));
 
       _AddListener();
     }
 
     public override void Open(Action callback = null, params object[] args) {
       string charId = (string)args[0];
-      m_charChoiceGroup.selectedChar = DataManager.GetCharacter(charId);
+      m_charChoiceContainer.selectedChar = DataManager.GetCharacter(charId);
       m_onSelected = args[1] as Action<string>;
       
-      m_charChoiceGroup.OnOpen();
+      m_charChoiceContainer.OnOpen();
 
       base.Open(callback, args);
     }
 
     public override RectTransform GetDynamicListObj(string list, string id) {
-      if (m_charChoiceGroup.gameObject.name == list) {
-        int index = m_charChoiceGroup.dataList.FindLastIndex(data => data.id == id);
+      if (m_charChoiceContainer.gameObject.name == list) {
+        int index = m_charChoiceContainer.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
-          m_charChoiceGroup.charChoiceScrollView.SetAsFirstDisplay(index);
-          var view = m_charChoiceGroup.viewList.FindLast(v => v.character?.id == id);
+          m_charChoiceContainer.charChoiceScrollView.SetAsFirstDisplay(index);
+          var view = m_charChoiceContainer.viewList.FindLast(v => v.character?.id == id);
           return view.gameObject.GetComponent<RectTransform>();
         }
       }
@@ -122,13 +122,13 @@ namespace Yume.UI {
     }
 
     public override void OnUpdate() {
-      m_charChoiceGroup.OnUpdate();
+      m_charChoiceContainer.OnUpdate();
     }
 
     private void _AddListener() {
       GetComponent<Button>("ok").onClick.AddListener(() => {
         UIManager.CloseOne(name);
-        m_onSelected?.Invoke(m_charChoiceGroup.selectedChar?.id);
+        m_onSelected?.Invoke(m_charChoiceContainer.selectedChar?.id);
       });
       GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
     }

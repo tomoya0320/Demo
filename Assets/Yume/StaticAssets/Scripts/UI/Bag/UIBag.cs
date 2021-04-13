@@ -43,7 +43,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UIItemGroup : UIChildBase, IScrollGroup<ItemData, UIItemTerm> {
+    private class UIItemContainer : UIChildBase, IScrollContainer<ItemData, UIItemTerm> {
       private List<ItemData> m_itemList;
       private ScrollRect m_itemScrollRect;
       public List<ItemData> dataList => m_itemList;
@@ -52,7 +52,7 @@ namespace Yume.UI {
       private List<UIItemTerm> m_itemTermList = new List<UIItemTerm>();
       private Predicate<ItemData> m_findDisplayItem = item => !ResourceManager.Load<ItemTemplate>(item.id).hideDisplay;
 
-      public UIItemGroup(GameObject root) : base(root) {
+      public UIItemContainer(GameObject root) : base(root) {
         m_itemScrollRect = GetComponent<ScrollRect>("ItemScrollRect");
         
         m_itemList = DataManager.playerItems.FindAll(m_findDisplayItem);
@@ -89,12 +89,12 @@ namespace Yume.UI {
       }
     }
 
-    private UIItemGroup m_itemGroup;
+    private UIItemContainer m_itemContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_itemGroup = new UIItemGroup(GetGameObject("ItemGroup"));
+      m_itemContainer = new UIItemContainer(GetGameObject("ItemContainer"));
 
       _AddListener();
     }
@@ -102,11 +102,11 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
       
-      m_itemGroup.OnOpen();
+      m_itemContainer.OnOpen();
     }
 
     public override void OnUpdate() {
-      m_itemGroup.OnUpdate();
+      m_itemContainer.OnUpdate();
     }
 
     private void _AddListener() {
@@ -115,7 +115,7 @@ namespace Yume.UI {
 
     public override void Destroy() {
       base.Destroy();
-      m_itemGroup.Destroy();
+      m_itemContainer.Destroy();
     }
   }
 }

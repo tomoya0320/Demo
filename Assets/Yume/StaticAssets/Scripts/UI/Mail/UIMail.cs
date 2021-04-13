@@ -14,19 +14,19 @@ namespace Yume.UI {
       private Text m_dateDeltaText;
       private Image m_attachmentImg;
       private GameObject m_selected;
-      private UIMailGroup m_mailGroup;
+      private UIMailContainer m_mailContainer;
       private UIRedDot m_mailRedDot;
       private MailTemplate m_mailTemplate;
       public bool isValid => m_mail != null;
 
-      public UIMailTerm(GameObject root, UIMailGroup mailGroup) : base(root) {
+      public UIMailTerm(GameObject root, UIMailContainer mailContainer) : base(root) {
         m_selected = GetGameObject("Selected");
         m_titleText = GetComponent<Text>("TitleText");
         m_clickButton = GetComponent<Button>("ClickButton");
         m_dateDeltaText = GetComponent<Text>("DateDeltaText");
         m_attachmentImg = GetComponent<Image>("AttachmentImage");
 
-        m_mailGroup = mailGroup;
+        m_mailContainer = mailContainer;
         m_mailRedDot = new UIRedDot(RedDotTreeType.MAIN_MAIL, m_mail?.id, 
           MainMailRedDotTree.MAIN_MAIL, m_clickButton.transform.Find(StringMap.UI_RED_DOT));
 
@@ -35,7 +35,7 @@ namespace Yume.UI {
 
       private void _AddListener() {
         m_clickButton.onClick.AddListener(() => {
-          m_mailGroup.SwitchMail(m_mail);
+          m_mailContainer.SwitchMail(m_mail);
         });
       }
 
@@ -44,7 +44,7 @@ namespace Yume.UI {
 
         m_mailRedDot.Update(m_mail?.id);
         gameObject.SetActiveEx(m_mail != null);
-        m_selected.SetActiveEx(m_mail == m_mailGroup.selectedMail);
+        m_selected.SetActiveEx(m_mail == m_mailContainer.selectedMail);
 
         if (m_mail != null) {
           m_mailTemplate = ResourceManager.Load<MailTemplate>(m_mail.id);
@@ -60,11 +60,11 @@ namespace Yume.UI {
 
       public IScrollTerm<MailData> Clone() {
         var clone = ObjectUtil.Instantiate(gameObject, gameObject.GetParent());
-        return new UIMailTerm(clone, m_mailGroup);
+        return new UIMailTerm(clone, m_mailContainer);
       }
     }
 
-    private class UIMailGroup : UIChildBase, IScrollGroup<MailData, UIMailTerm> {
+    private class UIMailContainer : UIChildBase, IScrollContainer<MailData, UIMailTerm> {
       private Text m_dateText;
       private Text m_contentText;
       private YButton m_getButton;
@@ -85,7 +85,7 @@ namespace Yume.UI {
       private UIScrollView<MailData, UIMailTerm> m_mailScrollView;
       private List<UIMailTerm> m_mailTermList = new List<UIMailTerm>();
 
-      public UIMailGroup(GameObject root) : base(root) {
+      public UIMailContainer(GameObject root) : base(root) {
         m_dateText = GetComponent<Text>("DateText");
         m_noMailPanel = GetGameObject("NoMailPanel");
         m_getButton = GetComponent<YButton>("GetButton");
@@ -222,24 +222,24 @@ namespace Yume.UI {
       }
     }
 
-    private UIMailGroup m_mailGroup;
+    private UIMailContainer m_mailContainer;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
       
-      m_mailGroup = new UIMailGroup(GetGameObject("MailGroup"));
+      m_mailContainer = new UIMailContainer(GetGameObject("MailContainer"));
 
       _AddListener();
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_mailGroup.OnOpen();
+      m_mailContainer.OnOpen();
 
       base.Open(callback, args);
     }
 
     public override void OnUpdate() {
-      m_mailGroup.OnUpdate();
+      m_mailContainer.OnUpdate();
     }
 
     private void _AddListener() {
@@ -248,7 +248,7 @@ namespace Yume.UI {
 
     public override void Destroy() {
       base.Destroy();
-      m_mailGroup.Destroy();
+      m_mailContainer.Destroy();
     }
   }
 }

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Yume.Battle;
 using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
 

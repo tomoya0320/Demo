@@ -103,7 +103,7 @@ namespace Yume.UI {
       }
     }
 
-    private class UITaskGroup : UIChildBase, IScrollGroup<TaskData, UITaskTerm> {
+    private class UITaskContainer : UIChildBase, IScrollContainer<TaskData, UITaskTerm> {
       private UIRedDot m_taskRedDot;
       private List<TaskData> m_tasks;
       private ScrollRect m_taskScrollRect;
@@ -113,7 +113,7 @@ namespace Yume.UI {
       private List<TaskData> m_taskShowList = new List<TaskData>();
       private List<UITaskTerm> m_taskTermList = new List<UITaskTerm>();
 
-      public UITaskGroup(TaskType taskType, GameObject root) : base(root) {
+      public UITaskContainer(TaskType taskType, GameObject root) : base(root) {
         m_taskScrollRect = GetComponent<ScrollRect>("ScrollRect");
 
         m_tasks = DataManager.GetTaskList(taskType);
@@ -170,7 +170,7 @@ namespace Yume.UI {
     }
 
     private UIGroupSwitch m_taskGroupSwitch;
-    private List<UITaskGroup> m_taskGroupList = new List<UITaskGroup>();
+    private List<UITaskContainer> m_taskContainers = new List<UITaskContainer>();
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
@@ -178,7 +178,7 @@ namespace Yume.UI {
       m_taskGroupSwitch = GetComponent<UIGroupSwitch>("task group");
 
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
-        m_taskGroupList.Add(new UITaskGroup(type, GetGameObject(type.GetDescription())));
+        m_taskContainers.Add(new UITaskContainer(type, GetGameObject(type.GetDescription())));
       }
 
       _AddListener();
@@ -192,18 +192,18 @@ namespace Yume.UI {
       base.Open(callback, args);
 
       m_taskGroupSwitch.OnOpen();
-      m_taskGroupList.ForEach(taskGroup => taskGroup.OnOpen());
+      m_taskContainers.ForEach(taskGroup => taskGroup.OnOpen());
     }
 
     public override void OnUpdate() {
-      foreach (var taskGroup in m_taskGroupList) {
+      foreach (var taskGroup in m_taskContainers) {
         taskGroup.OnUpdate();
       }
     }
 
     public override void Destroy() {
       base.Destroy();
-      foreach (var taskGroup in m_taskGroupList) {
+      foreach (var taskGroup in m_taskContainers) {
         taskGroup.Destroy();      
       }
     }
