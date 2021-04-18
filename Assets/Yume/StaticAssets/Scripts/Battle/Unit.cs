@@ -18,8 +18,10 @@ namespace Yume.Battle {
 
     #region 表现层
 
-    protected YImage hpImage;
+    protected YImage hpImg;
+    protected Image hpTransitionImg;
     protected YImage energyImage;
+    protected readonly float hpTransitionSpeed = 0.5f * Time.deltaTime;
 
     private int m_selectedEnable;
     public Animator animator { get; }
@@ -53,7 +55,8 @@ namespace Yume.Battle {
       objectContainer.GetComponent<Button>("detailButton").onClick.AddListener(
         () => UIManager.OpenOne("battle_unit_detail", null, this)
       );
-      hpImage = objectContainer.GetComponent<YImage>("hp");
+      hpImg = objectContainer.GetComponent<YImage>("hp");
+      hpTransitionImg = objectContainer.GetComponent<Image>("hpTransition");
       energyImage = objectContainer.GetComponent<YImage>("energy");
       numReference = objectContainer.GetTransform("numReference");
       selected = objectContainer.GetGameObject("selected");
@@ -73,7 +76,7 @@ namespace Yume.Battle {
       if (this is Character) {
         // 战斗失败
         BattleManager.Finish(BattleResult.LOSE);
-      } else if(this is Enemy){
+      } else if (this is Enemy) {
         // 移除这个单位施加的buff
         foreach (var buffManager in BattleManager.buffManagers.Values) {
           // 只针对还存活的单位
@@ -82,11 +85,12 @@ namespace Yume.Battle {
           }
         }
         // 判断是否胜利
-        if (BattleManager.units.Count == 1) {
+        if (BattleManager.aliveUnits.Count == 1) {
           BattleManager.Finish(BattleResult.WIN);
         }
       }
     }
+
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
       int result;
       if (onMaxValue) {
@@ -106,8 +110,8 @@ namespace Yume.Battle {
       switch (type) {
         case AttribType.HP: {
           // 更新UI
-          hpImage.fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
-          hpImage.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
+          hpImg.fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
+          hpImg.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
           break;
         }
         case AttribType.ENERGY:
@@ -118,5 +122,18 @@ namespace Yume.Battle {
     }
 
     public abstract void EnqueueCard(Card card);
+
+    public virtual void OnUpdate() {
+      if (!isAlive) {
+        return;
+      }
+      
+      // 更新血条UI
+      if (hpTransitionImg.fillAmount < hpImg.fillAmount) {
+        hpTransitionImg.fillAmount = hpImg.fillAmount;
+      } else {
+        hpTransitionImg.fillAmount = Mathf.Max(hpImg.fillAmount, hpTransitionImg.fillAmount - hpTransitionSpeed);
+      }
+    }
   }
 }

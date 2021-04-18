@@ -20,7 +20,18 @@ namespace Yume.Battle {
     private static LevelTemplate s_levelTemplate;
     public static bool isRunning => s_coroutine != null;
     private static List<Unit> s_units = new List<Unit>();
-    public static List<Unit> units => s_units.FindAll(unit => unit.isAlive);
+    private static List<Unit> s_aliveUnits = new List<Unit>();
+    public static List<Unit> aliveUnits {
+      get {
+        s_aliveUnits.Clear();
+        foreach (var unit in s_units) {
+          if (unit.isAlive) {
+            s_aliveUnits.Add(unit);
+          }
+        }
+        return s_aliveUnits;
+      }
+    }
     // 当前回合的单位
     public static Unit currentUnit => s_units[s_currentUnitIndex];
     // 玩家角色设定为放在第一个位置上
@@ -86,7 +97,7 @@ namespace Yume.Battle {
     public static Unit GetNearestEnemy(Vector3 point) {
       Unit nearestEnemy = null;
       float minDist = float.MaxValue;
-      foreach (var unit in units) {
+      foreach (var unit in aliveUnits) {
         if (unit is Enemy) {
           float dist = Vector3.Distance(point, unit.gameObject.transform.position);
           if (dist < minDist) {
@@ -133,15 +144,18 @@ namespace Yume.Battle {
     }
 
     private static void _OnUpdate() {
-      // 目前是角色卡牌的状态机在用
-      character.OnUpdate();
+      // 避免迭代器失效
+      for (int i = aliveUnits.Count - 1; i >= 0; i--) {
+        aliveUnits[i].OnUpdate();
+      }
     }
 
     private static void _CleanUp() {
       // 清理
       s_units.ForEach(unit => unit.CleanUp());
       s_units.Clear();
-
+      s_aliveUnits.Clear();
+      
       s_lastUnit = null;
       s_currentUnitIndex = 0;
       s_levelTemplate = default;

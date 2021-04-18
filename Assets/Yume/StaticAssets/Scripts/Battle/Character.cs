@@ -78,7 +78,9 @@ namespace Yume.Battle {
       return true;
     }
 
-    public void OnUpdate() {
+    public override void OnUpdate() {
+      base.OnUpdate();
+
       foreach (var cards in cardHeapDict.Values) {
         cards.ForEach(card => card?.OnUpdate());
       }

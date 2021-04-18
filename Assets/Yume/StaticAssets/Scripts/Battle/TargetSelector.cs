@@ -51,7 +51,7 @@ namespace Yume.Battle {
 
     public override List<Unit> Select(Unit caster = null, Unit candidate = null) {
       List<Unit> targets = new List<Unit>();
-      foreach (var unit in BattleManager.units) {
+      foreach (var unit in BattleManager.aliveUnits) {
         if (((unit.camp & _camp) > 0) && (unit != caster || _includeSelf)) {
           targets.Add(unit);
         }
