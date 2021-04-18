@@ -144,9 +144,11 @@ namespace Yume.Battle {
     }
 
     private static void _OnUpdate() {
+      // 避免多次调用get方法
+      List<Unit> tempUnits = aliveUnits;
       // 避免迭代器失效
-      for (int i = aliveUnits.Count - 1; i >= 0; i--) {
-        aliveUnits[i].OnUpdate();
+      for (int i = tempUnits.Count - 1; i >= 0; i--) {
+        tempUnits[i].OnUpdate();
       }
     }
 
