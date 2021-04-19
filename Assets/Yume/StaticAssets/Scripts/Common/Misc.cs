@@ -1189,19 +1189,6 @@ namespace Yume {
         };
       }
     }
-
-    public static string GetStringByBattleResult(BattleResult result) {
-      switch (result) {
-        case BattleResult.WIN:
-          return "作战胜利";
-        case BattleResult.LOSE:
-          return "作战失败";
-        case BattleResult.ABORT:
-          return "放弃作战";
-        default:
-          return "战斗结果为空！";
-      }
-    }
   }
 
   public static class ScreenUtil {

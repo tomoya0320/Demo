@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using Yume.Broadcast;
@@ -8,9 +9,12 @@ using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
   public enum BattleResult {
-    WIN, // 战斗胜利
-    LOSE, // 战斗失败
-    ABORT, // 放弃战斗
+    [Description("作战胜利")]
+    WIN,
+    [Description("作战失败")]
+    LOSE,
+    [Description("放弃作战")]
+    ABORT,
   }
 
   public static class BattleManager {
@@ -127,8 +131,7 @@ namespace Yume.Battle {
           UIManager.CloseOne("single_battle");
           // 最后结算
           Action action = () => {
-            string content = StringUtil.GetStringByBattleResult(battleResult);
-            MessageManager.AddMessage(new Message(Message.Style.FADE, content));
+            MessageManager.AddMessage(new Message(Message.Style.FADE, battleResult.GetDescription()));
             if (battleResult == BattleResult.WIN) {
               DataManager.CompleteLevel(levelTemplate.id);
             }

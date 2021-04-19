@@ -10,6 +10,10 @@ namespace Yume {
     private static bool s_saveData;
     public const string USER_DB_KEY = "savedata";
 
+    public static void Init() {
+      Game.instance.onUpdate += _CheckSaveData;
+    }
+
     #region User
 
     private static UserDB s_userDB;
@@ -69,7 +73,7 @@ namespace Yume {
 
     #region Operate
 
-    public static void CheckSaveData() {
+    private static void _CheckSaveData() {
       if (s_saveData && !GuideManager.isGuiding/*引导过程中不保存数据*/) {
         SaveData();
         s_saveData = false;
