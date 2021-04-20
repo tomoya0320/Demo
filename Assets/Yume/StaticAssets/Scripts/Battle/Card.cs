@@ -53,7 +53,7 @@ namespace Yume.Battle {
     }
 
     public IEnumerator Cast() {
-      if (!candidate.isAlive) {
+      if (candidate.isDead) {
         yield break;
       }
       

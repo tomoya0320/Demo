@@ -35,7 +35,7 @@ namespace Yume.Battle {
 
   public abstract class DamageBase : LeafNodeBase {
     public sealed override bool Run() {
-      if (!owner.isAlive) {
+      if (owner.isDead) {
         return false;
       }
       // 小心不要套娃了
@@ -76,9 +76,9 @@ namespace Yume.Battle {
       }
 
       // 在即将死亡前执行行为树有可能会脱离死亡状态所以要再判断一次
-      if (!owner.isAlive) {
+      if (owner.isDead) {
         // 单位死亡
-        owner.OnDie();
+        BattleManager.OnUnitDie(owner);
       }
       
       return true;

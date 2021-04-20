@@ -15,6 +15,7 @@ namespace Yume.Battle {
     public Card playingCard; // 正在出的牌
     public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
+    public bool isDead => !isAlive;
 
     #region 表现层
 
@@ -71,26 +72,6 @@ namespace Yume.Battle {
     
     public abstract void CleanUp();
 
-    public virtual void OnDie() {
-      animator.SetBool(AnimatorParams.DIE, true);
-      if (this is Character) {
-        // 战斗失败
-        BattleManager.Finish(BattleResult.LOSE);
-      } else if (this is Enemy) {
-        // 移除这个单位施加的buff
-        foreach (var buffManager in BattleManager.buffManagers.Values) {
-          // 只针对还存活的单位
-          if (buffManager.unit.isAlive) {
-            buffManager.OnCasterDie(this);
-          }
-        }
-        // 判断是否胜利
-        if (BattleManager.aliveUnits.Count == 1) {
-          BattleManager.Finish(BattleResult.WIN);
-        }
-      }
-    }
-
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
       int result;
       if (onMaxValue) {
@@ -124,7 +105,7 @@ namespace Yume.Battle {
     public abstract void EnqueueCard(Card card);
 
     public virtual void OnUpdate() {
-      if (!isAlive) {
+      if (isDead) {
         return;
       }
       

@@ -22,24 +22,10 @@ namespace Yume.Battle {
     private static Coroutine s_coroutine;
     private static int s_currentUnitIndex;
     private static LevelTemplate s_levelTemplate;
+    public static List<Unit> units = new List<Unit>();
     public static bool isRunning => s_coroutine != null;
-    private static List<Unit> s_units = new List<Unit>();
-    private static List<Unit> s_aliveUnits = new List<Unit>();
-    public static List<Unit> aliveUnits {
-      get {
-        s_aliveUnits.Clear();
-        foreach (var unit in s_units) {
-          if (unit.isAlive) {
-            s_aliveUnits.Add(unit);
-          }
-        }
-        return s_aliveUnits;
-      }
-    }
-    // 当前回合的单位
-    public static Unit currentUnit => s_units[s_currentUnitIndex];
-    // 玩家角色设定为放在第一个位置上
-    public static Character character => s_units.First() as Character;
+    public static Unit currentUnit => units[s_currentUnitIndex]; // 当前回合的单位
+    public static Character character => units.First() as Character; // 玩家角色设定为放在第一个位置上
     public static Blackboard blackboard = new Blackboard();
     public static Dictionary<Unit, BuffManager> buffManagers = new Dictionary<Unit, BuffManager>();
     public static Dictionary<Unit, BehaviorManager> behaviorManagers = new Dictionary<Unit, BehaviorManager>();
@@ -53,18 +39,18 @@ namespace Yume.Battle {
 
       s_levelTemplate = levelTemplate;
       // 初始化角色
-      s_units.Add(UnitFactory.CreateUnit<Character>(teamArgs.unitArgs, teamArgs.cardArgsArray));
+      units.Add(UnitFactory.CreateUnit<Character>(teamArgs.unitArgs, teamArgs.cardArgsArray));
       // 初始化敌人
       foreach (var enemyTeam in s_levelTemplate.enemyTeams) {
-        s_units.Add(UnitFactory.CreateUnit<Enemy>(enemyTeam.unitArgs, enemyTeam.cardArgsArray));
+        units.Add(UnitFactory.CreateUnit<Enemy>(enemyTeam.unitArgs, enemyTeam.cardArgsArray));
       }
       // 初始化BuffManagers BehaviorManagers
-      foreach (var unit in s_units) {
+      foreach (var unit in units) {
         buffManagers.Add(unit, new BuffManager(unit));
         behaviorManagers.Add(unit, new BehaviorManager(unit));
       }
       // 初始化单位的被动技能
-      foreach (var unit in s_units) {
+      foreach (var unit in units) {
         if (unit.passiveSkillLevel >= 0 && unit.passiveSkillLevel < unit.passiveSkillPhases.Length) {
           foreach (var buffTemplate in unit.passiveSkillPhases[unit.passiveSkillLevel].buffTemplates) {
             foreach (var target in buffTemplate.selector.Select(unit)) {
@@ -101,7 +87,11 @@ namespace Yume.Battle {
     public static Unit GetNearestEnemy(Vector3 point) {
       Unit nearestEnemy = null;
       float minDist = float.MaxValue;
-      foreach (var unit in aliveUnits) {
+      foreach (var unit in units) {
+        if (unit.isDead) {
+          continue;
+        }
+        
         if (unit is Enemy) {
           float dist = Vector3.Distance(point, unit.gameObject.transform.position);
           if (dist < minDist) {
@@ -146,21 +136,45 @@ namespace Yume.Battle {
       );
     }
 
+    public static void OnUnitDie(Unit unit) {
+      // 单位死亡的动画
+      unit.animator.SetBool(AnimatorParams.DIE, true);
+      
+      // 移除这个单位施加的buff
+      foreach (var buffManager in buffManagers.Values) {
+        if (buffManager.unit.isDead) {
+          continue;
+        }
+        
+        buffManager.OnCasterDie(unit);
+      }
+      
+      if (unit is Character) {
+        // 战斗失败
+        Finish(BattleResult.LOSE);
+      } else if (unit is Enemy) {
+        // 判断是否胜利
+        if (units.FindAll(unit => unit.isAlive).Count == 1) {
+          Finish(BattleResult.WIN);
+        }
+      }
+    }
+
     private static void _OnUpdate() {
-      // 避免多次调用get方法
-      List<Unit> tempUnits = aliveUnits;
-      // 避免迭代器失效
-      for (int i = tempUnits.Count - 1; i >= 0; i--) {
-        tempUnits[i].OnUpdate();
+      foreach (var unit in units) {
+        if (unit.isDead) {
+          continue;
+        }
+        
+        unit.OnUpdate();
       }
     }
 
     private static void _CleanUp() {
       // 清理
-      s_units.ForEach(unit => unit.CleanUp());
-      s_units.Clear();
-      s_aliveUnits.Clear();
-      
+      units.ForEach(unit => unit.CleanUp());
+      units.Clear();
+
       s_lastUnit = null;
       s_currentUnitIndex = 0;
       s_levelTemplate = default;
@@ -199,8 +213,8 @@ namespace Yume.Battle {
         // 下一个存活的单位
         s_lastUnit = currentUnit;
         do {
-          s_currentUnitIndex = (s_currentUnitIndex + 1) % s_units.Count;
-        } while (!currentUnit.isAlive);
+          s_currentUnitIndex = (s_currentUnitIndex + 1) % units.Count;
+        } while (currentUnit.isDead);
         // 等待一会再进入下一个回合
         yield return new WaitForSeconds(LATE_TURN_WAITING_TIME);
       }

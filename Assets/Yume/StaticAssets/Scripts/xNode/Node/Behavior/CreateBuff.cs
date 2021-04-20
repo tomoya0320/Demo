@@ -8,9 +8,10 @@ namespace Yume.Battle {
           // 以caster和owner为基准筛选出目标
           foreach (var target in buffTemplate.selector.Select(caster, owner)) {
             // 跳过已死亡的单位
-            if (!target.isAlive) {
+            if (target.isDead) {
               continue;
             }
+            
             // 因为blackboard是引用类型所以需要新建一个
             Blackboard blackboard = new Blackboard { { Blackboard.CASTER, caster } };
             blackboard.Merge(buffTemplate.blackboard);
