@@ -11,7 +11,7 @@ namespace Yume.UI {
     protected UITemplate uiTemplate;
     public string name => uiTemplate.name;
     public float cacheTime => uiTemplate.cacheTime;
-    
+
     public GameObject gameObject { private set; get; }
     public Animation animation { private set; get; }
     public CanvasGroup canvasGroup { private set; get; }
@@ -41,7 +41,7 @@ namespace Yume.UI {
     protected GameObject GetGameObject(string objName) {
       return objectContainer?.GetGameObject(objName);
     }
-    
+
     /// <summary>
     /// 在某个动态列表里根据id获取对象
     /// 配合新手引导使用故查找是从后往前进行的
@@ -81,11 +81,11 @@ namespace Yume.UI {
     /// <param name="args"></param>
     public virtual void Open(Action callback = null, params object[] args) {
       gameObject.SetActiveEx(true);
-      
+
       // 缓存bgm和UI特效信息
       CacheBgm();
       CacheEffect();
-      
+
       OnDisplay();
 
       //保证动画完整播放
@@ -167,8 +167,8 @@ namespace Yume.UI {
 
     protected GameObject GetGameObject(string objName) {
       return m_uiObject?.GetGameObject(objName);
-    }    
-    
+    }
+
     protected Transform GetTransform(string objName) {
       return m_uiObject?.GetTransform(objName);
     }
@@ -206,7 +206,7 @@ namespace Yume.UI {
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
-      
+
       m_bgRawImage = GetComponent<RawImage>("bgRawImage");
     }
 
@@ -222,22 +222,21 @@ namespace Yume.UI {
 
       Graphics.Blit(m_renderTexture, buffer0);
 
-      for (int i = 0; i < ITERATIONS; i++)
-      {
+      for (int i = 0; i < ITERATIONS; i++) {
         material.SetFloat("_BlurSize", 1.0f + i * BLUR_SPREAD);
 
         RenderTexture buffer1 = RenderTexture.GetTemporary(rtW, rtH);
-                
+
         // 垂直
         Graphics.Blit(buffer0, buffer1, material, 0);
-                
+
         RenderTexture.ReleaseTemporary(buffer0);
         buffer0 = buffer1;
         buffer1 = RenderTexture.GetTemporary(rtW, rtH);
-                
+
         // 水平
         Graphics.Blit(buffer0, buffer1, material, 1);
-                
+
         RenderTexture.ReleaseTemporary(buffer0);
         buffer0 = buffer1;
       }
@@ -254,7 +253,7 @@ namespace Yume.UI {
         m_bgRawImage.texture = null;
         RenderTexture.ReleaseTemporary(m_renderTexture);
       };
-      
+
       base.Close(callback);
     }
   }
