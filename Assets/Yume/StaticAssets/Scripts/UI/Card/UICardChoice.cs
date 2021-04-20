@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Yume.Broadcast;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
   public class UICardChoice : UIBase {
@@ -105,8 +107,14 @@ namespace Yume.UI {
         }
 
         m_cardChoiceScrollView = new UIScrollView<CardData, UICardChoiceTerm>(m_cardChoiceScrollRect, this);
+        
+        EventCenter.AddListener(EventType.UPDATE_CARD_INFO, _Refresh);
       }
 
+      private void _Refresh() {
+        m_cardChoiceScrollView.UpdateView();
+      }
+      
       public override void OnUpdate() {
         m_cardChoiceScrollView.OnUpdate();
       }
@@ -118,6 +126,10 @@ namespace Yume.UI {
       public override void OnOpen() {
         cardChoiceList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_cardChoiceScrollView.ResetNormalizedPos();
+      }
+
+      public override void Destroy() {
+        EventCenter.RemoveListener(EventType.UPDATE_CARD_INFO, _Refresh);
       }
     }
 
@@ -172,6 +184,11 @@ namespace Yume.UI {
         m_onSelected?.Invoke(cardGuids);
       });
       GetComponent<Button>("cancel").onClick.AddListener(() => UIManager.CloseOne(name));
+    }
+
+    public override void Destroy() {
+      base.Destroy();
+      m_cardChoiceContainer.Destroy();
     }
   }
 }
