@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 using Yume.Asset;
 
 namespace Yume {
-  public class ResourceManager {
+  public static class ResourceManager {
     private static Dictionary<(string key, Type type), object> s_resourceDict = new Dictionary<(string, Type), object>();
 
     public static IEnumerator Init(float min = 0, float max = 1.0f) {
