@@ -23,13 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _taskTemplates
       Entry: 7
-      Data: 0|Yume.Data.TaskTemplate[], Assembly-CSharp
+      Data: 0|Yume.TaskTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: DAILY_xfja
@@ -50,22 +50,22 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 1|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 1|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 2|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_3_mcake
+      Data: item_1_diamond
     - Name: count
       Entry: 3
-      Data: 10
+      Data: 50
     - Name: 
       Entry: 8
       Data: 
@@ -80,7 +80,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+Request, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 2
@@ -110,7 +110,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: DAILY_hjrt
@@ -131,22 +131,22 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 3|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 2|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 4|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_1_diamond
+      Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 100
+      Data: 5000
     - Name: 
       Entry: 8
       Data: 
@@ -161,7 +161,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+Request, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 1
@@ -191,7 +191,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto5
@@ -212,22 +212,22 @@ MonoBehaviour:
       Data: MAIN_lvto10
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 5|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 3|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_4_cwine
+      Data: item_6_char_exp
     - Name: count
       Entry: 3
-      Data: 1
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -242,7 +242,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+Request, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
       Data: 2
     - Name: requiredCount
       Entry: 3
-      Data: 5
+      Data: 4
     - Name: requirementId
       Entry: 6
       Data: 
@@ -272,7 +272,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto10
@@ -293,22 +293,22 @@ MonoBehaviour:
       Data: MAIN_lvto15
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 7|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 4|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 8|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_4_cwine
+      Data: item_6_char_exp
     - Name: count
       Entry: 3
-      Data: 3
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -323,7 +323,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+Request, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
       Data: 2
     - Name: requiredCount
       Entry: 3
-      Data: 10
+      Data: 9
     - Name: requirementId
       Entry: 6
       Data: 
@@ -353,7 +353,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.TaskTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: MAIN_lvto15
@@ -374,22 +374,22 @@ MonoBehaviour:
       Data: 
     - Name: taskRewards
       Entry: 7
-      Data: Yume.Data.Rewards, Assembly-CSharp
+      Data: Yume.Rewards, Assembly-CSharp
     - Name: items
       Entry: 7
-      Data: 9|Yume.Data.ItemData[], Assembly-CSharp
+      Data: 5|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 10|Yume.Data.ItemData, Assembly-CSharp
+      Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_4_cwine
+      Data: item_7_char_exp
     - Name: count
       Entry: 3
-      Data: 5
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -404,7 +404,7 @@ MonoBehaviour:
       Data: 
     - Name: taskRequest
       Entry: 7
-      Data: Yume.Data.TaskTemplate+RequestTemplate, Assembly-CSharp
+      Data: Yume.TaskTemplate+Request, Assembly-CSharp
     - Name: method
       Entry: 3
       Data: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
       Data: 2
     - Name: requiredCount
       Entry: 3
-      Data: 15
+      Data: 14
     - Name: requirementId
       Entry: 6
       Data: 

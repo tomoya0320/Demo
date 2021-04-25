@@ -1,0 +1,296 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e42626001c4f042bad5168054d67b2, type: 3}
+  m_Name: guideAsset
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _guideTemplates
+      Entry: 7
+      Data: 0|Yume.GuideTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: guide_001
+    - Name: ignoreConditionId
+      Entry: 5
+      Data: true
+    - Name: conditionId
+      Entry: 1
+      Data: 
+    - Name: conditionType
+      Entry: 3
+      Data: 0
+    - Name: guideSteps
+      Entry: 7
+      Data: 1|Yume.GuideStep[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: main
+    - Name: targetObj
+      Entry: 1
+      Data: battle_button
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u8BA9\u6211\u4EEC\u6765\u5F00\u59CB\u7B2C\u4E00\u573A\u6218\u6597\u5427"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 2
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: battle
+    - Name: targetObj
+      Entry: 1
+      Data: main_story
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u4E3B\u7EBF\u6A21\u5F0F"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 2
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: main_story
+    - Name: targetObj
+      Entry: 1
+      Data: level_main_1
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u4E3B\u7EBF\u5173\u53611-1"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 3
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: level_panel
+    - Name: targetObj
+      Entry: 1
+      Data: startBattleBtn
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5F00\u59CB\u884C\u52A8"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: team_before_battle
+    - Name: targetObj
+      Entry: 1
+      Data: char
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u89D2\u8272\u9009\u62E9"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_choice
+    - Name: targetObj
+      Entry: 1
+      Data: char container
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: true
+    - Name: dynamicListObjId
+      Entry: 1
+      Data: char_001
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u9009\u62E9\u8FD9\u4E2A\u89D2\u8272"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_choice
+    - Name: targetObj
+      Entry: 1
+      Data: ok
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_101_sora_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u786E\u8BA4"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

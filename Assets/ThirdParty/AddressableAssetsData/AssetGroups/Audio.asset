@@ -18,10 +18,11 @@ MonoBehaviour:
   m_GUID: 4d8cecb76f02aaa4095b6c589e2b4ded
   m_SerializeEntries:
   - m_GUID: e109fea60f7757a4cb053340aece68a5
-    m_Address: "\u70B9\u51FB2"
+    m_Address: default_click_sound
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 692bf850e8110c945bfe29c6ed5ad4ee
@@ -29,6 +30,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: f76e6bb8a027dcb459d1195a14001c09
@@ -36,6 +38,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 44dffa86c9b1b7446b99820a07922c2a
@@ -43,6 +46,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 9d70cc8529b42ab4ea5924114df819f4
@@ -50,6 +54,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: efe738ce75c781247b80d8a66a5e65cd
@@ -57,6 +62,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 849c9f4fba8f7c34d96e096b8af7d0a0
@@ -64,13 +70,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: d9991e1cd54d3cf4aafceb930bd77d30
-    m_Address: SOTE_Shrine_v2
+  - m_GUID: 9f455985698137b4e985f2d46baa67ce
+    m_Address: start_bgm
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 5043e6787731bb741b439a9c5e612e57
@@ -78,13 +86,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3424b77769501254494fd7b5061d5d5d
-    m_Address: SOTE_SFX_BlockAtk_v2
+    m_Address: default_hurt_sound
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    - Download
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 506b137c0597ae64bb8dae174e48faca
@@ -92,8 +102,25 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
-    m_MainAsset: {fileID: 8300000, guid: 506b137c0597ae64bb8dae174e48faca, type: 3}
-    m_TargetAsset: {fileID: 8300000, guid: 506b137c0597ae64bb8dae174e48faca, type: 3}
+    - Download
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7e89f16fdf76a2b4aacb2c383dd62016
+    m_Address: SOTE_SFX_Buff_1_v1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4e1dbe7aab9162e4898a8ada067181cd
+    m_Address: bgm_main
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b8f4df32a5d16d141b768885dba0ffa2, type: 2}
   m_SchemaSet:

@@ -23,151 +23,52 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _uiTemplates
       Entry: 7
-      Data: 0|Yume.Data.UITemplate[], Assembly-CSharp
+      Data: 0|Yume.UITemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 27
+      Data: 29
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: message_fade
-    - Name: uiType
-      Entry: 3
-      Data: 2
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIMessageTip
-    - Name: prefabName
-      Entry: 1
-      Data: message_fade
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: message_slide
-    - Name: uiType
-      Entry: 3
-      Data: 2
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIMessageTip
-    - Name: prefabName
-      Entry: 1
-      Data: message_slide
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: globalBlackFade
-    - Name: uiType
-      Entry: 3
-      Data: 1
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIGlobalFade
-    - Name: prefabName
-      Entry: 1
-      Data: globalBlackFade
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: globalCircleBlackFade
-    - Name: uiType
-      Entry: 3
-      Data: 1
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIGlobalCircleFade
-    - Name: prefabName
-      Entry: 1
-      Data: globalCircleBlackFade
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: avg
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: avg
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVG
-    - Name: prefabName
+    - Name: bgm
       Entry: 1
-      Data: avg
+      Data: 
+    - Name: effectName
+      Entry: 1
+      Data: empty
     - Name: cacheTime
       Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: login
-    - Name: uiType
-      Entry: 3
       Data: 0
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UILogin
-    - Name: prefabName
-      Entry: 1
-      Data: login
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: main
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: main
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMain
-    - Name: prefabName
+    - Name: bgm
       Entry: 1
-      Data: main
+      Data: bgm_main
+    - Name: effectName
+      Entry: 1
+      Data: effect_main
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -176,19 +77,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: setting
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: setting
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISetting
-    - Name: prefabName
-      Entry: 1
-      Data: setting
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -197,19 +101,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: task
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: task
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITask
-    - Name: prefabName
-      Entry: 1
-      Data: task
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -218,19 +125,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: mail
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: mail
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMail
-    - Name: prefabName
-      Entry: 1
-      Data: mail
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -239,19 +149,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: bag
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: bag
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBag
-    - Name: prefabName
-      Entry: 1
-      Data: bag
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -260,19 +173,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: card
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: card
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICard
-    - Name: prefabName
-      Entry: 1
-      Data: card
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -281,19 +197,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: char
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: char
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIChar
-    - Name: prefabName
-      Entry: 1
-      Data: char
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -302,19 +221,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: unit_detail
-    - Name: uiType
-      Entry: 3
-      Data: 0
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIUnitDetail
+      Data: char_detail
     - Name: prefabName
       Entry: 1
-      Data: unit_detail
+      Data: char_detail
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UICharDetail
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -323,19 +245,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: confirmation
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: confirmation
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIConfirmation
-    - Name: prefabName
-      Entry: 1
-      Data: confirmation
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -344,40 +269,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
-    - Name: name
-      Entry: 1
-      Data: message_center
-    - Name: uiType
-      Entry: 3
-      Data: 2
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UIMessageTip
-    - Name: prefabName
-      Entry: 1
-      Data: message_center
-    - Name: cacheTime
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: text_editor
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: text_editor
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITextEditor
-    - Name: prefabName
-      Entry: 1
-      Data: text_editor
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -386,19 +293,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: team
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: team
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITeam
-    - Name: prefabName
-      Entry: 1
-      Data: team
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -407,19 +317,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: char_choice
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: char_choice
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharChoice
-    - Name: prefabName
-      Entry: 1
-      Data: char_choice
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -428,19 +341,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: card_choice
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: card_choice
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardChoice
-    - Name: prefabName
-      Entry: 1
-      Data: card_choice
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -449,19 +365,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: item_detail
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: item_detail
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIItemDetail
-    - Name: prefabName
-      Entry: 1
-      Data: item_detail
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -470,19 +389,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: battle
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: battle
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBattle
-    - Name: prefabName
-      Entry: 1
-      Data: battle
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -491,19 +413,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: main_story
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: main_story
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMainStory
-    - Name: prefabName
-      Entry: 1
-      Data: main_story
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -512,19 +437,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: level_panel
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: level_panel
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UILevelPanel
-    - Name: prefabName
+    - Name: bgm
       Entry: 1
-      Data: level_panel
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -533,19 +461,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: single_battle
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: single_battle
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISingleBattle
-    - Name: prefabName
+    - Name: bgm
       Entry: 1
-      Data: single_battle
+      Data: 
+    - Name: effectName
+      Entry: 1
+      Data: effect_single_battle
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -554,19 +485,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: deck
-    - Name: uiType
-      Entry: 3
-      Data: 0
-    - Name: typeName
-      Entry: 1
-      Data: Yume.UI.UICard
+      Data: card_heap
     - Name: prefabName
       Entry: 1
-      Data: deck
+      Data: card_heap
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UICardHeap
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
@@ -575,19 +509,214 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: Yume.Data.UITemplate, Assembly-CSharp
+      Data: Yume.UITemplate, Assembly-CSharp
     - Name: name
       Entry: 1
       Data: avg_history
-    - Name: uiType
-      Entry: 3
-      Data: 0
+    - Name: prefabName
+      Entry: 1
+      Data: avg_history
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVGHistory
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: enemy_detail
     - Name: prefabName
       Entry: 1
-      Data: avg_history
+      Data: enemy_detail
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UIEnemyDetail
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: char_add_exp
+    - Name: prefabName
+      Entry: 1
+      Data: char_add_exp
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UICharAddExp
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: char_update_passive_skill
+    - Name: prefabName
+      Entry: 1
+      Data: char_update_passive_skill
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UICharUpdatePassiveSkill
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: card_update
+    - Name: prefabName
+      Entry: 1
+      Data: card_update
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UICardUpdate
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: team_before_battle
+    - Name: prefabName
+      Entry: 1
+      Data: team_before_battle
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UITeamBeforeBattle
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: level_panel_no_battle
+    - Name: prefabName
+      Entry: 1
+      Data: level_panel_no_battle
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UILevelPanelNoBattle
+    - Name: bgm
+      Entry: 1
+      Data: bgm_main
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: item_settlement
+    - Name: prefabName
+      Entry: 1
+      Data: item_settlement
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UIItemSettlement
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UITemplate, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: battle_unit_detail
+    - Name: prefabName
+      Entry: 1
+      Data: battle_unit_detail
+    - Name: typeName
+      Entry: 1
+      Data: Yume.UI.UIBattleUnitDetail
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
