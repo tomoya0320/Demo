@@ -125,8 +125,8 @@ namespace Yume.UI {
         m_speed = speed;
         m_originAnchoredPos = owner.anchoredPosition;
         if (lastStateId == (int)BattleCardState.PLAYING) {
-          int random = Random.Range(0, CARD_MOVE_CURVE_COUNT);
-          m_curve = ResourceManager.Load<AnimationCurve>(string.Format(CARD_MOVE_CURVE, random));
+          AnimationCurve[] cardMoveCurves = ResourceManager.Load<AnimationCurve[]>(CARD_MOVE_CURVES);
+          m_curve = cardMoveCurves[Random.Range(0, cardMoveCurves.Length)];
         } else {
           m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
         }
@@ -193,8 +193,7 @@ namespace Yume.UI {
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
     private const float MIN_DIST = 1.0f;
     private const float SPEED_SCALE = 10.0f;
-    private const int CARD_MOVE_CURVE_COUNT = 5;
-    private const string CARD_MOVE_CURVE = "card_move_curve{0}";
+    private const string CARD_MOVE_CURVES = "cardMoveCurves";
 
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
