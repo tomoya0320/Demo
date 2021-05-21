@@ -22,7 +22,7 @@ namespace Yume.Battle {
     protected YImage hpImg;
     protected Image hpTransitionImg;
     protected YImage energyImage;
-    protected readonly float hpTransitionSpeed = 0.5f * Time.deltaTime;
+    protected float hpTransitionSpeed => 0.6f * Time.deltaTime;
 
     private int m_selectedEnable;
     public Animator animator { get; }

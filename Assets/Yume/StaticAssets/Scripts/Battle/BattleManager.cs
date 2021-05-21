@@ -189,6 +189,9 @@ namespace Yume.Battle {
     }
 
     private static IEnumerator _Run() {
+      // 等UI动画和全局过渡动画都结束了再运行
+      yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+      
       while (true) {
         // 更新UI
         if (currentUnit is Character) {
