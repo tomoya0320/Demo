@@ -113,8 +113,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125, y: 0}
-  m_SizeDelta: {x: 1150, y: 690}
+  m_AnchoredPosition: {x: -117, y: -11}
+  m_SizeDelta: {x: 1020, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7396288441358102584
 MonoBehaviour:
@@ -444,8 +444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 56.187004, y: 12.57}
-  m_SizeDelta: {x: -112.3739, y: 25.1397}
+  m_AnchoredPosition: {x: 40.891624, y: 12.57}
+  m_SizeDelta: {x: -81.7831, y: 25.1397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5689929275571655327
 CanvasRenderer:
@@ -858,7 +858,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 
 --- !u!1 &7941105708370425918
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,8 +916,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 200, y: 200}
-  m_Spacing: {x: 30, y: 30}
+  m_CellSize: {x: 150, y: 150}
+  m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &8408804192753592448
@@ -955,7 +955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1701, y: -116}
+  m_AnchoredPosition: {x: -1669, y: -136.51}
   m_SizeDelta: {x: 138.21, y: 115.7737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8408804192753592452

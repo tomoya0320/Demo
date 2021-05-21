@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 6997728166014465304}
   - component: {fileID: 6997728166014465309}
   - component: {fileID: 6997728166014465306}
-  - component: {fileID: 6997728166014465310}
+  - component: {fileID: 3954596953469943464}
   m_Layer: 5
   m_Name: close
   m_TagString: Untagged
@@ -849,10 +849,10 @@ RectTransform:
   m_Father: {fileID: 6997728167894618792}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -74.99994, y: -75}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 45, y: -40.907}
+  m_SizeDelta: {x: 89.9032, y: 81.815}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6997728166014465309
 CanvasRenderer:
@@ -875,14 +875,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3ab688f6f93c9c3479a6c1ab05344583, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 795903f9c82132d4c9810f552a66f2b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -892,7 +892,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6997728166014465310
+--- !u!114 &3954596953469943464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -978,8 +978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: -420, y: -20}
+  m_AnchoredPosition: {x: 187, y: -140}
+  m_SizeDelta: {x: -420, y: -280}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &461657132055400401
 MonoBehaviour:
@@ -1128,7 +1128,7 @@ GameObject:
   - component: {fileID: 6997728167606019672}
   - component: {fileID: 6997728167606019673}
   m_Layer: 5
-  m_Name: card bg
+  m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,8 +1181,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0032ae57ade331044966c63bf2df3972, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: aad45231a369d0349a3b8733d3bb0fd5, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

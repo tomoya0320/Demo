@@ -78,7 +78,7 @@ namespace Yume.UI {
         // 大小缩放
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
-        owner.anchoredPosition = owner.m_eventData.position - 0.5f * Constant.SCREEN_SIZE;
+        owner.anchoredPosition = owner.m_eventData.position - 0.5f * ScreenUtil.screenSize;
         // 目标选中的逻辑层
         Unit oldCandidate = owner.m_card.candidate;
         if (owner.gameObject.transform.position.y > 0) {

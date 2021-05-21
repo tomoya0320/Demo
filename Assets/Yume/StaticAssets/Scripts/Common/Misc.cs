@@ -759,7 +759,6 @@ namespace Yume {
     public const float SPACING_SCALE = 0.5f;
     public const float OFFSET_SCALE_Y = 0.02f;
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
-    public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
   }
 
   public static class Colors {
@@ -1193,7 +1192,8 @@ namespace Yume {
 
   public static class ScreenUtil {
     public static Vector2 mousePos => Input.mousePosition;
-    public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
+    public static Vector2 mousePosNormalized => mousePos / screenSize;
+    public static Vector2 screenSize => new Vector2(Screen.width, Screen.height);
   }
 
   public enum CompareMethod {

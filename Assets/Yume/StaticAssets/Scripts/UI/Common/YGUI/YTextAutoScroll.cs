@@ -21,6 +21,10 @@ namespace Yume.UI {
     }
 
     public void SetTextContent(string content) {
+      if (m_textComponent.text == content) {
+        return;
+      }
+      
       if (m_tween != null) {
         m_tween.Kill();
         m_tween = null;

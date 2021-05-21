@@ -90,14 +90,16 @@ namespace Yume.Battle {
     protected virtual void OnAttribChanged(AttribType type, int delta = 0, bool onMaxValue = false) {
       switch (type) {
         case AttribType.HP: {
-          // 更新UI
-          hpImg.fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
-          hpImg.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
+          if (hpImg != null) {
+            hpImg.fillAmount = (float)GetAttrib(AttribType.HP) / GetAttrib(AttribType.HP, true);
+            hpImg.textComponent.text = $"{GetAttrib(AttribType.HP)}/{GetAttrib(AttribType.HP, true)}";
+          }
           break;
         }
         case AttribType.ENERGY:
-          // 更新UI
-          energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY)}/{GetAttrib(AttribType.ENERGY, true)}";
+          if (energyImage != null) {
+            energyImage.textComponent.text = $"{GetAttrib(AttribType.ENERGY)}/{GetAttrib(AttribType.ENERGY, true)}";
+          }
           break;
       }
     }
@@ -110,10 +112,12 @@ namespace Yume.Battle {
       }
       
       // 更新血条UI
-      if (hpTransitionImg.fillAmount < hpImg.fillAmount) {
-        hpTransitionImg.fillAmount = hpImg.fillAmount;
-      } else {
-        hpTransitionImg.fillAmount = Mathf.Max(hpImg.fillAmount, hpTransitionImg.fillAmount - hpTransitionSpeed);
+      if (hpImg != null && hpTransitionImg != null) {
+        if (hpTransitionImg.fillAmount < hpImg.fillAmount) {
+          hpTransitionImg.fillAmount = hpImg.fillAmount;
+        } else {
+          hpTransitionImg.fillAmount = Mathf.Max(hpImg.fillAmount, hpTransitionImg.fillAmount - hpTransitionSpeed);
+        }
       }
     }
   }
