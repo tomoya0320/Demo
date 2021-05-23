@@ -22,13 +22,9 @@ namespace Yume.UI {
       m_cancel.textComponent.text = (string)args[2];
 
       m_ok.onClick.RemoveAllListeners();
-      m_ok.onClick.AddListener(() => {
-        UIManager.CloseOne(name, args[3] as Action);
-      });
+      m_ok.onClick.AddListener(() => { UIManager.CloseOne(name, false, args[3] as Action); });
       m_cancel.onClick.RemoveAllListeners();
-      m_cancel.onClick.AddListener(() => {
-        UIManager.CloseOne(name, args[4] as Action);
-      });
+      m_cancel.onClick.AddListener(() => { UIManager.CloseOne(name, false, args[4] as Action); });
 
       base.Open(callback, args);
     }

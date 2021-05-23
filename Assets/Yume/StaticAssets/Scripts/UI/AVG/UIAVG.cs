@@ -82,11 +82,7 @@ namespace Yume.UI {
 
     private void _SetAutoState(bool state) {
       m_auto = state;
-      if (m_auto) {
-        autoButton.textComponent.text = "自动:开";
-      } else {
-        autoButton.textComponent.text = "自动:关";
-      }
+      autoButton.textComponent.text = m_auto ? "自动:开" : "自动:关";
     }
 
     private IEnumerator _Auto() {
@@ -101,8 +97,8 @@ namespace Yume.UI {
           }
           if (m_auto) {
             // 当玩家在进行其他操作的时候等待
-            yield return new WaitUntil(() => UIManager.GetTopUI().name == name);
-            m_avgGraph.Run(this);
+            yield return new WaitUntil(() => UIManager.GetCurrentUI().name == name);
+            m_avgGraph.Run();
           }
         }
         yield return null;
@@ -121,7 +117,8 @@ namespace Yume.UI {
 
       UIManager.onBackList.Add(Skip);
 
-      m_avgGraph.Enter(this);
+      m_avgGraph.avg = this;
+      m_avgGraph.Enter();
       m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
     }
 
@@ -130,11 +127,11 @@ namespace Yume.UI {
         return;
       }
 
-      if (UIManager.GetTopUI().name == name) {
+      if (UIManager.GetCurrentUI().name == name) {
         Action action = QuitAVG;
         UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetTopUI().name);
+        UIManager.CloseOne(UIManager.GetCurrentUI().name);
       }
     }
 
@@ -143,11 +140,11 @@ namespace Yume.UI {
         return;
       }
 
-      if (UIManager.GetTopUI().name == name) {
+      if (UIManager.GetCurrentUI().name == name) {
         Action action = videoPlayer.Stop;
         UIManager.OpenOne("confirmation", null, "确认跳过视频？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetTopUI().name);
+        UIManager.CloseOne(UIManager.GetCurrentUI().name);
       }
     }
 
@@ -155,18 +152,42 @@ namespace Yume.UI {
       if (m_auto) {
         _SetAutoState(false);
       }
-      m_avgGraph.Run(this);
+      m_avgGraph.Run();
     }
 
     public void QuitAVG() {
-      UIManager.GlobalFade(GlobalFadeType.BLACK_FADE, _CleanUp + onQuitAVG);
+      UIManager.GlobalFade(GlobalFadeType.BLACK_FADE, _OnQuitAVG + onQuitAVG);
     }
 
-    private void _CleanUp() {
-      m_avgGraph.CleanUp();
+    private void _OnQuitAVG() {
+      foreach (var dialogOptionBtn in optionBtns) {
+        dialogOptionBtn.textComponent.text = StringMap.EMPTY;
+        dialogOptionBtn.onClick.RemoveAllListeners();
+      }
+      playerName = StringMap.EMPTY;
+      inputField.text = StringMap.EMPTY;
+      inputFieldOkBtn.onClick.RemoveAllListeners();
+      inputFieldCanvasGroup.alpha = 0;
+      inputFieldCanvasGroup.blocksRaycasts = false; 
+      optionCanvasGroup.alpha = 0;
+      optionCanvasGroup.blocksRaycasts = false;
+      bgImage.color = Color.white;
+      nameText.text = StringMap.EMPTY;
+      illustration.color = Color.white;
+      dialogueCanvasGroup.alpha = 1.0f;
+      bgImage.SetSprite(StringMap.NO_SPRITE);
+      illustration.SetSprite(StringMap.NO_SPRITE);
+      
+      historyDialogues = StringMap.EMPTY;
+      dialogueText.text = StringMap.EMPTY;
       CoroutineHelper.instance.Stop(m_autoCoroutine);
-      UIManager.DestroyOne(name);
+      m_autoCoroutine = null;
+      _SetAutoState(false);
+      
+      m_avgGraph.CleanUp();
+      
       UIManager.onBackList.Remove(Skip);
+      UIManager.CloseOne(name, true);
     }
   }
 }

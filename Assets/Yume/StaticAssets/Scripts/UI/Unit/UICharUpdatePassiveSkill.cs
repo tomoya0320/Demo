@@ -62,7 +62,7 @@ namespace Yume.UI {
         if (i < passiveSkillPhase.updateRequestItems.Length) {
           ItemArgs itemArgs = passiveSkillPhase.updateRequestItems[i];
           tempGo.SetActiveEx(true);
-          tempGo.GetComponentInChildren<Image>().SetSpriteAsync(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Image>().SetSprite(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
           tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
@@ -71,11 +71,11 @@ namespace Yume.UI {
 
 
       m_oldPassiveSkillName.text = $"Lv{m_character.passiveSkillLv + 1} {passiveSkillPhase.name}";
-      m_oldPassiveSkillIcon.SetSpriteAsync(passiveSkillPhase.iconFileName);
+      m_oldPassiveSkillIcon.SetSprite(passiveSkillPhase.iconFileName);
       m_oldPassiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
 
       m_newPassiveSkillName.text = $"Lv{m_character.passiveSkillLv + 2} {nextPassiveSkillPhase.name}";
-      m_newPassiveSkillIcon.SetSpriteAsync(nextPassiveSkillPhase.iconFileName);
+      m_newPassiveSkillIcon.SetSprite(nextPassiveSkillPhase.iconFileName);
       m_newPassiveSkillDesc.text = StringUtil.GetActualDescription(nextPassiveSkillPhase.description, nextPassiveSkillPhase.buffTemplates);
     }
 

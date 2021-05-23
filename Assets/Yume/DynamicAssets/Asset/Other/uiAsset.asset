@@ -39,15 +39,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVG
+    - Name: cacheTime
+      Entry: 4
+      Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: true
     - Name: bgm
       Entry: 1
       Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: true
     - Name: effectName
       Entry: 1
-      Data: empty
-    - Name: cacheTime
-      Entry: 4
-      Data: 0
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -63,15 +69,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMain
-    - Name: bgm
-      Entry: 1
-      Data: bgm_main
-    - Name: effectName
-      Entry: 1
-      Data: effect_main
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: true
+    - Name: bgm
+      Entry: 1
+      Data: bgm_main
+    - Name: overrideEffect
+      Entry: 5
+      Data: true
+    - Name: effectName
+      Entry: 1
+      Data: effect_main
     - Name: 
       Entry: 8
       Data: 
@@ -87,15 +99,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISetting
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -111,15 +129,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITask
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -135,15 +159,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMail
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -159,15 +189,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBag
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -183,15 +219,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICard
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -207,15 +249,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIChar
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -231,15 +279,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharDetail
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -255,15 +309,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIConfirmation
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -279,15 +339,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITextEditor
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -303,15 +369,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITeam
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -327,15 +399,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharChoice
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -351,15 +429,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardChoice
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -375,15 +459,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIItemDetail
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -399,15 +489,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBattle
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -423,15 +519,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIMainStory
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -447,15 +549,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UILevelPanel
-    - Name: bgm
-      Entry: 1
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 1
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -471,15 +579,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UISingleBattle
-    - Name: bgm
-      Entry: 1
-      Data: 
-    - Name: effectName
-      Entry: 1
-      Data: effect_single_battle
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: true
+    - Name: bgm
+      Entry: 1
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: true
+    - Name: effectName
+      Entry: 1
+      Data: effect_single_battle
     - Name: 
       Entry: 8
       Data: 
@@ -495,15 +609,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardHeap
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -519,15 +639,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIAVGHistory
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -543,15 +669,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIEnemyDetail
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -567,15 +699,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharAddExp
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -591,15 +729,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICharUpdatePassiveSkill
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -615,15 +759,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UICardUpdate
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -639,15 +789,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UITeamBeforeBattle
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -663,15 +819,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UILevelPanelNoBattle
-    - Name: bgm
-      Entry: 1
-      Data: bgm_main
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 1
+      Data: bgm_main
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -687,15 +849,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIItemSettlement
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -711,15 +879,21 @@ MonoBehaviour:
     - Name: typeName
       Entry: 1
       Data: Yume.UI.UIBattleUnitDetail
-    - Name: bgm
-      Entry: 6
-      Data: 
-    - Name: effectName
-      Entry: 6
-      Data: 
     - Name: cacheTime
       Entry: 4
       Data: 10
+    - Name: overrideBgm
+      Entry: 5
+      Data: false
+    - Name: bgm
+      Entry: 6
+      Data: 
+    - Name: overrideEffect
+      Entry: 5
+      Data: false
+    - Name: effectName
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 

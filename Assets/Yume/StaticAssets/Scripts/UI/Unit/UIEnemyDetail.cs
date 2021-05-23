@@ -41,7 +41,7 @@ namespace Yume.UI {
 
       m_lvText.text = $"Lv:{enemyArgs.lv + 1}";
       m_description.text = unitTemplate.description;
-      m_illustration.SetSpriteAsync(unitTemplate.illustrationFileName);
+      m_illustration.SetSprite(unitTemplate.illustrationFileName);
 
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
@@ -51,7 +51,7 @@ namespace Yume.UI {
 
       PassiveSkillPhase passiveSkillPhase = unitTemplate.passiveSkillPhases[enemyArgs.passiveSkillLv];
       m_passiveSkillName.text = $"Lv{enemyArgs.passiveSkillLv + 1} {passiveSkillPhase.name}";
-      m_passiveSkillIcon.SetSpriteAsync(passiveSkillPhase.iconFileName);
+      m_passiveSkillIcon.SetSprite(passiveSkillPhase.iconFileName);
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
 
       base.Open(callback, args);

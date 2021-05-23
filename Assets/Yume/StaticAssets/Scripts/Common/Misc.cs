@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Battle;
 using XLua;
@@ -211,9 +210,13 @@ namespace Yume {
     public string name;
     public string prefabName;
     public string typeName;
-    public string bgm;
-    public string effectName;
     public float cacheTime;
+    public bool overrideBgm;
+    [ShowIf("overrideBgm")]
+    public string bgm;
+    public bool overrideEffect;
+    [ShowIf("overrideEffect")]
+    public string effectName;
   }
 
   public enum LevelType {
@@ -902,8 +905,8 @@ namespace Yume {
   }
 
   public static class ImageExtensions {
-    public static async void SetSpriteAsync(this Image image, string name) {
-      image.sprite = await Addressables.LoadAssetAsync<Sprite>(name).Task;
+    public static void SetSprite(this Image image, string name) {
+      image.sprite = ResourceManager.Load<Sprite>(name);
     }
   }
 
@@ -951,11 +954,19 @@ namespace Yume {
 
   public static class ObjectUtil {
     public static GameObject Instantiate(string prefabName, Transform parent = null) {
+      if (string.IsNullOrEmpty(prefabName)) {
+        return null;
+      }
+      
       GameObject prefab = ResourceManager.Load<GameObject>(prefabName);
       return Instantiate(prefab, parent);
     }
     
     public static GameObject Instantiate(GameObject prefab, Transform parent = null) {
+      if (prefab == null) {
+        return null;
+      }
+      
       GameObject gameObject = Object.Instantiate(prefab, parent);
       gameObject.name = prefab.name;
       return gameObject;
@@ -1036,6 +1047,9 @@ namespace Yume {
     public const string CHAR_EXP = "char_exp";
     public const string CONSUME_GOLD = "消耗金币 {0}";
     public const string COMMON_CURVE = "common_curve";
+    public const string NO_SPRITE = "noSprite";
+    public const string NO_CARD_SPRITE = "noCardSprite";
+    public const string NO_CHAR_SPRITE = "noCharSprite";
   }
 
   public static class StringUtil {

@@ -25,7 +25,7 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       ItemData item = args[0] as ItemData;
       ItemTemplate itemTemplate = ResourceManager.Load<ItemTemplate>(item.id);
-      m_iconImg.SetSpriteAsync(itemTemplate.iconFileName);
+      m_iconImg.SetSprite(itemTemplate.iconFileName);
       m_nameNumText.text = $"{itemTemplate.name}*{item.count}";
       m_descText.text = StringUtil.GetActualDescription(itemTemplate.description, itemTemplate.blackboard);
 

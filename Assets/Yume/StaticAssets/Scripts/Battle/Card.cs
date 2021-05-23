@@ -39,7 +39,7 @@ namespace Yume.Battle {
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
       objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;
-      objectContainer.GetComponent<Image>("IconImage").SetSpriteAsync(cardPhase.iconFileName);
+      objectContainer.GetComponent<Image>("IconImage").SetSprite(cardPhase.iconFileName);
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
 

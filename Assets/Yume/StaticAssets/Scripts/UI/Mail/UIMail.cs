@@ -136,7 +136,7 @@ namespace Yume.UI {
             var attachmentObject = m_attachmentObjects[i];
             if (i < attachments.Count) {
               attachmentObject.gameObject.SetActiveEx(true);
-              attachmentObject.GetComponent<Image>("icon").SetSpriteAsync(ResourceManager.Load<ItemTemplate>(attachments[i].id).iconFileName);
+              attachmentObject.GetComponent<Image>("icon").SetSprite(ResourceManager.Load<ItemTemplate>(attachments[i].id).iconFileName);
               attachmentObject.GetComponent<Text>("num").text = attachments[i].count.ToString();
             } else {
               attachmentObject.gameObject.SetActiveEx(false);

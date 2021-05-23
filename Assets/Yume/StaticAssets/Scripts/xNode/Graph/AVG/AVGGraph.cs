@@ -12,18 +12,20 @@ namespace Yume.AVG {
     public bool disableSkip;
     public bool disableSkipVideo;
     [NonSerialized]
+    public UIAVG avg;
+    [NonSerialized]
     public int block;
     [NonSerialized]
     public AVGNodeBase avgNode;
     [NonSerialized]
     public List<Tween> tweens = new List<Tween>();
 
-    public void Enter(UIAVG avg) {
+    public void Enter() {
       var node = nodes.Find(n => n is Enter);
-      (node as AVGNodeBase)?.Run(avg);
+      (node as AVGNodeBase)?.Run();
     }
 
-    public void Run(UIAVG avg) {
+    public void Run() {
       if (block > 0) {
         return;
       }
@@ -35,7 +37,7 @@ namespace Yume.AVG {
         return;
       }
 
-      avgNode?.Run(avg);
+      avgNode?.Run();
     }
 
     public void CleanUp() {
@@ -45,6 +47,7 @@ namespace Yume.AVG {
         }
         tweens.Clear();
       }
+      avg = null;
       avgNode = null;
       block = 0;
     }

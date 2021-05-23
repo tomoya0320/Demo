@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using Yume.UI;
 
 namespace Yume.AVG {
   public class SetDialogue : FadeNodeBase {
@@ -18,7 +17,7 @@ namespace Yume.AVG {
       block = false;
     }
 
-    protected override Tween DoTween(UIAVG avg, float fadeTime) {
+    protected override Tween DoTween(float fadeTime) {
       string name = _name.Replace(USER_NAME, avg.playerName);
       string dialogue = _dialogue.Replace(USER_NAME, avg.playerName);
       avg.historyDialogues += $"\n\n[{name}]:{dialogue}";

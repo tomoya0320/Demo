@@ -58,7 +58,7 @@ namespace Yume {
           m_image.enabled = false;
         } else {
           m_image.enabled = true;
-          m_image.SetSpriteAsync(m_message.spriteName);
+          m_image.SetSprite(m_message.spriteName);
         }
 
         m_description.text = m_message.content;

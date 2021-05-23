@@ -26,7 +26,7 @@ namespace Yume.UI {
         gameObject.SetActiveEx(m_character != null);
 
         if (m_character != null) {
-          m_detailButton.image.SetSpriteAsync(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
+          m_detailButton.image.SetSprite(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
         }
       }
 

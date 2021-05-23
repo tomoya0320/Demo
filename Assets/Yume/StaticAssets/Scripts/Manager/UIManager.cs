@@ -95,8 +95,8 @@ namespace Yume {
       }
     }
 
-    public static UIBase GetTopUI() {
-      return s_uiStack.Peek();
+    public static UIBase GetCurrentUI() {
+      return s_uiStack.Count > 0 ? s_uiStack.Peek() : null;
     }
 
     /// <summary>
@@ -120,18 +120,37 @@ namespace Yume {
     }
 
     private static void _OpenInternal(UITemplate uiTemplate, Action callback = null, params object[] args) {
-      if (!_TryGetCache(uiTemplate, out UIBase ui)) {
-        ui = AssemblyUtil.CreateInstance<UIBase>(uiTemplate.typeName);
+      if (!_TryGetCache(uiTemplate, out UIBase nextUI)) {
+        nextUI = AssemblyUtil.CreateInstance<UIBase>(uiTemplate.typeName);
         GameObject tempGo = ObjectUtil.Instantiate(uiTemplate.prefabName, normalCanvas);
         tempGo.name = uiTemplate.name;
-        ui.OnInit(uiTemplate, tempGo);
+        nextUI.OnInit(uiTemplate, tempGo);
       }
 
+      string lastBgm;
+      string lastEffect;
       if (s_uiStack.Count > 0) {
-        s_uiStack.Peek().OnHide();
+        lastBgm = s_uiStack.Peek().bgm;
+        lastEffect = s_uiStack.Peek().effectName;
+      } else {
+        lastBgm = StringMap.EMPTY;
+        lastEffect = StringMap.EMPTY;
       }
-      s_uiStack.Push(ui);
-      ui.Open(callback, args);
+
+      s_uiStack.Push(nextUI);
+      nextUI.Open(callback + _CheckGuide, args);
+
+      // 因为有些bgm和特效是在ui打开之后才会获取到的所以这里的顺序不能反了
+      // 更新bgm和特效
+      if (!nextUI.overrideBgm) {
+        nextUI.bgm = lastBgm;
+      }
+      if (!nextUI.overrideEffect) {
+        nextUI.effectName = lastEffect;
+      }
+      AudioManager.PlayBgm(nextUI.bgm);
+      EffectManager.HideUIEffect(lastEffect);
+      EffectManager.ShowUIEffect(nextUI.effectName);
     }
 
     /// <summary>
@@ -152,40 +171,22 @@ namespace Yume {
     }
 
     /// <summary>
-    /// 销毁栈中所有的UI并打开新的UI
+    /// 立即关闭栈中所有的UI并打开新的UI
     /// 相当于场景跳转
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
     /// <param name="args"></param>
-    public static void DestroyAllAndOpenOne(string name, Action callback = null, params object[] args) {
+    public static void CloseAllAndOpenOne(string name, Action callback = null, params object[] args) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         if (s_blockNormalUI > 0) {
           return;
         }
 
         while (s_uiStack.Count > 0) {
-          s_uiStack.Pop().Destroy();
+          _CloseInternal(true);
         }
         OpenOne(name, callback, args);
-      } else {
-        Debug.LogError($"UI未加载！name：{name}");
-      }
-    }
-
-    /// <summary>
-    /// 销毁栈顶的UI
-    /// </summary>
-    /// <param name="name">栈顶UI的名字</param>
-    public static void DestroyOne(string name) {
-      if (ResourceManager.Contains<UITemplate>(name)) {
-        if (s_blockNormalUI > 0) {
-          return;
-        }
-
-        if (s_uiStack.Count > 0 && s_uiStack.Peek().name == name) {
-          s_uiStack.Pop().Destroy();
-        }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
@@ -195,41 +196,58 @@ namespace Yume {
     /// 关闭栈顶UI
     /// </summary>
     /// <param name="name"></param>
+    /// <param name="immediate">是否跳过关闭动画</param>
     /// <param name="callback"></param>
-    public static void CloseOne(string name, Action callback = null) {
+    public static void CloseOne(string name, bool immediate = false, Action callback = null) {
       if (ResourceManager.Contains<UITemplate>(name)) {
         if (s_blockNormalUI > 0) {
           return;
         }
 
         if (s_uiStack.Count > 0 && s_uiStack.Peek().name == name) {
-          _CloseInternal(callback);
+          _CloseInternal(immediate, callback);
         }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
     }
 
-    private static void _CloseInternal(Action callback = null) {
+    private static void _CloseInternal(bool immediate = false, Action callback = null) {
       // Action的执行顺序要特别当心
       // 先执行下面的再执行其他的回调
       // 因为其他的回调里可能会执行打开UI的操作
       Action action = () => {
-        UIBase ui = s_uiStack.Pop();
-        if (ui.cacheTime > 0) {
-          ui.gameObject.SetParent(cacheCanvas);
-          s_uiCacheDict.Add(ui.name, (Time.realtimeSinceStartup, ui));
+        UIBase lastUI = s_uiStack.Pop();
+        if (lastUI.cacheTime > 0) {
+          lastUI.gameObject.SetParent(cacheCanvas);
+          s_uiCacheDict.Add(lastUI.name, (Time.realtimeSinceStartup, lastUI));
         } else {
-          ui.Destroy();
+          lastUI.Destroy();
         }
-        
+
+        // 更新Bgm和特效
+        string nextBgm;
+        string nextEffect;
         if (s_uiStack.Count > 0) {
-          s_uiStack.Peek().OnDisplay();
+          nextBgm = s_uiStack.Peek().bgm;
+          nextEffect = s_uiStack.Peek().effectName;
+        } else {
+          nextBgm = StringMap.EMPTY;
+          nextEffect = StringMap.EMPTY;
         }
+        AudioManager.PlayBgm(nextBgm);
+        EffectManager.HideUIEffect(lastUI.effectName);
+        EffectManager.ShowUIEffect(nextEffect);
       };
       callback = action + callback;
 
-      s_uiStack.Peek().Close(callback);
+      s_uiStack.Peek().Close(immediate, callback + _CheckGuide);
+    }
+
+    private static void _CheckGuide() {
+      if (s_uiStack.Count > 0 && s_uiStack.Peek().name == "main") {
+        GuideManager.CheckGuide();
+      }
     }
 
     public static void BlockNormalUI(UIBase ui) {

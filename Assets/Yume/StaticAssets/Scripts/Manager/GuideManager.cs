@@ -42,6 +42,13 @@ namespace Yume {
       s_indicator.SetActiveEx(false);
     }
 
+    public static void CheckGuide() {
+      GuideData guide = DataManager.playerGuides.Find(g => g.state == GuideState.ACTIVE);
+      if (guide != null) {
+        ShowGuide(guide);
+      }
+    }
+
     // 被引导的UI目前仅限NORMAL层
     public static void ShowGuide(GuideData guide) {
       // 引导前先手动存一下档
@@ -61,7 +68,7 @@ namespace Yume {
         // 等UI动画和全局过渡动画都结束了再调用
         yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
         Action action = () => _SetGuideStep(guide, stepEnumerator);
-        if (UIManager.GetTopUI().name == stepEnumerator.current.uiName) {
+        if (UIManager.GetCurrentUI().name == stepEnumerator.current.uiName) {
           action();
         } else {
           UIManager.OpenOne(stepEnumerator.current.uiName, action);
@@ -75,7 +82,7 @@ namespace Yume {
 
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
-      var ui = UIManager.GetTopUI();
+      var ui = UIManager.GetCurrentUI();
       RectTransform targetObj;
       if (stepEnumerator.current.isDynamicListObj) {
         targetObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);
@@ -117,7 +124,7 @@ namespace Yume {
           break;
       }
       s_uiGuideContent.rectTransform.anchoredPosition = contentPos;
-      s_uiGuideContent.icon.SetSpriteAsync(stepEnumerator.current.iconFileName);
+      s_uiGuideContent.icon.SetSprite(stepEnumerator.current.iconFileName);
       s_uiGuideContent.description.text = StringMap.EMPTY;
       s_uiGuideContent.description.DOText(stepEnumerator.current.description, 15.0f).SetSpeedBased().OnComplete(
         () =>

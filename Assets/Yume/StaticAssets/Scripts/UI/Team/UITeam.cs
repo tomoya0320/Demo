@@ -92,9 +92,9 @@ namespace Yume.UI {
           CardData card = DataManager.GetCard(currentTeam.cardGuids[i]);
           CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
-          m_cardBtns[i].image.SetSpriteAsync(cardPhase.iconFileName);
+          m_cardBtns[i].image.SetSprite(cardPhase.iconFileName);
         } else {
-          m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>("noCardSprite");
+          m_cardBtns[i].image.SetSprite(StringMap.NO_CARD_SPRITE);
         }
       }
     }
@@ -102,9 +102,9 @@ namespace Yume.UI {
     private void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(currentTeam.charId)) {
         UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(currentTeam.charId);
-        m_charBtn.image.SetSpriteAsync(charTemplate.portraitFileName);
+        m_charBtn.image.SetSprite(charTemplate.portraitFileName);
       } else {
-        m_charBtn.image.sprite = ResourceManager.Load<Sprite>("noCharSprite");
+        m_charBtn.image.SetSprite(StringMap.NO_CHAR_SPRITE);
       }
     }
   }

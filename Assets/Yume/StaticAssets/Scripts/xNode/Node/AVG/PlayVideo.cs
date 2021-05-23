@@ -2,18 +2,17 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Video;
-using Yume.UI;
 
 namespace Yume.AVG {
   public class PlayVideo : LeafNodeBase {
     [SerializeField]
     private VideoClip _videoClip;
 
-    public override void Run(UIAVG avg) {
-      CoroutineHelper.instance.Run(_PlayVideo(avg));
+    public override void Run() {
+      CoroutineHelper.instance.Run(_PlayVideo());
     }
 
-    private IEnumerator _PlayVideo(UIAVG avg) {
+    private IEnumerator _PlayVideo() {
       UIManager.onBackList.Add(avg.SkipVideo);
       avg.videoCanvasGroup.alpha = 1.0f;
       avg.videoCanvasGroup.interactable = true;
@@ -44,7 +43,7 @@ namespace Yume.AVG {
       
       avg.videoCanvasGroup.interactable = false;
       UIManager.onBackList.Remove(avg.SkipVideo);
-      avgGraph.Run(avg);
+      avgGraph.Run();
     }
   }
 }

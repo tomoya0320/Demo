@@ -59,7 +59,7 @@ namespace Yume.UI {
           } else {
             m_energyText.text = "X";
           }
-          m_iconImg.SetSpriteAsync(cardPhase.iconFileName);
+          m_iconImg.SetSprite(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
         }
       }

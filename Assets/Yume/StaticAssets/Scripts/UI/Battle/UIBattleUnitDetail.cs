@@ -24,9 +24,9 @@ namespace Yume.UI {
 
         if (m_buff != null) {
           if (string.IsNullOrEmpty(m_buff.icon)) {
-            m_iconImg.sprite = ResourceManager.Load<Sprite>("noSprite");
+            m_iconImg.SetSprite(StringMap.NO_SPRITE);
           } else {
-            m_iconImg.SetSpriteAsync(m_buff.icon);
+            m_iconImg.SetSprite(m_buff.icon);
           }
           string description = StringUtil.GetActualDescription(m_buff.description, m_buff.blackboard);
           if (m_buff.duration > 0) {
