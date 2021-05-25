@@ -222,7 +222,7 @@ namespace Yume.Battle {
         s_lastUnit = currentUnit;
         do {
           s_currentUnitIndex = (s_currentUnitIndex + 1) % units.Count;
-        } while (currentUnit.isDead);
+        } while (currentUnit.isDead && s_lastUnit != currentUnit /*避免死循环*/);
         // 等待一会再进入下一个回合
         yield return new WaitForSeconds(LATE_TURN_WAITING_TIME);
       }
