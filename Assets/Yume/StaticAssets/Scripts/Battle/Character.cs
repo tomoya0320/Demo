@@ -14,10 +14,6 @@ namespace Yume.Battle {
     /// </summary>
     DRAW,
     /// <summary>
-    /// 手牌堆
-    /// </summary>
-    HAND,
-    /// <summary>
     /// 弃牌堆
     /// </summary>
     DISCARD,
@@ -26,9 +22,13 @@ namespace Yume.Battle {
     /// </summary>
     CONSUME,
     /// <summary>
+    /// 手牌堆
+    /// </summary>
+    HAND,
+    /// <summary>
     /// 出牌堆
     /// </summary>
-    PLAYING,
+    PLAY,
   }
 
   public class Character : Unit {
@@ -48,9 +48,7 @@ namespace Yume.Battle {
 
     private bool _OnUseCard(Card card) {
       // 点了回合结束但还有牌没出完的情况下不能再出牌了
-      if (cardHeapDict[CardHeapType.PLAYING].Count > 0 &&
-          cardHeapDict[CardHeapType.PLAYING].Last() == null) {
-        
+      if (cardHeapDict[CardHeapType.PLAY].Count > 0 && cardHeapDict[CardHeapType.PLAY].Last() == null) {
         return false;
       }
       // 回合外也不能出牌了
@@ -69,7 +67,7 @@ namespace Yume.Battle {
       handCards.Remove(card);
       // 加入出牌队列
       EnqueueCard(card);
-      card.cardHeapType = CardHeapType.PLAYING;
+      card.cardHeapType = CardHeapType.PLAY;
       // 调整SiblingIndex
       for (int i = 0; i < handCards.Count; i++) {
         handCards[i].battleCard.SetTargetSiblingIndex(i);
@@ -118,8 +116,8 @@ namespace Yume.Battle {
 
       // 出牌中
       while (true) {
-        if (cardHeapDict[CardHeapType.PLAYING].Count > 0) {
-          var playCard = cardHeapDict[CardHeapType.PLAYING].Dequeue();
+        if (cardHeapDict[CardHeapType.PLAY].Count > 0) {
+          var playCard = cardHeapDict[CardHeapType.PLAY].Dequeue();
           if (playCard == null) {
             break;
           }
@@ -205,6 +203,11 @@ namespace Yume.Battle {
     /// </summary>
     /// <param name="selector"></param>
     public void TransferCards(CardSelector selector) {
+      if (selector.from == CardHeapType.PLAY) {
+        Debug.LogError("不能将卡牌从出牌堆里移除！");
+        return;
+      }
+      
       if (selector.from == selector.to) {
         Debug.LogWarning($"卡牌移动的起止位置相同！from:{selector.from.ToString()},to:{selector.to.ToString()}");
         return;
@@ -219,17 +222,27 @@ namespace Yume.Battle {
       );
       cardHeapDict[selector.to].AddRange(cards);
 
-      if (selector.to == CardHeapType.HAND) {
-        _AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
-      } else if (selector.from == CardHeapType.HAND) {
-        _RemoveCards(cards.ToArray());
-      } else {
-        cards.ForEach(
-          card => {
-            card.battleCard.ResetTransform();
-            card.battleCard.SwitchState(BattleCardState.OUT_HAND);
+      switch (selector.to) {
+        case CardHeapType.DRAW:
+        case CardHeapType.DISCARD:
+        case CardHeapType.CONSUME:
+          if (selector.from == CardHeapType.HAND) {
+            _RemoveCards(cards.ToArray());
+          } else {
+            cards.ForEach(
+              card => {
+                card.battleCard.ResetTransform();
+                card.battleCard.SwitchState(BattleCardState.OUT_HAND);
+              }
+            );
           }
-        );
+          break;
+        case CardHeapType.HAND:
+          _AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
+          break;
+        case CardHeapType.PLAY:
+          // 暂时未使用
+          break;
       }
     }
 
@@ -243,7 +256,7 @@ namespace Yume.Battle {
     }
 
     public override void EnqueueCard(Card card) {
-      cardHeapDict[CardHeapType.PLAYING].Add(card);
+      cardHeapDict[CardHeapType.PLAY].Add(card);
     }
   }
 }
