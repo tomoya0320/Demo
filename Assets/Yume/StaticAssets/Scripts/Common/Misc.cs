@@ -1050,6 +1050,7 @@ namespace Yume {
     public const string NO_SPRITE = "noSprite";
     public const string NO_CARD_SPRITE = "noCardSprite";
     public const string NO_CHAR_SPRITE = "noCharSprite";
+    public const string AVG_OPENING = "avg_opening";
   }
 
   public static class StringUtil {

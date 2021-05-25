@@ -44,12 +44,11 @@ namespace Yume {
           if (DataManager.LoadUserData()) {
             UIManager.GlobalFade(GlobalFadeType.CIRCLE_FADE, callback);
           } else {
-            string openingAVG = ResourceManager.Load<string>("openingAVG");
             Action action = () => DataManager.UpdateGuide(ConditionType.FIRST_PLAY);
             callback = action + callback;
             UIManager.GlobalFade(
               GlobalFadeType.BLACK_FADE,
-              () => UIManager.OpenOne("avg", null, openingAVG, callback)
+              () => UIManager.OpenOne("avg", null, StringMap.AVG_OPENING, callback)
             );
           }
         }
