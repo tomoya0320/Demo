@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Yume.Asset;
 
@@ -22,9 +21,7 @@ namespace Yume {
           foreach (var kv in asset.Result.GetActualData()) {
             s_resourceDict.Add(kv.Key, kv.Value);
           }
-        }
-        // 一般处理
-        else {
+        } else {
           var res = Addressables.LoadAssetAsync<object>(location);
           yield return res;
 
@@ -40,20 +37,11 @@ namespace Yume {
       if (string.IsNullOrEmpty(key)) {
         throw new Exception("key is null or empty!");
       }
-
+      
       if (s_resourceDict.ContainsKey((key, typeof(T)))) {
         return (T)s_resourceDict[(key, typeof(T))];
-      } else {
-        try {
-          var op = Addressables.LoadAssetAsync<T>(key);
-          var res = op.WaitForCompletion();
-          Addressables.Release(op);
-          return res;
-        } catch (Exception e) {
-          Debug.LogError(e);
-          return default;
-        }
       }
+      return default;
     }
 
     public static T[] LoadAll<T>() {

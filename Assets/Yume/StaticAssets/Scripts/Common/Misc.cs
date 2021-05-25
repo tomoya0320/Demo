@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Yume.Battle;
 using XLua;
@@ -906,7 +907,7 @@ namespace Yume {
 
   public static class ImageExtensions {
     public static void SetSprite(this Image image, string name) {
-      image.sprite = ResourceManager.Load<Sprite>(name);
+      Addressables.LoadAssetAsync<Sprite>(name).Completed += handle => image.sprite = handle.Result;
     }
   }
 

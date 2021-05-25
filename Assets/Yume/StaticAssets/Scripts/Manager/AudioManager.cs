@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Yume.UI;
 
 namespace Yume {
@@ -112,7 +113,7 @@ namespace Yume {
         if (string.IsNullOrEmpty(audioClipName)) {
           s_bgmManager.PlayBgm(null);
         } else {
-          s_bgmManager.PlayBgm(ResourceManager.Load<AudioClip>(audioClipName));
+          Addressables.LoadAssetAsync<AudioClip>(audioClipName).Completed += handle => s_bgmManager.PlayBgm(handle.Result);
         }
       }
     }
@@ -130,8 +131,7 @@ namespace Yume {
     #region Sound
 
     public static void PlaySound(string audioClipName) {
-      var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      s_soundManager.PlaySound(audio);
+      Addressables.LoadAssetAsync<AudioClip>(audioClipName).Completed += handle => s_soundManager.PlaySound(handle.Result);
     }
 
     public static void PlaySound(AudioClip audioClip) {
