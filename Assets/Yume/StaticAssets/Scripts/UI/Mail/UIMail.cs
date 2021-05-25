@@ -204,9 +204,12 @@ namespace Yume.UI {
       }
 
       private void _DeleteAllMails() {
-        m_selectedMail = null;
-        foreach (var mail in m_mails.FindAll(mail => mail.isReceived)) {
-          DataManager.DeleteMail(mail);
+        List<MailData> toBeDeletedMails = m_mails.FindAll(mail => mail.isReceived);
+        if (toBeDeletedMails.Contains(m_selectedMail)) {
+          m_selectedMail = null;
+        }
+        foreach (var toBeDeletedMail in toBeDeletedMails) {
+          DataManager.DeleteMail(toBeDeletedMail);
         }
 
         _RefreshMailView();
