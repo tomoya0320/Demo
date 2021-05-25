@@ -104,6 +104,11 @@ namespace Yume.Battle {
     }
 
     public static void Finish(BattleResult battleResult) {
+      // 避免反复触发结算
+      if (!isRunning) {
+        return;
+      }
+      
       // 停止协程
       CoroutineHelper.instance.Stop(s_coroutine);
       s_coroutine = null;

@@ -446,13 +446,16 @@ namespace Yume {
     #region Load&Save
 
     public static bool LoadUserData() {
+      bool result;
       if (PlayerPrefs.HasKey(USER_DB_KEY)) {
         s_userDB = JsonConvert.DeserializeObject<UserDB>(PlayerPrefs.GetString(USER_DB_KEY));
-        return true;
+        result = true;
       } else {
         s_userDB = UserDB.Create();
-        return false;
+        result = false;
       }
+      RedDotManager.InitData();
+      return result;
     }
 
     public static void SaveData() {

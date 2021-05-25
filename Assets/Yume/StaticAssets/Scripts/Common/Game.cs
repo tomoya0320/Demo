@@ -52,7 +52,6 @@ namespace Yume {
               () => UIManager.OpenOne("avg", null, openingAVG, callback)
             );
           }
-          RedDotManager.InitData();
         }
       );
       // 初始化
