@@ -38,28 +38,28 @@ MonoBehaviour:
       Data: 1
     - Name: tag
       Entry: 1
-      Data: rabbit
+      Data: 
     - Name: name
       Entry: 1
-      Data: "\u7A7A"
+      Data: 
     - Name: maxLevel
       Entry: 3
-      Data: 9
+      Data: 19
     - Name: prefabName
       Entry: 1
       Data: char_001
     - Name: description
       Entry: 1
-      Data: "\u3010\u4EE3\u53F7\u3011\u7A7A\r\n\u3010\u6027\u522B\u3011\u5973\r\n\u3010\u6218\u6597\u7ECF\u9A8C\u3011\u6CA1\u6709\u6218\u6597\u7ECF\u9A8C\r\n\u3010\u51FA\u8EAB\u5730\u3011\u56E0\u7ECF\u7EAA\u516C\u53F8\u8981\u6C42\u4E0D\u516C\u5F00\r\n\u3010\u751F\u65E5\u30119\u670812\u65E5\r\n\u3010\u79CD\u65CF\u3011\u56E0\u7ECF\u7EAA\u516C\u53F8\u8981\u6C42\u4E0D\u516C\u5F00\r\n\u3010\u8EAB\u9AD8\u3011155cm\r\n\u3010\u77FF\u77F3\u75C5\u611F\u67D3\u60C5\u51B5\u3011\r\n\u53C2\u7167\u533B\u5B66\u68C0\u6D4B\u62A5\u544A\uFF0C\u786E\u8BA4\u4E3A\u975E\u611F\u67D3\u8005\u3002"
+      Data: 
     - Name: headFileName
       Entry: 1
-      Data: char_101_sora_head
+      Data: 
     - Name: portraitFileName
       Entry: 1
-      Data: char_101_sora_portrait
+      Data: 
     - Name: illustrationFileName
       Entry: 1
-      Data: "\u7ACB\u7ED8_\u7A7A_2"
+      Data: 
     - Name: passiveSkillPhases
       Entry: 7
       Data: 1|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -71,13 +71,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u6709{0:prob%}\u7684\u6982\u7387\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
     - Name: iconFileName
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: buffTemplates
       Entry: 7
       Data: 2|Yume.BuffTemplate[], Assembly-CSharp
@@ -98,7 +98,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
@@ -249,31 +249,7 @@ MonoBehaviour:
       Data: 10|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: Yume.ItemArgs, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: item_1_diamond
-    - Name: count
-      Entry: 3
-      Data: 1000
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.ItemArgs, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: item_2_gold
-    - Name: count
-      Entry: 3
-      Data: 10000
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 3
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -282,7 +258,7 @@ MonoBehaviour:
       Data: item_3_mcake
     - Name: count
       Entry: 3
-      Data: 50
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -294,7 +270,19 @@ MonoBehaviour:
       Data: item_4_cwine
     - Name: count
       Entry: 3
-      Data: 50
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -312,13 +300,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u6709{0:prob%}\u7684\u6982\u7387\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
     - Name: iconFileName
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: buffTemplates
       Entry: 7
       Data: 11|Yume.BuffTemplate[], Assembly-CSharp
@@ -339,7 +327,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: "\u5B89\u53EF"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
@@ -533,10 +521,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 200
+      Data: 50
     - Name: _maxValue
       Entry: 3
-      Data: 200
+      Data: 50
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -560,7 +548,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 30
+      Data: 10
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -587,7 +575,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 5
+      Data: 0
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -765,10 +753,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 500
+      Data: 200
     - Name: _maxValue
       Entry: 3
-      Data: 500
+      Data: 200
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -792,7 +780,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 100
+      Data: 40
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -819,7 +807,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 30
+      Data: 20
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -846,10 +834,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 3
+      Data: 5
     - Name: _maxValue
       Entry: 3
-      Data: 3
+      Data: 5
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -990,28 +978,28 @@ MonoBehaviour:
       Data: 2
     - Name: tag
       Entry: 1
-      Data: cat
+      Data: 
     - Name: name
       Entry: 1
-      Data: "\u591C\u9B54"
+      Data: 
     - Name: maxLevel
       Entry: 3
-      Data: 100
+      Data: 19
     - Name: prefabName
       Entry: 1
       Data: enemy_001
     - Name: description
       Entry: 1
-      Data: "\u3010\u4EE3\u53F7\u3011\u591C\u9B54\r\n\u3010\u6027\u522B\u3011\u5973\r\n\u3010\u6218\u6597\u7ECF\u9A8C\u3011\u534A\u5E74\r\n\u3010\u51FA\u8EAB\u5730\u3011\u7EF4\u591A\u5229\u4E9A\r\n\u3010\u751F\u65E5\u30116\u67081\u65E5\r\n\u3010\u79CD\u65CF\u3011\u83F2\u6797\r\n\u3010\u8EAB\u9AD8\u3011156cm\r\n\u3010\u77FF\u77F3\u75C5\u611F\u67D3\u60C5\u51B5\u3011\r\n\u4F53\u5185\u810F\u5668\u6709\u53EF\u89C1\u6E90\u77F3\u7ED3\u6676\u9634\u5F71\uFF0C\u786E\u8BA4\u4E3A\u611F\u67D3\u8005\u3002"
+      Data: 
     - Name: headFileName
       Entry: 1
-      Data: "\u5934\u50CF_\u591C\u9B54_2"
+      Data: 
     - Name: portraitFileName
       Entry: 1
-      Data: "\u534A\u8EAB\u50CF_\u591C\u9B54_2"
+      Data: 
     - Name: illustrationFileName
       Entry: 1
-      Data: "\u7ACB\u7ED8_\u591C\u9B54_2"
+      Data: 
     - Name: passiveSkillPhases
       Entry: 7
       Data: 22|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -1023,13 +1011,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u7075\u9B42\u6C72\u53D6"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u56DE\u590D{0:attribAdditives:HP#value}\u70B9\u751F\u547D\u503C\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF0C\u6218\u6597\u5F00\u59CB\u65F6\u751F\u6548"
     - Name: iconFileName
       Entry: 1
-      Data: "\u529B\u91CF\u5F3A\u5316"
+      Data: 
     - Name: buffTemplates
       Entry: 7
       Data: 23|Yume.BuffTemplate[], Assembly-CSharp
@@ -1050,7 +1038,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: "\u529B\u91CF\u5F3A\u5316"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u56DE\u590D{attribAdditives:HP#value}\u70B9\u751F\u547D\u503C"
@@ -1226,10 +1214,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 200
+      Data: 30
     - Name: _maxValue
       Entry: 3
-      Data: 200
+      Data: 30
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1253,7 +1241,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 5
+      Data: 7
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -1458,10 +1446,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 1000
+      Data: 170
     - Name: _maxValue
       Entry: 3
-      Data: 1000
+      Data: 170
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1485,7 +1473,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 10
+      Data: 23
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -1683,28 +1671,28 @@ MonoBehaviour:
       Data: 2
     - Name: tag
       Entry: 1
-      Data: shark
+      Data: 
     - Name: name
       Entry: 1
-      Data: "\u5E7D\u7075\u9CA8"
+      Data: 
     - Name: maxLevel
       Entry: 3
-      Data: 100
+      Data: 19
     - Name: prefabName
       Entry: 1
       Data: enemy_002
     - Name: description
       Entry: 1
-      Data: "\u3010\u4EE3\u53F7\u3011\u5E7D\u7075\u9CA8\r\n\u3010\u6027\u522B\u3011\u5973\r\n\u3010\u6218\u6597\u7ECF\u9A8C\u3011\u4E03\u5E74\r\n\u3010\u51FA\u8EAB\u5730\u3011\u963F\u6208\u5C14\r\n\u3010\u751F\u65E5\u30117\u670827\u65E5\r\n\u3010\u79CD\u65CF\u3011\u672A\u516C\u5F00\r\n\u3010\u8EAB\u9AD8\u3011162cm\r\n\u3010\u4F53\u91CD\u3011\u25A0\u25A0kg\r\n\u3010\u77FF\u77F3\u75C5\u611F\u67D3\u60C5\u51B5\u3011\r\n\u4F53\u8868\u65E0\u6E90\u77F3\u7ED3\u6676\u5206\u5E03\uFF0C\u4F46\u53C2\u7167\u533B\u5B66\u68C0\u6D4B\u62A5\u544A\uFF0C\u786E\u8BA4\u4E3A\u611F\u67D3\u8005\u3002\r\n\u5E72\u5458\u5E7D\u7075\u9CA8\u7684\u611F\u67D3\u75C7\u72B6\u8F83\u4E3A\u7279\u6B8A\uFF0C\u9700\u8981\u8FDB\u884C\u8FDB\u4E00\u6B65\u7684\u4E34\u5E8A\u7814\u7A76\u3002"
+      Data: 
     - Name: headFileName
       Entry: 1
-      Data: "\u5934\u50CF_\u5E7D\u7075\u9CA8_2"
+      Data: 
     - Name: portraitFileName
       Entry: 1
-      Data: "\u534A\u8EAB\u50CF_\u5E7D\u7075\u9CA8_2"
+      Data: 
     - Name: illustrationFileName
       Entry: 1
-      Data: "\u7ACB\u7ED8_\u5E7D\u7075\u9CA8_2"
+      Data: 
     - Name: passiveSkillPhases
       Entry: 7
       Data: 33|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -1716,13 +1704,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: "\u6B7B\u4EA1\u6297\u62D2"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u5F53\u81EA\u8EAB\u5C06\u8981\u6B7B\u4EA1\u524D\u4EC5\u4E00\u6B21\u56DE\u590D{0:attribAdditives:HP#rateOnMaxValue%}\u7684\u6700\u5927\u751F\u547D\u503C"
     - Name: iconFileName
       Entry: 1
-      Data: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
+      Data: 
     - Name: buffTemplates
       Entry: 7
       Data: 34|Yume.BuffTemplate[], Assembly-CSharp
@@ -1743,7 +1731,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
+      Data: 
     - Name: description
       Entry: 1
       Data: "\u5F53\u81EA\u8EAB\u5C06\u8981\u6B7B\u4EA1\u524D\u4EC5\u4E00\u6B21\u56DE\u590D{attribAdditives:HP#rateOnMaxValue%}\u7684\u6700\u5927\u751F\u547D\u503C"
@@ -1949,10 +1937,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 600
+      Data: 200
     - Name: _maxValue
       Entry: 3
-      Data: 600
+      Data: 200
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -1976,7 +1964,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 10
+      Data: 30
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -2003,7 +1991,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 1
+      Data: 10
     - Name: _maxValue
       Entry: 3
       Data: 99999999
@@ -2181,10 +2169,10 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 1200
+      Data: 1000
     - Name: _maxValue
       Entry: 3
-      Data: 1200
+      Data: 1000
     - Name: _allowNegative
       Entry: 5
       Data: false
@@ -2208,7 +2196,7 @@ MonoBehaviour:
       Data: Yume.Attrib, Assembly-CSharp
     - Name: _value
       Entry: 3
-      Data: 20
+      Data: 80
     - Name: _maxValue
       Entry: 3
       Data: 99999999

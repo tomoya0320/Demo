@@ -907,6 +907,11 @@ namespace Yume {
 
   public static class ImageExtensions {
     public static void SetSprite(this Image image, string name) {
+#if BETA
+      if (string.IsNullOrEmpty(name)) {
+        return;
+      }
+#endif
       Addressables.LoadAssetAsync<Sprite>(name).Completed += handle => image.sprite = handle.Result;
     }
   }

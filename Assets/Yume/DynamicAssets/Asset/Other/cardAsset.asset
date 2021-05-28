@@ -174,7 +174,7 @@ MonoBehaviour:
       Data: 8|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 800
     - Name: 
       Entry: 8
       Data: 
@@ -210,7 +210,7 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 5000
     - Name: 
       Entry: 8
       Data: 
@@ -351,7 +351,7 @@ MonoBehaviour:
       Data: 15|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 2000
+      Data: 1000
     - Name: 
       Entry: 8
       Data: 
@@ -429,7 +429,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5E76\u9644\u52A0{1:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5E76\u9644\u52A0{1:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{1:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_002
@@ -540,7 +540,7 @@ MonoBehaviour:
       Data: 23|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1000
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -573,7 +573,7 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: 
       Entry: 8
       Data: 
@@ -597,7 +597,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: normal_damage
+      Data: pure_damage
     - Name: behaviorTime
       Entry: 3
       Data: 1
@@ -675,7 +675,7 @@ MonoBehaviour:
       Data: 29|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -684,7 +684,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -825,7 +837,7 @@ MonoBehaviour:
       Data: 35|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1300
+      Data: 700
     - Name: 
       Entry: 8
       Data: 
@@ -858,7 +870,7 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: 
       Entry: 8
       Data: 
@@ -1122,7 +1134,7 @@ MonoBehaviour:
       Data: 48|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1000
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -1149,7 +1161,7 @@ MonoBehaviour:
       Data: 49|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -1158,7 +1170,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1188,7 +1212,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_003
@@ -1299,7 +1323,7 @@ MonoBehaviour:
       Data: 55|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1500
+      Data: 800
     - Name: 
       Entry: 8
       Data: 
@@ -1407,7 +1431,7 @@ MonoBehaviour:
       Data: 60|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 250
+      Data: 300
     - Name: 
       Entry: 8
       Data: 
@@ -1599,7 +1623,7 @@ MonoBehaviour:
       Data: 68|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1000
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -1626,7 +1650,7 @@ MonoBehaviour:
       Data: 69|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -1635,7 +1659,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -1665,7 +1701,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u5BF9\u6240\u6709\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_aoe_attack
@@ -1674,7 +1710,7 @@ MonoBehaviour:
       Data: cards[cards_2]
     - Name: energyConsumption
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 70|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -1779,7 +1815,7 @@ MonoBehaviour:
       Data: 75|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -1872,7 +1908,7 @@ MonoBehaviour:
       Data: 79|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 150
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -1968,7 +2004,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atk}\u7684\u4F24\u5BB3\n\u9644\u52A0{2:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{2:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u6709\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atk}\u7684\u4F24\u5BB3\n\u9644\u52A0{2:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{2:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_aoe_attack
@@ -2082,7 +2118,7 @@ MonoBehaviour:
       Data: 88|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 700
     - Name: 
       Entry: 8
       Data: 
@@ -2175,7 +2211,7 @@ MonoBehaviour:
       Data: 92|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 10
+      Data: 8
     - Name: 
       Entry: 8
       Data: 
@@ -2226,7 +2262,7 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: 
       Entry: 8
       Data: 
@@ -2253,7 +2289,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: normal_damage
+      Data: pure_damage
     - Name: behaviorTime
       Entry: 3
       Data: 1
@@ -2286,7 +2322,7 @@ MonoBehaviour:
       Data: 97|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -2331,7 +2367,7 @@ MonoBehaviour:
       Data: 99|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -2340,7 +2376,43 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -2370,7 +2442,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9<color=#FF0000>\u6240\u6709</color>\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atk}\u7684\u4F24\u5BB3\n\u9644\u52A0{2:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{2:atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u5BF9\u6240\u6709\u76EE\u6807\u9020\u6210{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\uFF0C\u5219\u989D\u5916\u9020\u6210{1:atk}\u7684\u4F24\u5BB3\n\u9644\u52A0{2:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{2:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_aoe_attack
@@ -2484,7 +2556,7 @@ MonoBehaviour:
       Data: 105|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1500
+      Data: 900
     - Name: 
       Entry: 8
       Data: 
@@ -2595,7 +2667,7 @@ MonoBehaviour:
       Data: 110|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 15
+      Data: 12
     - Name: 
       Entry: 8
       Data: 
@@ -2628,7 +2700,7 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684<color=#FF0000>\u771F\u5B9E</color>\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: 
       Entry: 8
       Data: 
@@ -2907,7 +2979,7 @@ MonoBehaviour:
       Data: 123|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1000
+      Data: 500
     - Name: 
       Entry: 8
       Data: 
@@ -2952,7 +3024,7 @@ MonoBehaviour:
       Data: 125|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -2961,7 +3033,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -2991,7 +3075,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u4F24\u5BB3\uFF0C\u5E76\u4F7F\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\u7ACB\u523B\u7ED3\u7B97\uFF0C\u7ED3\u7B97\u5B8C\u6BD5\u540E\u7ACB\u5373\u5BF9\u5176\u9644\u52A0{1:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{0:atkRate%}\u4F24\u5BB3\uFF0C\u5E76\u4F7F\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u6548\u679C\u7ACB\u523B\u7ED3\u7B97\uFF0C\u7ED3\u7B97\u5B8C\u6BD5\u540E\u7ACB\u5373\u5BF9\u5176\u9644\u52A0{1:duration}\u56DE\u5408<color=#FF0000>\u6D41\u8840</color>\uFF0C\u6BCF\u56DE\u5408\u9020\u6210{1:atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_006
@@ -3114,7 +3198,7 @@ MonoBehaviour:
       Data: 131|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1500
+      Data: 700
     - Name: 
       Entry: 8
       Data: 
@@ -3165,7 +3249,7 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u9020\u6210{atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
     - Name: 
       Entry: 8
       Data: 
@@ -3189,7 +3273,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: normal_damage
+      Data: pure_damage
     - Name: behaviorTime
       Entry: 3
       Data: 1
@@ -3435,7 +3519,7 @@ MonoBehaviour:
       Data: 145|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -3462,7 +3546,7 @@ MonoBehaviour:
       Data: 146|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -3471,7 +3555,31 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -3501,7 +3609,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\r\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5219\u989D\u5916\u8FDB\u884C\u4E09\u6B21\u653B\u51FB"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\r\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5219\u989D\u5916\u8FDB\u884C2\u6B21\u653B\u51FB"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attacks
@@ -3519,7 +3627,7 @@ MonoBehaviour:
       Data: buff_bleeding
     - Name: _extraEventCount
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -3618,7 +3726,7 @@ MonoBehaviour:
       Data: 152|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1800
+      Data: 700
     - Name: 
       Entry: 8
       Data: 
@@ -3696,7 +3804,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u5C42\u6570"
+      Data: "\u3010\u6D88\u8017\u3011\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -3810,7 +3918,7 @@ MonoBehaviour:
       Data: 160|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1200
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -3837,7 +3945,7 @@ MonoBehaviour:
       Data: 161|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -3846,7 +3954,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -3870,13 +3990,13 @@ MonoBehaviour:
       Data: false
     - Name: consume
       Entry: 5
-      Data: true
+      Data: false
     - Name: onlySelf
       Entry: 5
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u5C42\u6570"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -3885,7 +4005,7 @@ MonoBehaviour:
       Data: cards[cards_7]
     - Name: energyConsumption
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 162|Yume.Battle.CardPlayerWithEnergyAndBuffStack, Assembly-CSharp
@@ -3990,7 +4110,7 @@ MonoBehaviour:
       Data: 167|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 1600
+      Data: 600
     - Name: 
       Entry: 8
       Data: 
@@ -4068,7 +4188,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u8106\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u8106\u5F31</color>:\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u4EE4\u6240\u6709<color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807\u8106\u5F31{0:duration}\u56DE\u5408\r\n\u8106\u5F31\uFF1A\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -4266,7 +4386,7 @@ MonoBehaviour:
       Data: 177|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -4275,7 +4395,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -4305,7 +4437,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u8106\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u8106\u5F31</color>:\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u4EE4\u6240\u6709<color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807\u8106\u5F31{0:duration}\u56DE\u5408\r\n\u8106\u5F31\uFF1A\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{0:attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -4554,7 +4686,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u865A\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u865A\u5F31</color>:\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u4EE4\u6240\u6709<color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807\u865A\u5F31{0:duration}\u56DE\u5408\r\n\u865A\u5F31\uFF1A\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -4752,7 +4884,7 @@ MonoBehaviour:
       Data: 194|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -4761,7 +4893,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -4791,7 +4935,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u4EE4<color=#FF0000>\u6240\u6709</color><color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807<color=##0000FF>\u865A\u5F31</color>{0:duration}\u56DE\u5408\r\n<color=#0000FF>\u865A\u5F31</color>:\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u4EE4\u6240\u6709<color=#FF0000>\u6D41\u8840</color>\u7684\u76EE\u6807\u865A\u5F31{0:duration}\u56DE\u5408\r\n\u865A\u5F31\uFF1A\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{0:attribAdditives:DAMAGE_CHANGE_RATE#value%}"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -5040,7 +5184,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u8106\u5F31</color>\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u865A\u5F31</color>\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
+      Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001\u8106\u5F31\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001\u865A\u5F31\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -5049,7 +5193,7 @@ MonoBehaviour:
       Data: cards[cards_10]
     - Name: energyConsumption
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 204|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -5412,7 +5556,7 @@ MonoBehaviour:
       Data: 221|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -5421,7 +5565,43 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -5451,7 +5631,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u8106\u5F31</color>\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001<color=#0000FF>\u865A\u5F31</color>\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
+      Data: "\u3010\u6D88\u8017\u3011\u4EE4\u4E00\u4E2A\u76EE\u6807\u8EAB\u4E0A\u7684<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u589E\u52A0{0:extendBuffDuration}\u56DE\u5408\u3001\u8106\u5F31\u72B6\u6001\u589E\u52A0{1:extendBuffDuration}\u56DE\u5408\u3001\u865A\u5F31\u72B6\u6001\u589E\u52A0{2:extendBuffDuration}\u56DE\u5408"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -6012,7 +6192,7 @@ MonoBehaviour:
       Data: 247|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -6021,7 +6201,43 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 15000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -6051,7 +6267,7 @@ MonoBehaviour:
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u79FB\u9664\u81EA\u8EAB\u6240\u6709\u7684<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5728\u63A5\u4E0B\u6765\u7684{1:duration}\u56DE\u5408\u5185\u514D\u75AB<color=#FF0000>\u6D41\u8840</color>"
+      Data: "\u79FB\u9664\u81EA\u8EAB\u6240\u6709\u7684<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5E76\u5728{1:duration}\u56DE\u5408\u5185\u514D\u75AB<color=#FF0000>\u6D41\u8840</color>"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_recovery
@@ -6327,7 +6543,7 @@ MonoBehaviour:
       Data: cards[cards_12]
     - Name: energyConsumption
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 260|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -6438,7 +6654,7 @@ MonoBehaviour:
       Data: 265|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -6447,7 +6663,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -6486,7 +6714,7 @@ MonoBehaviour:
       Data: cards[cards_12]
     - Name: energyConsumption
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: cardPlayer
       Entry: 7
       Data: 266|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
@@ -6840,7 +7068,7 @@ MonoBehaviour:
       Data: 281|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -6849,7 +7077,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -7290,7 +7530,7 @@ MonoBehaviour:
       Data: 299|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -7299,7 +7539,19 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 6000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -7458,7 +7710,7 @@ MonoBehaviour:
       Data: 306|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -7683,7 +7935,7 @@ MonoBehaviour:
       Data: 315|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -7692,7 +7944,43 @@ MonoBehaviour:
       Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 1000
+      Data: 10000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_3_mcake
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_4_cwine
+    - Name: count
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
