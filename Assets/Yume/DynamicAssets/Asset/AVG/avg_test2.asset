@@ -51,9 +51,10 @@ MonoBehaviour:
       _dynamic: 0
   node: 0
   block: 0
-  fadeTime: 0.5
+  fadeTime: 15
   onFadeCompleted: 0
   _name: "\u7A7A"
+  _setSpeedBased: 1
   _dialogue: "\u606D\u559C\u4F60\u901A\u8FC7\u4E86\u8BD5\u70BC"
 --- !u!114 &-2984065205289269494
 MonoBehaviour:
@@ -197,6 +198,8 @@ MonoBehaviour:
   - {fileID: 6129035280962455863}
   - {fileID: -5860967097870442537}
   - {fileID: -2984065205289269494}
+  disableSkip: 0
+  disableSkipVideo: 0
 --- !u!114 &5847907996881518768
 MonoBehaviour:
   m_ObjectHideFlags: 0
