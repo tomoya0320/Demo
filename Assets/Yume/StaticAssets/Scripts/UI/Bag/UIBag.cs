@@ -6,7 +6,7 @@ using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
-  public class UIBag : UIBase {
+  public class UIBag : UIGaussianBlurBg {
     private class UIItemTerm : UIChildBase, IScrollTerm<ItemData> {
       private Text m_numText;
       private Image m_iconImg;
