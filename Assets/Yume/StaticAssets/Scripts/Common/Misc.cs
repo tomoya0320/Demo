@@ -1091,6 +1091,11 @@ namespace Yume {
     /// 如果是附加xxx属性的话格式则为{0:attribAdditive:HP#value}
     /// </summary>
     public static string GetActualDescription(string description, BuffTemplate[] buffTemplates) {
+#if BETA
+      if (string.IsNullOrEmpty(description)) {
+        return StringMap.EMPTY;
+      }
+#endif
       StringBuilder result = new StringBuilder();
       int start = 0;
       for (int i = 0; i < description.Length; i++) {
@@ -1135,6 +1140,11 @@ namespace Yume {
     }
 
     public static string GetActualDescription(string description, Blackboard blackboard) {
+#if BETA
+      if (string.IsNullOrEmpty(description)) {
+        return StringMap.EMPTY;
+      }
+#endif
       StringBuilder result = new StringBuilder();
       int start = 0;
       for (int i = 0; i < description.Length; i++) {
