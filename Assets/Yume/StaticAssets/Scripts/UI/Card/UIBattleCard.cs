@@ -186,7 +186,7 @@ namespace Yume.UI {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
     }
-    private static float speed => 0.5f * Time.deltaTime;
+    private static float speed => 0.6f * Time.deltaTime;
     private static float speedIncrement => 0.1f * speed;
     public static Vector3 smallScale => 0.3f * Vector3.one;
     private static Vector3 bigScale => 1.2f * Vector3.one;

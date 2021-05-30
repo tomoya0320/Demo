@@ -20,7 +20,7 @@ namespace Yume.AVG {
     protected override Tween DoTween(float fadeTime) {
       string name = _name.Replace(USER_NAME, avg.playerName);
       string dialogue = _dialogue.Replace(USER_NAME, avg.playerName);
-      avg.historyDialogues += $"\n\n[{name}]:{dialogue}";
+      avg.historyDialogues += $"\n[{name}]:{dialogue}";
       avg.nameText.text = name;
       avg.dialogueText.text = StringMap.EMPTY;
       Tween tween = avg.dialogueText.DOText(dialogue, fadeTime);
