@@ -35,25 +35,25 @@ MonoBehaviour:
       Data: level_main_1
     - Name: bgm
       Entry: 1
-      Data: 
+      Data: STS_Boss1MindBloom_v1
     - Name: title
       Entry: 1
-      Data: 
+      Data: "\u68EE\u6797\u5916\u56F4"
     - Name: type
       Entry: 3
       Data: 0
     - Name: background
       Entry: 1
-      Data: 
+      Data: "\u573A\u666F3"
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u5728\u68EE\u6797\u5916\u56F4\u9047\u5230\u4E86\u6E38\u8361\u7684\u68EE\u6797\u68A6\u9B47\u3002"
     - Name: beforeAVGId
       Entry: 1
-      Data: 
+      Data: avg_test1
     - Name: afterAVGId
       Entry: 1
-      Data: 
+      Data: avg_test2
     - Name: preLevelId
       Entry: 6
       Data: 
@@ -71,10 +71,10 @@ MonoBehaviour:
       Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_2_gold
+      Data: item_0_exp
     - Name: count
       Entry: 3
-      Data: 10000
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
@@ -83,10 +83,10 @@ MonoBehaviour:
       Data: Yume.ItemArgs, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: item_3_mcake
+      Data: item_2_gold
     - Name: count
       Entry: 3
-      Data: 2
+      Data: 10000
     - Name: 
       Entry: 8
       Data: 
@@ -372,25 +372,25 @@ MonoBehaviour:
       Data: level_main_2
     - Name: bgm
       Entry: 1
-      Data: 
+      Data: STS_Boss1MindBloom_v1
     - Name: title
       Entry: 1
-      Data: 
+      Data: "\u68EE\u6797\u6DF1\u5904"
     - Name: type
       Entry: 3
       Data: 0
     - Name: background
       Entry: 1
-      Data: 
+      Data: "\u573A\u666F3"
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u5728\u68EE\u6797\u6DF1\u5904\u9047\u5230\u4E86\u66F4\u591A\u6E38\u8361\u7684\u68EE\u6797\u68A6\u9B47\u3002\u4ED6\u4EEC\u4F3C\u4E4E\u5728\u6709\u7EC4\u7EC7\u5730\u884C\u52A8\u3002"
     - Name: beforeAVGId
       Entry: 1
-      Data: 
+      Data: avg_test1
     - Name: afterAVGId
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: avg_test2
     - Name: preLevelId
       Entry: 1
       Data: level_main_1
@@ -403,6 +403,18 @@ MonoBehaviour:
     - Name: 
       Entry: 12
       Data: 5
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_0_exp
+    - Name: count
+      Entry: 3
+      Data: 150
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -433,18 +445,6 @@ MonoBehaviour:
     - Name: id
       Entry: 1
       Data: item_4_cwine
-    - Name: count
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: Yume.ItemArgs, Assembly-CSharp
-    - Name: id
-      Entry: 1
-      Data: item_5_key
     - Name: count
       Entry: 3
       Data: 3
@@ -714,25 +714,25 @@ MonoBehaviour:
       Data: level_main_3
     - Name: bgm
       Entry: 1
-      Data: 
+      Data: STS_Boss1MindBloom_v1
     - Name: title
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "\u7075\u6CC9\u6D41\u57DF"
     - Name: type
       Entry: 3
       Data: 0
     - Name: background
       Entry: 1
-      Data: 
+      Data: "\u573A\u666F3"
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u7075\u6CC9\u7684\u6C14\u606F\u5438\u5F15\u4E86\u795D\u7531\u5E08\u3002\u5979\u5728\u6B64\u76D8\u8E1E\uFF0C\u5E76\u521B\u9020\u68A6\u9B47\uFF0C\u6307\u6325\u5B83\u4EEC\u4E0D\u8BA9\u4EBA\u9760\u8FD1"
     - Name: beforeAVGId
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: avg_test1
     - Name: afterAVGId
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: avg_test2
     - Name: preLevelId
       Entry: 1
       Data: level_main_2
@@ -744,7 +744,19 @@ MonoBehaviour:
       Data: 17|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_0_exp
+    - Name: count
+      Entry: 3
+      Data: 180
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: Yume.ItemArgs, Assembly-CSharp
@@ -1082,8 +1094,8 @@ MonoBehaviour:
       Entry: 1
       Data: 
     - Name: title
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "\u6D4B\u8BD5\u5173\u53614"
     - Name: type
       Entry: 3
       Data: 0
@@ -1091,11 +1103,11 @@ MonoBehaviour:
       Entry: 1
       Data: 
     - Name: description
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0\u5173\u5361\u63CF\u8FF0"
     - Name: beforeAVGId
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: avg_test3
     - Name: afterAVGId
       Entry: 6
       Data: 

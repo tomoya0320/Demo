@@ -36,7 +36,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        var button = GetComponent<YButton>("SelectButton");
+        var button = GetComponent<YButton>("Button");
         button.onClick.AddListener(
           () => {
             if (m_cardChoiceContainer.selectedCards.Contains(m_card)) {

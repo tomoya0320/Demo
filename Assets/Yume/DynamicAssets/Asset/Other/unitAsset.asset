@@ -41,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: name
       Entry: 1
-      Data: 
+      Data: Neko
     - Name: maxLevel
       Entry: 3
       Data: 19
@@ -50,16 +50,16 @@ MonoBehaviour:
       Data: char_001
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u5E74\u7EAA\u5C0F\u5C0F\u7684\u732B\u4E9A\u4EBA\u6218\u58EB\u3002\u8EAB\u6750\u5A07\u5C0F\uFF0C\u8EAB\u624B\u654F\u6377\u3002\u638C\u63E1\u4E86\u706B\u7130\u7684\u9B54\u6CD5\uFF0C\u813E\u6C14\u7B97\u4E0D\u4E0A\u597D\u3002\u5341\u5206\u5728\u610F\u8EAB\u9AD8\u3002\u6700\u8BA8\u538C\u88AB\u4EBA\u78B0\u5230\u5C3E\u5DF4\u3002\r\n\u4E3A\u4E86\u5BFB\u627E\u4F20\u95FB\u4E2D\u7684\u7075\u6CC9\uFF0C\u5411\u68EE\u6797\u6DF1\u5904\u524D\u8FDB\u3002\r\n"
     - Name: headFileName
       Entry: 1
-      Data: 
+      Data: char_001_head
     - Name: portraitFileName
       Entry: 1
-      Data: 
+      Data: char_001_portrait
     - Name: illustrationFileName
       Entry: 1
-      Data: 
+      Data: char_001
     - Name: passiveSkillPhases
       Entry: 7
       Data: 1|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -71,13 +71,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u4E0D\u706D\u4E4B\u706B\u79CD"
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u6709{0:prob%}\u7684\u6982\u7387\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
     - Name: iconFileName
       Entry: 1
-      Data: 
+      Data: dianran
     - Name: buffTemplates
       Entry: 7
       Data: 2|Yume.BuffTemplate[], Assembly-CSharp
@@ -98,7 +98,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: 
+      Data: dianran
     - Name: description
       Entry: 1
       Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
@@ -300,13 +300,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u4E0D\u706D\u4E4B\u706B\u79CD"
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u524D\u6709{0:prob%}\u7684\u6982\u7387\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
     - Name: iconFileName
       Entry: 1
-      Data: 
+      Data: dianran
     - Name: buffTemplates
       Entry: 7
       Data: 11|Yume.BuffTemplate[], Assembly-CSharp
@@ -327,7 +327,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: 
+      Data: dianran
     - Name: description
       Entry: 1
       Data: "\u56DE\u5408\u5F00\u59CB\u524D\u6709{prob%}\u7684\u6982\u7387\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
@@ -981,7 +981,7 @@ MonoBehaviour:
       Data: 
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u68EE\u6797\u7684\u68A6\u9B47"
     - Name: maxLevel
       Entry: 3
       Data: 19
@@ -990,16 +990,16 @@ MonoBehaviour:
       Data: enemy_001
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0"
     - Name: headFileName
       Entry: 1
-      Data: 
+      Data: enemy_001_head
     - Name: portraitFileName
       Entry: 1
       Data: 
     - Name: illustrationFileName
       Entry: 1
-      Data: enemy_1
+      Data: enemy_001
     - Name: passiveSkillPhases
       Entry: 7
       Data: 22|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -1011,13 +1011,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u6C72\u7075"
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u56DE\u590D{0:attribAdditives:HP#value}\u70B9\u751F\u547D\u503C\uFF0C\u6301\u7EED{0:duration}\u56DE\u5408\uFF0C\u6218\u6597\u5F00\u59CB\u65F6\u751F\u6548"
     - Name: iconFileName
       Entry: 1
-      Data: 
+      Data: guhuo
     - Name: buffTemplates
       Entry: 7
       Data: 23|Yume.BuffTemplate[], Assembly-CSharp
@@ -1038,7 +1038,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: 
+      Data: guhuo
     - Name: description
       Entry: 1
       Data: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u56DE\u590D{attribAdditives:HP#value}\u70B9\u751F\u547D\u503C"
@@ -1674,7 +1674,7 @@ MonoBehaviour:
       Data: 
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u5524\u7075\u795D\u7531\u5E08"
     - Name: maxLevel
       Entry: 3
       Data: 19
@@ -1683,16 +1683,16 @@ MonoBehaviour:
       Data: enemy_002
     - Name: description
       Entry: 1
-      Data: 
+      Data: "\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0\u654C\u4EBA\u63CF\u8FF0"
     - Name: headFileName
       Entry: 1
-      Data: 
+      Data: enemy_002_head
     - Name: portraitFileName
       Entry: 1
       Data: 
     - Name: illustrationFileName
       Entry: 1
-      Data: 
+      Data: enemy_002
     - Name: passiveSkillPhases
       Entry: 7
       Data: 33|Yume.PassiveSkillPhase[], Assembly-CSharp
@@ -1704,13 +1704,13 @@ MonoBehaviour:
       Data: Yume.PassiveSkillPhase, Assembly-CSharp
     - Name: name
       Entry: 1
-      Data: 
+      Data: "\u82CF\u751F\u86CA"
     - Name: description
       Entry: 1
       Data: "\u5F53\u81EA\u8EAB\u5C06\u8981\u6B7B\u4EA1\u524D\u4EC5\u4E00\u6B21\u56DE\u590D{0:attribAdditives:HP#rateOnMaxValue%}\u7684\u6700\u5927\u751F\u547D\u503C"
     - Name: iconFileName
       Entry: 1
-      Data: 
+      Data: chongsheng
     - Name: buffTemplates
       Entry: 7
       Data: 34|Yume.BuffTemplate[], Assembly-CSharp
@@ -1731,7 +1731,7 @@ MonoBehaviour:
       Data: Yume.BuffDisplay, Assembly-CSharp
     - Name: icon
       Entry: 1
-      Data: 
+      Data: chongsheng
     - Name: description
       Entry: 1
       Data: "\u5F53\u81EA\u8EAB\u5C06\u8981\u6B7B\u4EA1\u524D\u4EC5\u4E00\u6B21\u56DE\u590D{attribAdditives:HP#rateOnMaxValue%}\u7684\u6700\u5927\u751F\u547D\u503C"

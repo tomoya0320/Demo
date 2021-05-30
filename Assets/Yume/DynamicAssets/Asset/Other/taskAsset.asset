@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: DAILY_xfja
     - Name: title
       Entry: 1
-      Data: "\u5C0F\u5BCC\u5373\u5B89"
+      Data: "\u7ECF\u6D4E\u5934\u8111"
     - Name: type
       Entry: 3
       Data: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 1
     - Name: description
       Entry: 1
-      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u83B7\u5F975000\u7075\u611F\u5E01"
+      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u83B7\u5F975000\u91D1\u5E01"
     - Name: activeTaskId
       Entry: 6
       Data: 
@@ -90,18 +90,18 @@ MonoBehaviour:
     - Name: ignoreId
       Entry: 5
       Data: false
+    - Name: requirementId
+      Entry: 1
+      Data: item_2_gold
     - Name: type
       Entry: 3
       Data: 0
     - Name: requiredCount
       Entry: 3
       Data: 5000
-    - Name: requirementId
-      Entry: 1
-      Data: item_2_gold
     - Name: description
       Entry: 1
-      Data: "\u7075\u611F\u5E01"
+      Data: "\u91D1\u5E01"
     - Name: 
       Entry: 8
       Data: 
@@ -116,7 +116,7 @@ MonoBehaviour:
       Data: DAILY_hjrt
     - Name: title
       Entry: 1
-      Data: "\u6325\u91D1\u5982\u571F"
+      Data: "\u5343\u91D1\u6563\u5C3D"
     - Name: type
       Entry: 3
       Data: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
       Data: 1
     - Name: description
       Entry: 1
-      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u6D88\u8D393000\u7075\u611F\u5E01"
+      Data: "\u4ECA\u65E5\u7D2F\u8BA1\u6D88\u8D393000\u91D1\u5E01"
     - Name: activeTaskId
       Entry: 6
       Data: 
@@ -171,18 +171,18 @@ MonoBehaviour:
     - Name: ignoreId
       Entry: 5
       Data: false
+    - Name: requirementId
+      Entry: 1
+      Data: item_2_gold
     - Name: type
       Entry: 3
       Data: 0
     - Name: requiredCount
       Entry: 3
       Data: 3000
-    - Name: requirementId
-      Entry: 1
-      Data: item_2_gold
     - Name: description
       Entry: 1
-      Data: "\u7075\u611F\u5E01"
+      Data: "\u91D1\u5E01"
     - Name: 
       Entry: 8
       Data: 
@@ -197,7 +197,7 @@ MonoBehaviour:
       Data: MAIN_lvto5
     - Name: title
       Entry: 1
-      Data: "\u65B0\u624B\u4EFB\u52A11"
+      Data: "\u6210\u957F\u2160"
     - Name: type
       Entry: 3
       Data: 1
@@ -252,15 +252,15 @@ MonoBehaviour:
     - Name: ignoreId
       Entry: 5
       Data: true
+    - Name: requirementId
+      Entry: 6
+      Data: 
     - Name: type
       Entry: 3
       Data: 2
     - Name: requiredCount
       Entry: 3
       Data: 4
-    - Name: requirementId
-      Entry: 6
-      Data: 
     - Name: description
       Entry: 1
       Data: "\u7B49\u7EA7"
@@ -278,7 +278,7 @@ MonoBehaviour:
       Data: MAIN_lvto10
     - Name: title
       Entry: 1
-      Data: "\u65B0\u624B\u4EFB\u52A12"
+      Data: "\u6210\u957F\u2161"
     - Name: type
       Entry: 3
       Data: 1
@@ -333,15 +333,15 @@ MonoBehaviour:
     - Name: ignoreId
       Entry: 5
       Data: true
+    - Name: requirementId
+      Entry: 6
+      Data: 
     - Name: type
       Entry: 3
       Data: 2
     - Name: requiredCount
       Entry: 3
       Data: 9
-    - Name: requirementId
-      Entry: 6
-      Data: 
     - Name: description
       Entry: 1
       Data: "\u7B49\u7EA7"
@@ -359,7 +359,7 @@ MonoBehaviour:
       Data: MAIN_lvto15
     - Name: title
       Entry: 1
-      Data: "\u65B0\u624B\u4EFB\u52A13"
+      Data: "\u6210\u957F\u2162"
     - Name: type
       Entry: 3
       Data: 1
@@ -414,15 +414,15 @@ MonoBehaviour:
     - Name: ignoreId
       Entry: 5
       Data: true
+    - Name: requirementId
+      Entry: 6
+      Data: 
     - Name: type
       Entry: 3
       Data: 2
     - Name: requiredCount
       Entry: 3
       Data: 14
-    - Name: requirementId
-      Entry: 6
-      Data: 
     - Name: description
       Entry: 1
       Data: "\u7B49\u7EA7"

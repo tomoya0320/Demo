@@ -281,9 +281,9 @@ MonoBehaviour:
   block: 0
   fadeTime: 15
   onFadeCompleted: 0
-  _name: "\u7A7A"
+  _name: "\u5524\u7075\u795D\u7531\u5E08"
   _setSpeedBased: 1
-  _dialogue: "\u5317\u98CE\u5377\u5730\u767D\u8349\u6298\uFF0C\u80E1\u5929\u516B\u6708\u5373\u98DE\u96EA\u3002\u5FFD\u5982\u4E00\u591C\u6625\u98CE\u6765\uFF0C\u5343\u6811\u4E07\u6811\u68A8\u82B1\u5F00\u3002\u6563\u5165\u73E0\u5E18\u6E7F\u7F57\u5E55\uFF0C\u72D0\u88D8\u4E0D\u6696\u9526\u887E\u8584\u3002\u5C06\u519B\u89D2\u5F13\u4E0D\u5F97\u63A7\uFF0C\u90FD\u62A4\u94C1\u8863\u51B7\u96BE\u7740\u3002\u701A\u6D77\u9611\u5E72\u767E\u4E08\u51B0\uFF0C\u6101\u4E91\u60E8\u6DE1\u4E07\u91CC\u51DD\u3002\u4E2D\u519B\u7F6E\u9152\u996E\u5F52\u5BA2\uFF0C\u80E1\u7434\u7435\u7436\u4E0E\u7F8C\u7B1B\u3002"
+  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
 --- !u!114 &-5518681948162507171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,8 +532,8 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   last: 0
-  option1: "\u4F60\u597D\u554A"
-  option2: "\u6211\u662F\u8C01"
+  option1: "\u6D4B\u8BD5\u6587\u672C1"
+  option2: "\u6D4B\u8BD5\u6587\u672C2"
   option3: 
 --- !u!114 &11400000
 MonoBehaviour:
@@ -710,7 +710,7 @@ MonoBehaviour:
   onFadeCompleted: 0
   _name: "\u591C\u9B54"
   _setSpeedBased: 1
-  _dialogue: "\u6211\u6700\u559C\u6B22\u535A\u58EB\u4E86"
+  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
 --- !u!114 &1709785611973916465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +819,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   node: 0
-  _bgSprite: {fileID: 21300000, guid: 4cb55befc9ec4be4a9b5230211cc9062, type: 3}
+  _bgSprite: {fileID: 21300000, guid: 95fd06598bfd0e441a87f8bb39fa1b46, type: 3}
 --- !u!114 &3949758961068976673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,9 +930,9 @@ MonoBehaviour:
   block: 0
   fadeTime: 15
   onFadeCompleted: 0
-  _name: "\u591C\u9B54"
+  _name: "\u5524\u7075\u795D\u7531\u5E08"
   _setSpeedBased: 1
-  _dialogue: "\u4F60\u597D\u554A\u6211\u662F\u591C\u9B54"
+  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
 --- !u!114 &4355135893504451352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,9 +986,9 @@ MonoBehaviour:
   block: 0
   fadeTime: 15
   onFadeCompleted: 0
-  _name: "\u591C\u9B54"
+  _name: "\u5524\u7075\u795D\u7531\u5E08"
   _setSpeedBased: 1
-  _dialogue: "\u770B\u6765\u4F60\u5931\u5FC6\u4E86......"
+  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
 --- !u!114 &4473644782445790354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,7 +1231,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   node: 0
-  _bgSprite: {fileID: 21300000, guid: 5209be59073225045b9875c4de87d7cc, type: 3}
+  _bgSprite: {fileID: 21300000, guid: cfad4f23c25427b4e904c9303b636aec, type: 3}
 --- !u!114 &5989266302742906501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1366,7 +1366,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   node: 0
-  _illustrationSprite: {fileID: 21300000, guid: 833e0ce603407fa448cf92a633322dfd, type: 3}
+  _illustrationSprite: {fileID: 21300000, guid: be15a6265901191478f69a470cf7c3f6, type: 3}
 --- !u!114 &7870460722545911139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   onFadeCompleted: 0
   _name: '[player]'
   _setSpeedBased: 1
-  _dialogue: "\u6211\u662F\u8C01\uFF0C\u6211\u5728\u54EA"
+  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
 --- !u!114 &8849713852542928857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,4 +1463,4 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   node: 0
-  _illustrationSprite: {fileID: 21300000, guid: 4a8f67dc5912c254d8b5b6a6c5f5bfd6, type: 3}
+  _illustrationSprite: {fileID: 21300000, guid: be15a6265901191478f69a470cf7c3f6, type: 3}

@@ -30,7 +30,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        GetComponent<Button>("button").onClick.AddListener(
+        GetComponent<Button>("Button").onClick.AddListener(
           () => {
             if (m_card.phase < m_cardTemplate.cardPhases.Length - 1) {
               UIManager.OpenOne("card_update", null, m_card);
