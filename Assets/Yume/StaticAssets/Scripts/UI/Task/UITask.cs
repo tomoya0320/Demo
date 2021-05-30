@@ -6,7 +6,7 @@ using Yume.Broadcast;
 using Yume.RedDotSystem;
 
 namespace Yume.UI {
-  public class UITask : UIGaussianBlurBg {
+  public class UITask : UIBase {
     private class UITaskTerm : UIChildBase, IScrollTerm<TaskData> {
       private Text m_title;
       private Text m_process;
@@ -169,13 +169,13 @@ namespace Yume.UI {
       }
     }
 
-    private UIGroupSwitch m_taskGroupSwitch;
+    private UIGroupSwitch m_taskGroup;
     private List<UITaskContainer> m_taskContainers = new List<UITaskContainer>();
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_taskGroupSwitch = GetComponent<UIGroupSwitch>("task group");
+      m_taskGroup = GetComponent<UIGroupSwitch>("task group");
 
       foreach (TaskType type in Enum.GetValues(typeof(TaskType))) {
         m_taskContainers.Add(new UITaskContainer(type, GetGameObject(type.GetDescription())));
@@ -191,7 +191,7 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
 
-      m_taskGroupSwitch.OnOpen();
+      m_taskGroup.OnOpen();
       m_taskContainers.ForEach(taskGroup => taskGroup.OnOpen());
     }
 

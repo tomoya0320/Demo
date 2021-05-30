@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50980395, g: 0.4745098, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50980395, g: 0.4745098, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50980395, g: 0.4745098, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -806,7 +806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.509434, g: 0.47395945, b: 0.34314704, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -976,8 +976,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e564300d709563040853f601a8d6deb4, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 61cc982fc003af24bb550d0975bf7f71, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -998,17 +998,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf9dca0fa03522409860b955f1a7e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _btnSelectedImg: {fileID: 21300000, guid: f915d519866da36458e2acebb4132d60, type: 3}
+  _btnUnselectedImg: {fileID: 21300000, guid: fac65aa92ca07274ea05d6f93b797db0, type: 3}
   _uiList:
   - button: {fileID: 644160506568452636}
     content: {fileID: 644160506291553689}
     animation: {fileID: 644160506291553695}
-    btnSelectedImg: {fileID: 21300000, guid: f832ede4e4ec3734399cde57b38892f6, type: 3}
-    btnUnselectedImg: {fileID: 21300000, guid: 3496ca3cee44b124babb1d8de02a701d, type: 3}
   - button: {fileID: 644160506829302575}
     content: {fileID: 644160506980465907}
     animation: {fileID: 644160506980465905}
-    btnSelectedImg: {fileID: 21300000, guid: f832ede4e4ec3734399cde57b38892f6, type: 3}
-    btnUnselectedImg: {fileID: 21300000, guid: 3496ca3cee44b124babb1d8de02a701d, type: 3}
 --- !u!1 &644160506516908921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,8 +1149,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3496ca3cee44b124babb1d8de02a701d, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: fac65aa92ca07274ea05d6f93b797db0, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1337,8 +1335,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3496ca3cee44b124babb1d8de02a701d, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: fac65aa92ca07274ea05d6f93b797db0, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1659,7 +1657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50980395, g: 0.4745098, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1738,7 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50980395, g: 0.4745098, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

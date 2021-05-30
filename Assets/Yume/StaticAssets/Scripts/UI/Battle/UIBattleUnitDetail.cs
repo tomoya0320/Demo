@@ -78,13 +78,13 @@ namespace Yume.UI {
     private Text m_name;
     private Text[] m_attribs;
     private UIBuffContainer m_buffContainer;
-    private UIGroupSwitch m_groupSwitch;
+    private UIGroupSwitch m_unitInfoGroup;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
       m_name = GetComponent<Text>("name");
-      m_groupSwitch = GetComponent<UIGroupSwitch>("groupSwitch");
+      m_unitInfoGroup = GetComponent<UIGroupSwitch>("groupSwitch");
 
       m_attribs = new Text[Constant.ATTRIB_LENGTH];
       for (int i = 0; i < m_attribs.Length; i++) {
@@ -105,7 +105,7 @@ namespace Yume.UI {
       m_name.text = m_buffContainer.unit.name;
 
       m_buffContainer.OnOpen();
-      m_groupSwitch.OnOpen();
+      m_unitInfoGroup.OnOpen();
 
       base.Open(callback, args);
     }

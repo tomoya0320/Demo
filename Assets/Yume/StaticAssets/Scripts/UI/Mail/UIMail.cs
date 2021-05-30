@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Yume.RedDotSystem;
 
 namespace Yume.UI {
-  public class UIMail : UIGaussianBlurBg {
+  public class UIMail : UIBase {
     private class UIMailTerm : UIChildBase, IScrollTerm<MailData> {
       private MailData m_mail;
       private Text m_titleText;

@@ -5,32 +5,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Yume.UI {
-  /// <summary>
-  /// 在同一个父UI中属于一个Group的不同子UI之间切换
-  /// 这个类只提供最基础的切换功能如果还有其他的需要可以创建子类去扩展
-  /// </summary>
   public class UIGroupSwitch : MonoBehaviour {
     [Serializable]
-    public class UIKV {
+    public class UIContent {
       public Button button;
       public GameObject content;
-      /// <summary>
-      /// 注意子UI交互开关需写在动画的帧事件里
-      /// 只需要一个open动画并记得拖到clip上
-      /// </summary>
       public Animation animation;
-      public Sprite btnSelectedImg;
-      public Sprite btnUnselectedImg;
     }
 
-    private UIKV m_currentUI;
+    private UIContent m_currentUI;
     [SerializeField]
-    private List<UIKV> _uiList;
+    private Sprite _btnSelectedImg;
+    [SerializeField]
+    private Sprite _btnUnselectedImg;
+    [SerializeField]
+    private List<UIContent> _uiList;
 
     private void Awake() {
       foreach (var ui in _uiList) {
         ui.content.SetActiveEx(false);
-        ui.button.onClick.AddListener(() => _Switch(ui));
+        ui.button.onClick.AddListener(() => Switch(ui));
       }
 
       m_currentUI = _uiList.First();
@@ -40,20 +34,20 @@ namespace Yume.UI {
     /// 父UI打开时调用主要为了重新播放动画
     /// </summary>
     public void OnOpen() {
-      _Switch(_uiList.First(), true);
+      Switch(_uiList.First(), true);
     }
 
-    private void _Switch(UIKV ui, bool force = false) {
+    public void Switch(UIContent ui, bool force = false) {
       if (m_currentUI == ui && !force) {
         return;
       }
 
       if (m_currentUI != null) {
-        m_currentUI.button.image.sprite = m_currentUI.btnUnselectedImg;
+        m_currentUI.button.image.sprite = _btnUnselectedImg;
         m_currentUI.content.SetActiveEx(false);
       }
 
-      ui.button.image.sprite = ui.btnSelectedImg;
+      ui.button.image.sprite = _btnSelectedImg;
       ui.content.SetActiveEx(true);
       ui.animation.Play();
 
