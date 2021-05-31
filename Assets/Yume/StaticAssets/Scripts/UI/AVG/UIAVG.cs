@@ -97,7 +97,7 @@ namespace Yume.UI {
           }
           if (m_auto) {
             // 当玩家在进行其他操作的时候等待
-            yield return new WaitUntil(() => UIManager.GetCurrentUI().name == name);
+            yield return new WaitUntil(() => UIManager.currentUI.name == name);
             m_avgGraph.Run();
           }
         }
@@ -127,11 +127,11 @@ namespace Yume.UI {
         return;
       }
 
-      if (UIManager.GetCurrentUI().name == name) {
+      if (UIManager.currentUI.name == name) {
         Action action = QuitAVG;
         UIManager.OpenOne("confirmation", null, "确认跳过剧情？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetCurrentUI().name);
+        UIManager.CloseOne(UIManager.currentUI.name);
       }
     }
 
@@ -140,11 +140,11 @@ namespace Yume.UI {
         return;
       }
 
-      if (UIManager.GetCurrentUI().name == name) {
+      if (UIManager.currentUI.name == name) {
         Action action = videoPlayer.Stop;
         UIManager.OpenOne("confirmation", null, "确认跳过视频？", "确认", "取消", action, null);
       } else {
-        UIManager.CloseOne(UIManager.GetCurrentUI().name);
+        UIManager.CloseOne(UIManager.currentUI.name);
       }
     }
 
@@ -187,7 +187,7 @@ namespace Yume.UI {
       m_avgGraph.CleanUp();
       
       UIManager.onBackList.Remove(Skip);
-      UIManager.CloseOne(name, true);
+      UIManager.CloseOneEx(name);
     }
   }
 }

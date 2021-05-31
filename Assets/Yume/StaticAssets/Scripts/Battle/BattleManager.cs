@@ -123,7 +123,7 @@ namespace Yume.Battle {
           // 先清理
           _CleanUp();
           // 再关闭战斗UI
-          UIManager.CloseOne("single_battle");
+          UIManager.CloseOneEx("single_battle");
           // 最后结算
           Action action = () => {
             MessageManager.AddMessage(new Message(Message.Style.FADE, battleResult.GetDescription()));

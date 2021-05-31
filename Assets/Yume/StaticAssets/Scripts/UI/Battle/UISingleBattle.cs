@@ -55,13 +55,13 @@ namespace Yume.UI {
         return;
       }
       
-      if (UIManager.GetCurrentUI().name == name) {
+      if (UIManager.currentUI.name == name) {
         UIManager.OpenOne(
           "confirmation", null,
           "确认放弃作战？", "确认", "取消", m_abort, null
         );
       } else {
-        UIManager.CloseOne(UIManager.GetCurrentUI().name);
+        UIManager.CloseOne(UIManager.currentUI.name);
       }
     }
 

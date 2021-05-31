@@ -68,7 +68,7 @@ namespace Yume {
         // 等UI动画和全局过渡动画都结束了再调用
         yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
         Action action = () => _SetGuideStep(guide, stepEnumerator);
-        if (UIManager.GetCurrentUI().name == stepEnumerator.current.uiName) {
+        if (UIManager.currentUI.name == stepEnumerator.current.uiName) {
           action();
         } else {
           UIManager.OpenOne(stepEnumerator.current.uiName, action);
@@ -82,7 +82,7 @@ namespace Yume {
 
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
-      var ui = UIManager.GetCurrentUI();
+      var ui = UIManager.currentUI;
       RectTransform targetObj;
       if (stepEnumerator.current.isDynamicListObj) {
         targetObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);

@@ -36,6 +36,8 @@ namespace Yume {
     public static int activeBack = 1;
     public static bool blockNormalUI => s_blockNormalUI > 0;
     public static bool globalFading { private set; get; }
+    public static int uiCount => s_uiStack.Count;
+    public static UIBase currentUI => s_uiStack.Count > 0 ? s_uiStack.Peek() : null;
     // 因为返回事件的添加和移除的顺序不是严格一致的所以不能用Stack之类的数据结构
     public static List<Action> onBackList = new List<Action>();
     private static Stack<UIBase> s_uiStack = new Stack<UIBase>();
@@ -58,8 +60,8 @@ namespace Yume {
 
       onBackList.Add(
         () => {
-          if (s_uiStack.Count > 1 || (s_uiStack.Count > 0 && s_uiStack.Peek().name == "confirmation")) {
-            CloseOne(s_uiStack.Peek().name);
+          if (uiCount > 1 || currentUI?.name == "confirmation") {
+            CloseOne(currentUI.name);
           } else {
             OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
           }
@@ -95,8 +97,13 @@ namespace Yume {
       }
     }
 
-    public static UIBase GetCurrentUI() {
-      return s_uiStack.Count > 0 ? s_uiStack.Peek() : null;
+    public static bool ContainUI(string name) {
+      foreach (var ui in s_uiStack) {
+        if (ui.name == name) {
+          return true;
+        }
+      }
+      return false;
     }
 
     /// <summary>
@@ -129,9 +136,9 @@ namespace Yume {
 
       string lastBgm;
       string lastEffect;
-      if (s_uiStack.Count > 0) {
-        lastBgm = s_uiStack.Peek().bgm;
-        lastEffect = s_uiStack.Peek().effectName;
+      if (uiCount > 0) {
+        lastBgm = currentUI.bgm;
+        lastEffect = currentUI.effectName;
       } else {
         lastBgm = StringMap.EMPTY;
         lastEffect = StringMap.EMPTY;
@@ -183,7 +190,7 @@ namespace Yume {
           return;
         }
 
-        while (s_uiStack.Count > 0) {
+        while (uiCount > 0) {
           _CloseInternal(true);
         }
         OpenOne(name, callback, args);
@@ -204,12 +211,30 @@ namespace Yume {
           return;
         }
 
-        if (s_uiStack.Count > 0 && s_uiStack.Peek().name == name) {
+        if (uiCount > 0 && currentUI.name == name) {
           _CloseInternal(immediate, callback);
         }
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
+    }
+
+    /// <summary>
+    /// 关闭该UI以及其之上的UI
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="immediate">是否跳过关闭动画</param>
+    /// <param name="callback"></param>
+    public static void CloseOneEx(string name, bool immediate = false, Action callback = null) {
+      if (!ContainUI(name)) {
+        Debug.LogError($"UI未打开！name:{name}");
+        return;
+      }
+
+      while (currentUI.name != name) {
+        _CloseInternal(true);
+      }
+      CloseOne(name, immediate, callback);
     }
 
     private static void _CloseInternal(bool immediate = false, Action callback = null) {
@@ -228,9 +253,9 @@ namespace Yume {
         // 更新Bgm和特效
         string nextBgm;
         string nextEffect;
-        if (s_uiStack.Count > 0) {
-          nextBgm = s_uiStack.Peek().bgm;
-          nextEffect = s_uiStack.Peek().effectName;
+        if (uiCount > 0) {
+          nextBgm = currentUI.bgm;
+          nextEffect = currentUI.effectName;
         } else {
           nextBgm = StringMap.EMPTY;
           nextEffect = StringMap.EMPTY;
@@ -241,11 +266,11 @@ namespace Yume {
       };
       callback = action + callback;
 
-      s_uiStack.Peek().Close(immediate, callback + _CheckGuide);
+      currentUI.Close(immediate, callback + _CheckGuide);
     }
 
     private static void _CheckGuide() {
-      if (s_uiStack.Count > 0 && s_uiStack.Peek().name == "main") {
+      if (currentUI?.name == "main") {
         GuideManager.CheckGuide();
       }
     }
