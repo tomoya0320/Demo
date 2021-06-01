@@ -31,15 +31,16 @@ namespace Yume.Battle {
         if (cardAnimEvent.waitingTime > 0) {
           yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
-        bool result = _OnCast() && m_card.owner.isAlive;
-        yield return new WaitWhile(() => m_animation.isPlaying);
-        gameObject.SetActiveEx(false);
         // 释放过程中如果自己死了或目标全都死了就直接结束
+        bool result = _OnCast() && m_card.owner.isAlive;
         if (result) {
           eventCount--;
         } else {
           yield break;
         }
+        // 等待卡牌动画播放完毕
+        yield return new WaitWhile(() => m_animation.isPlaying);
+        gameObject.SetActiveEx(false);
       }
     }
 
