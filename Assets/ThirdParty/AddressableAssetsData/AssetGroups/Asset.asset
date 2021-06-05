@@ -59,12 +59,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-  - m_GUID: 5d3b2df00af960b4bb7e46b9dd2a3b01
-    m_Address: avg_test5
+  - m_GUID: 03f000ce11f7be24d87b7833f21c924b
+    m_Address: avg_test2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Download
     - Preload
+    - Download
   - m_GUID: f32ebe06187448c4ca8746ab142248db
     m_Address: levelAsset
     m_ReadOnly: 0
@@ -89,18 +89,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Download
     - Preload
-  - m_GUID: 03f000ce11f7be24d87b7833f21c924b
-    m_Address: avg_test2
+  - m_GUID: 5d3b2df00af960b4bb7e46b9dd2a3b01
+    m_Address: avg_test5
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Download
     - Preload
-  - m_GUID: ddf5c47724c070949965b3812fe49dd7
-    m_Address: avg_test3
+    - Download
+  - m_GUID: 57767cf397c628d4c8704d028e4b90cc
+    m_Address: avg_test4
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Download
     - Preload
+    - Download
   - m_GUID: 8c5b1508c4701d54f857a5f39715c9d2
     m_Address: detach_attrib
     m_ReadOnly: 0
@@ -119,12 +119,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-  - m_GUID: c8c83c15073efde4eb8db28bd5f661ff
-    m_Address: avg_opening
+  - m_GUID: 958dd56484cfd394e89896fdc18e72c2
+    m_Address: avg_test7
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Download
     - Preload
+    - Download
   - m_GUID: 5ae23f3a55ebf184d8b45a374913391f
     m_Address: guideAsset
     m_ReadOnly: 0
@@ -197,14 +197,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Download
     - Preload
-  - m_GUID: 57767cf397c628d4c8704d028e4b90cc
-    m_Address: avg_test4
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    - Download
-  - m_GUID: 0bd06b4454e545f4bb0dbac1e6f58a34
-    m_Address: avg_test1
+  - m_GUID: ddf5c47724c070949965b3812fe49dd7
+    m_Address: avg_test3
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
@@ -215,8 +209,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     - Download
-  - m_GUID: 958dd56484cfd394e89896fdc18e72c2
-    m_Address: avg_test7
+  - m_GUID: 0bd06b4454e545f4bb0dbac1e6f58a34
+    m_Address: avg_test1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    - Download
+  - m_GUID: c8c83c15073efde4eb8db28bd5f661ff
+    m_Address: avg_opening
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload

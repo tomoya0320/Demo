@@ -915,7 +915,9 @@ namespace Yume {
       if (ResourceManager.Contains<Sprite>(name)) {
         image.sprite = ResourceManager.Load<Sprite>(name);
       } else {
-        Addressables.LoadAssetAsync<Sprite>(name).Completed += handle => image.sprite = handle.Result;
+        var handle = Addressables.LoadAssetAsync<Sprite>(name);
+        image.sprite = handle.WaitForCompletion();
+        Addressables.Release(handle);
       }
     }
   }

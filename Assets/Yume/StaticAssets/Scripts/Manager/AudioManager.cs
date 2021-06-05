@@ -116,7 +116,10 @@ namespace Yume {
           if (ResourceManager.Contains<AudioClip>(audioClipName)) {
             s_bgmManager.PlayBgm(ResourceManager.Load<AudioClip>(audioClipName));
           } else {
-            Addressables.LoadAssetAsync<AudioClip>(audioClipName).Completed += handle => s_bgmManager.PlayBgm(handle.Result); 
+            var handle = Addressables.LoadAssetAsync<AudioClip>(audioClipName);
+            var audioClip = handle.WaitForCompletion();
+            s_bgmManager.PlayBgm(audioClip);
+            Addressables.Release(handle);
           }
         }
       }
