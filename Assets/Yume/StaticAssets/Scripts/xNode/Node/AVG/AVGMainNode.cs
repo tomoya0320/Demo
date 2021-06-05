@@ -12,7 +12,7 @@ namespace Yume.AVG {
       foreach (var connection in connections) {
         (connection.node as AVGNodeBase).Run();
       }
-      avgGraph.avgNode = GetOutputPort(nameof(next)).Connection.node as AVGNodeBase;
+      avgGraph.avgNode = GetOutputPort(nameof(next)).Connection?.node as AVGNodeBase;
     }
   }
 }

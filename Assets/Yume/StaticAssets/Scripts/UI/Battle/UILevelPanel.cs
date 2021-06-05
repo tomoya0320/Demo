@@ -62,11 +62,14 @@ namespace Yume.UI {
       for (int i = 0; i < m_enemies.childCount; i++) {
         var tempGo = m_enemies.GetChild(i).gameObject;
         if (i < m_levelTemplate.enemyTeams.Length) {
-          // 小 心 闭 包
+          // 小心闭包
           UnitArgs enemyArgs = m_levelTemplate.enemyTeams[i].unitArgs;
+          Image image = tempGo.GetComponentInChildren<Image>();
+          image.SetSprite(ResourceManager.Load<UnitTemplate>(enemyArgs.id).headFileName);
+          Button button = tempGo.GetComponentInChildren<Button>();
+          button.onClick.RemoveAllListeners();
+          button.onClick.AddListener(() => UIManager.OpenOne("enemy_detail", null, enemyArgs));
           tempGo.SetActiveEx(true);
-          tempGo.GetComponentInChildren<Image>().SetSprite(ResourceManager.Load<UnitTemplate>(enemyArgs.id).headFileName);
-          tempGo.GetComponentInChildren<Button>().onClick.AddListener(() => UIManager.OpenOne("enemy_detail", null, enemyArgs));
         } else {
           tempGo.SetActiveEx(false);
         }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5860967097870442537
+--- !u!114 &-8150837337992893496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4161f3aaf7323484ea28e6187c35f879, type: 3}
-  m_Name: Set Dialogue
+  m_Script: {fileID: 11500000, guid: cb6586dcb592a534a901b673968741b2, type: 3}
+  m_Name: Set Illustration
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,40 +22,96 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -104, y: 88}
+  position: {x: -248, y: 344}
   ports:
     keys:
     - node
-    - onFadeCompleted
     values:
     - _fieldName: node
-      _node: {fileID: -5860967097870442537}
+      _node: {fileID: -8150837337992893496}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: nodes
-        node: {fileID: -1926963278744107930}
+      - fieldName: onFadeCompleted
+        node: {fileID: 6474566646685685019}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: onFadeCompleted
-      _node: {fileID: -5860967097870442537}
+  node: 0
+  _illustrationSprite: {fileID: 21300000, guid: d74bfa96ceffc954d801c09ab9babdb7, type: 3}
+--- !u!114 &-7360434778190945587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3478a3491b761f459b071d9d956526e, type: 3}
+  m_Name: AVG Main
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 328, y: -104}
+  ports:
+    keys:
+    - last
+    - next
+    - nodes
+    values:
+    - _fieldName: last
+      _node: {fileID: -7360434778190945587}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: next
+        node: {fileID: -1926963278744107930}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: next
+      _node: {fileID: -7360434778190945587}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: last
+        node: {fileID: -1767042759095168582}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nodes
+      _node: {fileID: -7360434778190945587}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: -2722298705363871009}
+        reroutePoints: []
+      - fieldName: node
+        node: {fileID: 4481968063133318713}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  node: 0
-  block: 0
-  fadeTime: 15
-  onFadeCompleted: 0
-  _name: "\uFF1F\uFF1F\uFF1F"
-  _setSpeedBased: 1
-  _dialogue: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
+  last: 0
+  next: 0
+  nodes: 0
 --- !u!114 &-2984065205289269494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +134,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: 328, y: 8}
+  position: {x: 1320, y: -72}
   ports:
     keys:
     - last
@@ -89,13 +145,218 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: next
-        node: {fileID: -1926963278744107930}
+        node: {fileID: 8198725523196087060}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   last: 0
+--- !u!114 &-2722298705363871009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98afc7edcc2d2414685fbf1a52b552c0, type: 3}
+  m_Name: Set Dialogue Visible
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 200, y: 104}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: -2722298705363871009}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: -2722298705363871009}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: -7360434778190945587}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 1
+  fadeTime: 0.5
+  onFadeCompleted: 0
+  _visible: 1
+--- !u!114 &-2662335631145050380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4161f3aaf7323484ea28e6187c35f879, type: 3}
+  m_Name: Set Dialogue
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 720.367, y: 172.32698}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: -2662335631145050380}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: -2662335631145050380}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: -1767042759095168582}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 0
+  fadeTime: 20
+  onFadeCompleted: 0
+  _name: "\u68EE\u6797\u7684\u68A6\u9B47"
+  _setSpeedBased: 1
+  _dialogue: "\u547C\u54E7\u2014\u2014\uFF08\u53D1\u73B0\u4E86\u4F60\uFF09\u55F7\u2014\u2014\uFF08\u51B2\u5411\u4E86\u4F60\uFF09"
+--- !u!114 &-2619134895396732016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e26eededa66d3489d2098884c64ee3, type: 3}
+  m_Name: Set Background
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: -648, y: -40}
+  ports:
+    keys:
+    - node
+    values:
+    - _fieldName: node
+      _node: {fileID: -2619134895396732016}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: -1926963278744107930}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  _bgSprite: {fileID: 21300000, guid: cfad4f23c25427b4e904c9303b636aec, type: 3}
+--- !u!114 &-2459585290081567563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98afc7edcc2d2414685fbf1a52b552c0, type: 3}
+  m_Name: Set Dialogue Visible
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: -440, y: 72}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: -2459585290081567563}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: -2459585290081567563}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: -1926963278744107930}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 1
+  fadeTime: 0
+  onFadeCompleted: 0
+  _visible: 0
 --- !u!114 &-1926963278744107930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +404,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: last
-        node: {fileID: -2984065205289269494}
+        node: {fileID: -7360434778190945587}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -155,10 +416,81 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: node
-        node: {fileID: 5847907996881518768}
+        node: {fileID: -2459585290081567563}
         reroutePoints: []
       - fieldName: node
-        node: {fileID: -5860967097870442537}
+        node: {fileID: 6474566646685685019}
+        reroutePoints: []
+      - fieldName: node
+        node: {fileID: -2619134895396732016}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  last: 0
+  next: 0
+  nodes: 0
+--- !u!114 &-1767042759095168582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3478a3491b761f459b071d9d956526e, type: 3}
+  m_Name: AVG Main
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 712, y: -72}
+  ports:
+    keys:
+    - last
+    - next
+    - nodes
+    values:
+    - _fieldName: last
+      _node: {fileID: -1767042759095168582}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: next
+        node: {fileID: -7360434778190945587}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: next
+      _node: {fileID: -1767042759095168582}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: last
+        node: {fileID: 8198725523196087060}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nodes
+      _node: {fileID: -1767042759095168582}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: -2662335631145050380}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -191,12 +523,22 @@ MonoBehaviour:
   nodes:
   - {fileID: 6017689547753387790}
   - {fileID: -1926963278744107930}
-  - {fileID: 5847907996881518768}
-  - {fileID: -5860967097870442537}
   - {fileID: -2984065205289269494}
+  - {fileID: -2459585290081567563}
+  - {fileID: 6474566646685685019}
+  - {fileID: -8150837337992893496}
+  - {fileID: 4976343052510115109}
+  - {fileID: -7360434778190945587}
+  - {fileID: -2722298705363871009}
+  - {fileID: 4481968063133318713}
+  - {fileID: -1767042759095168582}
+  - {fileID: -2662335631145050380}
+  - {fileID: 8198725523196087060}
+  - {fileID: 5847068992038082768}
+  - {fileID: -2619134895396732016}
   disableSkip: 0
   disableSkipVideo: 0
---- !u!114 &5847907996881518768
+--- !u!114 &4481968063133318713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,8 +547,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e26eededa66d3489d2098884c64ee3, type: 3}
-  m_Name: Set Background
+  m_Script: {fileID: 11500000, guid: 4161f3aaf7323484ea28e6187c35f879, type: 3}
+  m_Name: Set Dialogue
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -218,25 +560,150 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -456, y: 104}
+  position: {x: 440, y: 184}
   ports:
     keys:
+    - onFadeCompleted
     - node
     values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: 4481968063133318713}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
     - _fieldName: node
-      _node: {fileID: 5847907996881518768}
+      _node: {fileID: 4481968063133318713}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: nodes
-        node: {fileID: -1926963278744107930}
+        node: {fileID: -7360434778190945587}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   node: 0
-  _bgSprite: {fileID: 21300000, guid: fe0a6f6718bf3e34ba4b6ca5d7d002ab, type: 3}
+  block: 0
+  fadeTime: 20
+  onFadeCompleted: 0
+  _name: '[player]'
+  _setSpeedBased: 1
+  _dialogue: "\u8FD9\u662F\u2026\u2026\u4EC0\u4E48\uFF01\u597D\u591A\u602A\u7269\u2026\u2026\u8C8C\u4F3C\u8FD8\u6709\u7EC4\u7EC7\u3002\u5F97\u5C0F\u5FC3\u4E00\u70B9\u4E86\uFF0C\u4E0D\u80FD\u88AB\u53D1\u73B0\u3002"
+--- !u!114 &4976343052510115109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea401f4a223ccb48a1d1ae3be14b686, type: 3}
+  m_Name: Set Illustration Visible
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 296}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: 4976343052510115109}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: 4976343052510115109}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: onFadeCompleted
+        node: {fileID: 6474566646685685019}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 1
+  fadeTime: 0.5
+  onFadeCompleted: 0
+  _visible: 1
+--- !u!114 &5847068992038082768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4161f3aaf7323484ea28e6187c35f879, type: 3}
+  m_Name: Set Dialogue
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 1115.6741, y: 190.96097}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: 5847068992038082768}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: 5847068992038082768}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: 8198725523196087060}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 0
+  fadeTime: 20
+  onFadeCompleted: 0
+  _name: '[player]'
+  _setSpeedBased: 1
+  _dialogue: "\u4E0D\u597D\uFF0C\u88AB\u53D1\u73B0\u4E86\u3002\u5F97\u60F3\u529E\u6CD5\u8131\u8EAB\uFF01"
 --- !u!114 &6017689547753387790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,3 +744,131 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   next: 0
+--- !u!114 &6474566646685685019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea401f4a223ccb48a1d1ae3be14b686, type: 3}
+  m_Name: Set Illustration Visible
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: -168, y: 72}
+  ports:
+    keys:
+    - onFadeCompleted
+    - node
+    values:
+    - _fieldName: onFadeCompleted
+      _node: {fileID: 6474566646685685019}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: -8150837337992893496}
+        reroutePoints: []
+      - fieldName: node
+        node: {fileID: 4976343052510115109}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: node
+      _node: {fileID: 6474566646685685019}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: nodes
+        node: {fileID: -1926963278744107930}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  node: 0
+  block: 1
+  fadeTime: 0
+  onFadeCompleted: 0
+  _visible: 0
+--- !u!114 &8198725523196087060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3478a3491b761f459b071d9d956526e, type: 3}
+  m_Name: AVG Main
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: 1003.8701, y: -3.3650525}
+  ports:
+    keys:
+    - last
+    - next
+    - nodes
+    values:
+    - _fieldName: last
+      _node: {fileID: 8198725523196087060}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: next
+        node: {fileID: -1767042759095168582}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: next
+      _node: {fileID: 8198725523196087060}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: last
+        node: {fileID: -2984065205289269494}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nodes
+      _node: {fileID: 8198725523196087060}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: 5847068992038082768}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  last: 0
+  next: 0
+  nodes: 0

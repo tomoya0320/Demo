@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using Yume.Battle;
 
 namespace Yume {
   public class Game : SingletonMono<Game> {
@@ -16,6 +17,7 @@ namespace Yume {
       set => m_processImg.fillAmount = value;
     }
 #if BETA
+    private bool m_showCheatPanel;
     public GameObject lunarConsolePrefab;
 #endif
 
@@ -106,15 +108,31 @@ namespace Yume {
 
     private void Update() {
       onUpdate?.Invoke();
+      
+#if BETA
+      if (Input.GetKeyDown(KeyCode.F1)) {
+        m_showCheatPanel = !m_showCheatPanel;
+      }
+#endif
     }
 #if BETA
     private void OnGUI() {
-      if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {
-        LunarConsolePlugin.LunarConsole.Show();
-      }   
-      
-      if (GUILayout.Button("清除存档", GUILayout.Width(200), GUILayout.Height(80))) {
-        PlayerPrefs.DeleteKey(DataManager.USER_DB_KEY);
+      if (m_showCheatPanel) {
+        if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {
+          LunarConsolePlugin.LunarConsole.Show();
+        }
+
+        if (GUILayout.Button("清除存档", GUILayout.Width(200), GUILayout.Height(80))) {
+          PlayerPrefs.DeleteKey(DataManager.USER_DB_KEY);
+        }        
+        
+        if (GUILayout.Button("战斗胜利", GUILayout.Width(200), GUILayout.Height(80))) {
+          BattleManager.Finish(BattleResult.WIN);
+        }       
+        
+        if (GUILayout.Button("战斗失败", GUILayout.Width(200), GUILayout.Height(80))) {
+          BattleManager.Finish(BattleResult.LOSE);
+        }
       }
     }
 #endif
