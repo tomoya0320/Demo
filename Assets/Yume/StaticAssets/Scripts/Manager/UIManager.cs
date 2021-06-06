@@ -312,10 +312,12 @@ namespace Yume {
       globalFading = true;
       animation.gameObject.SetActiveEx(true);
       animation.Play("open");
-      yield return new WaitWhile(() => animation.isPlaying);
+      YWaitWhile waitWhile = WaitUtil.GetWaitWhile(() => animation.isPlaying);
+      yield return waitWhile;
       callback?.Invoke();
       animation.Play("close");
-      yield return new WaitWhile(() => animation.isPlaying);
+      yield return waitWhile;
+      WaitUtil.ReleaseWaitWhile(waitWhile);
       animation.gameObject.SetActiveEx(false);
       globalFading = false;
       activeBack++;

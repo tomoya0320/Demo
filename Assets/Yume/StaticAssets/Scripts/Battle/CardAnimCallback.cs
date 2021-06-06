@@ -6,10 +6,12 @@ namespace Yume.Battle {
   public class CardAnimCallback : MonoBehaviour {
     private Card m_card;
     private Animation m_animation;
+    private YWaitWhile m_waitCardAnim;
 
     private void Awake() {
       m_animation = GetComponent<Animation>();
       m_animation.playAutomatically = false;
+      m_waitCardAnim = WaitUtil.GetWaitWhile(() => m_animation.isPlaying);
     }
 
     public void SetCard(Card card) {
@@ -39,7 +41,7 @@ namespace Yume.Battle {
           yield break;
         }
         // 等待卡牌动画播放完毕
-        yield return new WaitWhile(() => m_animation.isPlaying);
+        yield return m_waitCardAnim;
         gameObject.SetActiveEx(false);
       }
     }
@@ -82,6 +84,11 @@ namespace Yume.Battle {
 
     private void _OnPlaySound(string sound) {
       AudioManager.PlaySound(sound);
+    }
+
+    private void OnDestroy() {
+      WaitUtil.ReleaseWaitWhile(m_waitCardAnim);
+      m_waitCardAnim = null;
     }
   }
 }

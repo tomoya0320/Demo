@@ -16,6 +16,7 @@ namespace Yume.Battle {
     public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
     public bool isDead => !isAlive;
+    protected YWaitUntil waitPlayCard;
 
     #region 表现层
 
@@ -69,8 +70,13 @@ namespace Yume.Battle {
     }
 
     public abstract IEnumerator OnTick();
-    
-    public abstract void CleanUp();
+
+    public virtual void CleanUp() {
+      WaitUtil.ReleaseWaitUntil(waitPlayCard);
+      waitPlayCard = null;
+      blackboard.Clear();
+      Object.Destroy(gameObject);
+    }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
       int result;

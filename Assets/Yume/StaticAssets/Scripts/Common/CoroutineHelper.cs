@@ -12,8 +12,13 @@ namespace Yume {
       return StartCoroutine(_DelayInvokeInternal(time, callback));
     }
 
-    public void Stop(Coroutine routine) {
-      StopCoroutine(routine);
+    public void Stop(IEnumerator enumerator) {
+      StopCoroutine(enumerator);
+      // 嵌套的协程只能通过这种方式来终止
+      while (enumerator.Current is IEnumerator current) {
+        enumerator = current;
+        StopCoroutine(enumerator);
+      }
     }
 
     private IEnumerator _DelayInvokeInternal(float time, Action callback) {

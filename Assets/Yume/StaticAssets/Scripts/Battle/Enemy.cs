@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
+    private Tween m_tween;
+    private YWaitWhile m_waitCardAnim;
     protected override Transform folder => UnitFactory.enemyFolder;
     protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
     protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
@@ -18,6 +19,8 @@ namespace Yume.Battle {
         card.gameObject.SetActiveEx(false);
         cards.Add(card);
       }
+      m_waitCardAnim = WaitUtil.GetWaitWhile(() => m_tween.IsPlaying());
+      waitPlayCard = WaitUtil.GetWaitUntil(() => playCardQueue.Count > 0);
     }
 
     public override IEnumerator OnTick() {
@@ -45,28 +48,30 @@ namespace Yume.Battle {
       playCardQueue.Enqueue(null);
       // 出牌中
       while (true) {
-        if (playCardQueue.Count > 0) {
-          var card = playCardQueue.Dequeue();
-          if (card == null) {
-            break;
-          }
-          
-          card.gameObject.SetActiveEx(true);
-          var tween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
-          yield return new WaitUntil(() => !tween.IsPlaying());
-          yield return card.Cast();
-          tween = card.gameObject.transform
+        yield return waitPlayCard;
+        var card = playCardQueue.Dequeue();
+        if (card == null) {
+          break;
+        }
+        card.gameObject.SetActiveEx(true);
+        m_tween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
+        yield return m_waitCardAnim;
+        yield return card.Cast();
+        m_tween = card.gameObject.transform
                       .DOScale(UIBattleCard.smallScale, 0.2f)
                       .OnComplete(() => card.gameObject.SetActiveEx(false));
-          yield return new WaitUntil(() => !tween.IsPlaying());
-        }
-        yield return null;
+        yield return m_waitCardAnim;
       }
     }
 
     public override void CleanUp() {
-      cards.ForEach(card => Object.Destroy(card.gameObject));
-      Object.Destroy(gameObject);
+      base.CleanUp();
+      
+      WaitUtil.ReleaseWaitWhile(m_waitCardAnim);
+      m_waitCardAnim = null;
+      m_tween = null;
+      cards.ForEach(card => card.CleanUp());
+      cards.Clear();
     }
 
     public override void EnqueueCard(Card card) {

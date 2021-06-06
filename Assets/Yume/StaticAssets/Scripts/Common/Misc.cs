@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -907,11 +907,6 @@ namespace Yume {
 
   public static class ImageExtensions {
     public static void SetSprite(this Image image, string name) {
-#if BETA
-      if (string.IsNullOrEmpty(name)) {
-        return;
-      }
-#endif
       if (ResourceManager.Contains<Sprite>(name)) {
         image.sprite = ResourceManager.Load<Sprite>(name);
       } else {
@@ -1097,11 +1092,6 @@ namespace Yume {
     /// 如果是附加xxx属性的话格式则为{0:attribAdditive:HP#value}
     /// </summary>
     public static string GetActualDescription(string description, BuffTemplate[] buffTemplates) {
-#if BETA
-      if (string.IsNullOrEmpty(description)) {
-        return StringMap.EMPTY;
-      }
-#endif
       StringBuilder result = new StringBuilder();
       int start = 0;
       for (int i = 0; i < description.Length; i++) {
@@ -1146,11 +1136,6 @@ namespace Yume {
     }
 
     public static string GetActualDescription(string description, Blackboard blackboard) {
-#if BETA
-      if (string.IsNullOrEmpty(description)) {
-        return StringMap.EMPTY;
-      }
-#endif
       StringBuilder result = new StringBuilder();
       int start = 0;
       for (int i = 0; i < description.Length; i++) {
@@ -1409,6 +1394,43 @@ namespace Yume {
         return true;
       }
       return false;
+    }
+  }
+
+  public sealed class YWaitWhile : CustomYieldInstruction {
+    public Func<bool> predicate;
+    public override bool keepWaiting => predicate();
+  }  
+  
+  public sealed class YWaitUntil : CustomYieldInstruction {
+    public Func<bool> predicate;
+    public override bool keepWaiting => !predicate();
+  }
+
+  public static class WaitUtil {
+    private static Stack<YWaitWhile> s_waitWhileStack = new Stack<YWaitWhile>();
+    private static Stack<YWaitUntil> s_waitUntilStack = new Stack<YWaitUntil>();
+
+    public static YWaitWhile GetWaitWhile(Func<bool> predicate) {
+      YWaitWhile waitWhile = s_waitWhileStack.Count > 0 ? s_waitWhileStack.Pop() : new YWaitWhile();
+      waitWhile.predicate = predicate;
+      return waitWhile;
+    }    
+    
+    public static void ReleaseWaitWhile(YWaitWhile waitWhile) {
+      waitWhile.predicate = null;
+      s_waitWhileStack.Push(waitWhile);
+    }    
+    
+    public static YWaitUntil GetWaitUntil(Func<bool> predicate) {
+      YWaitUntil waitUntil = s_waitUntilStack.Count > 0 ? s_waitUntilStack.Pop() : new YWaitUntil();
+      waitUntil.predicate = predicate;
+      return waitUntil;
+    }    
+    
+    public static void ReleaseWaitUntil(YWaitUntil waitUntil) {
+      waitUntil.predicate = null;
+      s_waitUntilStack.Push(waitUntil);
     }
   }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Yume.Battle {
@@ -17,11 +18,11 @@ namespace Yume.Battle {
       if (ContainBuff($"buff_immune_{buffId}")) {
         return;
       }
-      
+
       if (!m_buffDict.ContainsKey(buffId)) {
         m_buffDict.Add(buffId, new List<Buff>());
       }
-      
+
       switch (stackType) {
         case StackType.NONE:
           if (m_buffDict[buffId].Count == 0) {
@@ -116,6 +117,11 @@ namespace Yume.Battle {
           }
         }
       }
+    }
+
+    public void CleanUp() {
+      m_buffDict.Values.ForEach(buffs => buffs.Clear());
+      m_buffDict.Clear();
     }
   }
 }

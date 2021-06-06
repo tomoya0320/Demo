@@ -25,7 +25,9 @@ namespace Yume.AVG {
 
       avg.videoPlayer.clip = _videoClip;
       avg.videoPlayer.Play();
-      yield return new WaitUntil(() => !avg.videoPlayer.isPlaying);
+      YWaitWhile waitWhile = WaitUtil.GetWaitWhile(() => avg.videoPlayer.isPlaying);
+      yield return waitWhile;
+      WaitUtil.ReleaseWaitWhile(waitWhile);
 
       UIManager.activeBack--;
       avg.videoRawImage.material.SetFloat("_AlphaAdd", 0);

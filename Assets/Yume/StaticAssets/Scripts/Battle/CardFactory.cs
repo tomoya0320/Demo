@@ -55,9 +55,6 @@ namespace Yume.Battle {
     }
 
     public static void CleanUp() {
-      for (int i = 0; i < s_cardAnimFolder.childCount; i++) {
-        Object.Destroy(s_cardAnimFolder.GetChild(i).gameObject);
-      }
       s_cardPrefab = null;
       s_cardAnimFolder = null;
       s_drawCardFolder = null;

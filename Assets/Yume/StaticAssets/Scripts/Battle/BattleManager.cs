@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Sirenix.Utilities;
 using UnityEngine;
 using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
@@ -19,11 +20,11 @@ namespace Yume.Battle {
 
   public static class BattleManager {
     private static Unit s_lastUnit;
-    private static Coroutine s_coroutine;
     private static int s_currentUnitIndex;
+    private static IEnumerator s_runEnumerator;
     private static LevelTemplate s_levelTemplate;
     public static List<Unit> units = new List<Unit>();
-    public static bool isRunning => s_coroutine != null;
+    public static bool isRunning => s_runEnumerator != null;
     public static Unit currentUnit => units[s_currentUnitIndex]; // 当前回合的单位
     public static Character character => units.First() as Character; // 玩家角色设定为放在第一个位置上
     public static Blackboard blackboard = new Blackboard();
@@ -79,7 +80,8 @@ namespace Yume.Battle {
       }
       
       // 开始作战
-      s_coroutine = CoroutineHelper.instance.Run(_Run());
+      s_runEnumerator = _Run();
+      CoroutineHelper.instance.Run(s_runEnumerator);
       // 注册每帧调用的更新事件
       Game.instance.onUpdate += _OnUpdate;
     }
@@ -110,8 +112,8 @@ namespace Yume.Battle {
       }
       
       // 停止协程
-      CoroutineHelper.instance.Stop(s_coroutine);
-      s_coroutine = null;
+      CoroutineHelper.instance.Stop(s_runEnumerator);
+      s_runEnumerator = null;
       // 移除每帧调用的更新事件
       Game.instance.onUpdate -= _OnUpdate;
 
@@ -176,26 +178,36 @@ namespace Yume.Battle {
     }
 
     private static void _CleanUp() {
-      // 清理
-      units.ForEach(unit => unit.CleanUp());
-      units.Clear();
-
+      // step1
       s_lastUnit = null;
       s_currentUnitIndex = 0;
       s_levelTemplate = default;
+      
+      // step2
+      units.ForEach(unit => unit.CleanUp());
+      buffManagers.Values.ForEach(buffManager => buffManager.CleanUp());
+      behaviorManagers.Values.ForEach(behaviorManager => behaviorManager.CleanUp());
 
+      // step3
+      units.Clear();
       blackboard.Clear();
       buffManagers.Clear();
       behaviorManagers.Clear();
 
+      // step4
       NumFactory.CleanUp();
       UnitFactory.CleanUp();
       CardFactory.CleanUp();
+      
+      // step5
+      GC.Collect();
     }
 
     private static IEnumerator _Run() {
       // 等UI动画和全局过渡动画都结束了再运行
-      yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+      YWaitWhile waitAllUI = WaitUtil.GetWaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+      yield return waitAllUI;
+      WaitUtil.ReleaseWaitWhile(waitAllUI);
       
       while (true) {
         // 更新UI

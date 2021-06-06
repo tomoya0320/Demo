@@ -2,10 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.Utilities;
 using UnityEngine;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public enum CardHeapType {
@@ -44,6 +42,7 @@ namespace Yume.Battle {
       foreach (var cardArgs in cardArgsArray) {
         cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardArgs, _OnUseCard));
       }
+      waitPlayCard = WaitUtil.GetWaitUntil(() => cardHeapDict[CardHeapType.PLAY].Count > 0);
     }
 
     private bool _OnUseCard(Card card) {
@@ -116,28 +115,26 @@ namespace Yume.Battle {
 
       // 出牌中
       while (true) {
-        if (cardHeapDict[CardHeapType.PLAY].Count > 0) {
-          var playCard = cardHeapDict[CardHeapType.PLAY].Dequeue();
-          if (playCard == null) {
-            break;
-          }
-          // 出牌
-          yield return playCard.Cast();
-          // 把用过的牌弃掉
-          if (playCard.cardPhase.consume) {
-            playCard.cardHeapType = CardHeapType.CONSUME;
-            cardHeapDict[CardHeapType.CONSUME].Add(playCard);
-          } else {
-            playCard.cardHeapType = CardHeapType.DISCARD;
-            cardHeapDict[CardHeapType.DISCARD].Add(playCard);
-          }
-          _RemoveCards(playCard);
-          // 重新排列剩下没有被拖拽的卡牌
-          _ResortHandCards();
+        yield return waitPlayCard;
+        var playCard = cardHeapDict[CardHeapType.PLAY].Dequeue();
+        if (playCard == null) {
+          break;
         }
-        yield return null;
+        // 出牌
+        yield return playCard.Cast();
+        // 把用过的牌弃掉
+        if (playCard.cardPhase.consume) {
+          playCard.cardHeapType = CardHeapType.CONSUME;
+          cardHeapDict[CardHeapType.CONSUME].Add(playCard);
+        } else {
+          playCard.cardHeapType = CardHeapType.DISCARD;
+          cardHeapDict[CardHeapType.DISCARD].Add(playCard);
+        }
+        _RemoveCards(playCard);
+        // 重新排列剩下没有被拖拽的卡牌
+        _ResortHandCards();
       }
-      
+
       // 结束回合前调用的行为树
       BattleManager.behaviorManagers[this].Run(BehaviorTime.ON_BEFORE_END_TURN);
 
@@ -251,8 +248,15 @@ namespace Yume.Battle {
     }
 
     public override void CleanUp() {
-      cardHeapDict.Values.ForEach(cards => cards.ForEach(card => card.CleanUp()));
-      Object.Destroy(gameObject);
+      base.CleanUp();
+      
+      foreach (var cards in cardHeapDict.Values) {
+        foreach (var card in cards) {
+          card.CleanUp();
+        }
+        cards.Clear();
+      }
+      cardHeapDict.Clear();
     }
 
     public override void EnqueueCard(Card card) {

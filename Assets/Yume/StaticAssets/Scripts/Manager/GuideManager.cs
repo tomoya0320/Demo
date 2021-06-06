@@ -66,7 +66,10 @@ namespace Yume {
     private static IEnumerator _ShowGuide(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       if (stepEnumerator.TryMoveNext()) {
         // 等UI动画和全局过渡动画都结束了再调用
-        yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+        YWaitWhile waitWhile = WaitUtil.GetWaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+        yield return waitWhile;
+        WaitUtil.ReleaseWaitWhile(waitWhile);
+        
         Action action = () => _SetGuideStep(guide, stepEnumerator);
         if (UIManager.currentUI.name == stepEnumerator.current.uiName) {
           action();

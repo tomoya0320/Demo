@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using Yume.AVG;
+using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public class UIAVG : UIBase {
@@ -33,7 +34,9 @@ namespace Yume.UI {
     public string playerName; // 与真正的PlayerName独立开来方便一些特殊的需求
     private AVGGraph m_avgGraph;
     public string historyDialogues;
-    private Coroutine m_autoCoroutine;
+    private IEnumerator m_autoEnumerator;
+    private YWaitWhile m_waitBlock;
+    private YWaitUntil m_waitCurrentUI;
     private const float AUTO_WAITING_TIME = 3.0f;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
@@ -87,28 +90,26 @@ namespace Yume.UI {
 
     private IEnumerator _Auto() {
       while (true) {
-        if (m_avgGraph.block <= 0) {
-          float startTime = Time.time;
-          while (Time.time < startTime + AUTO_WAITING_TIME) {
-            if (!m_auto) {
-              break;
-            }
-            yield return null;
+        yield return m_waitBlock;
+        float startTime = Time.time;
+        while (Time.time < startTime + AUTO_WAITING_TIME) {
+          if (!m_auto) {
+            break;
           }
-          if (m_auto) {
-            // 当玩家在进行其他操作的时候等待
-            yield return new WaitUntil(() => UIManager.currentUI.name == name);
-            m_avgGraph.Run();
-          }
+          yield return null;
         }
-        yield return null;
+        if (m_auto) {
+          // 当玩家在进行其他操作的时候等待
+          yield return m_waitCurrentUI;
+          m_avgGraph.Run();
+        }
       }
     }
 
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
 
-      m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string);
+      m_avgGraph = ResourceManager.Load<AVGGraph>(args[0] as string).Copy() as AVGGraph;
       onQuitAVG = args[1] as Action;
       playerName = DataManager.playerName;
 
@@ -119,7 +120,10 @@ namespace Yume.UI {
 
       m_avgGraph.avg = this;
       m_avgGraph.Enter();
-      m_autoCoroutine = CoroutineHelper.instance.Run(_Auto());
+      m_autoEnumerator = _Auto();
+      m_waitBlock = WaitUtil.GetWaitWhile(() => m_avgGraph.block > 0);
+      m_waitCurrentUI = WaitUtil.GetWaitUntil(() => UIManager.currentUI.name == name);
+      CoroutineHelper.instance.Run(m_autoEnumerator);
     }
 
     public void Skip() {
@@ -168,7 +172,7 @@ namespace Yume.UI {
       inputField.text = StringMap.EMPTY;
       inputFieldOkBtn.onClick.RemoveAllListeners();
       inputFieldCanvasGroup.alpha = 0;
-      inputFieldCanvasGroup.blocksRaycasts = false; 
+      inputFieldCanvasGroup.blocksRaycasts = false;
       optionCanvasGroup.alpha = 0;
       optionCanvasGroup.blocksRaycasts = false;
       bgImage.color = Color.white;
@@ -177,15 +181,21 @@ namespace Yume.UI {
       dialogueCanvasGroup.alpha = 1.0f;
       bgImage.SetSprite(StringMap.NO_SPRITE);
       illustration.SetSprite(StringMap.NO_SPRITE);
-      
+
       historyDialogues = StringMap.EMPTY;
       dialogueText.text = StringMap.EMPTY;
-      CoroutineHelper.instance.Stop(m_autoCoroutine);
-      m_autoCoroutine = null;
+      CoroutineHelper.instance.Stop(m_autoEnumerator);
+      m_autoEnumerator = null;
+      WaitUtil.ReleaseWaitWhile(m_waitBlock);
+      m_waitBlock = null;
+      WaitUtil.ReleaseWaitUntil(m_waitCurrentUI);
+      m_waitCurrentUI = null;
       _SetAutoState(false);
-      
+
       m_avgGraph.CleanUp();
-      
+      Object.Destroy(m_avgGraph);
+      m_avgGraph = null;
+
       UIManager.onBackList.Remove(Skip);
       UIManager.CloseOneEx(name);
     }

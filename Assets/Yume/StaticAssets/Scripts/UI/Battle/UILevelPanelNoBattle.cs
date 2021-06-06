@@ -25,11 +25,6 @@ namespace Yume.UI {
       Action action = () => DataManager.CompleteLevel(m_levelTemplate.id);
       GetComponent<Button>("start").onClick.AddListener(
         () => {
-#if BETA
-          if (string.IsNullOrEmpty(m_levelTemplate.beforeAVGId)) {
-            return;
-          }
-#endif
           UIManager.GlobalFade(
             GlobalFadeType.BLACK_FADE, () => { UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action); }
           );
