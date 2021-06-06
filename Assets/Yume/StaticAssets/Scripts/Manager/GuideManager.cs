@@ -116,7 +116,7 @@ namespace Yume {
       // 显示指示器
       s_indicator.GetComponent<RectTransform>().sizeDelta = targetObj.rect.size;
       s_indicator.transform.position = targetObj.position;
-      s_indicator.SetActiveEx(true);
+      s_indicator.SetActiveEx(targetObj.name != ui.name);
       Vector4 clipRectNormalized;
       if (stepEnumerator.current.highlight) {
         // 归一化的坐标
