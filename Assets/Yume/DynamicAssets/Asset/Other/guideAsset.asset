@@ -26,13 +26,16 @@ MonoBehaviour:
       Data: 0|Yume.GuideTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: Yume.GuideTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: guide_001
+    - Name: triggerUI
+      Entry: 1
+      Data: main
     - Name: ignoreConditionId
       Entry: 5
       Data: true
@@ -47,7 +50,7 @@ MonoBehaviour:
       Data: 1|Yume.GuideStep[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: Yume.GuideStep, Assembly-CSharp
@@ -60,12 +63,15 @@ MonoBehaviour:
     - Name: ignoreClickEvent
       Entry: 5
       Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
     - Name: uiName
       Entry: 1
       Data: main
     - Name: targetObj
       Entry: 1
-      Data: battle_button
+      Data: main/left menu/battle_button
     - Name: isDynamicListObj
       Entry: 5
       Data: false
@@ -93,12 +99,15 @@ MonoBehaviour:
     - Name: ignoreClickEvent
       Entry: 5
       Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
     - Name: uiName
       Entry: 1
       Data: battle
     - Name: targetObj
       Entry: 1
-      Data: main_story
+      Data: battle/main_story
     - Name: isDynamicListObj
       Entry: 5
       Data: false
@@ -126,12 +135,15 @@ MonoBehaviour:
     - Name: ignoreClickEvent
       Entry: 5
       Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
     - Name: uiName
       Entry: 1
       Data: main_story
     - Name: targetObj
       Entry: 1
-      Data: level_main_1
+      Data: main_story/levels/level_main_1
     - Name: isDynamicListObj
       Entry: 5
       Data: false
@@ -159,12 +171,15 @@ MonoBehaviour:
     - Name: ignoreClickEvent
       Entry: 5
       Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
     - Name: uiName
       Entry: 1
       Data: level_panel
     - Name: targetObj
       Entry: 1
-      Data: startBattleBtn
+      Data: level_panel/panel/startBattleBtn
     - Name: isDynamicListObj
       Entry: 5
       Data: false
@@ -177,6 +192,1044 @@ MonoBehaviour:
     - Name: description
       Entry: 1
       Data: "\u70B9\u51FB\u5F00\u59CB\u884C\u52A8"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: team_before_battle
+    - Name: targetObj
+      Entry: 1
+      Data: team_before_battle/start battle
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5F00\u59CB\u4F5C\u6218"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: guide_002
+    - Name: triggerUI
+      Entry: 1
+      Data: single_battle
+    - Name: ignoreConditionId
+      Entry: 5
+      Data: false
+    - Name: conditionId
+      Entry: 1
+      Data: level_main_1
+    - Name: conditionType
+      Entry: 3
+      Data: 2
+    - Name: guideSteps
+      Entry: 7
+      Data: 2|Yume.GuideStep[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 12
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/folders/handCardFolder
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u624B\u724C\u533A\uFF0C\u6BCF\u56DE\u5408\u62BD\u5230\u7684\u5361\u724C\u90FD\u4F1A\u79FB\u52A8\u5230\u8FD9\u91CC\uFF0C\u5C06\u624B\u724C\u62D6\u62FD\u81F3\u4E0A\u65B9\u6765\u4F7F\u7528\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/folders/handCardFolder
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u5F20\u5361\u724C\u7684\u5DE6\u4E0A\u65B9\u6570\u5B57\u4EE3\u8868\u4F7F\u7528\u8FD9\u5F20\u5361\u724C\u9700\u8981\u6D88\u8017\u7684\u80FD\u91CF\uFF0CX\u5219\u662F\u4F1A\u6D88\u8017\u6240\u6709\u7684\u80FD\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/folders/handCardFolder
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u53F3\u4E0A\u65B9\u7684\u6570\u5B57\u4EE3\u8868\u8FD9\u5F20\u5361\u724C\u5F53\u524D\u7684\u7B49\u7EA7\uFF0C\u4E0B\u65B9\u4E3A\u5361\u724C\u63CF\u8FF0"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/lookDrawCard
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u4EE5\u67E5\u770B\u5F53\u524D\u62BD\u724C\u5806\u7684\u5361\u724C\uFF0C\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\u4F1A\u4ECE\u4E2D\u968F\u673A\u62BD\u53D6\u4E00\u5B9A\u91CF\u7684\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/lookDiscardCard
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u4EE5\u67E5\u770B\u5F53\u524D\u5F03\u724C\u5806\u7684\u5361\u724C\uFF0C\u6BCF\u6B21\u56DE\u5408\u7ED3\u675F\u6216\u4F7F\u7528\u672A\u5E26\u6709\u3010\u6D88\u8017\u3011\u63CF\u8FF0\u7684\u5361\u724C\u540E\u4F1A\u88AB\u5F03\u7F6E"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/lookDiscardCard
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u5F53\u62BD\u724C\u5806\u7684\u5361\u724C\u90FD\u62BD\u5B8C\u540E\u5F03\u724C\u5806\u7684\u5361\u724C\u5C06\u4F1A\u5168\u90E8\u8FDB\u5165\u62BD\u724C\u5806\u4E2D"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/lookConsumeCard
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u4EE5\u67E5\u770B\u5F53\u524D\u8017\u724C\u5806\u7684\u5361\u724C\uFF0C\u6BCF\u6B21\u4F7F\u7528\u5E26\u6709\u3010\u6D88\u8017\u3011\u63CF\u8FF0\u7684\u5361\u724C\u540E\u4F1A\u88AB\u6D88\u8017"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/lookConsumeCard
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u4E00\u822C\u60C5\u51B5\u4E0B\u8017\u724C\u5806\u7684\u5361\u724C\u4E0D\u4F1A\u518D\u6B21\u8FDB\u5165\u62BD\u724C\u5806"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/folders/charRange
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u89D2\u8272\u5934\u50CF\u53EF\u4EE5\u67E5\u770B\u5176\u8BE6\u7EC6\u7684\u5C5E\u6027\uFF0C\u4E0B\u65B9\u5DE6\u4FA7\u7684\u6570\u5B57\u4E3A\u89D2\u8272\u7684\u80FD\u91CF\uFF0C\u53F3\u4FA7\u7684\u6570\u5B57\u4E3A\u89D2\u8272\u7684\u8840\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/folders/enemyRange
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u654C\u4EBA\u7684\u663E\u793A\u533A\u57DF\uFF0C\u70B9\u51FB\u654C\u4EBA\u5934\u50CF\u53EF\u4EE5\u67E5\u770B\u5176\u8BE6\u7EC6\u7684\u5C5E\u6027\uFF0C\u4E0B\u65B9\u7684\u6570\u5B57\u4E3A\u654C\u4EBA\u7684\u8840\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle/buttons/finish turn
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u4EE5\u7ED3\u675F\u89D2\u8272\u7684\u5F53\u524D\u56DE\u5408\uFF0C\u8FDB\u5165\u4E0B\u4E00\u8F6E\u5FAA\u73AF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: single_battle
+    - Name: targetObj
+      Entry: 1
+      Data: single_battle
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8BA9\u6211\u4EEC\u4E00\u8D77\u6218\u80DC\u654C\u4EBA\u5427"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: guide_003
+    - Name: triggerUI
+      Entry: 1
+      Data: main
+    - Name: ignoreConditionId
+      Entry: 5
+      Data: false
+    - Name: conditionId
+      Entry: 1
+      Data: level_main_1
+    - Name: conditionType
+      Entry: 3
+      Data: 1
+    - Name: guideSteps
+      Entry: 7
+      Data: 3|Yume.GuideStep[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 14
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: main
+    - Name: targetObj
+      Entry: 1
+      Data: main/left menu/team_button
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u7F16\u961F\u6309\u94AE"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 2
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: team
+    - Name: targetObj
+      Entry: 1
+      Data: team/team group/team buttons
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u901A\u8FC7\u70B9\u51FB\u4E0D\u540C\u7684\u961F\u4F0D\u6309\u94AE\u6765\u5207\u6362\u548C\u7F16\u8F91\u961F\u4F0D\uFF0C\u518D\u6B21\u70B9\u51FB\u6309\u94AE\u53EF\u7F16\u8F91\u961F\u4F0D\u540D\u79F0"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: team
+    - Name: targetObj
+      Entry: 1
+      Data: team/team group/cards
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u5361\u724C\u7F16\u8F91\u533A\uFF0C\u70B9\u51FB\u4EFB\u610F\u6309\u94AE\u53EF\u8FDB\u5165\u5361\u724C\u9009\u62E9\u754C\u9762"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: team
+    - Name: targetObj
+      Entry: 1
+      Data: team/team group/char
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u4E2A\u662F\u89D2\u8272\u7F16\u8F91\u6309\u94AE\uFF0C\u70B9\u51FB\u6309\u94AE\u53EF\u8FDB\u5165\u89D2\u8272\u9009\u62E9\u754C\u9762\uFF0C\u6BCF\u573A\u6218\u6597\u5FC5\u987B\u643A\u5E26\u4E14\u4E5F\u53EA\u80FD\u643A\u5E26\u4E00\u540D\u89D2\u8272"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: main
+    - Name: targetObj
+      Entry: 1
+      Data: main/left menu/char button
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u89D2\u8272\u6309\u94AE"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 2
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: char
+    - Name: targetObj
+      Entry: 1
+      Data: char/char container
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: true
+    - Name: dynamicListObjId
+      Entry: 1
+      Data: char_001
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u89D2\u8272"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 1
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_detail
+    - Name: targetObj
+      Entry: 1
+      Data: char_detail/name
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u4E2A\u662F\u89D2\u8272\u7684\u540D\u5B57"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_detail
+    - Name: targetObj
+      Entry: 1
+      Data: char_detail/left
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u89D2\u8272\u7684\u88AB\u52A8\u6280\u80FD\u8BE6\u60C5"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_detail
+    - Name: targetObj
+      Entry: 1
+      Data: char_detail/left/updatePassiveSkill
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u8FDB\u5165\u5230\u89D2\u8272\u88AB\u52A8\u6280\u80FD\u7684\u5347\u7EA7\u754C\u9762"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_detail
+    - Name: targetObj
+      Entry: 1
+      Data: char_detail/right
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u89D2\u8272\u7684\u63CF\u8FF0\uFF0C\u5305\u62EC\u7B49\u7EA7\u3001\u5C5E\u6027\u548C\u6545\u4E8B\u80CC\u666F\u7B49"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: char_detail
+    - Name: targetObj
+      Entry: 1
+      Data: char_detail/right/addExp
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u8FD9\u4E2A\u6309\u94AE\u53EF\u8FDB\u5165\u5230\u89D2\u8272\u7684\u5347\u7EA7\u754C\u9762"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: false
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: false
+    - Name: highlight
+      Entry: 5
+      Data: true
+    - Name: uiName
+      Entry: 1
+      Data: main
+    - Name: targetObj
+      Entry: 1
+      Data: main/left menu/card button
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u70B9\u51FB\u5361\u724C\u6309\u94AE"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: card
+    - Name: targetObj
+      Entry: 1
+      Data: card
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u8FD9\u91CC\u662F\u5F53\u524D\u62E5\u6709\u7684\u5361\u724C\uFF0C\u70B9\u51FB\u5361\u724C\u53EF\u8FDB\u5165\u5230\u5361\u724C\u5347\u7EA7\u754C\u9762\uFF0C\u4EC5\u9650\u672A\u5347\u5230\u6700\u9AD8\u7B49\u7EA7\u7684\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.GuideStep, Assembly-CSharp
+    - Name: positionType
+      Entry: 3
+      Data: 0
+    - Name: ignoreClickPos
+      Entry: 5
+      Data: true
+    - Name: ignoreClickEvent
+      Entry: 5
+      Data: true
+    - Name: highlight
+      Entry: 5
+      Data: false
+    - Name: uiName
+      Entry: 1
+      Data: main
+    - Name: targetObj
+      Entry: 1
+      Data: main
+    - Name: isDynamicListObj
+      Entry: 5
+      Data: false
+    - Name: dynamicListObjId
+      Entry: 6
+      Data: 
+    - Name: iconFileName
+      Entry: 1
+      Data: char_001_head
+    - Name: description
+      Entry: 1
+      Data: "\u89D2\u8272\u548C\u5361\u724C\u7684\u5347\u7EA7\u7D20\u6750\u53EF\u4EE5\u901A\u8FC7\u5B8C\u6210\u5173\u5361\u83B7\u5F97\uFF0C\u90A3\u4E48\uFF0C\u8BF7\u7EE7\u7EED\u63A2\u7D22\u5427\uFF0C"
     - Name: 
       Entry: 8
       Data: 

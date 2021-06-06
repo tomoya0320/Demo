@@ -392,6 +392,7 @@ namespace Yume {
             AddItem(itemArgs.id, itemArgs.count);
             itemArgsList.Add(itemArgs);
           }
+          UpdateGuide(id, ConditionType.FIRST_COMPLETE_LEVEL);
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
           s_saveData = true;
@@ -403,6 +404,21 @@ namespace Yume {
         if (itemArgsList.Count > 0) {
           // 显示道具结算界面
           UIManager.OpenOne("item_settlement", null, itemArgsList.ToArray());
+        }
+      }
+    }
+
+    public static bool IsLevelCompleted(string id) {
+      var level = playerLevels.Find(l => l.id == id);
+      return level?.completed ?? false;
+    }
+
+    public static void OnEnterLevel(string id) {
+      var level = playerLevels.Find(l => l.id == id);
+      if (level != null) {
+        if (!level.firstEnter) {
+          level.firstEnter = true;
+          UpdateGuide(id, ConditionType.FIRST_ENTER_LEVEL);
         }
       }
     }

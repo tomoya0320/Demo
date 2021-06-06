@@ -84,6 +84,8 @@ namespace Yume.Battle {
       CoroutineHelper.instance.Run(s_runEnumerator);
       // 注册每帧调用的更新事件
       Game.instance.onUpdate += _OnUpdate;
+      // 进入战斗数据更新
+      DataManager.OnEnterLevel(levelTemplate.id);
     }
 
     public static Unit GetNearestEnemy(Vector3 point) {

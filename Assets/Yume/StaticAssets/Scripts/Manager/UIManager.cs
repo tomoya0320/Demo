@@ -145,7 +145,7 @@ namespace Yume {
       }
 
       s_uiStack.Push(nextUI);
-      nextUI.Open(callback + _CheckGuide, args);
+      nextUI.Open(callback + GuideManager.CheckGuide, args);
 
       // 因为有些bgm和特效是在ui打开之后才会获取到的所以这里的顺序不能反了
       // 更新bgm和特效
@@ -190,10 +190,17 @@ namespace Yume {
           return;
         }
 
-        while (uiCount > 0) {
-          _CloseInternal(true);
+        // 当前UI不立即关闭
+        if (uiCount > 0) {
+          _CloseInternal(
+            false, () => {
+              while (uiCount > 0) {
+                _CloseInternal(true, null, false);
+              }
+              OpenOne(name, callback, args);
+            }
+          );
         }
-        OpenOne(name, callback, args);
       } else {
         Debug.LogError($"UI未加载！name：{name}");
       }
@@ -237,7 +244,7 @@ namespace Yume {
       CloseOne(name, immediate, callback);
     }
 
-    private static void _CloseInternal(bool immediate = false, Action callback = null) {
+    private static void _CloseInternal(bool immediate = false, Action callback = null, bool switchBgm = true) {
       // Action的执行顺序要特别当心
       // 先执行下面的再执行其他的回调
       // 因为其他的回调里可能会执行打开UI的操作
@@ -260,19 +267,15 @@ namespace Yume {
           nextBgm = StringMap.EMPTY;
           nextEffect = StringMap.EMPTY;
         }
-        AudioManager.PlayBgm(nextBgm);
+        if (switchBgm) {
+          AudioManager.PlayBgm(nextBgm);
+        }
         EffectManager.HideUIEffect(lastUI.effectName);
         EffectManager.ShowUIEffect(nextEffect);
       };
       callback = action + callback;
 
-      currentUI.Close(immediate, callback + _CheckGuide);
-    }
-
-    private static void _CheckGuide() {
-      if (currentUI?.name == "main") {
-        GuideManager.CheckGuide();
-      }
+      currentUI.Close(immediate, callback + GuideManager.CheckGuide);
     }
 
     public static void BlockNormalUI(UIBase ui) {

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Yume.Broadcast;
 using Yume.RedDotSystem;
@@ -8,10 +10,13 @@ namespace Yume.UI {
   public class UIMain : UIBase {
     private Button m_bag;
     private Button m_task;
-    private Button m_card;
-    private Button m_char;
     private Button m_mail; 
-    private Button m_team; 
+    private Button m_card;
+    private Button m_disableCard;
+    private Button m_char;
+    private Button m_disableChar;
+    private Button m_team;
+    private Button m_disableTeam;
     private Button m_setting;
     private Button m_battle;
     
@@ -35,10 +40,13 @@ namespace Yume.UI {
 
       m_bag = GetComponent<Button>("Bag");
       m_task = GetComponent<Button>("Task");
-      m_card = GetComponent<Button>("Card");
-      m_char = GetComponent<Button>("Char");
       m_mail = GetComponent<Button>("Mail");
+      m_card = GetComponent<Button>("Card");
+      m_disableCard = m_card.transform.Find("disable").GetComponent<Button>();
+      m_char = GetComponent<Button>("Char");
+      m_disableChar = m_char.transform.Find("disable").GetComponent<Button>();
       m_team = GetComponent<Button>("Team");
+      m_disableTeam = m_team.transform.Find("disable").GetComponent<Button>();
       m_setting = GetComponent<Button>("Setting");
       m_battle = GetComponent<Button>("Battle");
 
@@ -49,18 +57,22 @@ namespace Yume.UI {
         null, m_mail.transform.Find(StringMap.UI_RED_DOT));
 
       _AddListener();
-      _UpdateUserInfo();
 
+      EventCenter.AddListener(EventType.UPDATE_MAIN_STORY_LEVEL, _UpdateButtons);
       EventCenter.AddListener(EventType.UPDATE_USER_INFO, _UpdateUserInfo);
     }
 
     private void _AddListener() {
       m_bag.onClick.AddListener(() => UIManager.OpenOne("bag"));
       m_task.onClick.AddListener(() => UIManager.OpenOne("task"));
-      m_card.onClick.AddListener(() => UIManager.OpenOne("card"));
-      m_char.onClick.AddListener(() => UIManager.OpenOne("char"));
       m_mail.onClick.AddListener(() => UIManager.OpenOne("mail"));
+      m_card.onClick.AddListener(() => UIManager.OpenOne("card"));
+      UnityAction showTip = () => MessageManager.AddMessage(new Message(Message.Style.FADE, "通关1-1解锁", false));
+      m_disableCard.onClick.AddListener(showTip);
+      m_char.onClick.AddListener(() => UIManager.OpenOne("char"));
+      m_disableChar.onClick.AddListener(showTip);
       m_team.onClick.AddListener(() => UIManager.OpenOne("team"));
+      m_disableTeam.onClick.AddListener(showTip);
       m_setting.onClick.AddListener(() => UIManager.OpenOne("setting"));
       m_battle.onClick.AddListener(() => UIManager.OpenOne("battle"));
     }
@@ -76,10 +88,25 @@ namespace Yume.UI {
       m_expImg.fillAmount = DataManager.GetItemCount(StringMap.EXP_ITEM_ID) / needExp;
     }
 
+    private void _UpdateButtons() {
+      bool uncompleted = !DataManager.IsLevelCompleted("level_main_1");
+      m_disableCard.gameObject.SetActiveEx(uncompleted);
+      m_disableChar.gameObject.SetActiveEx(uncompleted);
+      m_disableTeam.gameObject.SetActiveEx(uncompleted);
+    }
+
+    public override void Open(Action callback = null, params object[] args) {
+      base.Open(callback, args);
+      
+      _UpdateButtons();
+      _UpdateUserInfo();
+    }
+
     public override void Destroy() {
       m_taskRedDot.Destroy();
       m_mailRedDot.Destroy();
 
+      EventCenter.RemoveListener(EventType.UPDATE_MAIN_STORY_LEVEL, _UpdateButtons);
       EventCenter.RemoveListener(EventType.UPDATE_USER_INFO, _UpdateUserInfo);
     }
   }

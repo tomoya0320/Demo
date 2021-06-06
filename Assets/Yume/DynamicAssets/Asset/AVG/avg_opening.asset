@@ -221,6 +221,74 @@ MonoBehaviour:
   _name: Neko
   _setSpeedBased: 1
   _dialogue: "\u2014\u2014\u597D\u4E86\uFF0C\u522B\u5728\u8FD9\u91CC\u9017\u7559\u592A\u4E45\u3002"
+--- !u!114 &-6961903015776815358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3478a3491b761f459b071d9d956526e, type: 3}
+  m_Name: AVG Main
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  graph: {fileID: 11400000}
+  position: {x: -1809.0011, y: 298.34134}
+  ports:
+    keys:
+    - last
+    - next
+    - nodes
+    values:
+    - _fieldName: last
+      _node: {fileID: -6961903015776815358}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: next
+        node: {fileID: 96258892156632743}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: next
+      _node: {fileID: -6961903015776815358}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: last
+        node: {fileID: -2988151529694506945}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nodes
+      _node: {fileID: -6961903015776815358}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: node
+        node: {fileID: 3400257784913475395}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  last: 0
+  next: 0
+  nodes: 0
 --- !u!114 &-5849251795773509918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +446,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: next
-        node: {fileID: 96258892156632743}
+        node: {fileID: -6961903015776815358}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -547,7 +615,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -2168, y: 424}
+  position: {x: -2440, y: 440}
   ports:
     keys:
     - node
@@ -588,7 +656,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -2168, y: 232}
+  position: {x: -2440, y: 248}
   ports:
     keys:
     - next
@@ -650,6 +718,7 @@ MonoBehaviour:
   - {fileID: -1967339340896757582}
   - {fileID: -3224556188419135039}
   - {fileID: 5394930313660374254}
+  - {fileID: -6961903015776815358}
   disableSkip: 1
   disableSkipVideo: 1
 --- !u!114 &96258892156632743
@@ -674,7 +743,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -1864, y: 232}
+  position: {x: -2136, y: 248}
   ports:
     keys:
     - last
@@ -699,7 +768,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: last
-        node: {fileID: -2988151529694506945}
+        node: {fileID: -6961903015776815358}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -816,7 +885,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -1720, y: 536}
+  position: {x: -1992, y: 552}
   ports:
     keys:
     - onFadeCompleted
@@ -826,10 +895,7 @@ MonoBehaviour:
       _node: {fileID: 2383464406312048910}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: node
-        node: {fileID: 3400257784913475395}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -929,7 +995,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -1496, y: 584}
+  position: {x: -1656, y: 568}
   ports:
     keys:
     - node
@@ -939,8 +1005,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: onFadeCompleted
-        node: {fileID: 2383464406312048910}
+      - fieldName: nodes
+        node: {fileID: -6961903015776815358}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -969,7 +1035,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: -2008, y: 600}
+  position: {x: -2280, y: 616}
   ports:
     keys:
     - onFadeCompleted

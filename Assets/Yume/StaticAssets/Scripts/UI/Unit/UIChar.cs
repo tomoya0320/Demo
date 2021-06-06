@@ -8,11 +8,12 @@ namespace Yume.UI {
     private class UICharTerm : UIChildBase, IScrollTerm<UnitData> {
       private UnitData m_character;
       private Button m_detailButton;
+      public UnitData character => m_character;
       public bool isValid => m_character != null;
 
       public UICharTerm(GameObject root) : base(root) {
         m_detailButton = GetComponent<Button>("DetailButton");
- 
+
         _AddListener();
       }
 
@@ -43,12 +44,13 @@ namespace Yume.UI {
       public List<UICharTerm> viewList => m_charTermList;
       private UIScrollView<UnitData, UICharTerm> m_charScrollView;
       private List<UICharTerm> m_charTermList = new List<UICharTerm>();
+      public UIScrollView<UnitData, UICharTerm> charScrollView => m_charScrollView;
 
       public UICharContainer(GameObject root) : base(root) {
         m_charScrollRect = GetComponent<ScrollRect>("CharScrollRect");
-        
+
         m_charList = DataManager.playerChars;
-        
+
         for (int i = 0; i < m_charScrollRect.content.childCount; i++) {
           m_charTermList.Add(new UICharTerm(m_charScrollRect.content.GetChild(i).gameObject));
         }
@@ -88,6 +90,18 @@ namespace Yume.UI {
 
     private void _AddListener() {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
+    }
+
+    public override RectTransform GetDynamicListObj(string list, string id) {
+      if (m_charContainer.gameObject.name == GameObject.Find(list)?.name) {
+        int index = m_charContainer.dataList.FindLastIndex(data => data.id == id);
+        if (index >= 0) {
+          m_charContainer.charScrollView.SetAsFirstDisplay(index);
+          var view = m_charContainer.viewList.FindLast(v => v.character?.id == id);
+          return view.gameObject.GetComponent<RectTransform>();
+        }
+      }
+      return null;
     }
   }
 }

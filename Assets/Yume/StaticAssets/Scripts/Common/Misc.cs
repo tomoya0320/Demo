@@ -391,6 +391,7 @@ namespace Yume {
     public PositionType positionType;
     public bool ignoreClickPos;
     public bool ignoreClickEvent;
+    public bool highlight;
     public string uiName;
     public string targetObj;
     public bool isDynamicListObj;
@@ -403,6 +404,8 @@ namespace Yume {
 
   public enum ConditionType {
     FIRST_PLAY,
+    FIRST_COMPLETE_LEVEL,
+    FIRST_ENTER_LEVEL,
   }
 
   public enum GuideState {
@@ -413,6 +416,7 @@ namespace Yume {
   
   public struct GuideTemplate {
     public string id;
+    public string triggerUI;
     public bool ignoreConditionId;
     [ShowIf("@!ignoreConditionId")]
     public string conditionId;
@@ -667,8 +671,8 @@ namespace Yume {
   [Serializable]
   public class LevelData {
     public string id;
-    [HideInInspector]
     public bool completed;
+    public bool firstEnter;
 
     private LevelData() { }
 
