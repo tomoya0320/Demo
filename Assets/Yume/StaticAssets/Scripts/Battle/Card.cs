@@ -13,6 +13,7 @@ namespace Yume.Battle {
     
     public string id { get; }
     public int phase { get; }
+    public Blackboard blackboard { get; }
     public GameObject gameObject { get; }
     public UIBattleCard battleCard { get; }
     public CardTemplate cardTemplate { get; }
@@ -25,6 +26,7 @@ namespace Yume.Battle {
       phase = args.phase;
       owner = unit;
       gameObject = root;
+      blackboard = new Blackboard();
       cardHeapType = CardHeapType.DRAW;
       rectTransform = gameObject.GetComponent<RectTransform>();
 
@@ -70,6 +72,7 @@ namespace Yume.Battle {
     }
 
     public void CleanUp() {
+      blackboard.Clear();
       Object.Destroy(gameObject);
       Object.Destroy(cardAnimCallback.gameObject);
     }

@@ -20,9 +20,9 @@ namespace Yume.Battle {
 
     public IEnumerator PlayAnim() {
       CardAnimEvent cardAnimEvent = m_card.cardPhase.cardAnimEvent;
-      int eventCount = m_card.owner.blackboard.GetValueAndRemove<int>($"{m_card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}");
+      int eventCount = m_card.blackboard.GetValueAndRemove<int>(Blackboard.EXTRA_EVENT_COUNT);
       if (cardAnimEvent.loadFromBlackboard) {
-        eventCount += m_card.owner.blackboard.GetValueAndRemove<int>($"{m_card.cardTemplate.id}:{Blackboard.EVENT_COUNT}");
+        eventCount += m_card.blackboard.GetValueAndRemove<int>(Blackboard.EVENT_COUNT);
       } else {
         eventCount += cardAnimEvent.eventCount;
       }
