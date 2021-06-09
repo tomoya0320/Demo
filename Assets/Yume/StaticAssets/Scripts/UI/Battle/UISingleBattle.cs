@@ -31,21 +31,21 @@ namespace Yume.UI {
         () =>
           UIManager.OpenOne(
             "card_heap", null,
-            BattleManager.character.GetCards(CardHeapType.DRAW)
+            "抽牌堆", BattleManager.character.GetCards(CardHeapType.DRAW)
           )
       );
       GetComponent<Button>("lookDiscardCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
             "card_heap", null,
-            BattleManager.character.GetCards(CardHeapType.DISCARD)
+            "弃牌堆", BattleManager.character.GetCards(CardHeapType.DISCARD)
           )
       );
       GetComponent<Button>("lookConsumeCard").onClick.AddListener(
         () =>
           UIManager.OpenOne(
             "card_heap", null,
-            BattleManager.character.GetCards(CardHeapType.CONSUME)
+            "耗牌堆", BattleManager.character.GetCards(CardHeapType.CONSUME)
           )
       );
     }

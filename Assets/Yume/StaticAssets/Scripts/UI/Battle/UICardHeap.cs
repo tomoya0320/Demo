@@ -93,12 +93,14 @@ namespace Yume.UI {
         EventCenter.RemoveListener(EventType.UPDATE_CARD_INFO, _Refresh);
       }
     }
-
+    
+    private Text m_cardHeapName;
     private UICardContainer m_cardContainer;
-
+    
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
+      m_cardHeapName = GetComponent<Text>("CardHeapName");
       m_cardContainer = new UICardContainer(GetGameObject("CardContainer"));
 
       _AddListener();
@@ -109,7 +111,8 @@ namespace Yume.UI {
     }
 
     public override void Open(Action callback = null, params object[] args) {
-      m_cardContainer.cardList = args[0] as List<Card>;
+      m_cardHeapName.text = args[0] as string;
+      m_cardContainer.cardList = args[1] as List<Card>;
       m_cardContainer.cardList.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
       m_cardContainer.OnOpen();
 
