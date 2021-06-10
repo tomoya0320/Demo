@@ -1108,21 +1108,16 @@ namespace Yume {
           case '}': {
             List<string> expression = description.Substring(start, i - start).Split(':').ToList();
             var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
-            int nextIndex = 1;
-            if (expression[nextIndex] == Blackboard.CREATE_BUFFS) {
-              blackboard = blackboard.GetValue<BuffTemplates>(Blackboard.CREATE_BUFFS)[int.Parse(expression[nextIndex + 1])].blackboard;
-              nextIndex += 2;
-            }
-            switch (expression[nextIndex]) {
+            switch (expression[1]) {
               case Blackboard.ATTRIB_ADDITIVES:
                 var attribAdditives = blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
-                string[] kv = expression[nextIndex + 1].Split('#');
+                string[] kv = expression[2].Split('#');
                 var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
                 result.Append(_GetValueFromType(kv[1], attribAdditive));
                 break;
               case Blackboard.CARD_SELECTOR:
                 var cardSelector = blackboard.GetValue<CardSelector>(Blackboard.CARD_SELECTOR);
-                result.Append(_GetValueFromType(expression[nextIndex + 1], cardSelector));
+                result.Append(_GetValueFromType(expression[2], cardSelector));
                 break;
               default:
                 result.Append(_GetValueFromBlackboard(expression.Last(), blackboard));

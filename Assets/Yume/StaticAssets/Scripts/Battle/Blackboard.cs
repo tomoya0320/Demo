@@ -12,7 +12,6 @@ namespace Yume.Battle {
     public const string HURT_SOUND = "hurtSound";
     public const string LAST_DAMAGE_VALUE = "lastDamageValue";
     public const string LAST_DAMAGED_VALUE = "lastDamagedValue";
-    public const string CREATE_BUFFS = "createbuffs";
     public const string HEAL_RATE_ON_DAMAGE = "healRateOnDamage";
     public const string PROB = "prob";
     public const string CARD_SELECTOR = "cardSelector";
