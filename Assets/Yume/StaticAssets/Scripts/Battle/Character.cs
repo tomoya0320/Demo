@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Yume.Broadcast;
 using Yume.UI;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
   public enum CardHeapType {
@@ -122,6 +124,8 @@ namespace Yume.Battle {
         }
         // 出牌
         yield return playCard.Cast();
+        // 出牌后更新UI
+        EventCenter.Broadcast(EventType.ON_LATE_PLAYER_PLAY_CARD);
         // 把用过的牌弃掉
         if (playCard.cardPhase.consume) {
           playCard.cardHeapType = CardHeapType.CONSUME;
@@ -260,6 +264,8 @@ namespace Yume.Battle {
     }
 
     public override void EnqueueCard(Card card) {
+      base.EnqueueCard(card);
+      
       cardHeapDict[CardHeapType.PLAY].Add(card);
     }
   }

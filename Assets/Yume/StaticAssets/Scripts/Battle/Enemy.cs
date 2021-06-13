@@ -75,6 +75,8 @@ namespace Yume.Battle {
     }
 
     public override void EnqueueCard(Card card) {
+      base.EnqueueCard(card);
+      
       playCardQueue.Enqueue(card);
     }
   }

@@ -63,7 +63,7 @@ namespace Yume {
           if (uiCount > 1 || currentUI?.name == "confirmation") {
             CloseOne(currentUI.name);
           } else {
-            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(Application.Quit), null);
+            OpenOne("confirmation", null, "确认退出游戏？", "确认", "取消", new Action(_QuitGame), null);
           }
         }
       );
@@ -81,6 +81,14 @@ namespace Yume {
     public static void OnUpdate() {
       _UpdateUI();
       _UpdateCache();
+    }
+
+    private static void _QuitGame() {
+#if UNITY_EDITOR
+      UnityEditor.EditorApplication.ExitPlaymode();
+#else
+      Application.Quit();
+#endif
     }
 
     private static void _UpdateUI() {

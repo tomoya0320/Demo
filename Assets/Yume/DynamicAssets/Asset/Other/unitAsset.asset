@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Yume.UnitTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: Yume.UnitTemplate, Assembly-CSharp
@@ -972,6 +972,870 @@ MonoBehaviour:
       Data: Yume.UnitTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
+      Data: char_002
+    - Name: camp
+      Entry: 3
+      Data: 1
+    - Name: tag
+      Entry: 6
+      Data: 
+    - Name: name
+      Entry: 1
+      Data: Sora
+    - Name: maxLevel
+      Entry: 3
+      Data: 19
+    - Name: prefabName
+      Entry: 1
+      Data: char_002
+    - Name: description
+      Entry: 1
+      Data: "Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0Sora\u7684\u89D2\u8272\u63CF\u8FF0"
+    - Name: headFileName
+      Entry: 1
+      Data: "\u5934\u50CF_\u7A7A"
+    - Name: portraitFileName
+      Entry: 1
+      Data: "\u534A\u8EAB\u50CF_\u7A7A"
+    - Name: illustrationFileName
+      Entry: 1
+      Data: "\u7ACB\u7ED8_\u7A7A"
+    - Name: passiveSkillPhases
+      Entry: 7
+      Data: 22|Yume.PassiveSkillPhase[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u4F7F\u7528{0:playCardTriggerCount}\u5F20\u5361\u724C\u540E\u62BD\u53D6{0:drawCount}\u5F20\u5361\u724C"
+    - Name: iconFileName
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: buffTemplates
+      Entry: 7
+      Data: 23|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_encore
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u4F7F\u7528{playCardTriggerCount}\u5F20\u5361\u724C\u540E\u62BD\u53D6{drawCount}\u5F20\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 24|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 25|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: play_card_draw_card
+    - Name: behaviorTime
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 26|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 6
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: playCardTriggerCount
+    - Name: $v
+      Entry: 7
+      Data: 27|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: drawCount
+    - Name: $v
+      Entry: 7
+      Data: 28|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 29|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 30|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_5_key
+    - Name: count
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.PassiveSkillPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u4F7F\u7528{0:playCardTriggerCount}\u5F20\u5361\u724C\u540E\u62BD\u53D6{0:drawCount}\u5F20\u5361\u724C"
+    - Name: iconFileName
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: buffTemplates
+      Entry: 7
+      Data: 31|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_encore
+    - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u5B89\u53EF"
+    - Name: description
+      Entry: 1
+      Data: "\u6BCF\u4F7F\u7528{playCardTriggerCount}\u5F20\u5361\u724C\u540E\u62BD\u53D6{drawCount}\u5F20\u5361\u724C"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 32|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 33|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: play_card_draw_card
+    - Name: behaviorTime
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 34|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 6
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: drawCount
+    - Name: $v
+      Entry: 7
+      Data: 35|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: playCardTriggerCount
+    - Name: $v
+      Entry: 7
+      Data: 36|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 37|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 38|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: minAttribDict
+      Entry: 7
+      Data: 39|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 40|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 8
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 60
+    - Name: _maxValue
+      Entry: 3
+      Data: 60
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 8
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 3
+    - Name: _maxValue
+      Entry: 3
+      Data: 3
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: maxAttribDict
+      Entry: 7
+      Data: 41|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 40
+    - Name: 
+      Entry: 12
+      Data: 8
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 300
+    - Name: _maxValue
+      Entry: 3
+      Data: 300
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 30
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 20
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 5
+    - Name: _maxValue
+      Entry: 3
+      Data: 5
+    - Name: _allowNegative
+      Entry: 5
+      Data: false
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: Yume.Attrib, Assembly-CSharp
+    - Name: _value
+      Entry: 3
+      Data: 0
+    - Name: _maxValue
+      Entry: 3
+      Data: 99999999
+    - Name: _allowNegative
+      Entry: 5
+      Data: true
+    - Name: _allowExceedMax
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UnitTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
       Data: enemy_001
     - Name: camp
       Entry: 3
@@ -1002,7 +1866,7 @@ MonoBehaviour:
       Data: enemy_001
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 22|Yume.PassiveSkillPhase[], Assembly-CSharp
+      Data: 42|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1020,7 +1884,7 @@ MonoBehaviour:
       Data: guhuo
     - Name: buffTemplates
       Entry: 7
-      Data: 23|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 43|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1047,7 +1911,7 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 24|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 44|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 0
@@ -1056,7 +1920,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 25|Yume.Behavior[], Assembly-CSharp
+      Data: 45|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1080,7 +1944,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 26|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 46|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -1095,7 +1959,7 @@ MonoBehaviour:
       Data: duration
     - Name: $v
       Entry: 7
-      Data: 27|System.Int32, mscorlib
+      Data: 47|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 6
@@ -1113,7 +1977,7 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 28|Yume.AttribAdditives, Assembly-CSharp
+      Data: 48|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1164,7 +2028,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 29|Yume.ItemArgs[], Assembly-CSharp
+      Data: 49|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1185,11 +2049,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 30|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+      Data: 50|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 31|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
+      Data: 51|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1427,11 +2291,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 32|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+      Data: 52|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 31
+      Data: 51
     - Name: 
       Entry: 12
       Data: 8
@@ -1695,7 +2559,7 @@ MonoBehaviour:
       Data: enemy_002
     - Name: passiveSkillPhases
       Entry: 7
-      Data: 33|Yume.PassiveSkillPhase[], Assembly-CSharp
+      Data: 53|Yume.PassiveSkillPhase[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1713,7 +2577,7 @@ MonoBehaviour:
       Data: chongsheng
     - Name: buffTemplates
       Entry: 7
-      Data: 34|Yume.BuffTemplate[], Assembly-CSharp
+      Data: 54|Yume.BuffTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1740,7 +2604,7 @@ MonoBehaviour:
       Data: 
     - Name: selector
       Entry: 7
-      Data: 35|Yume.Battle.SingleSelector, Assembly-CSharp
+      Data: 55|Yume.Battle.SingleSelector, Assembly-CSharp
     - Name: _targetType
       Entry: 3
       Data: 0
@@ -1749,7 +2613,7 @@ MonoBehaviour:
       Data: 
     - Name: behaviors
       Entry: 7
-      Data: 36|Yume.Behavior[], Assembly-CSharp
+      Data: 56|Yume.Behavior[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 2
@@ -1785,7 +2649,7 @@ MonoBehaviour:
       Data: 
     - Name: blackboard
       Entry: 7
-      Data: 37|Yume.Battle.Blackboard, Assembly-CSharp
+      Data: 57|Yume.Battle.Blackboard, Assembly-CSharp
     - Name: comparer
       Entry: 9
       Data: 6
@@ -1800,7 +2664,7 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 38|Yume.AttribAdditives, Assembly-CSharp
+      Data: 58|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -1842,7 +2706,7 @@ MonoBehaviour:
       Data: duration
     - Name: $v
       Entry: 7
-      Data: 39|System.Int32, mscorlib
+      Data: 59|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: -1
@@ -1860,7 +2724,7 @@ MonoBehaviour:
       Data: removeBuff
     - Name: $v
       Entry: 7
-      Data: 40|System.String, mscorlib
+      Data: 60|System.String, mscorlib
     - Name: 
       Entry: 1
       Data: buff_recovery_before_die
@@ -1887,7 +2751,7 @@ MonoBehaviour:
       Data: 
     - Name: updateRequestItems
       Entry: 7
-      Data: 41|Yume.ItemArgs[], Assembly-CSharp
+      Data: 61|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -1908,11 +2772,11 @@ MonoBehaviour:
       Data: 
     - Name: minAttribDict
       Entry: 7
-      Data: 42|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+      Data: 62|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 43|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
+      Data: 63|System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -2150,11 +3014,11 @@ MonoBehaviour:
       Data: 
     - Name: maxAttribDict
       Entry: 7
-      Data: 44|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+      Data: 64|System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 43
+      Data: 63
     - Name: 
       Entry: 12
       Data: 8

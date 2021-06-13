@@ -8,6 +8,8 @@ using EventType = Yume.Broadcast.EventType;
 namespace Yume.UI {
   public class UISingleBattle : UIBase {
     private Image m_bg;
+    private Text m_turn;
+    private Text m_playCardCount;
     private YButton m_finishTurnBtn;
     private Action m_abort = () => BattleManager.Finish(BattleResult.ABORT);
 
@@ -15,12 +17,14 @@ namespace Yume.UI {
       base.OnInit(uiTemplate, gameObject);
 
       m_bg = GetComponent<Image>("bg");
+      m_turn = GetComponent<Text>("turn");
+      m_playCardCount = GetComponent<Text>("playCardCount");
       m_finishTurnBtn = GetComponent<YButton>("finish turn");
 
       _AddListener();
 
-      EventCenter.AddListener(EventType.ON_ENTER_PLAYER_TURN, _EnterPlayerTurn);
-      EventCenter.AddListener(EventType.ON_ENTER_FIRST_ENEMY_TURN, _EnterFirstEnemyTurn);
+      EventCenter.AddListener<Unit>(EventType.ON_ENTER_UNIT_TURN, _EnterUnitTurn);
+      EventCenter.AddListener(EventType.ON_LATE_PLAYER_PLAY_CARD, _OnLatePlayerPlayCard);
     }
 
     private void _AddListener() {
@@ -72,18 +76,21 @@ namespace Yume.UI {
       BattleManager.character.EnqueueCard(null);
     }
 
-    private void _EnterFirstEnemyTurn() {
-      m_finishTurnBtn.textComponent.text = "敌方回合";
-
-      MessageManager.AddMessage(new Message(Message.Style.CENTER, "敌方回合", false, null, 0.5f));
+    private void _EnterUnitTurn(Unit unit) {
+      if (unit is Character) {
+        m_turn.text = $"{++BattleManager.turn}";
+        m_finishTurnBtn.interactable = true;
+        m_finishTurnBtn.image.color = Color.white;
+        m_finishTurnBtn.textComponent.text = "结束回合";
+        MessageManager.AddMessage(new Message(Message.Style.CENTER, "玩家回合", false, null, 0.5f));
+      } else if (unit is Enemy) {
+        m_finishTurnBtn.textComponent.text = "敌方回合";
+        MessageManager.AddMessage(new Message(Message.Style.CENTER, "敌方回合", false, null, 0.5f));
+      }
     }
 
-    private void _EnterPlayerTurn() {
-      m_finishTurnBtn.interactable = true;
-      m_finishTurnBtn.image.color = Color.white;
-      m_finishTurnBtn.textComponent.text = "结束回合";
-
-      MessageManager.AddMessage(new Message(Message.Style.CENTER, "玩家回合", false, null, 0.5f));
+    private void _OnLatePlayerPlayCard() {
+      m_playCardCount.text = $"{BattleManager.character.blackboard.GetValue<int>(Blackboard.PLAY_CARD_COUNT)}";
     }
 
     public override void Open(Action callback = null, params object[] args) {
@@ -103,13 +110,22 @@ namespace Yume.UI {
 
     public override void Close(bool immediate = false, Action callback = null) {
       callback += () => UIManager.onBackList.Remove(_OnClickAbort);
-      base.Close(immediate, callback);
+      base.Close(immediate, callback + _CleanUp);
+    }
+
+    private void _CleanUp() {
+      m_bg.sprite = null;
+      m_turn.text = "0";
+      m_playCardCount.text = "0";
+      m_finishTurnBtn.interactable = true;
+      m_finishTurnBtn.image.color = Color.white;
+      m_finishTurnBtn.textComponent.text = "结束回合";
     }
 
     public override void Destroy() {
       base.Destroy();
-      EventCenter.RemoveListener(EventType.ON_ENTER_PLAYER_TURN, _EnterPlayerTurn);
-      EventCenter.RemoveListener(EventType.ON_ENTER_FIRST_ENEMY_TURN, _EnterFirstEnemyTurn);
+      EventCenter.RemoveListener<Unit>(EventType.ON_ENTER_UNIT_TURN, _EnterUnitTurn);
+      EventCenter.RemoveListener(EventType.ON_LATE_PLAYER_PLAY_CARD, _OnLatePlayerPlayCard);
     }
   }
 }

@@ -110,7 +110,11 @@ namespace Yume.Battle {
       }
     }
 
-    public abstract void EnqueueCard(Card card);
+    public virtual void EnqueueCard(Card card) {
+      if (card != null) { // 注意结束回合的标志是一个空的卡牌这个不能统计进去
+        blackboard[Blackboard.PLAY_CARD_COUNT] = blackboard.GetValue<int>(Blackboard.PLAY_CARD_COUNT) + 1;
+      }
+    }
 
     public virtual void OnUpdate() {
       if (isDead) {

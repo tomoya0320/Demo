@@ -28,6 +28,8 @@ namespace Yume.Battle {
     public const string DRAW_COUNT = "drawCount";
     public const string CARD_HEAP_COUNT_COMPARER = "cardHeapCountComparer";
     public const string RETAIN_COUNT = "retainCount";
+    public const string PLAY_CARD_COUNT = "playCardCount";
+    public const string PLAY_CARD_TRIGGER_COUNT = "playCardTriggerCount";
     
     #endregion
     

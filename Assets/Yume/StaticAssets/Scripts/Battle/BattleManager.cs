@@ -19,6 +19,7 @@ namespace Yume.Battle {
   }
 
   public static class BattleManager {
+    public static int turn;
     private static Unit s_lastUnit;
     private static int s_currentUnitIndex;
     private static IEnumerator s_runEnumerator;
@@ -181,6 +182,7 @@ namespace Yume.Battle {
 
     private static void _CleanUp() {
       // step1
+      turn = 0;
       s_lastUnit = null;
       s_currentUnitIndex = 0;
       s_levelTemplate = default;
@@ -213,10 +215,8 @@ namespace Yume.Battle {
       
       while (true) {
         // 更新UI
-        if (currentUnit is Character) {
-          EventCenter.Broadcast(EventType.ON_ENTER_PLAYER_TURN);
-        } else if (s_lastUnit is Character) {
-          EventCenter.Broadcast(EventType.ON_ENTER_FIRST_ENEMY_TURN);
+        if (currentUnit is Character || s_lastUnit is Character) {
+          EventCenter.Broadcast(EventType.ON_ENTER_UNIT_TURN, currentUnit);
         }
         // 补充能量
         int energy = currentUnit.GetAttrib(AttribType.ENERGY);

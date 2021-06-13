@@ -26,24 +26,23 @@ namespace Yume.Battle {
       } else {
         eventCount += cardAnimEvent.eventCount;
       }
+      gameObject.SetActiveEx(true);
       while (eventCount > 0) {
-        gameObject.SetActiveEx(true);
         transform.position = m_card.candidate.gameObject.transform.position;
         m_animation.Play();
         if (cardAnimEvent.waitingTime > 0) {
           yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
         // 释放过程中如果自己死了或目标全都死了就直接结束
-        bool result = _OnCast() && m_card.owner.isAlive;
-        if (result) {
+        if (_OnCast() && m_card.owner.isAlive) {
           eventCount--;
+          // 等待卡牌动画播放完毕
+          yield return m_waitCardAnim;
         } else {
-          yield break;
+          break;
         }
-        // 等待卡牌动画播放完毕
-        yield return m_waitCardAnim;
-        gameObject.SetActiveEx(false);
       }
+      gameObject.SetActiveEx(false);
     }
 
     /// <summary>
