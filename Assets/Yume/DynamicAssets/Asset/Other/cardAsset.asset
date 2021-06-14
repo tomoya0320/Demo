@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|Yume.CardTemplate[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 18
+      Data: 19
     - Name: 
       Entry: 7
       Data: Yume.CardTemplate, Assembly-CSharp
@@ -105,6 +105,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -286,6 +289,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -475,6 +481,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -565,6 +574,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -772,6 +784,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -862,6 +877,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1069,6 +1087,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1258,6 +1279,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1348,6 +1372,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1555,6 +1582,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1747,6 +1777,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1840,6 +1873,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2050,6 +2086,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2143,6 +2182,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2254,6 +2296,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2488,6 +2533,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2577,10 +2625,13 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: buff_pure_damage
+      Data: buff_normal_damage
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2616,7 +2667,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: contain_buff_pure_damage
+      Data: contain_buff_normal_damage
     - Name: behaviorTime
       Entry: 3
       Data: 11
@@ -2692,6 +2743,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2902,6 +2956,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3121,6 +3178,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3241,6 +3301,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3402,7 +3465,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\r\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5219\u989D\u5916\u8FDB\u884C\u4E00\u6B21\u653B\u51FB"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\r\uFF0C\u82E5\u76EE\u6807\u6709<color=#FF0000>\u6D41\u8840</color>\uFF0C\u5219\u989D\u5916\u8FDB\u884C1\u6B21\u653B\u51FB"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_attacks
@@ -3454,6 +3517,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3661,6 +3727,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3804,7 +3873,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
+      Data: "\u3010\u6D88\u8017\u3011\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210Y\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DY=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -3853,6 +3922,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -3996,7 +4068,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210X\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DX=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
+      Data: "\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210Y\u6B21{0:atkRate%}\u7684\u4F24\u5BB3\uFF0C\u5176\u4E2DY=\u76EE\u6807<color=#FF0000>\u6D41\u8840</color>\u72B6\u6001\u7684\u6570\u91CF"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -4045,6 +4117,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -4234,6 +4309,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -4483,6 +4561,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -4732,6 +4813,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -4981,6 +5065,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5230,6 +5317,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5338,6 +5428,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5446,6 +5539,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5677,6 +5773,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5785,6 +5884,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -5893,6 +5995,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6100,6 +6205,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6313,6 +6421,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6403,6 +6514,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 2
+    - Name: updateTime
+      Entry: 3
+      Data: 1
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6580,6 +6694,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6751,6 +6868,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -6952,6 +7072,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -7165,6 +7288,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -7420,6 +7546,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -7627,6 +7756,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 2
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -7834,6 +7966,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8056,6 +8191,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8202,13 +8340,13 @@ MonoBehaviour:
       Data: false
     - Name: consume
       Entry: 5
-      Data: true
+      Data: false
     - Name: onlySelf
       Entry: 5
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u56DE\u590D\u6700\u5927\u751F\u547D\u503C{0:attribAdditives:HP#rateOnMaxValue%}\u7684HP"
+      Data: "\u56DE\u590D\u6700\u5927\u751F\u547D\u503C{0:attribAdditives:HP#rateOnMaxValue%}\u7684HP"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -8254,6 +8392,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8403,13 +8544,13 @@ MonoBehaviour:
       Data: false
     - Name: consume
       Entry: 5
-      Data: true
+      Data: false
     - Name: onlySelf
       Entry: 5
       Data: true
     - Name: description
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u56DE\u590D\u6700\u5927\u751F\u547D\u503C{0:attribAdditives:HP#rateOnMaxValue%}\u7684HP"
+      Data: "\u56DE\u590D\u6700\u5927\u751F\u547D\u503C{0:attribAdditives:HP#rateOnMaxValue%}\u7684HP"
     - Name: cardAnimName
       Entry: 1
       Data: anim_common_buff
@@ -8455,6 +8596,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8622,7 +8766,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u6D88\u8017{0:atk}\u70B9HP\uFF0C\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u6D88\u8017{0:attribAdditives:HP#value}\u70B9HP\uFF0C\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -8664,10 +8808,13 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: buff_normal_damage
+      Data: buff_attach_attrib
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8700,7 +8847,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: normal_damage
+      Data: attach_attrib
     - Name: behaviorTime
       Entry: 3
       Data: 11
@@ -8727,13 +8874,37 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atk
+      Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 344|System.Int32, mscorlib
+      Data: 344|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.AttribAdditive, Assembly-CSharp
+    - Name: type
       Entry: 3
-      Data: 3
+      Data: 0
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: -3
+    - Name: rateOnValue
+      Entry: 3
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -8758,6 +8929,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8889,7 +9063,7 @@ MonoBehaviour:
       Data: false
     - Name: description
       Entry: 1
-      Data: "\u6D88\u8017{0:atk}\u70B9HP\uFF0C\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
+      Data: "\u6D88\u8017{0:attribAdditives:HP#value}\u70B9HP\uFF0C\u5BF9\u4E00\u4E2A\u76EE\u6807\u9020\u6210{1:atkRate%}\u7684\u4F24\u5BB3"
     - Name: cardAnimName
       Entry: 1
       Data: anim_card_008
@@ -8931,10 +9105,13 @@ MonoBehaviour:
       Data: Yume.BuffTemplate, Assembly-CSharp
     - Name: id
       Entry: 1
-      Data: buff_normal_damage
+      Data: buff_attach_attrib
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -8967,7 +9144,7 @@ MonoBehaviour:
       Data: Yume.Behavior, Assembly-CSharp
     - Name: behaviorTreeId
       Entry: 1
-      Data: normal_damage
+      Data: attach_attrib
     - Name: behaviorTime
       Entry: 3
       Data: 11
@@ -8994,13 +9171,37 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: atk
+      Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 355|System.Int32, mscorlib
+      Data: 355|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.AttribAdditive, Assembly-CSharp
+    - Name: type
       Entry: 3
-      Data: 2
+      Data: 0
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: -2
+    - Name: rateOnValue
+      Entry: 3
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -9025,6 +9226,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -9115,6 +9319,462 @@ MonoBehaviour:
     - Name: updateRequestItems
       Entry: 7
       Data: 360|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_019
+    - Name: cardType
+      Entry: 3
+      Data: 1
+    - Name: cardPhases
+      Entry: 7
+      Data: 361|Yume.CardPhase[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u84C4\u80FD"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: false
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "{0:duration}\u56DE\u5408\u540E\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_65]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 1
+    - Name: cardPlayer
+      Entry: 7
+      Data: 362|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.2
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 363|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_store_energy
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 1
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u529B\u91CF\u5F3A\u5316"
+    - Name: description
+      Entry: 1
+      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 364|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 365|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: attach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 366|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 367|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: attribAdditives
+    - Name: $v
+      Entry: 7
+      Data: 368|Yume.AttribAdditives, Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.AttribAdditive, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: 2
+    - Name: rateOnValue
+      Entry: 3
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 369|Yume.ItemArgs[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.ItemArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: item_2_gold
+    - Name: count
+      Entry: 3
+      Data: 15000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardPhase, Assembly-CSharp
+    - Name: name
+      Entry: 1
+      Data: "\u84C4\u80FD"
+    - Name: retain
+      Entry: 5
+      Data: false
+    - Name: consume
+      Entry: 5
+      Data: false
+    - Name: onlySelf
+      Entry: 5
+      Data: true
+    - Name: description
+      Entry: 1
+      Data: "{0:duration}\u56DE\u5408\u540E\u56DE\u590D{0:attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: cardAnimName
+      Entry: 1
+      Data: anim_common_buff
+    - Name: iconFileName
+      Entry: 1
+      Data: cards[cards_65]
+    - Name: energyConsumption
+      Entry: 3
+      Data: 1
+    - Name: cardPlayer
+      Entry: 7
+      Data: 370|Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: cardAnimEvent
+      Entry: 7
+      Data: Yume.CardAnimEvent, Assembly-CSharp
+    - Name: waitingTime
+      Entry: 4
+      Data: 0.2
+    - Name: loadFromBlackboard
+      Entry: 5
+      Data: false
+    - Name: eventCount
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: buffTemplates
+      Entry: 7
+      Data: 371|Yume.BuffTemplate[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.BuffTemplate, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: buff_store_energy
+    - Name: stackType
+      Entry: 3
+      Data: 1
+    - Name: updateTime
+      Entry: 3
+      Data: 1
+    - Name: display
+      Entry: 7
+      Data: Yume.BuffDisplay, Assembly-CSharp
+    - Name: icon
+      Entry: 1
+      Data: "\u529B\u91CF\u5F3A\u5316"
+    - Name: description
+      Entry: 1
+      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selector
+      Entry: 7
+      Data: 372|Yume.Battle.SingleSelector, Assembly-CSharp
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviors
+      Entry: 7
+      Data: 373|Yume.Behavior[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.Behavior, Assembly-CSharp
+    - Name: behaviorTreeId
+      Entry: 1
+      Data: attach_attrib
+    - Name: behaviorTime
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: blackboard
+      Entry: 7
+      Data: 374|Yume.Battle.Blackboard, Assembly-CSharp
+    - Name: comparer
+      Entry: 9
+      Data: 7
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 375|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: attribAdditives
+    - Name: $v
+      Entry: 7
+      Data: 376|Yume.AttribAdditives, Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Yume.AttribAdditive, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: onMaxValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: 3
+    - Name: rateOnValue
+      Entry: 3
+      Data: 0
+    - Name: rateOnMaxValue
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: updateRequestItems
+      Entry: 7
+      Data: 377|Yume.ItemArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0

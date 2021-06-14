@@ -124,13 +124,16 @@ namespace Yume {
       s_saveData = true;
     }
 
-    public static void UpdateCard(CardData card) {
-      card.phase++;
-      //更新UI显示
-      EventCenter.Broadcast(EventType.UPDATE_CARD_INFO);
-      s_saveData = true;
+    public static void UpdateCard(CardData card, int phase) {
+      var cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
+      if (phase < cardTemplate.cardPhases.Length) {
+        card.phase = phase;
+        //更新UI显示
+        EventCenter.Broadcast(EventType.UPDATE_CARD_INFO);
+        s_saveData = true;
+      }
     }
-    
+
     #endregion
 
     #region Character

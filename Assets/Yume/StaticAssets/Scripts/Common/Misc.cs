@@ -371,9 +371,25 @@ namespace Yume {
     public string description;
   }
 
+  public enum BuffUpdateTime {
+    /// <summary>
+    /// 空
+    /// </summary>
+    NONE,
+    /// <summary>
+    /// 每回合开始前
+    /// </summary>
+    ON_BEFORE_TURN,
+    /// <summary>
+    /// 每回合结束后
+    /// </summary>
+    ON_LATE_TURN,
+  }
+
   public struct BuffTemplate {
     public string id;
     public StackType stackType;
+    public BuffUpdateTime updateTime;
     public BuffDisplay display;
     public TargetSelector selector;
     public Behavior[] behaviors;
@@ -772,10 +788,14 @@ namespace Yume {
   public static class Colors {
     public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 
-    public static bool TryGetAttribColor(AttribType type, out Color color) {
+    public static bool TryGetAttribColor(AttribType type, int value, out Color color) {
       switch (type) {
         case AttribType.HP:
-          color = Color.green;
+          if (value < 0) {
+            color = Color.red;
+          } else {
+            color = Color.green;
+          }
           return true;
         case AttribType.ENERGY:
           color = Color.blue;

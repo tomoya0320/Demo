@@ -132,6 +132,20 @@ namespace Yume {
         if (GUILayout.Button("战斗失败", GUILayout.Width(200), GUILayout.Height(80))) {
           Battle.BattleManager.Finish(Battle.BattleResult.LOSE);
         }
+
+        if (GUILayout.Button("获取所有卡牌", GUILayout.Width(200), GUILayout.Height(80))) {
+          foreach (var cardTemplate in ResourceManager.LoadAll<CardTemplate>()) {
+            if (DataManager.playerCards.Find(card => card.id == cardTemplate.id) == null) {
+              DataManager.AddCard(cardTemplate.id, 0);
+            }
+          }
+        }
+
+        if (GUILayout.Button("升级所有卡牌", GUILayout.Width(200), GUILayout.Height(80))) {
+          foreach (var card in DataManager.playerCards) {
+            DataManager.UpdateCard(card, card.phase + 1);
+          }
+        }
       }
     }
 #endif

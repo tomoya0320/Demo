@@ -13,7 +13,7 @@ namespace Yume.Battle {
       this.unit = unit;
     }
 
-    public void AddBuff(string buffId, StackType stackType, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
+    public void AddBuff(string buffId, BuffUpdateTime updateTime, StackType stackType, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
       // 检查是否免疫该buff
       if (ContainBuff($"buff_immune_{buffId}")) {
         return;
@@ -26,15 +26,15 @@ namespace Yume.Battle {
       switch (stackType) {
         case StackType.NONE:
           if (m_buffDict[buffId].Count == 0) {
-            _AddBuffInternal(buffId, blackboard, behaviors, display);
+            _AddBuffInternal(buffId, updateTime, blackboard, behaviors, display);
           }
           break;
         case StackType.DEFAULT:
-          _AddBuffInternal(buffId, blackboard, behaviors, display);
+          _AddBuffInternal(buffId, updateTime, blackboard, behaviors, display);
           break;
         case StackType.DURATION:
           if (m_buffDict[buffId].Count == 0) {
-            _AddBuffInternal(buffId, blackboard, behaviors, display);
+            _AddBuffInternal(buffId, updateTime, blackboard, behaviors, display);
           } else {
             m_buffDict[buffId].Last().duration += blackboard.GetValue<int>(Blackboard.DURATION);
           }
@@ -51,8 +51,8 @@ namespace Yume.Battle {
       return false;
     }
 
-    private void _AddBuffInternal(string buffId, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
-      Buff buff = new Buff(unit, buffId, blackboard, behaviors, display);
+    private void _AddBuffInternal(string buffId, BuffUpdateTime updateTime, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
+      Buff buff = new Buff(unit, buffId, updateTime, blackboard, behaviors, display);
       if (buff.duration == 0) {
         // 持续回合为0表示瞬发
         // 不会走Add和Remove流程
@@ -65,12 +65,11 @@ namespace Yume.Battle {
       }
     }
 
-    public void OnLateUpdate() {
+    public void OnUpdate(BuffUpdateTime updateTime) {
       foreach (var buffs in m_buffDict.Values) {
-        // 避免迭代器失效
-        for (int i = buffs.Count - 1; i >= 0; i--) {
-          if (!buffs[i].OnUpdate()) {
-            RemoveBuff(buffs[i]);
+        foreach (var buff in buffs.FindAll(buff => buff.updateTime == updateTime)) {
+          if (!buff.OnUpdate()) {
+            RemoveBuff(buff);
           }
         }
       }

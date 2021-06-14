@@ -93,6 +93,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -322,6 +325,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -381,28 +387,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: duration
-    - Name: $v
-      Entry: 7
-      Data: 15|System.Int32, mscorlib
-    - Name: 
-      Entry: 3
-      Data: -1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
       Data: prob
     - Name: $v
       Entry: 7
-      Data: 16|System.Single, mscorlib
+      Data: 15|System.Single, mscorlib
     - Name: 
       Entry: 4
       Data: 0.5
@@ -420,7 +408,7 @@ MonoBehaviour:
       Data: attribAdditives
     - Name: $v
       Entry: 7
-      Data: 17|Yume.AttribAdditives, Assembly-CSharp
+      Data: 16|Yume.AttribAdditives, Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -448,6 +436,24 @@ MonoBehaviour:
     - Name: 
       Entry: 13
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: duration
+    - Name: $v
+      Entry: 7
+      Data: 17|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: -1
     - Name: 
       Entry: 8
       Data: 
@@ -1033,6 +1039,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -1208,6 +1217,9 @@ MonoBehaviour:
       Entry: 1
       Data: buff_encore
     - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: updateTime
       Entry: 3
       Data: 0
     - Name: display
@@ -1895,6 +1907,9 @@ MonoBehaviour:
       Entry: 1
       Data: buff_recovery_before_turn
     - Name: stackType
+      Entry: 3
+      Data: 0
+    - Name: updateTime
       Entry: 3
       Data: 1
     - Name: display
@@ -2590,6 +2605,9 @@ MonoBehaviour:
     - Name: stackType
       Entry: 3
       Data: 0
+    - Name: updateTime
+      Entry: 3
+      Data: 0
     - Name: display
       Entry: 7
       Data: Yume.BuffDisplay, Assembly-CSharp
@@ -2703,13 +2721,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: duration
+      Data: removeBuff
     - Name: $v
       Entry: 7
-      Data: 59|System.Int32, mscorlib
+      Data: 59|System.String, mscorlib
     - Name: 
-      Entry: 3
-      Data: -1
+      Entry: 1
+      Data: buff_recovery_before_die
     - Name: 
       Entry: 8
       Data: 
@@ -2721,13 +2739,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: removeBuff
+      Data: duration
     - Name: $v
       Entry: 7
-      Data: 60|System.String, mscorlib
+      Data: 60|System.Int32, mscorlib
     - Name: 
-      Entry: 1
-      Data: buff_recovery_before_die
+      Entry: 3
+      Data: -1
     - Name: 
       Entry: 8
       Data: 

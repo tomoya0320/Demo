@@ -119,7 +119,7 @@ namespace Yume.UI {
             foreach (var item in cardPhase.updateRequestItems) {
               DataManager.ConsumeItem(item.id, item.count);
             }
-            DataManager.UpdateCard(m_card);
+            DataManager.UpdateCard(m_card, m_card.phase + 1);
             _RefreshDetail();
           }
         });

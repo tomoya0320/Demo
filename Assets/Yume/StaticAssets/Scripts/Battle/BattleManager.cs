@@ -60,7 +60,7 @@ namespace Yume.Battle {
               Blackboard blackboard = new Blackboard { { "caster", unit } };
               blackboard.Merge(buffTemplate.blackboard);
               buffManagers[target].AddBuff(
-                buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+                buffTemplate.id, buffTemplate.updateTime, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
               );
             }
           }
@@ -75,11 +75,11 @@ namespace Yume.Battle {
           Blackboard blackboard = new Blackboard();
           blackboard.Merge(buffTemplate.blackboard);
           buffManagers[target].AddBuff(
-            buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+            buffTemplate.id, buffTemplate.updateTime, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
           );
         }
       }
-      
+
       // 开始作战
       s_runEnumerator = _Run();
       CoroutineHelper.instance.Run(s_runEnumerator);
@@ -96,7 +96,7 @@ namespace Yume.Battle {
         if (unit.isDead) {
           continue;
         }
-        
+
         if (unit is Enemy) {
           float dist = Vector3.Distance(point, unit.gameObject.transform.position);
           if (dist < minDist) {
@@ -113,7 +113,7 @@ namespace Yume.Battle {
       if (!isRunning) {
         return;
       }
-      
+
       // 停止协程
       CoroutineHelper.instance.Stop(s_runEnumerator);
       s_runEnumerator = null;
@@ -149,16 +149,16 @@ namespace Yume.Battle {
     public static void OnUnitDie(Unit unit) {
       // 单位死亡的动画
       unit.animator.SetBool(AnimatorParams.DIE, true);
-      
+
       // 移除这个单位施加的buff
       foreach (var buffManager in buffManagers.Values) {
         if (buffManager.unit.isDead) {
           continue;
         }
-        
+
         buffManager.OnCasterDie(unit);
       }
-      
+
       if (unit is Character) {
         // 战斗失败
         Finish(BattleResult.LOSE);
@@ -175,7 +175,7 @@ namespace Yume.Battle {
         if (unit.isDead) {
           continue;
         }
-        
+
         unit.OnUpdate();
       }
     }
@@ -186,7 +186,7 @@ namespace Yume.Battle {
       s_lastUnit = null;
       s_currentUnitIndex = 0;
       s_levelTemplate = default;
-      
+
       // step2
       units.ForEach(unit => unit.CleanUp());
       buffManagers.Values.ForEach(buffManager => buffManager.CleanUp());
@@ -202,7 +202,7 @@ namespace Yume.Battle {
       NumFactory.CleanUp();
       UnitFactory.CleanUp();
       CardFactory.CleanUp();
-      
+
       // step5
       GC.Collect();
     }
@@ -212,7 +212,7 @@ namespace Yume.Battle {
       YWaitWhile waitAllUI = WaitUtil.GetWaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
       yield return waitAllUI;
       WaitUtil.ReleaseWaitWhile(waitAllUI);
-      
+
       while (true) {
         // 更新UI
         if (currentUnit is Character || s_lastUnit is Character) {
@@ -226,12 +226,14 @@ namespace Yume.Battle {
         }
         // 回合开始前
         behaviorManagers[currentUnit].Run(BehaviorTime.ON_BEFORE_TURN);
+        // 回合开始前更新buff
+        buffManagers[currentUnit].OnUpdate(BuffUpdateTime.ON_BEFORE_TURN);
         // 回合中
         yield return currentUnit.OnTick();
         // 回合结束后
         behaviorManagers[currentUnit].Run(BehaviorTime.ON_LATE_TURN);
-        // 更新buff
-        buffManagers[currentUnit].OnLateUpdate();
+        // 回合结束后更新buff
+        buffManagers[currentUnit].OnUpdate(BuffUpdateTime.ON_LATE_TURN);
         // 下一个存活的单位
         s_lastUnit = currentUnit;
         do {
