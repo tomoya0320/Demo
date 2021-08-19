@@ -585,7 +585,8 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -888,7 +889,8 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -2307,7 +2309,8 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u7ED3\u675F\u65F6\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -3312,7 +3315,8 @@ MonoBehaviour:
       Data: buffVFX2
     - Name: description
       Entry: 1
-      Data: "\u6BCF\u56DE\u5408\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3"
+      Data: "\u6BCF\u56DE\u5408\u9020\u6210{atkRate%}\u7684\u771F\u5B9E\u4F24\u5BB3
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -4320,7 +4324,8 @@ MonoBehaviour:
       Data: buffVFX1
     - Name: description
       Entry: 1
-      Data: "\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -4572,7 +4577,8 @@ MonoBehaviour:
       Data: buffVFX1
     - Name: description
       Entry: 1
-      Data: "\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u53D7\u5230\u7684\u4F24\u5BB3\u63D0\u9AD8{attribAdditives:ANTI_DAMAGE_CHANGE_RATE#value%}
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -4824,7 +4830,8 @@ MonoBehaviour:
       Data: buffVFX3
     - Name: description
       Entry: 1
-      Data: "\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{attribAdditives:DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{attribAdditives:DAMAGE_CHANGE_RATE#value%}
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -5076,7 +5083,8 @@ MonoBehaviour:
       Data: buffVFX3
     - Name: description
       Entry: 1
-      Data: "\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{attribAdditives:DAMAGE_CHANGE_RATE#value%}"
+      Data: "\u9020\u6210\u7684\u4F24\u5BB3\u964D\u4F4E{attribAdditives:DAMAGE_CHANGE_RATE#value%}
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -6525,7 +6533,7 @@ MonoBehaviour:
       Data: defendBuffL
     - Name: description
       Entry: 1
-      Data: "\u514D\u75AB<color=#FF0000>\u6D41\u8840</color>"
+      Data: "\u514D\u75AB<color=#FF0000>\u6D41\u8840</color> \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -7557,7 +7565,8 @@ MonoBehaviour:
       Data: magic
     - Name: description
       Entry: 1
-      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -7767,7 +7776,8 @@ MonoBehaviour:
       Data: magic
     - Name: description
       Entry: 1
-      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09"
+      Data: "\u3010\u4E0D\u53EF\u53E0\u52A0\u3011\u6BCF\u6B21\u7ED3\u675F\u56DE\u5408\u524D\u968F\u673A\u4FDD\u7559{retainCount}\u5F20\u624B\u724C\uFF08\u672C\u8EAB\u5C31\u6709\u4FDD\u7559\u5C5E\u6027\u7684\u5361\u724C\u9664\u5916\uFF09
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -9429,7 +9439,8 @@ MonoBehaviour:
       Data: "\u529B\u91CF\u5F3A\u5316"
     - Name: description
       Entry: 1
-      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 
@@ -9651,7 +9662,8 @@ MonoBehaviour:
       Data: "\u529B\u91CF\u5F3A\u5316"
     - Name: description
       Entry: 1
-      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF"
+      Data: "{duration}\u56DE\u5408\u540E\u56DE\u590D{attribAdditives:ENERGY#value}\u70B9\u80FD\u91CF
+        \u5269\u4F59\u56DE\u5408\u6570\uFF1A{0}"
     - Name: 
       Entry: 8
       Data: 

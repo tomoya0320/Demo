@@ -28,11 +28,11 @@ namespace Yume.UI {
           } else {
             m_iconImg.SetSprite(m_buff.icon);
           }
-          string description = StringUtil.GetActualDescription(m_buff.description, m_buff.blackboard);
+          string description = m_buff.description;
           if (m_buff.duration > 0) {
-            description += $" 剩余回合数:{m_buff.duration - m_buff.turn}";
+            description = description.Replace("{0}", $"{m_buff.duration - m_buff.turn}");
           }
-          m_description.text = description;
+          m_description.text = StringUtil.GetActualDescription(description, m_buff.blackboard);
         }
       }
 
