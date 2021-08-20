@@ -1,9 +1,35 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yume.UI;
+using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
+  public enum CardHeapType {
+    /// <summary>
+    /// 抽牌堆
+    /// </summary>
+    DRAW,
+    /// <summary>
+    /// 弃牌堆
+    /// </summary>
+    DISCARD,
+    /// <summary>
+    /// 耗牌堆
+    /// </summary>
+    CONSUME,
+    /// <summary>
+    /// 手牌堆
+    /// </summary>
+    HAND,
+    /// <summary>
+    /// 出牌堆
+    /// </summary>
+    PLAY,
+  }
+
   public abstract class Unit {
     public int level { get; }
     public Camp camp { get; }
@@ -16,7 +42,7 @@ namespace Yume.Battle {
     public Blackboard blackboard = new Blackboard();
     public bool isAlive => GetAttrib(AttribType.HP) > 0;
     public bool isDead => !isAlive;
-    protected YWaitUntil waitPlayCard;
+    protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
     #region 表现层
 
@@ -40,6 +66,7 @@ namespace Yume.Battle {
     #endregion
 
     protected Unit(UnitArgs unitArgs) {
+      // 初始化单位属性
       var unitTemplate = ResourceManager.Load<UnitTemplate>(unitArgs.id);
       level = unitArgs.lv;
       id = unitTemplate.id;
@@ -64,6 +91,11 @@ namespace Yume.Battle {
       selected = objectContainer.GetGameObject("selected");
       selected?.SetActiveEx(false);
 
+      // 初始化卡牌堆字典
+      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
+        cardHeapDict.Add(cardHeapType, new List<Card>());
+      }
+
       // 更新属性UI
       OnAttribChanged(AttribType.HP);
       OnAttribChanged(AttribType.ENERGY);
@@ -72,9 +104,16 @@ namespace Yume.Battle {
     public abstract IEnumerator OnTick();
 
     public virtual void CleanUp() {
-      WaitUtil.ReleaseWaitUntil(waitPlayCard);
-      waitPlayCard = null;
       blackboard.Clear();
+
+      foreach (var cards in cardHeapDict.Values) {
+        foreach (var card in cards) {
+          card.CleanUp();
+        }
+        cards.Clear();
+      }
+      cardHeapDict.Clear();
+
       Object.Destroy(gameObject);
     }
 
@@ -110,8 +149,11 @@ namespace Yume.Battle {
       }
     }
 
-    public virtual void EnqueueCard(Card card) {
-      if (card != null) { // 注意结束回合的标志是一个空的卡牌这个不能统计进去
+    public void EnqueueCard(Card card) {
+      cardHeapDict[CardHeapType.PLAY].Add(card);
+      if (card != null) {
+        card.cardHeapType = CardHeapType.PLAY;
+        // 注意结束回合的标志是一个空的卡牌这个不能统计进去
         blackboard[Blackboard.PLAY_CARD_COUNT] = blackboard.GetValue<int>(Blackboard.PLAY_CARD_COUNT) + 1;
       }
     }
@@ -120,7 +162,7 @@ namespace Yume.Battle {
       if (isDead) {
         return;
       }
-      
+
       // 更新血条UI
       if (hpImg != null && hpTransitionImg != null) {
         if (hpTransitionImg.fillAmount < hpImg.fillAmount) {
@@ -128,6 +170,11 @@ namespace Yume.Battle {
         } else {
           hpTransitionImg.fillAmount = Mathf.Max(hpImg.fillAmount, hpTransitionImg.fillAmount - hpTransitionSpeed);
         }
+      }
+
+      // 更新卡牌UI 
+      foreach (var cards in cardHeapDict.Values) {
+        cards.ForEach(card => card?.OnUpdate());
       }
     }
   }

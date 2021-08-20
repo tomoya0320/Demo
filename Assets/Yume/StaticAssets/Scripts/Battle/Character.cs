@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,42 +7,19 @@ using Yume.UI;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
-  public enum CardHeapType {
-    /// <summary>
-    /// 抽牌堆
-    /// </summary>
-    DRAW,
-    /// <summary>
-    /// 弃牌堆
-    /// </summary>
-    DISCARD,
-    /// <summary>
-    /// 耗牌堆
-    /// </summary>
-    CONSUME,
-    /// <summary>
-    /// 手牌堆
-    /// </summary>
-    HAND,
-    /// <summary>
-    /// 出牌堆
-    /// </summary>
-    PLAY,
-  }
-
   public class Character : Unit {
+    protected YWaitUntil waitPlayCard;
     public List<Card> retainCards = new List<Card>();
-    private List<Card> m_tempCards = new List<Card>();
+    protected List<Card> tempCards = new List<Card>();
     protected override Transform folder => UnitFactory.charFolder;
-    protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
-    public Character(UnitArgs charArgs, CardArgs[] cardArgsArray) : base(charArgs) {
-      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
-        cardHeapDict.Add(cardHeapType, new List<Card>());
-      }
+    public Character(UnitArgs unitArgs, CardArgs[] cardArgsArray) : base(unitArgs) {
+      // 初始化卡牌
       foreach (var cardArgs in cardArgsArray) {
         cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardArgs, _OnUseCard));
       }
+      
+      // 初始化协程相关变量
       waitPlayCard = WaitUtil.GetWaitUntil(() => cardHeapDict[CardHeapType.PLAY].Count > 0);
     }
 
@@ -68,21 +44,12 @@ namespace Yume.Battle {
       handCards.Remove(card);
       // 加入出牌队列
       EnqueueCard(card);
-      card.cardHeapType = CardHeapType.PLAY;
       // 调整SiblingIndex
       for (int i = 0; i < handCards.Count; i++) {
         handCards[i].battleCard.SetTargetSiblingIndex(i);
       }
 
       return true;
-    }
-
-    public override void OnUpdate() {
-      base.OnUpdate();
-
-      foreach (var cards in cardHeapDict.Values) {
-        cards.ForEach(card => card?.OnUpdate());
-      }
     }
 
     public override IEnumerator OnTick() {
@@ -103,17 +70,17 @@ namespace Yume.Battle {
       Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW]);
       foreach (Card card in randomCards) {
         // 记录抽取的卡牌
-        m_tempCards.Add(card);
+        tempCards.Add(card);
         card.cardHeapType = CardHeapType.HAND;
         cardHeapDict[CardHeapType.HAND].Add(card);
         cardHeapDict[CardHeapType.DRAW].Remove(card);
-        if (m_tempCards.Count >= Constant.DRAW_CARD_COUNT) {
+        if (tempCards.Count >= Constant.DRAW_CARD_COUNT) {
           break;
         }
       }
       // 抽牌表现层
-      _AddCards(m_tempCards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
-      m_tempCards.Clear();
+      _AddCards(tempCards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
+      tempCards.Clear();
 
       // 出牌中
       while (true) {
@@ -146,19 +113,19 @@ namespace Yume.Battle {
       retainCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => card.cardPhase.retain));
       // 记录弃置的卡牌
       // 将不保留的手牌全部弃置
-      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !retainCards.Contains(card)));
-      m_tempCards.ForEach(
+      tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !retainCards.Contains(card)));
+      tempCards.ForEach(
         card => {
           card.cardHeapType = CardHeapType.DISCARD;
           cardHeapDict[CardHeapType.HAND].Remove(card);
         }
       );
       // 放入弃牌堆
-      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCards);
+      cardHeapDict[CardHeapType.DISCARD].AddRange(tempCards);
       // 弃牌表现层
-      _RemoveCards(m_tempCards.ToArray());
+      _RemoveCards(tempCards.ToArray());
       // 清空列表
-      m_tempCards.Clear();
+      tempCards.Clear();
       retainCards.Clear();
       // 重新排列剩下的手牌堆
       _ResortHandCards();
@@ -254,19 +221,8 @@ namespace Yume.Battle {
     public override void CleanUp() {
       base.CleanUp();
       
-      foreach (var cards in cardHeapDict.Values) {
-        foreach (var card in cards) {
-          card.CleanUp();
-        }
-        cards.Clear();
-      }
-      cardHeapDict.Clear();
-    }
-
-    public override void EnqueueCard(Card card) {
-      base.EnqueueCard(card);
-      
-      cardHeapDict[CardHeapType.PLAY].Add(card);
+      WaitUtil.ReleaseWaitUntil(waitPlayCard);
+      waitPlayCard = null;
     }
   }
 }
