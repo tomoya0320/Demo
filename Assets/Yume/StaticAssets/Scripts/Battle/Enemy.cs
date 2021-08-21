@@ -15,7 +15,9 @@ namespace Yume.Battle {
       // 初始化卡牌
       foreach (var cardArgs in cardArgsArray) {
         Card card = CardFactory.CreateCard(this, cardArgs, null, gameObject.transform.Find("cardFolder"));
+        // 初始化时隐藏卡牌
         card.gameObject.SetActiveEx(false);
+        // 默认都放手牌堆里
         cardHeapDict[CardHeapType.HAND].Add(card);
       }
       

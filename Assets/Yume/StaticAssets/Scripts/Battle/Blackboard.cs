@@ -30,6 +30,8 @@ namespace Yume.Battle {
     public const string RETAIN_COUNT = "retainCount";
     public const string PLAY_CARD_COUNT = "playCardCount";
     public const string PLAY_CARD_TRIGGER_COUNT = "playCardTriggerCount";
+    public const string LAST_DAMAGE_SOURCE = "lastDamageSource";
+    public const string LAST_DAMAGE_TARGET = "lastDamageTarget";
     
     #endregion
     

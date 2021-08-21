@@ -24,12 +24,14 @@ namespace Yume.Battle {
       // 显示数字
       NumFactory.ShowNum(-realDamage, owner.numReference.position, Color.red);
 
-      // 保存最后一次造成的伤害值
+      // 保存最后一次造成的伤害值和伤害目标
       if (caster != null) {
         caster.blackboard[Blackboard.LAST_DAMAGE_VALUE] = realDamage;
+        caster.blackboard[Blackboard.LAST_DAMAGE_TARGET] = owner;
       }
-      // 保存最后一次被造成的伤害值
+      // 保存最后一次被造成的伤害值和伤害来源
       owner.blackboard[Blackboard.LAST_DAMAGED_VALUE] = realDamage;
+      owner.blackboard[Blackboard.LAST_DAMAGE_SOURCE] = caster;
 
       // 被造成伤害后的行为树
       ownerBehaviorManager?.Run(BehaviorTime.ON_LATE_DAMAGED);

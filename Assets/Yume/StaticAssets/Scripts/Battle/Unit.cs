@@ -103,20 +103,6 @@ namespace Yume.Battle {
 
     public abstract IEnumerator OnTick();
 
-    public virtual void CleanUp() {
-      blackboard.Clear();
-
-      foreach (var cards in cardHeapDict.Values) {
-        foreach (var card in cards) {
-          card.CleanUp();
-        }
-        cards.Clear();
-      }
-      cardHeapDict.Clear();
-
-      Object.Destroy(gameObject);
-    }
-
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
       int result;
       if (onMaxValue) {
@@ -176,6 +162,20 @@ namespace Yume.Battle {
       foreach (var cards in cardHeapDict.Values) {
         cards.ForEach(card => card?.OnUpdate());
       }
+    }
+    
+    public virtual void CleanUp() {
+      blackboard.Clear();
+
+      foreach (var cards in cardHeapDict.Values) {
+        foreach (var card in cards) {
+          card.CleanUp();
+        }
+        cards.Clear();
+      }
+      cardHeapDict.Clear();
+
+      Object.Destroy(gameObject);
     }
   }
 }
