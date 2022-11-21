@@ -42,7 +42,7 @@ namespace Yume.UI {
         m_speed = speed;
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
           stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
@@ -60,7 +60,7 @@ namespace Yume.UI {
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         owner._DoTransformTween(SPEED_SCALE * speed);
         owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
       }
@@ -74,7 +74,7 @@ namespace Yume.UI {
         owner.transform.SetParent(CardFactory.handCardTopFolder);
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         // 大小缩放
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
@@ -132,7 +132,7 @@ namespace Yume.UI {
         }
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         switch (owner.m_card.cardHeapType) {
           case CardHeapType.DISCARD:
             if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
@@ -225,7 +225,7 @@ namespace Yume.UI {
     }
 
     public void OnUpdate() {
-      m_stateMachine.OnTrick();
+      m_stateMachine.OnTick();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
