@@ -18,17 +18,20 @@ namespace Yume.UI {
     private int m_curTeamIdx = -1;
     private List<Button> m_cardBtns;
     private List<YButton> m_teamBtns;
+    private UIBtnSwitch m_btnSwitch;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
       m_charBtn = GetComponent<Button>("char");
+      m_btnSwitch = GetComponent<UIBtnSwitch>("team_buttons");
       m_cardBtns = new List<Button>(GetGameObject("cards").GetComponentsInChildren<Button>());
       m_teamBtns = new List<YButton>(GetGameObject("team_buttons").GetComponentsInChildren<YButton>());
 
       m_teams = DataManager.playerTeams;
       m_curTeamIdx = DataManager.playerTeamIndex;
-      m_teamBtns[m_curTeamIdx].image.color = Color.blue;
+      
+      m_btnSwitch.Switch(m_teamBtns[m_curTeamIdx]);
 
       _AddListener();
       _OnRefreshChar();
@@ -67,12 +70,10 @@ namespace Yume.UI {
       int newIdx = m_teams.FindIndex(t => t == teamDB);
 
       if (m_curTeamIdx != newIdx) {
-        m_teamBtns[m_curTeamIdx].image.color = Color.white;
         m_curTeamIdx = newIdx;
-        m_teamBtns[m_curTeamIdx].image.color = Color.blue;
-
+        m_btnSwitch.Switch(m_teamBtns[m_curTeamIdx]);
         DataManager.ChangeTeamIndex(m_curTeamIdx);
-
+        
         _OnRefreshChar();
         _OnRefreshCards();
       } else {
@@ -92,9 +93,9 @@ namespace Yume.UI {
           CardData card = DataManager.GetCard(currentTeam.cardGuids[i]);
           CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
           CardPhase cardPhase = cardTemplate.cardPhases[card.phase];
-          m_cardBtns[i].image.SetSpriteAsync(cardPhase.iconFileName);
+          m_cardBtns[i].image.SetSprite(cardPhase.iconFileName);
         } else {
-          m_cardBtns[i].image.sprite = ResourceManager.Load<Sprite>("noCardSprite");
+          m_cardBtns[i].image.SetSprite(StringMap.NO_CARD_SPRITE);
         }
       }
     }
@@ -102,9 +103,9 @@ namespace Yume.UI {
     private void _OnRefreshChar() {
       if (!string.IsNullOrEmpty(currentTeam.charId)) {
         UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(currentTeam.charId);
-        m_charBtn.image.SetSpriteAsync(charTemplate.portraitFileName);
+        m_charBtn.image.SetSprite(charTemplate.portraitFileName);
       } else {
-        m_charBtn.image.sprite = ResourceManager.Load<Sprite>("noCharSprite");
+        m_charBtn.image.SetSprite(StringMap.NO_CHAR_SPRITE);
       }
     }
   }

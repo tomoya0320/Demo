@@ -1,8 +1,7 @@
-﻿using DG.Tweening;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Yume.UI;
 
 namespace Yume {
@@ -55,8 +54,6 @@ namespace Yume {
     private class BGMManager {
       private int m_switch;
       private float m_value;
-      private Tween m_tween;
-      private AudioClip m_curBgm;
       private AudioSource m_audioSource;
       private readonly string m_valueKey = UISettingType.BGM.GetDescription() + StringMap.VALUE;
       private readonly string m_switchKey = UISettingType.BGM.GetDescription() + StringMap.SWITCH;
@@ -83,60 +80,13 @@ namespace Yume {
         m_audioSource.volume = m_switch * m_value;
       }
 
-      public void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
-        // 因为OnComplete里可能又会创建一个Tween
-        while (m_tween != null) {
-          m_tween.Complete();
-        }
-        
-        if (fadeTime <= 0) {
-          _StopBgmInternal();
-          onCompleted?.Invoke();
-        } else {
-          m_tween = m_audioSource
-                    .DOFade(0, fadeTime)
-                    .OnComplete(
-                      () => {
-                        m_tween = null;
-                        _StopBgmInternal();
-                        onCompleted?.Invoke();
-                      }
-                    );  
-        }
-      }
-
-      public void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
-        // 因为OnComplete里可能又会创建一个Tween
-        while (m_tween != null) {
-          m_tween.Complete();
-        }
-        
-        m_curBgm = audioClip;
-        if (fadeTime <= 0) {
-          _PlayBgmInternal(m_curBgm);
-        } else {
-          StopBgm(
-            () => {
-              _PlayBgmInternal(m_curBgm);
-              m_tween = m_audioSource
-                        .DOFade(m_switch * m_value, fadeTime)
-                        .OnComplete(() => m_tween = null);
-            }
-          );
-        }
-      }
-
-      private void _PlayBgmInternal(AudioClip audioClip) {
+      public void PlayBgm(AudioClip audioClip) {
         m_audioSource.clip = audioClip;
         m_audioSource.Play();
       }
 
-      private void _StopBgmInternal() {
-        m_audioSource.Stop();
-      }
-
       public string GetCurClipName() {
-        return m_curBgm?.name;
+        return m_audioSource.clip?.name;
       }
     }
 
@@ -154,19 +104,25 @@ namespace Yume {
 
     #region BGM
 
-    public static void PlayBgm(AudioClip audioClip, float fadeTime = 1.0f) {
-      s_bgmManager.PlayBgm(audioClip, fadeTime);
+    public static void PlayBgm(AudioClip audioClip) {
+      s_bgmManager.PlayBgm(audioClip);
     }
 
-    public static void PlayBgm(string audioClipName, bool force = false, float fadeTime = 1.0f) {
+    public static void PlayBgm(string audioClipName, bool force = false) {
       if (GetCurBgmName() != audioClipName || force) {
-        var audio = ResourceManager.Load<AudioClip>(audioClipName);
-        s_bgmManager.PlayBgm(audio, fadeTime);
+        if (string.IsNullOrEmpty(audioClipName)) {
+          s_bgmManager.PlayBgm(null);
+        } else {
+          if (ResourceManager.Contains<AudioClip>(audioClipName)) {
+            s_bgmManager.PlayBgm(ResourceManager.Load<AudioClip>(audioClipName));
+          } else {
+            var handle = Addressables.LoadAssetAsync<AudioClip>(audioClipName);
+            var audioClip = handle.WaitForCompletion();
+            s_bgmManager.PlayBgm(audioClip);
+            Addressables.Release(handle);
+          }
+        }
       }
-    }
-
-    public static void StopBgm(Action onCompleted = null, float fadeTime = 1.0f) {
-      s_bgmManager.StopBgm(onCompleted, fadeTime);
     }
 
     public static void UpdateBgmVolume() {
@@ -182,8 +138,7 @@ namespace Yume {
     #region Sound
 
     public static void PlaySound(string audioClipName) {
-      var audio = ResourceManager.Load<AudioClip>(audioClipName);
-      s_soundManager.PlaySound(audio);
+      Addressables.LoadAssetAsync<AudioClip>(audioClipName).Completed += handle => s_soundManager.PlaySound(handle.Result);
     }
 
     public static void PlaySound(AudioClip audioClip) {

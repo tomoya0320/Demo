@@ -1,12 +1,11 @@
 using UnityEngine;
-using Yume.UI;
 
 namespace Yume.AVG {
 	public class PlaySound : LeafNodeBase {
     [SerializeField]
 		private AudioClip _soundClip;
 
-		public override void Run(UIAVG avg) {
+		public override void Run() {
 			AudioManager.PlaySound(_soundClip);
 		}
 	}

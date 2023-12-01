@@ -10,7 +10,7 @@ namespace Yume.Battle {
     }
 
     public virtual void OnEnter(int lastStateId) { }
-    public virtual void OnTrick() { }
+    public virtual void OnTick() { }
     public virtual void OnExit(int nextStateId) { }
   }
 
@@ -46,8 +46,8 @@ namespace Yume.Battle {
       return false;
     }
 
-    public void OnTrick() {
-      currentState?.OnTrick();
+    public void OnTick() {
+      currentState?.OnTick();
     }
 
     /// <summary>

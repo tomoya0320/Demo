@@ -42,7 +42,7 @@ namespace Yume.UI {
         m_selected.SetActiveEx(m_charChoiceContainer.selectedChar == m_character);
 
         if (m_character != null) {
-          m_selectButton.image.SetSpriteAsync(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
+          m_selectButton.image.SetSprite(ResourceManager.Load<UnitTemplate>(m_character.id).portraitFileName);
         }
       }
 
@@ -110,7 +110,7 @@ namespace Yume.UI {
     }
 
     public override RectTransform GetDynamicListObj(string list, string id) {
-      if (m_charChoiceContainer.gameObject.name == list) {
+      if (m_charChoiceContainer.gameObject.name == GameObject.Find(list)?.name) {
         int index = m_charChoiceContainer.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
           m_charChoiceContainer.charChoiceScrollView.SetAsFirstDisplay(index);

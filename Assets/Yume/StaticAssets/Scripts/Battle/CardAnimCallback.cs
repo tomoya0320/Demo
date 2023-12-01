@@ -6,10 +6,12 @@ namespace Yume.Battle {
   public class CardAnimCallback : MonoBehaviour {
     private Card m_card;
     private Animation m_animation;
+    private YWaitWhile m_waitCardAnim;
 
     private void Awake() {
       m_animation = GetComponent<Animation>();
       m_animation.playAutomatically = false;
+      m_waitCardAnim = WaitUtil.GetWaitWhile(() => m_animation.isPlaying);
     }
 
     public void SetCard(Card card) {
@@ -18,29 +20,29 @@ namespace Yume.Battle {
 
     public IEnumerator PlayAnim() {
       CardAnimEvent cardAnimEvent = m_card.cardPhase.cardAnimEvent;
-      int eventCount = m_card.owner.blackboard.GetValueAndRemove<int>($"{m_card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}");
+      int eventCount = m_card.blackboard.GetValueAndRemove<int>(Blackboard.EXTRA_EVENT_COUNT);
       if (cardAnimEvent.loadFromBlackboard) {
-        eventCount += m_card.owner.blackboard.GetValueAndRemove<int>($"{m_card.cardTemplate.id}:{Blackboard.EVENT_COUNT}");
+        eventCount += m_card.blackboard.GetValueAndRemove<int>(Blackboard.EVENT_COUNT);
       } else {
         eventCount += cardAnimEvent.eventCount;
       }
+      gameObject.SetActiveEx(true);
       while (eventCount > 0) {
-        gameObject.SetActiveEx(true);
         transform.position = m_card.candidate.gameObject.transform.position;
         m_animation.Play();
         if (cardAnimEvent.waitingTime > 0) {
           yield return new WaitForSeconds(cardAnimEvent.waitingTime);
         }
-        bool result = _OnCast() && m_card.owner.isAlive;
-        yield return new WaitWhile(() => m_animation.isPlaying);
-        gameObject.SetActiveEx(false);
         // 释放过程中如果自己死了或目标全都死了就直接结束
-        if (result) {
+        if (_OnCast() && m_card.owner.isAlive) {
           eventCount--;
+          // 等待卡牌动画播放完毕
+          yield return m_waitCardAnim;
         } else {
-          yield break;
+          break;
         }
       }
+      gameObject.SetActiveEx(false);
     }
 
     /// <summary>
@@ -52,7 +54,7 @@ namespace Yume.Battle {
         Debug.LogError("card is null!");
         return false;
       }
-      
+
       foreach (var buffTemplate in m_card.cardPhase.buffTemplates) {
         int leftCount = 0;
         // 以caster和candidate为基准筛选出目标
@@ -61,12 +63,12 @@ namespace Yume.Battle {
           if (target.isDead) {
             continue;
           }
-          
+
           // 因为blackboard是引用类型所以需要新建一个
           Blackboard blackboard = new Blackboard { { Blackboard.CASTER, m_card.owner } };
           blackboard.Merge(buffTemplate.blackboard);
           BattleManager.buffManagers[target].AddBuff(
-            buffTemplate.id, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
+            buffTemplate.id, buffTemplate.updateTime, buffTemplate.stackType, blackboard, buffTemplate.behaviors, buffTemplate.display
           );
           if (target.isAlive) {
             leftCount++;
@@ -81,6 +83,11 @@ namespace Yume.Battle {
 
     private void _OnPlaySound(string sound) {
       AudioManager.PlaySound(sound);
+    }
+
+    private void OnDestroy() {
+      WaitUtil.ReleaseWaitWhile(m_waitCardAnim);
+      m_waitCardAnim = null;
     }
   }
 }

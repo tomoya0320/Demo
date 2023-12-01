@@ -36,7 +36,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        var button = GetComponent<YButton>("SelectButton");
+        var button = GetComponent<YButton>("Button");
         button.onClick.AddListener(
           () => {
             if (m_cardChoiceContainer.selectedCards.Contains(m_card)) {
@@ -76,7 +76,7 @@ namespace Yume.UI {
           } else {
             m_energyText.text = "X";
           }
-          m_iconImg.SetSpriteAsync(cardPhase.iconFileName);
+          m_iconImg.SetSprite(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
         }
       }
@@ -158,7 +158,7 @@ namespace Yume.UI {
     }
     
     public override RectTransform GetDynamicListObj(string list, string id) {
-      if (m_cardChoiceContainer.gameObject.name == list) {
+      if (m_cardChoiceContainer.gameObject.name == GameObject.Find(list)?.name) {
         int index = m_cardChoiceContainer.dataList.FindLastIndex(data => data.id == id);
         if (index >= 0) {
           m_cardChoiceContainer.cardChoiceScrollView.SetAsFirstDisplay(index);

@@ -31,8 +31,8 @@ namespace Yume.UI {
 
           UIManager.GlobalFade(
             GlobalFadeType.BLACK_FADE, () => {
-              // 立刻把自己给销毁了
-              UIManager.DestroyOne(name);
+              // 立刻把自己给关闭了
+              UIManager.CloseOne(name, true);
 
               TeamArgs teamArgs;
               if (m_levelTemplate.isCustomTeam) {
@@ -66,15 +66,15 @@ namespace Yume.UI {
 
         UnitArgs charArgs = m_levelTemplate.customTeam.unitArgs;
         UnitTemplate charTemplate = ResourceManager.Load<UnitTemplate>(charArgs.id);
-        m_customCharBtn.image.SetSpriteAsync(charTemplate.portraitFileName);
+        m_customCharBtn.image.SetSprite(charTemplate.portraitFileName);
         for (int i = 0; i < m_customCardBtns.Length; i++) {
           if (i < m_levelTemplate.customTeam.cardArgsArray.Length) {
             CardArgs cardArgs = m_levelTemplate.customTeam.cardArgsArray[i];
             CardTemplate cardTemplate = ResourceManager.Load<CardTemplate>(cardArgs.id);
             CardPhase cardPhase = cardTemplate.cardPhases[cardArgs.phase];
-            m_customCardBtns[i].image.SetSpriteAsync(cardPhase.iconFileName);
+            m_customCardBtns[i].image.SetSprite(cardPhase.iconFileName);
           } else {
-            m_customCardBtns[i].image.sprite = ResourceManager.Load<Sprite>("noCardSprite");
+            m_customCardBtns[i].image.SetSprite(StringMap.NO_CARD_SPRITE);
           }
         }
       } else {

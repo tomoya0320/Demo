@@ -8,7 +8,7 @@ using Yume.UI;
 namespace Yume {
   public static class GuideManager {
     public static bool isGuiding { private set; get; }
-    
+
     private class UIGuideContent {
       public Image icon;
       public Text description;
@@ -33,13 +33,27 @@ namespace Yume {
       s_guidMask = ObjectUtil.Instantiate("guide_mask", UIManager.guidelCanvas);
       s_guidMaskButton = s_guidMask.GetComponent<YButton>();
       s_guidMask.SetActiveEx(false);
-      
+
+      s_indicator = ObjectUtil.Instantiate("indicator", UIManager.guidelCanvas);
+      s_indicator.SetActiveEx(false);
+
       var guideContent = ObjectUtil.Instantiate("guide_content", UIManager.guidelCanvas);
       s_uiGuideContent = new UIGuideContent(guideContent);
       guideContent.SetActiveEx(false);
-      
-      s_indicator = ObjectUtil.Instantiate("indicator", UIManager.guidelCanvas);
-      s_indicator.SetActiveEx(false);
+    }
+
+    public static void CheckGuide() {
+      if (isGuiding) {
+        return;
+      }
+
+      GuideData guide = DataManager.playerGuides.Find(g => g.state == GuideState.ACTIVE);
+      if (guide != null) {
+        GuideTemplate guideTemplate = ResourceManager.Load<GuideTemplate>(guide.id);
+        if (string.IsNullOrEmpty(guideTemplate.triggerUI) || guideTemplate.triggerUI == UIManager.currentUI.name) {
+          ShowGuide(guide);
+        }
+      }
     }
 
     // 被引导的UI目前仅限NORMAL层
@@ -58,13 +72,26 @@ namespace Yume {
 
     private static IEnumerator _ShowGuide(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       if (stepEnumerator.TryMoveNext()) {
-        // 等UI动画和全局过渡动画都结束了再调用
-        yield return new WaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+        if (UIManager.blockNormalUI || UIManager.globalFading) {
+          // 等UI动画和全局过渡动画都结束了再调用
+          YWaitWhile waitWhile = WaitUtil.GetWaitWhile(() => UIManager.blockNormalUI || UIManager.globalFading);
+          yield return waitWhile;
+          WaitUtil.ReleaseWaitWhile(waitWhile);
+        }
+
         Action action = () => _SetGuideStep(guide, stepEnumerator);
-        if (UIManager.GetTopUI().name == stepEnumerator.current.uiName) {
+        if (UIManager.currentUI.name == stepEnumerator.current.uiName) {
           action();
         } else {
-          UIManager.OpenOne(stepEnumerator.current.uiName, action);
+          UIManager.CloseAllAndOpenOne(
+            "main", () => {
+              if (stepEnumerator.current.uiName == "main") {
+                action();
+              } else {
+                UIManager.OpenOne(stepEnumerator.current.uiName, action);
+              }
+            }
+          );
         }
       } else {
         isGuiding = false;
@@ -75,7 +102,7 @@ namespace Yume {
 
     private static void _SetGuideStep(GuideData guide, YEnumerator<GuideStep> stepEnumerator) {
       // 找到目标UI对象
-      var ui = UIManager.GetTopUI();
+      var ui = UIManager.currentUI;
       RectTransform targetObj;
       if (stepEnumerator.current.isDynamicListObj) {
         targetObj = ui.GetDynamicListObj(stepEnumerator.current.targetObj, stepEnumerator.current.dynamicListObjId);
@@ -89,9 +116,14 @@ namespace Yume {
       // 显示指示器
       s_indicator.GetComponent<RectTransform>().sizeDelta = targetObj.rect.size;
       s_indicator.transform.position = targetObj.position;
-      s_indicator.SetActiveEx(true);
-      // 归一化的坐标
-      Vector4 clipRectNormalized = new Vector4(clipRect.x / Screen.width, clipRect.y / Screen.height, clipRect.z / Screen.width, clipRect.w / Screen.height);
+      s_indicator.SetActiveEx(targetObj.name != ui.name);
+      Vector4 clipRectNormalized;
+      if (stepEnumerator.current.highlight) {
+        // 归一化的坐标
+        clipRectNormalized = new Vector4(clipRect.x / Screen.width, clipRect.y / Screen.height, clipRect.z / Screen.width, clipRect.w / Screen.height);
+      } else {
+        clipRectNormalized = new Vector4(0, 0, 1.0f, 1.0f);
+      }
       // 设置遮罩
       s_guidMaskButton.targetGraphic.material.SetVector("_CustomRect", clipRectNormalized);
       s_guidMask.SetActiveEx(true);
@@ -117,9 +149,9 @@ namespace Yume {
           break;
       }
       s_uiGuideContent.rectTransform.anchoredPosition = contentPos;
-      s_uiGuideContent.icon.SetSpriteAsync(stepEnumerator.current.iconFileName);
+      s_uiGuideContent.icon.SetSprite(stepEnumerator.current.iconFileName);
       s_uiGuideContent.description.text = StringMap.EMPTY;
-      s_uiGuideContent.description.DOText(stepEnumerator.current.description, 15.0f).SetSpeedBased().OnComplete(
+      s_uiGuideContent.description.DOText(stepEnumerator.current.description, 20.0f).SetSpeedBased().OnComplete(
         () =>
           s_guidMaskButton.onClickWithPointer = pointer => {
             if (stepEnumerator.current.ignoreClickPos || MathUtil.IsPointInRect(pointer.position, clipRect)) {

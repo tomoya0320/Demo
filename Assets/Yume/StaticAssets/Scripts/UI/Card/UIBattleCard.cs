@@ -42,7 +42,7 @@ namespace Yume.UI {
         m_speed = speed;
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
           stateMachine.SwitchState((int)BattleCardState.IN_HAND);
         } else {
@@ -60,7 +60,7 @@ namespace Yume.UI {
         owner.transform.SetParent(CardFactory.GetFolder(CardHeapType.HAND));
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         owner._DoTransformTween(SPEED_SCALE * speed);
         owner.transform.SetSiblingIndex(owner.m_targetSiblingIndex);
       }
@@ -74,11 +74,11 @@ namespace Yume.UI {
         owner.transform.SetParent(CardFactory.handCardTopFolder);
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         // 大小缩放
         owner.transform.localScale = Vector3.Lerp(owner.transform.localScale, bigScale, SPEED_SCALE * speed);
         // 位置移动
-        owner.anchoredPosition = owner.m_eventData.position - 0.5f * Constant.SCREEN_SIZE;
+        owner.anchoredPosition = owner.m_eventData.position - 0.5f * ScreenUtil.screenSize;
         // 目标选中的逻辑层
         Unit oldCandidate = owner.m_card.candidate;
         if (owner.gameObject.transform.position.y > 0) {
@@ -125,14 +125,14 @@ namespace Yume.UI {
         m_speed = speed;
         m_originAnchoredPos = owner.anchoredPosition;
         if (lastStateId == (int)BattleCardState.PLAYING) {
-          int random = Random.Range(0, CARD_MOVE_CURVE_COUNT);
-          m_curve = ResourceManager.Load<AnimationCurve>(string.Format(CARD_MOVE_CURVE, random));
+          AnimationCurve[] cardMoveCurves = ResourceManager.Load<AnimationCurve[]>(CARD_MOVE_CURVES);
+          m_curve = cardMoveCurves[Random.Range(0, cardMoveCurves.Length)];
         } else {
           m_curve = ResourceManager.Load<AnimationCurve>(StringMap.COMMON_CURVE);
         }
       }
 
-      public override void OnTrick() {
+      public override void OnTick() {
         switch (owner.m_card.cardHeapType) {
           case CardHeapType.DISCARD:
             if (Vector2.Distance(owner.m_targetAnchorPos, owner.anchoredPosition) < MIN_DIST) {
@@ -186,15 +186,14 @@ namespace Yume.UI {
       get => m_card.rectTransform.anchoredPosition;
       set => m_card.rectTransform.anchoredPosition = value;
     }
-    private static float speed => 0.5f * Time.deltaTime;
+    private static float speed => 0.6f * Time.deltaTime;
     private static float speedIncrement => 0.1f * speed;
     public static Vector3 smallScale => 0.3f * Vector3.one;
     private static Vector3 bigScale => 1.2f * Vector3.one;
     private const string SELECT_SOUND = "SOTE_SFX_CardSelect_v2";
     private const float MIN_DIST = 1.0f;
     private const float SPEED_SCALE = 10.0f;
-    private const int CARD_MOVE_CURVE_COUNT = 5;
-    private const string CARD_MOVE_CURVE = "card_move_curve{0}";
+    private const string CARD_MOVE_CURVES = "cardMoveCurves";
 
     public UIBattleCard Init(Card card, Func<bool> onUseCard) {
       m_card = card;
@@ -226,7 +225,7 @@ namespace Yume.UI {
     }
 
     public void OnUpdate() {
-      m_stateMachine.OnTrick();
+      m_stateMachine.OnTick();
     }
 
     public void OnPointerDown(PointerEventData eventData) {

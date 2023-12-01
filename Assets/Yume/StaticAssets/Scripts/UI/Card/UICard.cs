@@ -30,7 +30,7 @@ namespace Yume.UI {
       }
 
       private void _AddListener() {
-        GetComponent<Button>("button").onClick.AddListener(
+        GetComponent<Button>("Button").onClick.AddListener(
           () => {
             if (m_card.phase < m_cardTemplate.cardPhases.Length - 1) {
               UIManager.OpenOne("card_update", null, m_card);
@@ -59,7 +59,7 @@ namespace Yume.UI {
           } else {
             m_energyText.text = "X";
           }
-          m_iconImg.SetSpriteAsync(cardPhase.iconFileName);
+          m_iconImg.SetSprite(cardPhase.iconFileName);
           m_descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
         }
       }

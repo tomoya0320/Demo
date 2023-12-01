@@ -9,6 +9,7 @@ namespace Yume.UI {
     private UnitData m_character;
     private Text m_lvText;
     private Text[] m_attribs;
+    private Text m_charName;
     private Text m_description;
     private Image m_illustration;
     private Text m_passiveSkillName;
@@ -22,6 +23,7 @@ namespace Yume.UI {
       base.OnInit(uiTemplate, gameObject);
 
       m_lvText = GetComponent<Text>("lv");
+      m_charName = GetComponent<Text>("charName");
       m_description = GetComponent<Text>("description");
       m_illustration = GetComponent<Image>("illustration");
       m_passiveSkillName = GetComponent<Text>("passiveSkillName");
@@ -65,9 +67,10 @@ namespace Yume.UI {
     private void _RefreshDetail() {
       Attrib[] attribs = MathUtil.CalculateAttribs(m_character.id, m_character.lv);
 
+      m_charName.text = m_unitTemplate.name;
       m_description.text = m_unitTemplate.description;
       m_lvText.text = $"Lv:{m_character.lv + 1}/{m_unitTemplate.maxLevel + 1}";
-      m_illustration.SetSpriteAsync(m_unitTemplate.illustrationFileName);
+      m_illustration.SetSprite(m_unitTemplate.illustrationFileName);
 
       for (int i = 0; i < m_attribs.Length; i++) {
         if (m_attribs[i] != null) {
@@ -81,7 +84,7 @@ namespace Yume.UI {
       if (isMaxPassiveSkillLv) {
         m_passiveSkillName.text += "[MAX]";
       }
-      m_passiveSkillIcon.SetSpriteAsync(passiveSkillPhase.iconFileName);
+      m_passiveSkillIcon.SetSprite(passiveSkillPhase.iconFileName);
       m_passiveSkillDesc.text = StringUtil.GetActualDescription(passiveSkillPhase.description, passiveSkillPhase.buffTemplates);
     }
   }

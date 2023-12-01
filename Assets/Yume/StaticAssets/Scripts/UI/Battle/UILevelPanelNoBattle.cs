@@ -23,13 +23,13 @@ namespace Yume.UI {
       GetComponent<Button>("close").onClick.AddListener(() => UIManager.CloseOne(name));
 
       Action action = () => DataManager.CompleteLevel(m_levelTemplate.id);
-      GetComponent<Button>("start").onClick.AddListener(() => {
-        UIManager.GlobalFade(
-          GlobalFadeType.BLACK_FADE, () => {
-            UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action);
-          }
-        );
-      });
+      GetComponent<Button>("start").onClick.AddListener(
+        () => {
+          UIManager.GlobalFade(
+            GlobalFadeType.BLACK_FADE, () => { UIManager.OpenOne("avg", null, m_levelTemplate.beforeAVGId, action); }
+          );
+        }
+      );
     }
 
     private void _UpdateLevelInfo() {
@@ -41,7 +41,7 @@ namespace Yume.UI {
         if (i < m_levelTemplate.firstCompletedRewards.items.Length) {
           ItemArgs itemArgs = m_levelTemplate.firstCompletedRewards.items[i];
           tempGo.SetActiveEx(true);
-          tempGo.GetComponentInChildren<Image>().SetSpriteAsync(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Image>().SetSprite(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
           tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);

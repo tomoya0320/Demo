@@ -26,13 +26,28 @@ MonoBehaviour:
       Data: 0|Yume.UnitArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: Yume.UnitArgs, Assembly-CSharp
     - Name: id
       Entry: 1
       Data: char_001
+    - Name: lv
+      Entry: 3
+      Data: 0
+    - Name: passiveSkillLv
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.UnitArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: char_002
     - Name: lv
       Entry: 3
       Data: 0
@@ -53,7 +68,7 @@ MonoBehaviour:
       Data: 1|Yume.CardArgs[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 15
+      Data: 19
     - Name: 
       Entry: 7
       Data: Yume.CardArgs, Assembly-CSharp
@@ -235,14 +250,60 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: Yume.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_016
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_017
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_018
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: Yume.CardArgs, Assembly-CSharp
+    - Name: id
+      Entry: 1
+      Data: card_019
+    - Name: phase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _noSprite: {fileID: 21300000, guid: f78b44922d43e124f98e5ab7d1577e4d, type: 3}
-  _noCardSprite: {fileID: 21300000, guid: 839ecf5fca0c389409db6d399928ad81, type: 3}
-  _noCharSprite: {fileID: 21300000, guid: 860602640359d88429e95768aaea006b, type: 3}
-  _openingAVG: avg_opening
+  _noCharSprite: {fileID: 21300000, guid: 28d22d6757864ac41b3ad716f1b711b5, type: 3}
+  _noCardSprite: {fileID: 21300000, guid: 28d22d6757864ac41b3ad716f1b711b5, type: 3}
   _initialMails:
   - test_mail_1

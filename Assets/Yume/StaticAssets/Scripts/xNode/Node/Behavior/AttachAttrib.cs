@@ -14,7 +14,7 @@
         int realValue = owner.AddAttrib(attribAdditive.type, finalValue, attribAdditive.onMaxValue);
 
         // 显示数字
-        if (Colors.TryGetAttribColor(attribAdditive.type, out var color)) {
+        if (Colors.TryGetAttribColor(attribAdditive.type, realValue, out var color)) {
           NumFactory.ShowNum(realValue, owner.numReference.position, color);
         }
 

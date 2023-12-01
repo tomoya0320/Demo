@@ -1,56 +1,31 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.Utilities;
 using UnityEngine;
+using Yume.Broadcast;
 using Yume.UI;
-using Object = UnityEngine.Object;
+using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.Battle {
-  public enum CardHeapType {
-    /// <summary>
-    /// 抽牌堆
-    /// </summary>
-    DRAW,
-    /// <summary>
-    /// 手牌堆
-    /// </summary>
-    HAND,
-    /// <summary>
-    /// 弃牌堆
-    /// </summary>
-    DISCARD,
-    /// <summary>
-    /// 耗牌堆
-    /// </summary>
-    CONSUME,
-    /// <summary>
-    /// 出牌堆
-    /// </summary>
-    PLAYING,
-  }
-
   public class Character : Unit {
+    protected YWaitUntil waitPlayCard;
     public List<Card> retainCards = new List<Card>();
-    private List<Card> m_tempCards = new List<Card>();
+    protected List<Card> tempCards = new List<Card>();
     protected override Transform folder => UnitFactory.charFolder;
-    protected Dictionary<CardHeapType, List<Card>> cardHeapDict = new Dictionary<CardHeapType, List<Card>>(); //牌堆(抽牌、弃牌、耗牌、手牌)
 
-    public Character(UnitArgs charArgs, CardArgs[] cardArgsArray) : base(charArgs) {
-      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
-        cardHeapDict.Add(cardHeapType, new List<Card>());
-      }
+    public Character(UnitArgs unitArgs, CardArgs[] cardArgsArray) : base(unitArgs) {
+      // 初始化卡牌
       foreach (var cardArgs in cardArgsArray) {
         cardHeapDict[CardHeapType.DRAW].Add(CardFactory.CreateCard(this, cardArgs, _OnUseCard));
       }
+      
+      // 初始化协程相关变量
+      waitPlayCard = WaitUtil.GetWaitUntil(() => cardHeapDict[CardHeapType.PLAY].Count > 0);
     }
 
     private bool _OnUseCard(Card card) {
       // 点了回合结束但还有牌没出完的情况下不能再出牌了
-      if (cardHeapDict[CardHeapType.PLAYING].Count > 0 &&
-          cardHeapDict[CardHeapType.PLAYING].Last() == null) {
-        
+      if (cardHeapDict[CardHeapType.PLAY].Count > 0 && cardHeapDict[CardHeapType.PLAY].Last() == null) {
         return false;
       }
       // 回合外也不能出牌了
@@ -69,21 +44,12 @@ namespace Yume.Battle {
       handCards.Remove(card);
       // 加入出牌队列
       EnqueueCard(card);
-      card.cardHeapType = CardHeapType.PLAYING;
       // 调整SiblingIndex
       for (int i = 0; i < handCards.Count; i++) {
         handCards[i].battleCard.SetTargetSiblingIndex(i);
       }
 
       return true;
-    }
-
-    public override void OnUpdate() {
-      base.OnUpdate();
-
-      foreach (var cards in cardHeapDict.Values) {
-        cards.ForEach(card => card?.OnUpdate());
-      }
     }
 
     public override IEnumerator OnTick() {
@@ -104,42 +70,42 @@ namespace Yume.Battle {
       Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.DRAW]);
       foreach (Card card in randomCards) {
         // 记录抽取的卡牌
-        m_tempCards.Add(card);
+        tempCards.Add(card);
         card.cardHeapType = CardHeapType.HAND;
         cardHeapDict[CardHeapType.HAND].Add(card);
         cardHeapDict[CardHeapType.DRAW].Remove(card);
-        if (m_tempCards.Count >= Constant.DRAW_CARD_COUNT) {
+        if (tempCards.Count >= Constant.DRAW_CARD_COUNT) {
           break;
         }
       }
       // 抽牌表现层
-      _AddCards(m_tempCards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
-      m_tempCards.Clear();
+      _AddCards(tempCards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
+      tempCards.Clear();
 
       // 出牌中
       while (true) {
-        if (cardHeapDict[CardHeapType.PLAYING].Count > 0) {
-          var playCard = cardHeapDict[CardHeapType.PLAYING].Dequeue();
-          if (playCard == null) {
-            break;
-          }
-          // 出牌
-          yield return playCard.Cast();
-          // 把用过的牌弃掉
-          if (playCard.cardPhase.consume) {
-            playCard.cardHeapType = CardHeapType.CONSUME;
-            cardHeapDict[CardHeapType.CONSUME].Add(playCard);
-          } else {
-            playCard.cardHeapType = CardHeapType.DISCARD;
-            cardHeapDict[CardHeapType.DISCARD].Add(playCard);
-          }
-          _RemoveCards(playCard);
-          // 重新排列剩下没有被拖拽的卡牌
-          _ResortHandCards();
+        yield return waitPlayCard;
+        var playCard = cardHeapDict[CardHeapType.PLAY].Dequeue();
+        if (playCard == null) {
+          break;
         }
-        yield return null;
+        // 出牌
+        yield return playCard.Cast();
+        // 出牌后更新UI
+        EventCenter.Broadcast(EventType.ON_LATE_PLAYER_PLAY_CARD);
+        // 把用过的牌弃掉
+        if (playCard.cardPhase.consume) {
+          playCard.cardHeapType = CardHeapType.CONSUME;
+          cardHeapDict[CardHeapType.CONSUME].Add(playCard);
+        } else {
+          playCard.cardHeapType = CardHeapType.DISCARD;
+          cardHeapDict[CardHeapType.DISCARD].Add(playCard);
+        }
+        _RemoveCards(playCard);
+        // 重新排列剩下没有被拖拽的卡牌
+        _ResortHandCards();
       }
-      
+
       // 结束回合前调用的行为树
       BattleManager.behaviorManagers[this].Run(BehaviorTime.ON_BEFORE_END_TURN);
 
@@ -147,19 +113,19 @@ namespace Yume.Battle {
       retainCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => card.cardPhase.retain));
       // 记录弃置的卡牌
       // 将不保留的手牌全部弃置
-      m_tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !retainCards.Contains(card)));
-      m_tempCards.ForEach(
+      tempCards.AddRange(cardHeapDict[CardHeapType.HAND].FindAll(card => !retainCards.Contains(card)));
+      tempCards.ForEach(
         card => {
           card.cardHeapType = CardHeapType.DISCARD;
           cardHeapDict[CardHeapType.HAND].Remove(card);
         }
       );
       // 放入弃牌堆
-      cardHeapDict[CardHeapType.DISCARD].AddRange(m_tempCards);
+      cardHeapDict[CardHeapType.DISCARD].AddRange(tempCards);
       // 弃牌表现层
-      _RemoveCards(m_tempCards.ToArray());
+      _RemoveCards(tempCards.ToArray());
       // 清空列表
-      m_tempCards.Clear();
+      tempCards.Clear();
       retainCards.Clear();
       // 重新排列剩下的手牌堆
       _ResortHandCards();
@@ -205,6 +171,11 @@ namespace Yume.Battle {
     /// </summary>
     /// <param name="selector"></param>
     public void TransferCards(CardSelector selector) {
+      if (selector.from == CardHeapType.PLAY) {
+        Debug.LogError("不能将卡牌从出牌堆里移除！");
+        return;
+      }
+      
       if (selector.from == selector.to) {
         Debug.LogWarning($"卡牌移动的起止位置相同！from:{selector.from.ToString()},to:{selector.to.ToString()}");
         return;
@@ -219,17 +190,27 @@ namespace Yume.Battle {
       );
       cardHeapDict[selector.to].AddRange(cards);
 
-      if (selector.to == CardHeapType.HAND) {
-        _AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
-      } else if (selector.from == CardHeapType.HAND) {
-        _RemoveCards(cards.ToArray());
-      } else {
-        cards.ForEach(
-          card => {
-            card.battleCard.ResetTransform();
-            card.battleCard.SwitchState(BattleCardState.OUT_HAND);
+      switch (selector.to) {
+        case CardHeapType.DRAW:
+        case CardHeapType.DISCARD:
+        case CardHeapType.CONSUME:
+          if (selector.from == CardHeapType.HAND) {
+            _RemoveCards(cards.ToArray());
+          } else {
+            cards.ForEach(
+              card => {
+                card.battleCard.ResetTransform();
+                card.battleCard.SwitchState(BattleCardState.OUT_HAND);
+              }
+            );
           }
-        );
+          break;
+        case CardHeapType.HAND:
+          _AddCards(cards.Count, cardHeapDict[CardHeapType.HAND].ToArray());
+          break;
+        case CardHeapType.PLAY:
+          // 暂时未使用
+          break;
       }
     }
 
@@ -238,12 +219,10 @@ namespace Yume.Battle {
     }
 
     public override void CleanUp() {
-      cardHeapDict.Values.ForEach(cards => cards.ForEach(card => card.CleanUp()));
-      Object.Destroy(gameObject);
-    }
-
-    public override void EnqueueCard(Card card) {
-      cardHeapDict[CardHeapType.PLAYING].Add(card);
+      base.CleanUp();
+      
+      WaitUtil.ReleaseWaitUntil(waitPlayCard);
+      waitPlayCard = null;
     }
   }
 }

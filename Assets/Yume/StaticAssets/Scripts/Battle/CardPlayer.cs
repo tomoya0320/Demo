@@ -18,9 +18,9 @@ namespace Yume.Battle {
         int energy = card.owner.GetAttrib(AttribType.ENERGY);
         card.owner.AddAttrib(AttribType.ENERGY, -energy);
         // 消耗当前所有能量值外的都属于extraEventCount
-        card.owner.blackboard[$"{card.cardTemplate.id}:{Blackboard.EVENT_COUNT}"] = energy;
+        card.blackboard[Blackboard.EVENT_COUNT] = energy;
       }
-      
+
       return true;
     }
   }
@@ -33,12 +33,11 @@ namespace Yume.Battle {
 
     public override bool TryPlay(Card card) {
       if (base.TryPlay(card)) {
-        var blackboard = card.owner.blackboard;
         var buffManager = BattleManager.buffManagers[card.candidate];
         if (buffManager.ContainBuff(_buffId)) {
-          blackboard[$"{card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}"] = _extraEventCount;
+          card.blackboard[Blackboard.EXTRA_EVENT_COUNT] = _extraEventCount;
         } else {
-          blackboard[$"{card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}"] = 0;
+          card.blackboard[Blackboard.EXTRA_EVENT_COUNT] = 0;
         }
         return true;
       }
@@ -52,12 +51,11 @@ namespace Yume.Battle {
 
     public override bool TryPlay(Card card) {
       if (base.TryPlay(card)) {
-        var blackboard = card.owner.blackboard;
         var buffManager = BattleManager.buffManagers[card.candidate];
         if (buffManager.ContainBuff(_buffId)) {
-          blackboard[$"{card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}"] = buffManager.buffDict[_buffId].Count;
+          card.blackboard[Blackboard.EXTRA_EVENT_COUNT] = buffManager.buffDict[_buffId].Count;
         } else {
-          blackboard[$"{card.cardTemplate.id}:{Blackboard.EXTRA_EVENT_COUNT}"] = 0;
+          card.blackboard[Blackboard.EXTRA_EVENT_COUNT] = 0;
         }
         return true;
       }

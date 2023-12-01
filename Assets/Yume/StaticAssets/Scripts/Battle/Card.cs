@@ -13,6 +13,7 @@ namespace Yume.Battle {
     
     public string id { get; }
     public int phase { get; }
+    public Blackboard blackboard { get; }
     public GameObject gameObject { get; }
     public UIBattleCard battleCard { get; }
     public CardTemplate cardTemplate { get; }
@@ -25,6 +26,7 @@ namespace Yume.Battle {
       phase = args.phase;
       owner = unit;
       gameObject = root;
+      blackboard = new Blackboard();
       cardHeapType = CardHeapType.DRAW;
       rectTransform = gameObject.GetComponent<RectTransform>();
 
@@ -39,7 +41,7 @@ namespace Yume.Battle {
       objectContainer.GetComponent<Text>("TypeText").text = cardTemplate.cardType.GetDescription();
       string energyConsumption = cardPhase.energyConsumption >= 0 ? cardPhase.energyConsumption.ToString() : "X";
       objectContainer.GetComponent<Text>("EnergyText").text = energyConsumption;
-      objectContainer.GetComponent<Image>("IconImage").SetSpriteAsync(cardPhase.iconFileName);
+      objectContainer.GetComponent<Image>("IconImage").SetSprite(cardPhase.iconFileName);
       var descTextAutoScroll = new YTextAutoScroll(objectContainer.GetGameObject("Description"));
       descTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
 
@@ -70,6 +72,7 @@ namespace Yume.Battle {
     }
 
     public void CleanUp() {
+      blackboard.Clear();
       Object.Destroy(gameObject);
       Object.Destroy(cardAnimCallback.gameObject);
     }

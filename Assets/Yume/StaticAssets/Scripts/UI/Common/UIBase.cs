@@ -5,13 +5,19 @@ using Object = UnityEngine.Object;
 
 namespace Yume.UI {
   public abstract class UIBase {
-    protected string cachedBgm;
-    protected string cachedEffect;
-
     protected UITemplate uiTemplate;
     public string name => uiTemplate.name;
     public float cacheTime => uiTemplate.cacheTime;
-
+    public string bgm {
+      get => uiTemplate.bgm;
+      set => uiTemplate.bgm = value;
+    }
+    public string effectName {
+      get => uiTemplate.effectName;
+      set => uiTemplate.effectName = value;
+    }
+    public bool overrideBgm => uiTemplate.overrideBgm;
+    public bool overrideEffect => uiTemplate.overrideEffect;
     public GameObject gameObject { private set; get; }
     public Animation animation { private set; get; }
     public CanvasGroup canvasGroup { private set; get; }
@@ -25,9 +31,6 @@ namespace Yume.UI {
       animation = gameObject.GetComponent<Animation>();
       canvasGroup = gameObject.GetComponent<CanvasGroup>();
       objectContainer = gameObject.GetComponent<ObjectContainer>();
-      if (!string.IsNullOrEmpty(this.uiTemplate.effectName)) {
-        EffectManager.AddUIEffect(this.uiTemplate.effectName);
-      }
     }
 
     protected T GetComponent<T>(string objName) where T : Component {
@@ -54,23 +57,23 @@ namespace Yume.UI {
     /// <summary>
     /// 当没有动画时直接执行callback
     /// </summary>
+    /// <param name="immediate"></param>
     /// <param name="callback"></param>
-    public virtual void Close(Action callback = null) {
+    public virtual void Close(bool immediate = false, Action callback = null) {
       //保证动画完整播放
       UIManager.BlockNormalUI(this);
 
       Action action = () => {
         UIManager.UnblockNormalUI(this);
         gameObject.SetActiveEx(false);
-        OnHide();
       };
       callback = action + callback;
 
       var closeClip = animation.GetClip("close");
-      if (closeClip != null) {
-        CoroutineHelper.instance.PlayAnimCallback(closeClip, animation, callback);
-      } else {
+      if (immediate || closeClip == null) {
         callback();
+      } else {
+        CoroutineHelper.instance.PlayAnimCallback(closeClip, animation, callback);
       }
     }
 
@@ -82,12 +85,6 @@ namespace Yume.UI {
     public virtual void Open(Action callback = null, params object[] args) {
       gameObject.SetActiveEx(true);
 
-      // 缓存bgm和UI特效信息
-      CacheBgm();
-      CacheEffect();
-
-      OnDisplay();
-
       //保证动画完整播放
       UIManager.BlockNormalUI(this);
 
@@ -95,45 +92,12 @@ namespace Yume.UI {
       callback = action + callback;
 
       var opneClip = animation.GetClip("open");
-      if (opneClip != null) {
-        CoroutineHelper.instance.PlayAnimCallback(opneClip, animation, callback);
-      } else {
+      if (opneClip == null) {
         callback();
-      }
-    }
-
-    public void CacheBgm() {
-      if (string.IsNullOrEmpty(uiTemplate.bgm)) {
-        cachedBgm = AudioManager.GetCurBgmName();
       } else {
-        cachedBgm = uiTemplate.bgm;
+        CoroutineHelper.instance.PlayAnimCallback(opneClip, animation, callback);
       }
     }
-
-    public void CacheEffect() {
-      if (string.IsNullOrEmpty(uiTemplate.effectName)) {
-        cachedEffect = EffectManager.GetCurUIEffect();
-      } else {
-        cachedEffect = uiTemplate.effectName;
-      }
-    }
-
-    /// <summary>
-    /// 当前UI被显示时调用 case:自己被打开或上一个UI被关闭(需等待至关闭完成)
-    /// </summary>
-    public virtual void OnDisplay() {
-      if (!string.IsNullOrEmpty(cachedBgm)) {
-        AudioManager.PlayBgm(cachedBgm);
-      }
-      if (!string.IsNullOrEmpty(cachedEffect)) {
-        EffectManager.ShowUIEffect(cachedEffect);
-      }
-    }
-
-    /// <summary>
-    /// 当前UI被隐藏时调用 case:自己被关闭(需等待至关闭完成)或下一个UI被打开
-    /// </summary>
-    public virtual void OnHide() { }
 
     public virtual void OnUpdate() { }
 
@@ -141,10 +105,10 @@ namespace Yume.UI {
     /// 回收内存
     /// </summary>
     public virtual void Destroy() {
-      if (!string.IsNullOrEmpty(uiTemplate.effectName)) {
-        EffectManager.RemoveUIEffect(uiTemplate.effectName);
-      }
       Object.Destroy(gameObject);
+      if (overrideEffect) {
+        EffectManager.DestroyUIEffect(effectName);
+      }
     }
   }
 
@@ -248,13 +212,13 @@ namespace Yume.UI {
       base.Open(callback, args);
     }
 
-    public override void Close(Action callback = null) {
+    public override void Close(bool immediate = false, Action callback = null) {
       callback += () => {
         m_bgRawImage.texture = null;
         RenderTexture.ReleaseTemporary(m_renderTexture);
       };
 
-      base.Close(callback);
+      base.Close(immediate, callback);
     }
   }
 }

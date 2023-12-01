@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Yume.RedDotSystem;
 
 namespace Yume.UI {
-  public class UIMail : UIGaussianBlurBg {
+  public class UIMail : UIBase {
     private class UIMailTerm : UIChildBase, IScrollTerm<MailData> {
       private MailData m_mail;
       private Text m_titleText;
@@ -111,7 +111,9 @@ namespace Yume.UI {
       public override void OnOpen() {
         m_mails.Sort((left, right) => string.CompareOrdinal(left.id, right.id));
         m_mailScrollView.ResetNormalizedPos();
-        SwitchMail(m_mails.First());
+        if (m_mails.Count > 0) {
+          SwitchMail(m_mails.First());
+        }
         _RefreshMailView();
       }
 
@@ -134,7 +136,7 @@ namespace Yume.UI {
             var attachmentObject = m_attachmentObjects[i];
             if (i < attachments.Count) {
               attachmentObject.gameObject.SetActiveEx(true);
-              attachmentObject.GetComponent<Image>("icon").SetSpriteAsync(ResourceManager.Load<ItemTemplate>(attachments[i].id).iconFileName);
+              attachmentObject.GetComponent<Image>("icon").SetSprite(ResourceManager.Load<ItemTemplate>(attachments[i].id).iconFileName);
               attachmentObject.GetComponent<Text>("num").text = attachments[i].count.ToString();
             } else {
               attachmentObject.gameObject.SetActiveEx(false);
@@ -202,9 +204,12 @@ namespace Yume.UI {
       }
 
       private void _DeleteAllMails() {
-        m_selectedMail = null;
-        foreach (var mail in m_mails.FindAll(mail => mail.isReceived)) {
-          DataManager.DeleteMail(mail);
+        List<MailData> toBeDeletedMails = m_mails.FindAll(mail => mail.isReceived);
+        if (toBeDeletedMails.Contains(m_selectedMail)) {
+          m_selectedMail = null;
+        }
+        foreach (var toBeDeletedMail in toBeDeletedMails) {
+          DataManager.DeleteMail(toBeDeletedMail);
         }
 
         _RefreshMailView();

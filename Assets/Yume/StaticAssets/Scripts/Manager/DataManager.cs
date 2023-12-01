@@ -124,13 +124,16 @@ namespace Yume {
       s_saveData = true;
     }
 
-    public static void UpdateCard(CardData card) {
-      card.phase++;
-      //更新UI显示
-      EventCenter.Broadcast(EventType.UPDATE_CARD_INFO);
-      s_saveData = true;
+    public static void UpdateCard(CardData card, int phase) {
+      var cardTemplate = ResourceManager.Load<CardTemplate>(card.id);
+      if (phase < cardTemplate.cardPhases.Length) {
+        card.phase = phase;
+        //更新UI显示
+        EventCenter.Broadcast(EventType.UPDATE_CARD_INFO);
+        s_saveData = true;
+      }
     }
-    
+
     #endregion
 
     #region Character
@@ -392,6 +395,7 @@ namespace Yume {
             AddItem(itemArgs.id, itemArgs.count);
             itemArgsList.Add(itemArgs);
           }
+          UpdateGuide(id, ConditionType.FIRST_COMPLETE_LEVEL);
           // 更新UI
           EventCenter.Broadcast(EventType.UPDATE_MAIN_STORY_LEVEL);
           s_saveData = true;
@@ -403,6 +407,21 @@ namespace Yume {
         if (itemArgsList.Count > 0) {
           // 显示道具结算界面
           UIManager.OpenOne("item_settlement", null, itemArgsList.ToArray());
+        }
+      }
+    }
+
+    public static bool IsLevelCompleted(string id) {
+      var level = playerLevels.Find(l => l.id == id);
+      return level?.completed ?? false;
+    }
+
+    public static void OnEnterLevel(string id) {
+      var level = playerLevels.Find(l => l.id == id);
+      if (level != null) {
+        if (!level.firstEnter) {
+          level.firstEnter = true;
+          UpdateGuide(id, ConditionType.FIRST_ENTER_LEVEL);
         }
       }
     }
@@ -446,13 +465,16 @@ namespace Yume {
     #region Load&Save
 
     public static bool LoadUserData() {
+      bool result;
       if (PlayerPrefs.HasKey(USER_DB_KEY)) {
         s_userDB = JsonConvert.DeserializeObject<UserDB>(PlayerPrefs.GetString(USER_DB_KEY));
-        return true;
+        result = true;
       } else {
         s_userDB = UserDB.Create();
-        return false;
+        result = false;
       }
+      RedDotManager.InitData();
+      return result;
     }
 
     public static void SaveData() {

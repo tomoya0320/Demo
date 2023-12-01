@@ -31,6 +31,8 @@ namespace Yume.Battle {
         if (behaviorTime == BehaviorTime.ON_REMOVE) {
           behaviorTree.Run();
         }
+        // 清理行为树对象
+        Object.Destroy(behaviorTree);
       } else {
         Debug.LogError($"remove behaviorTree error.behaviorTree not exist");
       }
@@ -44,6 +46,17 @@ namespace Yume.Battle {
           behavior.Run();
         }
       }
+    }
+
+    public void CleanUp() {
+      foreach (var behaviors in m_behaviorDict.Values) {
+        foreach (var behaviorTree in behaviors) {
+          // 清理行为树对象
+          Object.Destroy(behaviorTree);
+        }
+        behaviors.Clear();
+      }
+      m_behaviorDict.Clear();
     }
   }
 }

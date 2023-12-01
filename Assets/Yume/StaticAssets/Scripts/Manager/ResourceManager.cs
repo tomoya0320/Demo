@@ -21,9 +21,7 @@ namespace Yume {
           foreach (var kv in asset.Result.GetActualData()) {
             s_resourceDict.Add(kv.Key, kv.Value);
           }
-        }
-        // 一般处理
-        else {
+        } else {
           var res = Addressables.LoadAssetAsync<object>(location);
           yield return res;
 

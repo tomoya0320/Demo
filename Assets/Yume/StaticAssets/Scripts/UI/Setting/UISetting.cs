@@ -13,7 +13,7 @@ namespace Yume.UI {
     SOUND
   }
 
-  public class UISetting : UIGaussianBlurBg {
+  public class UISetting : UIBase {
     /// <summary>
     /// SV指Switch和Value
     /// </summary>
@@ -92,13 +92,13 @@ namespace Yume.UI {
       }
     }
 
-    private UIGroupSwitch m_settingGroupSwitch;
+    private UIGroupSwitch m_settingGroup;
     private List<UISettingSV> m_settings = new List<UISettingSV>();
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
-      m_settingGroupSwitch = GetComponent<UIGroupSwitch>("setting group");
+      m_settingGroup = GetComponent<UIGroupSwitch>("setting group");
 
       foreach (UISettingType type in Enum.GetValues(typeof(UISettingType))) {
         m_settings.Add(new UISettingSV(type, GetGameObject(type.GetDescription())));
@@ -114,7 +114,7 @@ namespace Yume.UI {
     public override void Open(Action callback = null, params object[] args) {
       base.Open(callback, args);
 
-      m_settingGroupSwitch.OnOpen();
+      m_settingGroup.OnOpen();
     }
   }
 }

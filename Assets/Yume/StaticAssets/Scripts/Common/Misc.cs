@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -211,9 +211,13 @@ namespace Yume {
     public string name;
     public string prefabName;
     public string typeName;
-    public string bgm;
-    public string effectName;
     public float cacheTime;
+    public bool overrideBgm;
+    [ShowIf("overrideBgm")]
+    public string bgm;
+    public bool overrideEffect;
+    [ShowIf("overrideEffect")]
+    public string effectName;
   }
 
   public enum LevelType {
@@ -367,9 +371,25 @@ namespace Yume {
     public string description;
   }
 
+  public enum BuffUpdateTime {
+    /// <summary>
+    /// 空
+    /// </summary>
+    NONE,
+    /// <summary>
+    /// 每回合开始前
+    /// </summary>
+    ON_BEFORE_TURN,
+    /// <summary>
+    /// 每回合结束后
+    /// </summary>
+    ON_LATE_TURN,
+  }
+
   public struct BuffTemplate {
     public string id;
     public StackType stackType;
+    public BuffUpdateTime updateTime;
     public BuffDisplay display;
     public TargetSelector selector;
     public Behavior[] behaviors;
@@ -387,6 +407,7 @@ namespace Yume {
     public PositionType positionType;
     public bool ignoreClickPos;
     public bool ignoreClickEvent;
+    public bool highlight;
     public string uiName;
     public string targetObj;
     public bool isDynamicListObj;
@@ -399,6 +420,8 @@ namespace Yume {
 
   public enum ConditionType {
     FIRST_PLAY,
+    FIRST_COMPLETE_LEVEL,
+    FIRST_ENTER_LEVEL,
   }
 
   public enum GuideState {
@@ -409,6 +432,7 @@ namespace Yume {
   
   public struct GuideTemplate {
     public string id;
+    public string triggerUI;
     public bool ignoreConditionId;
     [ShowIf("@!ignoreConditionId")]
     public string conditionId;
@@ -663,8 +687,8 @@ namespace Yume {
   [Serializable]
   public class LevelData {
     public string id;
-    [HideInInspector]
     public bool completed;
+    public bool firstEnter;
 
     private LevelData() { }
 
@@ -752,23 +776,26 @@ namespace Yume {
   public static class Constant {
     public const int THOUSAND = 1000;
     public const int MAX_TEAN_COUNT = 5;
-    public const int MAX_CARD_COUNT = 15;
+    public const int MAX_CARD_COUNT = 16;
     public const int MAX_SOUND_COUNT = 5;
     public const int DRAW_CARD_COUNT = 5;
     public const float ANGLE_DELTA = 1.5f;
     public const float SPACING_SCALE = 0.5f;
     public const float OFFSET_SCALE_Y = 0.02f;
     public static readonly int ATTRIB_LENGTH = Enum.GetValues(typeof(AttribType)).Length;
-    public static readonly Vector2 SCREEN_SIZE = new Vector2(Screen.width, Screen.height);
   }
 
   public static class Colors {
     public static readonly Color DISABLE_BUTTON = Color.white * 0.5f;
 
-    public static bool TryGetAttribColor(AttribType type, out Color color) {
+    public static bool TryGetAttribColor(AttribType type, int value, out Color color) {
       switch (type) {
         case AttribType.HP:
-          color = Color.green;
+          if (value < 0) {
+            color = Color.red;
+          } else {
+            color = Color.green;
+          }
           return true;
         case AttribType.ENERGY:
           color = Color.blue;
@@ -903,8 +930,14 @@ namespace Yume {
   }
 
   public static class ImageExtensions {
-    public static async void SetSpriteAsync(this Image image, string name) {
-      image.sprite = await Addressables.LoadAssetAsync<Sprite>(name).Task;
+    public static void SetSprite(this Image image, string name) {
+      if (ResourceManager.Contains<Sprite>(name)) {
+        image.sprite = ResourceManager.Load<Sprite>(name);
+      } else {
+        var handle = Addressables.LoadAssetAsync<Sprite>(name);
+        image.sprite = handle.WaitForCompletion();
+        Addressables.Release(handle);
+      }
     }
   }
 
@@ -952,11 +985,19 @@ namespace Yume {
 
   public static class ObjectUtil {
     public static GameObject Instantiate(string prefabName, Transform parent = null) {
+      if (string.IsNullOrEmpty(prefabName)) {
+        return null;
+      }
+      
       GameObject prefab = ResourceManager.Load<GameObject>(prefabName);
       return Instantiate(prefab, parent);
     }
     
     public static GameObject Instantiate(GameObject prefab, Transform parent = null) {
+      if (prefab == null) {
+        return null;
+      }
+      
       GameObject gameObject = Object.Instantiate(prefab, parent);
       gameObject.name = prefab.name;
       return gameObject;
@@ -1037,6 +1078,10 @@ namespace Yume {
     public const string CHAR_EXP = "char_exp";
     public const string CONSUME_GOLD = "消耗金币 {0}";
     public const string COMMON_CURVE = "common_curve";
+    public const string NO_SPRITE = "noSprite";
+    public const string NO_CARD_SPRITE = "noCardSprite";
+    public const string NO_CHAR_SPRITE = "noCharSprite";
+    public const string AVG_OPENING = "avg_opening";
   }
 
   public static class StringUtil {
@@ -1083,21 +1128,16 @@ namespace Yume {
           case '}': {
             List<string> expression = description.Substring(start, i - start).Split(':').ToList();
             var blackboard = buffTemplates[int.Parse(expression[0])].blackboard;
-            int nextIndex = 1;
-            if (expression[nextIndex] == Blackboard.CREATE_BUFFS) {
-              blackboard = blackboard.GetValue<BuffTemplates>(Blackboard.CREATE_BUFFS)[int.Parse(expression[nextIndex + 1])].blackboard;
-              nextIndex += 2;
-            }
-            switch (expression[nextIndex]) {
+            switch (expression[1]) {
               case Blackboard.ATTRIB_ADDITIVES:
                 var attribAdditives = blackboard.GetValue<AttribAdditives>(Blackboard.ATTRIB_ADDITIVES);
-                string[] kv = expression[nextIndex + 1].Split('#');
+                string[] kv = expression[2].Split('#');
                 var attribAdditive = attribAdditives.Find(a => a.type.ToString() == kv[0]);
                 result.Append(_GetValueFromType(kv[1], attribAdditive));
                 break;
               case Blackboard.CARD_SELECTOR:
                 var cardSelector = blackboard.GetValue<CardSelector>(Blackboard.CARD_SELECTOR);
-                result.Append(_GetValueFromType(expression[nextIndex + 1], cardSelector));
+                result.Append(_GetValueFromType(expression[2], cardSelector));
                 break;
               default:
                 result.Append(_GetValueFromBlackboard(expression.Last(), blackboard));
@@ -1193,7 +1233,8 @@ namespace Yume {
 
   public static class ScreenUtil {
     public static Vector2 mousePos => Input.mousePosition;
-    public static Vector2 mousePosNormalized => mousePos / Constant.SCREEN_SIZE;
+    public static Vector2 mousePosNormalized => mousePos / screenSize;
+    public static Vector2 screenSize => new Vector2(Screen.width, Screen.height);
   }
 
   public enum CompareMethod {
@@ -1356,33 +1397,6 @@ namespace Yume {
     }
   }
 
-  public abstract class SingletonMono<T> : SerializedMonoBehaviour where T : SingletonMono<T> {
-    private static T s_instance;
-
-    public static T instance {
-      get {
-        if (s_instance == null) {
-          GameObject obj = new GameObject(typeof(T).Name);
-          s_instance = obj.AddComponent<T>();
-        }
-        return s_instance;
-      }
-    }
-    public static bool hasInstance => s_instance != null;
-
-    private void Awake() {
-      if (!hasInstance) {
-        s_instance = this as T;
-        OnInit();
-      } else {
-        Debug.LogWarning("Duplicate Instance:" + nameof(T));
-        DestroyImmediate(gameObject);
-      }
-    }
-
-    protected virtual void OnInit() { }
-  }
-
   public class YEnumerator<T> {
     private T[] m_array;
     private int m_index;
@@ -1399,6 +1413,43 @@ namespace Yume {
         return true;
       }
       return false;
+    }
+  }
+
+  public sealed class YWaitWhile : CustomYieldInstruction {
+    public Func<bool> predicate;
+    public override bool keepWaiting => predicate();
+  }  
+  
+  public sealed class YWaitUntil : CustomYieldInstruction {
+    public Func<bool> predicate;
+    public override bool keepWaiting => !predicate();
+  }
+
+  public static class WaitUtil {
+    private static Stack<YWaitWhile> s_waitWhileStack = new Stack<YWaitWhile>();
+    private static Stack<YWaitUntil> s_waitUntilStack = new Stack<YWaitUntil>();
+
+    public static YWaitWhile GetWaitWhile(Func<bool> predicate) {
+      YWaitWhile waitWhile = s_waitWhileStack.Count > 0 ? s_waitWhileStack.Pop() : new YWaitWhile();
+      waitWhile.predicate = predicate;
+      return waitWhile;
+    }    
+    
+    public static void ReleaseWaitWhile(YWaitWhile waitWhile) {
+      waitWhile.predicate = null;
+      s_waitWhileStack.Push(waitWhile);
+    }    
+    
+    public static YWaitUntil GetWaitUntil(Func<bool> predicate) {
+      YWaitUntil waitUntil = s_waitUntilStack.Count > 0 ? s_waitUntilStack.Pop() : new YWaitUntil();
+      waitUntil.predicate = predicate;
+      return waitUntil;
+    }    
+    
+    public static void ReleaseWaitUntil(YWaitUntil waitUntil) {
+      waitUntil.predicate = null;
+      s_waitUntilStack.Push(waitUntil);
     }
   }
 }

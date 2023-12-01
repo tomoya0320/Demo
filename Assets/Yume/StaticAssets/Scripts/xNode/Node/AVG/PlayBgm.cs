@@ -1,14 +1,13 @@
 using UnityEngine;
-using Yume.UI;
 
 namespace Yume.AVG {
   public class PlayBgm : LeafNodeBase {
     [SerializeField]
-		private AudioClip _bgmClip;
+		private string _bgmName;
 
-		public override void Run(UIAVG avg) {
-			AudioManager.PlayBgm(_bgmClip);
-      avg.CacheBgm();
+		public override void Run() {
+			AudioManager.PlayBgm(_bgmName);
+      avg.bgm = _bgmName;
     }
 	}
 }

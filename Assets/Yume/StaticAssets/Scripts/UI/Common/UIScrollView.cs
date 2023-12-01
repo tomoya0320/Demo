@@ -61,11 +61,12 @@ namespace Yume.UI {
         }
         Debug.LogWarning("冗余的ScrollView原型");
       }
-      var prototype = m_scrollContainer.viewList.First();
-      if (prototype == null) {
+      
+      if (m_scrollContainer.viewList.Count == 0) {
         throw new System.Exception("ScrollView原型为空！");
       }
-
+      
+      var prototype = m_scrollContainer.viewList.First();
       int extra = 0;
       if (m_scrollRect.vertical) {
         extra = m_maxCellNum.x;

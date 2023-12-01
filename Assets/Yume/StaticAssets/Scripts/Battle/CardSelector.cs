@@ -23,4 +23,13 @@ namespace Yume.Battle {
       return result;
     }
   }
+
+  public class RandomSelectorExceptById : RandomSelector {
+    public string exceptCardId;
+
+    public override List<Card> Select(List<Card> cards) {
+      cards = cards.FindAll(card => card.id != exceptCardId);
+      return base.Select(cards);
+    }
+  }
 }

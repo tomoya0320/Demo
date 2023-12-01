@@ -24,15 +24,15 @@ namespace Yume.UI {
 
         if (m_buff != null) {
           if (string.IsNullOrEmpty(m_buff.icon)) {
-            m_iconImg.sprite = ResourceManager.Load<Sprite>("noSprite");
+            m_iconImg.SetSprite(StringMap.NO_SPRITE);
           } else {
-            m_iconImg.SetSpriteAsync(m_buff.icon);
+            m_iconImg.SetSprite(m_buff.icon);
           }
-          string description = StringUtil.GetActualDescription(m_buff.description, m_buff.blackboard);
+          string description = m_buff.description;
           if (m_buff.duration > 0) {
-            description += $" 剩余回合数:{m_buff.duration - m_buff.turn}";
+            description = description.Replace("{0}", $"{m_buff.duration - m_buff.turn}");
           }
-          m_description.text = description;
+          m_description.text = StringUtil.GetActualDescription(description, m_buff.blackboard);
         }
       }
 
@@ -78,13 +78,13 @@ namespace Yume.UI {
     private Text m_name;
     private Text[] m_attribs;
     private UIBuffContainer m_buffContainer;
-    private UIGroupSwitch m_groupSwitch;
+    private UIGroupSwitch m_unitInfoGroup;
 
     public override void OnInit(UITemplate uiTemplate, GameObject gameObject) {
       base.OnInit(uiTemplate, gameObject);
 
       m_name = GetComponent<Text>("name");
-      m_groupSwitch = GetComponent<UIGroupSwitch>("groupSwitch");
+      m_unitInfoGroup = GetComponent<UIGroupSwitch>("groupSwitch");
 
       m_attribs = new Text[Constant.ATTRIB_LENGTH];
       for (int i = 0; i < m_attribs.Length; i++) {
@@ -105,7 +105,7 @@ namespace Yume.UI {
       m_name.text = m_buffContainer.unit.name;
 
       m_buffContainer.OnOpen();
-      m_groupSwitch.OnOpen();
+      m_unitInfoGroup.OnOpen();
 
       base.Open(callback, args);
     }

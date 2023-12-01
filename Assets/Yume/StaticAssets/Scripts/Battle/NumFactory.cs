@@ -45,6 +45,7 @@ namespace Yume.Battle {
       rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
       rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + height, ANIM_DURATION).OnComplete(
         () => {
+          // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
           if (num != null) {
             num.DOFade(0, ANIM_DURATION).SetDelay(NUM_SHOW_TIME).OnComplete(
               () => {
@@ -62,8 +63,8 @@ namespace Yume.Battle {
       for (int i = numFolder.childCount - 1; i >= 0; i--) {
         Object.Destroy(numFolder.GetChild(i).gameObject);
       }
-      numFolder = null;
       s_numPrototype = null;
+      numFolder = null;
       s_numStack.Clear();
     }
   }

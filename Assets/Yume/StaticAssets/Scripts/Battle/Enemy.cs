@@ -3,74 +3,75 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Yume.UI;
-using Object = UnityEngine.Object;
 
 namespace Yume.Battle {
   public class Enemy : Unit {
+    protected Tween tween;
+    protected YWaitWhile waitCardAnim;
+    protected Queue<Card> playCards = new Queue<Card>();
     protected override Transform folder => UnitFactory.enemyFolder;
-    protected List<Card> cards = new List<Card>(); // 敌人的卡牌都放一起
-    protected Queue<Card> playCardQueue = new Queue<Card>(); // 出牌队列
 
     public Enemy(UnitArgs enemyArgs, CardArgs[] cardArgsArray) : base(enemyArgs) {
+      // 初始化卡牌
       foreach (var cardArgs in cardArgsArray) {
-        Card card = CardFactory.CreateCard(this, cardArgs, null, gameObject.transform);
-        // 初始隐藏
+        Card card = CardFactory.CreateCard(this, cardArgs, null, gameObject.transform.Find("cardFolder"));
+        // 初始化时隐藏卡牌
         card.gameObject.SetActiveEx(false);
-        cards.Add(card);
+        // 默认都放手牌堆里
+        cardHeapDict[CardHeapType.HAND].Add(card);
       }
+      
+      waitCardAnim = WaitUtil.GetWaitWhile(() => tween.IsPlaying());
     }
 
     public override IEnumerator OnTick() {
       yield return new WaitForSeconds(1);
-      // 筛选出符合出牌条件的牌
-      List<Card> validCards = cards.FindAll(card => card.cardPhase.energyConsumption <= GetAttrib(AttribType.ENERGY));
-      // 没有就直接结束回合
-      if (validCards == null || validCards.Count == 0) {
-        yield break;
-      }
-      // 随机选一张牌出
-      int index = MathUtil.random.Next(0, validCards.Count);
-      if (validCards[index].cardPhase.onlySelf) {
-        // candidate就是自己 
-        validCards[index].candidate = this;
-      } else {
-        // 敌人默认的目标是玩家
-        validCards[index].candidate = BattleManager.character;
-      }
-      // 加入出牌队列
-      if (validCards[index].cardPhase.cardPlayer.TryPlay(validCards[index])) {
-        playCardQueue.Enqueue(validCards[index]);
-      }
-      // 结束出牌的标记
-      playCardQueue.Enqueue(null);
-      // 出牌中
-      while (true) {
-        if (playCardQueue.Count > 0) {
-          var card = playCardQueue.Dequeue();
-          if (card == null) {
-            break;
-          }
-          
-          card.gameObject.SetActiveEx(true);
-          var tween = card.gameObject.transform.DOScale(Vector3.one, 0.2f);
-          yield return new WaitUntil(() => !tween.IsPlaying());
-          yield return card.Cast();
-          tween = card.gameObject.transform
-                      .DOScale(UIBattleCard.smallScale, 0.2f)
-                      .OnComplete(() => card.gameObject.SetActiveEx(false));
-          yield return new WaitUntil(() => !tween.IsPlaying());
+      // 敌方出牌逻辑
+      Card[] randomCards = MathUtil.FisherYatesShuffle(cardHeapDict[CardHeapType.HAND]);
+      foreach (Card card in randomCards) {
+        if (card.cardPhase.energyConsumption > GetAttrib(AttribType.ENERGY)) {
+          continue;
         }
-        yield return null;
+        
+        if (card.cardPhase.onlySelf) {
+          // candidate就是自己 
+          card.candidate = this;
+        } else {
+          // 敌人默认的目标是玩家
+          card.candidate = BattleManager.character;
+        }
+        if (card.cardPhase.cardPlayer.TryPlay(card)) {
+          // 加入出牌队列
+          playCards.Enqueue(card);
+          break;
+        }
       }
+
+      // 出牌中
+      while (playCards.Count > 0) {
+        var playCard = playCards.Dequeue();
+        // 出牌
+        playCard.gameObject.SetActiveEx(true);
+        tween = playCard.gameObject.transform.DOScale(Vector3.one, 0.2f);
+        yield return waitCardAnim;
+        yield return playCard.Cast();
+        tween = playCard.gameObject.transform
+                          .DOScale(UIBattleCard.smallScale, 0.2f)
+                          .OnComplete(() => playCard.gameObject.SetActiveEx(false));
+        yield return waitCardAnim;
+      }
+
+      // 结束回合前调用的行为树
+      BattleManager.behaviorManagers[this].Run(BehaviorTime.ON_BEFORE_END_TURN);
     }
 
     public override void CleanUp() {
-      cards.ForEach(card => Object.Destroy(card.gameObject));
-      Object.Destroy(gameObject);
-    }
-
-    public override void EnqueueCard(Card card) {
-      playCardQueue.Enqueue(card);
+      base.CleanUp();
+      
+      WaitUtil.ReleaseWaitWhile(waitCardAnim);
+      waitCardAnim = null;
+      tween = null;
+      playCards.Clear();
     }
   }
 }

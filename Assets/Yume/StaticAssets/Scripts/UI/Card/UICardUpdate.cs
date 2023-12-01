@@ -75,7 +75,7 @@ namespace Yume.UI {
         if (i < cardPhase.updateRequestItems.Length) {
           ItemArgs itemArgs = cardPhase.updateRequestItems[i];
           tempGo.SetActiveEx(true);
-          tempGo.GetComponentInChildren<Image>().SetSpriteAsync(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
+          tempGo.GetComponentInChildren<Image>().SetSprite(ResourceManager.Load<ItemTemplate>(itemArgs.id).iconFileName);
           tempGo.GetComponentInChildren<Text>().text = itemArgs.count.ToString();
         } else {
           tempGo.SetActiveEx(false);
@@ -90,7 +90,7 @@ namespace Yume.UI {
       } else {
         m_oldEnergyText.text = "X";
       }
-      m_oldIconImg.SetSpriteAsync(cardPhase.iconFileName);
+      m_oldIconImg.SetSprite(cardPhase.iconFileName);
       m_oldDescTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(cardPhase.description, cardPhase.buffTemplates));
 
       m_newNameText.text = nextCardPhase.name;
@@ -101,7 +101,7 @@ namespace Yume.UI {
       } else {
         m_newEnergyText.text = "X";
       }
-      m_newIconImg.SetSpriteAsync(nextCardPhase.iconFileName);
+      m_newIconImg.SetSprite(nextCardPhase.iconFileName);
       m_newDescTextAutoScroll.SetTextContent(StringUtil.GetActualDescription(nextCardPhase.description, nextCardPhase.buffTemplates));
     }
 
@@ -119,7 +119,7 @@ namespace Yume.UI {
             foreach (var item in cardPhase.updateRequestItems) {
               DataManager.ConsumeItem(item.id, item.count);
             }
-            DataManager.UpdateCard(m_card);
+            DataManager.UpdateCard(m_card, m_card.phase + 1);
             _RefreshDetail();
           }
         });

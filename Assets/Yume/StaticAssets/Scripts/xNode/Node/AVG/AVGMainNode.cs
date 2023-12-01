@@ -1,5 +1,3 @@
-using Yume.UI;
-
 namespace Yume.AVG {
   public class AVGMainNode : AVGNodeBase {
     [Input(ShowBackingValue.Never)]
@@ -9,12 +7,12 @@ namespace Yume.AVG {
     [Output(ShowBackingValue.Never)]
     public int nodes;
 
-    public override void Run(UIAVG avg) {
+    public override void Run() {
       var connections = GetOutputPort(nameof(nodes)).GetConnections();
       foreach (var connection in connections) {
-        (connection.node as AVGNodeBase).Run(avg);
+        (connection.node as AVGNodeBase).Run();
       }
-      avgGraph.avgNode = GetOutputPort(nameof(next)).Connection.node as AVGNodeBase;
+      avgGraph.avgNode = GetOutputPort(nameof(next)).Connection?.node as AVGNodeBase;
     }
   }
 }

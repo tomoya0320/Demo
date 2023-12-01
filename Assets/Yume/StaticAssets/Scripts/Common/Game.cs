@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,13 +15,15 @@ namespace Yume {
     public float process {
       set => m_processImg.fillAmount = value;
     }
-#if BETA
-    public GameObject lunarConsolePrefab;
+
+#if MOBILE_CONSOLE
+    [SerializeField]
+    private GameObject _lunarConsolePrefab;
 #endif
 
     protected override void OnInit() {
-#if BETA
-      Instantiate(lunarConsolePrefab);
+#if MOBILE_CONSOLE
+      Instantiate(_lunarConsolePrefab);
 #endif
       // 设置屏幕休眠模式
       Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -44,15 +46,13 @@ namespace Yume {
           if (DataManager.LoadUserData()) {
             UIManager.GlobalFade(GlobalFadeType.CIRCLE_FADE, callback);
           } else {
-            string openingAVG = ResourceManager.Load<string>("openingAVG");
             Action action = () => DataManager.UpdateGuide(ConditionType.FIRST_PLAY);
             callback = action + callback;
             UIManager.GlobalFade(
               GlobalFadeType.BLACK_FADE,
-              () => UIManager.OpenOne("avg", null, openingAVG, callback)
+              () => UIManager.OpenOne("avg", null, StringMap.AVG_OPENING, callback)
             );
           }
-          RedDotManager.InitData();
         }
       );
       // 初始化
@@ -109,14 +109,43 @@ namespace Yume {
     private void Update() {
       onUpdate?.Invoke();
     }
-#if BETA
+
+#if TEST
+    private bool m_showCheatPanel;
+
+    private void LateUpdate() {
+      if (Input.GetKeyDown(KeyCode.F1)) {
+        m_showCheatPanel = !m_showCheatPanel;
+      }
+    }
+
     private void OnGUI() {
-      if (GUILayout.Button("打开控制台", GUILayout.Width(200), GUILayout.Height(80))) {
-        LunarConsolePlugin.LunarConsole.Show();
-      }   
-      
-      if (GUILayout.Button("清除存档", GUILayout.Width(200), GUILayout.Height(80))) {
-        PlayerPrefs.DeleteKey(DataManager.USER_DB_KEY);
+      if (m_showCheatPanel) {
+        if (GUILayout.Button("清除存档", GUILayout.Width(200), GUILayout.Height(80))) {
+          PlayerPrefs.DeleteKey(DataManager.USER_DB_KEY);
+        }
+
+        if (GUILayout.Button("战斗胜利", GUILayout.Width(200), GUILayout.Height(80))) {
+          Battle.BattleManager.Finish(Battle.BattleResult.WIN);
+        }
+
+        if (GUILayout.Button("战斗失败", GUILayout.Width(200), GUILayout.Height(80))) {
+          Battle.BattleManager.Finish(Battle.BattleResult.LOSE);
+        }
+
+        if (GUILayout.Button("获取所有卡牌", GUILayout.Width(200), GUILayout.Height(80))) {
+          foreach (var cardTemplate in ResourceManager.LoadAll<CardTemplate>()) {
+            if (DataManager.playerCards.Find(card => card.id == cardTemplate.id) == null) {
+              DataManager.AddCard(cardTemplate.id, 0);
+            }
+          }
+        }
+
+        if (GUILayout.Button("升级所有卡牌", GUILayout.Width(200), GUILayout.Height(80))) {
+          foreach (var card in DataManager.playerCards) {
+            DataManager.UpdateCard(card, card.phase + 1);
+          }
+        }
       }
     }
 #endif

@@ -16,5 +16,264 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 0
-  supportSerializedTypes: []
+  lastScan: 637585429056083701
+  supportSerializedTypes:
+  - TypeName: UnityEngine.AnimationCurve, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Attrib, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.AttribAdditive, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.AttribAdditives, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.AttribType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Behavior, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Behavior[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.BehaviorTime, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.Blackboard, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Boolean, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.BuffDisplay, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.BuffTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.BuffTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Camp, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CampSelector, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CampSelectorWithBuff, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardAnimEvent, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardArgs, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardArgs[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardHeapCountComparer, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CardHeapType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardPhase, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardPhase[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CardPlayer, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CardPlayerWithEnergy, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CardPlayerWithEnergyAndBuff, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.CardPlayerWithEnergyAndBuffStack, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CardType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.CompareMethod, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.ConditionType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[Yume.AttribType, Assembly-CSharp],[Yume.Attrib,
+      Assembly-CSharp]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
+      UnityEngine.CoreModule]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.GameObject,
+      UnityEngine.CoreModule]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.EnumEqualityComparer`1[[Yume.AttribType,
+      Assembly-CSharp]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Single, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.GameObject, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      mscorlib]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.GuideStep, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.GuideStep[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.GuideTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.GuideTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.IEqualityComparer`1[[Yume.AttribType, Assembly-CSharp]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.IEqualityComparer`1[[System.String, mscorlib]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Int32, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.ItemArgs, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.ItemArgs[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.ItemTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.ItemTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.Keyframe, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.Keyframe[], UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.LevelTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.LevelTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.LevelType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.MailTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.MailTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Object, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.PassiveSkillPhase, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.PassiveSkillPhase[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.PositionType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.RandomSelectorExceptById, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.RequestType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Rewards, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.SingleSelector, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.SingleSelector+TargetType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.StackType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.String, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.Battle.TargetSelector, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskState, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskTemplate+Method, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskTemplate+Request, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TaskType, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TeamArgs, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.TeamArgs[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UITemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UITemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UnitArgs, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UnitArgs[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UnitTemplate, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Yume.UnitTemplate[], Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.WrapMode, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1

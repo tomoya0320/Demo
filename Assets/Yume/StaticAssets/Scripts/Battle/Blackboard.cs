@@ -12,7 +12,6 @@ namespace Yume.Battle {
     public const string HURT_SOUND = "hurtSound";
     public const string LAST_DAMAGE_VALUE = "lastDamageValue";
     public const string LAST_DAMAGED_VALUE = "lastDamagedValue";
-    public const string CREATE_BUFFS = "createbuffs";
     public const string HEAL_RATE_ON_DAMAGE = "healRateOnDamage";
     public const string PROB = "prob";
     public const string CARD_SELECTOR = "cardSelector";
@@ -29,6 +28,10 @@ namespace Yume.Battle {
     public const string DRAW_COUNT = "drawCount";
     public const string CARD_HEAP_COUNT_COMPARER = "cardHeapCountComparer";
     public const string RETAIN_COUNT = "retainCount";
+    public const string PLAY_CARD_COUNT = "playCardCount";
+    public const string PLAY_CARD_TRIGGER_COUNT = "playCardTriggerCount";
+    public const string LAST_DAMAGE_SOURCE = "lastDamageSource";
+    public const string LAST_DAMAGE_TARGET = "lastDamageTarget";
     
     #endregion
     

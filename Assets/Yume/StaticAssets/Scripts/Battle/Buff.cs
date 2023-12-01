@@ -7,7 +7,7 @@ namespace Yume.Battle {
     REMOVE,
     UPDATE,
   }
-  
+
   public class Buff {
     public Unit unit { get; }
     public string id { get; }
@@ -18,14 +18,16 @@ namespace Yume.Battle {
     // 因为是引用类型所以很方便
     public Blackboard blackboard { get; }
     public int turn { private set; get; }
+    public BuffUpdateTime updateTime { get; }
     public Dictionary<BehaviorTime, List<BehaviorTree>> behaviorTreeDict => m_behaviorTreeDict;
     // 这个buff所属的行为树
     private Dictionary<BehaviorTime, List<BehaviorTree>> m_behaviorTreeDict = new Dictionary<BehaviorTime, List<BehaviorTree>>();
 
-    public Buff(Unit unit, string id, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
+    public Buff(Unit unit, string id, BuffUpdateTime updateTime, Blackboard blackboard, Behavior[] behaviors, BuffDisplay display) {
       this.id = id;
       this.unit = unit;
       this.blackboard = blackboard;
+      this.updateTime = updateTime;
       icon = display.icon;
       description = display.description;
       // 这些属性从blackboard中取
@@ -54,7 +56,7 @@ namespace Yume.Battle {
       foreach (var kv in m_behaviorTreeDict) {
         BehaviorTime behaviorTime = kv.Key;
         foreach (var behavior in kv.Value) {
-          BattleManager.behaviorManagers[unit].AddBehaviorTree(behaviorTime, behavior);       
+          BattleManager.behaviorManagers[unit].AddBehaviorTree(behaviorTime, behavior);
         }
       }
     }
@@ -68,7 +70,7 @@ namespace Yume.Battle {
       foreach (var kv in m_behaviorTreeDict) {
         BehaviorTime behaviorTime = kv.Key;
         foreach (var behavior in kv.Value) {
-          BattleManager.behaviorManagers[unit].RemoveBehaviorTree(behaviorTime, behavior);       
+          BattleManager.behaviorManagers[unit].RemoveBehaviorTree(behaviorTime, behavior);
         }
       }
     }
@@ -78,9 +80,9 @@ namespace Yume.Battle {
       if (duration < 0) {
         return true;
       }
-      
+
       turn++;
-      
+
       return turn < duration;
     }
   }

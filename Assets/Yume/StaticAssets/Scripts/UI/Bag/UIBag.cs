@@ -6,7 +6,7 @@ using Yume.Broadcast;
 using EventType = Yume.Broadcast.EventType;
 
 namespace Yume.UI {
-  public class UIBag : UIBase {
+  public class UIBag : UIGaussianBlurBg {
     private class UIItemTerm : UIChildBase, IScrollTerm<ItemData> {
       private Text m_numText;
       private Image m_iconImg;
@@ -33,7 +33,7 @@ namespace Yume.UI {
 
         if (m_item != null) {
           m_numText.text = StringUtil.IntegerToString(m_item.count);
-          m_iconImg.SetSpriteAsync(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
+          m_iconImg.SetSprite(ResourceManager.Load<ItemTemplate>(m_item.id).iconFileName);
         }
       }
 
